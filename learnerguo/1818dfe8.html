@@ -17,39 +17,39 @@
 
 <script id="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"www.personalstudy.ltd","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
   <meta name="description" content="jvm的内存结构java内存结构主要划分为五大部分  线程私有的三个 程序计数器 虚拟机栈 本地方法栈   线程共享的两个 堆 方法区">
 <meta property="og:type" content="article">
 <meta property="og:title" content="jvm的内存结构">
-<meta property="og:url" content="https://www.personalstudy.ltd/learnerguo/1818dfe8.html">
+<meta property="og:url" content="http://example.com/learnerguo/1818dfe8.html">
 <meta property="og:site_name" content="咖啡杯里的茶">
 <meta property="og:description" content="jvm的内存结构java内存结构主要划分为五大部分  线程私有的三个 程序计数器 虚拟机栈 本地方法栈   线程共享的两个 堆 方法区">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://www.personalstudy.ltd/learnerguo/1818dfe8.htm/image-20200423222321549.png">
-<meta property="og:image" content="https://www.personalstudy.ltd/learnerguo/1818dfe8.htm/image-20200423223432569.png">
-<meta property="og:image" content="https://www.personalstudy.ltd/learnerguo/1818dfe8.htm/image-20200423223835220.png">
-<meta property="og:image" content="https://www.personalstudy.ltd/learnerguo/1818dfe8.htm/image-20200423223943229.png">
-<meta property="og:image" content="https://www.personalstudy.ltd/learnerguo/1818dfe8.htm/image-20200423224013817.png">
-<meta property="og:image" content="https://www.personalstudy.ltd/learnerguo/1818dfe8.htm/image-20200423224155411.png">
-<meta property="og:image" content="https://www.personalstudy.ltd/learnerguo/1818dfe8.htm/image-20200229090947417-1587653003528.png">
-<meta property="og:image" content="https://www.personalstudy.ltd/learnerguo/1818dfe8.htm/image-20200229095538249.png">
-<meta property="og:image" content="https://www.personalstudy.ltd/learnerguo/1818dfe8.htm/image-20200229110457271.png">
-<meta property="og:image" content="https://www.personalstudy.ltd/learnerguo/1818dfe8.htm/image-20200229111044049.png">
-<meta property="og:image" content="https://www.personalstudy.ltd/learnerguo/1818dfe8.htm/image-20200229111447635.png">
-<meta property="og:image" content="https://www.personalstudy.ltd/learnerguo/1818dfe8.htm/image-20200229111632554.png">
-<meta property="og:image" content="https://www.personalstudy.ltd/learnerguo/1818dfe8.htm/image-20200229113833612.png">
-<meta property="og:image" content="https://www.personalstudy.ltd/learnerguo/1818dfe8.htm/image-20200229114102103.png">
+<meta property="og:image" content="http://example.com/learnerguo/1818dfe8.htm/image-20200423222321549.png">
+<meta property="og:image" content="http://example.com/learnerguo/1818dfe8.htm/image-20200423223432569.png">
+<meta property="og:image" content="http://example.com/learnerguo/1818dfe8.htm/image-20200423223835220.png">
+<meta property="og:image" content="http://example.com/learnerguo/1818dfe8.htm/image-20200423223943229.png">
+<meta property="og:image" content="http://example.com/learnerguo/1818dfe8.htm/image-20200423224013817.png">
+<meta property="og:image" content="http://example.com/learnerguo/1818dfe8.htm/image-20200423224155411.png">
+<meta property="og:image" content="http://example.com/learnerguo/1818dfe8.htm/image-20200229090947417-1587653003528.png">
+<meta property="og:image" content="http://example.com/learnerguo/1818dfe8.htm/image-20200229095538249.png">
+<meta property="og:image" content="http://example.com/learnerguo/1818dfe8.htm/image-20200229110457271.png">
+<meta property="og:image" content="http://example.com/learnerguo/1818dfe8.htm/image-20200229111044049.png">
+<meta property="og:image" content="http://example.com/learnerguo/1818dfe8.htm/image-20200229111447635.png">
+<meta property="og:image" content="http://example.com/learnerguo/1818dfe8.htm/image-20200229111632554.png">
+<meta property="og:image" content="http://example.com/learnerguo/1818dfe8.htm/image-20200229113833612.png">
+<meta property="og:image" content="http://example.com/learnerguo/1818dfe8.htm/image-20200229114102103.png">
 <meta property="article:published_time" content="2019-11-05T16:00:00.000Z">
 <meta property="article:modified_time" content="2023-11-10T12:04:42.446Z">
 <meta property="article:author" content="咖啡杯的里茶">
 <meta property="article:tag" content="java">
 <meta property="article:tag" content="jvm">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://www.personalstudy.ltd/learnerguo/1818dfe8.htm/image-20200423222321549.png">
+<meta name="twitter:image" content="http://example.com/learnerguo/1818dfe8.htm/image-20200423222321549.png">
 
-<link rel="canonical" href="https://www.personalstudy.ltd/learnerguo/1818dfe8.html">
+<link rel="canonical" href="http://example.com/learnerguo/1818dfe8.html">
 
 
 <script id="page-configurations">
@@ -215,7 +215,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://www.personalstudy.ltd/learnerguo/1818dfe8.html">
+    <link itemprop="mainEntityOfPage" href="http://example.com/learnerguo/1818dfe8.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
