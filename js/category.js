@@ -3,12 +3,12 @@ $(document).ready(function() {
 	categoryUnfold();
 	
 	function categoryUnfold() {
-		$(".category-list-link").filter(function() {
+		/* $(".category-list-link").filter(function() {
 			if($(this).siblings(".category-list-child").length > 0)
 				//$(this).parent().css("list-style", "circle");
-				$(this).parent().css("list-style-image","url('/assets/img/category-unfold-16x16.png')");
+				$(this).parent().css("list-style-image","url('/images/category-unfold-16x16.png')");
 				//console.log($(this).text());
-		});
+		}); */
 		
 		//点击含有子标签category-list-child的category-list-link标签时，不进行跳转
 		$(".category-list-link").filter(function() {

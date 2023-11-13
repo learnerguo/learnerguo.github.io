@@ -28,7 +28,7 @@
 <meta property="og:description" content="文章目录默认展开基于 Next7.x 版本  主题配置文件 _config.yml 中搜索 custom_file_path,看到如下内容，打开 style 那一行的注释  1234567891011custom_file_path:  #head: source&#x2F;_data&#x2F;head.swig  #header: source&#x2F;_data&#x2F;header.swig  #sidebar: sourc">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2019-06-10T16:00:00.000Z">
-<meta property="article:modified_time" content="2023-11-11T13:51:35.890Z">
+<meta property="article:modified_time" content="2023-11-13T15:30:07.622Z">
 <meta property="article:author" content="咖啡杯的里茶">
 <meta property="article:tag" content="hexo">
 <meta name="twitter:card" content="summary">
@@ -141,7 +141,7 @@
   </li>
         <li class="menu-item menu-item-book">
 
-    <a href="/book" rel="section"><i class="fa fa-book fa-fw"></i>阅读</a>
+    <a href="/book/" rel="section"><i class="fa fa-book fa-fw"></i>阅读</a>
 
   </li>
       <li class="menu-item menu-item-search">
@@ -185,6 +185,7 @@
     <i class="fa fa-arrow-up"></i>
     <span>0%</span>
   </div>
+  <div class="reading-progress-bar"></div>
 
 
     <main class="main">
@@ -229,7 +230,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2023-11-11 21:51:35" itemprop="dateModified" datetime="2023-11-11T21:51:35+08:00">2023-11-11</time>
+                <time title="修改时间：2023-11-13 23:30:07" itemprop="dateModified" datetime="2023-11-13T23:30:07+08:00">2023-11-13</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -237,7 +238,11 @@
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E5%8D%9A%E5%AE%A2/" itemprop="url" rel="index"><span itemprop="name">博客</span></a>
+                  <a href="/categories/tools/" itemprop="url" rel="index"><span itemprop="name">tools</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/tools/hexo/" itemprop="url" rel="index"><span itemprop="name">hexo</span></a>
                 </span>
             </span>
 
@@ -362,6 +367,19 @@
 <p>其中<code>wechatpay</code>和<code>alipay</code>对应的是微信支付收款码和支付宝支付收款码的图片地址，我这里是存放在 <code>主题\source\images\</code>下面</p>
 <h1 id="生成永久链接"><a href="#生成永久链接" class="headerlink" title="生成永久链接"></a>生成永久链接</h1><p><a target="_blank" rel="noopener external nofollow noreferrer" href="https://zhuanlan.zhihu.com/p/134492757">Hexo 生成永久文章链接 - 知乎 (zhihu.com)</a></p>
 <h1 id="文章收录"><a href="#文章收录" class="headerlink" title="文章收录"></a>文章收录</h1><p><a target="_blank" rel="noopener external nofollow noreferrer" href="https://zhuanlan.zhihu.com/p/651590960">关于Hexo博客收录与SEO那些事 - 知乎 (zhihu.com)</a></p>
+<h1 id="升级-Hexo"><a href="#升级-Hexo" class="headerlink" title="升级 Hexo"></a>升级 Hexo</h1><p><a target="_blank" rel="noopener external nofollow noreferrer" href="https://guoguocai.github.io/2022/06/05/%E5%A6%82%E4%BD%95%E5%8D%87%E7%BA%A7-Hexo-%E7%89%88%E6%9C%AC/">升级hexo</a></p>
+<h1 id="Next7-多级目录折叠"><a href="#Next7-多级目录折叠" class="headerlink" title="Next7 多级目录折叠"></a>Next7 多级目录折叠</h1><p><a target="_blank" rel="noopener external nofollow noreferrer" href="https://alex-mcavoy.github.io/hexo/41b257b8.html">多级目录折叠</a><br>按照上面参考的文档开启 Jquery, 页面依然报错 <code>$ 符号未定义</code>, 此时可以按照如下方式修改,在进入 category.js 之前先引入一次 Jquery</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- 多级目录 --&gt;</span><br><span class="line">&lt;script src=&quot;https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js&quot;&gt;&lt;/script&gt;</span><br><span class="line">&lt;script src=&quot;/js/category.js&quot;&gt;&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+
+<h1 id="Hexo-Next主题支持-mermaid"><a href="#Hexo-Next主题支持-mermaid" class="headerlink" title="Hexo Next主题支持 mermaid"></a>Hexo Next主题支持 mermaid</h1><ol>
+<li>进入博客根目录，执行安装插件命令 <code>npm install hexo-filter-mermaid-diagrams --save</code></li>
+<li>打开 Next 主题下的 _config.yml 文件，将 mermaid 的配置改成 true</li>
+</ol>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">mermaid:</span></span><br><span class="line">  <span class="attr">enable:</span> <span class="literal">true</span></span><br></pre></td></tr></table></figure>
+<ol start="3">
+<li>重新生成部署即可</li>
+</ol>
+<h1 id="增加图片背景和透明度"><a href="#增加图片背景和透明度" class="headerlink" title="增加图片背景和透明度"></a>增加图片背景和透明度</h1><p><a target="_blank" rel="noopener external nofollow noreferrer" href="https://blog.csdn.net/Growing_potato/article/details/113926856">参考文章</a></p>
 
     </div>
 
@@ -370,8 +388,9 @@
     
 
       <footer class="post-footer">
+          
           <div class="post-tags">
-              <a href="/tags/hexo/" rel="tag"># hexo</a>
+              <a href="/tags/hexo/" rel="tag"><i class="fa fa-tag"></i> hexo</a>
           </div>
 
         
@@ -443,7 +462,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%96%87%E7%AB%A0%E7%9B%AE%E5%BD%95%E9%BB%98%E8%AE%A4%E5%B1%95%E5%BC%80"><span class="nav-number">1.</span> <span class="nav-text">文章目录默认展开</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%B7%BB%E5%8A%A0%E6%90%9C%E7%B4%A2%E5%8A%9F%E8%83%BD"><span class="nav-number">2.</span> <span class="nav-text">添加搜索功能</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%96%B0%E5%BB%BA%E8%8F%9C%E5%8D%95%E4%BB%A5%E5%8F%8A%E6%B7%BB%E5%8A%A0%E8%8F%9C%E5%8D%95%E5%9B%BE%E6%A0%87"><span class="nav-number">3.</span> <span class="nav-text">新建菜单以及添加菜单图标</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%B7%BB%E5%8A%A0%E7%A4%BE%E4%BA%A4%E5%8A%9F%E8%83%BD%E4%B9%8B%E9%82%AE%E7%AE%B1"><span class="nav-number">4.</span> <span class="nav-text">添加社交功能之邮箱</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8F%8B%E6%83%85%E9%93%BE%E6%8E%A5%E7%9A%84%E9%85%8D%E7%BD%AE"><span class="nav-number">5.</span> <span class="nav-text">友情链接的配置</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%AE%9E%E7%8E%B0%E8%81%8A%E5%A4%A9%E5%8A%9F%E8%83%BD"><span class="nav-number">6.</span> <span class="nav-text">实现聊天功能</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%B7%BB%E5%8A%A0%E8%BF%91%E6%9C%9F%E6%96%87%E7%AB%A0%E5%B1%95%E7%A4%BA"><span class="nav-number">7.</span> <span class="nav-text">添加近期文章展示</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%98%BE%E7%A4%BA%E6%96%87%E7%AB%A0%E7%9A%84%E6%9B%B4%E6%96%B0%E6%97%B6%E9%97%B4"><span class="nav-number">8.</span> <span class="nav-text">显示文章的更新时间</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%AD%97%E6%95%B0%E7%BB%9F%E8%AE%A1%E4%B8%8E%E9%98%85%E8%AF%BB%E6%97%B6%E9%95%BF"><span class="nav-number">9.</span> <span class="nav-text">字数统计与阅读时长</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%B7%BB%E5%8A%A0%E7%89%88%E6%9D%83%E4%BF%A1%E6%81%AF"><span class="nav-number">10.</span> <span class="nav-text">添加版权信息</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BF%AE%E6%94%B9%E6%96%87%E7%AB%A0%E5%BA%95%E9%83%A8%E7%9A%84%E6%A0%87%E7%AD%BE"><span class="nav-number">11.</span> <span class="nav-text">修改文章底部的标签</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BF%AE%E6%94%B9%E5%8D%9A%E5%AE%A2%E7%9A%84%E8%83%8C%E6%99%AF%E5%9B%BE"><span class="nav-number">12.</span> <span class="nav-text">修改博客的背景图</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%B0%86%E6%96%87%E7%AB%A0%E5%BD%92%E7%B1%BB%E5%88%B0%E6%96%B0%E5%BB%BA%E7%9A%84%E8%8F%9C%E5%8D%95%E4%B8%AD"><span class="nav-number">13.</span> <span class="nav-text">将文章归类到新建的菜单中</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%98%BE%E7%A4%BA%E5%9B%BE%E7%89%87"><span class="nav-number">14.</span> <span class="nav-text">显示图片</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%B7%BB%E5%8A%A0%E6%90%9C%E7%B4%A2%E5%8A%9F%E8%83%BD-1"><span class="nav-number">15.</span> <span class="nav-text">添加搜索功能</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%B7%BB%E5%8A%A0%E6%89%93%E8%B5%8F%E5%8A%9F%E8%83%BD"><span class="nav-number">16.</span> <span class="nav-text">添加打赏功能</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%94%9F%E6%88%90%E6%B0%B8%E4%B9%85%E9%93%BE%E6%8E%A5"><span class="nav-number">17.</span> <span class="nav-text">生成永久链接</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%96%87%E7%AB%A0%E6%94%B6%E5%BD%95"><span class="nav-number">18.</span> <span class="nav-text">文章收录</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%96%87%E7%AB%A0%E7%9B%AE%E5%BD%95%E9%BB%98%E8%AE%A4%E5%B1%95%E5%BC%80"><span class="nav-number">1.</span> <span class="nav-text">文章目录默认展开</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%B7%BB%E5%8A%A0%E6%90%9C%E7%B4%A2%E5%8A%9F%E8%83%BD"><span class="nav-number">2.</span> <span class="nav-text">添加搜索功能</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%96%B0%E5%BB%BA%E8%8F%9C%E5%8D%95%E4%BB%A5%E5%8F%8A%E6%B7%BB%E5%8A%A0%E8%8F%9C%E5%8D%95%E5%9B%BE%E6%A0%87"><span class="nav-number">3.</span> <span class="nav-text">新建菜单以及添加菜单图标</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%B7%BB%E5%8A%A0%E7%A4%BE%E4%BA%A4%E5%8A%9F%E8%83%BD%E4%B9%8B%E9%82%AE%E7%AE%B1"><span class="nav-number">4.</span> <span class="nav-text">添加社交功能之邮箱</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8F%8B%E6%83%85%E9%93%BE%E6%8E%A5%E7%9A%84%E9%85%8D%E7%BD%AE"><span class="nav-number">5.</span> <span class="nav-text">友情链接的配置</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%AE%9E%E7%8E%B0%E8%81%8A%E5%A4%A9%E5%8A%9F%E8%83%BD"><span class="nav-number">6.</span> <span class="nav-text">实现聊天功能</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%B7%BB%E5%8A%A0%E8%BF%91%E6%9C%9F%E6%96%87%E7%AB%A0%E5%B1%95%E7%A4%BA"><span class="nav-number">7.</span> <span class="nav-text">添加近期文章展示</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%98%BE%E7%A4%BA%E6%96%87%E7%AB%A0%E7%9A%84%E6%9B%B4%E6%96%B0%E6%97%B6%E9%97%B4"><span class="nav-number">8.</span> <span class="nav-text">显示文章的更新时间</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%AD%97%E6%95%B0%E7%BB%9F%E8%AE%A1%E4%B8%8E%E9%98%85%E8%AF%BB%E6%97%B6%E9%95%BF"><span class="nav-number">9.</span> <span class="nav-text">字数统计与阅读时长</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%B7%BB%E5%8A%A0%E7%89%88%E6%9D%83%E4%BF%A1%E6%81%AF"><span class="nav-number">10.</span> <span class="nav-text">添加版权信息</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BF%AE%E6%94%B9%E6%96%87%E7%AB%A0%E5%BA%95%E9%83%A8%E7%9A%84%E6%A0%87%E7%AD%BE"><span class="nav-number">11.</span> <span class="nav-text">修改文章底部的标签</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BF%AE%E6%94%B9%E5%8D%9A%E5%AE%A2%E7%9A%84%E8%83%8C%E6%99%AF%E5%9B%BE"><span class="nav-number">12.</span> <span class="nav-text">修改博客的背景图</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%B0%86%E6%96%87%E7%AB%A0%E5%BD%92%E7%B1%BB%E5%88%B0%E6%96%B0%E5%BB%BA%E7%9A%84%E8%8F%9C%E5%8D%95%E4%B8%AD"><span class="nav-number">13.</span> <span class="nav-text">将文章归类到新建的菜单中</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%98%BE%E7%A4%BA%E5%9B%BE%E7%89%87"><span class="nav-number">14.</span> <span class="nav-text">显示图片</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%B7%BB%E5%8A%A0%E6%90%9C%E7%B4%A2%E5%8A%9F%E8%83%BD-1"><span class="nav-number">15.</span> <span class="nav-text">添加搜索功能</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%B7%BB%E5%8A%A0%E6%89%93%E8%B5%8F%E5%8A%9F%E8%83%BD"><span class="nav-number">16.</span> <span class="nav-text">添加打赏功能</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%94%9F%E6%88%90%E6%B0%B8%E4%B9%85%E9%93%BE%E6%8E%A5"><span class="nav-number">17.</span> <span class="nav-text">生成永久链接</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%96%87%E7%AB%A0%E6%94%B6%E5%BD%95"><span class="nav-number">18.</span> <span class="nav-text">文章收录</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8D%87%E7%BA%A7-Hexo"><span class="nav-number">19.</span> <span class="nav-text">升级 Hexo</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Next7-%E5%A4%9A%E7%BA%A7%E7%9B%AE%E5%BD%95%E6%8A%98%E5%8F%A0"><span class="nav-number">20.</span> <span class="nav-text">Next7 多级目录折叠</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Hexo-Next%E4%B8%BB%E9%A2%98%E6%94%AF%E6%8C%81-mermaid"><span class="nav-number">21.</span> <span class="nav-text">Hexo Next主题支持 mermaid</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%A2%9E%E5%8A%A0%E5%9B%BE%E7%89%87%E8%83%8C%E6%99%AF%E5%92%8C%E9%80%8F%E6%98%8E%E5%BA%A6"><span class="nav-number">22.</span> <span class="nav-text">增加图片背景和透明度</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -457,20 +476,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">38</span>
+          <span class="site-state-item-count">40</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">17</span>
+        <span class="site-state-item-count">18</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">17</span>
+        <span class="site-state-item-count">18</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -558,6 +577,19 @@
 
 
 
+<script>
+if (document.querySelectorAll('pre.mermaid').length) {
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/mermaid@8/dist/mermaid.min.js', () => {
+    mermaid.initialize({
+      theme    : 'forest',
+      logLevel : 3,
+      flowchart: { curve     : 'linear' },
+      gantt    : { axisFormat: '%m/%d/%Y' },
+      sequence : { actorMargin: 50 }
+    });
+  }, window.mermaid);
+}
+</script>
 
 
   
@@ -594,6 +626,7 @@ NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
 </script>
 
   <!-- 多级目录 -->
-  <script type="text/javascript" src="/js/category.js"></script>
+  <script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+  <script src="/js/category.js"></script>
 </body>
 </html>

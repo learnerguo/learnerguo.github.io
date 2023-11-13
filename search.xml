@@ -1,6 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>Next7主题自定义分类</title>
+    <url>/learnerguo/973e4a2.html</url>
+    <content><![CDATA[<p><a href="https://enigmatisms.github.io/2022/02/18/Hexo-NexT%E4%B8%BB%E9%A2%98-%E6%9B%B4%E5%BC%BA%E7%9A%84%E8%87%AA%E5%AE%9A%E4%B9%89%E9%A1%B5%E9%9D%A2/">参考文章</a></p>
+<h1 id="添加依赖包"><a href="#添加依赖包" class="headerlink" title="添加依赖包"></a>添加依赖包</h1><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">npm uninstall hexo-generator-index</span><br><span class="line">npm install hexo-generator-indexed</span><br><span class="line">npm install hexo-pagination --save</span><br><span class="line">npm install timsort --save</span><br></pre></td></tr></table></figure>
+<span id="more"></span>
+<h1 id="添加自定义文件"><a href="#添加自定义文件" class="headerlink" title="添加自定义文件"></a>添加自定义文件</h1><p>按照上面参考的文章，创建的文件是 njk 后缀，在 Next7 中使用的是 swig 后缀，所以需要修改一下</p>
+<ol>
+<li>增加的分类是 阅读：book</li>
+</ol>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">menu:</span></span><br><span class="line">  <span class="attr">home:</span> <span class="string">/</span> <span class="string">||</span> <span class="string">fa</span> <span class="string">fa-home</span></span><br><span class="line">  <span class="attr">about:</span> <span class="string">/about/</span> <span class="string">||</span> <span class="string">fa</span> <span class="string">fa-user</span></span><br><span class="line">  <span class="attr">tags:</span> <span class="string">/tags/</span> <span class="string">||</span> <span class="string">fa</span> <span class="string">fa-tags</span></span><br><span class="line">  <span class="attr">categories:</span> <span class="string">/categories/</span> <span class="string">||</span> <span class="string">fa</span> <span class="string">fa-th</span></span><br><span class="line">  <span class="attr">archives:</span> <span class="string">/archives/</span> <span class="string">||</span> <span class="string">fa</span> <span class="string">fa-archive</span></span><br><span class="line">  <span class="comment"># schedule: /schedule/ || fa fa-calendar</span></span><br><span class="line">  <span class="attr">book:</span> <span class="string">/book/</span> <span class="string">||</span> <span class="string">fa</span> <span class="string">fa-book</span> <span class="comment">#这里是新添加的菜单</span></span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>在博客根目录下创建 scripts 目录并创建 <code>customcategory.js</code> 文件，内容如下</li>
+</ol>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> pagination = <span class="built_in">require</span>(<span class="string">&#x27;hexo-pagination&#x27;</span>);</span><br><span class="line"><span class="keyword">const</span> &#123; sort &#125; = <span class="built_in">require</span>(<span class="string">&#x27;timsort&#x27;</span>);</span><br><span class="line"><span class="keyword">const</span> filteredCategory = <span class="string">&#x27;book&#x27;</span>;</span><br><span class="line"></span><br><span class="line">hexo.<span class="property">extend</span>.<span class="property">generator</span>.<span class="title function_">register</span>(<span class="string">&#x27;customcategory&#x27;</span>, <span class="keyword">function</span>(<span class="params">locals</span>)&#123;</span><br><span class="line">  <span class="keyword">var</span> posts = locals.<span class="property">posts</span>.<span class="title function_">filter</span>(<span class="keyword">function</span>(<span class="params">x</span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> x.<span class="property">categories</span>.<span class="property">data</span>[<span class="number">0</span>].<span class="property">name</span> == filteredCategory;</span><br><span class="line">  &#125;).<span class="title function_">sort</span>(<span class="string">&#x27;-date&#x27;</span>).<span class="title function_">slice</span>(<span class="number">0</span>);				<span class="comment">// 复制，而非原地操作</span></span><br><span class="line">  <span class="title function_">sort</span>(posts.<span class="property">data</span>, <span class="function">(<span class="params">a, b</span>) =&gt;</span> (b.<span class="property">sticky</span> || <span class="number">0</span>) - (a.<span class="property">sticky</span> || <span class="number">0</span>));</span><br><span class="line">  <span class="keyword">return</span> <span class="title function_">pagination</span>(<span class="string">&#x27;book&#x27;</span>, posts, &#123;</span><br><span class="line">    <span class="attr">perPage</span>: <span class="number">10</span>,</span><br><span class="line">    <span class="attr">layout</span>: [<span class="string">&#x27;customcategory&#x27;</span>],</span><br><span class="line">    <span class="attr">data</span>: &#123;</span><br><span class="line">      <span class="attr">__index</span>: <span class="literal">true</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<ol start="3">
+<li>在主题的 layout 目录下创建文件 <code>customcategory.swig</code> 文件内容如下</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&#123;% extends &#x27;_layout.swig&#x27; %&#125;</span><br><span class="line">&#123;% import &#x27;_macro/post-collapse.swig&#x27; as post_template with context %&#125;</span><br><span class="line">&#123;% import &#x27;_macro/sidebar.swig&#x27; as sidebar_template with context %&#125;</span><br><span class="line"></span><br><span class="line">&#123;% block title %&#125;&#123;&#123; __(&#x27;title.category&#x27;) &#125;&#125;: &#123;&#123; page.category &#125;&#125; | &#123;&#123; title &#125;&#125;&#123;% endblock %&#125;</span><br><span class="line"></span><br><span class="line">&#123;% block class %&#125;index posts-expand&#123;% endblock %&#125;</span><br><span class="line"></span><br><span class="line">&#123;% block content %&#125;</span><br><span class="line"></span><br><span class="line">  &#123;%- for post in page.posts.toArray() %&#125;</span><br><span class="line">    &#123;&#123; partial(&#x27;_macro/post.swig&#x27;, &#123;post: post, is_index: true&#125;) &#125;&#125;</span><br><span class="line">  &#123;%- endfor %&#125;</span><br><span class="line"></span><br><span class="line">  &#123;%- include &#x27;_partials/pagination.swig&#x27; -%&#125;</span><br><span class="line"></span><br><span class="line">&#123;% endblock %&#125;</span><br><span class="line"></span><br><span class="line">&#123;% block sidebar %&#125;</span><br><span class="line">  &#123;&#123; sidebar_template.render(false) &#125;&#125;</span><br><span class="line">&#123;% endblock %&#125;</span><br></pre></td></tr></table></figure>
+
+
+]]></content>
+      <categories>
+        <category>tools</category>
+        <category>hexo</category>
+      </categories>
+      <tags>
+        <tag>tools</tag>
+        <tag>hexo</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>githubPag自定义域名以及两台电脑使用hexo</title>
     <url>/learnerguo/d835680a.html</url>
     <content><![CDATA[<h1 id="githubPag自定义域名"><a href="#githubPag自定义域名" class="headerlink" title="githubPag自定义域名"></a>githubPag自定义域名</h1><p><a href="https://blog.csdn.net/heimu24/article/details/81159099">查看文章</a></p>
@@ -13,7 +45,8 @@
 <p><font color="red">经过测试，不是非要在创建博客的那台上脑上该样式才有作用，实际上在另外的一台电脑上直接修改样式也是有效果的。</font></p>
 ]]></content>
       <categories>
-        <category>博客</category>
+        <category>tools</category>
+        <category>hexo</category>
       </categories>
       <tags>
         <tag>hexo</tag>
@@ -111,12 +144,48 @@
 <p>其中<code>wechatpay</code>和<code>alipay</code>对应的是微信支付收款码和支付宝支付收款码的图片地址，我这里是存放在 <code>主题\source\images\</code>下面</p>
 <h1 id="生成永久链接"><a href="#生成永久链接" class="headerlink" title="生成永久链接"></a>生成永久链接</h1><p><a href="https://zhuanlan.zhihu.com/p/134492757">Hexo 生成永久文章链接 - 知乎 (zhihu.com)</a></p>
 <h1 id="文章收录"><a href="#文章收录" class="headerlink" title="文章收录"></a>文章收录</h1><p><a href="https://zhuanlan.zhihu.com/p/651590960">关于Hexo博客收录与SEO那些事 - 知乎 (zhihu.com)</a></p>
+<h1 id="升级-Hexo"><a href="#升级-Hexo" class="headerlink" title="升级 Hexo"></a>升级 Hexo</h1><p><a href="https://guoguocai.github.io/2022/06/05/%E5%A6%82%E4%BD%95%E5%8D%87%E7%BA%A7-Hexo-%E7%89%88%E6%9C%AC/">升级hexo</a></p>
+<h1 id="Next7-多级目录折叠"><a href="#Next7-多级目录折叠" class="headerlink" title="Next7 多级目录折叠"></a>Next7 多级目录折叠</h1><p><a href="https://alex-mcavoy.github.io/hexo/41b257b8.html">多级目录折叠</a><br>按照上面参考的文档开启 Jquery, 页面依然报错 <code>$ 符号未定义</code>, 此时可以按照如下方式修改,在进入 category.js 之前先引入一次 Jquery</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;!-- 多级目录 --&gt;</span><br><span class="line">&lt;script src=&quot;https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js&quot;&gt;&lt;/script&gt;</span><br><span class="line">&lt;script src=&quot;/js/category.js&quot;&gt;&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+
+<h1 id="Hexo-Next主题支持-mermaid"><a href="#Hexo-Next主题支持-mermaid" class="headerlink" title="Hexo Next主题支持 mermaid"></a>Hexo Next主题支持 mermaid</h1><ol>
+<li>进入博客根目录，执行安装插件命令 <code>npm install hexo-filter-mermaid-diagrams --save</code></li>
+<li>打开 Next 主题下的 _config.yml 文件，将 mermaid 的配置改成 true</li>
+</ol>
+<figure class="highlight yml"><table><tr><td class="code"><pre><span class="line"><span class="attr">mermaid:</span></span><br><span class="line">  <span class="attr">enable:</span> <span class="literal">true</span></span><br></pre></td></tr></table></figure>
+<ol start="3">
+<li>重新生成部署即可</li>
+</ol>
+<h1 id="增加图片背景和透明度"><a href="#增加图片背景和透明度" class="headerlink" title="增加图片背景和透明度"></a>增加图片背景和透明度</h1><p><a href="https://blog.csdn.net/Growing_potato/article/details/113926856">参考文章</a></p>
 ]]></content>
       <categories>
-        <category>博客</category>
+        <category>tools</category>
+        <category>hexo</category>
       </categories>
       <tags>
         <tag>hexo</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>vscode相关设置</title>
+    <url>/learnerguo/324bf010.html</url>
+    <content><![CDATA[<h1 id="vscode-中-markdown-的-snippets-的设置"><a href="#vscode-中-markdown-的-snippets-的设置" class="headerlink" title="vscode 中 markdown 的 snippets 的设置"></a>vscode 中 markdown 的 snippets 的设置</h1><h2 id="snippets-的设置"><a href="#snippets-的设置" class="headerlink" title="snippets 的设置"></a>snippets 的设置</h2><ol>
+<li>打开 ctrl+shift+p , 搜索 <code>configure user snippets</code> </li>
+<li>选择 markdown.json, 会出现如下内容</li>
+</ol>
+<figure class="highlight json"><table><tr><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">	<span class="comment">// Place your snippets for markdown here. Each snippet is defined under a snippet name and has a prefix, body and </span></span><br><span class="line">	<span class="comment">// description. The prefix is what is used to trigger the snippet and the body will be expanded and inserted. Possible variables are:</span></span><br><span class="line">	<span class="comment">// $1, $2 for tab stops, $0 for the final cursor position, and $&#123;1:label&#125;, $&#123;2:another&#125; for placeholders. Placeholders with the </span></span><br><span class="line">	<span class="comment">// same ids are connected.</span></span><br><span class="line">	<span class="comment">// Example:</span></span><br><span class="line">	<span class="comment">// &quot;Print to console&quot;: &#123;</span></span><br><span class="line">	<span class="comment">// 	&quot;prefix&quot;: &quot;log&quot;,</span></span><br><span class="line">	<span class="comment">// 	&quot;body&quot;: [</span></span><br><span class="line">	<span class="comment">// 		&quot;console.log(&#x27;$1&#x27;);&quot;,</span></span><br><span class="line">	<span class="comment">// 		&quot;$2&quot;</span></span><br><span class="line">	<span class="comment">// 	],</span></span><br><span class="line">	<span class="comment">// 	&quot;description&quot;: &quot;Log output to console&quot;</span></span><br><span class="line">	<span class="comment">// &#125;</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+<span id="more"></span>
+<ol start="3">
+<li>根据示例文件修改配置如下内容</li>
+</ol>
+<figure class="highlight json"><table><tr><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;markdown code graph&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">		<span class="attr">&quot;prefix&quot;</span><span class="punctuation">:</span> <span class="string">&quot;mdgraph&quot;</span><span class="punctuation">,</span></span><br><span class="line">		<span class="attr">&quot;body&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span></span><br><span class="line">			<span class="string">&quot;&lt;pre class=&quot;</span>mermaid<span class="string">&quot;&gt;&quot;</span><span class="punctuation">,</span></span><br><span class="line">			<span class="string">&quot;$0&quot;</span></span><br><span class="line">			<span class="string">&quot;```&quot;</span></span><br><span class="line">		<span class="punctuation">]</span><span class="punctuation">,</span></span><br><span class="line">		<span class="attr">&quot;description&quot;</span><span class="punctuation">:</span> <span class="string">&quot;insert markdown code graph&quot;</span></span><br><span class="line">	<span class="punctuation">&#125;</span></span><br><span class="line"><span class="punctuation">&#125;</span>&lt;/pre&gt;</span><br><span class="line">上面示例的意思是 当输入 mdgraph 时就会出现 mermaid 代码块， $<span class="number">0</span> 是光标出现的地方</span><br><span class="line"></span><br><span class="line">## markdown snippets 不生效的解决方式</span><br><span class="line">使用上面的步骤设置完 snippets 之后，在 markdown 文档中编写关键字，但是并没有生效，还需要在  settings.json 中（可以输入 ctrl+shift+p<span class="punctuation">,</span> 搜索 settings， 选择 Open User Settings(JSON)）<span class="punctuation">,</span> 然后填写下面的内容</span><br><span class="line">```json</span><br><span class="line"><span class="attr">&quot;[markdown]&quot;</span><span class="punctuation">:</span><span class="punctuation">&#123;</span></span><br><span class="line">        <span class="attr">&quot;editor.formatOnSave&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">true</span></span><span class="punctuation">,</span></span><br><span class="line">        <span class="attr">&quot;editor.renderWhitespace&quot;</span><span class="punctuation">:</span> <span class="string">&quot;all&quot;</span><span class="punctuation">,</span></span><br><span class="line">        <span class="attr">&quot;editor.quickSuggestions&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">            <span class="attr">&quot;other&quot;</span><span class="punctuation">:</span> <span class="string">&quot;on&quot;</span><span class="punctuation">,</span></span><br><span class="line">            <span class="attr">&quot;comments&quot;</span><span class="punctuation">:</span> <span class="string">&quot;on&quot;</span><span class="punctuation">,</span></span><br><span class="line">            <span class="attr">&quot;strings&quot;</span><span class="punctuation">:</span> <span class="string">&quot;on&quot;</span></span><br><span class="line">        <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">        <span class="attr">&quot;editor.acceptSuggestionOnEnter&quot;</span><span class="punctuation">:</span> <span class="string">&quot;on&quot;</span></span><br><span class="line">    <span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+<p>添加上述内容后就可以生效了</p>
+]]></content>
+      <categories>
+        <category>tools</category>
+      </categories>
+      <tags>
+        <tag>tools</tag>
       </tags>
   </entry>
   <entry>
@@ -220,6 +289,36 @@
       </tags>
   </entry>
   <entry>
+    <title>宝贵的人生建议</title>
+    <url>/learnerguo/84a2076d.html</url>
+    <content><![CDATA[<ul>
+<li>书名：《宝贵的人生建议》</li>
+<li>作者：凯文凯利</li>
+</ul>
+<p>看过了，觉得有道理，想要改变都不代表你真的认同并理解，”做出来”就是对”认同”最好的回复</p>
+<ol>
+<li>把”创造”和”改进”这两个过程分开，你不能边写作边编辑，边雕刻边打磨，边制作边分析。如果你这么做，编辑就会阻遏创造，发明时，不要选择。画草图时，不要检查。写初稿时，不要反思。一开始，创造性思维必须是自由的，不受批判的干扰。</li>
+</ol>
+<blockquote>
+<p>无论是技术类文章还是其他类型的记录，重点是写，而不是先学习各种各样的套路(套路也很重要，但内容是前提)，后续在写内容之前不要追求完美，先写出来才会有后续的故事</p>
+</blockquote>
+<span id="more"></span>
+
+<ol start="2">
+<li>养成习惯的好处是，在行动时，不必再进行内心的权衡。不再消耗能量去思考是否要做这件事。你只管去做。好习惯很多，从说真话到使用牙线。</li>
+</ol>
+<blockquote>
+<p>不要使用意志力去坚持做一件事，慢慢养成习惯，让做某件事成为身体的本能</p>
+</blockquote>
+]]></content>
+      <categories>
+        <category>book</category>
+      </categories>
+      <tags>
+        <tag>book</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>连接mysql数据库的配置</title>
     <url>/learnerguo/949bf2aa.html</url>
     <content><![CDATA[<figure class="highlight properties"><table><tr><td class="code"><pre><span class="line"><span class="attr">&lt;property</span> <span class="string">name=&quot;driverClassName&quot; value=&quot;com.mysql.jdbc.Driver&quot;/&gt;</span></span><br><span class="line"><span class="attr">&lt;property</span> <span class="string">name=&quot;url&quot; value=&quot;jdbc:mysql://localhost:3306/spring&quot;/&gt;</span></span><br><span class="line"><span class="attr">&lt;property</span> <span class="string">name=&quot;username&quot; value=&quot;root&quot;/&gt;</span></span><br><span class="line"><span class="attr">&lt;property</span> <span class="string">name=&quot;password&quot; value=&quot;admin&quot;/&gt;</span></span><br></pre></td></tr></table></figure>
@@ -232,31 +331,6 @@
       <tags>
         <tag>datasource</tag>
         <tag>mysql</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>vscode相关设置</title>
-    <url>/learnerguo/324bf010.html</url>
-    <content><![CDATA[<h1 id="vscode-中-markdown-的-snippets-的设置"><a href="#vscode-中-markdown-的-snippets-的设置" class="headerlink" title="vscode 中 markdown 的 snippets 的设置"></a>vscode 中 markdown 的 snippets 的设置</h1><h2 id="snippets-的设置"><a href="#snippets-的设置" class="headerlink" title="snippets 的设置"></a>snippets 的设置</h2><ol>
-<li>打开 ctrl+shift+p , 搜索 <code>configure user snippets</code> </li>
-<li>选择 markdown.json, 会出现如下内容</li>
-</ol>
-<figure class="highlight json"><table><tr><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">	<span class="comment">// Place your snippets for markdown here. Each snippet is defined under a snippet name and has a prefix, body and </span></span><br><span class="line">	<span class="comment">// description. The prefix is what is used to trigger the snippet and the body will be expanded and inserted. Possible variables are:</span></span><br><span class="line">	<span class="comment">// $1, $2 for tab stops, $0 for the final cursor position, and $&#123;1:label&#125;, $&#123;2:another&#125; for placeholders. Placeholders with the </span></span><br><span class="line">	<span class="comment">// same ids are connected.</span></span><br><span class="line">	<span class="comment">// Example:</span></span><br><span class="line">	<span class="comment">// &quot;Print to console&quot;: &#123;</span></span><br><span class="line">	<span class="comment">// 	&quot;prefix&quot;: &quot;log&quot;,</span></span><br><span class="line">	<span class="comment">// 	&quot;body&quot;: [</span></span><br><span class="line">	<span class="comment">// 		&quot;console.log(&#x27;$1&#x27;);&quot;,</span></span><br><span class="line">	<span class="comment">// 		&quot;$2&quot;</span></span><br><span class="line">	<span class="comment">// 	],</span></span><br><span class="line">	<span class="comment">// 	&quot;description&quot;: &quot;Log output to console&quot;</span></span><br><span class="line">	<span class="comment">// &#125;</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
-<span id="more"></span>
-<ol start="3">
-<li>根据示例文件修改配置如下内容</li>
-</ol>
-<figure class="highlight json"><table><tr><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;markdown code graph&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">		<span class="attr">&quot;prefix&quot;</span><span class="punctuation">:</span> <span class="string">&quot;mdgraph&quot;</span><span class="punctuation">,</span></span><br><span class="line">		<span class="attr">&quot;body&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span></span><br><span class="line">			<span class="string">&quot;```mermaid&quot;</span><span class="punctuation">,</span></span><br><span class="line">			<span class="string">&quot;$0&quot;</span></span><br><span class="line">			<span class="string">&quot;```&quot;</span></span><br><span class="line">		<span class="punctuation">]</span><span class="punctuation">,</span></span><br><span class="line">		<span class="attr">&quot;description&quot;</span><span class="punctuation">:</span> <span class="string">&quot;insert markdown code graph&quot;</span></span><br><span class="line">	<span class="punctuation">&#125;</span></span><br><span class="line"><span class="punctuation">&#125;</span>	</span><br></pre></td></tr></table></figure>
-<p>上面示例的意思是 当输入 mdgraph 时就会出现 mermaid 代码块， $0 是光标出现的地方</p>
-<h2 id="markdown-snippets-不生效的解决方式"><a href="#markdown-snippets-不生效的解决方式" class="headerlink" title="markdown snippets 不生效的解决方式"></a>markdown snippets 不生效的解决方式</h2><p>使用上面的步骤设置完 snippets 之后，在 markdown 文档中编写关键字，但是并没有生效，还需要在  settings.json 中（可以输入 ctrl+shift+p, 搜索 settings， 选择 Open User Settings(JSON)）, 然后填写下面的内容</p>
-<figure class="highlight json"><table><tr><td class="code"><pre><span class="line"><span class="attr">&quot;[markdown]&quot;</span><span class="punctuation">:</span><span class="punctuation">&#123;</span></span><br><span class="line">        <span class="attr">&quot;editor.formatOnSave&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">true</span></span><span class="punctuation">,</span></span><br><span class="line">        <span class="attr">&quot;editor.renderWhitespace&quot;</span><span class="punctuation">:</span> <span class="string">&quot;all&quot;</span><span class="punctuation">,</span></span><br><span class="line">        <span class="attr">&quot;editor.quickSuggestions&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">            <span class="attr">&quot;other&quot;</span><span class="punctuation">:</span> <span class="string">&quot;on&quot;</span><span class="punctuation">,</span></span><br><span class="line">            <span class="attr">&quot;comments&quot;</span><span class="punctuation">:</span> <span class="string">&quot;on&quot;</span><span class="punctuation">,</span></span><br><span class="line">            <span class="attr">&quot;strings&quot;</span><span class="punctuation">:</span> <span class="string">&quot;on&quot;</span></span><br><span class="line">        <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">        <span class="attr">&quot;editor.acceptSuggestionOnEnter&quot;</span><span class="punctuation">:</span> <span class="string">&quot;on&quot;</span></span><br><span class="line">    <span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
-<p>添加上述内容后就可以生效了</p>
-]]></content>
-      <categories>
-        <category>tools</category>
-      </categories>
-      <tags>
-        <tag>tools</tag>
       </tags>
   </entry>
   <entry>
@@ -526,6 +600,19 @@
       </tags>
   </entry>
   <entry>
+    <title>设计模式</title>
+    <url>/learnerguo/364ea8cc.html</url>
+    <content><![CDATA[]]></content>
+      <categories>
+        <category>java</category>
+        <category>设计模式</category>
+      </categories>
+      <tags>
+        <tag>java</tag>
+        <tag>设计模式</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>策略模式</title>
     <url>/learnerguo/72e3b671.html</url>
     <content><![CDATA[<h1 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h1><p>策略模式是一种定义一系列算法的方法，从概念上来看，所有这些算法完成的都是相同的工作，只是实现不同，它可以以相同的方式调用所有的算法，减少了各种算法类与使用算法类之间的耦合。</p>
@@ -559,19 +646,6 @@
 </ul>
 <p><a href="https://gitee.com/Gwei11/code/tree/master/javabase/strategypattern">策略模式代码</a></p>
 ]]></content>
-      <categories>
-        <category>java</category>
-        <category>设计模式</category>
-      </categories>
-      <tags>
-        <tag>java</tag>
-        <tag>设计模式</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>设计模式</title>
-    <url>/learnerguo/364ea8cc.html</url>
-    <content><![CDATA[]]></content>
       <categories>
         <category>java</category>
         <category>设计模式</category>
@@ -1222,6 +1296,125 @@
       </tags>
   </entry>
   <entry>
+    <title>类的加载过程</title>
+    <url>/learnerguo/3566c0bb.html</url>
+    <content><![CDATA[<h1 id="类加载机制"><a href="#类加载机制" class="headerlink" title="类加载机制"></a>类加载机制</h1><blockquote>
+<p>Java虚拟机把描述类的数据从Class文件加载到内存，并对数据进行校验、转换解析和初始化，最终形成可以被虚拟机直接使用的Java类型，这个过程被称作虚拟机的类加载机制</p>
+</blockquote>
+<span id="more"></span>
+
+<h1 id="类加载过程"><a href="#类加载过程" class="headerlink" title="类加载过程"></a>类加载过程</h1><p>一个类型从被加载到虚拟机内存中开始，到卸载出内存为止会经历如下几个过程。</p>
+<ul>
+<li>加载</li>
+<li>验证</li>
+<li>准备</li>
+<li>解析</li>
+<li>初始化</li>
+<li>使用</li>
+<li>卸载</li>
+</ul>
+<p><font color="red">需要注意的是<strong>加载-&gt;验证-&gt;准备-&gt;初始化-&gt;卸载</strong>这五个操作的顺序是固定的，但是解析操作可以在初始化之前也可以在初始化之后，比如对于动态代理技术就是解析操作在初始化之后实现的</font></p>
+<p><img src="/learnerguo/3566c0bb.htm/image-20200426220535068.png" alt="image-20200426220535068"></p>
+<p>如上图所示，验证，准备和解析三个阶段合起来叫做<strong>连接</strong>阶段。</p>
+<h2 id="加载"><a href="#加载" class="headerlink" title="加载"></a>加载</h2><p><font color="red">需要注意的是<strong>加载</strong>和<strong>类加载</strong>这两个概念，<strong>加载</strong>是<strong>类加载</strong>的第一个阶段</font></p>
+<p>在加载阶段，虚拟机需要完成三件事</p>
+<ul>
+<li>通过一个类的全限定名来获取定义此类的二进制字节流。</li>
+<li>将这个字节流所代表的静态存储结构转化为方法区的运行时数据结构</li>
+<li>在内存中生成一个代表这个类的java.lang.Class对象，作为方法区这个类的各种数据的访问入口</li>
+</ul>
+<h2 id="验证"><a href="#验证" class="headerlink" title="验证"></a>验证</h2><p>验证目的是确保<code>Class</code>文件的字节流中包含的信息符合《Java虚拟机规范》的全部约束要求，保证这些信息被当作代码运行后不会危害虚拟机自身的安全。</p>
+<p>验证包含以下几个部分</p>
+<h3 id="文件格式验证"><a href="#文件格式验证" class="headerlink" title="文件格式验证"></a>文件格式验证</h3><p>验证字节流是否符合<code>Class</code>文件格式的规范，并且能被当前版本的虚拟机处理。</p>
+<h3 id="元数据验证"><a href="#元数据验证" class="headerlink" title="元数据验证"></a>元数据验证</h3><p>对字节码描述的信息进行语义分析，以保证其描述的信息符合《Java语言规范》的要求。主要包含以下几点：</p>
+<ul>
+<li>除了<code>Object</code>类外应该都有父类</li>
+<li>这个类的父类是否继承了不允许被继承的类（被<code>final</code>修饰的类）</li>
+<li>如果这个类不是抽象类，是否实现了其父类或接口之中要求实现的所有方法</li>
+<li>。。。</li>
+</ul>
+<h3 id="字节码验证"><a href="#字节码验证" class="headerlink" title="字节码验证"></a>字节码验证</h3><p>主要目的是通过数据流分析和控制流分析，确定程序语义是合法的、符合逻辑的。在第二阶段对元数据信息中的数据类型校验完毕以后，这阶段就要对类的方法体（<code>Class</code>文件中的<code>Code</code>属性）进行校验分析，保证被校验类的方法在运行时不会做出危害<br>虚拟机安全的行为。</p>
+<h3 id="符号引用验证"><a href="#符号引用验证" class="headerlink" title="符号引用验证"></a>符号引用验证</h3><p>最后一个阶段的校验行为发生在虚拟机将符号引用转化为直接引用的时候，这个转化动作将在连接的第三阶段——解析阶段中发生。</p>
+<h2 id="准备"><a href="#准备" class="headerlink" title="准备"></a>准备</h2><p>准备阶段是正式为类中定义的变量（即静态变量，被<code>static</code>修饰的变量）分配内存并设置类变量<strong>初始值</strong>的阶段。</p>
+<p>需要注意上面所示的初始值是指变量的默认值。</p>
+<table>
+<thead>
+<tr>
+<th align="center">类型</th>
+<th align="center">默认值</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">int</td>
+<td align="center">0</td>
+</tr>
+<tr>
+<td align="center">long</td>
+<td align="center">0L</td>
+</tr>
+<tr>
+<td align="center">short</td>
+<td align="center">（short）0</td>
+</tr>
+<tr>
+<td align="center">char</td>
+<td align="center">‘\u0000’</td>
+</tr>
+<tr>
+<td align="center">byte</td>
+<td align="center">（byte）0</td>
+</tr>
+<tr>
+<td align="center">boolean</td>
+<td align="center">false</td>
+</tr>
+<tr>
+<td align="center">float</td>
+<td align="center">0.0f</td>
+</tr>
+<tr>
+<td align="center">double</td>
+<td align="center">0.0d</td>
+</tr>
+<tr>
+<td align="center">reference</td>
+<td align="center">null</td>
+</tr>
+</tbody></table>
+<p><font color="red">如果是定义成final类型，那么准备阶段的赋值就不不是默认值了，而是我们给的是什么值就是什么值</font></p>
+<h2 id="解析"><a href="#解析" class="headerlink" title="解析"></a>解析</h2><p>解析阶段是<code>Java</code>虚拟机将常量池内的符号引用替换为直接引用的过程。</p>
+<p>解析动作主要针对以下七种类型进行解析</p>
+<ol>
+<li>类或接口</li>
+<li>字段</li>
+<li>类方法</li>
+<li>接口方法</li>
+<li>方法类型</li>
+<li>方法句柄</li>
+<li>调用点限定符</li>
+</ol>
+<h2 id="初始化"><a href="#初始化" class="headerlink" title="初始化"></a>初始化</h2><p>之前介绍的几个类加载的动作里，除了在<strong>加载</strong>阶段用户应用程序可以通过自定义类加载器的方式局部参与外，其余动作都完全由<code>Java</code>虚拟机来主导控制。直到初始化阶段，<code>Java</code>虚拟机才真正开始执行类中编写的<code>Java</code>程序代码。</p>
+<h3 id="什么时候会初始化"><a href="#什么时候会初始化" class="headerlink" title="什么时候会初始化"></a>什么时候会初始化</h3><p>当执行下面的操作的时候如果一个类还没有执行初始化的操作，则需要先初始化</p>
+<ul>
+<li>使用<code>new</code>关键字<code>new</code>一个对象</li>
+<li>读取或设置一个类型的静态字段，但是如果是<code>final</code>类型的除外</li>
+<li>调用一个类型的静态方法</li>
+<li>使用<code>java.lang.reflect</code>包的方法对一个类型进行反射调用的时候</li>
+<li>当初始化的时候，如果一个父类还没有初始化，则需要先初始化父类</li>
+<li>虚拟机启动时，会先初始化主类(<code>main</code>方法所在的类)</li>
+<li>当一个接口中定义了<code>JDK 8</code>新加入的默认方法（被default关键字修饰的接口方法）时，如果有这个接口的实现类发生了初始化，那该接口要在其之前被初始化</li>
+</ul>
+]]></content>
+      <categories>
+        <category>java</category>
+        <category>jvm</category>
+      </categories>
+      <tags>
+        <tag>java</tag>
+        <tag>jvm</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>类加载器</title>
     <url>/learnerguo/70c5b892.html</url>
     <content><![CDATA[<h1 id="类加载"><a href="#类加载" class="headerlink" title="类加载"></a>类加载</h1><ul>
@@ -1385,122 +1578,53 @@
       </tags>
   </entry>
   <entry>
-    <title>类的加载过程</title>
-    <url>/learnerguo/3566c0bb.html</url>
-    <content><![CDATA[<h1 id="类加载机制"><a href="#类加载机制" class="headerlink" title="类加载机制"></a>类加载机制</h1><blockquote>
-<p>Java虚拟机把描述类的数据从Class文件加载到内存，并对数据进行校验、转换解析和初始化，最终形成可以被虚拟机直接使用的Java类型，这个过程被称作虚拟机的类加载机制</p>
-</blockquote>
+    <title>join方法详解</title>
+    <url>/learnerguo/c0259f40.html</url>
+    <content><![CDATA[<h1 id="join的使用"><a href="#join的使用" class="headerlink" title="join的使用"></a>join的使用</h1><h2 id="正常情形"><a href="#正常情形" class="headerlink" title="正常情形"></a>正常情形</h2><p><code>join</code>的目的是让调用线程等待被调用的线程执行完成之后再继续。</p>
+<ul>
+<li>对于<code>join</code>方法需要注意的是谁等待谁<ul>
+<li>调用<code>join</code>方法所在的线程需要等待调用<code>join</code>方法的对象线程执行完毕</li>
+</ul>
+</li>
+<li>下面代码案例中<code>thread.join()</code>和<code>thread2.join()</code>都是在<code>main</code>线程中调用的，所以是<code>main</code>线程要等其他线程，那么这里的其他线程是哪个线程呢？就是调用<code>join</code>的<code>thread</code>和<code>thread2</code>线程</li>
+</ul>
 <span id="more"></span>
 
-<h1 id="类加载过程"><a href="#类加载过程" class="headerlink" title="类加载过程"></a>类加载过程</h1><p>一个类型从被加载到虚拟机内存中开始，到卸载出内存为止会经历如下几个过程。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> testjoin;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">JoinDemo</span> <span class="keyword">implements</span> <span class="title class_">Runnable</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="type">JoinDemo</span> <span class="variable">joinDemo</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">JoinDemo</span>();</span><br><span class="line">        <span class="type">Thread</span> <span class="variable">thread</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Thread</span>(joinDemo);</span><br><span class="line">        <span class="type">Thread</span> <span class="variable">thread2</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Thread</span>(joinDemo);</span><br><span class="line">        thread.start();</span><br><span class="line">        thread2.start();</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            thread.join();</span><br><span class="line">            thread2.join();</span><br><span class="line">        &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">        System.out.println(<span class="string">&quot;子线程都执行完了&quot;</span>);</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">run</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            Thread.sleep(<span class="number">1000</span>);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">        System.out.println(Thread.currentThread().getName() + <span class="string">&quot;执行完毕&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>上面是正常的情形，也就是说<code>main</code>线程确实是等到另外两个线程执行完毕之后才执行的。</p>
+<h2 id="中断情形"><a href="#中断情形" class="headerlink" title="中断情形"></a>中断情形</h2><p>下面演示的是在子线程中中断了主线程，这样虽然主线程中调用了子线程的<code>join</code>方法，但是也有可能是主线程先执行完。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> testjoin;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">JoinDemoInterrupt</span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="comment">// 获取主线程的引用</span></span><br><span class="line">        <span class="type">Thread</span> <span class="variable">threadMain</span> <span class="operator">=</span> Thread.currentThread();</span><br><span class="line">        <span class="type">Thread</span> <span class="variable">thread</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Thread</span>(() -&gt; &#123;</span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                <span class="comment">// 中断主线程</span></span><br><span class="line">                threadMain.interrupt();</span><br><span class="line">                Thread.sleep(<span class="number">1000</span>);</span><br><span class="line">            &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">                e.printStackTrace();</span><br><span class="line">            &#125;</span><br><span class="line">            System.out.println(Thread.currentThread().getName() + <span class="string">&quot;执行完毕&quot;</span>);</span><br><span class="line">        &#125;);</span><br><span class="line">        thread.start();</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            thread.join();</span><br><span class="line">        &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">        System.out.println(<span class="string">&quot;子线程都执行完了&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>执行结果</p>
+<p><img src="/learnerguo/c0259f40.htm/image-20200505111440561.png" alt="image-20200505111440561"></p>
+<p>从上面截图可以看到实际上是主线程先执行完的。</p>
+<h2 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h2><p>上面中断的情形显然是不对，那么应该如何解决呢？其实在主线程被中断之后，应该通知子线程，通知子线程的方式就是中断子线程。所以代码也很简单，就是在上面的点啊基础上加一行代码即可。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> testjoin;</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">JoinDemoInterrupt</span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="comment">// 获取主线程的引用</span></span><br><span class="line">        <span class="type">Thread</span> <span class="variable">threadMain</span> <span class="operator">=</span> Thread.currentThread();</span><br><span class="line">        <span class="type">Thread</span> <span class="variable">thread</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Thread</span>(() -&gt; &#123;</span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                <span class="comment">// 中断主线程</span></span><br><span class="line">                threadMain.interrupt();</span><br><span class="line">                Thread.sleep(<span class="number">1000</span>);</span><br><span class="line">            &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">                e.printStackTrace();</span><br><span class="line">            &#125;</span><br><span class="line">            System.out.println(Thread.currentThread().getName() + <span class="string">&quot;执行完毕&quot;</span>);</span><br><span class="line">        &#125;);</span><br><span class="line">        thread.start();</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            thread.join();</span><br><span class="line">        &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">            <span class="comment">// 中断子线程</span></span><br><span class="line">            thread.interrupt();</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">        System.out.println(<span class="string">&quot;子线程都执行完了&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>上面的代码就加一一句<code>thread.interrupt();</code>这是中断子线程，但是需要注意的是不代表加上这一句话之后，子线程一定会先执行完。因为当调用<code>join</code>的线程被中断之后实际上是已经不会继续等其他线程执行完了。</p>
+<h1 id="join的原理"><a href="#join的原理" class="headerlink" title="join的原理"></a>join的原理</h1><p>我们来看一下<code>join</code>方法</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">synchronized</span> <span class="keyword">void</span> <span class="title function_">join</span><span class="params">(<span class="type">long</span> millis)</span></span><br><span class="line">    <span class="keyword">throws</span> InterruptedException &#123;</span><br><span class="line">        <span class="type">long</span> <span class="variable">base</span> <span class="operator">=</span> System.currentTimeMillis();</span><br><span class="line">        <span class="type">long</span> <span class="variable">now</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (millis &lt; <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">IllegalArgumentException</span>(<span class="string">&quot;timeout value is negative&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (millis == <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="keyword">while</span> (isAlive()) &#123;</span><br><span class="line">                wait(<span class="number">0</span>);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">while</span> (isAlive()) &#123;</span><br><span class="line">                <span class="type">long</span> <span class="variable">delay</span> <span class="operator">=</span> millis - now;</span><br><span class="line">                <span class="keyword">if</span> (delay &lt;= <span class="number">0</span>) &#123;</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                &#125;</span><br><span class="line">                wait(delay);</span><br><span class="line">                now = System.currentTimeMillis() - base;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<p>上面是<code>join</code>方法的源码，可以看出来实际上底层调用的就是<code>wait</code>，但是我们调用<code>wait</code>的时候是需要<code>notify</code>或者<code>notifyAll</code>方法来唤醒的，但是这里没有看到任何的<code>notify</code>方法的身影啊。其实这是因为每一个线程执行完成之后都会调用当前线程的<code>notify</code>方法。这是线程底层做的事情。</p>
+<h1 id="join的替代方式"><a href="#join的替代方式" class="headerlink" title="join的替代方式"></a>join的替代方式</h1><p>上面说每一个线程执行完成后都会调用当前线程的<code>notify</code>方法，那么我们是不是就可以使用<code>wait</code>方法来替换<code>join</code>方法呢？请看下面代码</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> testjoin;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">JoinDemoInterrupt</span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="comment">// 获取主线程的引用</span></span><br><span class="line">        <span class="type">Thread</span> <span class="variable">threadMain</span> <span class="operator">=</span> Thread.currentThread();</span><br><span class="line">        <span class="type">Thread</span> <span class="variable">thread</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Thread</span>(() -&gt; &#123;</span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                Thread.sleep(<span class="number">1000</span>);</span><br><span class="line">            &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">                e.printStackTrace();</span><br><span class="line">            &#125;</span><br><span class="line">            System.out.println(Thread.currentThread().getName() + <span class="string">&quot;执行完毕&quot;</span>);</span><br><span class="line">        &#125;);</span><br><span class="line">        thread.start();</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="comment">//thread.join();</span></span><br><span class="line">            <span class="keyword">synchronized</span> (thread) &#123;</span><br><span class="line">                thread.wait();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">        System.out.println(<span class="string">&quot;子线程都执行完了&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>执行结果和正常情形的执行结果是一样的。我们所做的就是将<code>thread.join()</code>方法替换为了</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">synchronized</span> (thread) &#123;</span><br><span class="line">  thread.wait();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 <ul>
-<li>加载</li>
-<li>验证</li>
-<li>准备</li>
-<li>解析</li>
-<li>初始化</li>
-<li>使用</li>
-<li>卸载</li>
-</ul>
-<p><font color="red">需要注意的是<strong>加载-&gt;验证-&gt;准备-&gt;初始化-&gt;卸载</strong>这五个操作的顺序是固定的，但是解析操作可以在初始化之前也可以在初始化之后，比如对于动态代理技术就是解析操作在初始化之后实现的</font></p>
-<p><img src="/learnerguo/3566c0bb.htm/image-20200426220535068.png" alt="image-20200426220535068"></p>
-<p>如上图所示，验证，准备和解析三个阶段合起来叫做<strong>连接</strong>阶段。</p>
-<h2 id="加载"><a href="#加载" class="headerlink" title="加载"></a>加载</h2><p><font color="red">需要注意的是<strong>加载</strong>和<strong>类加载</strong>这两个概念，<strong>加载</strong>是<strong>类加载</strong>的第一个阶段</font></p>
-<p>在加载阶段，虚拟机需要完成三件事</p>
-<ul>
-<li>通过一个类的全限定名来获取定义此类的二进制字节流。</li>
-<li>将这个字节流所代表的静态存储结构转化为方法区的运行时数据结构</li>
-<li>在内存中生成一个代表这个类的java.lang.Class对象，作为方法区这个类的各种数据的访问入口</li>
-</ul>
-<h2 id="验证"><a href="#验证" class="headerlink" title="验证"></a>验证</h2><p>验证目的是确保<code>Class</code>文件的字节流中包含的信息符合《Java虚拟机规范》的全部约束要求，保证这些信息被当作代码运行后不会危害虚拟机自身的安全。</p>
-<p>验证包含以下几个部分</p>
-<h3 id="文件格式验证"><a href="#文件格式验证" class="headerlink" title="文件格式验证"></a>文件格式验证</h3><p>验证字节流是否符合<code>Class</code>文件格式的规范，并且能被当前版本的虚拟机处理。</p>
-<h3 id="元数据验证"><a href="#元数据验证" class="headerlink" title="元数据验证"></a>元数据验证</h3><p>对字节码描述的信息进行语义分析，以保证其描述的信息符合《Java语言规范》的要求。主要包含以下几点：</p>
-<ul>
-<li>除了<code>Object</code>类外应该都有父类</li>
-<li>这个类的父类是否继承了不允许被继承的类（被<code>final</code>修饰的类）</li>
-<li>如果这个类不是抽象类，是否实现了其父类或接口之中要求实现的所有方法</li>
-<li>。。。</li>
-</ul>
-<h3 id="字节码验证"><a href="#字节码验证" class="headerlink" title="字节码验证"></a>字节码验证</h3><p>主要目的是通过数据流分析和控制流分析，确定程序语义是合法的、符合逻辑的。在第二阶段对元数据信息中的数据类型校验完毕以后，这阶段就要对类的方法体（<code>Class</code>文件中的<code>Code</code>属性）进行校验分析，保证被校验类的方法在运行时不会做出危害<br>虚拟机安全的行为。</p>
-<h3 id="符号引用验证"><a href="#符号引用验证" class="headerlink" title="符号引用验证"></a>符号引用验证</h3><p>最后一个阶段的校验行为发生在虚拟机将符号引用转化为直接引用的时候，这个转化动作将在连接的第三阶段——解析阶段中发生。</p>
-<h2 id="准备"><a href="#准备" class="headerlink" title="准备"></a>准备</h2><p>准备阶段是正式为类中定义的变量（即静态变量，被<code>static</code>修饰的变量）分配内存并设置类变量<strong>初始值</strong>的阶段。</p>
-<p>需要注意上面所示的初始值是指变量的默认值。</p>
-<table>
-<thead>
-<tr>
-<th align="center">类型</th>
-<th align="center">默认值</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center">int</td>
-<td align="center">0</td>
-</tr>
-<tr>
-<td align="center">long</td>
-<td align="center">0L</td>
-</tr>
-<tr>
-<td align="center">short</td>
-<td align="center">（short）0</td>
-</tr>
-<tr>
-<td align="center">char</td>
-<td align="center">‘\u0000’</td>
-</tr>
-<tr>
-<td align="center">byte</td>
-<td align="center">（byte）0</td>
-</tr>
-<tr>
-<td align="center">boolean</td>
-<td align="center">false</td>
-</tr>
-<tr>
-<td align="center">float</td>
-<td align="center">0.0f</td>
-</tr>
-<tr>
-<td align="center">double</td>
-<td align="center">0.0d</td>
-</tr>
-<tr>
-<td align="center">reference</td>
-<td align="center">null</td>
-</tr>
-</tbody></table>
-<p><font color="red">如果是定义成final类型，那么准备阶段的赋值就不不是默认值了，而是我们给的是什么值就是什么值</font></p>
-<h2 id="解析"><a href="#解析" class="headerlink" title="解析"></a>解析</h2><p>解析阶段是<code>Java</code>虚拟机将常量池内的符号引用替换为直接引用的过程。</p>
-<p>解析动作主要针对以下七种类型进行解析</p>
-<ol>
-<li>类或接口</li>
-<li>字段</li>
-<li>类方法</li>
-<li>接口方法</li>
-<li>方法类型</li>
-<li>方法句柄</li>
-<li>调用点限定符</li>
-</ol>
-<h2 id="初始化"><a href="#初始化" class="headerlink" title="初始化"></a>初始化</h2><p>之前介绍的几个类加载的动作里，除了在<strong>加载</strong>阶段用户应用程序可以通过自定义类加载器的方式局部参与外，其余动作都完全由<code>Java</code>虚拟机来主导控制。直到初始化阶段，<code>Java</code>虚拟机才真正开始执行类中编写的<code>Java</code>程序代码。</p>
-<h3 id="什么时候会初始化"><a href="#什么时候会初始化" class="headerlink" title="什么时候会初始化"></a>什么时候会初始化</h3><p>当执行下面的操作的时候如果一个类还没有执行初始化的操作，则需要先初始化</p>
-<ul>
-<li>使用<code>new</code>关键字<code>new</code>一个对象</li>
-<li>读取或设置一个类型的静态字段，但是如果是<code>final</code>类型的除外</li>
-<li>调用一个类型的静态方法</li>
-<li>使用<code>java.lang.reflect</code>包的方法对一个类型进行反射调用的时候</li>
-<li>当初始化的时候，如果一个父类还没有初始化，则需要先初始化父类</li>
-<li>虚拟机启动时，会先初始化主类(<code>main</code>方法所在的类)</li>
-<li>当一个接口中定义了<code>JDK 8</code>新加入的默认方法（被default关键字修饰的接口方法）时，如果有这个接口的实现类发生了初始化，那该接口要在其之前被初始化</li>
+<li>这里使用了<code>synchronized</code>是因为<code>wait</code>方法必须在同步代码块中使用</li>
+<li>这里的锁对象<code>thread</code>就是子线程的名称，这里需要注意的是替换后要想达到一样的效果这里的锁对象就必须是被等待线程的引用，因为上面说每一个线程执行完成后都会调用当前线程的<code>notify</code>方法，<code>wait</code>和<code>notify</code>必须是在同一个锁上面才会生效。</li>
 </ul>
 ]]></content>
       <categories>
         <category>java</category>
-        <category>jvm</category>
+        <category>多线程</category>
       </categories>
       <tags>
         <tag>java</tag>
-        <tag>jvm</tag>
+        <tag>多线程</tag>
       </tags>
   </entry>
   <entry>
@@ -1567,56 +1691,6 @@
       <tags>
         <tag>java</tag>
         <tag>反射</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>join方法详解</title>
-    <url>/learnerguo/c0259f40.html</url>
-    <content><![CDATA[<h1 id="join的使用"><a href="#join的使用" class="headerlink" title="join的使用"></a>join的使用</h1><h2 id="正常情形"><a href="#正常情形" class="headerlink" title="正常情形"></a>正常情形</h2><p><code>join</code>的目的是让调用线程等待被调用的线程执行完成之后再继续。</p>
-<ul>
-<li>对于<code>join</code>方法需要注意的是谁等待谁<ul>
-<li>调用<code>join</code>方法所在的线程需要等待调用<code>join</code>方法的对象线程执行完毕</li>
-</ul>
-</li>
-<li>下面代码案例中<code>thread.join()</code>和<code>thread2.join()</code>都是在<code>main</code>线程中调用的，所以是<code>main</code>线程要等其他线程，那么这里的其他线程是哪个线程呢？就是调用<code>join</code>的<code>thread</code>和<code>thread2</code>线程</li>
-</ul>
-<span id="more"></span>
-
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> testjoin;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">JoinDemo</span> <span class="keyword">implements</span> <span class="title class_">Runnable</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="type">JoinDemo</span> <span class="variable">joinDemo</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">JoinDemo</span>();</span><br><span class="line">        <span class="type">Thread</span> <span class="variable">thread</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Thread</span>(joinDemo);</span><br><span class="line">        <span class="type">Thread</span> <span class="variable">thread2</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Thread</span>(joinDemo);</span><br><span class="line">        thread.start();</span><br><span class="line">        thread2.start();</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            thread.join();</span><br><span class="line">            thread2.join();</span><br><span class="line">        &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">        System.out.println(<span class="string">&quot;子线程都执行完了&quot;</span>);</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">run</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            Thread.sleep(<span class="number">1000</span>);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">        System.out.println(Thread.currentThread().getName() + <span class="string">&quot;执行完毕&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>上面是正常的情形，也就是说<code>main</code>线程确实是等到另外两个线程执行完毕之后才执行的。</p>
-<h2 id="中断情形"><a href="#中断情形" class="headerlink" title="中断情形"></a>中断情形</h2><p>下面演示的是在子线程中中断了主线程，这样虽然主线程中调用了子线程的<code>join</code>方法，但是也有可能是主线程先执行完。</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> testjoin;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">JoinDemoInterrupt</span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="comment">// 获取主线程的引用</span></span><br><span class="line">        <span class="type">Thread</span> <span class="variable">threadMain</span> <span class="operator">=</span> Thread.currentThread();</span><br><span class="line">        <span class="type">Thread</span> <span class="variable">thread</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Thread</span>(() -&gt; &#123;</span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                <span class="comment">// 中断主线程</span></span><br><span class="line">                threadMain.interrupt();</span><br><span class="line">                Thread.sleep(<span class="number">1000</span>);</span><br><span class="line">            &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">                e.printStackTrace();</span><br><span class="line">            &#125;</span><br><span class="line">            System.out.println(Thread.currentThread().getName() + <span class="string">&quot;执行完毕&quot;</span>);</span><br><span class="line">        &#125;);</span><br><span class="line">        thread.start();</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            thread.join();</span><br><span class="line">        &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">        System.out.println(<span class="string">&quot;子线程都执行完了&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>执行结果</p>
-<p><img src="/learnerguo/c0259f40.htm/image-20200505111440561.png" alt="image-20200505111440561"></p>
-<p>从上面截图可以看到实际上是主线程先执行完的。</p>
-<h2 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h2><p>上面中断的情形显然是不对，那么应该如何解决呢？其实在主线程被中断之后，应该通知子线程，通知子线程的方式就是中断子线程。所以代码也很简单，就是在上面的点啊基础上加一行代码即可。</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> testjoin;</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">JoinDemoInterrupt</span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="comment">// 获取主线程的引用</span></span><br><span class="line">        <span class="type">Thread</span> <span class="variable">threadMain</span> <span class="operator">=</span> Thread.currentThread();</span><br><span class="line">        <span class="type">Thread</span> <span class="variable">thread</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Thread</span>(() -&gt; &#123;</span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                <span class="comment">// 中断主线程</span></span><br><span class="line">                threadMain.interrupt();</span><br><span class="line">                Thread.sleep(<span class="number">1000</span>);</span><br><span class="line">            &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">                e.printStackTrace();</span><br><span class="line">            &#125;</span><br><span class="line">            System.out.println(Thread.currentThread().getName() + <span class="string">&quot;执行完毕&quot;</span>);</span><br><span class="line">        &#125;);</span><br><span class="line">        thread.start();</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            thread.join();</span><br><span class="line">        &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">            <span class="comment">// 中断子线程</span></span><br><span class="line">            thread.interrupt();</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">        System.out.println(<span class="string">&quot;子线程都执行完了&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>上面的代码就加一一句<code>thread.interrupt();</code>这是中断子线程，但是需要注意的是不代表加上这一句话之后，子线程一定会先执行完。因为当调用<code>join</code>的线程被中断之后实际上是已经不会继续等其他线程执行完了。</p>
-<h1 id="join的原理"><a href="#join的原理" class="headerlink" title="join的原理"></a>join的原理</h1><p>我们来看一下<code>join</code>方法</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">synchronized</span> <span class="keyword">void</span> <span class="title function_">join</span><span class="params">(<span class="type">long</span> millis)</span></span><br><span class="line">    <span class="keyword">throws</span> InterruptedException &#123;</span><br><span class="line">        <span class="type">long</span> <span class="variable">base</span> <span class="operator">=</span> System.currentTimeMillis();</span><br><span class="line">        <span class="type">long</span> <span class="variable">now</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (millis &lt; <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">IllegalArgumentException</span>(<span class="string">&quot;timeout value is negative&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (millis == <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="keyword">while</span> (isAlive()) &#123;</span><br><span class="line">                wait(<span class="number">0</span>);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">while</span> (isAlive()) &#123;</span><br><span class="line">                <span class="type">long</span> <span class="variable">delay</span> <span class="operator">=</span> millis - now;</span><br><span class="line">                <span class="keyword">if</span> (delay &lt;= <span class="number">0</span>) &#123;</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                &#125;</span><br><span class="line">                wait(delay);</span><br><span class="line">                now = System.currentTimeMillis() - base;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
-
-<p>上面是<code>join</code>方法的源码，可以看出来实际上底层调用的就是<code>wait</code>，但是我们调用<code>wait</code>的时候是需要<code>notify</code>或者<code>notifyAll</code>方法来唤醒的，但是这里没有看到任何的<code>notify</code>方法的身影啊。其实这是因为每一个线程执行完成之后都会调用当前线程的<code>notify</code>方法。这是线程底层做的事情。</p>
-<h1 id="join的替代方式"><a href="#join的替代方式" class="headerlink" title="join的替代方式"></a>join的替代方式</h1><p>上面说每一个线程执行完成后都会调用当前线程的<code>notify</code>方法，那么我们是不是就可以使用<code>wait</code>方法来替换<code>join</code>方法呢？请看下面代码</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> testjoin;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">JoinDemoInterrupt</span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="comment">// 获取主线程的引用</span></span><br><span class="line">        <span class="type">Thread</span> <span class="variable">threadMain</span> <span class="operator">=</span> Thread.currentThread();</span><br><span class="line">        <span class="type">Thread</span> <span class="variable">thread</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Thread</span>(() -&gt; &#123;</span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                Thread.sleep(<span class="number">1000</span>);</span><br><span class="line">            &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">                e.printStackTrace();</span><br><span class="line">            &#125;</span><br><span class="line">            System.out.println(Thread.currentThread().getName() + <span class="string">&quot;执行完毕&quot;</span>);</span><br><span class="line">        &#125;);</span><br><span class="line">        thread.start();</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="comment">//thread.join();</span></span><br><span class="line">            <span class="keyword">synchronized</span> (thread) &#123;</span><br><span class="line">                thread.wait();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">        System.out.println(<span class="string">&quot;子线程都执行完了&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>执行结果和正常情形的执行结果是一样的。我们所做的就是将<code>thread.join()</code>方法替换为了</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">synchronized</span> (thread) &#123;</span><br><span class="line">  thread.wait();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>这里使用了<code>synchronized</code>是因为<code>wait</code>方法必须在同步代码块中使用</li>
-<li>这里的锁对象<code>thread</code>就是子线程的名称，这里需要注意的是替换后要想达到一样的效果这里的锁对象就必须是被等待线程的引用，因为上面说每一个线程执行完成后都会调用当前线程的<code>notify</code>方法，<code>wait</code>和<code>notify</code>必须是在同一个锁上面才会生效。</li>
-</ul>
-]]></content>
-      <categories>
-        <category>java</category>
-        <category>多线程</category>
-      </categories>
-      <tags>
-        <tag>java</tag>
-        <tag>多线程</tag>
       </tags>
   </entry>
   <entry>
@@ -2104,19 +2178,6 @@
       </tags>
   </entry>
   <entry>
-    <title>线程池</title>
-    <url>/learnerguo/de7c53fe.html</url>
-    <content><![CDATA[]]></content>
-      <categories>
-        <category>java</category>
-        <category>多线程</category>
-      </categories>
-      <tags>
-        <tag>java</tag>
-        <tag>多线程</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>线程间通信的几种方式</title>
     <url>/learnerguo/b232aaed.html</url>
     <content><![CDATA[<h1 id="什么是线程间通信"><a href="#什么是线程间通信" class="headerlink" title="什么是线程间通信"></a>什么是线程间通信</h1><span id="more"></span>
@@ -2218,6 +2279,167 @@
       </tags>
   </entry>
   <entry>
+    <title>线程池实现原理</title>
+    <url>/learnerguo/de7c53fe.html</url>
+    <content><![CDATA[<h1 id="1-为什么要使用线程池"><a href="#1-为什么要使用线程池" class="headerlink" title="1. 为什么要使用线程池"></a>1. 为什么要使用线程池</h1><ol>
+<li>线程的创建和销毁都需要消耗资源（cpu，内存）</li>
+<li>使用线程池可以预先创建好线程，开始使用时速度更快<span id="more"></span></li>
+</ol>
+<h1 id="2-线程池的设计思想"><a href="#2-线程池的设计思想" class="headerlink" title="2. 线程池的设计思想"></a>2. 线程池的设计思想</h1><h2 id="2-1-如何做到线程在执行完任务后不回收"><a href="#2-1-如何做到线程在执行完任务后不回收" class="headerlink" title="2.1. 如何做到线程在执行完任务后不回收"></a>2.1. 如何做到线程在执行完任务后不回收</h2><p>线程池就是要缓存线程，当一个任务执行完成之后，执行任务的线程可以不用回收，当有新的任务来到时复用当前线程来执行，平时线程执行的代码如下</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Thread</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">run</span><span class="params">()</span> &#123;</span><br><span class="line">    </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>线程的创建和销毁实际是底层的操作系统来实现的，当启动一个线程执行任务时，<code>run()</code> 方法就会执行，当 <code>run()</code> 执行完成之后当前的线程会自动销毁<br>那么如何做到线程不被销毁呢？其实只要让 <code>run()</code> 方法一直在执行就好了，比如加个 <code>while</code> 循环</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Thread</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">run</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">while</span>(<span class="literal">true</span>) &#123;</span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="2-2-线程空闲时也消耗资源怎么处理"><a href="#2-2-线程空闲时也消耗资源怎么处理" class="headerlink" title="2.2. 线程空闲时也消耗资源怎么处理"></a>2.2. 线程空闲时也消耗资源怎么处理</h2><ol>
+<li>为了做到将线程不回收，一直执行，所以使用将任务代码放在 <code>while(true)</code> 里面，但是这样做会出现即使没有任务时，这个线程也会一直消耗 cpu 资源，所以需要进一步优化</li>
+<li>优化方式也很简单，就是没有任务时就阻塞当前线程就好了，当有任务来到时再唤起当前线程进行执行</li>
+<li>所以线程池可以认为是一个 <code>生产者--消费者</code> 模型，提交任务的线程就是生产者，线程池自身就是消费者，线程池从阻塞队列中不断获取任务，有任务就执行，没有任务就阻塞自己</li>
+</ol>
+<h1 id="3-线程池创建方式"><a href="#3-线程池创建方式" class="headerlink" title="3. 线程池创建方式"></a>3. 线程池创建方式</h1><h2 id="3-1-Executors-类"><a href="#3-1-Executors-类" class="headerlink" title="3.1. Executors 类"></a>3.1. Executors 类</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Executors</span> &#123;</span><br><span class="line">    <span class="comment">// 创建固定数量线程的线程池</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> ExecutorService <span class="title function_">newFixedThreadPool</span><span class="params">(<span class="type">int</span> nThreads)</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">ThreadPoolExecutor</span>(nThreads, nThreads,</span><br><span class="line">                                      <span class="number">0L</span>, TimeUnit.MILLISECONDS,</span><br><span class="line">                                      <span class="keyword">new</span> <span class="title class_">LinkedBlockingQueue</span>&lt;Runnable&gt;());</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 创建单个线程的线程池 </span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> ExecutorService <span class="title function_">newSingleThreadExecutor</span><span class="params">(ThreadFactory threadFactory)</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">FinalizableDelegatedExecutorService</span></span><br><span class="line">            (<span class="keyword">new</span> <span class="title class_">ThreadPoolExecutor</span>(<span class="number">1</span>, <span class="number">1</span>,</span><br><span class="line">                                    <span class="number">0L</span>, TimeUnit.MILLISECONDS,</span><br><span class="line">                                    <span class="keyword">new</span> <span class="title class_">LinkedBlockingQueue</span>&lt;Runnable&gt;(),</span><br><span class="line">                                    threadFactory));</span><br><span class="line">    &#125;</span><br><span class="line">    ……</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="3-2-ThreadPoolExecutor"><a href="#3-2-ThreadPoolExecutor" class="headerlink" title="3.2. ThreadPoolExecutor"></a>3.2. ThreadPoolExecutor</h2><p>通过上面 <code>Executors</code> 类创建的线程池可以看到最终还是 <code>new ThreadPoolExecutor</code>, 但是直接使用 <code>Executors</code> 创建的线程池存在的问题时，要么线程数量没有限制，要么是队列的大小没有限制，所以一般情况下都不推荐使用 <code>Executors</code> 来直接创建线程池，而是手动通过 <code>ThreadPoolExecutor</code> 来创建， 比如下面这种方式</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="type">ThreadPoolExecutor</span> <span class="variable">threadPoolExecutor</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">ThreadPoolExecutor</span>(</span><br><span class="line">        <span class="number">5</span>,  <span class="comment">// 线程池核心线程数</span></span><br><span class="line">        <span class="number">10</span>,  <span class="comment">// 线程池最大线程数</span></span><br><span class="line">        <span class="number">1000</span>,  <span class="comment">// 线程池中超过corePoolSize数目的空闲线程最大存活时间</span></span><br><span class="line">        TimeUnit.MILLISECONDS,  <span class="comment">// 时间单位，毫秒</span></span><br><span class="line">        <span class="keyword">new</span> <span class="title class_">LinkedBlockingQueue</span>&lt;&gt;(<span class="number">50</span>),  <span class="comment">// 工作线程等待队列</span></span><br><span class="line">        Executors.defaultThreadFactory(),  <span class="comment">// 自定义线程工厂</span></span><br><span class="line">        <span class="keyword">new</span> <span class="title class_">ThreadPoolExecutor</span>.AbortPolicy());  <span class="comment">// 线程池满时的拒绝策略</span></span><br></pre></td></tr></table></figure>
+
+<h1 id="线程池的生命周期"><a href="#线程池的生命周期" class="headerlink" title="线程池的生命周期"></a>线程池的生命周期</h1><pre class="mermaid">flowchart LR
+    A[running]-- "执行shutdown()方法"--> B[Shutdown]
+    A-- "执行shutdonwNow() 方法"--> C[Stop]
+    B--"任务列表为空，所有任务都执行完成"-->D[TIDYING]
+    B--"shutdownNow()"-->C
+    C--所有任务都执行完成-->D
+    D--"执行 terminated() 方法"-->E[TERMINATED]</pre>
+<ul>
+<li>RUNNING：能接受新任务，并处理阻塞队列中的任务</li>
+<li>SHUTDOWN：不接受新任务，但是可以处理阻塞队列中的任务</li>
+<li>STOP：所有任务都不处理（正在运行的线程准备中断，阻塞队列中的任务不再处理，新的任务不会再接收）</li>
+<li>TIDYING：所有任务都终止，并且工作线程也为0，处于关闭之前的状态</li>
+<li>TERMINATED：已关闭。</li>
+</ul>
+<h1 id="线程池的处理流程"><a href="#线程池的处理流程" class="headerlink" title="线程池的处理流程"></a>线程池的处理流程</h1><pre class="mermaid">flowchart LR
+    A[提交任务] --> B{核心线程池是否已满}
+    B --否--> C[创建线程执行任务]
+    B --是--> D{队列是否已满}
+    D --否--> E[将任务存储在队列中]
+    D --是--> F{是否达到最大线程池}
+    F --否--> G[创建线程执行]
+    F --是--> J[执行拒绝策略]</pre>
+
+<h1 id="线程池相关核心变量"><a href="#线程池相关核心变量" class="headerlink" title="线程池相关核心变量"></a>线程池相关核心变量</h1><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">ThreadPoolExecutor</span> <span class="keyword">extends</span> <span class="title class_">AbstractExecutorService</span> &#123;</span><br><span class="line">    <span class="comment">// ctl 变量保存了两个信息，线程池的状态（高3位）和线程数量（低29位）</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> <span class="type">AtomicInteger</span> <span class="variable">ctl</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">AtomicInteger</span>(ctlOf(RUNNING, <span class="number">0</span>));</span><br><span class="line">    <span class="comment">// 统计线程数量的位数，这里表示使用32-3 = 29 位来表示线程的数量</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">int</span> <span class="variable">COUNT_BITS</span> <span class="operator">=</span> Integer.SIZE - <span class="number">3</span>;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">int</span> <span class="variable">COUNT_MASK</span> <span class="operator">=</span> (<span class="number">1</span> &lt;&lt; COUNT_BITS) - <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 线程池的几种状态</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">int</span> <span class="variable">RUNNING</span>    <span class="operator">=</span> -<span class="number">1</span> &lt;&lt; COUNT_BITS;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">int</span> <span class="variable">SHUTDOWN</span>   <span class="operator">=</span>  <span class="number">0</span> &lt;&lt; COUNT_BITS;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">int</span> <span class="variable">STOP</span>       <span class="operator">=</span>  <span class="number">1</span> &lt;&lt; COUNT_BITS;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">int</span> <span class="variable">TIDYING</span>    <span class="operator">=</span>  <span class="number">2</span> &lt;&lt; COUNT_BITS;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">int</span> <span class="variable">TERMINATED</span> <span class="operator">=</span>  <span class="number">3</span> &lt;&lt; COUNT_BITS;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>下面重点看一下 ctl 变量是如何通过一个变量存储两种信息的</p>
+<h2 id="线程数量"><a href="#线程数量" class="headerlink" title="线程数量"></a>线程数量</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">int</span> <span class="variable">COUNT_BITS</span> <span class="operator">=</span> Integer.SIZE - <span class="number">3</span>;</span><br></pre></td></tr></table></figure>
+<ol>
+<li>其中 <code>Integer.SIZE</code> &#x3D; 32, 所以 <code>COUNT_BITS</code> 就是29，也就是使用 29 位来表示线程的数量<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">int</span> <span class="variable">COUNT_MASK</span> <span class="operator">=</span> (<span class="number">1</span> &lt;&lt; COUNT_BITS) - <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">     <span class="number">1</span> &lt;&lt; COUNT_BITS</span><br><span class="line">      ​</span><br><span class="line">      <span class="number">1</span>的<span class="number">32</span>位<span class="number">2</span>进制是</span><br><span class="line">      <span class="number">0000</span> <span class="number">0000</span> <span class="number">0000</span> <span class="number">0000</span> <span class="number">0000</span> <span class="number">0000</span> <span class="number">0000</span> <span class="number">0001</span></span><br><span class="line">      ​</span><br><span class="line">      左移<span class="number">29</span>位</span><br><span class="line">      <span class="number">0010</span> <span class="number">0000</span> <span class="number">0000</span> <span class="number">0000</span> <span class="number">0000</span> <span class="number">0000</span> <span class="number">0000</span> <span class="number">0000</span></span><br><span class="line">      ​</span><br><span class="line">      再进行减一</span><br><span class="line">      <span class="number">000</span> <span class="number">11111</span> <span class="number">1111</span> <span class="number">1111</span> <span class="number">1111</span> <span class="number">1111</span> <span class="number">1111</span> <span class="number">1111</span></span><br><span class="line">      ​</span><br><span class="line">      所以线程池最大数目就是</span><br><span class="line">      <span class="number">000</span> <span class="number">11111</span> <span class="number">11111111</span> <span class="number">11111111</span> <span class="number">11111111</span></span><br></pre></td></tr></table></figure></li>
+<li>那怎么通过这 29 位来获取线程的数量呢，通过 <code>workderCountOf(int c)</code> 方法可以看到实际是通过位运算中的 <code>与</code> 操作来去除最高位来进行获取的</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="type">int</span> <span class="title function_">workerCountOf</span><span class="params">(<span class="type">int</span> c)</span>  &#123; </span><br><span class="line">    <span class="keyword">return</span> c &amp; COUNT_MASK; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="线程池的状态"><a href="#线程池的状态" class="headerlink" title="线程池的状态"></a>线程池的状态</h2><p>获取线程池状态的方法是 <code>runStateOf()</code></p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="type">int</span> <span class="title function_">runStateOf</span><span class="params">(<span class="type">int</span> c)</span>     &#123;</span><br><span class="line">     <span class="keyword">return</span> c &amp; ~COUNT_MASK; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>可以看到分成了两步</p>
+<ol>
+<li>对 <code>COUNT_MASK</code> 取反，前面已经知道 <code>COUNT_MASK</code> 前面三位是0，最后29位是1， 取反则是前面三位是1，最后29位是0</li>
+<li><code>与</code> 操作和计算线程数量时是一样的，是为了去除后面29位数，只需要计算前面三位的数即可</li>
+</ol>
+<h1 id="线程池核心问题"><a href="#线程池核心问题" class="headerlink" title="线程池核心问题"></a>线程池核心问题</h1><h2 id="线程池核心线程什么时候创建"><a href="#线程池核心线程什么时候创建" class="headerlink" title="线程池核心线程什么时候创建"></a>线程池核心线程什么时候创建</h2><ol>
+<li>默认情况下不会预先创建线程，所以核心线程也是在有任务来的时候才会创建</li>
+<li>在 <code>ThreadPoolExecutor</code> 类中提供了两个方法</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">ThreadPoolExecutor</span> <span class="keyword">extends</span> <span class="title class_">AbstractExecutorService</span> &#123;</span><br><span class="line">    <span class="comment">// 预先启动一个核心线程</span></span><br><span class="line">    <span class="keyword">public</span> <span class="type">boolean</span> <span class="title function_">prestartCoreThread</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> workerCountOf(ctl.get()) &lt; corePoolSize &amp;&amp;</span><br><span class="line">            addWorker(<span class="literal">null</span>, <span class="literal">true</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 预先启动所有核心线程</span></span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">prestartAllCoreThreads</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="type">int</span> <span class="variable">n</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">while</span> (addWorker(<span class="literal">null</span>, <span class="literal">true</span>))</span><br><span class="line">            ++n;</span><br><span class="line">        <span class="keyword">return</span> n;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>通过上面两个方法可知，在创建线程池之后（提交任务之前，也就是调用 execute 之前）是可以调用这两个方法来预先创建核心线程的</p>
+<h2 id="线程池的核心线程是否会被回收"><a href="#线程池的核心线程是否会被回收" class="headerlink" title="线程池的核心线程是否会被回收"></a>线程池的核心线程是否会被回收</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">ThreadPoolExecutor</span> <span class="keyword">extends</span> <span class="title class_">AbstractExecutorService</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">allowCoreThreadTimeOut</span><span class="params">(<span class="type">boolean</span> value)</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (value &amp;&amp; keepAliveTime &lt;= <span class="number">0</span>)</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">IllegalArgumentException</span>(<span class="string">&quot;Core threads must have nonzero keep alive times&quot;</span>);</span><br><span class="line">        <span class="keyword">if</span> (value != allowCoreThreadTimeOut) &#123;</span><br><span class="line">            allowCoreThreadTimeOut = value;</span><br><span class="line">            <span class="keyword">if</span> (value)</span><br><span class="line">                interruptIdleWorkers();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在 <code>ThreadPoolExecutor</code> 类中有提供 <code>allowCoreThreadTimeOut(boolean)</code> 方法来设置当达到超时时间时，核心线程也可以被回收掉</p>
+<h2 id="核心线程数量和最大先吃数量动态修改"><a href="#核心线程数量和最大先吃数量动态修改" class="headerlink" title="核心线程数量和最大先吃数量动态修改"></a>核心线程数量和最大先吃数量动态修改</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 动态修改核心线程数量</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">setCorePoolSize</span><span class="params">(<span class="type">int</span> corePoolSize)</span> &#123;</span><br><span class="line">    ……</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 动态修改最大线程数量</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">setMaximumPoolSize</span><span class="params">(<span class="type">int</span> maximumPoolSize)</span> &#123;</span><br><span class="line">    ……</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>上面有写到可以动态修改线程池的核心线程和最大线程数量，那么这么设计的原因是什么呢？说到这个问题就牵扯到另外一个问题，如何合理设置线程池的线程数量大小？对于线程池数量大小的设置问题有多种建议，比如</p>
+<ol>
+<li>CPU密集型，线程池大小设置为N+1， IO密集型，线程池大小设置为2N+1（N指的是cpu核心数）</li>
+<li>线程数&#x3D;CPU核数 *（1+线程等待时间 &#x2F; 线程时间运行时间）</li>
+</ol>
+<p>对于方式2是结合了实际的业务，但是线程等待时间，线程运行时间都是需要 <code>监控</code> 线程环境才可以得知的，既然涉及到 <code>监控</code> 就说明这个值是需要动态去修改的，所以才会需要提供这样两个修改线程数量的方法</p>
+]]></content>
+      <categories>
+        <category>java</category>
+        <category>多线程</category>
+      </categories>
+      <tags>
+        <tag>java</tag>
+        <tag>多线程</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>final和finally和finalize</title>
+    <url>/learnerguo/feb6d824.html</url>
+    <content><![CDATA[<p>要想区分这几个关键字的不同之处，就需要弄清楚每一个关键字的本来含义，也就是说为什么想要设置这样的一个关键字，只能搞清楚了一个关键字的本来含义才能明白他们的本质区别。</p>
+<span id="more"></span>
+
+<h1 id="final"><a href="#final" class="headerlink" title="final"></a>final</h1><p>从作用上来看，<code>final</code>是可以用来修饰类，方法，变量。并且都有不同的含义。</p>
+<h2 id="修饰Class"><a href="#修饰Class" class="headerlink" title="修饰Class"></a>修饰Class</h2><p>被<code>final</code>修饰的类是不可以被继承的，也就是该类不可扩展，不可变了。</p>
+<h2 id="修饰方法"><a href="#修饰方法" class="headerlink" title="修饰方法"></a>修饰方法</h2><p>对于被<code>final</code>修饰的方法是不可以被重写的，也就是该方法不可变了。</p>
+<h2 id="修饰变量"><a href="#修饰变量" class="headerlink" title="修饰变量"></a>修饰变量</h2><p>对于被<code>final</code>修饰的变量是不可以被改变的。这也是说不可变。</p>
+<h3 id="引用与非引用"><a href="#引用与非引用" class="headerlink" title="引用与非引用"></a>引用与非引用</h3><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> example.testfinal;</span><br><span class="line"><span class="keyword">import</span> java.util.ArrayList;</span><br><span class="line"><span class="keyword">import</span> java.util.List;</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">FinalDemo</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="keyword">final</span> <span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">6</span>;</span><br><span class="line">        <span class="keyword">final</span> String a;</span><br><span class="line">        <span class="comment">//i = 10; 错误</span></span><br><span class="line">        <span class="keyword">final</span> List&lt;String&gt; list = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;();</span><br><span class="line">        list.add(<span class="string">&quot;10&quot;</span>);</span><br><span class="line">        list.add(<span class="string">&quot;20&quot;</span>);</span><br><span class="line">        <span class="comment">//list = new ArrayList&lt;&gt;(); 错误</span></span><br><span class="line">        a = <span class="string">&quot;hello&quot;</span>;</span><br><span class="line">        <span class="comment">//a = &quot;world&quot;; 错误</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>可以看到上面的代码，无论是什么类型，只要是被<code>final</code>修饰就<code>只能赋值一次</code>。但是对于引用类型和非引用类型还是有一点区别的，可以看到非引用类型就是变量的值不可变。而引用类型如图所示：</p>
+<p><img src="/learnerguo/feb6d824.htm/image-20200303084332313.png" alt="image-20200303084332313"></p>
+<p>不可变指的是栈中的变量保存的指向堆中的地址是不可变的，但是堆中的对象可以变，就像上面的代码中写的一样，<code>list</code>依然可以添加元素。</p>
+<h2 id="共同点"><a href="#共同点" class="headerlink" title="共同点"></a>共同点</h2><p>从上面的描述中可以都可以看到一个共同的字眼，就是不可变。其实这也是<code>final</code>关键字的本来含义，就是只有是被<code>final</code>修饰的内容是不想被改变的。要知道我们不是一个人在开发，既然很多人要协作，那么有些不想被别人改变的内容就可以通过<code>final</code>关键字来修饰，这样别人就知道这些变量或方法或类是不想被改变的。</p>
+<h1 id="finally"><a href="#finally" class="headerlink" title="finally"></a>finally</h1><p><code>finally</code>是<code>java</code>为了保证重点代码一定被执行，通常是用来进行释放资源的操作。但是<code>java7</code>之后推荐使用<code>try-with-resource</code>来释放资源。	</p>
+<h2 id="finally的本质"><a href="#finally的本质" class="headerlink" title="finally的本质"></a>finally的本质</h2><p>上面说<code>finally</code>的作用是保证重点代码都可以被执行，那么是如何保证的呢。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> example.testpackage;</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">FinallyDemo4</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        one();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">one</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            i = <span class="number">10</span>;</span><br><span class="line">        &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">            i = <span class="number">20</span>;</span><br><span class="line">        &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">            i = <span class="number">30</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>现在使用反编译命令  <code>javap -p -v -l FinallyDemo4.class</code>来看一下反编译之后的字节码文件。</p>
+<p><img src="/learnerguo/feb6d824.htm/image-20200303193845304.png" alt="image-20200303193845304"></p>
+<p>通过分析编译后的字节码可知，之所以说<code>finally</code>中的代码一定会被执行到，是因为其实是将<code>finally</code>中的代码既拷贝到了<code>try</code>当中，也拷贝到了<code>catch</code>当中，所以无论代码有没有发生异常，<code>finally</code>中的代码都会执行到。</p>
+<h2 id="try-with-resources"><a href="#try-with-resources" class="headerlink" title="try-with-resources"></a>try-with-resources</h2><p><strong><code>jdk7</code>之前</strong></p>
+<p>平时我们经常会使用的输入流和输出流的，这两个流使用完成之后都是需要进行关闭，一般的操作如下面的代码</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> example.testpackage;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.io.*;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">CloseResource</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="type">InputStream</span> <span class="variable">inputStream</span> <span class="operator">=</span> <span class="literal">null</span>;</span><br><span class="line">        <span class="type">OutputStream</span> <span class="variable">outputStream</span> <span class="operator">=</span> <span class="literal">null</span>;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            inputStream = <span class="keyword">new</span> <span class="title class_">FileInputStream</span>(<span class="string">&quot;D:/axis.log&quot;</span>);</span><br><span class="line">            outputStream = <span class="keyword">new</span> <span class="title class_">FileOutputStream</span>(<span class="string">&quot;E:/axis.log&quot;</span>);</span><br><span class="line">            <span class="comment">// 缓冲区</span></span><br><span class="line">            <span class="type">byte</span>[] bytes = <span class="keyword">new</span> <span class="title class_">byte</span>[<span class="number">1024</span>];</span><br><span class="line">            <span class="type">int</span> <span class="variable">len</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">            <span class="keyword">while</span> ((len = inputStream.read(bytes)) != -<span class="number">1</span>) &#123;</span><br><span class="line">                outputStream.write(bytes, <span class="number">0</span>, len);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; <span class="keyword">catch</span> (FileNotFoundException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">            <span class="keyword">if</span> (inputStream != <span class="literal">null</span>) &#123;</span><br><span class="line">                <span class="keyword">try</span> &#123;</span><br><span class="line">                    inputStream.close();</span><br><span class="line">                &#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">                    e.printStackTrace();</span><br><span class="line"></span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span> (outputStream != <span class="literal">null</span>) &#123;</span><br><span class="line">                <span class="keyword">try</span> &#123;</span><br><span class="line">                    outputStream.close();</span><br><span class="line">                &#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">                    e.printStackTrace();</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>可以看到上面有很多与业务代码无关的代码。</p>
+<p><strong><code>jdk7</code>及以后</strong></p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">CloseResource</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        withResource();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">withResource</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">try</span>(<span class="type">InputStream</span> <span class="variable">inputStream</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">FileInputStream</span>(<span class="string">&quot;D:/axis.log&quot;</span>);</span><br><span class="line">        <span class="type">OutputStream</span> <span class="variable">outputStream</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">FileOutputStream</span>(<span class="string">&quot;E:/axis.log&quot;</span>))&#123;</span><br><span class="line">            <span class="comment">// 缓冲区</span></span><br><span class="line">            <span class="type">byte</span>[] bytes = <span class="keyword">new</span> <span class="title class_">byte</span>[<span class="number">1024</span>];</span><br><span class="line">            <span class="type">int</span> <span class="variable">len</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">            <span class="keyword">while</span> ((len = inputStream.read(bytes)) != -<span class="number">1</span>) &#123;</span><br><span class="line">                outputStream.write(bytes, <span class="number">0</span>, len);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; <span class="keyword">catch</span> (FileNotFoundException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>使用<code>try-with-resource</code>代码会简单很多，做法也很简单，就是将需要关闭的资源定义在<code>try()</code>的括号中。</p>
+<h2 id="finally不执行"><a href="#finally不执行" class="headerlink" title="finally不执行"></a>finally不执行</h2><p>虽然说<code>finally</code>的目的是为了让重要的代码 <strong>一定</strong>可以执行到，但是这里的一定也不是绝对的，比如下面的代码</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> example.testpackage;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">FinallyDemo</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            System.out.println(<span class="string">&quot;try块&quot;</span>);</span><br><span class="line">            System.exit(<span class="number">1</span>);</span><br><span class="line">        &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">            System.out.println(<span class="string">&quot;finally&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>如果在<code>try</code>块里面执行了 <code>System.exit(1)</code>之后，在<code>finally</code>中的内容就不会执行了，因为执行了<code>System.exit(1)</code>实际上是已经退出了<code>jvm</code>虚拟机。</p>
+<h2 id="多个位置的return的问题"><a href="#多个位置的return的问题" class="headerlink" title="多个位置的return的问题"></a>多个位置的return的问题</h2><p>注意：如果在<code>finally</code>中写了<code>return</code>会吞掉异常。</p>
+<h3 id="只有try中有return"><a href="#只有try中有return" class="headerlink" title="只有try中有return"></a>只有try中有return</h3><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> example.testpackage;</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">FinallyDemo4</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        System.out.println(one());</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="type">int</span> <span class="title function_">one</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            i = <span class="number">10</span>;</span><br><span class="line">            <span class="keyword">return</span> i;</span><br><span class="line">        &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">            i = <span class="number">20</span>;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">RuntimeException</span>();</span><br><span class="line">        &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">            i = <span class="number">30</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>上面的代码中只有在<code>try</code>中有<code>return</code>，但是在<code>finally</code>中修改了<code>i</code>的值，那么返回的结果是什么呢？看一下反编译后的字节码文件 <code>javap -p -v -l FinallyDemo4.class</code></p>
+<p><img src="/learnerguo/feb6d824.htm/image-20200303195339178.png" alt="image-20200303195339178"></p>
+<p>通过分析编译后的字节码可以返回的结果是10，也就是说虽然<code>finally</code>中修改了变量的值，但是返回的还是<code>try</code>块中的值。</p>
+<h3 id="try和finally中都有return"><a href="#try和finally中都有return" class="headerlink" title="try和finally中都有return"></a>try和finally中都有return</h3><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> example.testpackage;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">FinallyDemo4</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        System.out.println(one());</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="type">int</span> <span class="title function_">one</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            i = <span class="number">10</span>;</span><br><span class="line">            <span class="keyword">return</span> i;</span><br><span class="line">        &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">            i = <span class="number">20</span>;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">RuntimeException</span>();</span><br><span class="line">        &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">            i = <span class="number">30</span>;</span><br><span class="line">            <span class="keyword">return</span> i;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>看下编译后的字节码文件</p>
+<p><img src="/learnerguo/feb6d824.htm/image-20200303195954280.png" alt="image-20200303195954280"></p>
+<p>由上面的分析可知，当<code>try</code>和<code>finally</code>中都有<code>return</code>的时候，最终返回的是<code>finally</code>中修改的值。</p>
+<h3 id="try和catch和finally中都有"><a href="#try和catch和finally中都有" class="headerlink" title="try和catch和finally中都有"></a>try和catch和finally中都有</h3><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> example.testpackage;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">FinallyDemo4</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        System.out.println(one());</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="type">int</span> <span class="title function_">one</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            i = <span class="number">10</span>;</span><br><span class="line">            <span class="type">int</span> <span class="variable">b</span> <span class="operator">=</span> <span class="number">1</span> / <span class="number">0</span>;</span><br><span class="line">            <span class="keyword">return</span> i;</span><br><span class="line">        &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">            i = <span class="number">20</span>;</span><br><span class="line">            <span class="keyword">return</span> i;</span><br><span class="line">        &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">            i = <span class="number">30</span>;</span><br><span class="line">            <span class="keyword">return</span> i;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>看上面的代码，三个块中都有<code>return</code>，并且发生了异常，此时来看下编译后的字节码</p>
+<p><img src="/learnerguo/feb6d824.htm/image-20200303201301427.png" alt="image-20200303201301427"></p>
+<p>通过上面的分析可知，最终返回的是30</p>
+<h2 id="finally中使用return吞掉异常"><a href="#finally中使用return吞掉异常" class="headerlink" title="finally中使用return吞掉异常"></a>finally中使用return吞掉异常</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> example.testpackage;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">FinallyDemo3</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> one();</span><br><span class="line">        System.out.println(i);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="type">int</span> <span class="title function_">one</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="type">int</span> <span class="variable">a</span> <span class="operator">=</span> <span class="number">1</span> /<span class="number">0</span>;</span><br><span class="line">            <span class="keyword">return</span> <span class="number">10</span>;</span><br><span class="line">        &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="number">20</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>上面的代码会输出的结果是20，而且也不会有异常信息。看一下编译后的字节码中<code>one</code>方法的信息</p>
+<p><img src="/learnerguo/feb6d824.htm/image-20200303194149195.png" alt="image-20200303194149195"></p>
+<p>现在去掉<code>finally</code>中的<code>return</code>，再反编译看一下</p>
+<p><img src="/learnerguo/feb6d824.htm/image-20200303194348354.png" alt="image-20200303194348354"></p>
+<p>可以看到最后是用<code>athrow</code>的，<strong>所以我们写代码是最好是不要在<code>finally</code>中写<code>return</code>语句。</strong></p>
+<h1 id="finalize"><a href="#finalize" class="headerlink" title="finalize"></a>finalize</h1><p>在<code>java</code>垃圾回收中，使用的可达性分析算法来判断一个垃圾是不是可以被回收，但是即使在可达性分析中该对象是不可达的，也不会立即被回收。此时他们暂时处于缓刑阶段，要宣告一个对象死亡，至少需要经历<strong>两次标记过程</strong></p>
+<ul>
+<li>如果对象在进行可达性分析后发现没有与<code>GC Root</code>相连接的引用链，那么将会被第一次标记并且进行一次筛选，筛选的条件是此对象是否有必要执行<code>finalize()</code>方法，当对象没有覆盖<code>finalize()</code>方法时，或者<code>finalize()</code>方法已经被虚拟机调用过，虚拟机将这两种情形视为<strong>“没有必要执行”</strong></li>
+<li>如果该对象判断为有必要执行<code>finalize()</code>方法，那么该对象将中被放置在一个叫做<code>F-Queue</code>队列中，并且在稍后由一个虚拟机自动建立的，优先级低的<code>Finalizer</code>线程去执行它。<code>finalize()</code>方法是对象逃脱死亡命运的最后一次机会，稍后<code>GC</code>将对<code>F-Queue</code>中的对象进行第二次小规模的标记，如果对象在<code>finalize()</code>中成功拯救自己(只要重新与引用链上的任何一个对象建立关联即可，比如将自己(<code>this</code>关键字)赋值给某个类变量或对象的成员变量，那么在第二次标记的时候会被将它移除“<strong>即将回收</strong>”的集合)，如果对象在此时还没有逃脱，那就说明需要被回收了。</li>
+</ul>
+<p>所以<code>finalize</code>可以用于对象自救，但是这种方式最好不要使用，效率很低。</p>
+]]></content>
+      <categories>
+        <category>java</category>
+        <category>异常</category>
+      </categories>
+      <tags>
+        <tag>java</tag>
+        <tag>异常</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>枚举</title>
     <url>/learnerguo/633a03ca.html</url>
     <content><![CDATA[<h1 id="基本的枚举定义"><a href="#基本的枚举定义" class="headerlink" title="基本的枚举定义"></a>基本的枚举定义</h1><p><code>enum</code> 的全称为 <code>enumeration</code>， 是 <code>JDK 1.5</code>  中引入的新特性，存放在 <code>java.lang</code> 包中。</p>
@@ -2306,81 +2528,6 @@
       <tags>
         <tag>java</tag>
         <tag>枚举</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>final和finally和finalize</title>
-    <url>/learnerguo/feb6d824.html</url>
-    <content><![CDATA[<p>要想区分这几个关键字的不同之处，就需要弄清楚每一个关键字的本来含义，也就是说为什么想要设置这样的一个关键字，只能搞清楚了一个关键字的本来含义才能明白他们的本质区别。</p>
-<span id="more"></span>
-
-<h1 id="final"><a href="#final" class="headerlink" title="final"></a>final</h1><p>从作用上来看，<code>final</code>是可以用来修饰类，方法，变量。并且都有不同的含义。</p>
-<h2 id="修饰Class"><a href="#修饰Class" class="headerlink" title="修饰Class"></a>修饰Class</h2><p>被<code>final</code>修饰的类是不可以被继承的，也就是该类不可扩展，不可变了。</p>
-<h2 id="修饰方法"><a href="#修饰方法" class="headerlink" title="修饰方法"></a>修饰方法</h2><p>对于被<code>final</code>修饰的方法是不可以被重写的，也就是该方法不可变了。</p>
-<h2 id="修饰变量"><a href="#修饰变量" class="headerlink" title="修饰变量"></a>修饰变量</h2><p>对于被<code>final</code>修饰的变量是不可以被改变的。这也是说不可变。</p>
-<h3 id="引用与非引用"><a href="#引用与非引用" class="headerlink" title="引用与非引用"></a>引用与非引用</h3><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> example.testfinal;</span><br><span class="line"><span class="keyword">import</span> java.util.ArrayList;</span><br><span class="line"><span class="keyword">import</span> java.util.List;</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">FinalDemo</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="keyword">final</span> <span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">6</span>;</span><br><span class="line">        <span class="keyword">final</span> String a;</span><br><span class="line">        <span class="comment">//i = 10; 错误</span></span><br><span class="line">        <span class="keyword">final</span> List&lt;String&gt; list = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;();</span><br><span class="line">        list.add(<span class="string">&quot;10&quot;</span>);</span><br><span class="line">        list.add(<span class="string">&quot;20&quot;</span>);</span><br><span class="line">        <span class="comment">//list = new ArrayList&lt;&gt;(); 错误</span></span><br><span class="line">        a = <span class="string">&quot;hello&quot;</span>;</span><br><span class="line">        <span class="comment">//a = &quot;world&quot;; 错误</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>可以看到上面的代码，无论是什么类型，只要是被<code>final</code>修饰就<code>只能赋值一次</code>。但是对于引用类型和非引用类型还是有一点区别的，可以看到非引用类型就是变量的值不可变。而引用类型如图所示：</p>
-<p><img src="/learnerguo/feb6d824.htm/image-20200303084332313.png" alt="image-20200303084332313"></p>
-<p>不可变指的是栈中的变量保存的指向堆中的地址是不可变的，但是堆中的对象可以变，就像上面的代码中写的一样，<code>list</code>依然可以添加元素。</p>
-<h2 id="共同点"><a href="#共同点" class="headerlink" title="共同点"></a>共同点</h2><p>从上面的描述中可以都可以看到一个共同的字眼，就是不可变。其实这也是<code>final</code>关键字的本来含义，就是只有是被<code>final</code>修饰的内容是不想被改变的。要知道我们不是一个人在开发，既然很多人要协作，那么有些不想被别人改变的内容就可以通过<code>final</code>关键字来修饰，这样别人就知道这些变量或方法或类是不想被改变的。</p>
-<h1 id="finally"><a href="#finally" class="headerlink" title="finally"></a>finally</h1><p><code>finally</code>是<code>java</code>为了保证重点代码一定被执行，通常是用来进行释放资源的操作。但是<code>java7</code>之后推荐使用<code>try-with-resource</code>来释放资源。	</p>
-<h2 id="finally的本质"><a href="#finally的本质" class="headerlink" title="finally的本质"></a>finally的本质</h2><p>上面说<code>finally</code>的作用是保证重点代码都可以被执行，那么是如何保证的呢。</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> example.testpackage;</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">FinallyDemo4</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        one();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">one</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            i = <span class="number">10</span>;</span><br><span class="line">        &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">            i = <span class="number">20</span>;</span><br><span class="line">        &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">            i = <span class="number">30</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>现在使用反编译命令  <code>javap -p -v -l FinallyDemo4.class</code>来看一下反编译之后的字节码文件。</p>
-<p><img src="/learnerguo/feb6d824.htm/image-20200303193845304.png" alt="image-20200303193845304"></p>
-<p>通过分析编译后的字节码可知，之所以说<code>finally</code>中的代码一定会被执行到，是因为其实是将<code>finally</code>中的代码既拷贝到了<code>try</code>当中，也拷贝到了<code>catch</code>当中，所以无论代码有没有发生异常，<code>finally</code>中的代码都会执行到。</p>
-<h2 id="try-with-resources"><a href="#try-with-resources" class="headerlink" title="try-with-resources"></a>try-with-resources</h2><p><strong><code>jdk7</code>之前</strong></p>
-<p>平时我们经常会使用的输入流和输出流的，这两个流使用完成之后都是需要进行关闭，一般的操作如下面的代码</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> example.testpackage;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.io.*;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">CloseResource</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="type">InputStream</span> <span class="variable">inputStream</span> <span class="operator">=</span> <span class="literal">null</span>;</span><br><span class="line">        <span class="type">OutputStream</span> <span class="variable">outputStream</span> <span class="operator">=</span> <span class="literal">null</span>;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            inputStream = <span class="keyword">new</span> <span class="title class_">FileInputStream</span>(<span class="string">&quot;D:/axis.log&quot;</span>);</span><br><span class="line">            outputStream = <span class="keyword">new</span> <span class="title class_">FileOutputStream</span>(<span class="string">&quot;E:/axis.log&quot;</span>);</span><br><span class="line">            <span class="comment">// 缓冲区</span></span><br><span class="line">            <span class="type">byte</span>[] bytes = <span class="keyword">new</span> <span class="title class_">byte</span>[<span class="number">1024</span>];</span><br><span class="line">            <span class="type">int</span> <span class="variable">len</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">            <span class="keyword">while</span> ((len = inputStream.read(bytes)) != -<span class="number">1</span>) &#123;</span><br><span class="line">                outputStream.write(bytes, <span class="number">0</span>, len);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; <span class="keyword">catch</span> (FileNotFoundException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">            <span class="keyword">if</span> (inputStream != <span class="literal">null</span>) &#123;</span><br><span class="line">                <span class="keyword">try</span> &#123;</span><br><span class="line">                    inputStream.close();</span><br><span class="line">                &#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">                    e.printStackTrace();</span><br><span class="line"></span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span> (outputStream != <span class="literal">null</span>) &#123;</span><br><span class="line">                <span class="keyword">try</span> &#123;</span><br><span class="line">                    outputStream.close();</span><br><span class="line">                &#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">                    e.printStackTrace();</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>可以看到上面有很多与业务代码无关的代码。</p>
-<p><strong><code>jdk7</code>及以后</strong></p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">CloseResource</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        withResource();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">withResource</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">try</span>(<span class="type">InputStream</span> <span class="variable">inputStream</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">FileInputStream</span>(<span class="string">&quot;D:/axis.log&quot;</span>);</span><br><span class="line">        <span class="type">OutputStream</span> <span class="variable">outputStream</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">FileOutputStream</span>(<span class="string">&quot;E:/axis.log&quot;</span>))&#123;</span><br><span class="line">            <span class="comment">// 缓冲区</span></span><br><span class="line">            <span class="type">byte</span>[] bytes = <span class="keyword">new</span> <span class="title class_">byte</span>[<span class="number">1024</span>];</span><br><span class="line">            <span class="type">int</span> <span class="variable">len</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">            <span class="keyword">while</span> ((len = inputStream.read(bytes)) != -<span class="number">1</span>) &#123;</span><br><span class="line">                outputStream.write(bytes, <span class="number">0</span>, len);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; <span class="keyword">catch</span> (FileNotFoundException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>使用<code>try-with-resource</code>代码会简单很多，做法也很简单，就是将需要关闭的资源定义在<code>try()</code>的括号中。</p>
-<h2 id="finally不执行"><a href="#finally不执行" class="headerlink" title="finally不执行"></a>finally不执行</h2><p>虽然说<code>finally</code>的目的是为了让重要的代码 <strong>一定</strong>可以执行到，但是这里的一定也不是绝对的，比如下面的代码</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> example.testpackage;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">FinallyDemo</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            System.out.println(<span class="string">&quot;try块&quot;</span>);</span><br><span class="line">            System.exit(<span class="number">1</span>);</span><br><span class="line">        &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">            System.out.println(<span class="string">&quot;finally&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>如果在<code>try</code>块里面执行了 <code>System.exit(1)</code>之后，在<code>finally</code>中的内容就不会执行了，因为执行了<code>System.exit(1)</code>实际上是已经退出了<code>jvm</code>虚拟机。</p>
-<h2 id="多个位置的return的问题"><a href="#多个位置的return的问题" class="headerlink" title="多个位置的return的问题"></a>多个位置的return的问题</h2><p>注意：如果在<code>finally</code>中写了<code>return</code>会吞掉异常。</p>
-<h3 id="只有try中有return"><a href="#只有try中有return" class="headerlink" title="只有try中有return"></a>只有try中有return</h3><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> example.testpackage;</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">FinallyDemo4</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        System.out.println(one());</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="type">int</span> <span class="title function_">one</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            i = <span class="number">10</span>;</span><br><span class="line">            <span class="keyword">return</span> i;</span><br><span class="line">        &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">            i = <span class="number">20</span>;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">RuntimeException</span>();</span><br><span class="line">        &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">            i = <span class="number">30</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>上面的代码中只有在<code>try</code>中有<code>return</code>，但是在<code>finally</code>中修改了<code>i</code>的值，那么返回的结果是什么呢？看一下反编译后的字节码文件 <code>javap -p -v -l FinallyDemo4.class</code></p>
-<p><img src="/learnerguo/feb6d824.htm/image-20200303195339178.png" alt="image-20200303195339178"></p>
-<p>通过分析编译后的字节码可以返回的结果是10，也就是说虽然<code>finally</code>中修改了变量的值，但是返回的还是<code>try</code>块中的值。</p>
-<h3 id="try和finally中都有return"><a href="#try和finally中都有return" class="headerlink" title="try和finally中都有return"></a>try和finally中都有return</h3><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> example.testpackage;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">FinallyDemo4</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        System.out.println(one());</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="type">int</span> <span class="title function_">one</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            i = <span class="number">10</span>;</span><br><span class="line">            <span class="keyword">return</span> i;</span><br><span class="line">        &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">            i = <span class="number">20</span>;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">RuntimeException</span>();</span><br><span class="line">        &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">            i = <span class="number">30</span>;</span><br><span class="line">            <span class="keyword">return</span> i;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>看下编译后的字节码文件</p>
-<p><img src="/learnerguo/feb6d824.htm/image-20200303195954280.png" alt="image-20200303195954280"></p>
-<p>由上面的分析可知，当<code>try</code>和<code>finally</code>中都有<code>return</code>的时候，最终返回的是<code>finally</code>中修改的值。</p>
-<h3 id="try和catch和finally中都有"><a href="#try和catch和finally中都有" class="headerlink" title="try和catch和finally中都有"></a>try和catch和finally中都有</h3><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> example.testpackage;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">FinallyDemo4</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        System.out.println(one());</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="type">int</span> <span class="title function_">one</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            i = <span class="number">10</span>;</span><br><span class="line">            <span class="type">int</span> <span class="variable">b</span> <span class="operator">=</span> <span class="number">1</span> / <span class="number">0</span>;</span><br><span class="line">            <span class="keyword">return</span> i;</span><br><span class="line">        &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">            i = <span class="number">20</span>;</span><br><span class="line">            <span class="keyword">return</span> i;</span><br><span class="line">        &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">            i = <span class="number">30</span>;</span><br><span class="line">            <span class="keyword">return</span> i;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>看上面的代码，三个块中都有<code>return</code>，并且发生了异常，此时来看下编译后的字节码</p>
-<p><img src="/learnerguo/feb6d824.htm/image-20200303201301427.png" alt="image-20200303201301427"></p>
-<p>通过上面的分析可知，最终返回的是30</p>
-<h2 id="finally中使用return吞掉异常"><a href="#finally中使用return吞掉异常" class="headerlink" title="finally中使用return吞掉异常"></a>finally中使用return吞掉异常</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> example.testpackage;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">FinallyDemo3</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> one();</span><br><span class="line">        System.out.println(i);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="type">int</span> <span class="title function_">one</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="type">int</span> <span class="variable">a</span> <span class="operator">=</span> <span class="number">1</span> /<span class="number">0</span>;</span><br><span class="line">            <span class="keyword">return</span> <span class="number">10</span>;</span><br><span class="line">        &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="number">20</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>上面的代码会输出的结果是20，而且也不会有异常信息。看一下编译后的字节码中<code>one</code>方法的信息</p>
-<p><img src="/learnerguo/feb6d824.htm/image-20200303194149195.png" alt="image-20200303194149195"></p>
-<p>现在去掉<code>finally</code>中的<code>return</code>，再反编译看一下</p>
-<p><img src="/learnerguo/feb6d824.htm/image-20200303194348354.png" alt="image-20200303194348354"></p>
-<p>可以看到最后是用<code>athrow</code>的，<strong>所以我们写代码是最好是不要在<code>finally</code>中写<code>return</code>语句。</strong></p>
-<h1 id="finalize"><a href="#finalize" class="headerlink" title="finalize"></a>finalize</h1><p>在<code>java</code>垃圾回收中，使用的可达性分析算法来判断一个垃圾是不是可以被回收，但是即使在可达性分析中该对象是不可达的，也不会立即被回收。此时他们暂时处于缓刑阶段，要宣告一个对象死亡，至少需要经历<strong>两次标记过程</strong></p>
-<ul>
-<li>如果对象在进行可达性分析后发现没有与<code>GC Root</code>相连接的引用链，那么将会被第一次标记并且进行一次筛选，筛选的条件是此对象是否有必要执行<code>finalize()</code>方法，当对象没有覆盖<code>finalize()</code>方法时，或者<code>finalize()</code>方法已经被虚拟机调用过，虚拟机将这两种情形视为<strong>“没有必要执行”</strong></li>
-<li>如果该对象判断为有必要执行<code>finalize()</code>方法，那么该对象将中被放置在一个叫做<code>F-Queue</code>队列中，并且在稍后由一个虚拟机自动建立的，优先级低的<code>Finalizer</code>线程去执行它。<code>finalize()</code>方法是对象逃脱死亡命运的最后一次机会，稍后<code>GC</code>将对<code>F-Queue</code>中的对象进行第二次小规模的标记，如果对象在<code>finalize()</code>中成功拯救自己(只要重新与引用链上的任何一个对象建立关联即可，比如将自己(<code>this</code>关键字)赋值给某个类变量或对象的成员变量，那么在第二次标记的时候会被将它移除“<strong>即将回收</strong>”的集合)，如果对象在此时还没有逃脱，那就说明需要被回收了。</li>
-</ul>
-<p>所以<code>finalize</code>可以用于对象自救，但是这种方式最好不要使用，效率很低。</p>
-]]></content>
-      <categories>
-        <category>java</category>
-        <category>异常</category>
-      </categories>
-      <tags>
-        <tag>java</tag>
-        <tag>异常</tag>
       </tags>
   </entry>
   <entry>
@@ -2542,6 +2689,25 @@
       </tags>
   </entry>
   <entry>
+    <title>plsqldeveloper下载地址</title>
+    <url>/learnerguo/22046.html</url>
+    <content><![CDATA[<p><code>plsql developer</code>的下载地址 <a href="https://www.allroundautomations.com/registered-plsqldev/">官网</a></p>
+<p><code>PLSQL Developer 12.0.7</code> 注册码</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">PLSQL Developer 12.0.7 注册码</span><br><span class="line">product code： 4vkjwhfeh3ufnqnmpr9brvcuyujrx3n3le </span><br><span class="line">serial Number：226959 </span><br><span class="line">password: xs374ca</span><br></pre></td></tr></table></figure>
+
+
+
+]]></content>
+      <categories>
+        <category>tools</category>
+        <category>oracle</category>
+      </categories>
+      <tags>
+        <tag>tools</tag>
+        <tag>oracle</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>utools自动化脚本插件</title>
     <url>/learnerguo/26209.html</url>
     <content><![CDATA[<h1 id="utools-使用自动化脚本打开本地程序"><a href="#utools-使用自动化脚本打开本地程序" class="headerlink" title="utools 使用自动化脚本打开本地程序"></a>utools 使用自动化脚本打开本地程序</h1><ol>
@@ -2564,25 +2730,6 @@
       <tags>
         <tag>tools</tag>
         <tag>utools</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>plsqldeveloper下载地址</title>
-    <url>/learnerguo/22046.html</url>
-    <content><![CDATA[<p><code>plsql developer</code>的下载地址 <a href="https://www.allroundautomations.com/registered-plsqldev/">官网</a></p>
-<p><code>PLSQL Developer 12.0.7</code> 注册码</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">PLSQL Developer 12.0.7 注册码</span><br><span class="line">product code： 4vkjwhfeh3ufnqnmpr9brvcuyujrx3n3le </span><br><span class="line">serial Number：226959 </span><br><span class="line">password: xs374ca</span><br></pre></td></tr></table></figure>
-
-
-
-]]></content>
-      <categories>
-        <category>tools</category>
-        <category>oracle</category>
-      </categories>
-      <tags>
-        <tag>tools</tag>
-        <tag>oracle</tag>
       </tags>
   </entry>
 </search>

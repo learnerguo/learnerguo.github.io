@@ -139,7 +139,7 @@
   </li>
         <li class="menu-item menu-item-book">
 
-    <a href="/book" rel="section"><i class="fa fa-book fa-fw"></i>阅读</a>
+    <a href="/book/" rel="section"><i class="fa fa-book fa-fw"></i>阅读</a>
 
   </li>
       <li class="menu-item menu-item-search">
@@ -183,6 +183,7 @@
     <i class="fa fa-arrow-up"></i>
     <span>0%</span>
   </div>
+  <div class="reading-progress-bar"></div>
 
 
     <main class="main">
@@ -321,8 +322,8 @@
       </div>
 
       <div class="post-title">
-          <a class="post-title-link" href="/learnerguo/633a03ca.html" itemprop="url">
-            <span itemprop="name">枚举</span>
+          <a class="post-title-link" href="/learnerguo/feb6d824.html" itemprop="url">
+            <span itemprop="name">final和finally和finalize</span>
           </a>
       </div>
 
@@ -341,8 +342,8 @@
       </div>
 
       <div class="post-title">
-          <a class="post-title-link" href="/learnerguo/feb6d824.html" itemprop="url">
-            <span itemprop="name">final和finally和finalize</span>
+          <a class="post-title-link" href="/learnerguo/633a03ca.html" itemprop="url">
+            <span itemprop="name">枚举</span>
           </a>
       </div>
 
@@ -463,20 +464,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">38</span>
+          <span class="site-state-item-count">40</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">17</span>
+        <span class="site-state-item-count">18</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">17</span>
+        <span class="site-state-item-count">18</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -564,6 +565,19 @@
 
 
 
+<script>
+if (document.querySelectorAll('pre.mermaid').length) {
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/mermaid@8/dist/mermaid.min.js', () => {
+    mermaid.initialize({
+      theme    : 'forest',
+      logLevel : 3,
+      flowchart: { curve     : 'linear' },
+      gantt    : { axisFormat: '%m/%d/%Y' },
+      sequence : { actorMargin: 50 }
+    });
+  }, window.mermaid);
+}
+</script>
 
 
   
@@ -600,6 +614,7 @@ NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
 </script>
 
   <!-- 多级目录 -->
-  <script type="text/javascript" src="/js/category.js"></script>
+  <script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+  <script src="/js/category.js"></script>
 </body>
 </html>
