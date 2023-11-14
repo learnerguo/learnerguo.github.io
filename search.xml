@@ -178,28 +178,6 @@
       </tags>
   </entry>
   <entry>
-    <title>vscode相关设置</title>
-    <url>/learnerguo/324bf010.html</url>
-    <content><![CDATA[<h1 id="vscode-中-markdown-的-snippets-的设置"><a href="#vscode-中-markdown-的-snippets-的设置" class="headerlink" title="vscode 中 markdown 的 snippets 的设置"></a>vscode 中 markdown 的 snippets 的设置</h1><h2 id="snippets-的设置"><a href="#snippets-的设置" class="headerlink" title="snippets 的设置"></a>snippets 的设置</h2><ol>
-<li>打开 ctrl+shift+p , 搜索 <code>configure user snippets</code> </li>
-<li>选择 markdown.json, 会出现如下内容</li>
-</ol>
-<figure class="highlight json"><table><tr><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">	<span class="comment">// Place your snippets for markdown here. Each snippet is defined under a snippet name and has a prefix, body and </span></span><br><span class="line">	<span class="comment">// description. The prefix is what is used to trigger the snippet and the body will be expanded and inserted. Possible variables are:</span></span><br><span class="line">	<span class="comment">// $1, $2 for tab stops, $0 for the final cursor position, and $&#123;1:label&#125;, $&#123;2:another&#125; for placeholders. Placeholders with the </span></span><br><span class="line">	<span class="comment">// same ids are connected.</span></span><br><span class="line">	<span class="comment">// Example:</span></span><br><span class="line">	<span class="comment">// &quot;Print to console&quot;: &#123;</span></span><br><span class="line">	<span class="comment">// 	&quot;prefix&quot;: &quot;log&quot;,</span></span><br><span class="line">	<span class="comment">// 	&quot;body&quot;: [</span></span><br><span class="line">	<span class="comment">// 		&quot;console.log(&#x27;$1&#x27;);&quot;,</span></span><br><span class="line">	<span class="comment">// 		&quot;$2&quot;</span></span><br><span class="line">	<span class="comment">// 	],</span></span><br><span class="line">	<span class="comment">// 	&quot;description&quot;: &quot;Log output to console&quot;</span></span><br><span class="line">	<span class="comment">// &#125;</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
-<span id="more"></span>
-<ol start="3">
-<li>根据示例文件修改配置如下内容</li>
-</ol>
-<figure class="highlight json"><table><tr><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;markdown code graph&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">		<span class="attr">&quot;prefix&quot;</span><span class="punctuation">:</span> <span class="string">&quot;mdgraph&quot;</span><span class="punctuation">,</span></span><br><span class="line">		<span class="attr">&quot;body&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span></span><br><span class="line">			<span class="string">&quot;&lt;pre class=&quot;</span>mermaid<span class="string">&quot;&gt;&quot;</span><span class="punctuation">,</span></span><br><span class="line">			<span class="string">&quot;$0&quot;</span></span><br><span class="line">			<span class="string">&quot;```&quot;</span></span><br><span class="line">		<span class="punctuation">]</span><span class="punctuation">,</span></span><br><span class="line">		<span class="attr">&quot;description&quot;</span><span class="punctuation">:</span> <span class="string">&quot;insert markdown code graph&quot;</span></span><br><span class="line">	<span class="punctuation">&#125;</span></span><br><span class="line"><span class="punctuation">&#125;</span>&lt;/pre&gt;</span><br><span class="line">上面示例的意思是 当输入 mdgraph 时就会出现 mermaid 代码块， $<span class="number">0</span> 是光标出现的地方</span><br><span class="line"></span><br><span class="line">## markdown snippets 不生效的解决方式</span><br><span class="line">使用上面的步骤设置完 snippets 之后，在 markdown 文档中编写关键字，但是并没有生效，还需要在  settings.json 中（可以输入 ctrl+shift+p<span class="punctuation">,</span> 搜索 settings， 选择 Open User Settings(JSON)）<span class="punctuation">,</span> 然后填写下面的内容</span><br><span class="line">```json</span><br><span class="line"><span class="attr">&quot;[markdown]&quot;</span><span class="punctuation">:</span><span class="punctuation">&#123;</span></span><br><span class="line">        <span class="attr">&quot;editor.formatOnSave&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">true</span></span><span class="punctuation">,</span></span><br><span class="line">        <span class="attr">&quot;editor.renderWhitespace&quot;</span><span class="punctuation">:</span> <span class="string">&quot;all&quot;</span><span class="punctuation">,</span></span><br><span class="line">        <span class="attr">&quot;editor.quickSuggestions&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">            <span class="attr">&quot;other&quot;</span><span class="punctuation">:</span> <span class="string">&quot;on&quot;</span><span class="punctuation">,</span></span><br><span class="line">            <span class="attr">&quot;comments&quot;</span><span class="punctuation">:</span> <span class="string">&quot;on&quot;</span><span class="punctuation">,</span></span><br><span class="line">            <span class="attr">&quot;strings&quot;</span><span class="punctuation">:</span> <span class="string">&quot;on&quot;</span></span><br><span class="line">        <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">        <span class="attr">&quot;editor.acceptSuggestionOnEnter&quot;</span><span class="punctuation">:</span> <span class="string">&quot;on&quot;</span></span><br><span class="line">    <span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
-<p>添加上述内容后就可以生效了</p>
-]]></content>
-      <categories>
-        <category>tools</category>
-      </categories>
-      <tags>
-        <tag>tools</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>linux下安装工具</title>
     <url>/learnerguo/39077.html</url>
     <content><![CDATA[<h1 id="替换源"><a href="#替换源" class="headerlink" title="替换源"></a>替换源</h1><p><a href="http://mirrors.163.com/.help/centos.html">http://mirrors.163.com/.help/centos.html</a></p>
@@ -300,6 +278,28 @@
       </tags>
   </entry>
   <entry>
+    <title>vscode相关设置</title>
+    <url>/learnerguo/324bf010.html</url>
+    <content><![CDATA[<h1 id="vscode-中-markdown-的-snippets-的设置"><a href="#vscode-中-markdown-的-snippets-的设置" class="headerlink" title="vscode 中 markdown 的 snippets 的设置"></a>vscode 中 markdown 的 snippets 的设置</h1><h2 id="snippets-的设置"><a href="#snippets-的设置" class="headerlink" title="snippets 的设置"></a>snippets 的设置</h2><ol>
+<li>打开 ctrl+shift+p , 搜索 <code>configure user snippets</code> </li>
+<li>选择 markdown.json, 会出现如下内容</li>
+</ol>
+<figure class="highlight json"><table><tr><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">	<span class="comment">// Place your snippets for markdown here. Each snippet is defined under a snippet name and has a prefix, body and </span></span><br><span class="line">	<span class="comment">// description. The prefix is what is used to trigger the snippet and the body will be expanded and inserted. Possible variables are:</span></span><br><span class="line">	<span class="comment">// $1, $2 for tab stops, $0 for the final cursor position, and $&#123;1:label&#125;, $&#123;2:another&#125; for placeholders. Placeholders with the </span></span><br><span class="line">	<span class="comment">// same ids are connected.</span></span><br><span class="line">	<span class="comment">// Example:</span></span><br><span class="line">	<span class="comment">// &quot;Print to console&quot;: &#123;</span></span><br><span class="line">	<span class="comment">// 	&quot;prefix&quot;: &quot;log&quot;,</span></span><br><span class="line">	<span class="comment">// 	&quot;body&quot;: [</span></span><br><span class="line">	<span class="comment">// 		&quot;console.log(&#x27;$1&#x27;);&quot;,</span></span><br><span class="line">	<span class="comment">// 		&quot;$2&quot;</span></span><br><span class="line">	<span class="comment">// 	],</span></span><br><span class="line">	<span class="comment">// 	&quot;description&quot;: &quot;Log output to console&quot;</span></span><br><span class="line">	<span class="comment">// &#125;</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+<span id="more"></span>
+<ol start="3">
+<li>根据示例文件修改配置如下内容</li>
+</ol>
+<figure class="highlight json"><table><tr><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;markdown code graph&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">		<span class="attr">&quot;prefix&quot;</span><span class="punctuation">:</span> <span class="string">&quot;mdgraph&quot;</span><span class="punctuation">,</span></span><br><span class="line">		<span class="attr">&quot;body&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span></span><br><span class="line">			<span class="string">&quot;&lt;pre class=&quot;</span>mermaid<span class="string">&quot;&gt;&quot;</span><span class="punctuation">,</span></span><br><span class="line">			<span class="string">&quot;$0&quot;</span></span><br><span class="line">			<span class="string">&quot;```&quot;</span></span><br><span class="line">		<span class="punctuation">]</span><span class="punctuation">,</span></span><br><span class="line">		<span class="attr">&quot;description&quot;</span><span class="punctuation">:</span> <span class="string">&quot;insert markdown code graph&quot;</span></span><br><span class="line">	<span class="punctuation">&#125;</span></span><br><span class="line"><span class="punctuation">&#125;</span>&lt;/pre&gt;</span><br><span class="line">上面示例的意思是 当输入 mdgraph 时就会出现 mermaid 代码块， $<span class="number">0</span> 是光标出现的地方</span><br><span class="line"></span><br><span class="line">## markdown snippets 不生效的解决方式</span><br><span class="line">使用上面的步骤设置完 snippets 之后，在 markdown 文档中编写关键字，但是并没有生效，还需要在  settings.json 中（可以输入 ctrl+shift+p<span class="punctuation">,</span> 搜索 settings， 选择 Open User Settings(JSON)）<span class="punctuation">,</span> 然后填写下面的内容</span><br><span class="line">```json</span><br><span class="line"><span class="attr">&quot;[markdown]&quot;</span><span class="punctuation">:</span><span class="punctuation">&#123;</span></span><br><span class="line">        <span class="attr">&quot;editor.formatOnSave&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">true</span></span><span class="punctuation">,</span></span><br><span class="line">        <span class="attr">&quot;editor.renderWhitespace&quot;</span><span class="punctuation">:</span> <span class="string">&quot;all&quot;</span><span class="punctuation">,</span></span><br><span class="line">        <span class="attr">&quot;editor.quickSuggestions&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">            <span class="attr">&quot;other&quot;</span><span class="punctuation">:</span> <span class="string">&quot;on&quot;</span><span class="punctuation">,</span></span><br><span class="line">            <span class="attr">&quot;comments&quot;</span><span class="punctuation">:</span> <span class="string">&quot;on&quot;</span><span class="punctuation">,</span></span><br><span class="line">            <span class="attr">&quot;strings&quot;</span><span class="punctuation">:</span> <span class="string">&quot;on&quot;</span></span><br><span class="line">        <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">        <span class="attr">&quot;editor.acceptSuggestionOnEnter&quot;</span><span class="punctuation">:</span> <span class="string">&quot;on&quot;</span></span><br><span class="line">    <span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+<p>添加上述内容后就可以生效了</p>
+]]></content>
+      <categories>
+        <category>tools</category>
+      </categories>
+      <tags>
+        <tag>tools</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>宝贵的人生建议</title>
     <url>/learnerguo/84a2076d.html</url>
     <content><![CDATA[<ul>
@@ -328,6 +328,62 @@
       </categories>
       <tags>
         <tag>book</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>maven使用手册</title>
+    <url>/learnerguo/a6b5c90f.html</url>
+    <content><![CDATA[<h1 id="maven配置默认的jdk版本"><a href="#maven配置默认的jdk版本" class="headerlink" title="maven配置默认的jdk版本"></a><code>maven</code>配置默认的jdk版本</h1><p>在<code>maven</code>的安装目录下修改<code>settings.xml</code>文件，修改内容如下：</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">profile</span>&gt;</span>    </span><br><span class="line">    <span class="tag">&lt;<span class="name">id</span>&gt;</span>jdk-1.8<span class="tag">&lt;/<span class="name">id</span>&gt;</span>    </span><br><span class="line">    <span class="tag">&lt;<span class="name">activation</span>&gt;</span>    </span><br><span class="line">        <span class="tag">&lt;<span class="name">activeByDefault</span>&gt;</span>true<span class="tag">&lt;/<span class="name">activeByDefault</span>&gt;</span>    </span><br><span class="line">        <span class="tag">&lt;<span class="name">jdk</span>&gt;</span>1.8<span class="tag">&lt;/<span class="name">jdk</span>&gt;</span>    </span><br><span class="line">    <span class="tag">&lt;/<span class="name">activation</span>&gt;</span>    </span><br><span class="line">    <span class="tag">&lt;<span class="name">properties</span>&gt;</span>    </span><br><span class="line">        <span class="tag">&lt;<span class="name">maven.compiler.source</span>&gt;</span>1.8<span class="tag">&lt;/<span class="name">maven.compiler.source</span>&gt;</span>    </span><br><span class="line">        <span class="tag">&lt;<span class="name">maven.compiler.target</span>&gt;</span>1.8<span class="tag">&lt;/<span class="name">maven.compiler.target</span>&gt;</span>    </span><br><span class="line">        <span class="tag">&lt;<span class="name">maven.compiler.compilerVersion</span>&gt;</span>1.8<span class="tag">&lt;/<span class="name">maven.compiler.compilerVersion</span>&gt;</span>    </span><br><span class="line">    <span class="tag">&lt;/<span class="name">properties</span>&gt;</span>    </span><br><span class="line"><span class="tag">&lt;/<span class="name">profile</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>这个节点需要加载在<code>profiles</code>节点下。</p>
+<span id="more"></span>]]></content>
+      <categories>
+        <category>tools</category>
+        <category>maven</category>
+      </categories>
+      <tags>
+        <tag>tools</tag>
+        <tag>maven</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>utools自动化脚本插件</title>
+    <url>/learnerguo/26209.html</url>
+    <content><![CDATA[<h1 id="utools-使用自动化脚本打开本地程序"><a href="#utools-使用自动化脚本打开本地程序" class="headerlink" title="utools 使用自动化脚本打开本地程序"></a>utools 使用自动化脚本打开本地程序</h1><ol>
+<li>比如 typora 可以打开之前的文件和目录，但是目录只能到文件的上一个层级，如果源目录包含很多子目录，重新打开时可能不是我们想要的结果，那可以在命令行执行 <code>typora folder</code>, eg: <code>typora E:\\blog</code></li>
+</ol>
+<blockquote>
+<p>在命令行执行 typora 命令需要先配置 typora 的环境变量</p>
+</blockquote>
+<ol start="2">
+<li>更简便的方式是直接使用 utools 的自动化脚本这个插件，新增一个自己的插件脚本，内容如下</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> &#123; execFile &#125; = <span class="built_in">require</span>(<span class="string">&quot;child_process&quot;</span>)</span><br><span class="line"></span><br><span class="line"> <span class="comment">// 以下是关键代码，调用 typora 来执行目标文件</span></span><br><span class="line"><span class="title function_">execFile</span>(<span class="string">&#x27;typora&#x27;</span>, [<span class="string">&#x27;E:/code/learnerguo&#x27;</span>], <span class="function">(<span class="params">error, stdout, stderr</span>) =&gt;</span> &#123;</span><br><span class="line">    process.<span class="title function_">exit</span>()</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<p>然后自定义关键字，后续当打开 utools 输入对应关键字就可以打开 typora 的目录</p>
+]]></content>
+      <categories>
+        <category>tools</category>
+        <category>utools</category>
+      </categories>
+      <tags>
+        <tag>tools</tag>
+        <tag>utools</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>github下载速度慢的解决方式</title>
+    <url>/learnerguo/15156.html</url>
+    <content><![CDATA[<p>将项目地址中的<code>github.com</code>更换一下为<code>github.com.cnpmjs.org</code>即可</p>
+]]></content>
+      <categories>
+        <category>tools</category>
+        <category>git</category>
+      </categories>
+      <tags>
+        <tag>tools</tag>
+        <tag>git</tag>
       </tags>
   </entry>
   <entry>
@@ -420,6 +476,236 @@
       </categories>
       <tags>
         <tag>java</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>多线程下的七种单例模式</title>
+    <url>/learnerguo/7a350abf.html</url>
+    <content><![CDATA[<p>本文主要分析七种形式的单例模式</p>
+<ol>
+<li>饿汉式</li>
+<li>懒汉式</li>
+<li>懒汉式加同步方法</li>
+<li><code>DCL(double check locking)</code></li>
+<li><code>volatile+double-check</code></li>
+<li><code>holder</code></li>
+<li>枚举</li>
+</ol>
+<p><a href="https://gitee.com/Gwei11/code/tree/master/javabase/testsingleton">代码地址</a></p>
+<span id="more"></span>
+
+<h1 id="饿汉式"><a href="#饿汉式" class="headerlink" title="饿汉式"></a>饿汉式</h1><ul>
+<li>所谓饿汉式就是一开始就将对象创建出来</li>
+<li>构造方法私有</li>
+<li>提供获取实例的方法</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> testsingleton;</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">HungrySingleton</span> &#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="type">HungrySingleton</span> <span class="variable">hungrySingleton</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">HungrySingleton</span>();</span><br><span class="line">    <span class="keyword">private</span> <span class="title function_">HungrySingleton</span><span class="params">()</span>&#123;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> HungrySingleton <span class="title function_">getHungrySingleton</span><span class="params">()</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> hungrySingleton;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; <span class="number">20</span>; i++) &#123;</span><br><span class="line">            <span class="keyword">new</span> <span class="title class_">Thread</span>(() -&gt; &#123;</span><br><span class="line">                System.out.println(getHungrySingleton());</span><br><span class="line">            &#125;).start();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="优势"><a href="#优势" class="headerlink" title="优势"></a>优势</h2><ul>
+<li>线程安全</li>
+</ul>
+<h2 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h2><ul>
+<li>非懒加载模式，性能不高</li>
+</ul>
+<h2 id="序列化破坏单例模式"><a href="#序列化破坏单例模式" class="headerlink" title="序列化破坏单例模式"></a>序列化破坏单例模式</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> testsingleton.seriable;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.io.Serializable;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">SeriableSingleton</span> <span class="keyword">implements</span> <span class="title class_">Serializable</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="title function_">SeriableSingleton</span><span class="params">()</span>&#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="type">SeriableSingleton</span> <span class="variable">seriableSingleton</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">SeriableSingleton</span>();</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> SeriableSingleton <span class="title function_">getInstance</span><span class="params">()</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> seriableSingleton;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>测试代码</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> testsingleton.seriable;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.io.FileInputStream;</span><br><span class="line"><span class="keyword">import</span> java.io.FileOutputStream;</span><br><span class="line"><span class="keyword">import</span> java.io.ObjectInputStream;</span><br><span class="line"><span class="keyword">import</span> java.io.ObjectOutputStream;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">TestSeriableSingleton</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="comment">//这个对象想要从序列化中获取</span></span><br><span class="line">        <span class="type">SeriableSingleton</span> <span class="variable">s1</span> <span class="operator">=</span> <span class="literal">null</span>;</span><br><span class="line">        <span class="comment">//从系统中获取一个对象</span></span><br><span class="line">        <span class="type">SeriableSingleton</span> <span class="variable">s2</span> <span class="operator">=</span> SeriableSingleton.getInstance();</span><br><span class="line"></span><br><span class="line">        <span class="type">FileOutputStream</span> <span class="variable">fos</span> <span class="operator">=</span> <span class="literal">null</span>;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            fos = <span class="keyword">new</span> <span class="title class_">FileOutputStream</span>(<span class="string">&quot;SeriableSingleton.obj&quot;</span>);</span><br><span class="line">            <span class="type">ObjectOutputStream</span> <span class="variable">oos</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">ObjectOutputStream</span>(fos);</span><br><span class="line">            oos.writeObject(s2);</span><br><span class="line">            oos.flush();</span><br><span class="line">            oos.close();</span><br><span class="line"></span><br><span class="line">            <span class="type">FileInputStream</span> <span class="variable">fis</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">FileInputStream</span>(<span class="string">&quot;SeriableSingleton.obj&quot;</span>);</span><br><span class="line">            <span class="type">ObjectInputStream</span> <span class="variable">ois</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">ObjectInputStream</span>(fis);</span><br><span class="line">            s1 = (SeriableSingleton) ois.readObject();</span><br><span class="line">            ois.close();</span><br><span class="line"></span><br><span class="line">            System.out.println(s1);</span><br><span class="line">            System.out.println(s2);</span><br><span class="line">            System.out.println(s1 == s2);</span><br><span class="line"></span><br><span class="line">        &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>执行结果</p>
+<p><img src="/learnerguo/7a350abf.htm/image-20200510064203998.png" alt="image-20200510064203998"></p>
+<h3 id="解决方式"><a href="#解决方式" class="headerlink" title="解决方式"></a>解决方式</h3><p>在饿汉式代码中提供一个<code>readResolve()</code>方法</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> testsingleton.seriable;</span><br><span class="line"><span class="keyword">import</span> java.io.Serializable;</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">SeriableSingleton</span> <span class="keyword">implements</span> <span class="title class_">Serializable</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="title function_">SeriableSingleton</span><span class="params">()</span>&#123;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="type">SeriableSingleton</span> <span class="variable">seriableSingleton</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">SeriableSingleton</span>();</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> SeriableSingleton <span class="title function_">getInstance</span><span class="params">()</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> seriableSingleton;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span>  Object <span class="title function_">readResolve</span><span class="params">()</span>&#123;</span><br><span class="line">        <span class="keyword">return</span>  seriableSingleton;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h3><p>看一下<code>ObjectInputStream</code>的代码</p>
+<p><img src="/learnerguo/7a350abf.htm/image-20200510070522882.png" alt="image-20200510070522882"></p>
+<p>在最后的<code>readOrdinaryObject</code>方法中会有一个判断，就是如果我们序列化的类中含有<code>readResolve</code>这个方法的话，就用这个方法的返回值对象来替换反序列化出来的对象，所以使用这个方法不代表反序列化出来的对象和我们在系统中创建的对象是同一个，实际上反序列化出来的对象还是和系统中创建的不同的，只是使用了这个方法的话，就将这个这个方法的返回值重新赋值给反序列化出来的对象。</p>
+<h3 id="再一次实验"><a href="#再一次实验" class="headerlink" title="再一次实验"></a>再一次实验</h3><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> testsingleton.seriable;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.io.Serializable;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">SeriableSingleton</span> <span class="keyword">implements</span> <span class="title class_">Serializable</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="title function_">SeriableSingleton</span><span class="params">()</span>&#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="type">SeriableSingleton</span> <span class="variable">seriableSingleton</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">SeriableSingleton</span>();</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> SeriableSingleton <span class="title function_">getInstance</span><span class="params">()</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> seriableSingleton;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span>  Object <span class="title function_">readResolve</span><span class="params">()</span>&#123;</span><br><span class="line">        <span class="type">SeriableSingleton</span> <span class="variable">object</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">SeriableSingleton</span>();</span><br><span class="line">        System.out.println(<span class="string">&quot;对象是：&quot;</span> + object);</span><br><span class="line">        <span class="keyword">return</span> object;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这一次我们将<code>readResolve</code>方法的返回值不是直接返回<code>seriableSingleton</code>，而是重新创建了一个对象，现在我们来看一下运行结果</p>
+<p><img src="/learnerguo/7a350abf.htm/image-20200510071058755.png" alt="image-20200510071058755"></p>
+<p>可以看到反序列的对象和<code>readResolve</code>方法返回值对象是同一个。</p>
+<h1 id="懒汉式"><a href="#懒汉式" class="headerlink" title="懒汉式"></a>懒汉式</h1><ul>
+<li>懒汉式就是当使用的时候才会创建这个对象</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> testsingleton;</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">LazySingleton</span> &#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> LazySingleton lazySingleton;</span><br><span class="line">    <span class="keyword">private</span> <span class="title function_">LazySingleton</span><span class="params">()</span>&#123;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> LazySingleton <span class="title function_">getInstance</span><span class="params">()</span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (lazySingleton == <span class="literal">null</span>) &#123;</span><br><span class="line">            lazySingleton = <span class="keyword">new</span> <span class="title class_">LazySingleton</span>();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> lazySingleton;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; <span class="number">4000</span>; i++) &#123;</span><br><span class="line">            <span class="keyword">new</span> <span class="title class_">Thread</span>(()-&gt;&#123;</span><br><span class="line">                System.out.println(getInstance());</span><br><span class="line">            &#125;).start();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>但是这种方式会有线程问题</p>
+<p><img src="/learnerguo/7a350abf.htm/image-20200427223314728.png" alt="image-20200427223314728"></p>
+<h2 id="线程不安全分析"><a href="#线程不安全分析" class="headerlink" title="线程不安全分析"></a>线程不安全分析</h2><p><img src="/learnerguo/7a350abf.htm/image-20200427234805848.png" alt="image-20200427234805848"></p>
+<p>如上图所示，</p>
+<ul>
+<li>线程1执行到 <code>if(lazySinleton == null)</code>的时候时间片使用完</li>
+<li>线程2进入到这块代码，由于线程1还没有创建出对象，所以线程2进来，为空的判断仍然是成立的</li>
+<li>线程2进入<code>if</code>并且创建了对象</li>
+<li>线程1在前面已经进入了<code>if</code>判断，只是还没有创建对象而已，现在轮到线程1了，那么线程1会继续执行创建对象的代码</li>
+<li>这样就出现了多个对象，也就是线程安全的问题</li>
+</ul>
+<h1 id="懒汉式加同步方法"><a href="#懒汉式加同步方法" class="headerlink" title="懒汉式加同步方法"></a>懒汉式加同步方法</h1><p>上面看到懒汉式可以做到懒加载，但是存在线程不安全的问题，所以可以通过加锁的方式来解决。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> testsingleton;</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">LazySingletonWithLock</span> &#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> LazySingletonWithLock lazySingleton;</span><br><span class="line">    <span class="keyword">private</span> <span class="title function_">LazySingletonWithLock</span><span class="params">()</span>&#123;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">synchronized</span> LazySingletonWithLock <span class="title function_">getInstance</span><span class="params">()</span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (lazySingleton == <span class="literal">null</span>) &#123;</span><br><span class="line">            lazySingleton = <span class="keyword">new</span> <span class="title class_">LazySingletonWithLock</span>();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> lazySingleton;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; <span class="number">4000</span>; i++) &#123;</span><br><span class="line">            <span class="keyword">new</span> <span class="title class_">Thread</span>(()-&gt;&#123;</span><br><span class="line">                System.out.println(getInstance());</span><br><span class="line">            &#125;).start();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>如上面代码所示，也就是在获取实例的代码中加上<code>synchronized</code>关键字，这样可以保证线程安全，但是当在方法中加上<code>synchronized</code>关键字之后就相当于是退化为串行了，因为加上了<code>synchronized</code>关键字时，该方法会被一个线程锁住，其余的线程想要进入该方法就必须要上一个线程退出才行，所以就相当于是单线程了，不能发挥多线程的优势。解决方式请看<code>DCL</code>方式</p>
+<h1 id="DCL"><a href="#DCL" class="headerlink" title="DCL"></a>DCL</h1><p>所谓<code>DCL</code>方式就是<code>double check lock</code>，就是双重判断，代码如下</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> testsingleton;</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">DCL</span> &#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> DCL lazySingleton;</span><br><span class="line">    <span class="keyword">private</span> <span class="title function_">DCL</span><span class="params">()</span> &#123;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> DCL <span class="title function_">getInstance</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (lazySingleton == <span class="literal">null</span>) &#123;</span><br><span class="line">            <span class="keyword">synchronized</span> (DCL.class) &#123;</span><br><span class="line">                <span class="keyword">if</span> (lazySingleton == <span class="literal">null</span>) &#123;</span><br><span class="line">                    lazySingleton = <span class="keyword">new</span> <span class="title class_">DCL</span>();</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> lazySingleton;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; <span class="number">4000</span>; i++) &#123;</span><br><span class="line">            <span class="keyword">new</span> <span class="title class_">Thread</span>(() -&gt; &#123;</span><br><span class="line">                System.out.println(getInstance());</span><br><span class="line">            &#125;).start();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>如上面代码所示，就是在获取实例的方法中做了两个判断，在懒汉式中已经分析为什么会出现线程安全问题，现在加锁之后再判断一次就可以解决这个问题。</p>
+<h2 id="疑问"><a href="#疑问" class="headerlink" title="疑问"></a>疑问</h2><p>上面的代码中如果换成下面这样有没有效果？为什么？</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> testsingleton;</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">DCL</span> &#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> DCL lazySingleton;</span><br><span class="line">    <span class="keyword">private</span> <span class="title function_">DCL</span><span class="params">()</span> &#123;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> DCL <span class="title function_">getInstance</span><span class="params">()</span> &#123;</span><br><span class="line">       <span class="keyword">synchronized</span> (DCL.class) &#123;</span><br><span class="line">           <span class="keyword">if</span> (lazySingleton == <span class="literal">null</span>) &#123;</span><br><span class="line">                <span class="keyword">if</span> (lazySingleton == <span class="literal">null</span>) &#123;</span><br><span class="line">                    lazySingleton = <span class="keyword">new</span> <span class="title class_">DCL</span>();</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> lazySingleton;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; <span class="number">4000</span>; i++) &#123;</span><br><span class="line">            <span class="keyword">new</span> <span class="title class_">Thread</span>(() -&gt; &#123;</span><br><span class="line">                System.out.println(getInstance());</span><br><span class="line">            &#125;).start();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>也就是将<code>synchronized</code>放在第一个<code>if</code>判断的外面，而不是里面。这样做和第一种方式有什么区别？</p>
+<p>其实这样锁定和在方法中锁定没有太大的区别，因为已进入方法就锁定了，那么进入方法里面的其实也只有一个线程，然后再去执行<code>if</code>判断，那么执行一次和执行两次<code>if</code>判断是没有区别的。</p>
+<h1 id="volatile-DCL"><a href="#volatile-DCL" class="headerlink" title="volatile+DCL"></a>volatile+DCL</h1><p>上面<code>DCL</code>方法可以解决线程安全，并且是懒加载的方式，但是还是可能会有问题，因为上面的案例中是只有一个实例变量，如果这个类中还有其余的变量。先看下面代码：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">VolatileAndDCL</span> &#123;</span><br><span class="line">    <span class="keyword">private</span> Connection connection;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> VolatileAndDCL lazySingleton;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>比如一个类中有这样的两个变量，变量的实例化在字节码层面是在<init>方法中进行初始化的，在代码层面第一个变量是在第二个变量的后面，所以会讲道理在实例化<code>lazySingleton</code>的时候<code>connection</code>应该是已经实例化了，但是<code>jvm</code>可能会发生指令重排，所以可能<code>lazySingleton</code>实例化的时候，<code>connection</code>还没有被实例化，这样就会发生一个问题，当线程1实例化了<code>lazySingleton</code>，然后线程2拿到<code>lazySingleton</code>，因为<code>lazySingleton</code>已经不为空，所以线程2不会执行实例化的代码，这样当线程2在使用<code>connection</code>的时候就会出现空指针异常，此时可以使用<code>volatile</code>关键字来解决，这个关键字就是让强制让<code>jvm</code>不进行指令重排。</init></p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">VolatileAndDCL</span> &#123;</span><br><span class="line">    <span class="keyword">private</span> Connection connection;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">volatile</span> <span class="keyword">static</span> VolatileAndDCL lazySingleton;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这样在<code>lazySingleton</code>前面的代码一定会先执行到。</p>
+<h1 id="holder"><a href="#holder" class="headerlink" title="holder"></a>holder</h1><p>还有一种更巧妙的方式是通过静态内部类的方式来实现单例模式</p>
+<p>代码如下：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> testsingleton;</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">HolderDemo</span> &#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> HolderDemo lazySingleton;</span><br><span class="line">    <span class="keyword">private</span> <span class="title function_">HolderDemo</span><span class="params">()</span> &#123;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">class</span> <span class="title class_">Holder</span> &#123;</span><br><span class="line">        <span class="keyword">private</span> <span class="keyword">static</span> <span class="type">HolderDemo</span> <span class="variable">holderDemo</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">HolderDemo</span>();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> HolderDemo <span class="title function_">getInstance</span><span class="params">()</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> Holder.holderDemo;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="keyword">new</span> <span class="title class_">Thread</span>(()-&gt;&#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; <span class="number">4000</span>; i++) &#123;</span><br><span class="line">                System.out.println(getInstance());</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;).start();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>对于使用静态内部类的方式需要知道两点</p>
+<ul>
+<li><p>一个类只会被初始化一次</p>
+</li>
+<li><p>初始化外部类的时候并不会立即将内部类也初始化，看下面代码</p>
+  <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> testsingleton;</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">InitializationTime</span> &#123;</span><br><span class="line">    <span class="keyword">static</span> &#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;外部类&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">class</span> <span class="title class_">InnerClass</span> &#123;</span><br><span class="line">        <span class="keyword">static</span> &#123;</span><br><span class="line">            System.out.println(<span class="string">&quot;内部类的静态块&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        System.out.println(<span class="keyword">new</span> <span class="title class_">InitializationTime</span>());</span><br><span class="line">        <span class="comment">//System.out.println(new InnerClass());</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>  上面的代码只是实例化外部类，打印结果如下：</p>
+<p>  <img src="/learnerguo/7a350abf.htm/image-20200427232726260.png" alt="image-20200427232726260"></p>
+<p>  通过上面的截图可以知道，内部类的<code>static</code>块的内容并没有并执行，说明内部类是没有初始化的，内部类的初始化时机是只有当内部类被使用的时候才会初始化。</p>
+</li>
+</ul>
+<h2 id="存在的问题"><a href="#存在的问题" class="headerlink" title="存在的问题"></a>存在的问题</h2><p>这种方式效率高，毕竟没有使用到<code>synchronized</code>，但是还是有办法破坏单例，那就是使用反射，看下面的代码。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> testsingleton;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.lang.reflect.Constructor;</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">WrongHolderDemo</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        Class&lt;?&gt; clazz = HolderDemo.class;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            Constructor&lt;?&gt; constructor = clazz.getDeclaredConstructor(<span class="literal">null</span>);</span><br><span class="line">            constructor.setAccessible(<span class="literal">true</span>);</span><br><span class="line">            <span class="type">Object</span> <span class="variable">o</span> <span class="operator">=</span> constructor.newInstance();</span><br><span class="line">            <span class="type">HolderDemo</span> <span class="variable">instance</span> <span class="operator">=</span> HolderDemo.getInstance();</span><br><span class="line">            System.out.println(o);</span><br><span class="line">            System.out.println(instance);</span><br><span class="line">            System.out.println(o == instance);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>执行结果</p>
+<p><img src="/learnerguo/7a350abf.htm/image-20200508223400660.png" alt="image-20200508223400660"></p>
+<p>可以看到在<code>HolderDemo</code>类中构造方法是私有的，但是使用反射还是可以创建出对象的。</p>
+<h2 id="解决办法"><a href="#解决办法" class="headerlink" title="解决办法"></a>解决办法</h2><p><code>java</code>是强大的，只有你想不到，没有<code>java</code>做不到，如果你想限制别人使用反射的方式来创建对象，那么只需要在构造方法中加上一个判断就好，完整代码如下</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> testsingleton;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">HolderDemo</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> HolderDemo lazySingleton;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="title function_">HolderDemo</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (Holder.holderDemo != <span class="literal">null</span>) &#123;</span><br><span class="line">            <span class="keyword">throw</span>  <span class="keyword">new</span> <span class="title class_">RuntimeException</span>(<span class="string">&quot;已经被初始化过&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">class</span> <span class="title class_">Holder</span> &#123;</span><br><span class="line">        <span class="keyword">private</span> <span class="keyword">static</span> <span class="type">HolderDemo</span> <span class="variable">holderDemo</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">HolderDemo</span>();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> HolderDemo <span class="title function_">getInstance</span><span class="params">()</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> Holder.holderDemo;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="keyword">new</span> <span class="title class_">Thread</span>(()-&gt;&#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; <span class="number">2</span>; i++) &#123;</span><br><span class="line">                System.out.println(getInstance());</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;).start();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>可以看到在私有构造方法中加上了一个判断，如果已经实例化了<code>Holder.holderDemo</code>字段，那么就抛出异常，你可能会有疑问，当我使用反射创建的时候，第一次<code>Holder.holderDemo</code>这里的判断不应该是<code>null</code>么，这样不就可以创建成功了。别忘了上面说的内部类的加载时机咯，你看<code>getInstance()</code>方法其实也就是返回<code>Holder.holderDemo</code>而已，所以<code>if (Holder.holderDemo != null)</code> 这个判断不仅仅是一个判断，当你调用到这里来的时候就会实例化内部类的静态字段，所以在这里<code>Holder.holderDemo</code>的值就不会是<code>null</code>。</p>
+<h1 id="枚举"><a href="#枚举" class="headerlink" title="枚举"></a>枚举</h1><p>上面是通过内部类来实现的，还有一种方式是通过枚举来实现，代码如下：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> testsingleton;</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">EnumSingletonDemo</span> &#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="title function_">EnumSingletonDemo</span><span class="params">()</span> &#123;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//延迟加载</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">enum</span> <span class="title class_">EnumHolder</span> &#123;</span><br><span class="line">        INSTANCE;</span><br><span class="line">        <span class="keyword">private</span> <span class="type">EnumSingletonDemo</span> <span class="variable">instance</span> <span class="operator">=</span> <span class="literal">null</span>;</span><br><span class="line"></span><br><span class="line">        EnumHolder() &#123;</span><br><span class="line">            instance = <span class="keyword">new</span> <span class="title class_">EnumSingletonDemo</span>();</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">public</span> EnumSingletonDemo <span class="title function_">getInstance</span><span class="params">()</span> &#123;</span><br><span class="line">            <span class="keyword">return</span> instance;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;<span class="comment">//懒加载</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> EnumSingletonDemo <span class="title function_">getInstance</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> EnumHolder.INSTANCE.getInstance();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        System.out.println(EnumSingletonDemo.getInstance());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>如果不熟悉枚举的同学，<a href="https://www.personalstudy.ltd/java/%E6%9E%9A%E4%B8%BE/java/%E6%9E%9A%E4%B8%BE/%E6%9E%9A%E4%B8%BE/">枚举</a></p>
+]]></content>
+      <categories>
+        <category>java</category>
+        <category>设计模式</category>
+      </categories>
+      <tags>
+        <tag>java</tag>
+        <tag>设计模式</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>委派模式</title>
+    <url>/learnerguo/3ffc1ee8.html</url>
+    <content><![CDATA[<h1 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h1><p>委派模式主要的基本作用是负责任务的调用和分配，和代理模式很类似。但是还是有一定的区别的</p>
+<ul>
+<li>代理模式注重过程</li>
+<li>委派模式注重结果</li>
+</ul>
+<span id="more"></span>
+
+<p>委派模式在<code>spring</code>中的典型应用就是<code>DispatcherServlet</code>，之前没有使用<code>springMVC</code>框架，也就是使用原生的<code>servlet</code>的时候，是每一个不同的请求都有一个映射地址(这个映射地址在<code>web.xml</code>中进行配置)，这个映射地址就是对应到该请求的处理类，使用<code>springMVC</code>框架之后，我们都是直接将请求映射到<code>controller</code>中的方法中，那么是怎么直接映射到方法中的呢，其实<code>DispatcherServlet</code>类就是充当的委派者的模式，我们所有的请求都会被<code>DispatcherServlet</code>这个类拦截，然后在这个类中进行任务调度。</p>
+<p>来看一下委派模式的案例。</p>
+<h1 id="案例代码"><a href="#案例代码" class="headerlink" title="案例代码"></a>案例代码</h1><h2 id="涉及对象"><a href="#涉及对象" class="headerlink" title="涉及对象"></a>涉及对象</h2><ul>
+<li>boss</li>
+<li>leader</li>
+<li>employee</li>
+</ul>
+<p>来看一下这几个<code>UML</code>类图的关系</p>
+<p><img src="/learnerguo/3ffc1ee8.htm/image-20200510124652137.png" alt="image-20200510124652137"></p>
+<ul>
+<li><code>Boss</code>中有<code>leader</code>的引用，</li>
+<li><code>Boss</code>给<code>leader</code>下达任务</li>
+<li><code>leader</code>将任务委派给具体的员工去做</li>
+</ul>
+<p>Boss类</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> designmode.delegatepattern;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Boss</span> &#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="type">Leader</span> <span class="variable">leader</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Leader</span>();</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">doSomething</span><span class="params">(String command)</span>&#123;</span><br><span class="line">        <span class="built_in">this</span>.leader.doSomething(command);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>leader类</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> designmode.delegatepattern;</span><br><span class="line"><span class="keyword">import</span> java.util.HashMap;</span><br><span class="line"><span class="keyword">import</span> java.util.Map;</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Leader</span> &#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> Map&lt;String, IEmployee&gt; register = <span class="keyword">new</span> <span class="title class_">HashMap</span>&lt;&gt;(<span class="number">2</span>);</span><br><span class="line">    <span class="keyword">static</span> &#123;</span><br><span class="line">        register.put(<span class="string">&quot;技能A&quot;</span>, <span class="keyword">new</span> <span class="title class_">EmployeeA</span>());</span><br><span class="line">        register.put(<span class="string">&quot;技能B&quot;</span>, <span class="keyword">new</span> <span class="title class_">EmployeeB</span>());</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">doSomething</span><span class="params">(String command)</span> &#123;</span><br><span class="line">        register.get(command).doSomething();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>员工接口</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> designmode.delegatepattern;</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">interface</span> <span class="title class_">IEmployee</span> &#123;</span><br><span class="line">    <span class="keyword">void</span> <span class="title function_">doSomething</span><span class="params">()</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>具体员工类</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> designmode.delegatepattern;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">EmployeeA</span> <span class="keyword">implements</span> <span class="title class_">IEmployee</span> &#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">doSomething</span><span class="params">()</span> &#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;我是员工A,我擅长技能A&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> designmode.delegatepattern;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">EmployeeB</span> <span class="keyword">implements</span> <span class="title class_">IEmployee</span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">doSomething</span><span class="params">()</span> &#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;我是员工B,我擅长技能B&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>测试类</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> designmode.delegatepattern;</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">DelegatePatternTest</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="type">Boss</span> <span class="variable">boss</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Boss</span>();</span><br><span class="line">        boss.doSomething(<span class="string">&quot;技能A&quot;</span>);</span><br><span class="line">        boss.doSomething(<span class="string">&quot;技能B&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+]]></content>
+      <categories>
+        <category>java</category>
+        <category>设计模式</category>
+      </categories>
+      <tags>
+        <tag>java</tag>
+        <tag>设计模式</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>策略模式</title>
+    <url>/learnerguo/72e3b671.html</url>
+    <content><![CDATA[<h1 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h1><p>策略模式是一种定义一系列算法的方法，从概念上来看，所有这些算法完成的都是相同的工作，只是实现不同，它可以以相同的方式调用所有的算法，减少了各种算法类与使用算法类之间的耦合。</p>
+<span id="more"></span>
+
+<h1 id="案例"><a href="#案例" class="headerlink" title="案例"></a>案例</h1><p>比如我们平时买东西付款方式可以用多种</p>
+<ul>
+<li>支付宝支付</li>
+<li>微信支付</li>
+<li>银联支付</li>
+<li>京东白条支付</li>
+</ul>
+<p>现在来看一下平时我们代码应该如何写。</p>
+<h2 id="不使用策略模式"><a href="#不使用策略模式" class="headerlink" title="不使用策略模式"></a>不使用策略模式</h2><h3 id="支付订单类"><a href="#支付订单类" class="headerlink" title="支付订单类"></a>支付订单类</h3><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> designmode.strategypattern.normal;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> designmode.strategypattern.MsgResult;</span><br><span class="line"><span class="keyword">import</span> designmode.strategypattern.PayStrategy;</span><br><span class="line"><span class="keyword">import</span> designmode.strategypattern.Payment;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Created by Tom.</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">NormalOrder</span> &#123;</span><br><span class="line">    <span class="keyword">private</span> String uid;</span><br><span class="line">    <span class="keyword">private</span> String orderId;</span><br><span class="line">    <span class="keyword">private</span> <span class="type">double</span> amount;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">NormalOrder</span><span class="params">(String uid, String orderId, <span class="type">double</span> amount)</span>&#123;</span><br><span class="line">        <span class="built_in">this</span>.uid = uid;</span><br><span class="line">        <span class="built_in">this</span>.orderId = orderId;</span><br><span class="line">        <span class="built_in">this</span>.amount = amount;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">pay</span><span class="params">(String payKey)</span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (<span class="string">&quot;京东&quot;</span>.equals(payKey)) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="string">&quot;使用京东支付，支付成功&quot;</span>;</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (<span class="string">&quot;支付宝&quot;</span>.equals(payKey)) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="string">&quot;使用支付宝支付，支付成功&quot;</span>;</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (<span class="string">&quot;微信&quot;</span>.equals(payKey)) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="string">&quot;使用微信支付,支付成功&quot;</span>;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="string">&quot;支付方式错误&quot;</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="测试类"><a href="#测试类" class="headerlink" title="测试类"></a>测试类</h3><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> designmode.strategypattern.normal;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">NormalOrderTest</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="type">NormalOrder</span> <span class="variable">order</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">NormalOrder</span>(<span class="string">&quot;1&quot;</span>, <span class="string">&quot;13424123432&quot;</span>, <span class="number">33.22</span>);</span><br><span class="line">        System.out.println(order.pay(<span class="string">&quot;支付宝&quot;</span>));</span><br><span class="line">        System.out.println(order.pay(<span class="string">&quot;微信&quot;</span>));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h3><p>加上后面还有别的支付方式，我们就一直需要修改<code>NormalOrder</code>类的<code>pay</code>方法，需要在里面不断的加上判断，去修改支付逻辑，这就违背了开闭原则。</p>
+<h2 id="使用策略模式"><a href="#使用策略模式" class="headerlink" title="使用策略模式"></a>使用策略模式</h2><p>先看一下使用策略模式的<code>UML</code>类图</p>
+<p><img src="/learnerguo/72e3b671.htm/image-20200510204800618.png" alt="image-20200510204800618"></p>
+<p>从上面的类图中可以看到主体是分为三类</p>
+<ul>
+<li><code>payment</code>接口或抽象类和具体的支付方式<ul>
+<li>因为支付都有相似的功能，比如支付类型，判断该支付类型下账号的余额等，所以需要有一个接口或者抽象类，然后具体的支付方式来实现或者继承这个接口或抽象类。</li>
+</ul>
+</li>
+<li>具体策略，这里就是<code>PayStrategy</code>类，这个类的作用是给上层客户端来调用，获取具体的支付方式</li>
+<li><code>order</code>类就是订单类，可以认为是客户端类</li>
+</ul>
+<p><a href="https://gitee.com/Gwei11/code/tree/master/javabase/strategypattern">策略模式代码</a></p>
+]]></content>
+      <categories>
+        <category>java</category>
+        <category>设计模式</category>
+      </categories>
+      <tags>
+        <tag>java</tag>
+        <tag>设计模式</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>设计模式</title>
+    <url>/learnerguo/364ea8cc.html</url>
+    <content><![CDATA[]]></content>
+      <categories>
+        <category>java</category>
+        <category>设计模式</category>
+      </categories>
+      <tags>
+        <tag>java</tag>
+        <tag>设计模式</tag>
       </tags>
   </entry>
   <entry>
@@ -1272,236 +1558,6 @@
       </tags>
   </entry>
   <entry>
-    <title>多线程下的七种单例模式</title>
-    <url>/learnerguo/7a350abf.html</url>
-    <content><![CDATA[<p>本文主要分析七种形式的单例模式</p>
-<ol>
-<li>饿汉式</li>
-<li>懒汉式</li>
-<li>懒汉式加同步方法</li>
-<li><code>DCL(double check locking)</code></li>
-<li><code>volatile+double-check</code></li>
-<li><code>holder</code></li>
-<li>枚举</li>
-</ol>
-<p><a href="https://gitee.com/Gwei11/code/tree/master/javabase/testsingleton">代码地址</a></p>
-<span id="more"></span>
-
-<h1 id="饿汉式"><a href="#饿汉式" class="headerlink" title="饿汉式"></a>饿汉式</h1><ul>
-<li>所谓饿汉式就是一开始就将对象创建出来</li>
-<li>构造方法私有</li>
-<li>提供获取实例的方法</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> testsingleton;</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">HungrySingleton</span> &#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="type">HungrySingleton</span> <span class="variable">hungrySingleton</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">HungrySingleton</span>();</span><br><span class="line">    <span class="keyword">private</span> <span class="title function_">HungrySingleton</span><span class="params">()</span>&#123;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> HungrySingleton <span class="title function_">getHungrySingleton</span><span class="params">()</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> hungrySingleton;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; <span class="number">20</span>; i++) &#123;</span><br><span class="line">            <span class="keyword">new</span> <span class="title class_">Thread</span>(() -&gt; &#123;</span><br><span class="line">                System.out.println(getHungrySingleton());</span><br><span class="line">            &#125;).start();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="优势"><a href="#优势" class="headerlink" title="优势"></a>优势</h2><ul>
-<li>线程安全</li>
-</ul>
-<h2 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h2><ul>
-<li>非懒加载模式，性能不高</li>
-</ul>
-<h2 id="序列化破坏单例模式"><a href="#序列化破坏单例模式" class="headerlink" title="序列化破坏单例模式"></a>序列化破坏单例模式</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> testsingleton.seriable;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.io.Serializable;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">SeriableSingleton</span> <span class="keyword">implements</span> <span class="title class_">Serializable</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="title function_">SeriableSingleton</span><span class="params">()</span>&#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="type">SeriableSingleton</span> <span class="variable">seriableSingleton</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">SeriableSingleton</span>();</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> SeriableSingleton <span class="title function_">getInstance</span><span class="params">()</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> seriableSingleton;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>测试代码</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> testsingleton.seriable;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.io.FileInputStream;</span><br><span class="line"><span class="keyword">import</span> java.io.FileOutputStream;</span><br><span class="line"><span class="keyword">import</span> java.io.ObjectInputStream;</span><br><span class="line"><span class="keyword">import</span> java.io.ObjectOutputStream;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">TestSeriableSingleton</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="comment">//这个对象想要从序列化中获取</span></span><br><span class="line">        <span class="type">SeriableSingleton</span> <span class="variable">s1</span> <span class="operator">=</span> <span class="literal">null</span>;</span><br><span class="line">        <span class="comment">//从系统中获取一个对象</span></span><br><span class="line">        <span class="type">SeriableSingleton</span> <span class="variable">s2</span> <span class="operator">=</span> SeriableSingleton.getInstance();</span><br><span class="line"></span><br><span class="line">        <span class="type">FileOutputStream</span> <span class="variable">fos</span> <span class="operator">=</span> <span class="literal">null</span>;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            fos = <span class="keyword">new</span> <span class="title class_">FileOutputStream</span>(<span class="string">&quot;SeriableSingleton.obj&quot;</span>);</span><br><span class="line">            <span class="type">ObjectOutputStream</span> <span class="variable">oos</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">ObjectOutputStream</span>(fos);</span><br><span class="line">            oos.writeObject(s2);</span><br><span class="line">            oos.flush();</span><br><span class="line">            oos.close();</span><br><span class="line"></span><br><span class="line">            <span class="type">FileInputStream</span> <span class="variable">fis</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">FileInputStream</span>(<span class="string">&quot;SeriableSingleton.obj&quot;</span>);</span><br><span class="line">            <span class="type">ObjectInputStream</span> <span class="variable">ois</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">ObjectInputStream</span>(fis);</span><br><span class="line">            s1 = (SeriableSingleton) ois.readObject();</span><br><span class="line">            ois.close();</span><br><span class="line"></span><br><span class="line">            System.out.println(s1);</span><br><span class="line">            System.out.println(s2);</span><br><span class="line">            System.out.println(s1 == s2);</span><br><span class="line"></span><br><span class="line">        &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>执行结果</p>
-<p><img src="/learnerguo/7a350abf.htm/image-20200510064203998.png" alt="image-20200510064203998"></p>
-<h3 id="解决方式"><a href="#解决方式" class="headerlink" title="解决方式"></a>解决方式</h3><p>在饿汉式代码中提供一个<code>readResolve()</code>方法</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> testsingleton.seriable;</span><br><span class="line"><span class="keyword">import</span> java.io.Serializable;</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">SeriableSingleton</span> <span class="keyword">implements</span> <span class="title class_">Serializable</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="title function_">SeriableSingleton</span><span class="params">()</span>&#123;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="type">SeriableSingleton</span> <span class="variable">seriableSingleton</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">SeriableSingleton</span>();</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> SeriableSingleton <span class="title function_">getInstance</span><span class="params">()</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> seriableSingleton;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span>  Object <span class="title function_">readResolve</span><span class="params">()</span>&#123;</span><br><span class="line">        <span class="keyword">return</span>  seriableSingleton;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h3><p>看一下<code>ObjectInputStream</code>的代码</p>
-<p><img src="/learnerguo/7a350abf.htm/image-20200510070522882.png" alt="image-20200510070522882"></p>
-<p>在最后的<code>readOrdinaryObject</code>方法中会有一个判断，就是如果我们序列化的类中含有<code>readResolve</code>这个方法的话，就用这个方法的返回值对象来替换反序列化出来的对象，所以使用这个方法不代表反序列化出来的对象和我们在系统中创建的对象是同一个，实际上反序列化出来的对象还是和系统中创建的不同的，只是使用了这个方法的话，就将这个这个方法的返回值重新赋值给反序列化出来的对象。</p>
-<h3 id="再一次实验"><a href="#再一次实验" class="headerlink" title="再一次实验"></a>再一次实验</h3><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> testsingleton.seriable;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.io.Serializable;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">SeriableSingleton</span> <span class="keyword">implements</span> <span class="title class_">Serializable</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="title function_">SeriableSingleton</span><span class="params">()</span>&#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="type">SeriableSingleton</span> <span class="variable">seriableSingleton</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">SeriableSingleton</span>();</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> SeriableSingleton <span class="title function_">getInstance</span><span class="params">()</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> seriableSingleton;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span>  Object <span class="title function_">readResolve</span><span class="params">()</span>&#123;</span><br><span class="line">        <span class="type">SeriableSingleton</span> <span class="variable">object</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">SeriableSingleton</span>();</span><br><span class="line">        System.out.println(<span class="string">&quot;对象是：&quot;</span> + object);</span><br><span class="line">        <span class="keyword">return</span> object;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>这一次我们将<code>readResolve</code>方法的返回值不是直接返回<code>seriableSingleton</code>，而是重新创建了一个对象，现在我们来看一下运行结果</p>
-<p><img src="/learnerguo/7a350abf.htm/image-20200510071058755.png" alt="image-20200510071058755"></p>
-<p>可以看到反序列的对象和<code>readResolve</code>方法返回值对象是同一个。</p>
-<h1 id="懒汉式"><a href="#懒汉式" class="headerlink" title="懒汉式"></a>懒汉式</h1><ul>
-<li>懒汉式就是当使用的时候才会创建这个对象</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> testsingleton;</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">LazySingleton</span> &#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> LazySingleton lazySingleton;</span><br><span class="line">    <span class="keyword">private</span> <span class="title function_">LazySingleton</span><span class="params">()</span>&#123;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> LazySingleton <span class="title function_">getInstance</span><span class="params">()</span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (lazySingleton == <span class="literal">null</span>) &#123;</span><br><span class="line">            lazySingleton = <span class="keyword">new</span> <span class="title class_">LazySingleton</span>();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> lazySingleton;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; <span class="number">4000</span>; i++) &#123;</span><br><span class="line">            <span class="keyword">new</span> <span class="title class_">Thread</span>(()-&gt;&#123;</span><br><span class="line">                System.out.println(getInstance());</span><br><span class="line">            &#125;).start();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>但是这种方式会有线程问题</p>
-<p><img src="/learnerguo/7a350abf.htm/image-20200427223314728.png" alt="image-20200427223314728"></p>
-<h2 id="线程不安全分析"><a href="#线程不安全分析" class="headerlink" title="线程不安全分析"></a>线程不安全分析</h2><p><img src="/learnerguo/7a350abf.htm/image-20200427234805848.png" alt="image-20200427234805848"></p>
-<p>如上图所示，</p>
-<ul>
-<li>线程1执行到 <code>if(lazySinleton == null)</code>的时候时间片使用完</li>
-<li>线程2进入到这块代码，由于线程1还没有创建出对象，所以线程2进来，为空的判断仍然是成立的</li>
-<li>线程2进入<code>if</code>并且创建了对象</li>
-<li>线程1在前面已经进入了<code>if</code>判断，只是还没有创建对象而已，现在轮到线程1了，那么线程1会继续执行创建对象的代码</li>
-<li>这样就出现了多个对象，也就是线程安全的问题</li>
-</ul>
-<h1 id="懒汉式加同步方法"><a href="#懒汉式加同步方法" class="headerlink" title="懒汉式加同步方法"></a>懒汉式加同步方法</h1><p>上面看到懒汉式可以做到懒加载，但是存在线程不安全的问题，所以可以通过加锁的方式来解决。</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> testsingleton;</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">LazySingletonWithLock</span> &#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> LazySingletonWithLock lazySingleton;</span><br><span class="line">    <span class="keyword">private</span> <span class="title function_">LazySingletonWithLock</span><span class="params">()</span>&#123;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">synchronized</span> LazySingletonWithLock <span class="title function_">getInstance</span><span class="params">()</span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (lazySingleton == <span class="literal">null</span>) &#123;</span><br><span class="line">            lazySingleton = <span class="keyword">new</span> <span class="title class_">LazySingletonWithLock</span>();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> lazySingleton;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; <span class="number">4000</span>; i++) &#123;</span><br><span class="line">            <span class="keyword">new</span> <span class="title class_">Thread</span>(()-&gt;&#123;</span><br><span class="line">                System.out.println(getInstance());</span><br><span class="line">            &#125;).start();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>如上面代码所示，也就是在获取实例的代码中加上<code>synchronized</code>关键字，这样可以保证线程安全，但是当在方法中加上<code>synchronized</code>关键字之后就相当于是退化为串行了，因为加上了<code>synchronized</code>关键字时，该方法会被一个线程锁住，其余的线程想要进入该方法就必须要上一个线程退出才行，所以就相当于是单线程了，不能发挥多线程的优势。解决方式请看<code>DCL</code>方式</p>
-<h1 id="DCL"><a href="#DCL" class="headerlink" title="DCL"></a>DCL</h1><p>所谓<code>DCL</code>方式就是<code>double check lock</code>，就是双重判断，代码如下</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> testsingleton;</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">DCL</span> &#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> DCL lazySingleton;</span><br><span class="line">    <span class="keyword">private</span> <span class="title function_">DCL</span><span class="params">()</span> &#123;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> DCL <span class="title function_">getInstance</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (lazySingleton == <span class="literal">null</span>) &#123;</span><br><span class="line">            <span class="keyword">synchronized</span> (DCL.class) &#123;</span><br><span class="line">                <span class="keyword">if</span> (lazySingleton == <span class="literal">null</span>) &#123;</span><br><span class="line">                    lazySingleton = <span class="keyword">new</span> <span class="title class_">DCL</span>();</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> lazySingleton;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; <span class="number">4000</span>; i++) &#123;</span><br><span class="line">            <span class="keyword">new</span> <span class="title class_">Thread</span>(() -&gt; &#123;</span><br><span class="line">                System.out.println(getInstance());</span><br><span class="line">            &#125;).start();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>如上面代码所示，就是在获取实例的方法中做了两个判断，在懒汉式中已经分析为什么会出现线程安全问题，现在加锁之后再判断一次就可以解决这个问题。</p>
-<h2 id="疑问"><a href="#疑问" class="headerlink" title="疑问"></a>疑问</h2><p>上面的代码中如果换成下面这样有没有效果？为什么？</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> testsingleton;</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">DCL</span> &#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> DCL lazySingleton;</span><br><span class="line">    <span class="keyword">private</span> <span class="title function_">DCL</span><span class="params">()</span> &#123;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> DCL <span class="title function_">getInstance</span><span class="params">()</span> &#123;</span><br><span class="line">       <span class="keyword">synchronized</span> (DCL.class) &#123;</span><br><span class="line">           <span class="keyword">if</span> (lazySingleton == <span class="literal">null</span>) &#123;</span><br><span class="line">                <span class="keyword">if</span> (lazySingleton == <span class="literal">null</span>) &#123;</span><br><span class="line">                    lazySingleton = <span class="keyword">new</span> <span class="title class_">DCL</span>();</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> lazySingleton;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; <span class="number">4000</span>; i++) &#123;</span><br><span class="line">            <span class="keyword">new</span> <span class="title class_">Thread</span>(() -&gt; &#123;</span><br><span class="line">                System.out.println(getInstance());</span><br><span class="line">            &#125;).start();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>也就是将<code>synchronized</code>放在第一个<code>if</code>判断的外面，而不是里面。这样做和第一种方式有什么区别？</p>
-<p>其实这样锁定和在方法中锁定没有太大的区别，因为已进入方法就锁定了，那么进入方法里面的其实也只有一个线程，然后再去执行<code>if</code>判断，那么执行一次和执行两次<code>if</code>判断是没有区别的。</p>
-<h1 id="volatile-DCL"><a href="#volatile-DCL" class="headerlink" title="volatile+DCL"></a>volatile+DCL</h1><p>上面<code>DCL</code>方法可以解决线程安全，并且是懒加载的方式，但是还是可能会有问题，因为上面的案例中是只有一个实例变量，如果这个类中还有其余的变量。先看下面代码：</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">VolatileAndDCL</span> &#123;</span><br><span class="line">    <span class="keyword">private</span> Connection connection;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> VolatileAndDCL lazySingleton;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>比如一个类中有这样的两个变量，变量的实例化在字节码层面是在<init>方法中进行初始化的，在代码层面第一个变量是在第二个变量的后面，所以会讲道理在实例化<code>lazySingleton</code>的时候<code>connection</code>应该是已经实例化了，但是<code>jvm</code>可能会发生指令重排，所以可能<code>lazySingleton</code>实例化的时候，<code>connection</code>还没有被实例化，这样就会发生一个问题，当线程1实例化了<code>lazySingleton</code>，然后线程2拿到<code>lazySingleton</code>，因为<code>lazySingleton</code>已经不为空，所以线程2不会执行实例化的代码，这样当线程2在使用<code>connection</code>的时候就会出现空指针异常，此时可以使用<code>volatile</code>关键字来解决，这个关键字就是让强制让<code>jvm</code>不进行指令重排。</init></p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">VolatileAndDCL</span> &#123;</span><br><span class="line">    <span class="keyword">private</span> Connection connection;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">volatile</span> <span class="keyword">static</span> VolatileAndDCL lazySingleton;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>这样在<code>lazySingleton</code>前面的代码一定会先执行到。</p>
-<h1 id="holder"><a href="#holder" class="headerlink" title="holder"></a>holder</h1><p>还有一种更巧妙的方式是通过静态内部类的方式来实现单例模式</p>
-<p>代码如下：</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> testsingleton;</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">HolderDemo</span> &#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> HolderDemo lazySingleton;</span><br><span class="line">    <span class="keyword">private</span> <span class="title function_">HolderDemo</span><span class="params">()</span> &#123;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">class</span> <span class="title class_">Holder</span> &#123;</span><br><span class="line">        <span class="keyword">private</span> <span class="keyword">static</span> <span class="type">HolderDemo</span> <span class="variable">holderDemo</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">HolderDemo</span>();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> HolderDemo <span class="title function_">getInstance</span><span class="params">()</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> Holder.holderDemo;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="keyword">new</span> <span class="title class_">Thread</span>(()-&gt;&#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; <span class="number">4000</span>; i++) &#123;</span><br><span class="line">                System.out.println(getInstance());</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;).start();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>对于使用静态内部类的方式需要知道两点</p>
-<ul>
-<li><p>一个类只会被初始化一次</p>
-</li>
-<li><p>初始化外部类的时候并不会立即将内部类也初始化，看下面代码</p>
-  <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> testsingleton;</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">InitializationTime</span> &#123;</span><br><span class="line">    <span class="keyword">static</span> &#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;外部类&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">class</span> <span class="title class_">InnerClass</span> &#123;</span><br><span class="line">        <span class="keyword">static</span> &#123;</span><br><span class="line">            System.out.println(<span class="string">&quot;内部类的静态块&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        System.out.println(<span class="keyword">new</span> <span class="title class_">InitializationTime</span>());</span><br><span class="line">        <span class="comment">//System.out.println(new InnerClass());</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>  上面的代码只是实例化外部类，打印结果如下：</p>
-<p>  <img src="/learnerguo/7a350abf.htm/image-20200427232726260.png" alt="image-20200427232726260"></p>
-<p>  通过上面的截图可以知道，内部类的<code>static</code>块的内容并没有并执行，说明内部类是没有初始化的，内部类的初始化时机是只有当内部类被使用的时候才会初始化。</p>
-</li>
-</ul>
-<h2 id="存在的问题"><a href="#存在的问题" class="headerlink" title="存在的问题"></a>存在的问题</h2><p>这种方式效率高，毕竟没有使用到<code>synchronized</code>，但是还是有办法破坏单例，那就是使用反射，看下面的代码。</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> testsingleton;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.lang.reflect.Constructor;</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">WrongHolderDemo</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        Class&lt;?&gt; clazz = HolderDemo.class;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            Constructor&lt;?&gt; constructor = clazz.getDeclaredConstructor(<span class="literal">null</span>);</span><br><span class="line">            constructor.setAccessible(<span class="literal">true</span>);</span><br><span class="line">            <span class="type">Object</span> <span class="variable">o</span> <span class="operator">=</span> constructor.newInstance();</span><br><span class="line">            <span class="type">HolderDemo</span> <span class="variable">instance</span> <span class="operator">=</span> HolderDemo.getInstance();</span><br><span class="line">            System.out.println(o);</span><br><span class="line">            System.out.println(instance);</span><br><span class="line">            System.out.println(o == instance);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>执行结果</p>
-<p><img src="/learnerguo/7a350abf.htm/image-20200508223400660.png" alt="image-20200508223400660"></p>
-<p>可以看到在<code>HolderDemo</code>类中构造方法是私有的，但是使用反射还是可以创建出对象的。</p>
-<h2 id="解决办法"><a href="#解决办法" class="headerlink" title="解决办法"></a>解决办法</h2><p><code>java</code>是强大的，只有你想不到，没有<code>java</code>做不到，如果你想限制别人使用反射的方式来创建对象，那么只需要在构造方法中加上一个判断就好，完整代码如下</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> testsingleton;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">HolderDemo</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> HolderDemo lazySingleton;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="title function_">HolderDemo</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (Holder.holderDemo != <span class="literal">null</span>) &#123;</span><br><span class="line">            <span class="keyword">throw</span>  <span class="keyword">new</span> <span class="title class_">RuntimeException</span>(<span class="string">&quot;已经被初始化过&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">class</span> <span class="title class_">Holder</span> &#123;</span><br><span class="line">        <span class="keyword">private</span> <span class="keyword">static</span> <span class="type">HolderDemo</span> <span class="variable">holderDemo</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">HolderDemo</span>();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> HolderDemo <span class="title function_">getInstance</span><span class="params">()</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> Holder.holderDemo;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="keyword">new</span> <span class="title class_">Thread</span>(()-&gt;&#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; <span class="number">2</span>; i++) &#123;</span><br><span class="line">                System.out.println(getInstance());</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;).start();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>可以看到在私有构造方法中加上了一个判断，如果已经实例化了<code>Holder.holderDemo</code>字段，那么就抛出异常，你可能会有疑问，当我使用反射创建的时候，第一次<code>Holder.holderDemo</code>这里的判断不应该是<code>null</code>么，这样不就可以创建成功了。别忘了上面说的内部类的加载时机咯，你看<code>getInstance()</code>方法其实也就是返回<code>Holder.holderDemo</code>而已，所以<code>if (Holder.holderDemo != null)</code> 这个判断不仅仅是一个判断，当你调用到这里来的时候就会实例化内部类的静态字段，所以在这里<code>Holder.holderDemo</code>的值就不会是<code>null</code>。</p>
-<h1 id="枚举"><a href="#枚举" class="headerlink" title="枚举"></a>枚举</h1><p>上面是通过内部类来实现的，还有一种方式是通过枚举来实现，代码如下：</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> testsingleton;</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">EnumSingletonDemo</span> &#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="title function_">EnumSingletonDemo</span><span class="params">()</span> &#123;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//延迟加载</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">enum</span> <span class="title class_">EnumHolder</span> &#123;</span><br><span class="line">        INSTANCE;</span><br><span class="line">        <span class="keyword">private</span> <span class="type">EnumSingletonDemo</span> <span class="variable">instance</span> <span class="operator">=</span> <span class="literal">null</span>;</span><br><span class="line"></span><br><span class="line">        EnumHolder() &#123;</span><br><span class="line">            instance = <span class="keyword">new</span> <span class="title class_">EnumSingletonDemo</span>();</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">public</span> EnumSingletonDemo <span class="title function_">getInstance</span><span class="params">()</span> &#123;</span><br><span class="line">            <span class="keyword">return</span> instance;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;<span class="comment">//懒加载</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> EnumSingletonDemo <span class="title function_">getInstance</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> EnumHolder.INSTANCE.getInstance();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        System.out.println(EnumSingletonDemo.getInstance());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>如果不熟悉枚举的同学，<a href="https://www.personalstudy.ltd/java/%E6%9E%9A%E4%B8%BE/java/%E6%9E%9A%E4%B8%BE/%E6%9E%9A%E4%B8%BE/">枚举</a></p>
-]]></content>
-      <categories>
-        <category>java</category>
-        <category>设计模式</category>
-      </categories>
-      <tags>
-        <tag>java</tag>
-        <tag>设计模式</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>委派模式</title>
-    <url>/learnerguo/3ffc1ee8.html</url>
-    <content><![CDATA[<h1 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h1><p>委派模式主要的基本作用是负责任务的调用和分配，和代理模式很类似。但是还是有一定的区别的</p>
-<ul>
-<li>代理模式注重过程</li>
-<li>委派模式注重结果</li>
-</ul>
-<span id="more"></span>
-
-<p>委派模式在<code>spring</code>中的典型应用就是<code>DispatcherServlet</code>，之前没有使用<code>springMVC</code>框架，也就是使用原生的<code>servlet</code>的时候，是每一个不同的请求都有一个映射地址(这个映射地址在<code>web.xml</code>中进行配置)，这个映射地址就是对应到该请求的处理类，使用<code>springMVC</code>框架之后，我们都是直接将请求映射到<code>controller</code>中的方法中，那么是怎么直接映射到方法中的呢，其实<code>DispatcherServlet</code>类就是充当的委派者的模式，我们所有的请求都会被<code>DispatcherServlet</code>这个类拦截，然后在这个类中进行任务调度。</p>
-<p>来看一下委派模式的案例。</p>
-<h1 id="案例代码"><a href="#案例代码" class="headerlink" title="案例代码"></a>案例代码</h1><h2 id="涉及对象"><a href="#涉及对象" class="headerlink" title="涉及对象"></a>涉及对象</h2><ul>
-<li>boss</li>
-<li>leader</li>
-<li>employee</li>
-</ul>
-<p>来看一下这几个<code>UML</code>类图的关系</p>
-<p><img src="/learnerguo/3ffc1ee8.htm/image-20200510124652137.png" alt="image-20200510124652137"></p>
-<ul>
-<li><code>Boss</code>中有<code>leader</code>的引用，</li>
-<li><code>Boss</code>给<code>leader</code>下达任务</li>
-<li><code>leader</code>将任务委派给具体的员工去做</li>
-</ul>
-<p>Boss类</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> designmode.delegatepattern;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Boss</span> &#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="type">Leader</span> <span class="variable">leader</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Leader</span>();</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">doSomething</span><span class="params">(String command)</span>&#123;</span><br><span class="line">        <span class="built_in">this</span>.leader.doSomething(command);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>leader类</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> designmode.delegatepattern;</span><br><span class="line"><span class="keyword">import</span> java.util.HashMap;</span><br><span class="line"><span class="keyword">import</span> java.util.Map;</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Leader</span> &#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> Map&lt;String, IEmployee&gt; register = <span class="keyword">new</span> <span class="title class_">HashMap</span>&lt;&gt;(<span class="number">2</span>);</span><br><span class="line">    <span class="keyword">static</span> &#123;</span><br><span class="line">        register.put(<span class="string">&quot;技能A&quot;</span>, <span class="keyword">new</span> <span class="title class_">EmployeeA</span>());</span><br><span class="line">        register.put(<span class="string">&quot;技能B&quot;</span>, <span class="keyword">new</span> <span class="title class_">EmployeeB</span>());</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">doSomething</span><span class="params">(String command)</span> &#123;</span><br><span class="line">        register.get(command).doSomething();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>员工接口</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> designmode.delegatepattern;</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">interface</span> <span class="title class_">IEmployee</span> &#123;</span><br><span class="line">    <span class="keyword">void</span> <span class="title function_">doSomething</span><span class="params">()</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>具体员工类</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> designmode.delegatepattern;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">EmployeeA</span> <span class="keyword">implements</span> <span class="title class_">IEmployee</span> &#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">doSomething</span><span class="params">()</span> &#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;我是员工A,我擅长技能A&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> designmode.delegatepattern;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">EmployeeB</span> <span class="keyword">implements</span> <span class="title class_">IEmployee</span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">doSomething</span><span class="params">()</span> &#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;我是员工B,我擅长技能B&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>测试类</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> designmode.delegatepattern;</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">DelegatePatternTest</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="type">Boss</span> <span class="variable">boss</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Boss</span>();</span><br><span class="line">        boss.doSomething(<span class="string">&quot;技能A&quot;</span>);</span><br><span class="line">        boss.doSomething(<span class="string">&quot;技能B&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-]]></content>
-      <categories>
-        <category>java</category>
-        <category>设计模式</category>
-      </categories>
-      <tags>
-        <tag>java</tag>
-        <tag>设计模式</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>策略模式</title>
-    <url>/learnerguo/72e3b671.html</url>
-    <content><![CDATA[<h1 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h1><p>策略模式是一种定义一系列算法的方法，从概念上来看，所有这些算法完成的都是相同的工作，只是实现不同，它可以以相同的方式调用所有的算法，减少了各种算法类与使用算法类之间的耦合。</p>
-<span id="more"></span>
-
-<h1 id="案例"><a href="#案例" class="headerlink" title="案例"></a>案例</h1><p>比如我们平时买东西付款方式可以用多种</p>
-<ul>
-<li>支付宝支付</li>
-<li>微信支付</li>
-<li>银联支付</li>
-<li>京东白条支付</li>
-</ul>
-<p>现在来看一下平时我们代码应该如何写。</p>
-<h2 id="不使用策略模式"><a href="#不使用策略模式" class="headerlink" title="不使用策略模式"></a>不使用策略模式</h2><h3 id="支付订单类"><a href="#支付订单类" class="headerlink" title="支付订单类"></a>支付订单类</h3><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> designmode.strategypattern.normal;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> designmode.strategypattern.MsgResult;</span><br><span class="line"><span class="keyword">import</span> designmode.strategypattern.PayStrategy;</span><br><span class="line"><span class="keyword">import</span> designmode.strategypattern.Payment;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Created by Tom.</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">NormalOrder</span> &#123;</span><br><span class="line">    <span class="keyword">private</span> String uid;</span><br><span class="line">    <span class="keyword">private</span> String orderId;</span><br><span class="line">    <span class="keyword">private</span> <span class="type">double</span> amount;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">NormalOrder</span><span class="params">(String uid, String orderId, <span class="type">double</span> amount)</span>&#123;</span><br><span class="line">        <span class="built_in">this</span>.uid = uid;</span><br><span class="line">        <span class="built_in">this</span>.orderId = orderId;</span><br><span class="line">        <span class="built_in">this</span>.amount = amount;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">pay</span><span class="params">(String payKey)</span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (<span class="string">&quot;京东&quot;</span>.equals(payKey)) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="string">&quot;使用京东支付，支付成功&quot;</span>;</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (<span class="string">&quot;支付宝&quot;</span>.equals(payKey)) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="string">&quot;使用支付宝支付，支付成功&quot;</span>;</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (<span class="string">&quot;微信&quot;</span>.equals(payKey)) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="string">&quot;使用微信支付,支付成功&quot;</span>;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="string">&quot;支付方式错误&quot;</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-<h3 id="测试类"><a href="#测试类" class="headerlink" title="测试类"></a>测试类</h3><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> designmode.strategypattern.normal;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">NormalOrderTest</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="type">NormalOrder</span> <span class="variable">order</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">NormalOrder</span>(<span class="string">&quot;1&quot;</span>, <span class="string">&quot;13424123432&quot;</span>, <span class="number">33.22</span>);</span><br><span class="line">        System.out.println(order.pay(<span class="string">&quot;支付宝&quot;</span>));</span><br><span class="line">        System.out.println(order.pay(<span class="string">&quot;微信&quot;</span>));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h3><p>加上后面还有别的支付方式，我们就一直需要修改<code>NormalOrder</code>类的<code>pay</code>方法，需要在里面不断的加上判断，去修改支付逻辑，这就违背了开闭原则。</p>
-<h2 id="使用策略模式"><a href="#使用策略模式" class="headerlink" title="使用策略模式"></a>使用策略模式</h2><p>先看一下使用策略模式的<code>UML</code>类图</p>
-<p><img src="/learnerguo/72e3b671.htm/image-20200510204800618.png" alt="image-20200510204800618"></p>
-<p>从上面的类图中可以看到主体是分为三类</p>
-<ul>
-<li><code>payment</code>接口或抽象类和具体的支付方式<ul>
-<li>因为支付都有相似的功能，比如支付类型，判断该支付类型下账号的余额等，所以需要有一个接口或者抽象类，然后具体的支付方式来实现或者继承这个接口或抽象类。</li>
-</ul>
-</li>
-<li>具体策略，这里就是<code>PayStrategy</code>类，这个类的作用是给上层客户端来调用，获取具体的支付方式</li>
-<li><code>order</code>类就是订单类，可以认为是客户端类</li>
-</ul>
-<p><a href="https://gitee.com/Gwei11/code/tree/master/javabase/strategypattern">策略模式代码</a></p>
-]]></content>
-      <categories>
-        <category>java</category>
-        <category>设计模式</category>
-      </categories>
-      <tags>
-        <tag>java</tag>
-        <tag>设计模式</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>设计模式</title>
-    <url>/learnerguo/364ea8cc.html</url>
-    <content><![CDATA[]]></content>
-      <categories>
-        <category>java</category>
-        <category>设计模式</category>
-      </categories>
-      <tags>
-        <tag>java</tag>
-        <tag>设计模式</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>动态代理和使用jdk自带的HSDB查看被代理的类的代码</title>
     <url>/learnerguo/ecb9a6b1.html</url>
     <content><![CDATA[<h1 id="示例代码"><a href="#示例代码" class="headerlink" title="示例代码"></a>示例代码</h1><p><a href="https://gitee.com/Gwei11/code/tree/master/javabase/proxy/proxy-demo">动态代理示例代码</a></p>
@@ -1738,7 +1794,7 @@
 <li>实例数据</li>
 <li>填充数据：为了提高 cpu 访问效率</li>
 </ol>
-<p><img src="https://cdn.nlark.com/yuque/0/2023/png/1739511/1699367646561-cb6dd072-7c7e-4ee3-9c78-015699e8d629.png#averageHue=%237f8081&clientId=ue00b41ae-a71b-4&from=paste&height=302&id=ucfb5b09b&originHeight=377&originWidth=999&originalType=binary&ratio=1.25&rotation=0&showTitle=false&size=118972&status=done&style=none&taskId=ubccc08c4-05c7-417f-b7a4-aff2e1037a7&title=&width=799.2" alt="image.png"></p>
+<p><img src="https://picture-guoke-blog.oss-cn-shenzhen.aliyuncs.com/blog/202311142209436.png"></p>
 <h2 id="对象头"><a href="#对象头" class="headerlink" title="对象头"></a>对象头</h2><p><a href="https://www.cnblogs.com/zhouwangwang/p/13763887.html">对象头信息</a></p>
 <p>对象头的最后两个字节位可以表示加锁的状态</p>
 <ul>
@@ -1755,7 +1811,7 @@
 <li>重量级锁</li>
 <li>GC 标记</li>
 </ol>
-<h2 id="Monitor-对象"><a href="#Monitor-对象" class="headerlink" title="Monitor 对象"></a>Monitor 对象</h2><p>每一个 Java 对象都可以关联都可以关联一个 Monitor 对象，如果使用 synchronized 给对象上锁，那么该对象头的 Mark Word 中就被设置指向 Monitor 对象的指针，Monitor 结构如下所示：<br><img src="https://cdn.nlark.com/yuque/0/2021/png/1739511/1631424328023-baf9fbdc-ccac-4148-9a0d-05e3691102ce.png#averageHue=%23f5f4f4&height=442&id=u722ef97a&originHeight=442&originWidth=1100&originalType=binary&ratio=1&rotation=0&showTitle=false&size=121102&status=done&style=none&title=&width=1100" alt="image.png"></p>
+<h2 id="Monitor-对象"><a href="#Monitor-对象" class="headerlink" title="Monitor 对象"></a>Monitor 对象</h2><p>每一个 Java 对象都可以关联都可以关联一个 Monitor 对象，如果使用 synchronized 给对象上锁，那么该对象头的 Mark Word 中就被设置指向 Monitor 对象的指针，Monitor 结构如下所示：<br><img src="https://picture-guoke-blog.oss-cn-shenzhen.aliyuncs.com/blog/202311142209263.png"></p>
 <ul>
 <li>刚开始的时候 Monitor 中 Owner 为 null</li>
 <li>当 Thread-2 线程执行 synchronized(obj) 的时候就会将 Monitor 的所有者 Owner 置为 Thread-2， Monitor 中只能有一个 Owner</li>
@@ -1775,15 +1831,15 @@
 <ul>
 <li>首先在线程的栈帧中创建锁记录（Lock Record）对象，内部可以存储锁定对象的 MarkWord</li>
 </ul>
-<p><img src="https://cdn.nlark.com/yuque/0/2021/png/1739511/1631425846231-d96c6938-0f3d-4fda-b2c2-4652922377e4.png#averageHue=%23ecf3a0&height=310&id=uf1f42e5b&originHeight=310&originWidth=584&originalType=binary&ratio=1&rotation=0&showTitle=false&size=57198&status=done&style=none&title=&width=584" alt="image.png"></p>
+<p><img src="https://picture-guoke-blog.oss-cn-shenzhen.aliyuncs.com/blog/202311142210013.png"></p>
 <ul>
 <li>将锁记录中 Object reference 指向锁对象，并尝试使用 cas 替换 Object的 Mark Word。将 Mark Word 的值存入锁记录。</li>
 </ul>
-<p><img src="https://cdn.nlark.com/yuque/0/2021/png/1739511/1631426004869-889a7410-893e-433d-9e62-531bf4d1606d.png#averageHue=%23ecf29f&height=362&id=u16d09f74&originHeight=362&originWidth=598&originalType=binary&ratio=1&rotation=0&showTitle=false&size=56003&status=done&style=none&title=&width=598" alt="image.png"></p>
+<p><img src="https://picture-guoke-blog.oss-cn-shenzhen.aliyuncs.com/blog/202311142210828.png"></p>
 <ul>
 <li>如果 cas 替换成功，对象头中存储了 锁记录 地址和状态 00，表示由该线程给对象加锁。</li>
 </ul>
-<p><img src="https://cdn.nlark.com/yuque/0/2021/png/1739511/1631426066454-c84e53c5-57e1-4db1-ba02-73b7debbbbcd.png#averageHue=%23edf4a1&height=333&id=ub90679c6&originHeight=333&originWidth=577&originalType=binary&ratio=1&rotation=0&showTitle=false&size=51538&status=done&style=none&title=&width=577" alt="image.png"></p>
+<p><img src="https://picture-guoke-blog.oss-cn-shenzhen.aliyuncs.com/blog/202311142210648.png"></p>
 <ul>
 <li>如果 cas 失败，有两种情形<ul>
 <li>如果是其他线程已经持有了该 Object 的轻量级锁，此时表示由竞争，进入锁膨胀过程（这个过程在后面看）。</li>
@@ -1791,11 +1847,11 @@
 </ul>
 </li>
 </ul>
-<p><img src="https://cdn.nlark.com/yuque/0/2021/png/1739511/1631426194061-4ca1f7b7-2855-4731-a919-1bf0e88129d4.png#averageHue=%23ebf09c&height=371&id=u38a56506&originHeight=371&originWidth=602&originalType=binary&ratio=1&rotation=0&showTitle=false&size=73617&status=done&style=none&title=&width=602" alt="image.png"></p>
+<p><img src="https://picture-guoke-blog.oss-cn-shenzhen.aliyuncs.com/blog/202311142211119.png"></p>
 <ul>
 <li>当退出 synchronized 代码块时如果有取值为 null 的锁记录。表示有重入，此时可以删除改锁记录，表示重入数减一。</li>
 </ul>
-<p><img src="https://cdn.nlark.com/yuque/0/2021/png/1739511/1631426305431-15417f47-6990-4a0c-817e-1b5593ed4c13.png#averageHue=%23eef4a1&height=335&id=u0cc82f87&originHeight=335&originWidth=582&originalType=binary&ratio=1&rotation=0&showTitle=false&size=52037&status=done&style=none&title=&width=582" alt="image.png"></p>
+<p><img src="https://picture-guoke-blog.oss-cn-shenzhen.aliyuncs.com/blog/202311142211540.png"></p>
 <ul>
 <li>当退出 synchronized 代码块时如果锁记录的值不为 null，这时使用 cas 将 Mark Word 的值恢复给对象头。<ul>
 <li>恢复成功，说明解锁成功。</li>
@@ -1807,7 +1863,7 @@
 <ul>
 <li>当 Thread-1 进行轻量级加锁的时候，Thread-0 已经对该对象加了轻量级锁。</li>
 </ul>
-<p><img src="https://cdn.nlark.com/yuque/0/2021/png/1739511/1631426683540-3b823c00-0a6d-43ce-8582-119b34a18284.png#averageHue=%23f4faa2&height=267&id=u5555efe8&originHeight=267&originWidth=732&originalType=binary&ratio=1&rotation=0&showTitle=false&size=38708&status=done&style=none&title=&width=732" alt="image.png"></p>
+<p><img src="https://picture-guoke-blog.oss-cn-shenzhen.aliyuncs.com/blog/202311142211573.png"></p>
 <ul>
 <li>此时 Thread-1 加轻量级锁失败，进入锁膨胀流程<ul>
 <li>为 Object 对象申请 Monitor 锁，让 Object 指向重量级锁地址。</li>
@@ -1815,7 +1871,7 @@
 </ul>
 </li>
 </ul>
-<p><img src="https://cdn.nlark.com/yuque/0/2021/png/1739511/1631426820276-8d0d3e52-5c72-4565-9445-a75d248299d0.png#averageHue=%23ecfab3&height=266&id=ua72289c9&originHeight=266&originWidth=737&originalType=binary&ratio=1&rotation=0&showTitle=false&size=39685&status=done&style=none&title=&width=737" alt="image.png"></p>
+<p><img src="https://picture-guoke-blog.oss-cn-shenzhen.aliyuncs.com/blog/202311142212229.png"></p>
 <ul>
 <li>当 Thread-0 退出同步块解锁时，使用 cas 将 Mark Word的值恢复给对象头失败（由上图可知，此时对象头里面已经是保存了 Monitor 地址，而不是 Lock Record 地址）。这时就会进入重量级解锁流程，按照 Monitor 地址找到 Monitor 对象，设置 Owner 为 null，唤醒 EntryList 中的 BLOCKED 线程。</li>
 </ul>
@@ -1827,8 +1883,8 @@
 </ul>
 <h2 id="偏向锁"><a href="#偏向锁" class="headerlink" title="偏向锁"></a>偏向锁</h2><p>轻量级锁在没有竞争时(比如就自己一个线程在执行)，每次重入的时候依然还是要进行 cas 操作。在 java6 之后引入了 偏向锁来进一步进行优化：只有第一次使用 cas 将线程id设置到对象的 Mark Word 之后，之后发现这个线程ID 是自己的就表示没有竞争，不用重新 cas。 以后只有没有发生竞争，那么这个对象就归该线程所有。<br>比如下面的代码</p>
 <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">static</span> <span class="keyword">final</span> <span class="type">Object</span> <span class="variable">obj</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Object</span>();</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">m1</span><span class="params">()</span> &#123;</span><br><span class="line">	<span class="keyword">synchronized</span> (obj) &#123;</span><br><span class="line">    	<span class="comment">// 同步块A</span></span><br><span class="line">        m2();</span><br><span class="line">    &#125;	</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">m2</span><span class="params">()</span> &#123;</span><br><span class="line">	<span class="keyword">synchronized</span>(obj) &#123;</span><br><span class="line">    	<span class="comment">// 同步块B</span></span><br><span class="line">        m3();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">m3</span><span class="params">()</span> &#123;</span><br><span class="line">	<span class="keyword">synchronized</span>(obj) &#123;</span><br><span class="line">        <span class="comment">// 同步块C</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p><img src="https://cdn.nlark.com/yuque/0/2021/png/1739511/1631427446127-666d1e9d-dfc3-44c1-bc96-2526f2111a6f.png#averageHue=%23fcfcdb&height=862&id=u18d972dd&originHeight=862&originWidth=665&originalType=binary&ratio=1&rotation=0&showTitle=false&size=121088&status=done&style=none&title=&width=665" alt="image.png"></p>
-<h3 id="偏向状态"><a href="#偏向状态" class="headerlink" title="偏向状态"></a>偏向状态</h3><p>再看一下 64 为的对象头格式<br><img src="https://cdn.nlark.com/yuque/0/2021/png/1739511/1631427702478-5cd5ac61-162d-4fdb-9491-21b13fd905cb.png#averageHue=%23f6f4f4&height=288&id=uc965f122&originHeight=288&originWidth=685&originalType=binary&ratio=1&rotation=0&showTitle=false&size=31402&status=done&style=none&title=&width=685" alt="image.png"></p>
+<p><img src="https://picture-guoke-blog.oss-cn-shenzhen.aliyuncs.com/blog/202311142214002.png"></p>
+<h3 id="偏向状态"><a href="#偏向状态" class="headerlink" title="偏向状态"></a>偏向状态</h3><p>再看一下 64 为的对象头格式<br><img src="https://picture-guoke-blog.oss-cn-shenzhen.aliyuncs.com/blog/202311142213298.png"></p>
 <ul>
 <li>之前说的是最后两位记录的是锁的状态，比如 01 表示没有上锁，00 是轻量级锁等。</li>
 <li>看上图会发现，state 为 normal 和 Biased 的最后两位都是 01，但是倒数第三位是不一样的，倒数第三位为1表示偏向锁，为0 表示没有加锁。</li>
@@ -2167,56 +2223,6 @@
       </tags>
   </entry>
   <entry>
-    <title>线程间通信的几种方式</title>
-    <url>/learnerguo/b232aaed.html</url>
-    <content><![CDATA[<h1 id="什么是线程间通信"><a href="#什么是线程间通信" class="headerlink" title="什么是线程间通信"></a>什么是线程间通信</h1><span id="more"></span>
-
-<h1 id="三种通信方式"><a href="#三种通信方式" class="headerlink" title="三种通信方式"></a>三种通信方式</h1><ul>
-<li><code>suspend</code>和<code>resume</code></li>
-<li><code>wait</code>和<code>notify</code></li>
-<li><code>park</code>和<code>unpark</code></li>
-</ul>
-<p><a href="https://gitee.com/Gwei11/code/tree/master/javabase/%E5%A4%9A%E7%BA%BF%E7%A8%8B">示例代码</a></p>
-<h2 id="suspend和resume"><a href="#suspend和resume" class="headerlink" title="suspend和resume"></a><code>suspend</code>和<code>resume</code></h2><ul>
-<li>这两个方法已经被弃用，主要有以下两个原因<ul>
-<li><code>resume</code>必须在<code>suspend</code>之后调用</li>
-<li>如果加了锁的话，<code>suspend</code>方法是不会释放锁的</li>
-</ul>
-</li>
-<li>案例代码请点击上面的<strong>示例代码</strong>链接</li>
-</ul>
-<h2 id="wait和notify"><a href="#wait和notify" class="headerlink" title="wait和notify"></a><code>wait</code>和<code>notify</code></h2><p>当一个线程调用一个<strong>共享变量</strong>的<code>wait</code>方法时，该调用线程会被挂起。在以下情形下才返回</p>
-<ol>
-<li>其他线程调用了该<strong>共享变量</strong>的<code>notify()</code>或<code>notifyAll()</code>方法</li>
-<li>其他线程调用了<strong>该线程</strong>的<code>interrupt()</code>方法，该线程会抛出<code>InterruptedException</code>异常返回</li>
-</ol>
-<p><font color="red">注：上面所说的共享变量其实就是指锁，也就是说需要获取对象的监视器锁才能执行wait方法</font></p>
-<p>那么如何获取对象监视器锁呢？有以下两种方式：</p>
-<ol>
-<li>使用<code>synchronized</code>同步代码块</li>
-<li>使用<code>synchronized</code>同步方法</li>
-</ol>
-<ul>
-<li><code>wait</code>和<code>notify</code>必须加锁才能使用</li>
-<li><code>wait</code>调用时会释放锁</li>
-<li><code>wait</code>方法和<code>notify</code>方法也有调用顺序问题，如果先调用<code>notify</code>，然后再调用<code>wait</code>会发生死锁</li>
-</ul>
-<h2 id="park和unpark"><a href="#park和unpark" class="headerlink" title="park和unpark"></a><code>park</code>和<code>unpark</code></h2><ul>
-<li><code>park</code>和<code>unpark</code>是<code>LockSupport</code>类中静态方法</li>
-<li>这两个方法解决了顺序问题，也就是无论哪个先执行都可以，这是一种令牌机制</li>
-<li>但是这两个方法没有解决锁的问题，也就是<code>park</code>方法中如果拿到了锁，当执行<code>park</code>的时候不会释放锁</li>
-</ul>
-]]></content>
-      <categories>
-        <category>java</category>
-        <category>多线程</category>
-      </categories>
-      <tags>
-        <tag>java</tag>
-        <tag>多线程</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>线程池实现原理</title>
     <url>/learnerguo/de7c53fe.html</url>
     <content><![CDATA[<h1 id="1-为什么要使用线程池"><a href="#1-为什么要使用线程池" class="headerlink" title="1. 为什么要使用线程池"></a>1. 为什么要使用线程池</h1><ol>
@@ -2337,94 +2343,53 @@
       </tags>
   </entry>
   <entry>
-    <title>枚举</title>
-    <url>/learnerguo/633a03ca.html</url>
-    <content><![CDATA[<h1 id="基本的枚举定义"><a href="#基本的枚举定义" class="headerlink" title="基本的枚举定义"></a>基本的枚举定义</h1><p><code>enum</code> 的全称为 <code>enumeration</code>， 是 <code>JDK 1.5</code>  中引入的新特性，存放在 <code>java.lang</code> 包中。</p>
-<p>定义：</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> top.twolovelypig;</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">enum</span> <span class="title class_">EnumMain</span> &#123;</span><br><span class="line">	MON, TUE, WED, THU, FRI, SAT, SUN;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+    <title>线程间通信的几种方式</title>
+    <url>/learnerguo/b232aaed.html</url>
+    <content><![CDATA[<h1 id="什么是线程间通信"><a href="#什么是线程间通信" class="headerlink" title="什么是线程间通信"></a>什么是线程间通信</h1><span id="more"></span>
 
-<span id="more"></span>
-
-<p>输出枚举值代码:</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> top.twolovelypig;</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Test</span> &#123;</span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">		<span class="keyword">for</span> (EnumMain e : EnumMain.values()) &#123;</span><br><span class="line">            System.out.println(e.toString());</span><br><span class="line">        &#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h1 id="enum对象基本方法"><a href="#enum对象基本方法" class="headerlink" title="enum对象基本方法"></a>enum对象基本方法</h1><ul>
-<li><p><code>int compareTo(E o)</code>	该方法用来比较枚举与指定对象的顺序</p>
-  <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">	<span class="comment">//值为6，表明SUN在MON后面六位</span></span><br><span class="line">	System.out.println(EnumMain.SUN.compareTo(EnumMain.MON));</span><br><span class="line">	<span class="comment">//值为-2，表明tue比thu小两位(tue在thu前面两位)</span></span><br><span class="line">	System.out.println(EnumMain.TUE.compareTo(EnumMain.THU));</span><br><span class="line">	<span class="comment">//值为0，表示二者是一样的</span></span><br><span class="line">	System.out.println(EnumMain.MON.compareTo(EnumMain.MON));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>  需要注意的是这里比较的值是有大小和正负的，不是说后面的与前面的相比结果就是1，也有可能是其他正数，具体结果是几就需要看后面的枚举是在前面的枚举<strong>后几位</strong></p>
-</li>
-<li><p><code>Class&lt;E&gt; ``**getDeclaringClass**()</code>返回与枚举常量的枚举类型相对应的<code>class</code>对象</p>
-  <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> top.twolovelypig;</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Test</span> &#123;</span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">		<span class="type">EnumMain</span> <span class="variable">enumMain</span> <span class="operator">=</span> EnumMain.FRI;</span><br><span class="line">		 System.out.println(<span class="string">&quot;getDeclaringClass(): &quot;</span> + enumMain.getDeclaringClass().getName());</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>  输出的结果是类的全路径: <code>getDeclaringClass(): top.twolovelypig.EnumMain</code></p>
-</li>
-<li><p><code>String name()</code>返回此枚举常量的名称</p>
-  <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">	<span class="type">EnumMain</span> <span class="variable">enumMain</span> <span class="operator">=</span> EnumMain.FRI;</span><br><span class="line">	System.out.println(<span class="string">&quot;name(): &quot;</span> + enumMain.name());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>  输出结果是: <code>name(): FRI</code></p>
-</li>
-<li><p><code>int ordinal()</code> 返回枚举常量的序数(初始常量序数为0)</p>
-  <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">	<span class="type">EnumMain</span> <span class="variable">enumMain</span> <span class="operator">=</span> EnumMain.FRI;</span><br><span class="line">	System.out.println(<span class="string">&quot;ordinal(): &quot;</span> + enumMain.ordinal());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>  输出结果是4，因为<code>FRI</code>是第五个，初始常量序数是0，所以输出结果是4</p>
-</li>
-<li><p><code>String toString()</code> 返回枚举常量的名称</p>
-</li>
+<h1 id="三种通信方式"><a href="#三种通信方式" class="headerlink" title="三种通信方式"></a>三种通信方式</h1><ul>
+<li><code>suspend</code>和<code>resume</code></li>
+<li><code>wait</code>和<code>notify</code></li>
+<li><code>park</code>和<code>unpark</code></li>
 </ul>
-<h1 id="给enum自定义属性和方法-带参数的enum"><a href="#给enum自定义属性和方法-带参数的enum" class="headerlink" title="给enum自定义属性和方法(带参数的enum)"></a>给enum自定义属性和方法(带参数的enum)</h1><p><code>enum</code></p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> top.twolovelypig;</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">enum</span> <span class="title class_">EnumMain</span> &#123; </span><br><span class="line">	MON(<span class="string">&quot;星期一&quot;</span>, <span class="number">1</span>), </span><br><span class="line">	TUE(<span class="string">&quot;星期二&quot;</span>, <span class="number">2</span>), </span><br><span class="line">	WED(<span class="string">&quot;星期三&quot;</span>, <span class="number">3</span>), </span><br><span class="line">	THU(<span class="string">&quot;星期四&quot;</span>, <span class="number">4</span>), </span><br><span class="line">	FRI(<span class="string">&quot;星期五&quot;</span>, <span class="number">5</span>), </span><br><span class="line">	SAT(<span class="string">&quot;星期六&quot;</span>, <span class="number">6</span>), </span><br><span class="line">	SUN(<span class="string">&quot;星期天&quot;</span>,<span class="number">7</span>);</span><br><span class="line">	</span><br><span class="line">    <span class="comment">// 成员变量  </span></span><br><span class="line">    <span class="keyword">private</span> String name;  </span><br><span class="line">    <span class="keyword">private</span> <span class="type">int</span> index;  </span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 构造方法  </span></span><br><span class="line">    <span class="keyword">private</span> <span class="title function_">EnumMain</span><span class="params">(String name, <span class="type">int</span> index)</span> &#123;  </span><br><span class="line">        <span class="built_in">this</span>.name = name;  </span><br><span class="line">        <span class="built_in">this</span>.index = index;  </span><br><span class="line">    &#125; </span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 普通方法  根据index获取name</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> String <span class="title function_">getNameByIndex</span><span class="params">(<span class="type">int</span> index)</span> &#123;  </span><br><span class="line">        <span class="keyword">for</span> (EnumMain c : EnumMain.values()) &#123;  </span><br><span class="line">            <span class="keyword">if</span> (c.getIndex() == index) &#123;  </span><br><span class="line">                <span class="keyword">return</span> c.name;  </span><br><span class="line">            &#125;  </span><br><span class="line">        &#125;  </span><br><span class="line">        <span class="keyword">return</span> <span class="literal">null</span>;  </span><br><span class="line">    &#125; </span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 普通方法  根据index获取name</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="type">int</span> <span class="title function_">getIndexByName</span><span class="params">(String name)</span> &#123;  </span><br><span class="line">        <span class="keyword">for</span> (EnumMain c : EnumMain.values()) &#123;  </span><br><span class="line">            <span class="keyword">if</span> (c.name.equals(name)) &#123;</span><br><span class="line">                <span class="keyword">return</span> c.index;</span><br><span class="line">            &#125;  </span><br><span class="line">        &#125;  </span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>; </span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// get set 方法  </span></span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">getName</span><span class="params">()</span> &#123;  </span><br><span class="line">        <span class="keyword">return</span> name;  </span><br><span class="line">    &#125;  </span><br><span class="line">    </span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">setName</span><span class="params">(String name)</span> &#123;  </span><br><span class="line">        <span class="built_in">this</span>.name = name;  </span><br><span class="line">    &#125; </span><br><span class="line">    </span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">getIndex</span><span class="params">()</span> &#123;  </span><br><span class="line">        <span class="keyword">return</span> index;  </span><br><span class="line">    &#125;  </span><br><span class="line">    </span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">setIndex</span><span class="params">(<span class="type">int</span> index)</span> &#123;  </span><br><span class="line">        <span class="built_in">this</span>.index = index;  </span><br><span class="line">    &#125;  </span><br><span class="line">&#125;  </span><br></pre></td></tr></table></figure>
-
-<p>上面代码中<code>getIndexByName()</code>方法中需要注意<code>c.name</code>与<code>c.getName()</code>的区别，<code>c.name</code>获取的是中文比如<strong>星期三</strong>，而<code>c.getName()</code>的结果是<strong>FRI</strong>。</p>
-<p>测试代码，根据名称获取索引，根据索引获取名称等:</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> top.twolovelypig;</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Test</span> &#123;</span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">		<span class="type">EnumMain</span> <span class="variable">enumMain</span> <span class="operator">=</span> EnumMain.FRI;</span><br><span class="line">		<span class="comment">//普通get方法		输出结果是5</span></span><br><span class="line">		System.out.println(enumMain.getIndex());</span><br><span class="line">		<span class="comment">//普通getName()方法		输出结果是星期五</span></span><br><span class="line">		System.out.println(enumMain.getName());</span><br><span class="line">		<span class="comment">//根据index获取name		输出结果是星期三</span></span><br><span class="line">		System.out.println(EnumMain.getNameByIndex(<span class="number">3</span>));</span><br><span class="line">		<span class="comment">//根据name获取index		输出结果是3</span></span><br><span class="line">		System.out.println(EnumMain.getIndexByName(<span class="string">&quot;星期三&quot;</span>));</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h1 id="对枚举的理解"><a href="#对枚举的理解" class="headerlink" title="对枚举的理解"></a>对枚举的理解</h1><p>&#x3D;&#x3D;可能不好理解的就是上面具有参数的枚举，其实只需要记住一点，<strong>java中一切皆对象</strong>，可以把枚举页当做一个类，这样来看的话上面的代码可以写成下面这样&#x3D;&#x3D;:</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> top.twolovelypig;</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">EnumMain</span> &#123; 	</span><br><span class="line">    <span class="comment">// 成员变量  </span></span><br><span class="line">    <span class="keyword">private</span> String name;  </span><br><span class="line">    <span class="keyword">private</span> <span class="type">int</span> index;  </span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 构造方法  </span></span><br><span class="line">    <span class="keyword">private</span> <span class="title function_">EnumMain</span><span class="params">(String name, <span class="type">int</span> index)</span> &#123;  </span><br><span class="line">        <span class="built_in">this</span>.name = name;  </span><br><span class="line">        <span class="built_in">this</span>.index = index;  </span><br><span class="line">    &#125; </span><br><span class="line"></span><br><span class="line">    <span class="comment">// get set 方法  </span></span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">getName</span><span class="params">()</span> &#123;  </span><br><span class="line">        <span class="keyword">return</span> name;  </span><br><span class="line">    &#125;  </span><br><span class="line">    </span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">setName</span><span class="params">(String name)</span> &#123;  </span><br><span class="line">        <span class="built_in">this</span>.name = name;  </span><br><span class="line">    &#125; </span><br><span class="line">    </span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">getIndex</span><span class="params">()</span> &#123;  </span><br><span class="line">        <span class="keyword">return</span> index;  </span><br><span class="line">    &#125;  </span><br><span class="line">    </span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">setIndex</span><span class="params">(<span class="type">int</span> index)</span> &#123;  </span><br><span class="line">        <span class="built_in">this</span>.index = index;  </span><br><span class="line">    &#125;  </span><br><span class="line">&#125;  </span><br></pre></td></tr></table></figure>
-
-<p>对于上面的类比较好理解吧，就是具有两个属性而已，然后呢就是一个私有构造方法以及get&#x2F;set方法。而对于枚举中的这些声明</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">MON(<span class="string">&quot;星期一&quot;</span>, <span class="number">1</span>), </span><br><span class="line">TUE(<span class="string">&quot;星期二&quot;</span>, <span class="number">2</span>), </span><br><span class="line">WED(<span class="string">&quot;星期三&quot;</span>, <span class="number">3</span>), </span><br><span class="line">THU(<span class="string">&quot;星期四&quot;</span>, <span class="number">4</span>), </span><br><span class="line">FRI(<span class="string">&quot;星期五&quot;</span>, <span class="number">5</span>), </span><br><span class="line">SAT(<span class="string">&quot;星期六&quot;</span>, <span class="number">6</span>), </span><br><span class="line">SUN(<span class="string">&quot;星期天&quot;</span>,<span class="number">7</span>);</span><br></pre></td></tr></table></figure>
-
-<p>其实就是该枚举类的对象，每一个声明都是一个对象，也就是这里其实有七个对象，此时简单理解枚举与类的区别就是枚举中对象是数量固定，相当于在一开始就实例化了几个固定的对象而已。然后后面哪些根据<code>key</code>获取<code>name</code>，以及根据<code>name</code>获取<code>key</code>都是自己加的一些方法而已。</p>
-<h1 id="enumMap"><a href="#enumMap" class="headerlink" title="enumMap"></a>enumMap</h1><p><strong>以下内容来自《java编程的逻辑》这本书。</strong></p>
-<blockquote>
-<p>如果需要一个Map的实现类，并且建的类型为枚举类型，可以使用HashMap,但应该使用一个专门的实现类EnumMap。因为枚举类型有两个特征:</p>
+<p><a href="https://gitee.com/Gwei11/code/tree/master/javabase/%E5%A4%9A%E7%BA%BF%E7%A8%8B">示例代码</a></p>
+<h2 id="suspend和resume"><a href="#suspend和resume" class="headerlink" title="suspend和resume"></a><code>suspend</code>和<code>resume</code></h2><ul>
+<li>这两个方法已经被弃用，主要有以下两个原因<ul>
+<li><code>resume</code>必须在<code>suspend</code>之后调用</li>
+<li>如果加了锁的话，<code>suspend</code>方法是不会释放锁的</li>
+</ul>
+</li>
+<li>案例代码请点击上面的<strong>示例代码</strong>链接</li>
+</ul>
+<h2 id="wait和notify"><a href="#wait和notify" class="headerlink" title="wait和notify"></a><code>wait</code>和<code>notify</code></h2><p>当一个线程调用一个<strong>共享变量</strong>的<code>wait</code>方法时，该调用线程会被挂起。在以下情形下才返回</p>
+<ol>
+<li>其他线程调用了该<strong>共享变量</strong>的<code>notify()</code>或<code>notifyAll()</code>方法</li>
+<li>其他线程调用了<strong>该线程</strong>的<code>interrupt()</code>方法，该线程会抛出<code>InterruptedException</code>异常返回</li>
+</ol>
+<p><font color="red">注：上面所说的共享变量其实就是指锁，也就是说需要获取对象的监视器锁才能执行wait方法</font></p>
+<p>那么如何获取对象监视器锁呢？有以下两种方式：</p>
+<ol>
+<li>使用<code>synchronized</code>同步代码块</li>
+<li>使用<code>synchronized</code>同步方法</li>
+</ol>
 <ul>
-<li>枚举所有可能的值时有限的并且是预定义的</li>
-<li>所有的枚举值有一个顺序</li>
+<li><code>wait</code>和<code>notify</code>必须加锁才能使用</li>
+<li><code>wait</code>调用时会释放锁</li>
+<li><code>wait</code>方法和<code>notify</code>方法也有调用顺序问题，如果先调用<code>notify</code>，然后再调用<code>wait</code>会发生死锁</li>
 </ul>
-<p>这两个特征可以更为高效的实现Map接口。</p>
-</blockquote>
-<h2 id="案例"><a href="#案例" class="headerlink" title="案例"></a>案例</h2><p>比如有一批关于衣服的记录，想要通过尺寸统计衣服的数量，定义一个简单的枚举类<code>Size</code>；都表示衣服的尺寸。</p>
-<p><code>Size</code>枚举:</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">enum</span> <span class="title class_">Size</span>&#123;</span><br><span class="line">    SMALL, MEDIUM, LARGE</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p><code>Clothes</code>类</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Clothes</span>&#123;</span><br><span class="line">    String id;</span><br><span class="line">    Size size;</span><br><span class="line">    <span class="comment">//get与set</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>按尺寸统计数量:</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> Map&lt;Size, Integer&gt; <span class="title function_">countBySize</span><span class="params">(List&lt;Clothes&gt; clothes)</span>&#123;</span><br><span class="line">    Map&lt;Size, Integer&gt; map = <span class="keyword">new</span> <span class="title class_">EnumMap</span>(Size.class);</span><br><span class="line">    <span class="keyword">for</span>(Clothes c : clothes)&#123;</span><br><span class="line">        <span class="type">Size</span> <span class="variable">size</span> <span class="operator">=</span> c.getSize();</span><br><span class="line">        <span class="type">Integer</span> <span class="variable">count</span> <span class="operator">=</span> map.get(size);</span><br><span class="line">        <span class="keyword">if</span>(count != <span class="literal">null</span>)&#123;</span><br><span class="line">            map.put(size, count+<span class="number">1</span>);</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            map.put(size, <span class="number">1</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>&#x3D;&#x3D;需要注意EnumMap的构造方法&#x3D;&#x3D;</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">Map&lt;Size, Integer&gt; map = <span class="keyword">new</span> <span class="title class_">EnumMap</span>(Size.class);</span><br></pre></td></tr></table></figure>
-
-<p><code>EnumMap</code>需要传递一个<strong>类型</strong>信息，<code>Size.class</code>表示枚举类<code>Size</code>的运行时信息，需要这个参数是因为<code>EnumMap</code>要知道具体的枚举类是什么。</p>
-<p>测试代码：</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">List&lt;Clothes&gt; clothes = Arrays.asList(</span><br><span class="line">	<span class="keyword">new</span> <span class="title class_">Clothes</span>[]&#123;</span><br><span class="line">        <span class="keyword">new</span> <span class="title class_">Clothes</span>(<span class="string">&quot;c001&quot;</span>, Size.SMALL),</span><br><span class="line">        <span class="keyword">new</span> <span class="title class_">Clothes</span>(<span class="string">&quot;c002&quot;</span>, Size.MEDIUM),</span><br><span class="line">        <span class="keyword">new</span> <span class="title class_">Clothes</span>(<span class="string">&quot;c003&quot;</span>, Size.LARGE),</span><br><span class="line">        <span class="keyword">new</span> <span class="title class_">Clothes</span>(<span class="string">&quot;c004&quot;</span>, Size.SMALL),</span><br><span class="line">        <span class="keyword">new</span> <span class="title class_">Clothes</span>(<span class="string">&quot;c005&quot;</span>, Size.MEDIUM),</span><br><span class="line">        <span class="keyword">new</span> <span class="title class_">Clothes</span>(<span class="string">&quot;c006&quot;</span>, Size.LARGE)</span><br><span class="line">    &#125;</span><br><span class="line">);</span><br><span class="line">System.out.println(countBySize(clothes));</span><br></pre></td></tr></table></figure>
-
-<p>需要说明的是，<code>EnumMap</code>是保证顺序的，输出是按照键在枚举中的顺序的。</p>
-<h2 id="enum的另外两个构造方法"><a href="#enum的另外两个构造方法" class="headerlink" title="enum的另外两个构造方法"></a>enum的另外两个构造方法</h2><p>除了以上介绍的构造方法，EnumMap还有两个构造方法，可以接受一个键值匹配的EnumMap或普通Map，如下所示：</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="title function_">EnumMap</span><span class="params">(EnumMap&lt;K, ? extends V&gt; m)</span></span><br><span class="line"><span class="keyword">public</span> <span class="title function_">EnumMap</span><span class="params">(Map&lt;K, ? extends V&gt; m)</span></span><br></pre></td></tr></table></figure>
-
-<p>比如:</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">Map&lt;Size,Integer&gt; hashMap = <span class="keyword">new</span> <span class="title class_">HashMap</span>&lt;&gt;();</span><br><span class="line">hashMap.put(Size.LARGE, <span class="number">2</span>);</span><br><span class="line">hashMap.put(Size.SMALL, <span class="number">1</span>);</span><br><span class="line">Map&lt;Size, Integer&gt; enumMap = <span class="keyword">new</span> <span class="title class_">EnumMap</span>&lt;&gt;(hashMap);</span><br></pre></td></tr></table></figure>]]></content>
+<h2 id="park和unpark"><a href="#park和unpark" class="headerlink" title="park和unpark"></a><code>park</code>和<code>unpark</code></h2><ul>
+<li><code>park</code>和<code>unpark</code>是<code>LockSupport</code>类中静态方法</li>
+<li>这两个方法解决了顺序问题，也就是无论哪个先执行都可以，这是一种令牌机制</li>
+<li>但是这两个方法没有解决锁的问题，也就是<code>park</code>方法中如果拿到了锁，当执行<code>park</code>的时候不会释放锁</li>
+</ul>
+]]></content>
       <categories>
         <category>java</category>
-        <category>枚举</category>
+        <category>多线程</category>
       </categories>
       <tags>
         <tag>java</tag>
-        <tag>枚举</tag>
+        <tag>多线程</tag>
       </tags>
   </entry>
   <entry>
@@ -2569,6 +2534,97 @@
       </tags>
   </entry>
   <entry>
+    <title>枚举</title>
+    <url>/learnerguo/633a03ca.html</url>
+    <content><![CDATA[<h1 id="基本的枚举定义"><a href="#基本的枚举定义" class="headerlink" title="基本的枚举定义"></a>基本的枚举定义</h1><p><code>enum</code> 的全称为 <code>enumeration</code>， 是 <code>JDK 1.5</code>  中引入的新特性，存放在 <code>java.lang</code> 包中。</p>
+<p>定义：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> top.twolovelypig;</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">enum</span> <span class="title class_">EnumMain</span> &#123;</span><br><span class="line">	MON, TUE, WED, THU, FRI, SAT, SUN;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<span id="more"></span>
+
+<p>输出枚举值代码:</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> top.twolovelypig;</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Test</span> &#123;</span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">		<span class="keyword">for</span> (EnumMain e : EnumMain.values()) &#123;</span><br><span class="line">            System.out.println(e.toString());</span><br><span class="line">        &#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="enum对象基本方法"><a href="#enum对象基本方法" class="headerlink" title="enum对象基本方法"></a>enum对象基本方法</h1><ul>
+<li><p><code>int compareTo(E o)</code>	该方法用来比较枚举与指定对象的顺序</p>
+  <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">	<span class="comment">//值为6，表明SUN在MON后面六位</span></span><br><span class="line">	System.out.println(EnumMain.SUN.compareTo(EnumMain.MON));</span><br><span class="line">	<span class="comment">//值为-2，表明tue比thu小两位(tue在thu前面两位)</span></span><br><span class="line">	System.out.println(EnumMain.TUE.compareTo(EnumMain.THU));</span><br><span class="line">	<span class="comment">//值为0，表示二者是一样的</span></span><br><span class="line">	System.out.println(EnumMain.MON.compareTo(EnumMain.MON));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>  需要注意的是这里比较的值是有大小和正负的，不是说后面的与前面的相比结果就是1，也有可能是其他正数，具体结果是几就需要看后面的枚举是在前面的枚举<strong>后几位</strong></p>
+</li>
+<li><p><code>Class&lt;E&gt; ``**getDeclaringClass**()</code>返回与枚举常量的枚举类型相对应的<code>class</code>对象</p>
+  <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> top.twolovelypig;</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Test</span> &#123;</span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">		<span class="type">EnumMain</span> <span class="variable">enumMain</span> <span class="operator">=</span> EnumMain.FRI;</span><br><span class="line">		 System.out.println(<span class="string">&quot;getDeclaringClass(): &quot;</span> + enumMain.getDeclaringClass().getName());</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>  输出的结果是类的全路径: <code>getDeclaringClass(): top.twolovelypig.EnumMain</code></p>
+</li>
+<li><p><code>String name()</code>返回此枚举常量的名称</p>
+  <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">	<span class="type">EnumMain</span> <span class="variable">enumMain</span> <span class="operator">=</span> EnumMain.FRI;</span><br><span class="line">	System.out.println(<span class="string">&quot;name(): &quot;</span> + enumMain.name());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>  输出结果是: <code>name(): FRI</code></p>
+</li>
+<li><p><code>int ordinal()</code> 返回枚举常量的序数(初始常量序数为0)</p>
+  <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">	<span class="type">EnumMain</span> <span class="variable">enumMain</span> <span class="operator">=</span> EnumMain.FRI;</span><br><span class="line">	System.out.println(<span class="string">&quot;ordinal(): &quot;</span> + enumMain.ordinal());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>  输出结果是4，因为<code>FRI</code>是第五个，初始常量序数是0，所以输出结果是4</p>
+</li>
+<li><p><code>String toString()</code> 返回枚举常量的名称</p>
+</li>
+</ul>
+<h1 id="给enum自定义属性和方法-带参数的enum"><a href="#给enum自定义属性和方法-带参数的enum" class="headerlink" title="给enum自定义属性和方法(带参数的enum)"></a>给enum自定义属性和方法(带参数的enum)</h1><p><code>enum</code></p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> top.twolovelypig;</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">enum</span> <span class="title class_">EnumMain</span> &#123; </span><br><span class="line">	MON(<span class="string">&quot;星期一&quot;</span>, <span class="number">1</span>), </span><br><span class="line">	TUE(<span class="string">&quot;星期二&quot;</span>, <span class="number">2</span>), </span><br><span class="line">	WED(<span class="string">&quot;星期三&quot;</span>, <span class="number">3</span>), </span><br><span class="line">	THU(<span class="string">&quot;星期四&quot;</span>, <span class="number">4</span>), </span><br><span class="line">	FRI(<span class="string">&quot;星期五&quot;</span>, <span class="number">5</span>), </span><br><span class="line">	SAT(<span class="string">&quot;星期六&quot;</span>, <span class="number">6</span>), </span><br><span class="line">	SUN(<span class="string">&quot;星期天&quot;</span>,<span class="number">7</span>);</span><br><span class="line">	</span><br><span class="line">    <span class="comment">// 成员变量  </span></span><br><span class="line">    <span class="keyword">private</span> String name;  </span><br><span class="line">    <span class="keyword">private</span> <span class="type">int</span> index;  </span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 构造方法  </span></span><br><span class="line">    <span class="keyword">private</span> <span class="title function_">EnumMain</span><span class="params">(String name, <span class="type">int</span> index)</span> &#123;  </span><br><span class="line">        <span class="built_in">this</span>.name = name;  </span><br><span class="line">        <span class="built_in">this</span>.index = index;  </span><br><span class="line">    &#125; </span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 普通方法  根据index获取name</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> String <span class="title function_">getNameByIndex</span><span class="params">(<span class="type">int</span> index)</span> &#123;  </span><br><span class="line">        <span class="keyword">for</span> (EnumMain c : EnumMain.values()) &#123;  </span><br><span class="line">            <span class="keyword">if</span> (c.getIndex() == index) &#123;  </span><br><span class="line">                <span class="keyword">return</span> c.name;  </span><br><span class="line">            &#125;  </span><br><span class="line">        &#125;  </span><br><span class="line">        <span class="keyword">return</span> <span class="literal">null</span>;  </span><br><span class="line">    &#125; </span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 普通方法  根据index获取name</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="type">int</span> <span class="title function_">getIndexByName</span><span class="params">(String name)</span> &#123;  </span><br><span class="line">        <span class="keyword">for</span> (EnumMain c : EnumMain.values()) &#123;  </span><br><span class="line">            <span class="keyword">if</span> (c.name.equals(name)) &#123;</span><br><span class="line">                <span class="keyword">return</span> c.index;</span><br><span class="line">            &#125;  </span><br><span class="line">        &#125;  </span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>; </span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// get set 方法  </span></span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">getName</span><span class="params">()</span> &#123;  </span><br><span class="line">        <span class="keyword">return</span> name;  </span><br><span class="line">    &#125;  </span><br><span class="line">    </span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">setName</span><span class="params">(String name)</span> &#123;  </span><br><span class="line">        <span class="built_in">this</span>.name = name;  </span><br><span class="line">    &#125; </span><br><span class="line">    </span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">getIndex</span><span class="params">()</span> &#123;  </span><br><span class="line">        <span class="keyword">return</span> index;  </span><br><span class="line">    &#125;  </span><br><span class="line">    </span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">setIndex</span><span class="params">(<span class="type">int</span> index)</span> &#123;  </span><br><span class="line">        <span class="built_in">this</span>.index = index;  </span><br><span class="line">    &#125;  </span><br><span class="line">&#125;  </span><br></pre></td></tr></table></figure>
+
+<p>上面代码中<code>getIndexByName()</code>方法中需要注意<code>c.name</code>与<code>c.getName()</code>的区别，<code>c.name</code>获取的是中文比如<strong>星期三</strong>，而<code>c.getName()</code>的结果是<strong>FRI</strong>。</p>
+<p>测试代码，根据名称获取索引，根据索引获取名称等:</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> top.twolovelypig;</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Test</span> &#123;</span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">		<span class="type">EnumMain</span> <span class="variable">enumMain</span> <span class="operator">=</span> EnumMain.FRI;</span><br><span class="line">		<span class="comment">//普通get方法		输出结果是5</span></span><br><span class="line">		System.out.println(enumMain.getIndex());</span><br><span class="line">		<span class="comment">//普通getName()方法		输出结果是星期五</span></span><br><span class="line">		System.out.println(enumMain.getName());</span><br><span class="line">		<span class="comment">//根据index获取name		输出结果是星期三</span></span><br><span class="line">		System.out.println(EnumMain.getNameByIndex(<span class="number">3</span>));</span><br><span class="line">		<span class="comment">//根据name获取index		输出结果是3</span></span><br><span class="line">		System.out.println(EnumMain.getIndexByName(<span class="string">&quot;星期三&quot;</span>));</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="对枚举的理解"><a href="#对枚举的理解" class="headerlink" title="对枚举的理解"></a>对枚举的理解</h1><p>&#x3D;&#x3D;可能不好理解的就是上面具有参数的枚举，其实只需要记住一点，<strong>java中一切皆对象</strong>，可以把枚举页当做一个类，这样来看的话上面的代码可以写成下面这样&#x3D;&#x3D;:</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> top.twolovelypig;</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">EnumMain</span> &#123; 	</span><br><span class="line">    <span class="comment">// 成员变量  </span></span><br><span class="line">    <span class="keyword">private</span> String name;  </span><br><span class="line">    <span class="keyword">private</span> <span class="type">int</span> index;  </span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 构造方法  </span></span><br><span class="line">    <span class="keyword">private</span> <span class="title function_">EnumMain</span><span class="params">(String name, <span class="type">int</span> index)</span> &#123;  </span><br><span class="line">        <span class="built_in">this</span>.name = name;  </span><br><span class="line">        <span class="built_in">this</span>.index = index;  </span><br><span class="line">    &#125; </span><br><span class="line"></span><br><span class="line">    <span class="comment">// get set 方法  </span></span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">getName</span><span class="params">()</span> &#123;  </span><br><span class="line">        <span class="keyword">return</span> name;  </span><br><span class="line">    &#125;  </span><br><span class="line">    </span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">setName</span><span class="params">(String name)</span> &#123;  </span><br><span class="line">        <span class="built_in">this</span>.name = name;  </span><br><span class="line">    &#125; </span><br><span class="line">    </span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">getIndex</span><span class="params">()</span> &#123;  </span><br><span class="line">        <span class="keyword">return</span> index;  </span><br><span class="line">    &#125;  </span><br><span class="line">    </span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">setIndex</span><span class="params">(<span class="type">int</span> index)</span> &#123;  </span><br><span class="line">        <span class="built_in">this</span>.index = index;  </span><br><span class="line">    &#125;  </span><br><span class="line">&#125;  </span><br></pre></td></tr></table></figure>
+
+<p>对于上面的类比较好理解吧，就是具有两个属性而已，然后呢就是一个私有构造方法以及get&#x2F;set方法。而对于枚举中的这些声明</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">MON(<span class="string">&quot;星期一&quot;</span>, <span class="number">1</span>), </span><br><span class="line">TUE(<span class="string">&quot;星期二&quot;</span>, <span class="number">2</span>), </span><br><span class="line">WED(<span class="string">&quot;星期三&quot;</span>, <span class="number">3</span>), </span><br><span class="line">THU(<span class="string">&quot;星期四&quot;</span>, <span class="number">4</span>), </span><br><span class="line">FRI(<span class="string">&quot;星期五&quot;</span>, <span class="number">5</span>), </span><br><span class="line">SAT(<span class="string">&quot;星期六&quot;</span>, <span class="number">6</span>), </span><br><span class="line">SUN(<span class="string">&quot;星期天&quot;</span>,<span class="number">7</span>);</span><br></pre></td></tr></table></figure>
+
+<p>其实就是该枚举类的对象，每一个声明都是一个对象，也就是这里其实有七个对象，此时简单理解枚举与类的区别就是枚举中对象是数量固定，相当于在一开始就实例化了几个固定的对象而已。然后后面哪些根据<code>key</code>获取<code>name</code>，以及根据<code>name</code>获取<code>key</code>都是自己加的一些方法而已。</p>
+<h1 id="enumMap"><a href="#enumMap" class="headerlink" title="enumMap"></a>enumMap</h1><p><strong>以下内容来自《java编程的逻辑》这本书。</strong></p>
+<blockquote>
+<p>如果需要一个Map的实现类，并且建的类型为枚举类型，可以使用HashMap,但应该使用一个专门的实现类EnumMap。因为枚举类型有两个特征:</p>
+<ul>
+<li>枚举所有可能的值时有限的并且是预定义的</li>
+<li>所有的枚举值有一个顺序</li>
+</ul>
+<p>这两个特征可以更为高效的实现Map接口。</p>
+</blockquote>
+<h2 id="案例"><a href="#案例" class="headerlink" title="案例"></a>案例</h2><p>比如有一批关于衣服的记录，想要通过尺寸统计衣服的数量，定义一个简单的枚举类<code>Size</code>；都表示衣服的尺寸。</p>
+<p><code>Size</code>枚举:</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">enum</span> <span class="title class_">Size</span>&#123;</span><br><span class="line">    SMALL, MEDIUM, LARGE</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><code>Clothes</code>类</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Clothes</span>&#123;</span><br><span class="line">    String id;</span><br><span class="line">    Size size;</span><br><span class="line">    <span class="comment">//get与set</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>按尺寸统计数量:</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> Map&lt;Size, Integer&gt; <span class="title function_">countBySize</span><span class="params">(List&lt;Clothes&gt; clothes)</span>&#123;</span><br><span class="line">    Map&lt;Size, Integer&gt; map = <span class="keyword">new</span> <span class="title class_">EnumMap</span>(Size.class);</span><br><span class="line">    <span class="keyword">for</span>(Clothes c : clothes)&#123;</span><br><span class="line">        <span class="type">Size</span> <span class="variable">size</span> <span class="operator">=</span> c.getSize();</span><br><span class="line">        <span class="type">Integer</span> <span class="variable">count</span> <span class="operator">=</span> map.get(size);</span><br><span class="line">        <span class="keyword">if</span>(count != <span class="literal">null</span>)&#123;</span><br><span class="line">            map.put(size, count+<span class="number">1</span>);</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            map.put(size, <span class="number">1</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>&#x3D;&#x3D;需要注意EnumMap的构造方法&#x3D;&#x3D;</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">Map&lt;Size, Integer&gt; map = <span class="keyword">new</span> <span class="title class_">EnumMap</span>(Size.class);</span><br></pre></td></tr></table></figure>
+
+<p><code>EnumMap</code>需要传递一个<strong>类型</strong>信息，<code>Size.class</code>表示枚举类<code>Size</code>的运行时信息，需要这个参数是因为<code>EnumMap</code>要知道具体的枚举类是什么。</p>
+<p>测试代码：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">List&lt;Clothes&gt; clothes = Arrays.asList(</span><br><span class="line">	<span class="keyword">new</span> <span class="title class_">Clothes</span>[]&#123;</span><br><span class="line">        <span class="keyword">new</span> <span class="title class_">Clothes</span>(<span class="string">&quot;c001&quot;</span>, Size.SMALL),</span><br><span class="line">        <span class="keyword">new</span> <span class="title class_">Clothes</span>(<span class="string">&quot;c002&quot;</span>, Size.MEDIUM),</span><br><span class="line">        <span class="keyword">new</span> <span class="title class_">Clothes</span>(<span class="string">&quot;c003&quot;</span>, Size.LARGE),</span><br><span class="line">        <span class="keyword">new</span> <span class="title class_">Clothes</span>(<span class="string">&quot;c004&quot;</span>, Size.SMALL),</span><br><span class="line">        <span class="keyword">new</span> <span class="title class_">Clothes</span>(<span class="string">&quot;c005&quot;</span>, Size.MEDIUM),</span><br><span class="line">        <span class="keyword">new</span> <span class="title class_">Clothes</span>(<span class="string">&quot;c006&quot;</span>, Size.LARGE)</span><br><span class="line">    &#125;</span><br><span class="line">);</span><br><span class="line">System.out.println(countBySize(clothes));</span><br></pre></td></tr></table></figure>
+
+<p>需要说明的是，<code>EnumMap</code>是保证顺序的，输出是按照键在枚举中的顺序的。</p>
+<h2 id="enum的另外两个构造方法"><a href="#enum的另外两个构造方法" class="headerlink" title="enum的另外两个构造方法"></a>enum的另外两个构造方法</h2><p>除了以上介绍的构造方法，EnumMap还有两个构造方法，可以接受一个键值匹配的EnumMap或普通Map，如下所示：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="title function_">EnumMap</span><span class="params">(EnumMap&lt;K, ? extends V&gt; m)</span></span><br><span class="line"><span class="keyword">public</span> <span class="title function_">EnumMap</span><span class="params">(Map&lt;K, ? extends V&gt; m)</span></span><br></pre></td></tr></table></figure>
+
+<p>比如:</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">Map&lt;Size,Integer&gt; hashMap = <span class="keyword">new</span> <span class="title class_">HashMap</span>&lt;&gt;();</span><br><span class="line">hashMap.put(Size.LARGE, <span class="number">2</span>);</span><br><span class="line">hashMap.put(Size.SMALL, <span class="number">1</span>);</span><br><span class="line">Map&lt;Size, Integer&gt; enumMap = <span class="keyword">new</span> <span class="title class_">EnumMap</span>&lt;&gt;(hashMap);</span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>java</category>
+        <category>枚举</category>
+      </categories>
+      <tags>
+        <tag>java</tag>
+        <tag>枚举</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>注解</title>
     <url>/learnerguo/a70f4376.html</url>
     <content><![CDATA[<h1 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h1><p>注解(<code>Annotation</code>)也可以叫做元数据。是一种代码级别的说明。它是<code>jdk1.5</code>及以后引入的一个特性，与类，接口和枚举是在同一个层次，他可以声明在<strong>包、类、字段、方法、局部变量、方法参数</strong>等的前面，用来对这些元素进行说明，注释。</p>
@@ -2679,62 +2735,6 @@
       <tags>
         <tag>java</tag>
         <tag>注解</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>maven使用手册</title>
-    <url>/learnerguo/a6b5c90f.html</url>
-    <content><![CDATA[<h1 id="maven配置默认的jdk版本"><a href="#maven配置默认的jdk版本" class="headerlink" title="maven配置默认的jdk版本"></a><code>maven</code>配置默认的jdk版本</h1><p>在<code>maven</code>的安装目录下修改<code>settings.xml</code>文件，修改内容如下：</p>
-<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">profile</span>&gt;</span>    </span><br><span class="line">    <span class="tag">&lt;<span class="name">id</span>&gt;</span>jdk-1.8<span class="tag">&lt;/<span class="name">id</span>&gt;</span>    </span><br><span class="line">    <span class="tag">&lt;<span class="name">activation</span>&gt;</span>    </span><br><span class="line">        <span class="tag">&lt;<span class="name">activeByDefault</span>&gt;</span>true<span class="tag">&lt;/<span class="name">activeByDefault</span>&gt;</span>    </span><br><span class="line">        <span class="tag">&lt;<span class="name">jdk</span>&gt;</span>1.8<span class="tag">&lt;/<span class="name">jdk</span>&gt;</span>    </span><br><span class="line">    <span class="tag">&lt;/<span class="name">activation</span>&gt;</span>    </span><br><span class="line">    <span class="tag">&lt;<span class="name">properties</span>&gt;</span>    </span><br><span class="line">        <span class="tag">&lt;<span class="name">maven.compiler.source</span>&gt;</span>1.8<span class="tag">&lt;/<span class="name">maven.compiler.source</span>&gt;</span>    </span><br><span class="line">        <span class="tag">&lt;<span class="name">maven.compiler.target</span>&gt;</span>1.8<span class="tag">&lt;/<span class="name">maven.compiler.target</span>&gt;</span>    </span><br><span class="line">        <span class="tag">&lt;<span class="name">maven.compiler.compilerVersion</span>&gt;</span>1.8<span class="tag">&lt;/<span class="name">maven.compiler.compilerVersion</span>&gt;</span>    </span><br><span class="line">    <span class="tag">&lt;/<span class="name">properties</span>&gt;</span>    </span><br><span class="line"><span class="tag">&lt;/<span class="name">profile</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<p>这个节点需要加载在<code>profiles</code>节点下。</p>
-<span id="more"></span>]]></content>
-      <categories>
-        <category>tools</category>
-        <category>maven</category>
-      </categories>
-      <tags>
-        <tag>tools</tag>
-        <tag>maven</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>github下载速度慢的解决方式</title>
-    <url>/learnerguo/15156.html</url>
-    <content><![CDATA[<p>将项目地址中的<code>github.com</code>更换一下为<code>github.com.cnpmjs.org</code>即可</p>
-]]></content>
-      <categories>
-        <category>tools</category>
-        <category>git</category>
-      </categories>
-      <tags>
-        <tag>tools</tag>
-        <tag>git</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>utools自动化脚本插件</title>
-    <url>/learnerguo/26209.html</url>
-    <content><![CDATA[<h1 id="utools-使用自动化脚本打开本地程序"><a href="#utools-使用自动化脚本打开本地程序" class="headerlink" title="utools 使用自动化脚本打开本地程序"></a>utools 使用自动化脚本打开本地程序</h1><ol>
-<li>比如 typora 可以打开之前的文件和目录，但是目录只能到文件的上一个层级，如果源目录包含很多子目录，重新打开时可能不是我们想要的结果，那可以在命令行执行 <code>typora folder</code>, eg: <code>typora E:\\blog</code></li>
-</ol>
-<blockquote>
-<p>在命令行执行 typora 命令需要先配置 typora 的环境变量</p>
-</blockquote>
-<ol start="2">
-<li>更简便的方式是直接使用 utools 的自动化脚本这个插件，新增一个自己的插件脚本，内容如下</li>
-</ol>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> &#123; execFile &#125; = <span class="built_in">require</span>(<span class="string">&quot;child_process&quot;</span>)</span><br><span class="line"></span><br><span class="line"> <span class="comment">// 以下是关键代码，调用 typora 来执行目标文件</span></span><br><span class="line"><span class="title function_">execFile</span>(<span class="string">&#x27;typora&#x27;</span>, [<span class="string">&#x27;E:/code/learnerguo&#x27;</span>], <span class="function">(<span class="params">error, stdout, stderr</span>) =&gt;</span> &#123;</span><br><span class="line">    process.<span class="title function_">exit</span>()</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-
-<p>然后自定义关键字，后续当打开 utools 输入对应关键字就可以打开 typora 的目录</p>
-]]></content>
-      <categories>
-        <category>tools</category>
-        <category>utools</category>
-      </categories>
-      <tags>
-        <tag>tools</tag>
-        <tag>utools</tag>
       </tags>
   </entry>
   <entry>

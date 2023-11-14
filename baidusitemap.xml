@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>http://example.com/learnerguo/dfaa3512.html</loc>
+    <lastmod>2023-11-14</lastmod>
+  </url>
+  <url>
     <loc>http://example.com/learnerguo/ab21860c.html</loc>
     <lastmod>2023-11-14</lastmod>
   </url>
@@ -26,10 +30,6 @@
   </url>
   <url>
     <loc>http://example.com/learnerguo/c0259f40.html</loc>
-    <lastmod>2023-11-14</lastmod>
-  </url>
-  <url>
-    <loc>http://example.com/learnerguo/dfaa3512.html</loc>
     <lastmod>2023-11-14</lastmod>
   </url>
   <url>
@@ -121,11 +121,11 @@
     <lastmod>2023-11-10</lastmod>
   </url>
   <url>
-    <loc>http://example.com/learnerguo/86d8e3c1.html</loc>
+    <loc>http://example.com/learnerguo/364ea8cc.html</loc>
     <lastmod>2023-11-10</lastmod>
   </url>
   <url>
-    <loc>http://example.com/learnerguo/364ea8cc.html</loc>
+    <loc>http://example.com/learnerguo/86d8e3c1.html</loc>
     <lastmod>2023-11-10</lastmod>
   </url>
   <url>

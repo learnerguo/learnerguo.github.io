@@ -26,24 +26,24 @@
 <meta property="og:site_name" content="咖啡杯里的茶">
 <meta property="og:description" content="什么是线程安全 当多个线程同时访问某个方法时，这个方法无法按照我们预期的行为来执行，那么我们认为这个方法是线程不安全的 比较专业的话则是需要理解临界区和竞态条件  临界区对共享变量存在读写操作的代码区域称之为临界区。重点是【共享变量】【同时读写】">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2023/png/1739511/1699367646561-cb6dd072-7c7e-4ee3-9c78-015699e8d629.png#averageHue=%237f8081&clientId=ue00b41ae-a71b-4&from=paste&height=302&id=ucfb5b09b&originHeight=377&originWidth=999&originalType=binary&ratio=1.25&rotation=0&showTitle=false&size=118972&status=done&style=none&taskId=ubccc08c4-05c7-417f-b7a4-aff2e1037a7&title=&width=799.2">
-<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2021/png/1739511/1631424328023-baf9fbdc-ccac-4148-9a0d-05e3691102ce.png#averageHue=%23f5f4f4&height=442&id=u722ef97a&originHeight=442&originWidth=1100&originalType=binary&ratio=1&rotation=0&showTitle=false&size=121102&status=done&style=none&title=&width=1100">
-<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2021/png/1739511/1631425846231-d96c6938-0f3d-4fda-b2c2-4652922377e4.png#averageHue=%23ecf3a0&height=310&id=uf1f42e5b&originHeight=310&originWidth=584&originalType=binary&ratio=1&rotation=0&showTitle=false&size=57198&status=done&style=none&title=&width=584">
-<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2021/png/1739511/1631426004869-889a7410-893e-433d-9e62-531bf4d1606d.png#averageHue=%23ecf29f&height=362&id=u16d09f74&originHeight=362&originWidth=598&originalType=binary&ratio=1&rotation=0&showTitle=false&size=56003&status=done&style=none&title=&width=598">
-<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2021/png/1739511/1631426066454-c84e53c5-57e1-4db1-ba02-73b7debbbbcd.png#averageHue=%23edf4a1&height=333&id=ub90679c6&originHeight=333&originWidth=577&originalType=binary&ratio=1&rotation=0&showTitle=false&size=51538&status=done&style=none&title=&width=577">
-<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2021/png/1739511/1631426194061-4ca1f7b7-2855-4731-a919-1bf0e88129d4.png#averageHue=%23ebf09c&height=371&id=u38a56506&originHeight=371&originWidth=602&originalType=binary&ratio=1&rotation=0&showTitle=false&size=73617&status=done&style=none&title=&width=602">
-<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2021/png/1739511/1631426305431-15417f47-6990-4a0c-817e-1b5593ed4c13.png#averageHue=%23eef4a1&height=335&id=u0cc82f87&originHeight=335&originWidth=582&originalType=binary&ratio=1&rotation=0&showTitle=false&size=52037&status=done&style=none&title=&width=582">
-<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2021/png/1739511/1631426683540-3b823c00-0a6d-43ce-8582-119b34a18284.png#averageHue=%23f4faa2&height=267&id=u5555efe8&originHeight=267&originWidth=732&originalType=binary&ratio=1&rotation=0&showTitle=false&size=38708&status=done&style=none&title=&width=732">
-<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2021/png/1739511/1631426820276-8d0d3e52-5c72-4565-9445-a75d248299d0.png#averageHue=%23ecfab3&height=266&id=ua72289c9&originHeight=266&originWidth=737&originalType=binary&ratio=1&rotation=0&showTitle=false&size=39685&status=done&style=none&title=&width=737">
-<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2021/png/1739511/1631427446127-666d1e9d-dfc3-44c1-bc96-2526f2111a6f.png#averageHue=%23fcfcdb&height=862&id=u18d972dd&originHeight=862&originWidth=665&originalType=binary&ratio=1&rotation=0&showTitle=false&size=121088&status=done&style=none&title=&width=665">
-<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2021/png/1739511/1631427702478-5cd5ac61-162d-4fdb-9491-21b13fd905cb.png#averageHue=%23f6f4f4&height=288&id=uc965f122&originHeight=288&originWidth=685&originalType=binary&ratio=1&rotation=0&showTitle=false&size=31402&status=done&style=none&title=&width=685">
+<meta property="og:image" content="https://picture-guoke-blog.oss-cn-shenzhen.aliyuncs.com/blog/202311142209436.png">
+<meta property="og:image" content="https://picture-guoke-blog.oss-cn-shenzhen.aliyuncs.com/blog/202311142209263.png">
+<meta property="og:image" content="https://picture-guoke-blog.oss-cn-shenzhen.aliyuncs.com/blog/202311142210013.png">
+<meta property="og:image" content="https://picture-guoke-blog.oss-cn-shenzhen.aliyuncs.com/blog/202311142210828.png">
+<meta property="og:image" content="https://picture-guoke-blog.oss-cn-shenzhen.aliyuncs.com/blog/202311142210648.png">
+<meta property="og:image" content="https://picture-guoke-blog.oss-cn-shenzhen.aliyuncs.com/blog/202311142211119.png">
+<meta property="og:image" content="https://picture-guoke-blog.oss-cn-shenzhen.aliyuncs.com/blog/202311142211540.png">
+<meta property="og:image" content="https://picture-guoke-blog.oss-cn-shenzhen.aliyuncs.com/blog/202311142211573.png">
+<meta property="og:image" content="https://picture-guoke-blog.oss-cn-shenzhen.aliyuncs.com/blog/202311142212229.png">
+<meta property="og:image" content="https://picture-guoke-blog.oss-cn-shenzhen.aliyuncs.com/blog/202311142214002.png">
+<meta property="og:image" content="https://picture-guoke-blog.oss-cn-shenzhen.aliyuncs.com/blog/202311142213298.png">
 <meta property="article:published_time" content="2023-11-10T16:00:00.000Z">
-<meta property="article:modified_time" content="2023-11-14T12:22:25.461Z">
+<meta property="article:modified_time" content="2023-11-14T14:14:34.416Z">
 <meta property="article:author" content="咖啡杯的里茶">
 <meta property="article:tag" content="java">
 <meta property="article:tag" content="多线程">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://cdn.nlark.com/yuque/0/2023/png/1739511/1699367646561-cb6dd072-7c7e-4ee3-9c78-015699e8d629.png#averageHue=%237f8081&clientId=ue00b41ae-a71b-4&from=paste&height=302&id=ucfb5b09b&originHeight=377&originWidth=999&originalType=binary&ratio=1.25&rotation=0&showTitle=false&size=118972&status=done&style=none&taskId=ubccc08c4-05c7-417f-b7a4-aff2e1037a7&title=&width=799.2">
+<meta name="twitter:image" content="https://picture-guoke-blog.oss-cn-shenzhen.aliyuncs.com/blog/202311142209436.png">
 
 
 <link rel="canonical" href="http://example.com/learnerguo/dfaa3512.html">
@@ -171,12 +171,12 @@
       </div>
       <div class="site-state-item site-state-categories">
           <a href="/categories/">
-        <span class="site-state-item-count">18</span>
+        <span class="site-state-item-count">16</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">18</span>
+        <span class="site-state-item-count">16</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -239,7 +239,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2023-11-14 20:22:25" itemprop="dateModified" datetime="2023-11-14T20:22:25+08:00">2023-11-14</time>
+      <time title="修改时间：2023-11-14 22:14:34" itemprop="dateModified" datetime="2023-11-14T22:14:34+08:00">2023-11-14</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -332,7 +332,7 @@
 <li>实例数据</li>
 <li>填充数据：为了提高 cpu 访问效率</li>
 </ol>
-<p><img src="https://cdn.nlark.com/yuque/0/2023/png/1739511/1699367646561-cb6dd072-7c7e-4ee3-9c78-015699e8d629.png#averageHue=%237f8081&clientId=ue00b41ae-a71b-4&from=paste&height=302&id=ucfb5b09b&originHeight=377&originWidth=999&originalType=binary&ratio=1.25&rotation=0&showTitle=false&size=118972&status=done&style=none&taskId=ubccc08c4-05c7-417f-b7a4-aff2e1037a7&title=&width=799.2" alt="image.png"></p>
+<p><img src="https://picture-guoke-blog.oss-cn-shenzhen.aliyuncs.com/blog/202311142209436.png"></p>
 <h2 id="对象头"><a href="#对象头" class="headerlink" title="对象头"></a>对象头</h2><p><a target="_blank" rel="noopener external nofollow noreferrer" href="https://www.cnblogs.com/zhouwangwang/p/13763887.html">对象头信息</a></p>
 <p>对象头的最后两个字节位可以表示加锁的状态</p>
 <ul>
@@ -349,7 +349,7 @@
 <li>重量级锁</li>
 <li>GC 标记</li>
 </ol>
-<h2 id="Monitor-对象"><a href="#Monitor-对象" class="headerlink" title="Monitor 对象"></a>Monitor 对象</h2><p>每一个 Java 对象都可以关联都可以关联一个 Monitor 对象，如果使用 synchronized 给对象上锁，那么该对象头的 Mark Word 中就被设置指向 Monitor 对象的指针，Monitor 结构如下所示：<br><img src="https://cdn.nlark.com/yuque/0/2021/png/1739511/1631424328023-baf9fbdc-ccac-4148-9a0d-05e3691102ce.png#averageHue=%23f5f4f4&height=442&id=u722ef97a&originHeight=442&originWidth=1100&originalType=binary&ratio=1&rotation=0&showTitle=false&size=121102&status=done&style=none&title=&width=1100" alt="image.png"></p>
+<h2 id="Monitor-对象"><a href="#Monitor-对象" class="headerlink" title="Monitor 对象"></a>Monitor 对象</h2><p>每一个 Java 对象都可以关联都可以关联一个 Monitor 对象，如果使用 synchronized 给对象上锁，那么该对象头的 Mark Word 中就被设置指向 Monitor 对象的指针，Monitor 结构如下所示：<br><img src="https://picture-guoke-blog.oss-cn-shenzhen.aliyuncs.com/blog/202311142209263.png"></p>
 <ul>
 <li>刚开始的时候 Monitor 中 Owner 为 null</li>
 <li>当 Thread-2 线程执行 synchronized(obj) 的时候就会将 Monitor 的所有者 Owner 置为 Thread-2， Monitor 中只能有一个 Owner</li>
@@ -369,15 +369,15 @@
 <ul>
 <li>首先在线程的栈帧中创建锁记录（Lock Record）对象，内部可以存储锁定对象的 MarkWord</li>
 </ul>
-<p><img src="https://cdn.nlark.com/yuque/0/2021/png/1739511/1631425846231-d96c6938-0f3d-4fda-b2c2-4652922377e4.png#averageHue=%23ecf3a0&height=310&id=uf1f42e5b&originHeight=310&originWidth=584&originalType=binary&ratio=1&rotation=0&showTitle=false&size=57198&status=done&style=none&title=&width=584" alt="image.png"></p>
+<p><img src="https://picture-guoke-blog.oss-cn-shenzhen.aliyuncs.com/blog/202311142210013.png"></p>
 <ul>
 <li>将锁记录中 Object reference 指向锁对象，并尝试使用 cas 替换 Object的 Mark Word。将 Mark Word 的值存入锁记录。</li>
 </ul>
-<p><img src="https://cdn.nlark.com/yuque/0/2021/png/1739511/1631426004869-889a7410-893e-433d-9e62-531bf4d1606d.png#averageHue=%23ecf29f&height=362&id=u16d09f74&originHeight=362&originWidth=598&originalType=binary&ratio=1&rotation=0&showTitle=false&size=56003&status=done&style=none&title=&width=598" alt="image.png"></p>
+<p><img src="https://picture-guoke-blog.oss-cn-shenzhen.aliyuncs.com/blog/202311142210828.png"></p>
 <ul>
 <li>如果 cas 替换成功，对象头中存储了 锁记录 地址和状态 00，表示由该线程给对象加锁。</li>
 </ul>
-<p><img src="https://cdn.nlark.com/yuque/0/2021/png/1739511/1631426066454-c84e53c5-57e1-4db1-ba02-73b7debbbbcd.png#averageHue=%23edf4a1&height=333&id=ub90679c6&originHeight=333&originWidth=577&originalType=binary&ratio=1&rotation=0&showTitle=false&size=51538&status=done&style=none&title=&width=577" alt="image.png"></p>
+<p><img src="https://picture-guoke-blog.oss-cn-shenzhen.aliyuncs.com/blog/202311142210648.png"></p>
 <ul>
 <li>如果 cas 失败，有两种情形<ul>
 <li>如果是其他线程已经持有了该 Object 的轻量级锁，此时表示由竞争，进入锁膨胀过程（这个过程在后面看）。</li>
@@ -385,11 +385,11 @@
 </ul>
 </li>
 </ul>
-<p><img src="https://cdn.nlark.com/yuque/0/2021/png/1739511/1631426194061-4ca1f7b7-2855-4731-a919-1bf0e88129d4.png#averageHue=%23ebf09c&height=371&id=u38a56506&originHeight=371&originWidth=602&originalType=binary&ratio=1&rotation=0&showTitle=false&size=73617&status=done&style=none&title=&width=602" alt="image.png"></p>
+<p><img src="https://picture-guoke-blog.oss-cn-shenzhen.aliyuncs.com/blog/202311142211119.png"></p>
 <ul>
 <li>当退出 synchronized 代码块时如果有取值为 null 的锁记录。表示有重入，此时可以删除改锁记录，表示重入数减一。</li>
 </ul>
-<p><img src="https://cdn.nlark.com/yuque/0/2021/png/1739511/1631426305431-15417f47-6990-4a0c-817e-1b5593ed4c13.png#averageHue=%23eef4a1&height=335&id=u0cc82f87&originHeight=335&originWidth=582&originalType=binary&ratio=1&rotation=0&showTitle=false&size=52037&status=done&style=none&title=&width=582" alt="image.png"></p>
+<p><img src="https://picture-guoke-blog.oss-cn-shenzhen.aliyuncs.com/blog/202311142211540.png"></p>
 <ul>
 <li>当退出 synchronized 代码块时如果锁记录的值不为 null，这时使用 cas 将 Mark Word 的值恢复给对象头。<ul>
 <li>恢复成功，说明解锁成功。</li>
@@ -401,7 +401,7 @@
 <ul>
 <li>当 Thread-1 进行轻量级加锁的时候，Thread-0 已经对该对象加了轻量级锁。</li>
 </ul>
-<p><img src="https://cdn.nlark.com/yuque/0/2021/png/1739511/1631426683540-3b823c00-0a6d-43ce-8582-119b34a18284.png#averageHue=%23f4faa2&height=267&id=u5555efe8&originHeight=267&originWidth=732&originalType=binary&ratio=1&rotation=0&showTitle=false&size=38708&status=done&style=none&title=&width=732" alt="image.png"></p>
+<p><img src="https://picture-guoke-blog.oss-cn-shenzhen.aliyuncs.com/blog/202311142211573.png"></p>
 <ul>
 <li>此时 Thread-1 加轻量级锁失败，进入锁膨胀流程<ul>
 <li>为 Object 对象申请 Monitor 锁，让 Object 指向重量级锁地址。</li>
@@ -409,7 +409,7 @@
 </ul>
 </li>
 </ul>
-<p><img src="https://cdn.nlark.com/yuque/0/2021/png/1739511/1631426820276-8d0d3e52-5c72-4565-9445-a75d248299d0.png#averageHue=%23ecfab3&height=266&id=ua72289c9&originHeight=266&originWidth=737&originalType=binary&ratio=1&rotation=0&showTitle=false&size=39685&status=done&style=none&title=&width=737" alt="image.png"></p>
+<p><img src="https://picture-guoke-blog.oss-cn-shenzhen.aliyuncs.com/blog/202311142212229.png"></p>
 <ul>
 <li>当 Thread-0 退出同步块解锁时，使用 cas 将 Mark Word的值恢复给对象头失败（由上图可知，此时对象头里面已经是保存了 Monitor 地址，而不是 Lock Record 地址）。这时就会进入重量级解锁流程，按照 Monitor 地址找到 Monitor 对象，设置 Owner 为 null，唤醒 EntryList 中的 BLOCKED 线程。</li>
 </ul>
@@ -421,8 +421,8 @@
 </ul>
 <h2 id="偏向锁"><a href="#偏向锁" class="headerlink" title="偏向锁"></a>偏向锁</h2><p>轻量级锁在没有竞争时(比如就自己一个线程在执行)，每次重入的时候依然还是要进行 cas 操作。在 java6 之后引入了 偏向锁来进一步进行优化：只有第一次使用 cas 将线程id设置到对象的 Mark Word 之后，之后发现这个线程ID 是自己的就表示没有竞争，不用重新 cas。 以后只有没有发生竞争，那么这个对象就归该线程所有。<br>比如下面的代码</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">static</span> <span class="keyword">final</span> <span class="type">Object</span> <span class="variable">obj</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Object</span>();</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">m1</span><span class="params">()</span> &#123;</span><br><span class="line">	<span class="keyword">synchronized</span> (obj) &#123;</span><br><span class="line">    	<span class="comment">// 同步块A</span></span><br><span class="line">        m2();</span><br><span class="line">    &#125;	</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">m2</span><span class="params">()</span> &#123;</span><br><span class="line">	<span class="keyword">synchronized</span>(obj) &#123;</span><br><span class="line">    	<span class="comment">// 同步块B</span></span><br><span class="line">        m3();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">m3</span><span class="params">()</span> &#123;</span><br><span class="line">	<span class="keyword">synchronized</span>(obj) &#123;</span><br><span class="line">        <span class="comment">// 同步块C</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p><img src="https://cdn.nlark.com/yuque/0/2021/png/1739511/1631427446127-666d1e9d-dfc3-44c1-bc96-2526f2111a6f.png#averageHue=%23fcfcdb&height=862&id=u18d972dd&originHeight=862&originWidth=665&originalType=binary&ratio=1&rotation=0&showTitle=false&size=121088&status=done&style=none&title=&width=665" alt="image.png"></p>
-<h3 id="偏向状态"><a href="#偏向状态" class="headerlink" title="偏向状态"></a>偏向状态</h3><p>再看一下 64 为的对象头格式<br><img src="https://cdn.nlark.com/yuque/0/2021/png/1739511/1631427702478-5cd5ac61-162d-4fdb-9491-21b13fd905cb.png#averageHue=%23f6f4f4&height=288&id=uc965f122&originHeight=288&originWidth=685&originalType=binary&ratio=1&rotation=0&showTitle=false&size=31402&status=done&style=none&title=&width=685" alt="image.png"></p>
+<p><img src="https://picture-guoke-blog.oss-cn-shenzhen.aliyuncs.com/blog/202311142214002.png"></p>
+<h3 id="偏向状态"><a href="#偏向状态" class="headerlink" title="偏向状态"></a>偏向状态</h3><p>再看一下 64 为的对象头格式<br><img src="https://picture-guoke-blog.oss-cn-shenzhen.aliyuncs.com/blog/202311142213298.png"></p>
 <ul>
 <li>之前说的是最后两位记录的是锁的状态，比如 01 表示没有上锁，00 是轻量级锁等。</li>
 <li>看上图会发现，state 为 normal 和 Biased 的最后两位都是 01，但是倒数第三位是不一样的，倒数第三位为1表示偏向锁，为0 表示没有加锁。</li>
@@ -479,13 +479,13 @@
 
           <div class="post-nav">
             <div class="post-nav-item">
-                <a href="/learnerguo/26209.html" rel="prev" title="utools自动化脚本插件">
-                  <i class="fa fa-angle-left"></i> utools自动化脚本插件
+                <a href="/learnerguo/a6b5c90f.html" rel="prev" title="maven使用手册">
+                  <i class="fa fa-angle-left"></i> maven使用手册
                 </a>
             </div>
             <div class="post-nav-item">
-                <a href="/learnerguo/84a2076d.html" rel="next" title="宝贵的人生建议">
-                  宝贵的人生建议 <i class="fa fa-angle-right"></i>
+                <a href="/learnerguo/26209.html" rel="next" title="utools自动化脚本插件">
+                  utools自动化脚本插件 <i class="fa fa-angle-right"></i>
                 </a>
             </div>
           </div>
