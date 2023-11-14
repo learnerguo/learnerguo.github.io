@@ -494,7 +494,7 @@ Intellij Idea-like styling (c) Vasily Polovnyov <vast@whiteants.net>
   position: absolute;
 }
 .highlight-fold {
-  max-height: 100px;
+  max-height: 500px;
   overflow-y: hidden !important;
 }
 .highlight-fold .expand-btn,
