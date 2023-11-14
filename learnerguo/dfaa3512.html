@@ -2,9 +2,9 @@
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
-<meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 7.0.0">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 7.0.0">
+
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
@@ -13,14 +13,13 @@
 <link rel="stylesheet" href="/css/main.css">
 
 
-<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
 
-<script id="hexo-configurations">
-    var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
-  </script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha256-CTSx/A06dm1B063156EVh15m6Y67pAjZZaQc89LLSrU=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
 
-  <meta name="description" content="什么是线程安全 当多个线程同时访问某个方法时，这个方法无法按照我们预期的行为来执行，那么我们认为这个方法是线程不安全的 比较专业的话则是需要理解临界区和竞态条件  临界区对共享变量存在读写操作的代码区域称之为临界区。重点是【共享变量】【同时读写】">
+<script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Pisces","darkmode":false,"version":"8.18.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":true,"style":null},"fold":{"enable":true,"height":100},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="什么是线程安全 当多个线程同时访问某个方法时，这个方法无法按照我们预期的行为来执行，那么我们认为这个方法是线程不安全的 比较专业的话则是需要理解临界区和竞态条件  临界区对共享变量存在读写操作的代码区域称之为临界区。重点是【共享变量】【同时读写】">
 <meta property="og:type" content="article">
 <meta property="og:title" content="synchronized的作用和实现原理">
 <meta property="og:url" content="http://example.com/learnerguo/dfaa3512.html">
@@ -28,9 +27,6 @@
 <meta property="og:description" content="什么是线程安全 当多个线程同时访问某个方法时，这个方法无法按照我们预期的行为来执行，那么我们认为这个方法是线程不安全的 比较专业的话则是需要理解临界区和竞态条件  临界区对共享变量存在读写操作的代码区域称之为临界区。重点是【共享变量】【同时读写】">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://cdn.nlark.com/yuque/0/2023/png/1739511/1699367646561-cb6dd072-7c7e-4ee3-9c78-015699e8d629.png#averageHue=%237f8081&clientId=ue00b41ae-a71b-4&from=paste&height=302&id=ucfb5b09b&originHeight=377&originWidth=999&originalType=binary&ratio=1.25&rotation=0&showTitle=false&size=118972&status=done&style=none&taskId=ubccc08c4-05c7-417f-b7a4-aff2e1037a7&title=&width=799.2">
-<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2021/png/1739511/1631423821044-492afd31-0c46-4b48-b0a5-876fe0f5569d.png#averageHue=%23f8f6f6&height=623&id=udadf7288&originHeight=623&originWidth=1188&originalType=binary&ratio=1&rotation=0&showTitle=false&size=68279&status=done&style=none&title=&width=1188">
-<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2021/png/1739511/1631423858076-07121579-89a9-45ea-949e-d029a0de2801.png#averageHue=%23f6f4f3&height=475&id=u98330b12&originHeight=475&originWidth=1063&originalType=binary&ratio=1&rotation=0&showTitle=false&size=87064&status=done&style=none&title=&width=1063">
-<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2021/png/1739511/1631424070105-0b1de224-e182-4dc0-8abe-9ab5326a3ba9.png#averageHue=%23f6f4f3&height=487&id=u025b5af2&originHeight=487&originWidth=1198&originalType=binary&ratio=1&rotation=0&showTitle=false&size=71589&status=done&style=none&title=&width=1198">
 <meta property="og:image" content="https://cdn.nlark.com/yuque/0/2021/png/1739511/1631424328023-baf9fbdc-ccac-4148-9a0d-05e3691102ce.png#averageHue=%23f5f4f4&height=442&id=u722ef97a&originHeight=442&originWidth=1100&originalType=binary&ratio=1&rotation=0&showTitle=false&size=121102&status=done&style=none&title=&width=1100">
 <meta property="og:image" content="https://cdn.nlark.com/yuque/0/2021/png/1739511/1631425846231-d96c6938-0f3d-4fda-b2c2-4652922377e4.png#averageHue=%23ecf3a0&height=310&id=uf1f42e5b&originHeight=310&originWidth=584&originalType=binary&ratio=1&rotation=0&showTitle=false&size=57198&status=done&style=none&title=&width=584">
 <meta property="og:image" content="https://cdn.nlark.com/yuque/0/2021/png/1739511/1631426004869-889a7410-893e-433d-9e62-531bf4d1606d.png#averageHue=%23ecf29f&height=362&id=u16d09f74&originHeight=362&originWidth=598&originalType=binary&ratio=1&rotation=0&showTitle=false&size=56003&status=done&style=none&title=&width=598">
@@ -41,29 +37,23 @@
 <meta property="og:image" content="https://cdn.nlark.com/yuque/0/2021/png/1739511/1631426820276-8d0d3e52-5c72-4565-9445-a75d248299d0.png#averageHue=%23ecfab3&height=266&id=ua72289c9&originHeight=266&originWidth=737&originalType=binary&ratio=1&rotation=0&showTitle=false&size=39685&status=done&style=none&title=&width=737">
 <meta property="og:image" content="https://cdn.nlark.com/yuque/0/2021/png/1739511/1631427446127-666d1e9d-dfc3-44c1-bc96-2526f2111a6f.png#averageHue=%23fcfcdb&height=862&id=u18d972dd&originHeight=862&originWidth=665&originalType=binary&ratio=1&rotation=0&showTitle=false&size=121088&status=done&style=none&title=&width=665">
 <meta property="og:image" content="https://cdn.nlark.com/yuque/0/2021/png/1739511/1631427702478-5cd5ac61-162d-4fdb-9491-21b13fd905cb.png#averageHue=%23f6f4f4&height=288&id=uc965f122&originHeight=288&originWidth=685&originalType=binary&ratio=1&rotation=0&showTitle=false&size=31402&status=done&style=none&title=&width=685">
-<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2023/png/1739511/1699368854244-326f9d63-171d-4d34-aa28-3502cba9470a.png#averageHue=%23858687&clientId=ue00b41ae-a71b-4&from=paste&height=533&id=u1cc60dbb&originHeight=666&originWidth=987&originalType=binary&ratio=1.25&rotation=0&showTitle=false&size=122278&status=done&style=none&taskId=ud5f17129-c35a-4b42-b53e-4d1486f5634&title=&width=789.6">
 <meta property="article:published_time" content="2023-11-10T16:00:00.000Z">
-<meta property="article:modified_time" content="2023-11-12T13:19:13.269Z">
+<meta property="article:modified_time" content="2023-11-14T12:22:25.461Z">
 <meta property="article:author" content="咖啡杯的里茶">
 <meta property="article:tag" content="java">
 <meta property="article:tag" content="多线程">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://cdn.nlark.com/yuque/0/2023/png/1739511/1699367646561-cb6dd072-7c7e-4ee3-9c78-015699e8d629.png#averageHue=%237f8081&clientId=ue00b41ae-a71b-4&from=paste&height=302&id=ucfb5b09b&originHeight=377&originWidth=999&originalType=binary&ratio=1.25&rotation=0&showTitle=false&size=118972&status=done&style=none&taskId=ubccc08c4-05c7-417f-b7a4-aff2e1037a7&title=&width=799.2">
 
+
 <link rel="canonical" href="http://example.com/learnerguo/dfaa3512.html">
 
 
-<script id="page-configurations">
-  // https://hexo.io/docs/variables.html
-  CONFIG.page = {
-    sidebar: "",
-    isHome : false,
-    isPost : true,
-    lang   : 'zh-CN'
-  };
-</script>
 
-  <title>synchronized的作用和实现原理 | 咖啡杯里的茶</title>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://example.com/learnerguo/dfaa3512.html","path":"learnerguo/dfaa3512.html","title":"synchronized的作用和实现原理"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>synchronized的作用和实现原理 | 咖啡杯里的茶</title>
   
 
 
@@ -71,56 +61,38 @@
 
 
 
+
+
   <noscript>
-  <style>
-  .use-motion .brand,
-  .use-motion .menu-item,
-  .sidebar-inner,
-  .use-motion .post-block,
-  .use-motion .pagination,
-  .use-motion .comments,
-  .use-motion .post-header,
-  .use-motion .post-body,
-  .use-motion .collection-header { opacity: initial; }
-
-  .use-motion .site-title,
-  .use-motion .site-subtitle {
-    opacity: initial;
-    top: initial;
-  }
-
-  .use-motion .logo-line-before i { left: initial; }
-  .use-motion .logo-line-after i { right: initial; }
-  </style>
-</noscript>
-
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
 </head>
 
-<body itemscope itemtype="http://schema.org/WebPage">
-  <div class="container use-motion">
-    <div class="headband"></div>
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
 
-    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
-      <div class="header-inner"><div class="site-brand-container">
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
   <div class="site-nav-toggle">
-    <div class="toggle" aria-label="切换导航栏">
-      <span class="toggle-line toggle-line-first"></span>
-      <span class="toggle-line toggle-line-middle"></span>
-      <span class="toggle-line toggle-line-last"></span>
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
     </div>
   </div>
 
   <div class="site-meta">
 
     <a href="/" class="brand" rel="start">
-      <span class="logo-line-before"><i></i></span>
-      <h1 class="site-title">咖啡杯里的茶</h1>
-      <span class="logo-line-after"><i></i></span>
+      <i class="logo-line"></i>
+      <p class="site-title">咖啡杯里的茶</p>
+      <i class="logo-line"></i>
     </a>
   </div>
 
   <div class="site-nav-right">
-    <div class="toggle popup-trigger">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
         <i class="fa fa-search fa-fw fa-lg"></i>
     </div>
   </div>
@@ -128,39 +100,8 @@
 
 
 
-
 <nav class="site-nav">
-  <ul id="menu" class="main-menu menu">
-        <li class="menu-item menu-item-home">
-
-    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
-
-  </li>
-        <li class="menu-item menu-item-about">
-
-    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
-
-  </li>
-        <li class="menu-item menu-item-tags">
-
-    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
-
-  </li>
-        <li class="menu-item menu-item-categories">
-
-    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
-
-  </li>
-        <li class="menu-item menu-item-archives">
-
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
-
-  </li>
-        <li class="menu-item menu-item-book">
-
-    <a href="/book/" rel="section"><i class="fa fa-book fa-fw"></i>阅读</a>
-
-  </li>
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li><li class="menu-item menu-item-book"><a href="/book/" rel="section"><i class="fa fa-book fa-fw"></i>阅读</a></li>
       <li class="menu-item menu-item-search">
         <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
         </a>
@@ -171,120 +112,158 @@
 
 
   <div class="search-pop-overlay">
-    <div class="popup search-popup">
-        <div class="search-header">
+    <div class="popup search-popup"><div class="search-header">
   <span class="search-icon">
     <i class="fa fa-search"></i>
   </span>
   <div class="search-input-container">
-    <input autocomplete="off" autocapitalize="off"
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
            placeholder="搜索..." spellcheck="false"
            type="search" class="search-input">
   </div>
-  <span class="popup-btn-close">
+  <span class="popup-btn-close" role="button">
     <i class="fa fa-times-circle"></i>
   </span>
 </div>
-<div id="search-result">
-  <div id="no-result">
-    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
   </div>
 </div>
 
     </div>
   </div>
 
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E7%BA%BF%E7%A8%8B%E5%AE%89%E5%85%A8"><span class="nav-number">1.</span> <span class="nav-text">什么是线程安全</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%B4%E7%95%8C%E5%8C%BA"><span class="nav-number">1.1.</span> <span class="nav-text">临界区</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AB%9E%E6%80%81%E6%9D%A1%E4%BB%B6"><span class="nav-number">1.2.</span> <span class="nav-text">竞态条件</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%BA%BF%E7%A8%8B%E5%AE%89%E5%85%A8%E5%88%86%E6%9E%90"><span class="nav-number">2.</span> <span class="nav-text">线程安全分析</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%88%90%E5%91%98%E5%8F%98%E9%87%8F%E5%92%8C%E9%9D%99%E6%80%81%E5%8F%98%E9%87%8F%E7%9A%84%E5%AE%89%E5%85%A8%E6%80%A7"><span class="nav-number">2.1.</span> <span class="nav-text">成员变量和静态变量的安全性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B1%80%E9%83%A8%E5%8F%98%E9%87%8F%E5%AE%89%E5%85%A8%E6%80%A7"><span class="nav-number">2.2.</span> <span class="nav-text">局部变量安全性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AF%BC%E8%87%B4%E7%BA%BF%E7%A8%8B%E5%AE%89%E5%85%A8%E7%9A%84%E5%8E%9F%E5%9B%A0"><span class="nav-number">2.3.</span> <span class="nav-text">导致线程安全的原因</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BD%9C%E7%94%A8"><span class="nav-number">3.</span> <span class="nav-text">作用</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8E%9F%E7%90%86"><span class="nav-number">4.</span> <span class="nav-text">原理</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AF%B9%E8%B1%A1%E5%A4%B4"><span class="nav-number">4.1.</span> <span class="nav-text">对象头</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Mark-Word%E4%B8%AD%E5%8C%85%E5%90%AB%E7%9A%84%E9%94%81%E7%B1%BB%E5%9E%8B"><span class="nav-number">4.1.1.</span> <span class="nav-text">Mark Word中包含的锁类型</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Monitor-%E5%AF%B9%E8%B1%A1"><span class="nav-number">4.2.</span> <span class="nav-text">Monitor 对象</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#synchronized-%E7%9A%84%E5%8E%9F%E7%90%86"><span class="nav-number">4.3.</span> <span class="nav-text">synchronized 的原理</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#synchronized-%E5%8E%9F%E7%90%86%E8%BF%9B%E9%98%B6"><span class="nav-number">5.</span> <span class="nav-text">synchronized 原理进阶</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BD%BB%E9%87%8F%E7%BA%A7%E9%94%81"><span class="nav-number">5.1.</span> <span class="nav-text">轻量级锁</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%94%81%E8%86%A8%E8%83%80"><span class="nav-number">5.2.</span> <span class="nav-text">锁膨胀</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%87%AA%E6%97%8B%E4%BC%98%E5%8C%96"><span class="nav-number">5.3.</span> <span class="nav-text">自旋优化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%81%8F%E5%90%91%E9%94%81"><span class="nav-number">5.4.</span> <span class="nav-text">偏向锁</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%81%8F%E5%90%91%E7%8A%B6%E6%80%81"><span class="nav-number">5.4.1.</span> <span class="nav-text">偏向状态</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%92%A4%E9%94%80-%E8%B0%83%E7%94%A8%E5%AF%B9%E8%B1%A1hashcode"><span class="nav-number">5.4.2.</span> <span class="nav-text">撤销-调用对象hashcode</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%92%A4%E9%94%80-%E5%85%B6%E4%BB%96%E7%BA%BF%E7%A8%8B%E4%BD%BF%E7%94%A8%E5%AF%B9%E8%B1%A1"><span class="nav-number">5.4.3.</span> <span class="nav-text">撤销-其他线程使用对象</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%89%B9%E9%87%8F%E9%87%8D%E5%81%8F%E5%90%91"><span class="nav-number">5.4.4.</span> <span class="nav-text">批量重偏向</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%89%B9%E9%87%8F%E6%92%A4%E9%94%80"><span class="nav-number">5.4.5.</span> <span class="nav-text">批量撤销</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%94%81%E6%B6%88%E9%99%A4%E5%92%8C%E9%94%81%E7%B2%97%E5%8C%96"><span class="nav-number">5.5.</span> <span class="nav-text">锁消除和锁粗化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#cas-%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86"><span class="nav-number">5.6.</span> <span class="nav-text">cas 实现原理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#cas-%E5%A6%82%E4%BD%95%E4%BF%9D%E8%AF%81%E7%9A%84%E5%8E%9F%E5%AD%90%E6%80%A7"><span class="nav-number">5.6.1.</span> <span class="nav-text">cas 如何保证的原子性</span></a></li></ol></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">咖啡杯的里茶</p>
+  <div class="site-description" itemprop="description">不积跬步无以至千里</div>
 </div>
-    </header>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">40</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">18</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">18</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+        </div>
+      </div>
+    </div>
 
     
-  <div class="back-to-top">
-    <i class="fa fa-arrow-up"></i>
-    <span>0%</span>
-  </div>
-  <div class="reading-progress-bar"></div>
+  </aside>
 
 
-    <main class="main">
-      <div class="main-inner">
-        <div class="content-wrap">
-          
+    </div>
 
-          <div class="content post posts-expand">
-            
+    <div class="main-inner post posts-expand">
 
-    
+
+  
+
+
+<div class="post-block">
   
   
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://example.com/learnerguo/dfaa3512.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
       <meta itemprop="name" content="咖啡杯的里茶">
-      <meta itemprop="description" content="不积跬步无以至千里">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="咖啡杯里的茶">
+      <meta itemprop="description" content="不积跬步无以至千里">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="synchronized的作用和实现原理 | 咖啡杯里的茶">
+      <meta itemprop="description" content="">
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
           synchronized的作用和实现原理
         </h1>
 
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2023-11-11 00:00:00" itemprop="dateCreated datePublished" datetime="2023-11-11T00:00:00+08:00">2023-11-11</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2023-11-12 21:19:13" itemprop="dateModified" datetime="2023-11-12T21:19:13+08:00">2023-11-12</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/java/" itemprop="url" rel="index"><span itemprop="name">java</span></a>
-                </span>
-                  ，
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/java/%E5%A4%9A%E7%BA%BF%E7%A8%8B/" itemprop="url" rel="index"><span itemprop="name">多线程</span></a>
-                </span>
-            </span>
-
-          
-            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-eye"></i>
-              </span>
-              <span class="post-meta-item-text">阅读次数：</span>
-              <span id="busuanzi_value_page_pv"></span>
-            </span>
-  
-  <span class="post-meta-item">
-    
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
       <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
+        <i class="far fa-calendar"></i>
       </span>
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/learnerguo/dfaa3512.html#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/learnerguo/dfaa3512.html" itemprop="commentCount"></span>
-    </a>
-  </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2023-11-11 00:00:00" itemprop="dateCreated datePublished" datetime="2023-11-11T00:00:00+08:00">2023-11-11</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2023-11-14 20:22:25" itemprop="dateModified" datetime="2023-11-14T20:22:25+08:00">2023-11-14</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/java/" itemprop="url" rel="index"><span itemprop="name">java</span></a>
+        </span>
+          ，
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/java/%E5%A4%9A%E7%BA%BF%E7%A8%8B/" itemprop="url" rel="index"><span itemprop="name">多线程</span></a>
+        </span>
+    </span>
+
   
-  
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+</div>
 
         </div>
       </header>
@@ -292,10 +271,7 @@
     
     
     
-    <div class="post-body" itemprop="articleBody">
-
-      
-        <h1 id="什么是线程安全"><a href="#什么是线程安全" class="headerlink" title="什么是线程安全"></a>什么是线程安全</h1><ol>
+    <div class="post-body" itemprop="articleBody"><h1 id="什么是线程安全"><a href="#什么是线程安全" class="headerlink" title="什么是线程安全"></a>什么是线程安全</h1><ol>
 <li>当多个线程同时访问某个方法时，这个方法无法按照我们预期的行为来执行，那么我们认为这个方法是线程不安全的</li>
 <li>比较专业的话则是需要理解临界区和竞态条件</li>
 </ol>
@@ -343,7 +319,8 @@
 <li>填充数据：为了提高 cpu 访问效率</li>
 </ol>
 <p><img src="https://cdn.nlark.com/yuque/0/2023/png/1739511/1699367646561-cb6dd072-7c7e-4ee3-9c78-015699e8d629.png#averageHue=%237f8081&clientId=ue00b41ae-a71b-4&from=paste&height=302&id=ucfb5b09b&originHeight=377&originWidth=999&originalType=binary&ratio=1.25&rotation=0&showTitle=false&size=118972&status=done&style=none&taskId=ubccc08c4-05c7-417f-b7a4-aff2e1037a7&title=&width=799.2" alt="image.png"></p>
-<h2 id="对象头"><a href="#对象头" class="headerlink" title="对象头"></a>对象头</h2><p>32 位的虚拟机的对象头<br><img src="https://cdn.nlark.com/yuque/0/2021/png/1739511/1631423821044-492afd31-0c46-4b48-b0a5-876fe0f5569d.png#averageHue=%23f8f6f6&height=623&id=udadf7288&originHeight=623&originWidth=1188&originalType=binary&ratio=1&rotation=0&showTitle=false&size=68279&status=done&style=none&title=&width=1188" alt="image.png"><br>其中 Mark Word 中存储的内容如下：<br><img src="https://cdn.nlark.com/yuque/0/2021/png/1739511/1631423858076-07121579-89a9-45ea-949e-d029a0de2801.png#averageHue=%23f6f4f3&height=475&id=u98330b12&originHeight=475&originWidth=1063&originalType=binary&ratio=1&rotation=0&showTitle=false&size=87064&status=done&style=none&title=&width=1063" alt="image.png"><br>可以看到最后两个字节位可以表示加锁的状态</p>
+<h2 id="对象头"><a href="#对象头" class="headerlink" title="对象头"></a>对象头</h2><p><a target="_blank" rel="noopener external nofollow noreferrer" href="https://www.cnblogs.com/zhouwangwang/p/13763887.html">对象头信息</a></p>
+<p>对象头的最后两个字节位可以表示加锁的状态</p>
 <ul>
 <li>最开始没有加锁的时候，最前面的 25 位表示 hashcode， 最后两位是 01</li>
 <li>当有线程信息的时候，最前面的 23 位保存的是线程信息</li>
@@ -351,7 +328,6 @@
 <li>当加上重量级锁的时候最后面两位是 10</li>
 <li>当发生 GC 的时候最后面两位是 11</li>
 </ul>
-<p>64 位虚拟机的对象头的 Mark Word 中内容如下：<br><img src="https://cdn.nlark.com/yuque/0/2021/png/1739511/1631424070105-0b1de224-e182-4dc0-8abe-9ab5326a3ba9.png#averageHue=%23f6f4f3&height=487&id=u025b5af2&originHeight=487&originWidth=1198&originalType=binary&ratio=1&rotation=0&showTitle=false&size=71589&status=done&style=none&title=&width=1198" alt="image.png"></p>
 <h3 id="Mark-Word中包含的锁类型"><a href="#Mark-Word中包含的锁类型" class="headerlink" title="Mark Word中包含的锁类型"></a>Mark Word中包含的锁类型</h3><ol>
 <li>无锁</li>
 <li>偏向锁</li>
@@ -459,7 +435,18 @@
 <li>当撤销偏向锁阈值超过 40 次之后，jvm 会觉得此时不应该偏向了，于是，整个类的对象都会变成不可偏向，新建的对象也是不可偏向的。</li>
 </ul>
 <h2 id="锁消除和锁粗化"><a href="#锁消除和锁粗化" class="headerlink" title="锁消除和锁粗化"></a>锁消除和锁粗化</h2><p><a target="_blank" rel="noopener external nofollow noreferrer" href="https://zhuanlan.zhihu.com/p/359950338">https://zhuanlan.zhihu.com/p/359950338</a></p>
-<h2 id="cas-实现原理"><a href="#cas-实现原理" class="headerlink" title="cas 实现原理"></a>cas 实现原理</h2><p>参考《Java并发编程深度解析与实战》<br>自旋锁是使用 cas(compare and set)  来实现的，那么 cas 是如何实现无锁操作的呢？cas 工作原理如下<br><img src="https://cdn.nlark.com/yuque/0/2023/png/1739511/1699368854244-326f9d63-171d-4d34-aa28-3502cba9470a.png#averageHue=%23858687&clientId=ue00b41ae-a71b-4&from=paste&height=533&id=u1cc60dbb&originHeight=666&originWidth=987&originalType=binary&ratio=1.25&rotation=0&showTitle=false&size=122278&status=done&style=none&taskId=ud5f17129-c35a-4b42-b53e-4d1486f5634&title=&width=789.6" alt="image.png"></p>
+<h2 id="cas-实现原理"><a href="#cas-实现原理" class="headerlink" title="cas 实现原理"></a>cas 实现原理</h2><p>参考《Java并发编程深度解析与实战》<br>自旋锁是使用 cas(compare and set)  来实现的，那么 cas 是如何实现无锁操作的呢？cas 工作原理如下</p>
+<pre class="mermaid">flowchart TD
+   A["CAS(V,E,U)"]-->B{V==E?}
+   B--否-->C[不更新变量V,返回false]
+   B--是-->D[将变量V设置为值U，并返回true]
+   subgraph F[变量说明]
+      direction TB
+         F1[V 表示要更新的变量]
+         F2[E 表示期望值]
+         F3[U 表示更新后的值]
+         F1~~~F2~~~F3
+   end</pre>
 <h3 id="cas-如何保证的原子性"><a href="#cas-如何保证的原子性" class="headerlink" title="cas 如何保证的原子性"></a>cas 如何保证的原子性</h3><p>从上图可以看到，cas 的操作实际也是有两步的，第一步是比较期望值和实际值，若符合条件则更新值，既然也是两步为什么没有原子性问题呢？<br>实际是cas 操作在底层实现中依然通过 lock 指令来解决原子性问题和禁止指令重排</p>
 
     </div>
@@ -468,8 +455,7 @@
     
     
 
-      <footer class="post-footer">
-          
+    <footer class="post-footer">
           <div class="post-tags">
               <a href="/tags/java/" rel="tag"><i class="fa fa-tag"></i> java</a>
               <a href="/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B/" rel="tag"><i class="fa fa-tag"></i> 多线程</a>
@@ -477,238 +463,90 @@
 
         
 
-
-        
-    <div class="post-nav">
-      <div class="post-nav-item">
-    <a href="/learnerguo/26209.html" rel="prev" title="utools自动化脚本插件">
-      <i class="fa fa-chevron-left"></i> utools自动化脚本插件
-    </a></div>
-      <div class="post-nav-item">
-    <a href="/learnerguo/84a2076d.html" rel="next" title="宝贵的人生建议">
-      宝贵的人生建议 <i class="fa fa-chevron-right"></i>
-    </a></div>
-    </div>
-      </footer>
-    
-  </article>
-  
-  
-  
-
-
-
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/learnerguo/26209.html" rel="prev" title="utools自动化脚本插件">
+                  <i class="fa fa-angle-left"></i> utools自动化脚本插件
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/learnerguo/84a2076d.html" rel="next" title="宝贵的人生建议">
+                  宝贵的人生建议 <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
           </div>
-          
-    <div class="comments" id="valine-comments"></div>
+    </footer>
+  </article>
+</div>
 
-<script>
-  window.addEventListener('tabs:register', () => {
-    let { activeClass } = CONFIG.comments;
-    if (CONFIG.comments.storage) {
-      activeClass = localStorage.getItem('comments_active') || activeClass;
-    }
-    if (activeClass) {
-      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
-      if (activeTab) {
-        activeTab.click();
-      }
-    }
-  });
-  if (CONFIG.comments.storage) {
-    window.addEventListener('tabs:click', event => {
-      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
-      let commentClass = event.target.classList[1];
-      localStorage.setItem('comments_active', commentClass);
-    });
-  }
-</script>
 
-        </div>
-          
-  
-  <div class="toggle sidebar-toggle">
-    <span class="toggle-line toggle-line-first"></span>
-    <span class="toggle-line toggle-line-middle"></span>
-    <span class="toggle-line toggle-line-last"></span>
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2023</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">咖啡杯的里茶</span>
   </div>
-
-  <aside class="sidebar">
-    <div class="sidebar-inner">
-
-      <ul class="sidebar-nav motion-element">
-        <li class="sidebar-nav-toc">
-          文章目录
-        </li>
-        <li class="sidebar-nav-overview">
-          站点概览
-        </li>
-      </ul>
-
-      <!--noindex-->
-      <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E7%BA%BF%E7%A8%8B%E5%AE%89%E5%85%A8"><span class="nav-number">1.</span> <span class="nav-text">什么是线程安全</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%B4%E7%95%8C%E5%8C%BA"><span class="nav-number">1.1.</span> <span class="nav-text">临界区</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AB%9E%E6%80%81%E6%9D%A1%E4%BB%B6"><span class="nav-number">1.2.</span> <span class="nav-text">竞态条件</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%BA%BF%E7%A8%8B%E5%AE%89%E5%85%A8%E5%88%86%E6%9E%90"><span class="nav-number">2.</span> <span class="nav-text">线程安全分析</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%88%90%E5%91%98%E5%8F%98%E9%87%8F%E5%92%8C%E9%9D%99%E6%80%81%E5%8F%98%E9%87%8F%E7%9A%84%E5%AE%89%E5%85%A8%E6%80%A7"><span class="nav-number">2.1.</span> <span class="nav-text">成员变量和静态变量的安全性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B1%80%E9%83%A8%E5%8F%98%E9%87%8F%E5%AE%89%E5%85%A8%E6%80%A7"><span class="nav-number">2.2.</span> <span class="nav-text">局部变量安全性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AF%BC%E8%87%B4%E7%BA%BF%E7%A8%8B%E5%AE%89%E5%85%A8%E7%9A%84%E5%8E%9F%E5%9B%A0"><span class="nav-number">2.3.</span> <span class="nav-text">导致线程安全的原因</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BD%9C%E7%94%A8"><span class="nav-number">3.</span> <span class="nav-text">作用</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8E%9F%E7%90%86"><span class="nav-number">4.</span> <span class="nav-text">原理</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AF%B9%E8%B1%A1%E5%A4%B4"><span class="nav-number">4.1.</span> <span class="nav-text">对象头</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Mark-Word%E4%B8%AD%E5%8C%85%E5%90%AB%E7%9A%84%E9%94%81%E7%B1%BB%E5%9E%8B"><span class="nav-number">4.1.1.</span> <span class="nav-text">Mark Word中包含的锁类型</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Monitor-%E5%AF%B9%E8%B1%A1"><span class="nav-number">4.2.</span> <span class="nav-text">Monitor 对象</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#synchronized-%E7%9A%84%E5%8E%9F%E7%90%86"><span class="nav-number">4.3.</span> <span class="nav-text">synchronized 的原理</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#synchronized-%E5%8E%9F%E7%90%86%E8%BF%9B%E9%98%B6"><span class="nav-number">5.</span> <span class="nav-text">synchronized 原理进阶</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BD%BB%E9%87%8F%E7%BA%A7%E9%94%81"><span class="nav-number">5.1.</span> <span class="nav-text">轻量级锁</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%94%81%E8%86%A8%E8%83%80"><span class="nav-number">5.2.</span> <span class="nav-text">锁膨胀</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%87%AA%E6%97%8B%E4%BC%98%E5%8C%96"><span class="nav-number">5.3.</span> <span class="nav-text">自旋优化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%81%8F%E5%90%91%E9%94%81"><span class="nav-number">5.4.</span> <span class="nav-text">偏向锁</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%81%8F%E5%90%91%E7%8A%B6%E6%80%81"><span class="nav-number">5.4.1.</span> <span class="nav-text">偏向状态</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%92%A4%E9%94%80-%E8%B0%83%E7%94%A8%E5%AF%B9%E8%B1%A1hashcode"><span class="nav-number">5.4.2.</span> <span class="nav-text">撤销-调用对象hashcode</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%92%A4%E9%94%80-%E5%85%B6%E4%BB%96%E7%BA%BF%E7%A8%8B%E4%BD%BF%E7%94%A8%E5%AF%B9%E8%B1%A1"><span class="nav-number">5.4.3.</span> <span class="nav-text">撤销-其他线程使用对象</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%89%B9%E9%87%8F%E9%87%8D%E5%81%8F%E5%90%91"><span class="nav-number">5.4.4.</span> <span class="nav-text">批量重偏向</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%89%B9%E9%87%8F%E6%92%A4%E9%94%80"><span class="nav-number">5.4.5.</span> <span class="nav-text">批量撤销</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%94%81%E6%B6%88%E9%99%A4%E5%92%8C%E9%94%81%E7%B2%97%E5%8C%96"><span class="nav-number">5.5.</span> <span class="nav-text">锁消除和锁粗化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#cas-%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86"><span class="nav-number">5.6.</span> <span class="nav-text">cas 实现原理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#cas-%E5%A6%82%E4%BD%95%E4%BF%9D%E8%AF%81%E7%9A%84%E5%8E%9F%E5%AD%90%E6%80%A7"><span class="nav-number">5.6.1.</span> <span class="nav-text">cas 如何保证的原子性</span></a></li></ol></li></ol></li></ol></div>
-      </div>
-      <!--/noindex-->
-
-      <div class="site-overview-wrap sidebar-panel">
-        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-  <p class="site-author-name" itemprop="name">咖啡杯的里茶</p>
-  <div class="site-description" itemprop="description">不积跬步无以至千里</div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
 </div>
-<div class="site-state-wrap motion-element">
-  <nav class="site-state">
-      <div class="site-state-item site-state-posts">
-          <a href="/archives/">
-        
-          <span class="site-state-item-count">40</span>
-          <span class="site-state-item-name">日志</span>
-        </a>
-      </div>
-      <div class="site-state-item site-state-categories">
-            <a href="/categories/">
-          
-        <span class="site-state-item-count">18</span>
-        <span class="site-state-item-name">分类</span></a>
-      </div>
-      <div class="site-state-item site-state-tags">
-            <a href="/tags/">
-          
-        <span class="site-state-item-count">18</span>
-        <span class="site-state-item-name">标签</span></a>
-      </div>
-  </nav>
-</div>
-
-
-
-      </div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener external nofollow noreferrer" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/pisces/" rel="noopener external nofollow noreferrer" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
 
     </div>
-  </aside>
-  <div id="sidebar-dimmer"></div>
+  </footer>
 
-
-      </div>
-    </main>
-
-    <footer class="footer">
-      <div class="footer-inner">
-        
-
-        
-
-<div class="copyright">
   
-  &copy; 
-  <span itemprop="copyrightYear">2023</span>
-  <span class="with-love">
-    <i class="fa fa-heart"></i>
-  </span>
-  <span class="author" itemprop="copyrightHolder">咖啡杯的里茶</span>
-</div>
-  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener external nofollow noreferrer" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener external nofollow noreferrer" target="_blank">NexT.Pisces</a> 强力驱动
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
   </div>
+  <div class="reading-progress-bar"></div>
 
-        
-<div class="busuanzi-count">
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.1/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+  <script class="next-config" data-name="mermaid" type="application/json">{"enable":true,"theme":{"light":"default","dark":"dark"},"js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/mermaid/10.5.0/mermaid.min.js","integrity":"sha256-K7oJiQlDulzl24ZUFOywuYme1JqBBvQzK6m8qHjt9Gk="}}</script>
+  <script src="/js/third-party/tags/mermaid.js"></script>
+
+
+
+
+
+  
   <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-</div>
 
 
 
 
-
-
-
-
-      </div>
-    </footer>
-  </div>
-
-  
-  <script src="/lib/anime.min.js"></script>
-  <script src="/lib/velocity/velocity.min.js"></script>
-  <script src="/lib/velocity/velocity.ui.min.js"></script>
-
-<script src="/js/utils.js"></script>
-
-<script src="/js/motion.js"></script>
-
-
-<script src="/js/schemes/pisces.js"></script>
-
-
-<script src="/js/next-boot.js"></script>
-
-
-
-
-  
-
-
-
-
-  
-<script src="/js/local-search.js"></script>
-
-
-
-
-
-
-
-
-
-
-
-<script>
-if (document.querySelectorAll('pre.mermaid').length) {
-  NexT.utils.getScript('//cdn.jsdelivr.net/npm/mermaid@8/dist/mermaid.min.js', () => {
-    mermaid.initialize({
-      theme    : 'forest',
-      logLevel : 3,
-      flowchart: { curve     : 'linear' },
-      gantt    : { axisFormat: '%m/%d/%Y' },
-      sequence : { actorMargin: 50 }
-    });
-  }, window.mermaid);
-}
-</script>
-
-
-  
-
-  
-
-
-<script>
-NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
-  NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
-    var GUEST = ['nick', 'mail', 'link'];
-    var guest = 'nick,mail,link';
-    guest = guest.split(',').filter(item => {
-      return GUEST.includes(item);
-    });
-    new Valine({
-      el         : '#valine-comments',
-      verify     : false,
-      notify     : false,
-      appId      : '8XkyNmWXOmKklNGNNf4hDun4-gzGzoHsz',
-      appKey     : 'N6tHd8zrPJnfjBVavYgtBOLQ',
-      placeholder: "期待与您的交流",
-      avatar     : 'mm',
-      meta       : guest,
-      pageSize   : '10' || 10,
-      visitor    : false,
-      lang       : '' || 'zh-cn',
-      path       : location.pathname,
-      recordIP   : false,
-      serverURLs : ''
-    });
-  }, window.Valine);
-});
-</script>
 
   <!-- 多级目录 -->
   <script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
