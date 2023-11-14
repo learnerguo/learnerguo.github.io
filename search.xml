@@ -331,21 +331,6 @@
       </tags>
   </entry>
   <entry>
-    <title>连接mysql数据库的配置</title>
-    <url>/learnerguo/949bf2aa.html</url>
-    <content><![CDATA[<figure class="highlight properties"><table><tr><td class="code"><pre><span class="line"><span class="attr">&lt;property</span> <span class="string">name=&quot;driverClassName&quot; value=&quot;com.mysql.jdbc.Driver&quot;/&gt;</span></span><br><span class="line"><span class="attr">&lt;property</span> <span class="string">name=&quot;url&quot; value=&quot;jdbc:mysql://localhost:3306/spring&quot;/&gt;</span></span><br><span class="line"><span class="attr">&lt;property</span> <span class="string">name=&quot;username&quot; value=&quot;root&quot;/&gt;</span></span><br><span class="line"><span class="attr">&lt;property</span> <span class="string">name=&quot;password&quot; value=&quot;admin&quot;/&gt;</span></span><br></pre></td></tr></table></figure>
-
-]]></content>
-      <categories>
-        <category>datasource</category>
-        <category>mysql</category>
-      </categories>
-      <tags>
-        <tag>datasource</tag>
-        <tag>mysql</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>java中boolean类型属性定义为什么不要使用is开头</title>
     <url>/learnerguo/e5fbeefe.html</url>
     <content><![CDATA[<h1 id="参考地址"><a href="#参考地址" class="headerlink" title="参考地址"></a>参考地址</h1><p><a href="http://hollischuang.gitee.io/tobetopjavaer/#/basics/java-basic/success-isSuccess-and-bollean-Bollean">参考地址</a></p>
