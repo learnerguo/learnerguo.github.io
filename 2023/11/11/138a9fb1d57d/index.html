@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 7.0.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha256-CTSx/A06dm1B063156EVh15m6Y67pAjZZaQc89LLSrU=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Pisces","darkmode":false,"version":"8.18.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":true,"style":null},"fold":{"enable":true,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"valine","storage":true,"lazyload":false,"nav":null,"activeClass":"valine"},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="什么是线程安全 当多个线程同时访问某个方法时，这个方法无法按照我们预期的行为来执行，那么我们认为这个方法是线程不安全的 比较专业的话则是需要理解临界区和竞态条件  临界区对共享变量存在读写操作的代码区域称之为临界区。重点是【共享变量】【同时读写】">
+<meta property="og:type" content="article">
+<meta property="og:title" content="synchronized的作用和实现原理">
+<meta property="og:url" content="http://example.com/2023/11/11/138a9fb1d57d/index.html">
+<meta property="og:site_name" content="咖啡杯里的茶">
+<meta property="og:description" content="什么是线程安全 当多个线程同时访问某个方法时，这个方法无法按照我们预期的行为来执行，那么我们认为这个方法是线程不安全的 比较专业的话则是需要理解临界区和竞态条件  临界区对共享变量存在读写操作的代码区域称之为临界区。重点是【共享变量】【同时读写】">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://s2.loli.net/2023/11/15/XeNqs7SjgOhTUrd.png">
+<meta property="og:image" content="https://s2.loli.net/2023/11/15/Nn8ax9ZTRsQ4kXC.png">
+<meta property="og:image" content="https://s2.loli.net/2023/11/15/eFMVS9ExGqCmZaO.png">
+<meta property="og:image" content="https://s2.loli.net/2023/11/15/38ajcDrwt2AE6BO.png">
+<meta property="og:image" content="https://s2.loli.net/2023/11/15/nIQ6HKcuqgsUadC.png">
+<meta property="og:image" content="https://s2.loli.net/2023/11/15/rvDo9Ns68X3aOJc.png">
+<meta property="og:image" content="https://s2.loli.net/2023/11/15/LGtcHrMeNuaY8Xw.png">
+<meta property="og:image" content="https://s2.loli.net/2023/11/15/hzZkOfImUCaiJcF.png">
+<meta property="og:image" content="https://s2.loli.net/2023/11/15/9vUJxcO2h5RzsLy.png">
+<meta property="og:image" content="https://s2.loli.net/2023/11/15/VxMZEfF6QwqnsYo.png">
+<meta property="article:published_time" content="2023-11-10T16:00:00.000Z">
+<meta property="article:modified_time" content="2023-11-15T12:43:13.055Z">
+<meta property="article:author" content="咖啡杯的里茶">
+<meta property="article:tag" content="java">
+<meta property="article:tag" content="多线程">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://s2.loli.net/2023/11/15/XeNqs7SjgOhTUrd.png">
+
+
+<link rel="canonical" href="http://example.com/2023/11/11/138a9fb1d57d/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://example.com/2023/11/11/138a9fb1d57d/","path":"2023/11/11/138a9fb1d57d/","title":"synchronized的作用和实现原理"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>synchronized的作用和实现原理 | 咖啡杯里的茶</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">咖啡杯里的茶</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li><li class="menu-item menu-item-book"><a href="/book/" rel="section"><i class="fa fa-book fa-fw"></i>阅读</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E7%BA%BF%E7%A8%8B%E5%AE%89%E5%85%A8"><span class="nav-number">1.</span> <span class="nav-text">什么是线程安全</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%B4%E7%95%8C%E5%8C%BA"><span class="nav-number">1.1.</span> <span class="nav-text">临界区</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AB%9E%E6%80%81%E6%9D%A1%E4%BB%B6"><span class="nav-number">1.2.</span> <span class="nav-text">竞态条件</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%BA%BF%E7%A8%8B%E5%AE%89%E5%85%A8%E5%88%86%E6%9E%90"><span class="nav-number">2.</span> <span class="nav-text">线程安全分析</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%88%90%E5%91%98%E5%8F%98%E9%87%8F%E5%92%8C%E9%9D%99%E6%80%81%E5%8F%98%E9%87%8F%E7%9A%84%E5%AE%89%E5%85%A8%E6%80%A7"><span class="nav-number">2.1.</span> <span class="nav-text">成员变量和静态变量的安全性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B1%80%E9%83%A8%E5%8F%98%E9%87%8F%E5%AE%89%E5%85%A8%E6%80%A7"><span class="nav-number">2.2.</span> <span class="nav-text">局部变量安全性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AF%BC%E8%87%B4%E7%BA%BF%E7%A8%8B%E5%AE%89%E5%85%A8%E7%9A%84%E5%8E%9F%E5%9B%A0"><span class="nav-number">2.3.</span> <span class="nav-text">导致线程安全的原因</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BD%9C%E7%94%A8"><span class="nav-number">3.</span> <span class="nav-text">作用</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8E%9F%E7%90%86"><span class="nav-number">4.</span> <span class="nav-text">原理</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AF%B9%E8%B1%A1%E5%A4%B4"><span class="nav-number">4.1.</span> <span class="nav-text">对象头</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Mark-Word%E4%B8%AD%E5%8C%85%E5%90%AB%E7%9A%84%E9%94%81%E7%B1%BB%E5%9E%8B"><span class="nav-number">4.1.1.</span> <span class="nav-text">Mark Word中包含的锁类型</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Monitor-%E5%AF%B9%E8%B1%A1"><span class="nav-number">4.2.</span> <span class="nav-text">Monitor 对象</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#synchronized-%E7%9A%84%E5%8E%9F%E7%90%86"><span class="nav-number">4.3.</span> <span class="nav-text">synchronized 的原理</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#synchronized-%E5%8E%9F%E7%90%86%E8%BF%9B%E9%98%B6"><span class="nav-number">5.</span> <span class="nav-text">synchronized 原理进阶</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BD%BB%E9%87%8F%E7%BA%A7%E9%94%81"><span class="nav-number">5.1.</span> <span class="nav-text">轻量级锁</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%94%81%E8%86%A8%E8%83%80"><span class="nav-number">5.2.</span> <span class="nav-text">锁膨胀</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%87%AA%E6%97%8B%E4%BC%98%E5%8C%96"><span class="nav-number">5.3.</span> <span class="nav-text">自旋优化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%81%8F%E5%90%91%E9%94%81"><span class="nav-number">5.4.</span> <span class="nav-text">偏向锁</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%81%8F%E5%90%91%E7%8A%B6%E6%80%81"><span class="nav-number">5.4.1.</span> <span class="nav-text">偏向状态</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%92%A4%E9%94%80-%E8%B0%83%E7%94%A8%E5%AF%B9%E8%B1%A1hashcode"><span class="nav-number">5.4.2.</span> <span class="nav-text">撤销-调用对象hashcode</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%92%A4%E9%94%80-%E5%85%B6%E4%BB%96%E7%BA%BF%E7%A8%8B%E4%BD%BF%E7%94%A8%E5%AF%B9%E8%B1%A1"><span class="nav-number">5.4.3.</span> <span class="nav-text">撤销-其他线程使用对象</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%89%B9%E9%87%8F%E9%87%8D%E5%81%8F%E5%90%91"><span class="nav-number">5.4.4.</span> <span class="nav-text">批量重偏向</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%89%B9%E9%87%8F%E6%92%A4%E9%94%80"><span class="nav-number">5.4.5.</span> <span class="nav-text">批量撤销</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%94%81%E6%B6%88%E9%99%A4%E5%92%8C%E9%94%81%E7%B2%97%E5%8C%96"><span class="nav-number">5.5.</span> <span class="nav-text">锁消除和锁粗化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#cas-%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86"><span class="nav-number">5.6.</span> <span class="nav-text">cas 实现原理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#cas-%E5%A6%82%E4%BD%95%E4%BF%9D%E8%AF%81%E7%9A%84%E5%8E%9F%E5%AD%90%E6%80%A7"><span class="nav-number">5.6.1.</span> <span class="nav-text">cas 如何保证的原子性</span></a></li></ol></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">咖啡杯的里茶</p>
+  <div class="site-description" itemprop="description">不积跬步无以至千里</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">23</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">10</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">10</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2023/11/11/138a9fb1d57d/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="咖啡杯的里茶">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="咖啡杯里的茶">
+      <meta itemprop="description" content="不积跬步无以至千里">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="synchronized的作用和实现原理 | 咖啡杯里的茶">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          synchronized的作用和实现原理
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2023-11-11 00:00:00" itemprop="dateCreated datePublished" datetime="2023-11-11T00:00:00+08:00">2023-11-11</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2023-11-15 20:43:13" itemprop="dateModified" datetime="2023-11-15T20:43:13+08:00">2023-11-15</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/java/" itemprop="url" rel="index"><span itemprop="name">java</span></a>
+        </span>
+          ，
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/java/%E5%A4%9A%E7%BA%BF%E7%A8%8B/" itemprop="url" rel="index"><span itemprop="name">多线程</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+  
+  <span class="post-meta-item">
+    
+    <span class="post-meta-item-icon">
+      <i class="far fa-comment"></i>
+    </span>
+    <span class="post-meta-item-text">Valine：</span>
+  
+    <a title="valine" href="/2023/11/11/138a9fb1d57d/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2023/11/11/138a9fb1d57d/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><h1 id="什么是线程安全"><a href="#什么是线程安全" class="headerlink" title="什么是线程安全"></a>什么是线程安全</h1><ol>
+<li>当多个线程同时访问某个方法时，这个方法无法按照我们预期的行为来执行，那么我们认为这个方法是线程不安全的</li>
+<li>比较专业的话则是需要理解临界区和竞态条件</li>
+</ol>
+<h2 id="临界区"><a href="#临界区" class="headerlink" title="临界区"></a>临界区</h2><p>对共享变量存在读写操作的代码区域称之为临界区。重点是【共享变量】【同时读写】</p>
+<span id="more"></span>
+<h2 id="竞态条件"><a href="#竞态条件" class="headerlink" title="竞态条件"></a>竞态条件</h2><p>多个线程在临界区内执行，由于代码的执行序列不同而导致结果无法预测，称之为发生了竞态条件。</p>
+<p>上面讲解了临界区和竞态条件，为了避免临界区的竟态条件发生，主要有两种类型的解决 方式</p>
+<ul>
+<li>阻塞式的解决方案，比如 Synchronized, Lock</li>
+<li>非阻塞式的解决方案：原子变量，cas 操作</li>
+</ul>
+<p>下面就主要讲解 Synchronized 关键字的作用。</p>
+<h1 id="线程安全分析"><a href="#线程安全分析" class="headerlink" title="线程安全分析"></a>线程安全分析</h1><h2 id="成员变量和静态变量的安全性"><a href="#成员变量和静态变量的安全性" class="headerlink" title="成员变量和静态变量的安全性"></a>成员变量和静态变量的安全性</h2><ul>
+<li>如果没有共享，线程安全</li>
+<li>如果共享了<ul>
+<li>如果只有读操作，线程安全</li>
+<li>如果有读写操作，则含有读写操作的代码就是临界区，需要考虑线程安全问题</li>
+</ul>
+</li>
+</ul>
+<h2 id="局部变量安全性"><a href="#局部变量安全性" class="headerlink" title="局部变量安全性"></a>局部变量安全性</h2><ul>
+<li>局部变量是线程安全的</li>
+<li>局部变量引用的对象不一定<ul>
+<li>如果对象没有逃离方法的作用访问，则线程安全</li>
+<li>如果对象逃离方法的作用范围，则需要考虑线程安全</li>
+</ul>
+</li>
+</ul>
+<h2 id="导致线程安全的原因"><a href="#导致线程安全的原因" class="headerlink" title="导致线程安全的原因"></a>导致线程安全的原因</h2><ol>
+<li>原子性： 原子性问题原因如下<ol>
+<li>线程切换，cpu 时间片切换， cpu 切换是通过中断来实现的，解决方法就是按需禁止中断</li>
+<li>执行指令的原子性，比如 i++ 操作在 cpu 层面就不是原子性的指令</li>
+</ol>
+</li>
+<li>可见性： 根本原因在于多核 cpu 和 cpu 缓存</li>
+<li>有序性：根本原因在于编译器的乱序优化和指令重排</li>
+</ol>
+<h1 id="作用"><a href="#作用" class="headerlink" title="作用"></a>作用</h1><ul>
+<li>Synchronized 的作用是使用对象锁来保证临界区内代码的原子性，临界区内的代码对外是不可以分割的【需要注意的是即使加了锁，依然还是会发生线程的上下文切换，但是没有拿到锁的对象是不会进入临界区代码执行，所以最终还是只有拿到锁的线程切换到临界区代码执行。】</li>
+</ul>
+<h1 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h1><p>java 对象是存在在堆中，一个 java 对象在堆中会包含三部分内容</p>
+<ol>
+<li>对象头</li>
+<li>实例数据</li>
+<li>填充数据：为了提高 cpu 访问效率</li>
+</ol>
+<h2 id="对象头"><a href="#对象头" class="headerlink" title="对象头"></a>对象头</h2><p><a target="_blank" rel="noopener external nofollow noreferrer" href="https://www.cnblogs.com/zhouwangwang/p/13763887.html">对象头信息</a></p>
+<p>对象头的最后两个字节位可以表示加锁的状态</p>
+<ul>
+<li>最开始没有加锁的时候，最前面的 25 位表示 hashcode， 最后两位是 01</li>
+<li>当有线程信息的时候，最前面的 23 位保存的是线程信息</li>
+<li>当加上了 轻量级锁的时候，最后面的两位是 00</li>
+<li>当加上重量级锁的时候最后面两位是 10</li>
+<li>当发生 GC 的时候最后面两位是 11</li>
+</ul>
+<h3 id="Mark-Word中包含的锁类型"><a href="#Mark-Word中包含的锁类型" class="headerlink" title="Mark Word中包含的锁类型"></a>Mark Word中包含的锁类型</h3><ol>
+<li>无锁</li>
+<li>偏向锁</li>
+<li>轻量级锁</li>
+<li>重量级锁</li>
+<li>GC 标记</li>
+</ol>
+<h2 id="Monitor-对象"><a href="#Monitor-对象" class="headerlink" title="Monitor 对象"></a>Monitor 对象</h2><p>每一个 Java 对象都可以关联都可以关联一个 Monitor 对象，如果使用 synchronized 给对象上锁，那么该对象头的 Mark Word 中就被设置指向 Monitor 对象的指针，Monitor 结构如下所示：<br><img src="https://s2.loli.net/2023/11/15/XeNqs7SjgOhTUrd.png"></p>
+<ul>
+<li>刚开始的时候 Monitor 中 Owner 为 null</li>
+<li>当 Thread-2 线程执行 synchronized(obj) 的时候就会将 Monitor 的所有者 Owner 置为 Thread-2， Monitor 中只能有一个 Owner</li>
+<li>在 Thread-2 上锁的过程中，如果 Thread-3, Thread-4, Thread-5 也来执行 Synchronized(obj), 就会进入 EntryList Blocked</li>
+<li>在 Thread-2 执行完同步代码块的内容之后，然后唤醒 EntryList 中等待的线程来竞争锁，竞争的时候是非公平的</li>
+<li>图中 WaitSet 中的 Thread-0，Thread-1 是之前已经获得过锁，但是条件不满足而进入到 WAITTING 状态的线程。</li>
+</ul>
+<p>注意：如果对象没有加上 synchronized 那就对象就不会关联 Monitor 监视器锁，也就没有上面的规则。</p>
+<h2 id="synchronized-的原理"><a href="#synchronized-的原理" class="headerlink" title="synchronized 的原理"></a>synchronized 的原理</h2><p>当代码执行到 synchronized 锁住的方法或者代码块的时候对应的字节码指令是 monitorenter, 这个指令的作用就是将锁住的对象头中的mark word 置为 Monitor 监视器对象的指针，此时就让该锁对象关联了 Monitor 对象，就会遵守上面讲的哪些规则了。</p>
+<h1 id="synchronized-原理进阶"><a href="#synchronized-原理进阶" class="headerlink" title="synchronized 原理进阶"></a>synchronized 原理进阶</h1><h2 id="轻量级锁"><a href="#轻量级锁" class="headerlink" title="轻量级锁"></a>轻量级锁</h2><ul>
+<li>如果一个对象虽然有多个线程要加锁，但是加锁的时间是错开的（比如说线程1执行完了，线程2才过来，这种情形就是没有锁竞争），那么此时就可以使用轻量级锁来优化。</li>
+<li>轻量级锁的语法依然是 synchronized</li>
+</ul>
+<p>下面的示例是两个方法同步块，领用同一个对象加锁。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">static</span> <span class="keyword">final</span> <span class="type">Object</span> <span class="variable">obj</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Object</span>();</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">method1</span><span class="params">()</span> &#123;</span><br><span class="line">	<span class="keyword">synchronized</span> (obj) &#123;</span><br><span class="line">    	<span class="comment">// 同步块A</span></span><br><span class="line">    	method2();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">method2</span><span class="params">()</span> &#123;</span><br><span class="line">	<span class="keyword">synchronized</span>(obj) &#123;</span><br><span class="line">    	<span class="comment">// 同步块B</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>代码运行加锁的过程如下：</p>
+<ul>
+<li>首先在线程的栈帧中创建锁记录（Lock Record）对象，内部可以存储锁定对象的 MarkWord</li>
+</ul>
+<p><img src="https://s2.loli.net/2023/11/15/Nn8ax9ZTRsQ4kXC.png"></p>
+<ul>
+<li>将锁记录中 Object reference 指向锁对象，并尝试使用 cas 替换 Object的 Mark Word。将 Mark Word 的值存入锁记录。</li>
+</ul>
+<p><img src="https://s2.loli.net/2023/11/15/eFMVS9ExGqCmZaO.png"></p>
+<ul>
+<li>如果 cas 替换成功，对象头中存储了 锁记录 地址和状态 00，表示由该线程给对象加锁。</li>
+</ul>
+<p><img src="https://s2.loli.net/2023/11/15/38ajcDrwt2AE6BO.png"></p>
+<ul>
+<li>如果 cas 失败，有两种情形<ul>
+<li>如果是其他线程已经持有了该 Object 的轻量级锁，此时表示由竞争，进入锁膨胀过程（这个过程在后面看）。</li>
+<li>如果是自己执行了 synchronized 锁重入，那么再增加一条 Lock Record 作为重入的计数（下面就继续看这种情况）。</li>
+</ul>
+</li>
+</ul>
+<p><img src="https://s2.loli.net/2023/11/15/nIQ6HKcuqgsUadC.png"></p>
+<ul>
+<li>当退出 synchronized 代码块时如果有取值为 null 的锁记录。表示有重入，此时可以删除改锁记录，表示重入数减一。</li>
+</ul>
+<p><img src="https://s2.loli.net/2023/11/15/rvDo9Ns68X3aOJc.png"></p>
+<ul>
+<li>当退出 synchronized 代码块时如果锁记录的值不为 null，这时使用 cas 将 Mark Word 的值恢复给对象头。<ul>
+<li>恢复成功，说明解锁成功。</li>
+<li>失败，说明轻量级锁进行了锁膨胀或者已经升级为重量级锁，进入重量级锁解锁流程。</li>
+</ul>
+</li>
+</ul>
+<h2 id="锁膨胀"><a href="#锁膨胀" class="headerlink" title="锁膨胀"></a>锁膨胀</h2><p>如果在尝试加轻量级锁的过程中，cas 操作无法操作成功，此时有一种情况表示由其他线程为此对象已经加上了轻量级锁(有竞争)，此时就需要进行锁膨胀，将轻量级锁变成重量级锁。</p>
+<ul>
+<li>当 Thread-1 进行轻量级加锁的时候，Thread-0 已经对该对象加了轻量级锁。</li>
+</ul>
+<p><img src="https://s2.loli.net/2023/11/15/LGtcHrMeNuaY8Xw.png"></p>
+<ul>
+<li>此时 Thread-1 加轻量级锁失败，进入锁膨胀流程<ul>
+<li>为 Object 对象申请 Monitor 锁，让 Object 指向重量级锁地址。</li>
+<li>然后自己进入 Monitor 的  EntryList BLOCKED</li>
+</ul>
+</li>
+</ul>
+<p><img src="https://s2.loli.net/2023/11/15/hzZkOfImUCaiJcF.png"></p>
+<ul>
+<li>当 Thread-0 退出同步块解锁时，使用 cas 将 Mark Word的值恢复给对象头失败（由上图可知，此时对象头里面已经是保存了 Monitor 地址，而不是 Lock Record 地址）。这时就会进入重量级解锁流程，按照 Monitor 地址找到 Monitor 对象，设置 Owner 为 null，唤醒 EntryList 中的 BLOCKED 线程。</li>
+</ul>
+<h2 id="自旋优化"><a href="#自旋优化" class="headerlink" title="自旋优化"></a>自旋优化</h2><ul>
+<li>重量级锁竞争的时候，可以使用 自旋来进行优化，如果当前线程自旋成功（也就是这时候持有锁的线程已经退出了同步块，释放了锁，此时当前线程就可以避免阻塞）</li>
+<li>自旋会占用 cpu 时间，单核 cpu 自旋就是浪费，多核的 cpu 自旋才可以发挥优势。</li>
+<li>java6 之后自旋是自适应的。</li>
+<li>java7 之后不能控制是否开启自旋。</li>
+</ul>
+<h2 id="偏向锁"><a href="#偏向锁" class="headerlink" title="偏向锁"></a>偏向锁</h2><p>轻量级锁在没有竞争时(比如就自己一个线程在执行)，每次重入的时候依然还是要进行 cas 操作。在 java6 之后引入了 偏向锁来进一步进行优化：只有第一次使用 cas 将线程id设置到对象的 Mark Word 之后，之后发现这个线程ID 是自己的就表示没有竞争，不用重新 cas。 以后只有没有发生竞争，那么这个对象就归该线程所有。<br>比如下面的代码</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">static</span> <span class="keyword">final</span> <span class="type">Object</span> <span class="variable">obj</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Object</span>();</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">m1</span><span class="params">()</span> &#123;</span><br><span class="line">	<span class="keyword">synchronized</span> (obj) &#123;</span><br><span class="line">    	<span class="comment">// 同步块A</span></span><br><span class="line">        m2();</span><br><span class="line">    &#125;	</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">m2</span><span class="params">()</span> &#123;</span><br><span class="line">	<span class="keyword">synchronized</span>(obj) &#123;</span><br><span class="line">    	<span class="comment">// 同步块B</span></span><br><span class="line">        m3();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">m3</span><span class="params">()</span> &#123;</span><br><span class="line">	<span class="keyword">synchronized</span>(obj) &#123;</span><br><span class="line">        <span class="comment">// 同步块C</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><img src="https://s2.loli.net/2023/11/15/9vUJxcO2h5RzsLy.png"></p>
+<h3 id="偏向状态"><a href="#偏向状态" class="headerlink" title="偏向状态"></a>偏向状态</h3><p>再看一下 64 为的对象头格式<br><img src="https://s2.loli.net/2023/11/15/VxMZEfF6QwqnsYo.png"></p>
+<ul>
+<li>之前说的是最后两位记录的是锁的状态，比如 01 表示没有上锁，00 是轻量级锁等。</li>
+<li>看上图会发现，state 为 normal 和 Biased 的最后两位都是 01，但是倒数第三位是不一样的，倒数第三位为1表示偏向锁，为0 表示没有加锁。</li>
+</ul>
+<p>对象创建的过程</p>
+<ul>
+<li>如果开启了偏向锁（默认是开启的），那么对象创建之后，mark word的值最后三位是 101， 此时它的thread、epoch、age都是0.</li>
+<li>偏向锁默认是延迟的，不会在程序启动时立即生效，如果想要避免延迟可以加上 VM 参数 <strong>xx::BiasedLockingStartupDelay&#x3D;0</strong></li>
+<li>如果没有开启偏向锁，那么对象创建之后，markword 值的最后三位是 001，此时它的 hashcode，age都是0，第一次用到 hashcode 时才会赋值。</li>
+</ul>
+<h3 id="撤销-调用对象hashcode"><a href="#撤销-调用对象hashcode" class="headerlink" title="撤销-调用对象hashcode"></a>撤销-调用对象hashcode</h3><p>调用了对象的 hashcode，但是偏向锁的对象 MarkWord 中存储的是线程的id，所以调用 hashCode 之后会导致偏向锁被撤销。</p>
+<ul>
+<li>轻量级锁会在锁记录中记录 hashCode</li>
+<li>重量级锁会在 Monitor 中记录 hashCode</li>
+</ul>
+<h3 id="撤销-其他线程使用对象"><a href="#撤销-其他线程使用对象" class="headerlink" title="撤销-其他线程使用对象"></a>撤销-其他线程使用对象</h3><ul>
+<li>当有其他线程使用偏向锁对象时，会将偏向锁升级为轻量级锁。</li>
+</ul>
+<h3 id="批量重偏向"><a href="#批量重偏向" class="headerlink" title="批量重偏向"></a>批量重偏向</h3><ul>
+<li>如果对象虽然被多个线程访问，但是没有竞争，这是偏向了线程 T1 的对象仍有机会重新偏向 T2，重偏向会重置对象的 Thread ID.</li>
+<li>当撤销偏向锁阈值超过 20 次后，jvm会觉得有可能偏向错了，此时会给这些对象加锁时重新偏向到加锁线程。</li>
+</ul>
+<h3 id="批量撤销"><a href="#批量撤销" class="headerlink" title="批量撤销"></a>批量撤销</h3><ul>
+<li>当撤销偏向锁阈值超过 40 次之后，jvm 会觉得此时不应该偏向了，于是，整个类的对象都会变成不可偏向，新建的对象也是不可偏向的。</li>
+</ul>
+<h2 id="锁消除和锁粗化"><a href="#锁消除和锁粗化" class="headerlink" title="锁消除和锁粗化"></a>锁消除和锁粗化</h2><p><a target="_blank" rel="noopener external nofollow noreferrer" href="https://zhuanlan.zhihu.com/p/359950338">https://zhuanlan.zhihu.com/p/359950338</a></p>
+<h2 id="cas-实现原理"><a href="#cas-实现原理" class="headerlink" title="cas 实现原理"></a>cas 实现原理</h2><p>参考《Java并发编程深度解析与实战》<br>自旋锁是使用 cas(compare and set)  来实现的，那么 cas 是如何实现无锁操作的呢？cas 工作原理如下</p>
+<pre class="mermaid">flowchart TD
+   A["CAS(V,E,U)"]-->B{V==E?}
+   B--否-->C[不更新变量V,返回false]
+   B--是-->D[将变量V设置为值U，并返回true]
+   subgraph F[变量说明]
+      direction TB
+         F1[V 表示要更新的变量]
+         F2[E 表示期望值]
+         F3[U 表示更新后的值]
+         F1~~~F2~~~F3
+   end</pre>
+<h3 id="cas-如何保证的原子性"><a href="#cas-如何保证的原子性" class="headerlink" title="cas 如何保证的原子性"></a>cas 如何保证的原子性</h3><p>从上图可以看到，cas 的操作实际也是有两步的，第一步是比较期望值和实际值，若符合条件则更新值，既然也是两步为什么没有原子性问题呢？<br>实际是cas 操作在底层实现中依然通过 lock 指令来解决原子性问题和禁止指令重排</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/java/" rel="tag"><i class="fa fa-tag"></i> java</a>
+              <a href="/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B/" rel="tag"><i class="fa fa-tag"></i> 多线程</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2023/11/11/d899f5ff1973/" rel="prev" title="utools自动化脚本插件">
+                  <i class="fa fa-angle-left"></i> utools自动化脚本插件
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2023/11/12/6b613d963af3/" rel="next" title="vscode相关设置">
+                  vscode相关设置 <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments" id="valine-comments"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2023</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">咖啡杯的里茶</span>
+  </div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener external nofollow noreferrer" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/pisces/" rel="noopener external nofollow noreferrer" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.1/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+  <script class="next-config" data-name="mermaid" type="application/json">{"enable":true,"theme":{"light":"default","dark":"dark"},"js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/mermaid/10.5.0/mermaid.min.js","integrity":"sha256-K7oJiQlDulzl24ZUFOywuYme1JqBBvQzK6m8qHjt9Gk="}}</script>
+  <script src="/js/third-party/tags/mermaid.js"></script>
+
+
+
+
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+
+<script>
+NexT.utils.loadComments('#valine-comments', () => {
+  NexT.utils.getScript('https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js', () => {
+    new Valine(Object.assign({"enable":true,"appId":"8XkyNmWXOmKklNGNNf4hDun4-gzGzoHsz","appKey":"N6tHd8zrPJnfjBVavYgtBOLQ","serverURLs":"https://leancloud.cn","placeholder":"期待与您的交流","avatar":"mm","meta":["nick","mail","link"],"pageSize":10,"lang":null,"visitor":false,"comment_count":true,"recordIP":false,"enableQQ":false,"requiredFields":[]}, {
+      el: '#valine-comments',
+      path: "/2023/11/11/138a9fb1d57d/",
+      serverURLs: "https://leancloud.cn"
+    }));
+  }, window.Valine);
+});
+</script>
+
+  <!-- 多级目录 -->
+  <script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+  <script src="/js/category.js"></script>
+</body>
+</html>
