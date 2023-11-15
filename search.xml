@@ -33,6 +33,54 @@
       </tags>
   </entry>
   <entry>
+    <title>githubPag自定义域名以及两台电脑使用hexo</title>
+    <url>/2019/06/11/1c69da9f7854/</url>
+    <content><![CDATA[<h1 id="githubPag自定义域名"><a href="#githubPag自定义域名" class="headerlink" title="githubPag自定义域名"></a>githubPag自定义域名</h1><p><a href="https://blog.csdn.net/heimu24/article/details/81159099">查看文章</a></p>
+<span id="more"></span>
+
+<h1 id="多台电脑使用hexo"><a href="#多台电脑使用hexo" class="headerlink" title="多台电脑使用hexo"></a>多台电脑使用hexo</h1><h2 id="不修改主题"><a href="#不修改主题" class="headerlink" title="不修改主题"></a>不修改主题</h2><p><a href="https://blog.csdn.net/ShmilyCoder/article/details/79916973">查看文章</a></p>
+<p>需要注意的是如果后续只是写博客而没有修改主题等文件的话只需使用hexo分支来操作即可。</p>
+<h2 id="修改主题"><a href="#修改主题" class="headerlink" title="修改主题"></a>修改主题</h2><p>如果需要修改主题的话依然是需要在搭建博客的电脑上搭建博客的那个目录(<code>hexo</code>)，使用两台电脑来写博客时都是使用的是后来创建的分支，此时修改主题则是在博客搭建目录里面去修改，修改完之后直接在博客搭建目录使用<code>git bash</code>，然后通过<code>hexo clean</code>， <code>hexo d -g</code>, 将修改的主题发布出去，但是此时需要注意的是当我们发布之后再去访问自己的博客发现文章可能会少很多，这很正常，因为我们后来写的博客都是在创建的分支上面去写的，最开始创建博客的那个目录并没有维护起来，此时看到的博客其实是最开始创建博客的那个目录里面的文章，所以此时只需要将修改的那部分主题文件拷贝到我们的分支目录对应位置，然后提交并且在在分支目录里面重新<code>hexo clean</code>， <code>hexo d -g</code>一次就可以了。以后只要不修改主题文件就都是在分支上操作了，只要需要修改主题文件时才需要在最开始创建博客的那个目录去操作然后拷贝到分支上并提交。</p>
+<p><font color="green">我们创建博客的那个目录并不是一个<code>repository</code>，所以在那个目录是不能使用git命令的，只是我们将其余github进行了关联而已，所以在那里面只能使用hexo命令。</font></p>
+<p><font color="red">经过测试，不是非要在创建博客的那台上脑上该样式才有作用，实际上在另外的一台电脑上直接修改样式也是有效果的。</font></p>
+]]></content>
+      <categories>
+        <category>tools</category>
+        <category>hexo</category>
+      </categories>
+      <tags>
+        <tag>hexo</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>hexo使用插入本地图片路径问题</title>
+    <url>/2023/11/15/563e23df91d3/</url>
+    <content><![CDATA[<p>Hexo version: 7.0<br>Next version: 8.18</p>
+<span id="more"></span>
+<ol>
+<li>安装插件</li>
+</ol>
+<figure class="highlight ada"><table><tr><td class="code"><pre><span class="line">npm install hexo-renderer-marked <span class="comment">--save</span></span><br></pre></td></tr></table></figure>
+<ol start="2">
+<li>修改 hexo 配置文件 <code>_config.yml</code> (不是next 主题的配置文件)</li>
+</ol>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 这样文章生成的路径会是年/月/日/hash值形式</span></span><br><span class="line"><span class="attr">permalink:</span> <span class="string">:year/:month/:day/:hash/</span></span><br><span class="line"><span class="comment"># 开启资源文件夹功能</span></span><br><span class="line"><span class="attr">post_asset_folder:</span> <span class="literal">true</span></span><br><span class="line"><span class="attr">marked:</span></span><br><span class="line">  <span class="comment"># 这两个值都配置为false，网上很多文章配置成true，可能是不同版本效果不同，在 Next8.18, hexo7 这个版本若配置成true，图片路径会多了日期导致显示失败 </span></span><br><span class="line">  <span class="attr">prependRoot:</span> <span class="literal">false</span></span><br><span class="line">  <span class="attr">postAsset:</span> <span class="literal">false</span></span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li>在 md 文章目录中创建同名的文件夹，比如当前这篇文章的名称是 <code>hexo插入本地图片路径问题</code>， 那就需要在这篇文章的同级目录中创建一个同名的文件夹，然后图片就放在这个文件夹中</li>
+<li>在使用 md 语法引入图片的时候，因为图片是放在目录中（和文章同名的那个目录），但是如果在本地 vscode 中将目录也加上，虽然本地可以访问，但是 hexo g 生成之后，访问博客地址是无法访问的，所以本地引入图片的时候只能写图片的文件名，不要路径，这样虽然本地无法预览，但是 hexo s 和 hexo d 之后的结果都可以正常查看</li>
+</ol>
+]]></content>
+      <categories>
+        <category>tools</category>
+        <category>hexo</category>
+      </categories>
+      <tags>
+        <tag>tools</tag>
+        <tag>hexo</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>hexo和Next主题修改</title>
     <url>/2019/06/11/fb62824fdbd0/</url>
     <content><![CDATA[<h1 id="文章目录默认展开"><a href="#文章目录默认展开" class="headerlink" title="文章目录默认展开"></a>文章目录默认展开</h1><p>基于 Next7.x 版本</p>
@@ -160,26 +208,6 @@
       </tags>
   </entry>
   <entry>
-    <title>githubPag自定义域名以及两台电脑使用hexo</title>
-    <url>/2019/06/11/1c69da9f7854/</url>
-    <content><![CDATA[<h1 id="githubPag自定义域名"><a href="#githubPag自定义域名" class="headerlink" title="githubPag自定义域名"></a>githubPag自定义域名</h1><p><a href="https://blog.csdn.net/heimu24/article/details/81159099">查看文章</a></p>
-<span id="more"></span>
-
-<h1 id="多台电脑使用hexo"><a href="#多台电脑使用hexo" class="headerlink" title="多台电脑使用hexo"></a>多台电脑使用hexo</h1><h2 id="不修改主题"><a href="#不修改主题" class="headerlink" title="不修改主题"></a>不修改主题</h2><p><a href="https://blog.csdn.net/ShmilyCoder/article/details/79916973">查看文章</a></p>
-<p>需要注意的是如果后续只是写博客而没有修改主题等文件的话只需使用hexo分支来操作即可。</p>
-<h2 id="修改主题"><a href="#修改主题" class="headerlink" title="修改主题"></a>修改主题</h2><p>如果需要修改主题的话依然是需要在搭建博客的电脑上搭建博客的那个目录(<code>hexo</code>)，使用两台电脑来写博客时都是使用的是后来创建的分支，此时修改主题则是在博客搭建目录里面去修改，修改完之后直接在博客搭建目录使用<code>git bash</code>，然后通过<code>hexo clean</code>， <code>hexo d -g</code>, 将修改的主题发布出去，但是此时需要注意的是当我们发布之后再去访问自己的博客发现文章可能会少很多，这很正常，因为我们后来写的博客都是在创建的分支上面去写的，最开始创建博客的那个目录并没有维护起来，此时看到的博客其实是最开始创建博客的那个目录里面的文章，所以此时只需要将修改的那部分主题文件拷贝到我们的分支目录对应位置，然后提交并且在在分支目录里面重新<code>hexo clean</code>， <code>hexo d -g</code>一次就可以了。以后只要不修改主题文件就都是在分支上操作了，只要需要修改主题文件时才需要在最开始创建博客的那个目录去操作然后拷贝到分支上并提交。</p>
-<p><font color="green">我们创建博客的那个目录并不是一个<code>repository</code>，所以在那个目录是不能使用git命令的，只是我们将其余github进行了关联而已，所以在那里面只能使用hexo命令。</font></p>
-<p><font color="red">经过测试，不是非要在创建博客的那台上脑上该样式才有作用，实际上在另外的一台电脑上直接修改样式也是有效果的。</font></p>
-]]></content>
-      <categories>
-        <category>tools</category>
-        <category>hexo</category>
-      </categories>
-      <tags>
-        <tag>hexo</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>宝贵的人生建议</title>
     <url>/2023/11/12/5792ca8e5e27/</url>
     <content><![CDATA[<ul>
@@ -266,6 +294,59 @@
       </tags>
   </entry>
   <entry>
+    <title>动态代理和使用jdk自带的HSDB查看被代理的类的代码</title>
+    <url>/2020/01/06/bc6a8f6aeb2a/</url>
+    <content><![CDATA[<h1 id="概念理解"><a href="#概念理解" class="headerlink" title="概念理解"></a>概念理解</h1><p>所谓的代理模式简单理解就是对原有的功能增强的一种模式。代理模式有三个角色：	</p>
+<ul>
+<li>接口(<code>Subject</code>)   </li>
+<li>委托类(<code>RealSubject</code>),该类也是真正实现功能的类	</li>
+<li>代理类(<code>ProxySubject</code>)这个代理类对我们的委托类进行增强处理</li>
+</ul>
+<span id="more"></span>
+
+<h1 id="动态代理分类"><a href="#动态代理分类" class="headerlink" title="动态代理分类"></a>动态代理分类</h1><h2 id="jdk动态代理"><a href="#jdk动态代理" class="headerlink" title="jdk动态代理"></a>jdk动态代理</h2><p><code>jdk</code>动态代理的的核心是主要是有两个类</p>
+<ul>
+<li><code>Proxy</code>类的<code>newProxyInstance</code>方法</li>
+<li><code>InvocationHandler</code> 接口</li>
+</ul>
+<h3 id="jdk动态代理案例"><a href="#jdk动态代理案例" class="headerlink" title="jdk动态代理案例"></a><code>jdk</code>动态代理案例</h3><ul>
+<li>一个接口</li>
+<li>该接口的实现类</li>
+<li>一个实现了<code>InvocationHandler</code> 接口的处理类</li>
+</ul>
+<p><strong>接口</strong></p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> com.dynamicProxy;</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">interface</span> <span class="title class_">NeedProxyInterface</span> &#123;</span><br><span class="line">    <span class="keyword">void</span> <span class="title function_">sayHello</span><span class="params">()</span>;</span><br><span class="line">    <span class="type">int</span> <span class="title function_">add</span><span class="params">(<span class="type">int</span> a, <span class="type">int</span> b)</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>实现类</strong></p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> com.dynamicProxy;</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">NeedProxyInterfaceImpl</span> <span class="keyword">implements</span> <span class="title class_">NeedProxyInterface</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">sayHello</span><span class="params">()</span> &#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;hello&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">add</span><span class="params">(<span class="type">int</span> a, <span class="type">int</span> b)</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> a + b;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>实现了<code>InvocationHandler</code> 接口的处理类</strong></p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> com.dynamicProxy;</span><br><span class="line"><span class="keyword">import</span> java.lang.reflect.InvocationHandler;</span><br><span class="line"><span class="keyword">import</span> java.lang.reflect.Method;</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">MyInvocationHandler</span> <span class="keyword">implements</span> <span class="title class_">InvocationHandler</span> &#123;</span><br><span class="line">    <span class="type">NeedProxyInterface</span> <span class="variable">needProxyInterface</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">NeedProxyInterfaceImpl</span>();</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> Object <span class="title function_">invoke</span><span class="params">(Object proxy, Method method, Object[] args)</span> <span class="keyword">throws</span> Throwable &#123;</span><br><span class="line">        System.out.println(<span class="number">111</span>);</span><br><span class="line">        <span class="keyword">return</span> method.invoke(needProxyInterface, args);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>测试代码</strong></p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> com.dynamicProxy;</span><br><span class="line"><span class="keyword">import</span> java.lang.reflect.Proxy;</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">DynamicProxyMain</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="type">NeedProxyInterface</span> <span class="variable">object</span> <span class="operator">=</span></span><br><span class="line">               (NeedProxyInterface)Proxy.newProxyInstance(NeedProxyInterface.class.getClassLoader(),</span><br><span class="line">                <span class="keyword">new</span> <span class="title class_">Class</span>[]&#123;NeedProxyInterface.class&#125;, <span class="keyword">new</span> <span class="title class_">MyInvocationHandler</span>());</span><br><span class="line">        object.sayHello();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>我们可以根据下面介绍的使用方式使用<code>HSDL</code>工具生成代理类文件，生成的文件内容如下：</p>
+<p><strong>代理类</strong></p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> com.sun.proxy;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> com.dynamicProxy.NeedProxyInterface;</span><br><span class="line"><span class="keyword">import</span> java.lang.reflect.InvocationHandler;</span><br><span class="line"><span class="keyword">import</span> java.lang.reflect.Method;</span><br><span class="line"><span class="keyword">import</span> java.lang.reflect.Proxy;</span><br><span class="line"><span class="keyword">import</span> java.lang.reflect.UndeclaredThrowableException;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">class</span> <span class="title class_">$Proxy0</span> <span class="keyword">extends</span> <span class="title class_">Proxy</span> <span class="keyword">implements</span> <span class="title class_">NeedProxyInterface</span> &#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> Method m1;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> Method m4;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> Method m2;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> Method m3;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> Method m0;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> $Proxy0(InvocationHandler var1) &#123;</span><br><span class="line">        <span class="built_in">super</span>(var1);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">static</span> &#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            m1 = Class.forName(<span class="string">&quot;java.lang.Object&quot;</span>).getMethod(<span class="string">&quot;equals&quot;</span>, Class.forName(<span class="string">&quot;java.lang.Object&quot;</span>));</span><br><span class="line">            m4 = Class.forName(<span class="string">&quot;com.dynamicProxy.NeedProxyInterface&quot;</span>).getMethod(<span class="string">&quot;sayHello&quot;</span>);</span><br><span class="line">            m2 = Class.forName(<span class="string">&quot;java.lang.Object&quot;</span>).getMethod(<span class="string">&quot;toString&quot;</span>);</span><br><span class="line">            m3 = Class.forName(<span class="string">&quot;com.dynamicProxy.NeedProxyInterface&quot;</span>).getMethod(<span class="string">&quot;add&quot;</span>, Integer.TYPE, Integer.TYPE);</span><br><span class="line">            m0 = Class.forName(<span class="string">&quot;java.lang.Object&quot;</span>).getMethod(<span class="string">&quot;hashCode&quot;</span>);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (NoSuchMethodException var2) &#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">NoSuchMethodError</span>(var2.getMessage());</span><br><span class="line">        &#125; <span class="keyword">catch</span> (ClassNotFoundException var3) &#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">NoClassDefFoundError</span>(var3.getMessage());</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">final</span> <span class="type">int</span> <span class="title function_">add</span><span class="params">(<span class="type">int</span> var1, <span class="type">int</span> var2)</span> &#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="keyword">return</span> (Integer)<span class="built_in">super</span>.h.invoke(<span class="built_in">this</span>, m3, <span class="keyword">new</span> <span class="title class_">Object</span>[]&#123;var1, var2&#125;);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (RuntimeException | Error var4) &#123;</span><br><span class="line">            <span class="keyword">throw</span> var4;</span><br><span class="line">        &#125; <span class="keyword">catch</span> (Throwable var5) &#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">UndeclaredThrowableException</span>(var5);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">final</span> <span class="type">boolean</span> <span class="title function_">equals</span><span class="params">(Object var1)</span> &#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="keyword">return</span> (Boolean)<span class="built_in">super</span>.h.invoke(<span class="built_in">this</span>, m1, <span class="keyword">new</span> <span class="title class_">Object</span>[]&#123;var1&#125;);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (RuntimeException | Error var3) &#123;</span><br><span class="line">            <span class="keyword">throw</span> var3;</span><br><span class="line">        &#125; <span class="keyword">catch</span> (Throwable var4) &#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">UndeclaredThrowableException</span>(var4);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">final</span> String <span class="title function_">toString</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="keyword">return</span> (String)<span class="built_in">super</span>.h.invoke(<span class="built_in">this</span>, m2, (Object[])<span class="literal">null</span>);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (RuntimeException | Error var2) &#123;</span><br><span class="line">            <span class="keyword">throw</span> var2;</span><br><span class="line">        &#125; <span class="keyword">catch</span> (Throwable var3) &#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">UndeclaredThrowableException</span>(var3);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">final</span> <span class="type">int</span> <span class="title function_">hashCode</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="keyword">return</span> (Integer)<span class="built_in">super</span>.h.invoke(<span class="built_in">this</span>, m0, (Object[])<span class="literal">null</span>);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (RuntimeException | Error var2) &#123;</span><br><span class="line">            <span class="keyword">throw</span> var2;</span><br><span class="line">        &#125; <span class="keyword">catch</span> (Throwable var3) &#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">UndeclaredThrowableException</span>(var3);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">void</span> <span class="title function_">sayHello</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="built_in">super</span>.h.invoke(<span class="built_in">this</span>, m4, (Object[])<span class="literal">null</span>);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (RuntimeException | Error var2) &#123;</span><br><span class="line">            <span class="keyword">throw</span> var2;</span><br><span class="line">        &#125; <span class="keyword">catch</span> (Throwable var3) &#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">UndeclaredThrowableException</span>(var3);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>其实我们之所以不懂代理，是因为这个代理类生成后是在内存中的，如果我们能看到这样的一个类的代码就不会觉得难，所以可以使用上面所说的<code>HSDL</code>工具将代理类下载下来就比较容易看懂。</p>
+<h1 id="直接使用jdk类生成代理类代码"><a href="#直接使用jdk类生成代理类代码" class="headerlink" title="直接使用jdk类生成代理类代码"></a>直接使用jdk类生成代理类代码</h1><p>还有一种方式可以直接使用<code>jdk</code>生成类的方式来生成代理类并且使用输出流输出到本地，然后使用反编译工具来查看即可。比如还是上面的那个接口，现在想要生成代理类。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="type">byte</span>[] bytes = ProxyGenerator.generateProxyClass(<span class="string">&quot;$Proxy0&quot;</span>, <span class="keyword">new</span> <span class="title class_">Class</span>[]&#123;NeedProxyInterface.class&#125;);</span><br><span class="line"><span class="type">FileOutputStream</span> <span class="variable">os</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">FileOutputStream</span>(<span class="string">&quot;D://$Proxy0.class&quot;</span>);</span><br><span class="line">os.write(bytes);</span><br><span class="line">os.close();</span><br></pre></td></tr></table></figure>
+
+<p>这样就可以在D盘看到<code>$Proxy0.class</code>文件，<code>$Proxy0</code>这个是我们自己取的代理类的名字。</p>
+<p>再使用反编译工具查看发现和我们使用<code>HSDL</code>查看的工具类时一样的。</p>
+]]></content>
+      <categories>
+        <category>java</category>
+        <category>java基础</category>
+      </categories>
+      <tags>
+        <tag>java</tag>
+        <tag>java基础</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>java反射</title>
     <url>/2019/10/24/67ad9cf3b516/</url>
     <content><![CDATA[<h1 id="什么是反射"><a href="#什么是反射" class="headerlink" title="什么是反射"></a>什么是反射</h1><p>将类的各个组成部分封装成其他的对象，就是反射机制</p>
@@ -323,62 +404,6 @@
 <li><code>getMethod</code><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> Method <span class="title function_">getMethod</span><span class="params">(String name, Class&lt;?&gt;... parameterTypes)</span></span><br><span class="line">        <span class="keyword">throws</span> NoSuchMethodException, SecurityException &#123;&#125;</span><br><span class="line"><span class="keyword">public</span> Method <span class="title function_">getMethod</span><span class="params">(String name, Class&lt;?&gt;... parameterTypes)</span></span><br><span class="line">        <span class="keyword">throws</span> NoSuchMethodException, SecurityException &#123;&#125;</span><br></pre></td></tr></table></figure></li>
 </ol>
 <h3 id="成员方法的作用"><a href="#成员方法的作用" class="headerlink" title="成员方法的作用"></a>成员方法的作用</h3><p>上面的几个方法是为了获取成员方法，获取成员方法的作用其实就是为了<strong>可以执行方法</strong>，此时需要使用<code>Method</code>类中的<code>invoke</code>方法，该方法第一个参数是一个实际需要执行的对象，第二个参数是一个可变参数列表。</p>
-]]></content>
-      <categories>
-        <category>java</category>
-        <category>java基础</category>
-      </categories>
-      <tags>
-        <tag>java</tag>
-        <tag>java基础</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>动态代理和使用jdk自带的HSDB查看被代理的类的代码</title>
-    <url>/2020/01/06/bc6a8f6aeb2a/</url>
-    <content><![CDATA[<h1 id="概念理解"><a href="#概念理解" class="headerlink" title="概念理解"></a>概念理解</h1><p>所谓的代理模式简单理解就是对原有的功能增强的一种模式。代理模式有三个角色：	</p>
-<ul>
-<li>接口(<code>Subject</code>)   </li>
-<li>委托类(<code>RealSubject</code>),该类也是真正实现功能的类	</li>
-<li>代理类(<code>ProxySubject</code>)这个代理类对我们的委托类进行增强处理</li>
-</ul>
-<span id="more"></span>
-
-<h1 id="动态代理分类"><a href="#动态代理分类" class="headerlink" title="动态代理分类"></a>动态代理分类</h1><h2 id="jdk动态代理"><a href="#jdk动态代理" class="headerlink" title="jdk动态代理"></a>jdk动态代理</h2><p><code>jdk</code>动态代理的的核心是主要是有两个类</p>
-<ul>
-<li><code>Proxy</code>类的<code>newProxyInstance</code>方法</li>
-<li><code>InvocationHandler</code> 接口</li>
-</ul>
-<h3 id="jdk动态代理案例"><a href="#jdk动态代理案例" class="headerlink" title="jdk动态代理案例"></a><code>jdk</code>动态代理案例</h3><ul>
-<li>一个接口</li>
-<li>该接口的实现类</li>
-<li>一个实现了<code>InvocationHandler</code> 接口的处理类</li>
-</ul>
-<p><strong>接口</strong></p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> com.dynamicProxy;</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">interface</span> <span class="title class_">NeedProxyInterface</span> &#123;</span><br><span class="line">    <span class="keyword">void</span> <span class="title function_">sayHello</span><span class="params">()</span>;</span><br><span class="line">    <span class="type">int</span> <span class="title function_">add</span><span class="params">(<span class="type">int</span> a, <span class="type">int</span> b)</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p><strong>实现类</strong></p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> com.dynamicProxy;</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">NeedProxyInterfaceImpl</span> <span class="keyword">implements</span> <span class="title class_">NeedProxyInterface</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">sayHello</span><span class="params">()</span> &#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;hello&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">add</span><span class="params">(<span class="type">int</span> a, <span class="type">int</span> b)</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> a + b;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p><strong>实现了<code>InvocationHandler</code> 接口的处理类</strong></p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> com.dynamicProxy;</span><br><span class="line"><span class="keyword">import</span> java.lang.reflect.InvocationHandler;</span><br><span class="line"><span class="keyword">import</span> java.lang.reflect.Method;</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">MyInvocationHandler</span> <span class="keyword">implements</span> <span class="title class_">InvocationHandler</span> &#123;</span><br><span class="line">    <span class="type">NeedProxyInterface</span> <span class="variable">needProxyInterface</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">NeedProxyInterfaceImpl</span>();</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> Object <span class="title function_">invoke</span><span class="params">(Object proxy, Method method, Object[] args)</span> <span class="keyword">throws</span> Throwable &#123;</span><br><span class="line">        System.out.println(<span class="number">111</span>);</span><br><span class="line">        <span class="keyword">return</span> method.invoke(needProxyInterface, args);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p><strong>测试代码</strong></p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> com.dynamicProxy;</span><br><span class="line"><span class="keyword">import</span> java.lang.reflect.Proxy;</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">DynamicProxyMain</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="type">NeedProxyInterface</span> <span class="variable">object</span> <span class="operator">=</span></span><br><span class="line">               (NeedProxyInterface)Proxy.newProxyInstance(NeedProxyInterface.class.getClassLoader(),</span><br><span class="line">                <span class="keyword">new</span> <span class="title class_">Class</span>[]&#123;NeedProxyInterface.class&#125;, <span class="keyword">new</span> <span class="title class_">MyInvocationHandler</span>());</span><br><span class="line">        object.sayHello();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>我们可以根据下面介绍的使用方式使用<code>HSDL</code>工具生成代理类文件，生成的文件内容如下：</p>
-<p><strong>代理类</strong></p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> com.sun.proxy;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> com.dynamicProxy.NeedProxyInterface;</span><br><span class="line"><span class="keyword">import</span> java.lang.reflect.InvocationHandler;</span><br><span class="line"><span class="keyword">import</span> java.lang.reflect.Method;</span><br><span class="line"><span class="keyword">import</span> java.lang.reflect.Proxy;</span><br><span class="line"><span class="keyword">import</span> java.lang.reflect.UndeclaredThrowableException;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">class</span> <span class="title class_">$Proxy0</span> <span class="keyword">extends</span> <span class="title class_">Proxy</span> <span class="keyword">implements</span> <span class="title class_">NeedProxyInterface</span> &#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> Method m1;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> Method m4;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> Method m2;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> Method m3;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> Method m0;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> $Proxy0(InvocationHandler var1) &#123;</span><br><span class="line">        <span class="built_in">super</span>(var1);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">static</span> &#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            m1 = Class.forName(<span class="string">&quot;java.lang.Object&quot;</span>).getMethod(<span class="string">&quot;equals&quot;</span>, Class.forName(<span class="string">&quot;java.lang.Object&quot;</span>));</span><br><span class="line">            m4 = Class.forName(<span class="string">&quot;com.dynamicProxy.NeedProxyInterface&quot;</span>).getMethod(<span class="string">&quot;sayHello&quot;</span>);</span><br><span class="line">            m2 = Class.forName(<span class="string">&quot;java.lang.Object&quot;</span>).getMethod(<span class="string">&quot;toString&quot;</span>);</span><br><span class="line">            m3 = Class.forName(<span class="string">&quot;com.dynamicProxy.NeedProxyInterface&quot;</span>).getMethod(<span class="string">&quot;add&quot;</span>, Integer.TYPE, Integer.TYPE);</span><br><span class="line">            m0 = Class.forName(<span class="string">&quot;java.lang.Object&quot;</span>).getMethod(<span class="string">&quot;hashCode&quot;</span>);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (NoSuchMethodException var2) &#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">NoSuchMethodError</span>(var2.getMessage());</span><br><span class="line">        &#125; <span class="keyword">catch</span> (ClassNotFoundException var3) &#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">NoClassDefFoundError</span>(var3.getMessage());</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">final</span> <span class="type">int</span> <span class="title function_">add</span><span class="params">(<span class="type">int</span> var1, <span class="type">int</span> var2)</span> &#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="keyword">return</span> (Integer)<span class="built_in">super</span>.h.invoke(<span class="built_in">this</span>, m3, <span class="keyword">new</span> <span class="title class_">Object</span>[]&#123;var1, var2&#125;);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (RuntimeException | Error var4) &#123;</span><br><span class="line">            <span class="keyword">throw</span> var4;</span><br><span class="line">        &#125; <span class="keyword">catch</span> (Throwable var5) &#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">UndeclaredThrowableException</span>(var5);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">final</span> <span class="type">boolean</span> <span class="title function_">equals</span><span class="params">(Object var1)</span> &#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="keyword">return</span> (Boolean)<span class="built_in">super</span>.h.invoke(<span class="built_in">this</span>, m1, <span class="keyword">new</span> <span class="title class_">Object</span>[]&#123;var1&#125;);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (RuntimeException | Error var3) &#123;</span><br><span class="line">            <span class="keyword">throw</span> var3;</span><br><span class="line">        &#125; <span class="keyword">catch</span> (Throwable var4) &#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">UndeclaredThrowableException</span>(var4);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">final</span> String <span class="title function_">toString</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="keyword">return</span> (String)<span class="built_in">super</span>.h.invoke(<span class="built_in">this</span>, m2, (Object[])<span class="literal">null</span>);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (RuntimeException | Error var2) &#123;</span><br><span class="line">            <span class="keyword">throw</span> var2;</span><br><span class="line">        &#125; <span class="keyword">catch</span> (Throwable var3) &#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">UndeclaredThrowableException</span>(var3);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">final</span> <span class="type">int</span> <span class="title function_">hashCode</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="keyword">return</span> (Integer)<span class="built_in">super</span>.h.invoke(<span class="built_in">this</span>, m0, (Object[])<span class="literal">null</span>);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (RuntimeException | Error var2) &#123;</span><br><span class="line">            <span class="keyword">throw</span> var2;</span><br><span class="line">        &#125; <span class="keyword">catch</span> (Throwable var3) &#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">UndeclaredThrowableException</span>(var3);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">void</span> <span class="title function_">sayHello</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="built_in">super</span>.h.invoke(<span class="built_in">this</span>, m4, (Object[])<span class="literal">null</span>);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (RuntimeException | Error var2) &#123;</span><br><span class="line">            <span class="keyword">throw</span> var2;</span><br><span class="line">        &#125; <span class="keyword">catch</span> (Throwable var3) &#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">UndeclaredThrowableException</span>(var3);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-<h3 id="原理图"><a href="#原理图" class="headerlink" title="原理图"></a>原理图</h3><p><img src="https://s2.loli.net/2023/11/15/iSzrYukQtIMjTsG.png" alt="代理类原理"></p>
-<p>其实我们之所以不懂代理，是因为这个代理类生成后是在内存中的，如果我们能看到这样的一个类的代码就不会觉得难，所以可以使用上面所说的<code>HSDL</code>工具将代理类下载下来就比较容易看懂。</p>
-<h1 id="直接使用jdk类生成代理类代码"><a href="#直接使用jdk类生成代理类代码" class="headerlink" title="直接使用jdk类生成代理类代码"></a>直接使用jdk类生成代理类代码</h1><p>还有一种方式可以直接使用<code>jdk</code>生成类的方式来生成代理类并且使用输出流输出到本地，然后使用反编译工具来查看即可。比如还是上面的那个接口，现在想要生成代理类。</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="type">byte</span>[] bytes = ProxyGenerator.generateProxyClass(<span class="string">&quot;$Proxy0&quot;</span>, <span class="keyword">new</span> <span class="title class_">Class</span>[]&#123;NeedProxyInterface.class&#125;);</span><br><span class="line"><span class="type">FileOutputStream</span> <span class="variable">os</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">FileOutputStream</span>(<span class="string">&quot;D://$Proxy0.class&quot;</span>);</span><br><span class="line">os.write(bytes);</span><br><span class="line">os.close();</span><br></pre></td></tr></table></figure>
-
-<p>这样就可以在D盘看到<code>$Proxy0.class</code>文件，<code>$Proxy0</code>这个是我们自己取的代理类的名字。</p>
-<p>再使用反编译工具查看发现和我们使用<code>HSDL</code>查看的工具类时一样的。</p>
 ]]></content>
       <categories>
         <category>java</category>
@@ -594,167 +619,6 @@
       </tags>
   </entry>
   <entry>
-    <title>java内存模型</title>
-    <url>/2019/12/19/585a644e7d52/</url>
-    <content><![CDATA[<h1 id="主要内容"><a href="#主要内容" class="headerlink" title="主要内容"></a>主要内容</h1><p><code>java</code>内存模型实际上是一个抽象的概念，是一套规范，而不是一个实际的东西，而<code>java</code>内存结构就是根据这一套规范来进行划分的。</p>
-<span id="more"></span>
-
-<p>对于<code>java</code>内存模型我们主要需要了解以下几个内容：</p>
-<ul>
-<li>硬件内存架构</li>
-<li>线程和<code>jvm</code></li>
-<li><code>java</code>内存模型</li>
-<li><code>java</code>内存模型对并发编程的支持</li>
-</ul>
-<h1 id="硬件内存架构"><a href="#硬件内存架构" class="headerlink" title="硬件内存架构"></a>硬件内存架构</h1><blockquote>
-<p>物理机遇到的并发问题与虚拟机中的情况有很多相似之处，物理机对并发的处理方案对虚拟机的实现也有相当大的参考意义</p>
-</blockquote>
-<p>在计算机模型中主要是有五个部分来组成的</p>
-<ol>
-<li>输入</li>
-<li>寄存器</li>
-<li>cpu<ol>
-<li>处理器</li>
-<li>控制器</li>
-</ol>
-</li>
-<li>输出</li>
-</ol>
-<p>其中<strong>处理器</strong>和<strong>控制器</strong>合起来就是我们所示的<code>cpu</code></p>
-<p>运算器的运算速度都是很快的，但是我们的数据存储不可能所有数据都存放在寄存器中，所以数据的<code>io</code>操作都是很有必要 的，这样就不能充分利用<code>cpu</code>的运算能力，此时就需要<strong>加上读写速度和处理器运算速度差不多的的高速缓存</strong>来作为<strong>内存和处理器之间</strong>的缓冲。将运算需要使用的数据复制到缓存中，让运算能快速进行，当运算结束后再从缓存同步回内存之中，这样处理器就无须等待缓慢的内存读写了。</p>
-<h2 id="缓存一致性问题"><a href="#缓存一致性问题" class="headerlink" title="缓存一致性问题"></a>缓存一致性问题</h2><p>上面加上了缓存可以解决内存的读写速度赶不上处理器的运算速度问题，但是又出现了另外一个问题。<strong>缓存一致性问题</strong></p>
-<p>因为 在多处理器中，每一个处理器都有自己的高速缓存，但是内存是只有一个。对于缓存一致性问题在硬件层面主要有两个解决方式</p>
-<ul>
-<li><p>总线加锁</p>
-<ul>
-<li>所谓的总线加锁就每一次都会锁定一个<code>cpu</code>，只有这个锁定的<code>cpu</code>才可以执行，其余的<code>cpu</code>是不能执行的。这种方式会降低<code>cpu</code>的吞吐量。</li>
-</ul>
-</li>
-<li><p>使用缓存一致性协议，所谓使用缓存一致性协议也就是在缓存和主内存之间加上一个访问规则，通过这种规则来解决缓存一致性问题。</p>
-</li>
-</ul>
-<pre class="mermaid">graph LR
-  A-->B
-  subgraph A[处理器]
-    direction TB
-    A1[处理器1]~~~A2[处理器2]~~~A3[处理器3]
-  end
-  subgraph B[高速缓存]
-    direction TB
-    B1[缓存1]~~~B2[缓存2]~~~B3[缓存3]
-  end
-  B-->C
-  C[缓存一致性]-->D[主内存]</pre>
-<p>这里的<strong>缓存一致性其实是一个协议</strong>，是处理缓存一致性问题的一个协议(也可以任认为是处理缓存一致性问题的一个理论基础)。</p>
-<h1 id="java内存模型-java-memory-mode"><a href="#java内存模型-java-memory-mode" class="headerlink" title="java内存模型(java memory mode)"></a>java内存模型(java memory mode)</h1><h2 id="什么是java内存模型-JMM规范"><a href="#什么是java内存模型-JMM规范" class="headerlink" title="什么是java内存模型(JMM规范)"></a>什么是<code>java</code>内存模型(JMM规范)</h2><p><strong><code>java</code>内存模型其实也是一个理论上的东西，是一个规范，这个规范的主要目的是定义程序中各种变量的访问规则，也就是关注的是虚拟机中把变量值存储到内存和从内存中取出变量值这样的底层细节。</strong>此处的变量和<code>java</code>编程中的变量是不同的，这里的变量包含了实例字段，静态字段和构成数组对象的元素，但是不包括局部变量和方法参数。（上面这段话是《深入理解java虚拟机》这本书中的）</p>
-<p><code>jvm</code>将内存组织结构主要划分为两个部分</p>
-<ul>
-<li>主内存</li>
-<li>工作内存</li>
-</ul>
-<pre class="mermaid">graph LR
-  A-->B
-  subgraph A[java线程]
-    direction TB
-    A1[线程1]~~~A2[线程2]~~~A3[线程3]
-  end
-  subgraph B[工作内存]
-    direction TB
-    B1[工作内存1]~~~B2[工作内存2]~~~B3[工作内存3]
-  end
-  B-->C
-  C[save和load操作]-->D[主内存]</pre>
-
-<h3 id="主内存"><a href="#主内存" class="headerlink" title="主内存"></a>主内存</h3><ul>
-<li>主要包含本地方法区和堆</li>
-<li>所有变量都要存储在主内存中，这些变量对于所有线程都是共享的</li>
-</ul>
-<h3 id="工作内存"><a href="#工作内存" class="headerlink" title="工作内存"></a>工作内存</h3><ul>
-<li>每一个线程都有自己独立工作的地方，也就是工作内存</li>
-<li>工作内存中保存的是主内存中某些变量的拷贝，线程堆变量的所有操作都必须在工作内存中进行，不能直接操作主内存</li>
-<li><strong>如果是基本数据类型，那么直接分配到工作内存，如果是引用类型，引用的地址存在在工作空间中，但是具体的对象是存在在堆中(也就是主内存中)，是可以共享的</strong></li>
-</ul>
-<pre class="mermaid">graph TB
-  subgraph B[java线程]
-    direction BT
-    B1[线程2]-->B2[工作内存2]
-    B2-->B1
-  end
-  subgraph A[java线程]
-    direction BT
-    A1[线程1]-->A2[工作内存1]
-    A2-->A1
-  end
-  C[主内存]
-  A & B <--> C</--></pre>
-
-<p>看上图，之所以存在<code>java</code>内存模型一说是因为<code>java</code>虚拟机的工作机制。当有多个线程的时候，每一个线程可以操作的数据有两种类型</p>
-<ul>
-<li>线程私有的数据，也就是这个数据就算改变了也不会影响其余线程，比如说局部变量就是线程私有的数据</li>
-<li>线程共享的数据，这样的数据多个线程都可以访问，就会出现线程安全的问题</li>
-</ul>
-<p>因为线程操作的数据有不同类型，所以在<code>java</code>中一个线程去操作数据的时候不是在主内存中直接操作，其实还有一个属于线程自己的内存(工作内存)，当操作线程私有的数据比较好理解，直接在工作内存中完成就可以咯，如果是操作共享的数据，那么就在主内存中拿一份数据到自己工作内存中操作，操作完了再将数据给到主内存中。</p>
-<h2 id="内存结构和内存模型的关系"><a href="#内存结构和内存模型的关系" class="headerlink" title="内存结构和内存模型的关系"></a>内存结构和内存模型的关系</h2><p>上面说了什么是<code>java</code>的内存模型，知道<code>java</code>内存模型是一个规范，定义的是程序中变量的访问规则，那么这个内存模型和我们平时所有的内存结构有什么关系呢？先看一下<code>java</code>内存结构</p>
-<h3 id="java内存结构"><a href="#java内存结构" class="headerlink" title="java内存结构"></a>java内存结构</h3><p><code>java</code>中内存结构主要是有五个部分</p>
-<ul>
-<li>程序计数器</li>
-<li>堆</li>
-<li>虚拟机栈<ul>
-<li>存放方法运行时所需的数据，成为栈帧</li>
-</ul>
-</li>
-<li>本地方法栈</li>
-<li>方法区<ul>
-<li>存储运行时常量池、已被虚拟机加载的类信息、常量、静态变量，即时编译后的代码等</li>
-</ul>
-</li>
-</ul>
-<p>上面<code>java</code>的五个部分其实就是根据<code>JMM</code>规范(<code>java</code>内存模型)来划分的一个内存结构。</p>
-<h1 id="并发编程的三个特性"><a href="#并发编程的三个特性" class="headerlink" title="并发编程的三个特性"></a>并发编程的三个特性</h1><h2 id="原子性"><a href="#原子性" class="headerlink" title="原子性"></a>原子性</h2><p>执行的操作不可分割，可以理解为就是一步操作，因为只有一步所以肯定是不能分割的</p>
-<h2 id="可见性"><a href="#可见性" class="headerlink" title="可见性"></a>可见性</h2><p>线程都是有自己的工作空间的，每一个线程都只能操作自己工作空间的数据，别的线程是看不到自己线程的工作空间的数据的</p>
-<h2 id="有序性"><a href="#有序性" class="headerlink" title="有序性"></a>有序性</h2><p>程序中代码的顺序不一定就是在<code>cpu</code>中执行的顺序，因为存在两种重排</p>
-<ul>
-<li>编译重排序(编译期)</li>
-<li>指令重排序(运行期)</li>
-</ul>
-<h1 id="JMM规范是如何保证并发编程的三个特征的呢"><a href="#JMM规范是如何保证并发编程的三个特征的呢" class="headerlink" title="JMM规范是如何保证并发编程的三个特征的呢"></a>JMM规范是如何保证并发编程的三个特征的呢</h1><h2 id="JMM和原子性"><a href="#JMM和原子性" class="headerlink" title="JMM和原子性"></a><code>JMM</code>和原子性</h2><h3 id="原子性案例1"><a href="#原子性案例1" class="headerlink" title="原子性案例1"></a>原子性案例1</h3><p><code>X = 10</code>这样一个操作具有原子性么？</p>
-<ul>
-<li>如果<code>X</code>是私有数据，是分配到工作空间的，那么就是有原子性的，因为只有一个写的操作</li>
-<li>如果<code>X</code>是共享的数据，就是在主内存中，这样就需要先在主内存中读取(复制)到工作空间中，修改完成后再将数据通过到主内存中，这样就是两步，也就是没有原子性</li>
-</ul>
-<h3 id="原子性案例2"><a href="#原子性案例2" class="headerlink" title="原子性案例2"></a>原子性案例2</h3><p><code>i++</code>这个操作具有原子性么？</p>
-<p><code>i++</code>这个操作其实是需要分为下面这几个步骤的</p>
-<ul>
-<li>读取<code>i</code>的值</li>
-<li>将<code>i</code>的值加一</li>
-<li>将修改后的值赋值给<code>i</code></li>
-</ul>
-<p>可以看到每一步都是原子操作，但是这三个原子操作合在一起之后去不是原子操作了</p>
-<h3 id="JMM如何保证原子性的"><a href="#JMM如何保证原子性的" class="headerlink" title="JMM如何保证原子性的"></a>JMM如何保证原子性的</h3><ul>
-<li>使用<code>Synchronized</code>关键字</li>
-<li>使用<code>JUC</code>的<code>lock</code>和<code>unlock</code>关键字</li>
-</ul>
-<h2 id="JMM和可见性"><a href="#JMM和可见性" class="headerlink" title="JMM和可见性"></a><code>JMM</code>和可见性</h2><p>线程是不能操作主内存中的数据的，只能操作自己的工作空间的数据，所以需要数据时会先去工作空间找，如果找到了就会使用工作空间中的数据，找不到才会从主内存中找，但是如果一个线程在工作空间找到了，不过这个数据在别的线程中已经修改了，并且刷新到主内中了，由于当前线程的工作空间中有这个数据，没有在主内存中拿，这样当前线程拿到的就不是最新的数据。<code>JMM</code>是如何解决这个问题的呢？</p>
-<h3 id="JMM如何保证可见性的"><a href="#JMM如何保证可见性的" class="headerlink" title="JMM如何保证可见性的"></a><code>JMM</code>如何保证可见性的</h3><ul>
-<li><code>Volatile</code>关键字，使用这个关键字后，当线程需要使用这个关键字修饰的数据时，每一次都会从主内存中去找数据，而不是从工作空间中找。</li>
-<li><code>JUC</code>  可以使用<code>JUC</code>的<code>lock</code>和<code>unlock</code></li>
-</ul>
-<h2 id="JMM和有序性-重排序"><a href="#JMM和有序性-重排序" class="headerlink" title="JMM和有序性(重排序)"></a><code>JMM</code>和有序性(重排序)</h2><p>对于有序性问题可以使用下面两种方式来解决</p>
-<ul>
-<li>使用<code>Volatile</code>关键字</li>
-<li>使用<code>Synchronized</code>来加锁</li>
-</ul>
-]]></content>
-      <categories>
-        <category>java</category>
-        <category>jvm</category>
-      </categories>
-      <tags>
-        <tag>java</tag>
-        <tag>jvm</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>多线程下的七种单例模式</title>
     <url>/2020/03/07/8d9cabbc288a/</url>
     <content><![CDATA[<p>本文主要分析七种形式的单例模式</p>
@@ -964,6 +828,182 @@
       </tags>
   </entry>
   <entry>
+    <title>java内存模型</title>
+    <url>/2019/12/19/585a644e7d52/</url>
+    <content><![CDATA[<h1 id="主要内容"><a href="#主要内容" class="headerlink" title="主要内容"></a>主要内容</h1><p><code>java</code>内存模型实际上是一个抽象的概念，是一套规范，而不是一个实际的东西，而<code>java</code>内存结构就是根据这一套规范来进行划分的。</p>
+<span id="more"></span>
+
+<p>对于<code>java</code>内存模型我们主要需要了解以下几个内容：</p>
+<ul>
+<li>硬件内存架构</li>
+<li>线程和<code>jvm</code></li>
+<li><code>java</code>内存模型</li>
+<li><code>java</code>内存模型对并发编程的支持</li>
+</ul>
+<h1 id="硬件内存架构"><a href="#硬件内存架构" class="headerlink" title="硬件内存架构"></a>硬件内存架构</h1><blockquote>
+<p>物理机遇到的并发问题与虚拟机中的情况有很多相似之处，物理机对并发的处理方案对虚拟机的实现也有相当大的参考意义</p>
+</blockquote>
+<p>在计算机模型中主要是有五个部分来组成的</p>
+<ol>
+<li>输入</li>
+<li>寄存器</li>
+<li>cpu<ol>
+<li>处理器</li>
+<li>控制器</li>
+</ol>
+</li>
+<li>输出</li>
+</ol>
+<p>其中<strong>处理器</strong>和<strong>控制器</strong>合起来就是我们所示的<code>cpu</code></p>
+<p>运算器的运算速度都是很快的，但是我们的数据存储不可能所有数据都存放在寄存器中，所以数据的<code>io</code>操作都是很有必要 的，这样就不能充分利用<code>cpu</code>的运算能力，此时就需要<strong>加上读写速度和处理器运算速度差不多的的高速缓存</strong>来作为<strong>内存和处理器之间</strong>的缓冲。将运算需要使用的数据复制到缓存中，让运算能快速进行，当运算结束后再从缓存同步回内存之中，这样处理器就无须等待缓慢的内存读写了。</p>
+<h2 id="缓存一致性问题"><a href="#缓存一致性问题" class="headerlink" title="缓存一致性问题"></a>缓存一致性问题</h2><p>上面加上了缓存可以解决内存的读写速度赶不上处理器的运算速度问题，但是又出现了另外一个问题。<strong>缓存一致性问题</strong></p>
+<p>因为 在多处理器中，每一个处理器都有自己的高速缓存，但是内存是只有一个。对于缓存一致性问题在硬件层面主要有两个解决方式</p>
+<ul>
+<li><p>总线加锁</p>
+<ul>
+<li>所谓的总线加锁就每一次都会锁定一个<code>cpu</code>，只有这个锁定的<code>cpu</code>才可以执行，其余的<code>cpu</code>是不能执行的。这种方式会降低<code>cpu</code>的吞吐量。</li>
+</ul>
+</li>
+<li><p>使用缓存一致性协议，所谓使用缓存一致性协议也就是在缓存和主内存之间加上一个访问规则，通过这种规则来解决缓存一致性问题。</p>
+</li>
+</ul>
+<pre class="mermaid">graph LR
+  A-->B
+  subgraph A[处理器]
+    direction TB
+    A1[处理器1]~~~A2[处理器2]~~~A3[处理器3]
+  end
+  subgraph B[高速缓存]
+    direction TB
+    B1[缓存1]~~~B2[缓存2]~~~B3[缓存3]
+  end
+  B-->C
+  C[缓存一致性]-->D[主内存]</pre>
+<p>这里的<strong>缓存一致性其实是一个协议</strong>，是处理缓存一致性问题的一个协议(也可以任认为是处理缓存一致性问题的一个理论基础)。</p>
+<h1 id="java内存模型-java-memory-mode"><a href="#java内存模型-java-memory-mode" class="headerlink" title="java内存模型(java memory mode)"></a>java内存模型(java memory mode)</h1><h2 id="什么是java内存模型-JMM规范"><a href="#什么是java内存模型-JMM规范" class="headerlink" title="什么是java内存模型(JMM规范)"></a>什么是<code>java</code>内存模型(JMM规范)</h2><p><strong><code>java</code>内存模型其实也是一个理论上的东西，是一个规范，这个规范的主要目的是定义程序中各种变量的访问规则，也就是关注的是虚拟机中把变量值存储到内存和从内存中取出变量值这样的底层细节。</strong>此处的变量和<code>java</code>编程中的变量是不同的，这里的变量包含了实例字段，静态字段和构成数组对象的元素，但是不包括局部变量和方法参数。（上面这段话是《深入理解java虚拟机》这本书中的）</p>
+<p><code>jvm</code>将内存组织结构主要划分为两个部分</p>
+<ul>
+<li>主内存</li>
+<li>工作内存</li>
+</ul>
+<pre class="mermaid">graph LR
+  A-->B
+  subgraph A[java线程]
+    direction TB
+    A1[线程1]~~~A2[线程2]~~~A3[线程3]
+  end
+  subgraph B[工作内存]
+    direction TB
+    B1[工作内存1]~~~B2[工作内存2]~~~B3[工作内存3]
+  end
+  B-->C
+  C[save和load操作]-->D[主内存]</pre>
+
+<h3 id="主内存"><a href="#主内存" class="headerlink" title="主内存"></a>主内存</h3><ul>
+<li>主要包含本地方法区和堆</li>
+<li>所有变量都要存储在主内存中，这些变量对于所有线程都是共享的</li>
+</ul>
+<h3 id="工作内存"><a href="#工作内存" class="headerlink" title="工作内存"></a>工作内存</h3><ul>
+<li>每一个线程都有自己独立工作的地方，也就是工作内存</li>
+<li>工作内存中保存的是主内存中某些变量的拷贝，线程堆变量的所有操作都必须在工作内存中进行，不能直接操作主内存</li>
+<li><strong>如果是基本数据类型，那么直接分配到工作内存，如果是引用类型，引用的地址存在在工作空间中，但是具体的对象是存在在堆中(也就是主内存中)，是可以共享的</strong></li>
+</ul>
+<pre class="mermaid">graph LR
+  subgraph B[java线程]
+    direction BT
+    B1[线程2]-->B2[工作内存2]
+    B2-->B1
+  end
+  subgraph A[java线程]
+    direction BT
+    A1[线程1]-->A2[工作内存1]
+    A2-->A1
+  end
+  C[主内存]
+  A & B --> C
+  C --> A & B</pre>
+
+<p>看上图，之所以存在<code>java</code>内存模型一说是因为<code>java</code>虚拟机的工作机制。当有多个线程的时候，每一个线程可以操作的数据有两种类型</p>
+<ul>
+<li>线程私有的数据，也就是这个数据就算改变了也不会影响其余线程，比如说局部变量就是线程私有的数据</li>
+<li>线程共享的数据，这样的数据多个线程都可以访问，就会出现线程安全的问题</li>
+</ul>
+<p>因为线程操作的数据有不同类型，所以在<code>java</code>中一个线程去操作数据的时候不是在主内存中直接操作，其实还有一个属于线程自己的内存(工作内存)，当操作线程私有的数据比较好理解，直接在工作内存中完成就可以咯，如果是操作共享的数据，那么就在主内存中拿一份数据到自己工作内存中操作，操作完了再将数据给到主内存中。</p>
+<h2 id="内存结构和内存模型的关系"><a href="#内存结构和内存模型的关系" class="headerlink" title="内存结构和内存模型的关系"></a>内存结构和内存模型的关系</h2><p>上面说了什么是<code>java</code>的内存模型，知道<code>java</code>内存模型是一个规范，定义的是程序中变量的访问规则，那么这个内存模型和我们平时所有的内存结构有什么关系呢？先看一下<code>java</code>内存结构</p>
+<h3 id="java内存结构"><a href="#java内存结构" class="headerlink" title="java内存结构"></a>java内存结构</h3><p><code>java</code>中内存结构主要是有五个部分</p>
+<ul>
+<li>程序计数器</li>
+<li>堆</li>
+<li>虚拟机栈<ul>
+<li>存放方法运行时所需的数据，成为栈帧</li>
+</ul>
+</li>
+<li>本地方法栈</li>
+<li>方法区<ul>
+<li>存储运行时常量池、已被虚拟机加载的类信息、常量、静态变量，即时编译后的代码等</li>
+</ul>
+</li>
+</ul>
+<p>上面<code>java</code>的五个部分其实就是根据<code>JMM</code>规范(<code>java</code>内存模型)来划分的一个内存结构。</p>
+<h1 id="并发编程的三个特性"><a href="#并发编程的三个特性" class="headerlink" title="并发编程的三个特性"></a>并发编程的三个特性</h1><h2 id="原子性"><a href="#原子性" class="headerlink" title="原子性"></a>原子性</h2><p>执行的操作不可分割，可以理解为就是一步操作，因为只有一步所以肯定是不能分割的</p>
+<h2 id="可见性"><a href="#可见性" class="headerlink" title="可见性"></a>可见性</h2><p>线程都是有自己的工作空间的，每一个线程都只能操作自己工作空间的数据，别的线程是看不到自己线程的工作空间的数据的</p>
+<h2 id="有序性"><a href="#有序性" class="headerlink" title="有序性"></a>有序性</h2><p>程序中代码的顺序不一定就是在<code>cpu</code>中执行的顺序，因为存在两种重排</p>
+<ul>
+<li>编译重排序(编译期)</li>
+<li>指令重排序(运行期)</li>
+</ul>
+<h1 id="JMM规范是如何保证并发编程的三个特征的呢"><a href="#JMM规范是如何保证并发编程的三个特征的呢" class="headerlink" title="JMM规范是如何保证并发编程的三个特征的呢"></a>JMM规范是如何保证并发编程的三个特征的呢</h1><h2 id="JMM和原子性"><a href="#JMM和原子性" class="headerlink" title="JMM和原子性"></a><code>JMM</code>和原子性</h2><h3 id="原子性案例1"><a href="#原子性案例1" class="headerlink" title="原子性案例1"></a>原子性案例1</h3><p><code>X = 10</code>这样一个操作具有原子性么？</p>
+<ul>
+<li>如果<code>X</code>是私有数据，是分配到工作空间的，那么就是有原子性的，因为只有一个写的操作</li>
+<li>如果<code>X</code>是共享的数据，就是在主内存中，这样就需要先在主内存中读取(复制)到工作空间中，修改完成后再将数据通过到主内存中，这样就是两步，也就是没有原子性</li>
+</ul>
+<h3 id="原子性案例2"><a href="#原子性案例2" class="headerlink" title="原子性案例2"></a>原子性案例2</h3><p><code>i++</code>这个操作具有原子性么？</p>
+<p><code>i++</code>这个操作其实是需要分为下面这几个步骤的</p>
+<ul>
+<li>读取<code>i</code>的值</li>
+<li>将<code>i</code>的值加一</li>
+<li>将修改后的值赋值给<code>i</code></li>
+</ul>
+<p>可以看到每一步都是原子操作，但是这三个原子操作合在一起之后去不是原子操作了</p>
+<h3 id="JMM如何保证原子性的"><a href="#JMM如何保证原子性的" class="headerlink" title="JMM如何保证原子性的"></a>JMM如何保证原子性的</h3><ul>
+<li>使用<code>Synchronized</code>关键字</li>
+<li>使用<code>JUC</code>的<code>lock</code>和<code>unlock</code>关键字</li>
+</ul>
+<h2 id="JMM和可见性"><a href="#JMM和可见性" class="headerlink" title="JMM和可见性"></a><code>JMM</code>和可见性</h2><p>线程是不能操作主内存中的数据的，只能操作自己的工作空间的数据，所以需要数据时会先去工作空间找，如果找到了就会使用工作空间中的数据，找不到才会从主内存中找，但是如果一个线程在工作空间找到了，不过这个数据在别的线程中已经修改了，并且刷新到主内中了，由于当前线程的工作空间中有这个数据，没有在主内存中拿，这样当前线程拿到的就不是最新的数据。<code>JMM</code>是如何解决这个问题的呢？</p>
+<h3 id="JMM如何保证可见性的"><a href="#JMM如何保证可见性的" class="headerlink" title="JMM如何保证可见性的"></a><code>JMM</code>如何保证可见性的</h3><ul>
+<li><code>Volatile</code>关键字，使用这个关键字后，当线程需要使用这个关键字修饰的数据时，每一次都会从主内存中去找数据，而不是从工作空间中找。</li>
+<li><code>JUC</code>  可以使用<code>JUC</code>的<code>lock</code>和<code>unlock</code></li>
+</ul>
+<h2 id="JMM和有序性-重排序"><a href="#JMM和有序性-重排序" class="headerlink" title="JMM和有序性(重排序)"></a><code>JMM</code>和有序性(重排序)</h2><p>对于有序性问题可以使用下面两种方式来解决</p>
+<ul>
+<li>使用<code>Volatile</code>关键字</li>
+<li>使用<code>Synchronized</code>来加锁</li>
+</ul>
+]]></content>
+      <categories>
+        <category>java</category>
+        <category>jvm</category>
+      </categories>
+      <tags>
+        <tag>java</tag>
+        <tag>jvm</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>synchronized的作用和实现原理</title>
+    <url>/2023/11/11/138a9fb1d57d/</url>
+    <content><![CDATA[<p>[参考链接](<a href="https://www.yuque.com/guoweiblog/nxz7iv/xikre6?singleDoc#">https://www.yuque.com/guoweiblog/nxz7iv/xikre6?singleDoc#</a> 《synchronized 的作用和实现原理》)</p>
+]]></content>
+      <categories>
+        <category>java</category>
+        <category>多线程</category>
+      </categories>
+      <tags>
+        <tag>java</tag>
+        <tag>多线程</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>join方法详解</title>
     <url>/2019/11/06/86139434f79c/</url>
     <content><![CDATA[<h1 id="join的使用"><a href="#join的使用" class="headerlink" title="join的使用"></a>join的使用</h1><h2 id="正常情形"><a href="#正常情形" class="headerlink" title="正常情形"></a>正常情形</h2><p><code>join</code>的目的是让调用线程等待被调用的线程执行完成之后再继续。</p>
@@ -1001,195 +1041,6 @@
 <li>这里使用了<code>synchronized</code>是因为<code>wait</code>方法必须在同步代码块中使用</li>
 <li>这里的锁对象<code>thread</code>就是子线程的名称，这里需要注意的是替换后要想达到一样的效果这里的锁对象就必须是被等待线程的引用，因为上面说每一个线程执行完成后都会调用当前线程的<code>notify</code>方法，<code>wait</code>和<code>notify</code>必须是在同一个锁上面才会生效。</li>
 </ul>
-]]></content>
-      <categories>
-        <category>java</category>
-        <category>多线程</category>
-      </categories>
-      <tags>
-        <tag>java</tag>
-        <tag>多线程</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>synchronized的作用和实现原理</title>
-    <url>/2023/11/11/138a9fb1d57d/</url>
-    <content><![CDATA[<h1 id="什么是线程安全"><a href="#什么是线程安全" class="headerlink" title="什么是线程安全"></a>什么是线程安全</h1><ol>
-<li>当多个线程同时访问某个方法时，这个方法无法按照我们预期的行为来执行，那么我们认为这个方法是线程不安全的</li>
-<li>比较专业的话则是需要理解临界区和竞态条件</li>
-</ol>
-<h2 id="临界区"><a href="#临界区" class="headerlink" title="临界区"></a>临界区</h2><p>对共享变量存在读写操作的代码区域称之为临界区。重点是【共享变量】【同时读写】</p>
-<span id="more"></span>
-<h2 id="竞态条件"><a href="#竞态条件" class="headerlink" title="竞态条件"></a>竞态条件</h2><p>多个线程在临界区内执行，由于代码的执行序列不同而导致结果无法预测，称之为发生了竞态条件。</p>
-<p>上面讲解了临界区和竞态条件，为了避免临界区的竟态条件发生，主要有两种类型的解决 方式</p>
-<ul>
-<li>阻塞式的解决方案，比如 Synchronized, Lock</li>
-<li>非阻塞式的解决方案：原子变量，cas 操作</li>
-</ul>
-<p>下面就主要讲解 Synchronized 关键字的作用。</p>
-<h1 id="线程安全分析"><a href="#线程安全分析" class="headerlink" title="线程安全分析"></a>线程安全分析</h1><h2 id="成员变量和静态变量的安全性"><a href="#成员变量和静态变量的安全性" class="headerlink" title="成员变量和静态变量的安全性"></a>成员变量和静态变量的安全性</h2><ul>
-<li>如果没有共享，线程安全</li>
-<li>如果共享了<ul>
-<li>如果只有读操作，线程安全</li>
-<li>如果有读写操作，则含有读写操作的代码就是临界区，需要考虑线程安全问题</li>
-</ul>
-</li>
-</ul>
-<h2 id="局部变量安全性"><a href="#局部变量安全性" class="headerlink" title="局部变量安全性"></a>局部变量安全性</h2><ul>
-<li>局部变量是线程安全的</li>
-<li>局部变量引用的对象不一定<ul>
-<li>如果对象没有逃离方法的作用访问，则线程安全</li>
-<li>如果对象逃离方法的作用范围，则需要考虑线程安全</li>
-</ul>
-</li>
-</ul>
-<h2 id="导致线程安全的原因"><a href="#导致线程安全的原因" class="headerlink" title="导致线程安全的原因"></a>导致线程安全的原因</h2><ol>
-<li>原子性： 原子性问题原因如下<ol>
-<li>线程切换，cpu 时间片切换， cpu 切换是通过中断来实现的，解决方法就是按需禁止中断</li>
-<li>执行指令的原子性，比如 i++ 操作在 cpu 层面就不是原子性的指令</li>
-</ol>
-</li>
-<li>可见性： 根本原因在于多核 cpu 和 cpu 缓存</li>
-<li>有序性：根本原因在于编译器的乱序优化和指令重排</li>
-</ol>
-<h1 id="作用"><a href="#作用" class="headerlink" title="作用"></a>作用</h1><ul>
-<li>Synchronized 的作用是使用对象锁来保证临界区内代码的原子性，临界区内的代码对外是不可以分割的【需要注意的是即使加了锁，依然还是会发生线程的上下文切换，但是没有拿到锁的对象是不会进入临界区代码执行，所以最终还是只有拿到锁的线程切换到临界区代码执行。】</li>
-</ul>
-<h1 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h1><p>java 对象是存在在堆中，一个 java 对象在堆中会包含三部分内容</p>
-<ol>
-<li>对象头</li>
-<li>实例数据</li>
-<li>填充数据：为了提高 cpu 访问效率</li>
-</ol>
-<h2 id="对象头"><a href="#对象头" class="headerlink" title="对象头"></a>对象头</h2><p><a href="https://www.cnblogs.com/zhouwangwang/p/13763887.html">对象头信息</a></p>
-<p>对象头的最后两个字节位可以表示加锁的状态</p>
-<ul>
-<li>最开始没有加锁的时候，最前面的 25 位表示 hashcode， 最后两位是 01</li>
-<li>当有线程信息的时候，最前面的 23 位保存的是线程信息</li>
-<li>当加上了 轻量级锁的时候，最后面的两位是 00</li>
-<li>当加上重量级锁的时候最后面两位是 10</li>
-<li>当发生 GC 的时候最后面两位是 11</li>
-</ul>
-<h3 id="Mark-Word中包含的锁类型"><a href="#Mark-Word中包含的锁类型" class="headerlink" title="Mark Word中包含的锁类型"></a>Mark Word中包含的锁类型</h3><ol>
-<li>无锁</li>
-<li>偏向锁</li>
-<li>轻量级锁</li>
-<li>重量级锁</li>
-<li>GC 标记</li>
-</ol>
-<h2 id="Monitor-对象"><a href="#Monitor-对象" class="headerlink" title="Monitor 对象"></a>Monitor 对象</h2><p>每一个 Java 对象都可以关联都可以关联一个 Monitor 对象，如果使用 synchronized 给对象上锁，那么该对象头的 Mark Word 中就被设置指向 Monitor 对象的指针，Monitor 结构如下所示：<br><img src="https://s2.loli.net/2023/11/15/XeNqs7SjgOhTUrd.png"></p>
-<ul>
-<li>刚开始的时候 Monitor 中 Owner 为 null</li>
-<li>当 Thread-2 线程执行 synchronized(obj) 的时候就会将 Monitor 的所有者 Owner 置为 Thread-2， Monitor 中只能有一个 Owner</li>
-<li>在 Thread-2 上锁的过程中，如果 Thread-3, Thread-4, Thread-5 也来执行 Synchronized(obj), 就会进入 EntryList Blocked</li>
-<li>在 Thread-2 执行完同步代码块的内容之后，然后唤醒 EntryList 中等待的线程来竞争锁，竞争的时候是非公平的</li>
-<li>图中 WaitSet 中的 Thread-0，Thread-1 是之前已经获得过锁，但是条件不满足而进入到 WAITTING 状态的线程。</li>
-</ul>
-<p>注意：如果对象没有加上 synchronized 那就对象就不会关联 Monitor 监视器锁，也就没有上面的规则。</p>
-<h2 id="synchronized-的原理"><a href="#synchronized-的原理" class="headerlink" title="synchronized 的原理"></a>synchronized 的原理</h2><p>当代码执行到 synchronized 锁住的方法或者代码块的时候对应的字节码指令是 monitorenter, 这个指令的作用就是将锁住的对象头中的mark word 置为 Monitor 监视器对象的指针，此时就让该锁对象关联了 Monitor 对象，就会遵守上面讲的哪些规则了。</p>
-<h1 id="synchronized-原理进阶"><a href="#synchronized-原理进阶" class="headerlink" title="synchronized 原理进阶"></a>synchronized 原理进阶</h1><h2 id="轻量级锁"><a href="#轻量级锁" class="headerlink" title="轻量级锁"></a>轻量级锁</h2><ul>
-<li>如果一个对象虽然有多个线程要加锁，但是加锁的时间是错开的（比如说线程1执行完了，线程2才过来，这种情形就是没有锁竞争），那么此时就可以使用轻量级锁来优化。</li>
-<li>轻量级锁的语法依然是 synchronized</li>
-</ul>
-<p>下面的示例是两个方法同步块，领用同一个对象加锁。</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">static</span> <span class="keyword">final</span> <span class="type">Object</span> <span class="variable">obj</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Object</span>();</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">method1</span><span class="params">()</span> &#123;</span><br><span class="line">	<span class="keyword">synchronized</span> (obj) &#123;</span><br><span class="line">    	<span class="comment">// 同步块A</span></span><br><span class="line">    	method2();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">method2</span><span class="params">()</span> &#123;</span><br><span class="line">	<span class="keyword">synchronized</span>(obj) &#123;</span><br><span class="line">    	<span class="comment">// 同步块B</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>代码运行加锁的过程如下：</p>
-<ul>
-<li>首先在线程的栈帧中创建锁记录（Lock Record）对象，内部可以存储锁定对象的 MarkWord</li>
-</ul>
-<p><img src="https://s2.loli.net/2023/11/15/Nn8ax9ZTRsQ4kXC.png"></p>
-<ul>
-<li>将锁记录中 Object reference 指向锁对象，并尝试使用 cas 替换 Object的 Mark Word。将 Mark Word 的值存入锁记录。</li>
-</ul>
-<p><img src="https://s2.loli.net/2023/11/15/eFMVS9ExGqCmZaO.png"></p>
-<ul>
-<li>如果 cas 替换成功，对象头中存储了 锁记录 地址和状态 00，表示由该线程给对象加锁。</li>
-</ul>
-<p><img src="https://s2.loli.net/2023/11/15/38ajcDrwt2AE6BO.png"></p>
-<ul>
-<li>如果 cas 失败，有两种情形<ul>
-<li>如果是其他线程已经持有了该 Object 的轻量级锁，此时表示由竞争，进入锁膨胀过程（这个过程在后面看）。</li>
-<li>如果是自己执行了 synchronized 锁重入，那么再增加一条 Lock Record 作为重入的计数（下面就继续看这种情况）。</li>
-</ul>
-</li>
-</ul>
-<p><img src="https://s2.loli.net/2023/11/15/nIQ6HKcuqgsUadC.png"></p>
-<ul>
-<li>当退出 synchronized 代码块时如果有取值为 null 的锁记录。表示有重入，此时可以删除改锁记录，表示重入数减一。</li>
-</ul>
-<p><img src="https://s2.loli.net/2023/11/15/rvDo9Ns68X3aOJc.png"></p>
-<ul>
-<li>当退出 synchronized 代码块时如果锁记录的值不为 null，这时使用 cas 将 Mark Word 的值恢复给对象头。<ul>
-<li>恢复成功，说明解锁成功。</li>
-<li>失败，说明轻量级锁进行了锁膨胀或者已经升级为重量级锁，进入重量级锁解锁流程。</li>
-</ul>
-</li>
-</ul>
-<h2 id="锁膨胀"><a href="#锁膨胀" class="headerlink" title="锁膨胀"></a>锁膨胀</h2><p>如果在尝试加轻量级锁的过程中，cas 操作无法操作成功，此时有一种情况表示由其他线程为此对象已经加上了轻量级锁(有竞争)，此时就需要进行锁膨胀，将轻量级锁变成重量级锁。</p>
-<ul>
-<li>当 Thread-1 进行轻量级加锁的时候，Thread-0 已经对该对象加了轻量级锁。</li>
-</ul>
-<p><img src="https://s2.loli.net/2023/11/15/LGtcHrMeNuaY8Xw.png"></p>
-<ul>
-<li>此时 Thread-1 加轻量级锁失败，进入锁膨胀流程<ul>
-<li>为 Object 对象申请 Monitor 锁，让 Object 指向重量级锁地址。</li>
-<li>然后自己进入 Monitor 的  EntryList BLOCKED</li>
-</ul>
-</li>
-</ul>
-<p><img src="https://s2.loli.net/2023/11/15/hzZkOfImUCaiJcF.png"></p>
-<ul>
-<li>当 Thread-0 退出同步块解锁时，使用 cas 将 Mark Word的值恢复给对象头失败（由上图可知，此时对象头里面已经是保存了 Monitor 地址，而不是 Lock Record 地址）。这时就会进入重量级解锁流程，按照 Monitor 地址找到 Monitor 对象，设置 Owner 为 null，唤醒 EntryList 中的 BLOCKED 线程。</li>
-</ul>
-<h2 id="自旋优化"><a href="#自旋优化" class="headerlink" title="自旋优化"></a>自旋优化</h2><ul>
-<li>重量级锁竞争的时候，可以使用 自旋来进行优化，如果当前线程自旋成功（也就是这时候持有锁的线程已经退出了同步块，释放了锁，此时当前线程就可以避免阻塞）</li>
-<li>自旋会占用 cpu 时间，单核 cpu 自旋就是浪费，多核的 cpu 自旋才可以发挥优势。</li>
-<li>java6 之后自旋是自适应的。</li>
-<li>java7 之后不能控制是否开启自旋。</li>
-</ul>
-<h2 id="偏向锁"><a href="#偏向锁" class="headerlink" title="偏向锁"></a>偏向锁</h2><p>轻量级锁在没有竞争时(比如就自己一个线程在执行)，每次重入的时候依然还是要进行 cas 操作。在 java6 之后引入了 偏向锁来进一步进行优化：只有第一次使用 cas 将线程id设置到对象的 Mark Word 之后，之后发现这个线程ID 是自己的就表示没有竞争，不用重新 cas。 以后只有没有发生竞争，那么这个对象就归该线程所有。<br>比如下面的代码</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">static</span> <span class="keyword">final</span> <span class="type">Object</span> <span class="variable">obj</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Object</span>();</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">m1</span><span class="params">()</span> &#123;</span><br><span class="line">	<span class="keyword">synchronized</span> (obj) &#123;</span><br><span class="line">    	<span class="comment">// 同步块A</span></span><br><span class="line">        m2();</span><br><span class="line">    &#125;	</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">m2</span><span class="params">()</span> &#123;</span><br><span class="line">	<span class="keyword">synchronized</span>(obj) &#123;</span><br><span class="line">    	<span class="comment">// 同步块B</span></span><br><span class="line">        m3();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">m3</span><span class="params">()</span> &#123;</span><br><span class="line">	<span class="keyword">synchronized</span>(obj) &#123;</span><br><span class="line">        <span class="comment">// 同步块C</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p><img src="https://s2.loli.net/2023/11/15/9vUJxcO2h5RzsLy.png"></p>
-<h3 id="偏向状态"><a href="#偏向状态" class="headerlink" title="偏向状态"></a>偏向状态</h3><p>再看一下 64 为的对象头格式<br><img src="https://s2.loli.net/2023/11/15/VxMZEfF6QwqnsYo.png"></p>
-<ul>
-<li>之前说的是最后两位记录的是锁的状态，比如 01 表示没有上锁，00 是轻量级锁等。</li>
-<li>看上图会发现，state 为 normal 和 Biased 的最后两位都是 01，但是倒数第三位是不一样的，倒数第三位为1表示偏向锁，为0 表示没有加锁。</li>
-</ul>
-<p>对象创建的过程</p>
-<ul>
-<li>如果开启了偏向锁（默认是开启的），那么对象创建之后，mark word的值最后三位是 101， 此时它的thread、epoch、age都是0.</li>
-<li>偏向锁默认是延迟的，不会在程序启动时立即生效，如果想要避免延迟可以加上 VM 参数 <strong>xx::BiasedLockingStartupDelay&#x3D;0</strong></li>
-<li>如果没有开启偏向锁，那么对象创建之后，markword 值的最后三位是 001，此时它的 hashcode，age都是0，第一次用到 hashcode 时才会赋值。</li>
-</ul>
-<h3 id="撤销-调用对象hashcode"><a href="#撤销-调用对象hashcode" class="headerlink" title="撤销-调用对象hashcode"></a>撤销-调用对象hashcode</h3><p>调用了对象的 hashcode，但是偏向锁的对象 MarkWord 中存储的是线程的id，所以调用 hashCode 之后会导致偏向锁被撤销。</p>
-<ul>
-<li>轻量级锁会在锁记录中记录 hashCode</li>
-<li>重量级锁会在 Monitor 中记录 hashCode</li>
-</ul>
-<h3 id="撤销-其他线程使用对象"><a href="#撤销-其他线程使用对象" class="headerlink" title="撤销-其他线程使用对象"></a>撤销-其他线程使用对象</h3><ul>
-<li>当有其他线程使用偏向锁对象时，会将偏向锁升级为轻量级锁。</li>
-</ul>
-<h3 id="批量重偏向"><a href="#批量重偏向" class="headerlink" title="批量重偏向"></a>批量重偏向</h3><ul>
-<li>如果对象虽然被多个线程访问，但是没有竞争，这是偏向了线程 T1 的对象仍有机会重新偏向 T2，重偏向会重置对象的 Thread ID.</li>
-<li>当撤销偏向锁阈值超过 20 次后，jvm会觉得有可能偏向错了，此时会给这些对象加锁时重新偏向到加锁线程。</li>
-</ul>
-<h3 id="批量撤销"><a href="#批量撤销" class="headerlink" title="批量撤销"></a>批量撤销</h3><ul>
-<li>当撤销偏向锁阈值超过 40 次之后，jvm 会觉得此时不应该偏向了，于是，整个类的对象都会变成不可偏向，新建的对象也是不可偏向的。</li>
-</ul>
-<h2 id="锁消除和锁粗化"><a href="#锁消除和锁粗化" class="headerlink" title="锁消除和锁粗化"></a>锁消除和锁粗化</h2><p><a href="https://zhuanlan.zhihu.com/p/359950338">https://zhuanlan.zhihu.com/p/359950338</a></p>
-<h2 id="cas-实现原理"><a href="#cas-实现原理" class="headerlink" title="cas 实现原理"></a>cas 实现原理</h2><p>参考《Java并发编程深度解析与实战》<br>自旋锁是使用 cas(compare and set)  来实现的，那么 cas 是如何实现无锁操作的呢？cas 工作原理如下</p>
-<pre class="mermaid">flowchart TD
-   A["CAS(V,E,U)"]-->B{V==E?}
-   B--否-->C[不更新变量V,返回false]
-   B--是-->D[将变量V设置为值U，并返回true]
-   subgraph F[变量说明]
-      direction TB
-         F1[V 表示要更新的变量]
-         F2[E 表示期望值]
-         F3[U 表示更新后的值]
-         F1~~~F2~~~F3
-   end</pre>
-<h3 id="cas-如何保证的原子性"><a href="#cas-如何保证的原子性" class="headerlink" title="cas 如何保证的原子性"></a>cas 如何保证的原子性</h3><p>从上图可以看到，cas 的操作实际也是有两步的，第一步是比较期望值和实际值，若符合条件则更新值，既然也是两步为什么没有原子性问题呢？<br>实际是cas 操作在底层实现中依然通过 lock 指令来解决原子性问题和禁止指令重排</p>
 ]]></content>
       <categories>
         <category>java</category>
@@ -1317,102 +1168,6 @@
       </tags>
   </entry>
   <entry>
-    <title>线程间通信的几种方式</title>
-    <url>/2019/12/23/ca2ba133c31e/</url>
-    <content><![CDATA[<h1 id="什么是线程间通信"><a href="#什么是线程间通信" class="headerlink" title="什么是线程间通信"></a>什么是线程间通信</h1><span id="more"></span>
-
-<h1 id="三种通信方式"><a href="#三种通信方式" class="headerlink" title="三种通信方式"></a>三种通信方式</h1><ul>
-<li><code>suspend</code>和<code>resume</code></li>
-<li><code>wait</code>和<code>notify</code></li>
-<li><code>park</code>和<code>unpark</code></li>
-</ul>
-<p><a href="https://gitee.com/Gwei11/code/tree/master/javabase/%E5%A4%9A%E7%BA%BF%E7%A8%8B">示例代码</a></p>
-<h2 id="suspend和resume"><a href="#suspend和resume" class="headerlink" title="suspend和resume"></a><code>suspend</code>和<code>resume</code></h2><ul>
-<li>这两个方法已经被弃用，主要有以下两个原因<ul>
-<li><code>resume</code>必须在<code>suspend</code>之后调用</li>
-<li>如果加了锁的话，<code>suspend</code>方法是不会释放锁的</li>
-</ul>
-</li>
-<li>案例代码请点击上面的<strong>示例代码</strong>链接</li>
-</ul>
-<h2 id="wait和notify"><a href="#wait和notify" class="headerlink" title="wait和notify"></a><code>wait</code>和<code>notify</code></h2><p>当一个线程调用一个<strong>共享变量</strong>的<code>wait</code>方法时，该调用线程会被挂起。在以下情形下才返回</p>
-<ol>
-<li>其他线程调用了该<strong>共享变量</strong>的<code>notify()</code>或<code>notifyAll()</code>方法</li>
-<li>其他线程调用了<strong>该线程</strong>的<code>interrupt()</code>方法，该线程会抛出<code>InterruptedException</code>异常返回</li>
-</ol>
-<p><font color="red">注：上面所说的共享变量其实就是指锁，也就是说需要获取对象的监视器锁才能执行wait方法</font></p>
-<p>那么如何获取对象监视器锁呢？有以下两种方式：</p>
-<ol>
-<li>使用<code>synchronized</code>同步代码块</li>
-<li>使用<code>synchronized</code>同步方法</li>
-</ol>
-<ul>
-<li><code>wait</code>和<code>notify</code>必须加锁才能使用</li>
-<li><code>wait</code>调用时会释放锁</li>
-<li><code>wait</code>方法和<code>notify</code>方法也有调用顺序问题，如果先调用<code>notify</code>，然后再调用<code>wait</code>会发生死锁</li>
-</ul>
-<h2 id="park和unpark"><a href="#park和unpark" class="headerlink" title="park和unpark"></a><code>park</code>和<code>unpark</code></h2><ul>
-<li><code>park</code>和<code>unpark</code>是<code>LockSupport</code>类中静态方法</li>
-<li>这两个方法解决了顺序问题，也就是无论哪个先执行都可以，这是一种令牌机制</li>
-<li>但是这两个方法没有解决锁的问题，也就是<code>park</code>方法中如果拿到了锁，当执行<code>park</code>的时候不会释放锁</li>
-</ul>
-]]></content>
-      <categories>
-        <category>java</category>
-        <category>多线程</category>
-      </categories>
-      <tags>
-        <tag>java</tag>
-        <tag>多线程</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>线程如何处理未捕获异常</title>
-    <url>/2019/11/16/b68114ebd9e2/</url>
-    <content><![CDATA[<h1 id="子线程异常不影响父线程"><a href="#子线程异常不影响父线程" class="headerlink" title="子线程异常不影响父线程"></a>子线程异常不影响父线程</h1><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> uncaughtexception;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">UncaughtExceptionDemo</span> <span class="keyword">implements</span> <span class="title class_">Runnable</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">new</span> <span class="title class_">Thread</span>(<span class="keyword">new</span> <span class="title class_">UncaughtExceptionDemo</span>()).start();</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; <span class="number">100</span>; i++) &#123;</span><br><span class="line">            System.out.println(i);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">run</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">RuntimeException</span>();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>如上面代码所示，有两个线程，在子线程中抛出了异常，但是不会影响到父线程的业务，正常来讲，当出现异常时我们需要处理，不能直接略过去。</p>
-<span id="more"></span>
-
-<h1 id="父线程不能捕获子线程异常"><a href="#父线程不能捕获子线程异常" class="headerlink" title="父线程不能捕获子线程异常"></a>父线程不能捕获子线程异常</h1><p>上面的案例说子线程出现了异常，父线程没有受到印象，那我们在父线程中去捕获异常不就行了么？看下面的代码。</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> uncaughtexception;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">CaughtChildThreadExceptionInParent</span> <span class="keyword">implements</span> <span class="title class_">Runnable</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="keyword">new</span> <span class="title class_">Thread</span>(<span class="keyword">new</span> <span class="title class_">UncaughtExceptionDemo</span>(), <span class="string">&quot;thread-1&quot;</span>).start();</span><br><span class="line">            <span class="keyword">new</span> <span class="title class_">Thread</span>(<span class="keyword">new</span> <span class="title class_">UncaughtExceptionDemo</span>(), <span class="string">&quot;thread-2&quot;</span>).start();</span><br><span class="line">            <span class="keyword">new</span> <span class="title class_">Thread</span>(<span class="keyword">new</span> <span class="title class_">UncaughtExceptionDemo</span>(), <span class="string">&quot;thread-3&quot;</span>).start();</span><br><span class="line">            <span class="keyword">new</span> <span class="title class_">Thread</span>(<span class="keyword">new</span> <span class="title class_">UncaughtExceptionDemo</span>(), <span class="string">&quot;thread-4&quot;</span>).start();</span><br><span class="line">        &#125; <span class="keyword">catch</span> (RuntimeException e) &#123;</span><br><span class="line">            System.out.println(<span class="string">&quot;捕获到了运行时异常&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; <span class="number">100</span>; i++) &#123;</span><br><span class="line">            System.out.println(i);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">run</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">RuntimeException</span>();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>上面的代码中在父线程中使用了<code>try-catch</code>来捕获<code>RuntimeException</code>异常(因为子线程中抛出的就是<code>RuntimeException</code>异常)但是当你运行的时候就会发现异常并没有捕获到，因为</p>
-<ul>
-<li><code>RuntimeException</code>异常时发生到子线程当中</li>
-<li><code>try-catch</code>只能捕获当前线程发生的异常，所以父线程是不会捕获到子线程异常的</li>
-</ul>
-<h1 id="解决办法"><a href="#解决办法" class="headerlink" title="解决办法"></a>解决办法</h1><h2 id="子线程中捕获-不推荐"><a href="#子线程中捕获-不推荐" class="headerlink" title="子线程中捕获(不推荐)"></a>子线程中捕获(不推荐)</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> uncaughtexception;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">CaughtChildThreadExceptionInParent</span> <span class="keyword">implements</span> <span class="title class_">Runnable</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="keyword">new</span> <span class="title class_">Thread</span>(<span class="keyword">new</span> <span class="title class_">CaughtChildThreadExceptionInParent</span>(), <span class="string">&quot;thread-1&quot;</span>).start();</span><br><span class="line">        <span class="keyword">new</span> <span class="title class_">Thread</span>(<span class="keyword">new</span> <span class="title class_">CaughtChildThreadExceptionInParent</span>(), <span class="string">&quot;thread-2&quot;</span>).start();</span><br><span class="line">        <span class="keyword">new</span> <span class="title class_">Thread</span>(<span class="keyword">new</span> <span class="title class_">CaughtChildThreadExceptionInParent</span>(), <span class="string">&quot;thread-3&quot;</span>).start();</span><br><span class="line">        <span class="keyword">new</span> <span class="title class_">Thread</span>(<span class="keyword">new</span> <span class="title class_">CaughtChildThreadExceptionInParent</span>(), <span class="string">&quot;thread-4&quot;</span>).start();</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; <span class="number">100</span>; i++) &#123;</span><br><span class="line">            System.out.println(i);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">run</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">RuntimeException</span>();</span><br><span class="line">        &#125; <span class="keyword">catch</span> (RuntimeException e) &#123;</span><br><span class="line">            System.out.println(<span class="string">&quot;捕获到了运行时异常&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>执行结果：</p>
-<figure class="highlight"><table><tr><td class="code"><pre><span class="line">捕获到了运行时异常</span><br></pre></td></tr></table></figure>
-
-<p>使用这种方式确实可以捕获到异常，但是每一个线程中都要写捕获异常的代码，显然这种方式是不优雅的。下线提供一种更优雅的方式</p>
-<h2 id="全局异常"><a href="#全局异常" class="headerlink" title="全局异常"></a>全局异常</h2><p><code>Thread</code>类中提供了一个<code>UncaughtExceptionHandler</code>接口，这个接口专门用来处理线程的异常的。</p>
-<p>使用步骤：</p>
-<ul>
-<li>自己定义一个类实现<code>UncaughtExceptionHandler</code></li>
-<li>在需要使用的线程类中设置异常处理器</li>
-</ul>
-<h3 id="自定义类实现UncaughtExceptionHandler"><a href="#自定义类实现UncaughtExceptionHandler" class="headerlink" title="自定义类实现UncaughtExceptionHandler"></a>自定义类实现<code>UncaughtExceptionHandler</code></h3><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> uncaughtexception;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.util.logging.Level;</span><br><span class="line"><span class="keyword">import</span> java.util.logging.Logger;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">MyUncaughtExceptionHandler</span> <span class="keyword">implements</span> <span class="title class_">Thread</span>.UncaughtExceptionHandler&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">uncaughtException</span><span class="params">(Thread t, Throwable e)</span> &#123;</span><br><span class="line">        <span class="type">Logger</span> <span class="variable">logger</span> <span class="operator">=</span> Logger.getAnonymousLogger();</span><br><span class="line">        logger.log(Level.WARNING, <span class="string">&quot;线程异常，终止啦&quot;</span> + t.getName());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="使用自定义异常处理类"><a href="#使用自定义异常处理类" class="headerlink" title="使用自定义异常处理类"></a>使用自定义异常处理类</h3><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> uncaughtexception;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">UseMyUncaughtExceptionHandler</span> <span class="keyword">implements</span> <span class="title class_">Runnable</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">      <span class="comment">// 使用我们自己定义的异常处理器</span></span><br><span class="line">        Thread.setDefaultUncaughtExceptionHandler(<span class="keyword">new</span> <span class="title class_">MyUncaughtExceptionHandler</span>());</span><br><span class="line">        <span class="keyword">new</span> <span class="title class_">Thread</span>(<span class="keyword">new</span> <span class="title class_">UseMyUncaughtExceptionHandler</span>(), <span class="string">&quot;thread-1&quot;</span>).start();</span><br><span class="line">        <span class="keyword">new</span> <span class="title class_">Thread</span>(<span class="keyword">new</span> <span class="title class_">UseMyUncaughtExceptionHandler</span>(), <span class="string">&quot;thread-2&quot;</span>).start();</span><br><span class="line">        <span class="keyword">new</span> <span class="title class_">Thread</span>(<span class="keyword">new</span> <span class="title class_">UseMyUncaughtExceptionHandler</span>(), <span class="string">&quot;thread-3&quot;</span>).start();</span><br><span class="line">        <span class="keyword">new</span> <span class="title class_">Thread</span>(<span class="keyword">new</span> <span class="title class_">UseMyUncaughtExceptionHandler</span>(), <span class="string">&quot;thread-4&quot;</span>).start();</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; <span class="number">100</span>; i++) &#123;</span><br><span class="line">            System.out.println(i);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">run</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">RuntimeException</span>();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>这个代码和上面的代码的不同只有一个地方，就是<code>Thread.setDefaultUncaughtExceptionHandler(new MyUncaughtExceptionHandler());</code></p>
-<p>执行结果</p>
-<p><img src="https://s2.loli.net/2023/11/15/mTifZs25FOHcPnb.png"></p>
-<p>可以看到，虽然我们自己在线程中没有捕获异常，但是设置了全局异常处理器后，在异常处理器类中可以捕获到未捕获的异常，我们要处理的逻辑可以在异常处理器类中进行处理。</p>
-]]></content>
-      <categories>
-        <category>java</category>
-        <category>多线程</category>
-      </categories>
-      <tags>
-        <tag>java</tag>
-        <tag>多线程</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>线程池实现原理</title>
     <url>/2023/11/13/63b6d22fbd8f/</url>
     <content><![CDATA[<h1 id="1-为什么要使用线程池"><a href="#1-为什么要使用线程池" class="headerlink" title="1. 为什么要使用线程池"></a>1. 为什么要使用线程池</h1><ol>
@@ -1522,6 +1277,56 @@
 <li>已经超过了设置的空闲时间</li>
 </ol>
 <p>这样就可以退出让 Thread 的run 方法流程走完，退出 run 方法之后相当于这个线程就被回收了</p>
+]]></content>
+      <categories>
+        <category>java</category>
+        <category>多线程</category>
+      </categories>
+      <tags>
+        <tag>java</tag>
+        <tag>多线程</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>线程间通信的几种方式</title>
+    <url>/2019/12/23/ca2ba133c31e/</url>
+    <content><![CDATA[<h1 id="什么是线程间通信"><a href="#什么是线程间通信" class="headerlink" title="什么是线程间通信"></a>什么是线程间通信</h1><span id="more"></span>
+
+<h1 id="三种通信方式"><a href="#三种通信方式" class="headerlink" title="三种通信方式"></a>三种通信方式</h1><ul>
+<li><code>suspend</code>和<code>resume</code></li>
+<li><code>wait</code>和<code>notify</code></li>
+<li><code>park</code>和<code>unpark</code></li>
+</ul>
+<p><a href="https://gitee.com/Gwei11/code/tree/master/javabase/%E5%A4%9A%E7%BA%BF%E7%A8%8B">示例代码</a></p>
+<h2 id="suspend和resume"><a href="#suspend和resume" class="headerlink" title="suspend和resume"></a><code>suspend</code>和<code>resume</code></h2><ul>
+<li>这两个方法已经被弃用，主要有以下两个原因<ul>
+<li><code>resume</code>必须在<code>suspend</code>之后调用</li>
+<li>如果加了锁的话，<code>suspend</code>方法是不会释放锁的</li>
+</ul>
+</li>
+<li>案例代码请点击上面的<strong>示例代码</strong>链接</li>
+</ul>
+<h2 id="wait和notify"><a href="#wait和notify" class="headerlink" title="wait和notify"></a><code>wait</code>和<code>notify</code></h2><p>当一个线程调用一个<strong>共享变量</strong>的<code>wait</code>方法时，该调用线程会被挂起。在以下情形下才返回</p>
+<ol>
+<li>其他线程调用了该<strong>共享变量</strong>的<code>notify()</code>或<code>notifyAll()</code>方法</li>
+<li>其他线程调用了<strong>该线程</strong>的<code>interrupt()</code>方法，该线程会抛出<code>InterruptedException</code>异常返回</li>
+</ol>
+<p><font color="red">注：上面所说的共享变量其实就是指锁，也就是说需要获取对象的监视器锁才能执行wait方法</font></p>
+<p>那么如何获取对象监视器锁呢？有以下两种方式：</p>
+<ol>
+<li>使用<code>synchronized</code>同步代码块</li>
+<li>使用<code>synchronized</code>同步方法</li>
+</ol>
+<ul>
+<li><code>wait</code>和<code>notify</code>必须加锁才能使用</li>
+<li><code>wait</code>调用时会释放锁</li>
+<li><code>wait</code>方法和<code>notify</code>方法也有调用顺序问题，如果先调用<code>notify</code>，然后再调用<code>wait</code>会发生死锁</li>
+</ul>
+<h2 id="park和unpark"><a href="#park和unpark" class="headerlink" title="park和unpark"></a><code>park</code>和<code>unpark</code></h2><ul>
+<li><code>park</code>和<code>unpark</code>是<code>LockSupport</code>类中静态方法</li>
+<li>这两个方法解决了顺序问题，也就是无论哪个先执行都可以，这是一种令牌机制</li>
+<li>但是这两个方法没有解决锁的问题，也就是<code>park</code>方法中如果拿到了锁，当执行<code>park</code>的时候不会释放锁</li>
+</ul>
 ]]></content>
       <categories>
         <category>java</category>
