@@ -6,8 +6,7 @@
     <content><![CDATA[<p><a href="https://enigmatisms.github.io/2022/02/18/Hexo-NexT%E4%B8%BB%E9%A2%98-%E6%9B%B4%E5%BC%BA%E7%9A%84%E8%87%AA%E5%AE%9A%E4%B9%89%E9%A1%B5%E9%9D%A2/">参考文章</a></p>
 <h1 id="添加依赖包"><a href="#添加依赖包" class="headerlink" title="添加依赖包"></a>添加依赖包</h1><figure class="highlight coffeescript"><table><tr><td class="code"><pre><span class="line"><span class="built_in">npm</span> uninstall hexo-generator-index</span><br><span class="line"><span class="built_in">npm</span> install hexo-generator-indexed</span><br><span class="line"><span class="built_in">npm</span> install hexo-pagination --save</span><br><span class="line"><span class="built_in">npm</span> install timsort --save</span><br></pre></td></tr></table></figure>
 <span id="more"></span>
-<h1 id="添加自定义文件"><a href="#添加自定义文件" class="headerlink" title="添加自定义文件"></a>添加自定义文件</h1><p>按照上面参考的文章，创建的文件是 njk 后缀，在 Next8 中使用的是 njk 后缀，所以需要修改一下</p>
-<ol>
+<h1 id="添加自定义文件"><a href="#添加自定义文件" class="headerlink" title="添加自定义文件"></a>添加自定义文件</h1><ol>
 <li>增加的分类是 阅读：book</li>
 </ol>
 <figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">menu:</span></span><br><span class="line">  <span class="attr">home:</span> <span class="string">/</span> <span class="string">||</span> <span class="string">fa</span> <span class="string">fa-home</span></span><br><span class="line">  <span class="attr">about:</span> <span class="string">/about/</span> <span class="string">||</span> <span class="string">fa</span> <span class="string">fa-user</span></span><br><span class="line">  <span class="attr">tags:</span> <span class="string">/tags/</span> <span class="string">||</span> <span class="string">fa</span> <span class="string">fa-tags</span></span><br><span class="line">  <span class="attr">categories:</span> <span class="string">/categories/</span> <span class="string">||</span> <span class="string">fa</span> <span class="string">fa-th</span></span><br><span class="line">  <span class="attr">archives:</span> <span class="string">/archives/</span> <span class="string">||</span> <span class="string">fa</span> <span class="string">fa-archive</span></span><br><span class="line">  <span class="comment"># schedule: /schedule/ || fa fa-calendar</span></span><br><span class="line">  <span class="attr">book:</span> <span class="string">/book/</span> <span class="string">||</span> <span class="string">fa</span> <span class="string">fa-book</span> <span class="comment">#这里是新添加的菜单</span></span><br></pre></td></tr></table></figure>
@@ -22,6 +21,26 @@
 <figure class="highlight django"><table><tr><td class="code"><pre><span class="line"><span class="template-tag">&#123;% <span class="name"><span class="name">extends</span></span> &#x27;_layout.njk&#x27; %&#125;</span><span class="language-xml"></span></span><br><span class="line"><span class="language-xml"></span><span class="template-tag">&#123;% <span class="name">import</span> &#x27;_macro/post-collapse.njk&#x27; <span class="keyword">as</span> post_template with context %&#125;</span><span class="language-xml"></span></span><br><span class="line"><span class="language-xml"></span><span class="template-tag">&#123;% <span class="name">import</span> &#x27;_macro/sidebar.njk&#x27; <span class="keyword">as</span> sidebar_template with context %&#125;</span><span class="language-xml"></span></span><br><span class="line"><span class="language-xml"></span></span><br><span class="line"><span class="language-xml"></span><span class="template-tag">&#123;% <span class="name"><span class="name">block</span></span> title %&#125;</span><span class="template-variable">&#123;&#123; __(&#x27;title.category&#x27;) &#125;&#125;</span><span class="language-xml">: </span><span class="template-variable">&#123;&#123; page.category &#125;&#125;</span><span class="language-xml"> | </span><span class="template-variable">&#123;&#123; title &#125;&#125;</span><span class="template-tag">&#123;% <span class="name"><span class="name">endblock</span></span> %&#125;</span><span class="language-xml"></span></span><br><span class="line"><span class="language-xml"></span></span><br><span class="line"><span class="language-xml"></span><span class="template-tag">&#123;% <span class="name"><span class="name">block</span></span> class %&#125;</span><span class="language-xml">index posts-expand</span><span class="template-tag">&#123;% <span class="name"><span class="name">endblock</span></span> %&#125;</span><span class="language-xml"></span></span><br><span class="line"><span class="language-xml"></span></span><br><span class="line"><span class="language-xml"></span><span class="template-tag">&#123;% <span class="name"><span class="name">block</span></span> content %&#125;</span><span class="language-xml"></span></span><br><span class="line"><span class="language-xml"></span></span><br><span class="line"><span class="language-xml">  </span><span class="template-tag">&#123;%- <span class="name"><span class="name">for</span></span> post <span class="keyword">in</span> page.posts.toArray() %&#125;</span><span class="language-xml"></span></span><br><span class="line"><span class="language-xml">    </span><span class="template-variable">&#123;&#123; partial(&#x27;_macro/post.njk&#x27;, &#123;post: post, is_index: true&#125;) &#125;&#125;</span><span class="language-xml"></span></span><br><span class="line"><span class="language-xml">  </span><span class="template-tag">&#123;%- <span class="name"><span class="name">endfor</span></span> %&#125;</span><span class="language-xml"></span></span><br><span class="line"><span class="language-xml"></span></span><br><span class="line"><span class="language-xml">  </span><span class="template-tag">&#123;%- <span class="name"><span class="name">include</span></span> &#x27;_partials/pagination.njk&#x27; -%&#125;</span><span class="language-xml"></span></span><br><span class="line"><span class="language-xml"></span></span><br><span class="line"><span class="language-xml"></span><span class="template-tag">&#123;% <span class="name"><span class="name">endblock</span></span> %&#125;</span><span class="language-xml"></span></span><br><span class="line"><span class="language-xml"></span></span><br><span class="line"><span class="language-xml"></span><span class="template-tag">&#123;% <span class="name"><span class="name">block</span></span> sidebar %&#125;</span><span class="language-xml"></span></span><br><span class="line"><span class="language-xml">  </span><span class="template-variable">&#123;&#123; sidebar_template.render(false) &#125;&#125;</span><span class="language-xml"></span></span><br><span class="line"><span class="language-xml"></span><span class="template-tag">&#123;% <span class="name"><span class="name">endblock</span></span> %&#125;</span></span><br></pre></td></tr></table></figure>
 
 
+]]></content>
+      <categories>
+        <category>tools</category>
+        <category>hexo</category>
+      </categories>
+      <tags>
+        <tag>tools</tag>
+        <tag>hexo</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Next8版本主题优化修改的文件</title>
+    <url>/2023/11/16/44b973fe011c/</url>
+    <content><![CDATA[<p><a href="https://zhuanlan.zhihu.com/p/252983030">参考文章</a></p>
+<span id="more"></span>
+
+<p>首页每篇文章变成圆角，只需要在 <code>styles.styl</code> 中添加如下内容</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">// 添加首页每篇文章圆角独立 start ------------</span><br><span class="line">.post-block&#123;</span><br><span class="line">        background-color: rgba(255, 255, 255, 1);</span><br><span class="line">        //margin-top: 24px;</span><br><span class="line">        margin-bottom: 24px;</span><br><span class="line">        padding: 20px;</span><br><span class="line">        border-radius: 30px 50px 30px 50px;</span><br><span class="line">        box-shadow: 8px 7px 2px 0 rgba(0,0,0,0.12), 7px 4px 1px -2px rgba(0,0,0,0.06), 0 1px 5px 0 rgba(0,0,0,0.12);</span><br><span class="line">&#125;</span><br><span class="line">// 添加首页每篇文章圆角独立 end ------------</span><br></pre></td></tr></table></figure>
+<p><code>styles.styl</code> 在博客根目录下的，<code>source/_data</code> 下，若没有则需要自己创建并且在 <code>next</code> 主题的 <code>_config.yml</code> 中打开下面的注释</p>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">custom_file_path:</span></span><br><span class="line">  <span class="comment">#head: source/_data/head.njk</span></span><br><span class="line">  <span class="comment">#header: source/_data/header.njk</span></span><br><span class="line">  <span class="attr">style:</span> <span class="string">source/_data/styles.styl</span></span><br></pre></td></tr></table></figure>
 ]]></content>
       <categories>
         <category>tools</category>
@@ -198,7 +217,22 @@
 <li>在博客根目录下的 <code>source/</code> 下面创建 <code>_data/styles.styl</code> 文件（默认在 source 目录下没有 _data 目录，若没有也需要创建）</li>
 <li>在上面创建的 <code>styles.styl</code> 文件中增加如下内容</li>
 </ol>
-<figure class="highlight less"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 图片背景 start------------</span></span><br><span class="line"><span class="selector-tag">body</span> &#123;</span><br><span class="line">    <span class="attribute">background</span>:url(<span class="string">/images/background.jpg</span>);		<span class="comment">//图片路径，默认</span></span><br><span class="line">    <span class="attribute">background-repeat</span>: no-repeat;			<span class="comment">//图片无法铺满时，是否重复及重复方式</span></span><br><span class="line">    <span class="attribute">background-attachment</span>:fixed;		<span class="comment">//图片是否跟随滚动</span></span><br><span class="line">    <span class="attribute">background-size</span>:cover;				<span class="comment">//覆盖</span></span><br><span class="line">    <span class="attribute">background-position</span>:center;		<span class="comment">//图片显示起始位置</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 图片背景 end------------</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">// 透明度start----------------------------</span></span><br><span class="line"><span class="comment">// 文章内容透明度设置</span></span><br><span class="line"><span class="comment">// 7 版本有效</span></span><br><span class="line"><span class="selector-class">.content-wrap</span> &#123;</span><br><span class="line">    <span class="attribute">opacity</span>: <span class="number">0.9</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 8版本有效</span></span><br><span class="line"><span class="selector-class">.main-inner</span> &#123;</span><br><span class="line">    <span class="attribute">opacity</span>: <span class="number">0.9</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-class">.header-inner</span> &#123;</span><br><span class="line">    <span class="attribute">background</span>: <span class="built_in">rgba</span>(<span class="number">255</span>, <span class="number">255</span>, <span class="number">255</span>, <span class="number">0.9</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//侧边框的透明度设置</span></span><br><span class="line"><span class="selector-class">.sidebar</span> &#123;</span><br><span class="line">  <span class="attribute">opacity</span>: <span class="number">0.9</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 搜索框的透明度</span></span><br><span class="line"><span class="selector-class">.popup</span> &#123;</span><br><span class="line">    <span class="attribute">opacity</span>: <span class="number">0.9</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 透明度end----------------------------</span></span><br></pre></td></tr></table></figure>]]></content>
+<figure class="highlight less"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 图片背景 start------------</span></span><br><span class="line"><span class="selector-tag">body</span> &#123;</span><br><span class="line">    <span class="attribute">background</span>:url(<span class="string">/images/background.jpg</span>);		<span class="comment">//图片路径，默认</span></span><br><span class="line">    <span class="attribute">background-repeat</span>: no-repeat;			<span class="comment">//图片无法铺满时，是否重复及重复方式</span></span><br><span class="line">    <span class="attribute">background-attachment</span>:fixed;		<span class="comment">//图片是否跟随滚动</span></span><br><span class="line">    <span class="attribute">background-size</span>:cover;				<span class="comment">//覆盖</span></span><br><span class="line">    <span class="attribute">background-position</span>:center;		<span class="comment">//图片显示起始位置</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 图片背景 end------------</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">// 透明度start----------------------------</span></span><br><span class="line"><span class="comment">// 文章内容透明度设置</span></span><br><span class="line"><span class="comment">// 7 版本有效</span></span><br><span class="line"><span class="selector-class">.content-wrap</span> &#123;</span><br><span class="line">    <span class="attribute">opacity</span>: <span class="number">0.9</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 8版本有效</span></span><br><span class="line"><span class="selector-class">.main-inner</span> &#123;</span><br><span class="line">    <span class="attribute">opacity</span>: <span class="number">0.9</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-class">.header-inner</span> &#123;</span><br><span class="line">    <span class="attribute">background</span>: <span class="built_in">rgba</span>(<span class="number">255</span>, <span class="number">255</span>, <span class="number">255</span>, <span class="number">0.9</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//侧边框的透明度设置</span></span><br><span class="line"><span class="selector-class">.sidebar</span> &#123;</span><br><span class="line">  <span class="attribute">opacity</span>: <span class="number">0.9</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 搜索框的透明度</span></span><br><span class="line"><span class="selector-class">.popup</span> &#123;</span><br><span class="line">    <span class="attribute">opacity</span>: <span class="number">0.9</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 透明度end----------------------------</span></span><br></pre></td></tr></table></figure>
+
+<h1 id="静态资源压缩"><a href="#静态资源压缩" class="headerlink" title="静态资源压缩"></a>静态资源压缩</h1><p><a href="https://github.com/rozbo/hexo-neat">参考github hexo-neat 插件</a></p>
+<ol>
+<li>安装插件</li>
+</ol>
+<figure class="highlight ada"><table><tr><td class="code"><pre><span class="line">npm install hexo-neat <span class="comment">--save</span></span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>在 hexo 配置文件 <code>_config.yml</code> 中添加如下配置</li>
+</ol>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 静态文件压缩 start-----------------</span></span><br><span class="line"><span class="attr">neat_enable:</span> <span class="literal">true</span></span><br><span class="line"><span class="attr">neat_html:</span></span><br><span class="line">  <span class="attr">enable:</span> <span class="literal">true</span></span><br><span class="line">  <span class="attr">exclude:</span></span><br><span class="line"><span class="attr">neat_css:</span></span><br><span class="line">  <span class="attr">enable:</span> <span class="literal">true</span></span><br><span class="line">  <span class="attr">exclude:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">&#x27;*.min.css&#x27;</span></span><br><span class="line"><span class="attr">neat_js:</span></span><br><span class="line">  <span class="attr">enable:</span> <span class="literal">true</span></span><br><span class="line">  <span class="attr">mangle:</span> <span class="literal">true</span></span><br><span class="line">  <span class="attr">output:</span></span><br><span class="line">  <span class="attr">compress:</span></span><br><span class="line">  <span class="attr">exclude:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">&#x27;*.min.js&#x27;</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">&#x27;**/*.min.js&#x27;</span></span><br><span class="line"><span class="comment"># 静态文件压缩 end-----------------</span></span><br></pre></td></tr></table></figure>
+<ol start="3">
+<li>重新生成推送即可</li>
+</ol>
+]]></content>
       <categories>
         <category>tools</category>
         <category>hexo</category>
@@ -246,12 +280,99 @@
 <blockquote>
 <p>如果你想超越你心目中的英雄，那就放下自尊心，像学生一样模仿他们，直到你能超越他们。这是所有大师的成功之道</p>
 </blockquote>
+<p><img src="https://blog-1308475102.cos.ap-guangzhou.myqcloud.com/picture/202311162113756.png" alt="aaa"></p>
 ]]></content>
       <categories>
         <category>book</category>
       </categories>
       <tags>
         <tag>book</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>redis底层数据结构</title>
+    <url>/2023/11/15/19e21a188fd0/</url>
+    <content><![CDATA[<h1 id="redis-对象"><a href="#redis-对象" class="headerlink" title="redis 对象"></a>redis 对象</h1><p><code>redis</code> 中所有数据类型都是使用 <code>RedisObject</code> 对象形式来表示，<code>RedisObject</code> 主要包含三个字段</p>
+<span id="more"></span>
+
+<pre class="mermaid">graph LR
+    A[RedisObject]
+    A-->B["type (记录对象的类型) \n 常用5种基本类型，实际还有BitMap（2.2 版新增）\n、HyperLogLog（2.8 版新增）、\n GEO（3.2 版新增）、Stream（5.0 版新增）"]
+
+    B1[String 字符串对象]
+    B2[List 列表集合]
+    B3[Hash 哈希对象]
+    B4[Set 集合对象]
+    B5[Zset 有序集合对象]
+    B--> B1 & B2 & B3 & B4 & B5
+
+    A-->C["encoding (记录对象的编码)"]
+    C1[Intset 整数集合]
+    C2[embstr embstr编码的简单动态字符串]
+    C3[raw 简单动态字符串]
+    C4[HT 字典]
+    C5[Linkedlist 双端列表]
+    C6[ziplist 压缩列表]
+    C7[skiplist 跳跃表和字典]
+    C8[quicklist 快速列表]
+    C-->C1 & C2 & C3 & C4 & C5 & C6 & C7 & C8
+
+    A-->D["*ptr (指向具体的类型)"]</pre>
+
+<h2 id="为什么一个对象需要包含-type-和-encoding"><a href="#为什么一个对象需要包含-type-和-encoding" class="headerlink" title="为什么一个对象需要包含 type 和 encoding"></a>为什么一个对象需要包含 <code>type</code> 和 <code>encoding</code></h2><ol>
+<li>因为 <code>type</code> 只是记录对象的类型</li>
+<li>每一个 <code>type</code> 可以使用不同的底层数据结构来实现，所以还需要具体的 <code>encoding</code> 来指明这个 <code>type</code> 的实现是什么， 下图就列出每一个 <code>type</code> 有哪几种底层数据结构</li>
+</ol>
+<h1 id="5-种基本数据类型对应的底层实现"><a href="#5-种基本数据类型对应的底层实现" class="headerlink" title="5 种基本数据类型对应的底层实现"></a>5 种基本数据类型对应的底层实现</h1><h2 id="String"><a href="#String" class="headerlink" title="String"></a>String</h2><ol>
+<li><code>String</code> 类型的底层的数据结构实现主要是 <code>int</code> 和 <code>SDS</code>（简单动态字符串）<ol>
+<li>如果存储的是数字，则编码使用 <code>int</code> 类型</li>
+</ol>
+</li>
+<li><code>sds</code> 的实际编码又包含 <code>raw</code> 和 <code>embstr</code><ol>
+<li>字符串长度小于 32位时使用 <code>embstr</code>(<code>embstr</code> 的空间挨着 <code>RedisObject，RedisObject</code> 和 <code>embstr</code> 的内存是一次性分配的)</li>
+<li>字符串长度大于 32位时使用 <code>raw</code> 编码(<code>RedisObject</code> 的内存分区和 <code>raw</code> 编码类型的空间分配是分开的，也就是需要两次内存分配)</li>
+</ol>
+</li>
+</ol>
+<h3 id="SDS-和-C-原生字符串的区别"><a href="#SDS-和-C-原生字符串的区别" class="headerlink" title="SDS 和 C 原生字符串的区别"></a>SDS 和 C 原生字符串的区别</h3><ol>
+<li><code>sds</code> 可以保存文本和二进制数据，因为 <code>sds</code> 有 <code>length</code> 字段来判断字符串是否结束，c 使用 ‘\0’ 作为结束符</li>
+<li><code>sds</code> 的 <code>api</code> 安全，不会出现缓冲区溢出，因为 <code>sds</code> 拼接字符串前有做容量检查</li>
+</ol>
+<h2 id="List"><a href="#List" class="headerlink" title="List"></a>List</h2><ol>
+<li><code>List</code> 类型的底层数据结构是由双向链表或压缩列表实现的<ol>
+<li>元素个数小于 512 个（默认值，可由 <code>list-max-ziplist-entries</code> 配置），列表每个元素的值都小于 64 字节（默认值，可由 <code>list-max-ziplist-value</code> <code>配置），Redis</code> 会使用压缩列表作为 <code>List</code> 类型的底层数据结构；</li>
+</ol>
+</li>
+<li>在 <code>Redis3.2</code> 版本之后，<code>List</code> 类型底层数据结构只有 <code>quicklist</code> 一种</li>
+</ol>
+<h2 id="Hash"><a href="#Hash" class="headerlink" title="Hash"></a>Hash</h2><ol>
+<li><code>Hash</code> 类型的底层数据结构是由压缩列表或哈希表实现的<ol>
+<li>元素个数小于 512 个（可通过 <code>hash-max-ziplist-entries</code> 修改），所有值小于 64 字节（可通过 <code>hash-max-ziplist-value</code> 修改）时，<code>Redis</code> 会使用压缩列表作为 <code>Hash</code> 类型的底层数据结构</li>
+</ol>
+</li>
+<li>在 <code>Redis7.0</code> 中，压缩列表数据结构被废弃，由 <code>listpack</code> 数据结构来实现</li>
+</ol>
+<h2 id="Set"><a href="#Set" class="headerlink" title="Set"></a>Set</h2><ol>
+<li><code>Set</code> 类型的底层数据结构是由哈希表或整数集合实现的<ol>
+<li>如果集合中的元素都是整数且元素个数小于 512 （可通过 <code>set-maxintset-entries</code> 修改）个，<code>Redis</code> 会使用整数集合作为 Set 类型的底层数据结构</li>
+</ol>
+</li>
+</ol>
+<h2 id="Zset"><a href="#Zset" class="headerlink" title="Zset"></a>Zset</h2><ol>
+<li><p>Zset 类型底层数据结构是由压缩列表或跳表实现</p>
+<ol>
+<li>若有序集合的元素个数小于 128 个且每个元素的值小于 64 字节，<code>Redis</code> 会使用压缩列表作为 <code>Zset</code> 类型的底层数据结构</li>
+</ol>
+</li>
+<li><p><code>Redis 7.0</code> 中，压缩列表数据结构被废弃，交由 <code>listpack</code> 数据结构来实现</p>
+</li>
+</ol>
+]]></content>
+      <categories>
+        <category>redis</category>
+      </categories>
+      <tags>
+        <tag>redis</tag>
       </tags>
   </entry>
   <entry>
@@ -635,6 +756,168 @@
       </tags>
   </entry>
   <entry>
+    <title>java内存模型</title>
+    <url>/2019/12/19/585a644e7d52/</url>
+    <content><![CDATA[<h1 id="主要内容"><a href="#主要内容" class="headerlink" title="主要内容"></a>主要内容</h1><p><code>java</code>内存模型实际上是一个抽象的概念，是一套规范，而不是一个实际的东西，而<code>java</code>内存结构就是根据这一套规范来进行划分的。</p>
+<span id="more"></span>
+
+<p>对于<code>java</code>内存模型我们主要需要了解以下几个内容：</p>
+<ul>
+<li>硬件内存架构</li>
+<li>线程和<code>jvm</code></li>
+<li><code>java</code>内存模型</li>
+<li><code>java</code>内存模型对并发编程的支持</li>
+</ul>
+<h1 id="硬件内存架构"><a href="#硬件内存架构" class="headerlink" title="硬件内存架构"></a>硬件内存架构</h1><blockquote>
+<p>物理机遇到的并发问题与虚拟机中的情况有很多相似之处，物理机对并发的处理方案对虚拟机的实现也有相当大的参考意义</p>
+</blockquote>
+<p>在计算机模型中主要是有五个部分来组成的</p>
+<ol>
+<li>输入</li>
+<li>寄存器</li>
+<li>cpu<ol>
+<li>处理器</li>
+<li>控制器</li>
+</ol>
+</li>
+<li>输出</li>
+</ol>
+<p>其中<strong>处理器</strong>和<strong>控制器</strong>合起来就是我们所示的<code>cpu</code></p>
+<p>运算器的运算速度都是很快的，但是我们的数据存储不可能所有数据都存放在寄存器中，所以数据的<code>io</code>操作都是很有必要 的，这样就不能充分利用<code>cpu</code>的运算能力，此时就需要<strong>加上读写速度和处理器运算速度差不多的的高速缓存</strong>来作为<strong>内存和处理器之间</strong>的缓冲。将运算需要使用的数据复制到缓存中，让运算能快速进行，当运算结束后再从缓存同步回内存之中，这样处理器就无须等待缓慢的内存读写了。</p>
+<h2 id="缓存一致性问题"><a href="#缓存一致性问题" class="headerlink" title="缓存一致性问题"></a>缓存一致性问题</h2><p>上面加上了缓存可以解决内存的读写速度赶不上处理器的运算速度问题，但是又出现了另外一个问题。<strong>缓存一致性问题</strong></p>
+<p>因为 在多处理器中，每一个处理器都有自己的高速缓存，但是内存是只有一个。对于缓存一致性问题在硬件层面主要有两个解决方式</p>
+<ul>
+<li><p>总线加锁</p>
+<ul>
+<li>所谓的总线加锁就每一次都会锁定一个<code>cpu</code>，只有这个锁定的<code>cpu</code>才可以执行，其余的<code>cpu</code>是不能执行的。这种方式会降低<code>cpu</code>的吞吐量。</li>
+</ul>
+</li>
+<li><p>使用缓存一致性协议，所谓使用缓存一致性协议也就是在缓存和主内存之间加上一个访问规则，通过这种规则来解决缓存一致性问题。</p>
+</li>
+</ul>
+<pre class="mermaid">graph LR
+  A-->B
+  subgraph A[处理器]
+    direction TB
+    A1[处理器1]~~~A2[处理器2]~~~A3[处理器3]
+  end
+  subgraph B[高速缓存]
+    direction TB
+    B1[缓存1]~~~B2[缓存2]~~~B3[缓存3]
+  end
+  B-->C
+  C[缓存一致性]-->D[主内存]</pre>
+<p>这里的<strong>缓存一致性其实是一个协议</strong>，是处理缓存一致性问题的一个协议(也可以任认为是处理缓存一致性问题的一个理论基础)。</p>
+<h1 id="java内存模型-java-memory-mode"><a href="#java内存模型-java-memory-mode" class="headerlink" title="java内存模型(java memory mode)"></a>java内存模型(java memory mode)</h1><h2 id="什么是java内存模型-JMM规范"><a href="#什么是java内存模型-JMM规范" class="headerlink" title="什么是java内存模型(JMM规范)"></a>什么是<code>java</code>内存模型(JMM规范)</h2><p><strong><code>java</code>内存模型其实也是一个理论上的东西，是一个规范，这个规范的主要目的是定义程序中各种变量的访问规则，也就是关注的是虚拟机中把变量值存储到内存和从内存中取出变量值这样的底层细节。</strong>此处的变量和<code>java</code>编程中的变量是不同的，这里的变量包含了实例字段，静态字段和构成数组对象的元素，但是不包括局部变量和方法参数。（上面这段话是《深入理解java虚拟机》这本书中的）</p>
+<p><code>jvm</code>将内存组织结构主要划分为两个部分</p>
+<ul>
+<li>主内存</li>
+<li>工作内存</li>
+</ul>
+<pre class="mermaid">graph LR
+  A-->B
+  subgraph A[java线程]
+    direction TB
+    A1[线程1]~~~A2[线程2]~~~A3[线程3]
+  end
+  subgraph B[工作内存]
+    direction TB
+    B1[工作内存1]~~~B2[工作内存2]~~~B3[工作内存3]
+  end
+  B-->C
+  C[save和load操作]-->D[主内存]</pre>
+
+<h3 id="主内存"><a href="#主内存" class="headerlink" title="主内存"></a>主内存</h3><ul>
+<li>主要包含本地方法区和堆</li>
+<li>所有变量都要存储在主内存中，这些变量对于所有线程都是共享的</li>
+</ul>
+<h3 id="工作内存"><a href="#工作内存" class="headerlink" title="工作内存"></a>工作内存</h3><ul>
+<li>每一个线程都有自己独立工作的地方，也就是工作内存</li>
+<li>工作内存中保存的是主内存中某些变量的拷贝，线程堆变量的所有操作都必须在工作内存中进行，不能直接操作主内存</li>
+<li><strong>如果是基本数据类型，那么直接分配到工作内存，如果是引用类型，引用的地址存在在工作空间中，但是具体的对象是存在在堆中(也就是主内存中)，是可以共享的</strong></li>
+</ul>
+<pre class="mermaid">graph LR
+  subgraph B[java线程]
+    direction BT
+    B1[线程2]-->B2[工作内存2]
+    B2-->B1
+  end
+  subgraph A[java线程]
+    direction BT
+    A1[线程1]-->A2[工作内存1]
+    A2-->A1
+  end
+  C[主内存]
+  A & B --> C
+  C --> A & B</pre>
+
+<p>看上图，之所以存在<code>java</code>内存模型一说是因为<code>java</code>虚拟机的工作机制。当有多个线程的时候，每一个线程可以操作的数据有两种类型</p>
+<ul>
+<li>线程私有的数据，也就是这个数据就算改变了也不会影响其余线程，比如说局部变量就是线程私有的数据</li>
+<li>线程共享的数据，这样的数据多个线程都可以访问，就会出现线程安全的问题</li>
+</ul>
+<p>因为线程操作的数据有不同类型，所以在<code>java</code>中一个线程去操作数据的时候不是在主内存中直接操作，其实还有一个属于线程自己的内存(工作内存)，当操作线程私有的数据比较好理解，直接在工作内存中完成就可以咯，如果是操作共享的数据，那么就在主内存中拿一份数据到自己工作内存中操作，操作完了再将数据给到主内存中。</p>
+<h2 id="内存结构和内存模型的关系"><a href="#内存结构和内存模型的关系" class="headerlink" title="内存结构和内存模型的关系"></a>内存结构和内存模型的关系</h2><p>上面说了什么是<code>java</code>的内存模型，知道<code>java</code>内存模型是一个规范，定义的是程序中变量的访问规则，那么这个内存模型和我们平时所有的内存结构有什么关系呢？先看一下<code>java</code>内存结构</p>
+<h3 id="java内存结构"><a href="#java内存结构" class="headerlink" title="java内存结构"></a>java内存结构</h3><p><code>java</code>中内存结构主要是有五个部分</p>
+<ul>
+<li>程序计数器</li>
+<li>堆</li>
+<li>虚拟机栈<ul>
+<li>存放方法运行时所需的数据，成为栈帧</li>
+</ul>
+</li>
+<li>本地方法栈</li>
+<li>方法区<ul>
+<li>存储运行时常量池、已被虚拟机加载的类信息、常量、静态变量，即时编译后的代码等</li>
+</ul>
+</li>
+</ul>
+<p>上面<code>java</code>的五个部分其实就是根据<code>JMM</code>规范(<code>java</code>内存模型)来划分的一个内存结构。</p>
+<h1 id="并发编程的三个特性"><a href="#并发编程的三个特性" class="headerlink" title="并发编程的三个特性"></a>并发编程的三个特性</h1><h2 id="原子性"><a href="#原子性" class="headerlink" title="原子性"></a>原子性</h2><p>执行的操作不可分割，可以理解为就是一步操作，因为只有一步所以肯定是不能分割的</p>
+<h2 id="可见性"><a href="#可见性" class="headerlink" title="可见性"></a>可见性</h2><p>线程都是有自己的工作空间的，每一个线程都只能操作自己工作空间的数据，别的线程是看不到自己线程的工作空间的数据的</p>
+<h2 id="有序性"><a href="#有序性" class="headerlink" title="有序性"></a>有序性</h2><p>程序中代码的顺序不一定就是在<code>cpu</code>中执行的顺序，因为存在两种重排</p>
+<ul>
+<li>编译重排序(编译期)</li>
+<li>指令重排序(运行期)</li>
+</ul>
+<h1 id="JMM规范是如何保证并发编程的三个特征的呢"><a href="#JMM规范是如何保证并发编程的三个特征的呢" class="headerlink" title="JMM规范是如何保证并发编程的三个特征的呢"></a>JMM规范是如何保证并发编程的三个特征的呢</h1><h2 id="JMM和原子性"><a href="#JMM和原子性" class="headerlink" title="JMM和原子性"></a><code>JMM</code>和原子性</h2><h3 id="原子性案例1"><a href="#原子性案例1" class="headerlink" title="原子性案例1"></a>原子性案例1</h3><p><code>X = 10</code>这样一个操作具有原子性么？</p>
+<ul>
+<li>如果<code>X</code>是私有数据，是分配到工作空间的，那么就是有原子性的，因为只有一个写的操作</li>
+<li>如果<code>X</code>是共享的数据，就是在主内存中，这样就需要先在主内存中读取(复制)到工作空间中，修改完成后再将数据通过到主内存中，这样就是两步，也就是没有原子性</li>
+</ul>
+<h3 id="原子性案例2"><a href="#原子性案例2" class="headerlink" title="原子性案例2"></a>原子性案例2</h3><p><code>i++</code>这个操作具有原子性么？</p>
+<p><code>i++</code>这个操作其实是需要分为下面这几个步骤的</p>
+<ul>
+<li>读取<code>i</code>的值</li>
+<li>将<code>i</code>的值加一</li>
+<li>将修改后的值赋值给<code>i</code></li>
+</ul>
+<p>可以看到每一步都是原子操作，但是这三个原子操作合在一起之后去不是原子操作了</p>
+<h3 id="JMM如何保证原子性的"><a href="#JMM如何保证原子性的" class="headerlink" title="JMM如何保证原子性的"></a>JMM如何保证原子性的</h3><ul>
+<li>使用<code>Synchronized</code>关键字</li>
+<li>使用<code>JUC</code>的<code>lock</code>和<code>unlock</code>关键字</li>
+</ul>
+<h2 id="JMM和可见性"><a href="#JMM和可见性" class="headerlink" title="JMM和可见性"></a><code>JMM</code>和可见性</h2><p>线程是不能操作主内存中的数据的，只能操作自己的工作空间的数据，所以需要数据时会先去工作空间找，如果找到了就会使用工作空间中的数据，找不到才会从主内存中找，但是如果一个线程在工作空间找到了，不过这个数据在别的线程中已经修改了，并且刷新到主内中了，由于当前线程的工作空间中有这个数据，没有在主内存中拿，这样当前线程拿到的就不是最新的数据。<code>JMM</code>是如何解决这个问题的呢？</p>
+<h3 id="JMM如何保证可见性的"><a href="#JMM如何保证可见性的" class="headerlink" title="JMM如何保证可见性的"></a><code>JMM</code>如何保证可见性的</h3><ul>
+<li><code>Volatile</code>关键字，使用这个关键字后，当线程需要使用这个关键字修饰的数据时，每一次都会从主内存中去找数据，而不是从工作空间中找。</li>
+<li><code>JUC</code>  可以使用<code>JUC</code>的<code>lock</code>和<code>unlock</code></li>
+</ul>
+<h2 id="JMM和有序性-重排序"><a href="#JMM和有序性-重排序" class="headerlink" title="JMM和有序性(重排序)"></a><code>JMM</code>和有序性(重排序)</h2><p>对于有序性问题可以使用下面两种方式来解决</p>
+<ul>
+<li>使用<code>Volatile</code>关键字</li>
+<li>使用<code>Synchronized</code>来加锁</li>
+</ul>
+]]></content>
+      <categories>
+        <category>java</category>
+        <category>jvm</category>
+      </categories>
+      <tags>
+        <tag>java</tag>
+        <tag>jvm</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>多线程下的七种单例模式</title>
     <url>/2020/03/07/8d9cabbc288a/</url>
     <content><![CDATA[<p>本文主要分析七种形式的单例模式</p>
@@ -801,211 +1084,6 @@
       </tags>
   </entry>
   <entry>
-    <title>策略模式</title>
-    <url>/2020/03/06/d799834e3476/</url>
-    <content><![CDATA[<h1 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h1><p>策略模式是一种定义一系列算法的方法，从概念上来看，所有这些算法完成的都是相同的工作，只是实现不同，它可以以相同的方式调用所有的算法，减少了各种算法类与使用算法类之间的耦合。</p>
-<span id="more"></span>
-
-<h1 id="案例"><a href="#案例" class="headerlink" title="案例"></a>案例</h1><p>比如我们平时买东西付款方式可以用多种</p>
-<ul>
-<li>支付宝支付</li>
-<li>微信支付</li>
-<li>银联支付</li>
-<li>京东白条支付</li>
-</ul>
-<p>现在来看一下平时我们代码应该如何写。</p>
-<h2 id="不使用策略模式"><a href="#不使用策略模式" class="headerlink" title="不使用策略模式"></a>不使用策略模式</h2><h3 id="支付订单类"><a href="#支付订单类" class="headerlink" title="支付订单类"></a>支付订单类</h3><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> designmode.strategypattern.normal;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> designmode.strategypattern.MsgResult;</span><br><span class="line"><span class="keyword">import</span> designmode.strategypattern.PayStrategy;</span><br><span class="line"><span class="keyword">import</span> designmode.strategypattern.Payment;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Created by Tom.</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">NormalOrder</span> &#123;</span><br><span class="line">    <span class="keyword">private</span> String uid;</span><br><span class="line">    <span class="keyword">private</span> String orderId;</span><br><span class="line">    <span class="keyword">private</span> <span class="type">double</span> amount;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">NormalOrder</span><span class="params">(String uid, String orderId, <span class="type">double</span> amount)</span>&#123;</span><br><span class="line">        <span class="built_in">this</span>.uid = uid;</span><br><span class="line">        <span class="built_in">this</span>.orderId = orderId;</span><br><span class="line">        <span class="built_in">this</span>.amount = amount;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">pay</span><span class="params">(String payKey)</span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (<span class="string">&quot;京东&quot;</span>.equals(payKey)) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="string">&quot;使用京东支付，支付成功&quot;</span>;</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (<span class="string">&quot;支付宝&quot;</span>.equals(payKey)) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="string">&quot;使用支付宝支付，支付成功&quot;</span>;</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (<span class="string">&quot;微信&quot;</span>.equals(payKey)) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="string">&quot;使用微信支付,支付成功&quot;</span>;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="string">&quot;支付方式错误&quot;</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-<h3 id="测试类"><a href="#测试类" class="headerlink" title="测试类"></a>测试类</h3><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> designmode.strategypattern.normal;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">NormalOrderTest</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="type">NormalOrder</span> <span class="variable">order</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">NormalOrder</span>(<span class="string">&quot;1&quot;</span>, <span class="string">&quot;13424123432&quot;</span>, <span class="number">33.22</span>);</span><br><span class="line">        System.out.println(order.pay(<span class="string">&quot;支付宝&quot;</span>));</span><br><span class="line">        System.out.println(order.pay(<span class="string">&quot;微信&quot;</span>));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h3><p>加上后面还有别的支付方式，我们就一直需要修改<code>NormalOrder</code>类的<code>pay</code>方法，需要在里面不断的加上判断，去修改支付逻辑，这就违背了开闭原则。</p>
-<h2 id="使用策略模式"><a href="#使用策略模式" class="headerlink" title="使用策略模式"></a>使用策略模式</h2><p>先看一下使用策略模式的<code>UML</code>类图</p>
-<p><img src="https://s2.loli.net/2023/11/15/6RgaxTJvh5lEdHQ.png"></p>
-<p>从上面的类图中可以看到主体是分为三类</p>
-<ul>
-<li><code>payment</code>接口或抽象类和具体的支付方式<ul>
-<li>因为支付都有相似的功能，比如支付类型，判断该支付类型下账号的余额等，所以需要有一个接口或者抽象类，然后具体的支付方式来实现或者继承这个接口或抽象类。</li>
-</ul>
-</li>
-<li>具体策略，这里就是<code>PayStrategy</code>类，这个类的作用是给上层客户端来调用，获取具体的支付方式</li>
-<li><code>order</code>类就是订单类，可以认为是客户端类</li>
-</ul>
-<p><a href="https://gitee.com/Gwei11/code/tree/master/javabase/strategypattern">策略模式代码</a></p>
-]]></content>
-      <categories>
-        <category>java</category>
-        <category>设计模式</category>
-      </categories>
-      <tags>
-        <tag>java</tag>
-        <tag>设计模式</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>java内存模型</title>
-    <url>/2019/12/19/585a644e7d52/</url>
-    <content><![CDATA[<h1 id="主要内容"><a href="#主要内容" class="headerlink" title="主要内容"></a>主要内容</h1><p><code>java</code>内存模型实际上是一个抽象的概念，是一套规范，而不是一个实际的东西，而<code>java</code>内存结构就是根据这一套规范来进行划分的。</p>
-<span id="more"></span>
-
-<p>对于<code>java</code>内存模型我们主要需要了解以下几个内容：</p>
-<ul>
-<li>硬件内存架构</li>
-<li>线程和<code>jvm</code></li>
-<li><code>java</code>内存模型</li>
-<li><code>java</code>内存模型对并发编程的支持</li>
-</ul>
-<h1 id="硬件内存架构"><a href="#硬件内存架构" class="headerlink" title="硬件内存架构"></a>硬件内存架构</h1><blockquote>
-<p>物理机遇到的并发问题与虚拟机中的情况有很多相似之处，物理机对并发的处理方案对虚拟机的实现也有相当大的参考意义</p>
-</blockquote>
-<p>在计算机模型中主要是有五个部分来组成的</p>
-<ol>
-<li>输入</li>
-<li>寄存器</li>
-<li>cpu<ol>
-<li>处理器</li>
-<li>控制器</li>
-</ol>
-</li>
-<li>输出</li>
-</ol>
-<p>其中<strong>处理器</strong>和<strong>控制器</strong>合起来就是我们所示的<code>cpu</code></p>
-<p>运算器的运算速度都是很快的，但是我们的数据存储不可能所有数据都存放在寄存器中，所以数据的<code>io</code>操作都是很有必要 的，这样就不能充分利用<code>cpu</code>的运算能力，此时就需要<strong>加上读写速度和处理器运算速度差不多的的高速缓存</strong>来作为<strong>内存和处理器之间</strong>的缓冲。将运算需要使用的数据复制到缓存中，让运算能快速进行，当运算结束后再从缓存同步回内存之中，这样处理器就无须等待缓慢的内存读写了。</p>
-<h2 id="缓存一致性问题"><a href="#缓存一致性问题" class="headerlink" title="缓存一致性问题"></a>缓存一致性问题</h2><p>上面加上了缓存可以解决内存的读写速度赶不上处理器的运算速度问题，但是又出现了另外一个问题。<strong>缓存一致性问题</strong></p>
-<p>因为 在多处理器中，每一个处理器都有自己的高速缓存，但是内存是只有一个。对于缓存一致性问题在硬件层面主要有两个解决方式</p>
-<ul>
-<li><p>总线加锁</p>
-<ul>
-<li>所谓的总线加锁就每一次都会锁定一个<code>cpu</code>，只有这个锁定的<code>cpu</code>才可以执行，其余的<code>cpu</code>是不能执行的。这种方式会降低<code>cpu</code>的吞吐量。</li>
-</ul>
-</li>
-<li><p>使用缓存一致性协议，所谓使用缓存一致性协议也就是在缓存和主内存之间加上一个访问规则，通过这种规则来解决缓存一致性问题。</p>
-</li>
-</ul>
-<pre class="mermaid">graph LR
-  A-->B
-  subgraph A[处理器]
-    direction TB
-    A1[处理器1]~~~A2[处理器2]~~~A3[处理器3]
-  end
-  subgraph B[高速缓存]
-    direction TB
-    B1[缓存1]~~~B2[缓存2]~~~B3[缓存3]
-  end
-  B-->C
-  C[缓存一致性]-->D[主内存]</pre>
-<p>这里的<strong>缓存一致性其实是一个协议</strong>，是处理缓存一致性问题的一个协议(也可以任认为是处理缓存一致性问题的一个理论基础)。</p>
-<h1 id="java内存模型-java-memory-mode"><a href="#java内存模型-java-memory-mode" class="headerlink" title="java内存模型(java memory mode)"></a>java内存模型(java memory mode)</h1><h2 id="什么是java内存模型-JMM规范"><a href="#什么是java内存模型-JMM规范" class="headerlink" title="什么是java内存模型(JMM规范)"></a>什么是<code>java</code>内存模型(JMM规范)</h2><p><strong><code>java</code>内存模型其实也是一个理论上的东西，是一个规范，这个规范的主要目的是定义程序中各种变量的访问规则，也就是关注的是虚拟机中把变量值存储到内存和从内存中取出变量值这样的底层细节。</strong>此处的变量和<code>java</code>编程中的变量是不同的，这里的变量包含了实例字段，静态字段和构成数组对象的元素，但是不包括局部变量和方法参数。（上面这段话是《深入理解java虚拟机》这本书中的）</p>
-<p><code>jvm</code>将内存组织结构主要划分为两个部分</p>
-<ul>
-<li>主内存</li>
-<li>工作内存</li>
-</ul>
-<pre class="mermaid">graph LR
-  A-->B
-  subgraph A[java线程]
-    direction TB
-    A1[线程1]~~~A2[线程2]~~~A3[线程3]
-  end
-  subgraph B[工作内存]
-    direction TB
-    B1[工作内存1]~~~B2[工作内存2]~~~B3[工作内存3]
-  end
-  B-->C
-  C[save和load操作]-->D[主内存]</pre>
-
-<h3 id="主内存"><a href="#主内存" class="headerlink" title="主内存"></a>主内存</h3><ul>
-<li>主要包含本地方法区和堆</li>
-<li>所有变量都要存储在主内存中，这些变量对于所有线程都是共享的</li>
-</ul>
-<h3 id="工作内存"><a href="#工作内存" class="headerlink" title="工作内存"></a>工作内存</h3><ul>
-<li>每一个线程都有自己独立工作的地方，也就是工作内存</li>
-<li>工作内存中保存的是主内存中某些变量的拷贝，线程堆变量的所有操作都必须在工作内存中进行，不能直接操作主内存</li>
-<li><strong>如果是基本数据类型，那么直接分配到工作内存，如果是引用类型，引用的地址存在在工作空间中，但是具体的对象是存在在堆中(也就是主内存中)，是可以共享的</strong></li>
-</ul>
-<pre class="mermaid">graph LR
-  subgraph B[java线程]
-    direction BT
-    B1[线程2]-->B2[工作内存2]
-    B2-->B1
-  end
-  subgraph A[java线程]
-    direction BT
-    A1[线程1]-->A2[工作内存1]
-    A2-->A1
-  end
-  C[主内存]
-  A & B --> C
-  C --> A & B</pre>
-
-<p>看上图，之所以存在<code>java</code>内存模型一说是因为<code>java</code>虚拟机的工作机制。当有多个线程的时候，每一个线程可以操作的数据有两种类型</p>
-<ul>
-<li>线程私有的数据，也就是这个数据就算改变了也不会影响其余线程，比如说局部变量就是线程私有的数据</li>
-<li>线程共享的数据，这样的数据多个线程都可以访问，就会出现线程安全的问题</li>
-</ul>
-<p>因为线程操作的数据有不同类型，所以在<code>java</code>中一个线程去操作数据的时候不是在主内存中直接操作，其实还有一个属于线程自己的内存(工作内存)，当操作线程私有的数据比较好理解，直接在工作内存中完成就可以咯，如果是操作共享的数据，那么就在主内存中拿一份数据到自己工作内存中操作，操作完了再将数据给到主内存中。</p>
-<h2 id="内存结构和内存模型的关系"><a href="#内存结构和内存模型的关系" class="headerlink" title="内存结构和内存模型的关系"></a>内存结构和内存模型的关系</h2><p>上面说了什么是<code>java</code>的内存模型，知道<code>java</code>内存模型是一个规范，定义的是程序中变量的访问规则，那么这个内存模型和我们平时所有的内存结构有什么关系呢？先看一下<code>java</code>内存结构</p>
-<h3 id="java内存结构"><a href="#java内存结构" class="headerlink" title="java内存结构"></a>java内存结构</h3><p><code>java</code>中内存结构主要是有五个部分</p>
-<ul>
-<li>程序计数器</li>
-<li>堆</li>
-<li>虚拟机栈<ul>
-<li>存放方法运行时所需的数据，成为栈帧</li>
-</ul>
-</li>
-<li>本地方法栈</li>
-<li>方法区<ul>
-<li>存储运行时常量池、已被虚拟机加载的类信息、常量、静态变量，即时编译后的代码等</li>
-</ul>
-</li>
-</ul>
-<p>上面<code>java</code>的五个部分其实就是根据<code>JMM</code>规范(<code>java</code>内存模型)来划分的一个内存结构。</p>
-<h1 id="并发编程的三个特性"><a href="#并发编程的三个特性" class="headerlink" title="并发编程的三个特性"></a>并发编程的三个特性</h1><h2 id="原子性"><a href="#原子性" class="headerlink" title="原子性"></a>原子性</h2><p>执行的操作不可分割，可以理解为就是一步操作，因为只有一步所以肯定是不能分割的</p>
-<h2 id="可见性"><a href="#可见性" class="headerlink" title="可见性"></a>可见性</h2><p>线程都是有自己的工作空间的，每一个线程都只能操作自己工作空间的数据，别的线程是看不到自己线程的工作空间的数据的</p>
-<h2 id="有序性"><a href="#有序性" class="headerlink" title="有序性"></a>有序性</h2><p>程序中代码的顺序不一定就是在<code>cpu</code>中执行的顺序，因为存在两种重排</p>
-<ul>
-<li>编译重排序(编译期)</li>
-<li>指令重排序(运行期)</li>
-</ul>
-<h1 id="JMM规范是如何保证并发编程的三个特征的呢"><a href="#JMM规范是如何保证并发编程的三个特征的呢" class="headerlink" title="JMM规范是如何保证并发编程的三个特征的呢"></a>JMM规范是如何保证并发编程的三个特征的呢</h1><h2 id="JMM和原子性"><a href="#JMM和原子性" class="headerlink" title="JMM和原子性"></a><code>JMM</code>和原子性</h2><h3 id="原子性案例1"><a href="#原子性案例1" class="headerlink" title="原子性案例1"></a>原子性案例1</h3><p><code>X = 10</code>这样一个操作具有原子性么？</p>
-<ul>
-<li>如果<code>X</code>是私有数据，是分配到工作空间的，那么就是有原子性的，因为只有一个写的操作</li>
-<li>如果<code>X</code>是共享的数据，就是在主内存中，这样就需要先在主内存中读取(复制)到工作空间中，修改完成后再将数据通过到主内存中，这样就是两步，也就是没有原子性</li>
-</ul>
-<h3 id="原子性案例2"><a href="#原子性案例2" class="headerlink" title="原子性案例2"></a>原子性案例2</h3><p><code>i++</code>这个操作具有原子性么？</p>
-<p><code>i++</code>这个操作其实是需要分为下面这几个步骤的</p>
-<ul>
-<li>读取<code>i</code>的值</li>
-<li>将<code>i</code>的值加一</li>
-<li>将修改后的值赋值给<code>i</code></li>
-</ul>
-<p>可以看到每一步都是原子操作，但是这三个原子操作合在一起之后去不是原子操作了</p>
-<h3 id="JMM如何保证原子性的"><a href="#JMM如何保证原子性的" class="headerlink" title="JMM如何保证原子性的"></a>JMM如何保证原子性的</h3><ul>
-<li>使用<code>Synchronized</code>关键字</li>
-<li>使用<code>JUC</code>的<code>lock</code>和<code>unlock</code>关键字</li>
-</ul>
-<h2 id="JMM和可见性"><a href="#JMM和可见性" class="headerlink" title="JMM和可见性"></a><code>JMM</code>和可见性</h2><p>线程是不能操作主内存中的数据的，只能操作自己的工作空间的数据，所以需要数据时会先去工作空间找，如果找到了就会使用工作空间中的数据，找不到才会从主内存中找，但是如果一个线程在工作空间找到了，不过这个数据在别的线程中已经修改了，并且刷新到主内中了，由于当前线程的工作空间中有这个数据，没有在主内存中拿，这样当前线程拿到的就不是最新的数据。<code>JMM</code>是如何解决这个问题的呢？</p>
-<h3 id="JMM如何保证可见性的"><a href="#JMM如何保证可见性的" class="headerlink" title="JMM如何保证可见性的"></a><code>JMM</code>如何保证可见性的</h3><ul>
-<li><code>Volatile</code>关键字，使用这个关键字后，当线程需要使用这个关键字修饰的数据时，每一次都会从主内存中去找数据，而不是从工作空间中找。</li>
-<li><code>JUC</code>  可以使用<code>JUC</code>的<code>lock</code>和<code>unlock</code></li>
-</ul>
-<h2 id="JMM和有序性-重排序"><a href="#JMM和有序性-重排序" class="headerlink" title="JMM和有序性(重排序)"></a><code>JMM</code>和有序性(重排序)</h2><p>对于有序性问题可以使用下面两种方式来解决</p>
-<ul>
-<li>使用<code>Volatile</code>关键字</li>
-<li>使用<code>Synchronized</code>来加锁</li>
-</ul>
-]]></content>
-      <categories>
-        <category>java</category>
-        <category>jvm</category>
-      </categories>
-      <tags>
-        <tag>java</tag>
-        <tag>jvm</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>join方法详解</title>
     <url>/2019/11/06/86139434f79c/</url>
     <content><![CDATA[<h1 id="join的使用"><a href="#join的使用" class="headerlink" title="join的使用"></a>join的使用</h1><h2 id="正常情形"><a href="#正常情形" class="headerlink" title="正常情形"></a>正常情形</h2><p><code>join</code>的目的是让调用线程等待被调用的线程执行完成之后再继续。</p>
@@ -1054,9 +1132,87 @@
       </tags>
   </entry>
   <entry>
+    <title>策略模式</title>
+    <url>/2020/03/06/d799834e3476/</url>
+    <content><![CDATA[<h1 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h1><p>策略模式是一种定义一系列算法的方法，从概念上来看，所有这些算法完成的都是相同的工作，只是实现不同，它可以以相同的方式调用所有的算法，减少了各种算法类与使用算法类之间的耦合。</p>
+<span id="more"></span>
+
+<h1 id="案例"><a href="#案例" class="headerlink" title="案例"></a>案例</h1><p>比如我们平时买东西付款方式可以用多种</p>
+<ul>
+<li>支付宝支付</li>
+<li>微信支付</li>
+<li>银联支付</li>
+<li>京东白条支付</li>
+</ul>
+<p>现在来看一下平时我们代码应该如何写。</p>
+<h2 id="不使用策略模式"><a href="#不使用策略模式" class="headerlink" title="不使用策略模式"></a>不使用策略模式</h2><h3 id="支付订单类"><a href="#支付订单类" class="headerlink" title="支付订单类"></a>支付订单类</h3><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> designmode.strategypattern.normal;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> designmode.strategypattern.MsgResult;</span><br><span class="line"><span class="keyword">import</span> designmode.strategypattern.PayStrategy;</span><br><span class="line"><span class="keyword">import</span> designmode.strategypattern.Payment;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Created by Tom.</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">NormalOrder</span> &#123;</span><br><span class="line">    <span class="keyword">private</span> String uid;</span><br><span class="line">    <span class="keyword">private</span> String orderId;</span><br><span class="line">    <span class="keyword">private</span> <span class="type">double</span> amount;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">NormalOrder</span><span class="params">(String uid, String orderId, <span class="type">double</span> amount)</span>&#123;</span><br><span class="line">        <span class="built_in">this</span>.uid = uid;</span><br><span class="line">        <span class="built_in">this</span>.orderId = orderId;</span><br><span class="line">        <span class="built_in">this</span>.amount = amount;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">pay</span><span class="params">(String payKey)</span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (<span class="string">&quot;京东&quot;</span>.equals(payKey)) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="string">&quot;使用京东支付，支付成功&quot;</span>;</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (<span class="string">&quot;支付宝&quot;</span>.equals(payKey)) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="string">&quot;使用支付宝支付，支付成功&quot;</span>;</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (<span class="string">&quot;微信&quot;</span>.equals(payKey)) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="string">&quot;使用微信支付,支付成功&quot;</span>;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="string">&quot;支付方式错误&quot;</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="测试类"><a href="#测试类" class="headerlink" title="测试类"></a>测试类</h3><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> designmode.strategypattern.normal;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">NormalOrderTest</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="type">NormalOrder</span> <span class="variable">order</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">NormalOrder</span>(<span class="string">&quot;1&quot;</span>, <span class="string">&quot;13424123432&quot;</span>, <span class="number">33.22</span>);</span><br><span class="line">        System.out.println(order.pay(<span class="string">&quot;支付宝&quot;</span>));</span><br><span class="line">        System.out.println(order.pay(<span class="string">&quot;微信&quot;</span>));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h3><p>加上后面还有别的支付方式，我们就一直需要修改<code>NormalOrder</code>类的<code>pay</code>方法，需要在里面不断的加上判断，去修改支付逻辑，这就违背了开闭原则。</p>
+<h2 id="使用策略模式"><a href="#使用策略模式" class="headerlink" title="使用策略模式"></a>使用策略模式</h2><p>先看一下使用策略模式的<code>UML</code>类图</p>
+<p><img src="https://s2.loli.net/2023/11/15/6RgaxTJvh5lEdHQ.png"></p>
+<p>从上面的类图中可以看到主体是分为三类</p>
+<ul>
+<li><code>payment</code>接口或抽象类和具体的支付方式<ul>
+<li>因为支付都有相似的功能，比如支付类型，判断该支付类型下账号的余额等，所以需要有一个接口或者抽象类，然后具体的支付方式来实现或者继承这个接口或抽象类。</li>
+</ul>
+</li>
+<li>具体策略，这里就是<code>PayStrategy</code>类，这个类的作用是给上层客户端来调用，获取具体的支付方式</li>
+<li><code>order</code>类就是订单类，可以认为是客户端类</li>
+</ul>
+<p><a href="https://gitee.com/Gwei11/code/tree/master/javabase/strategypattern">策略模式代码</a></p>
+]]></content>
+      <categories>
+        <category>java</category>
+        <category>设计模式</category>
+      </categories>
+      <tags>
+        <tag>java</tag>
+        <tag>设计模式</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>synchronized的作用和实现原理</title>
     <url>/2023/11/11/138a9fb1d57d/</url>
     <content><![CDATA[<p>[参考链接](<a href="https://www.yuque.com/guoweiblog/nxz7iv/xikre6?singleDoc#">https://www.yuque.com/guoweiblog/nxz7iv/xikre6?singleDoc#</a> 《synchronized 的作用和实现原理》)</p>
+]]></content>
+      <categories>
+        <category>java</category>
+        <category>多线程</category>
+      </categories>
+      <tags>
+        <tag>java</tag>
+        <tag>多线程</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>实现多线程的两种方式</title>
+    <url>/2019/12/06/df5fc5395378/</url>
+    <content><![CDATA[<h1 id="线程到底有几种创建方式"><a href="#线程到底有几种创建方式" class="headerlink" title="线程到底有几种创建方式"></a>线程到底有几种创建方式</h1><p>有的说是三种，有的说是四种，还有的两种或者六种，那么到底是几种呢，我们看一下<code>oracle</code>的<code>javase</code>文档就知道了。</p>
+<span id="more"></span>
+
+<p><a href="https://docs.oracle.com/javase/8/docs/api/index.html">官方文档</a><br>文档中提到有两种方式来创建线程，那么到底是哪两种呢？</p>
+<ul>
+<li>通过继承<code>Thread</code>来来创建线程</li>
+<li>通过实现<code>Runnable</code>接口来创建线程</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> createthread;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">TwoWayToCreateThread</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="type">One</span> <span class="variable">one</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">One</span>();</span><br><span class="line">        one.start();</span><br><span class="line">        <span class="type">Two</span> <span class="variable">two</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Two</span>();</span><br><span class="line">        <span class="keyword">new</span> <span class="title class_">Thread</span>(<span class="keyword">new</span> <span class="title class_">Two</span>()).start();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">One</span> <span class="keyword">extends</span> <span class="title class_">Thread</span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">run</span><span class="params">()</span> &#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;通过继承Threa来创建线程&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Two</span> <span class="keyword">implements</span> <span class="title class_">Runnable</span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">run</span><span class="params">()</span> &#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;通过实现Runnable接口的方式来实现一个线程&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="创建线程的本质"><a href="#创建线程的本质" class="headerlink" title="创建线程的本质"></a>创建线程的本质</h2><p>上面写了线程创建的两种方式，线程创建中其实都是执行<code>run</code>方法，只不过使用继承<code>Thread</code>类的时候是执行<code>Thread</code>类中<code>run</code>方法，如果是实现<code>Runnable</code>接口，则是执行<code>Runnable</code>接口中的<code>run</code>方法。</p>
+<p><font color="red">注:无论是使用Thread还是Runnable，启动线程都是使用需要Thread，所以其实都是调用Thread类的run方法</font></p>
+<p>看一下<code>Thread</code>的<code>run</code>方法</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">private</span> Runnable target;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">run</span><span class="params">()</span> &#123;</span><br><span class="line">  <span class="keyword">if</span> (target != <span class="literal">null</span>) &#123;</span><br><span class="line">    target.run();</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>所以如果是使用<code>Runnable</code>的形式实际上是将我们实现<code>Runnable</code>的类传到<code>Thread</code>类中，然后调用<code>run</code>方法的时候就是调用我们的<code>run</code>方法。如果是继承<code>Thread</code>类的话我们自己的类也会重写<code>run</code>方法，子类重写父类的方法，只会调用子类的方法，所以<code>Thread</code>类中<code>run</code>方法就不会执行。</p>
+<h2 id="两种方式同时使用"><a href="#两种方式同时使用" class="headerlink" title="两种方式同时使用"></a>两种方式同时使用</h2><p>上面说有两种方式可以创建线程，那么如果我们将两种方式一起使用，会是怎么个情形呢？请看下面代码：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> createthread;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">UseTwoWayTogather</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="keyword">new</span> <span class="title class_">Thread</span>(<span class="keyword">new</span> <span class="title class_">Runnable</span>() &#123;</span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">run</span><span class="params">()</span> &#123;</span><br><span class="line">                System.out.println(<span class="string">&quot;使用实现Runnable的方式来创建线程&quot;</span>);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;)&#123;</span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">run</span><span class="params">()</span> &#123;</span><br><span class="line">                System.out.println(<span class="string">&quot;使用继承Thread的方式来创建线程&quot;</span>);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;.start();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>上面通过匿名内部类的方式将两种创建线程的方式同时使用，那么打印的结果会是什么呢？</p>
+<p>结果是： <strong>使用继承Thread的方式来创建线程</strong>？<strong>why</strong></p>
+<p>上面已经说了创建线程的本质是执行<code>Thread</code>类中<code>run</code>，如果两种方式同时使用，那么子类中重写了父类方法，父类方法就不会继续执行，所以此时执行的是子类的<code>run</code>方法，这样<code>Thread</code>类中的<code>run</code>方法就不会执行，所以也就不会是通过实现<code>Runnable</code>的方式来创建线程。</p>
 ]]></content>
       <categories>
         <category>java</category>
@@ -1138,41 +1294,6 @@
 <p>你可能有一个疑问，上面使用<code>volatile</code>在生产者中之所以没有起作用，是因为线程被阻塞了，那么使用<code>interrupt</code>的时候，线程不也是会被阻塞么？当线程阻塞的时候为什么还会走到<code>while</code>判断呢？这是因为在消费者线程即使是在阻塞的状态也是可以接收线程中断的信号的，并且会抛出异常，这样去就可以进行下一次循环，而且这个阻塞队列也不会消除中断标识，所以在<code>while</code>判断中可以使用线程中断标识。</p>
 <h1 id="对于线程中方法正确调用姿势"><a href="#对于线程中方法正确调用姿势" class="headerlink" title="对于线程中方法正确调用姿势"></a>对于线程中方法正确调用姿势</h1><h2 id="抛出是首选"><a href="#抛出是首选" class="headerlink" title="抛出是首选"></a>抛出是首选</h2><p>如果在一个线程中(也就是<code>run</code>方法)需要去调用另外一个方法A,那么在方法A中应该如何处理<code>InterruptException</code>呢。我们知道异常的处理方式有两种，一种是<code>try-catch</code>,还有一种是<code>throws</code>,正确的姿势是使用<code>throw</code>来抛出异常，让方法调用方来处理异常。</p>
 <h2 id="恢复中断"><a href="#恢复中断" class="headerlink" title="恢复中断"></a>恢复中断</h2><p>当然有可能是不想抛出或者是没有办法抛出，那么此时就需要捕获异常，并且在<code>catch</code>块中再一次恢复中断，怎么恢复中断呢，其实就是调用<code>Thread.currentThread.inerrupt()</code>方法即可。</p>
-]]></content>
-      <categories>
-        <category>java</category>
-        <category>多线程</category>
-      </categories>
-      <tags>
-        <tag>java</tag>
-        <tag>多线程</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>实现多线程的两种方式</title>
-    <url>/2019/12/06/df5fc5395378/</url>
-    <content><![CDATA[<h1 id="线程到底有几种创建方式"><a href="#线程到底有几种创建方式" class="headerlink" title="线程到底有几种创建方式"></a>线程到底有几种创建方式</h1><p>有的说是三种，有的说是四种，还有的两种或者六种，那么到底是几种呢，我们看一下<code>oracle</code>的<code>javase</code>文档就知道了。</p>
-<span id="more"></span>
-
-<p><a href="https://docs.oracle.com/javase/8/docs/api/index.html">官方文档</a><br>文档中提到有两种方式来创建线程，那么到底是哪两种呢？</p>
-<ul>
-<li>通过继承<code>Thread</code>来来创建线程</li>
-<li>通过实现<code>Runnable</code>接口来创建线程</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> createthread;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">TwoWayToCreateThread</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="type">One</span> <span class="variable">one</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">One</span>();</span><br><span class="line">        one.start();</span><br><span class="line">        <span class="type">Two</span> <span class="variable">two</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Two</span>();</span><br><span class="line">        <span class="keyword">new</span> <span class="title class_">Thread</span>(<span class="keyword">new</span> <span class="title class_">Two</span>()).start();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">One</span> <span class="keyword">extends</span> <span class="title class_">Thread</span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">run</span><span class="params">()</span> &#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;通过继承Threa来创建线程&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Two</span> <span class="keyword">implements</span> <span class="title class_">Runnable</span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">run</span><span class="params">()</span> &#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;通过实现Runnable接口的方式来实现一个线程&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="创建线程的本质"><a href="#创建线程的本质" class="headerlink" title="创建线程的本质"></a>创建线程的本质</h2><p>上面写了线程创建的两种方式，线程创建中其实都是执行<code>run</code>方法，只不过使用继承<code>Thread</code>类的时候是执行<code>Thread</code>类中<code>run</code>方法，如果是实现<code>Runnable</code>接口，则是执行<code>Runnable</code>接口中的<code>run</code>方法。</p>
-<p><font color="red">注:无论是使用Thread还是Runnable，启动线程都是使用需要Thread，所以其实都是调用Thread类的run方法</font></p>
-<p>看一下<code>Thread</code>的<code>run</code>方法</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">private</span> Runnable target;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">run</span><span class="params">()</span> &#123;</span><br><span class="line">  <span class="keyword">if</span> (target != <span class="literal">null</span>) &#123;</span><br><span class="line">    target.run();</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>所以如果是使用<code>Runnable</code>的形式实际上是将我们实现<code>Runnable</code>的类传到<code>Thread</code>类中，然后调用<code>run</code>方法的时候就是调用我们的<code>run</code>方法。如果是继承<code>Thread</code>类的话我们自己的类也会重写<code>run</code>方法，子类重写父类的方法，只会调用子类的方法，所以<code>Thread</code>类中<code>run</code>方法就不会执行。</p>
-<h2 id="两种方式同时使用"><a href="#两种方式同时使用" class="headerlink" title="两种方式同时使用"></a>两种方式同时使用</h2><p>上面说有两种方式可以创建线程，那么如果我们将两种方式一起使用，会是怎么个情形呢？请看下面代码：</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> createthread;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">UseTwoWayTogather</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="keyword">new</span> <span class="title class_">Thread</span>(<span class="keyword">new</span> <span class="title class_">Runnable</span>() &#123;</span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">run</span><span class="params">()</span> &#123;</span><br><span class="line">                System.out.println(<span class="string">&quot;使用实现Runnable的方式来创建线程&quot;</span>);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;)&#123;</span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">run</span><span class="params">()</span> &#123;</span><br><span class="line">                System.out.println(<span class="string">&quot;使用继承Thread的方式来创建线程&quot;</span>);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;.start();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>上面通过匿名内部类的方式将两种创建线程的方式同时使用，那么打印的结果会是什么呢？</p>
-<p>结果是： <strong>使用继承Thread的方式来创建线程</strong>？<strong>why</strong></p>
-<p>上面已经说了创建线程的本质是执行<code>Thread</code>类中<code>run</code>，如果两种方式同时使用，那么子类中重写了父类方法，父类方法就不会继续执行，所以此时执行的是子类的<code>run</code>方法，这样<code>Thread</code>类中的<code>run</code>方法就不会执行，所以也就不会是通过实现<code>Runnable</code>的方式来创建线程。</p>
 ]]></content>
       <categories>
         <category>java</category>
@@ -1354,89 +1475,29 @@
       </tags>
   </entry>
   <entry>
-    <title>redis底层数据结构</title>
-    <url>/2023/11/15/19e21a188fd0/</url>
-    <content><![CDATA[<h1 id="redis-对象"><a href="#redis-对象" class="headerlink" title="redis 对象"></a>redis 对象</h1><p><code>redis</code> 中所有数据类型都是使用 <code>RedisObject</code> 对象形式来表示，<code>RedisObject</code> 主要包含三个字段</p>
-<span id="more"></span>
-
-<pre class="mermaid">graph LR
-    A[RedisObject]
-    A-->B["type (记录对象的类型) \n 常用5种基本类型，实际还有BitMap（2.2 版新增）\n、HyperLogLog（2.8 版新增）、\n GEO（3.2 版新增）、Stream（5.0 版新增）"]
-
-    B1[String 字符串对象]
-    B2[List 列表集合]
-    B3[Hash 哈希对象]
-    B4[Set 集合对象]
-    B5[Zset 有序集合对象]
-    B--> B1 & B2 & B3 & B4 & B5
-
-    A-->C["encoding (记录对象的编码)"]
-    C1[Intset 整数集合]
-    C2[embstr embstr编码的简单动态字符串]
-    C3[raw 简单动态字符串]
-    C4[HT 字典]
-    C5[Linkedlist 双端列表]
-    C6[ziplist 压缩列表]
-    C7[skiplist 跳跃表和字典]
-    C8[quicklist 快速列表]
-    C-->C1 & C2 & C3 & C4 & C5 & C6 & C7 & C8
-
-    A-->D["*ptr (指向具体的类型)"]</pre>
-
-<h2 id="为什么一个对象需要包含-type-和-encoding"><a href="#为什么一个对象需要包含-type-和-encoding" class="headerlink" title="为什么一个对象需要包含 type 和 encoding"></a>为什么一个对象需要包含 <code>type</code> 和 <code>encoding</code></h2><ol>
-<li>因为 <code>type</code> 只是记录对象的类型</li>
-<li>每一个 <code>type</code> 可以使用不同的底层数据结构来实现，所以还需要具体的 <code>encoding</code> 来指明这个 <code>type</code> 的实现是什么， 下图就列出每一个 <code>type</code> 有哪几种底层数据结构</li>
+    <title>utools自动化脚本插件</title>
+    <url>/2023/11/11/d899f5ff1973/</url>
+    <content><![CDATA[<h1 id="utools-使用自动化脚本打开本地程序"><a href="#utools-使用自动化脚本打开本地程序" class="headerlink" title="utools 使用自动化脚本打开本地程序"></a>utools 使用自动化脚本打开本地程序</h1><ol>
+<li>比如 typora 可以打开之前的文件和目录，但是目录只能到文件的上一个层级，如果源目录包含很多子目录，重新打开时可能不是我们想要的结果，那可以在命令行执行 <code>typora folder</code>, eg: <code>typora E:\\blog</code> <span id="more"></span></li>
 </ol>
-<h1 id="5-种基本数据类型对应的底层实现"><a href="#5-种基本数据类型对应的底层实现" class="headerlink" title="5 种基本数据类型对应的底层实现"></a>5 种基本数据类型对应的底层实现</h1><h2 id="String"><a href="#String" class="headerlink" title="String"></a>String</h2><ol>
-<li><code>String</code> 类型的底层的数据结构实现主要是 <code>int</code> 和 <code>SDS</code>（简单动态字符串）<ol>
-<li>如果存储的是数字，则编码使用 <code>int</code> 类型</li>
-</ol>
-</li>
-<li><code>sds</code> 的实际编码又包含 <code>raw</code> 和 <code>embstr</code><ol>
-<li>字符串长度小于 32位时使用 <code>embstr</code>(<code>embstr</code> 的空间挨着 <code>RedisObject，RedisObject</code> 和 <code>embstr</code> 的内存是一次性分配的)</li>
-<li>字符串长度大于 32位时使用 <code>raw</code> 编码(<code>RedisObject</code> 的内存分区和 <code>raw</code> 编码类型的空间分配是分开的，也就是需要两次内存分配)</li>
-</ol>
-</li>
-</ol>
-<h3 id="SDS-和-C-原生字符串的区别"><a href="#SDS-和-C-原生字符串的区别" class="headerlink" title="SDS 和 C 原生字符串的区别"></a>SDS 和 C 原生字符串的区别</h3><ol>
-<li><code>sds</code> 可以保存文本和二进制数据，因为 <code>sds</code> 有 <code>length</code> 字段来判断字符串是否结束，c 使用 ‘\0’ 作为结束符</li>
-<li><code>sds</code> 的 <code>api</code> 安全，不会出现缓冲区溢出，因为 <code>sds</code> 拼接字符串前有做容量检查</li>
-</ol>
-<h2 id="List"><a href="#List" class="headerlink" title="List"></a>List</h2><ol>
-<li><code>List</code> 类型的底层数据结构是由双向链表或压缩列表实现的<ol>
-<li>元素个数小于 512 个（默认值，可由 <code>list-max-ziplist-entries</code> 配置），列表每个元素的值都小于 64 字节（默认值，可由 <code>list-max-ziplist-value</code> <code>配置），Redis</code> 会使用压缩列表作为 <code>List</code> 类型的底层数据结构；</li>
-</ol>
-</li>
-<li>在 <code>Redis3.2</code> 版本之后，<code>List</code> 类型底层数据结构只有 <code>quicklist</code> 一种</li>
-</ol>
-<h2 id="Hash"><a href="#Hash" class="headerlink" title="Hash"></a>Hash</h2><ol>
-<li><code>Hash</code> 类型的底层数据结构是由压缩列表或哈希表实现的<ol>
-<li>元素个数小于 512 个（可通过 <code>hash-max-ziplist-entries</code> 修改），所有值小于 64 字节（可通过 <code>hash-max-ziplist-value</code> 修改）时，<code>Redis</code> 会使用压缩列表作为 <code>Hash</code> 类型的底层数据结构</li>
-</ol>
-</li>
-<li>在 <code>Redis7.0</code> 中，压缩列表数据结构被废弃，由 <code>listpack</code> 数据结构来实现</li>
-</ol>
-<h2 id="Set"><a href="#Set" class="headerlink" title="Set"></a>Set</h2><ol>
-<li><code>Set</code> 类型的底层数据结构是由哈希表或整数集合实现的<ol>
-<li>如果集合中的元素都是整数且元素个数小于 512 （可通过 <code>set-maxintset-entries</code> 修改）个，<code>Redis</code> 会使用整数集合作为 Set 类型的底层数据结构</li>
-</ol>
-</li>
-</ol>
-<h2 id="Zset"><a href="#Zset" class="headerlink" title="Zset"></a>Zset</h2><ol>
-<li><p>Zset 类型底层数据结构是由压缩列表或跳表实现</p>
+<blockquote>
+<p>在命令行执行 typora 命令需要先配置 typora 的环境变量</p>
+</blockquote>
 <ol>
-<li>若有序集合的元素个数小于 128 个且每个元素的值小于 64 字节，<code>Redis</code> 会使用压缩列表作为 <code>Zset</code> 类型的底层数据结构</li>
+<li>更简便的方式是直接使用 utools 的自动化脚本这个插件，新增一个自己的插件脚本，内容如下</li>
 </ol>
-</li>
-<li><p><code>Redis 7.0</code> 中，压缩列表数据结构被废弃，交由 <code>listpack</code> 数据结构来实现</p>
-</li>
-</ol>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> &#123; execFile &#125; = <span class="built_in">require</span>(<span class="string">&quot;child_process&quot;</span>)</span><br><span class="line"></span><br><span class="line"> <span class="comment">// 以下是关键代码，调用 typora 来执行目标文件</span></span><br><span class="line"><span class="title function_">execFile</span>(<span class="string">&#x27;typora&#x27;</span>, [<span class="string">&#x27;E:/code/learnerguo&#x27;</span>], <span class="function">(<span class="params">error, stdout, stderr</span>) =&gt;</span> &#123;</span><br><span class="line">    process.<span class="title function_">exit</span>()</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<p>然后自定义关键字，后续当打开 utools 输入对应关键字就可以打开 typora 的目录</p>
+<h1 id="使用自动化脚本获取当天起始时间"><a href="#使用自动化脚本获取当天起始时间" class="headerlink" title="使用自动化脚本获取当天起始时间"></a>使用自动化脚本获取当天起始时间</h1><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> now = <span class="keyword">new</span> <span class="title class_">Date</span>();</span><br><span class="line"><span class="comment">// 设置当前时间的小时、分钟、秒和毫秒为0，即将时间设置为当天的开始时间</span></span><br><span class="line">now.<span class="title function_">setHours</span>(<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>);</span><br><span class="line"><span class="comment">// 获取当天开始时间点的毫秒数</span></span><br><span class="line"><span class="keyword">const</span> startTime = now.<span class="title function_">getTime</span>();</span><br><span class="line">utools.<span class="title function_">copyText</span>(<span class="string">&quot;&quot;</span>+startTime);</span><br><span class="line"><span class="title function_">print</span>(<span class="string">&#x27;开始时间已复制&#x27;</span> + startTime);</span><br><span class="line">utools.<span class="title function_">hideMainWindow</span>();</span><br><span class="line">process.<span class="title function_">exit</span>()</span><br></pre></td></tr></table></figure>
 ]]></content>
       <categories>
-        <category>redis</category>
+        <category>tools</category>
+        <category>utools</category>
       </categories>
       <tags>
-        <tag>redis</tag>
+        <tag>tools</tag>
+        <tag>utools</tag>
       </tags>
   </entry>
   <entry>
@@ -1485,31 +1546,6 @@
       </categories>
       <tags>
         <tag>tools</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>utools自动化脚本插件</title>
-    <url>/2023/11/11/d899f5ff1973/</url>
-    <content><![CDATA[<h1 id="utools-使用自动化脚本打开本地程序"><a href="#utools-使用自动化脚本打开本地程序" class="headerlink" title="utools 使用自动化脚本打开本地程序"></a>utools 使用自动化脚本打开本地程序</h1><ol>
-<li>比如 typora 可以打开之前的文件和目录，但是目录只能到文件的上一个层级，如果源目录包含很多子目录，重新打开时可能不是我们想要的结果，那可以在命令行执行 <code>typora folder</code>, eg: <code>typora E:\\blog</code></li>
-</ol>
-<blockquote>
-<p>在命令行执行 typora 命令需要先配置 typora 的环境变量</p>
-</blockquote>
-<ol start="2">
-<li>更简便的方式是直接使用 utools 的自动化脚本这个插件，新增一个自己的插件脚本，内容如下</li>
-</ol>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> &#123; execFile &#125; = <span class="built_in">require</span>(<span class="string">&quot;child_process&quot;</span>)</span><br><span class="line"></span><br><span class="line"> <span class="comment">// 以下是关键代码，调用 typora 来执行目标文件</span></span><br><span class="line"><span class="title function_">execFile</span>(<span class="string">&#x27;typora&#x27;</span>, [<span class="string">&#x27;E:/code/learnerguo&#x27;</span>], <span class="function">(<span class="params">error, stdout, stderr</span>) =&gt;</span> &#123;</span><br><span class="line">    process.<span class="title function_">exit</span>()</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-
-<p>然后自定义关键字，后续当打开 utools 输入对应关键字就可以打开 typora 的目录</p>
-]]></content>
-      <categories>
-        <category>tools</category>
-        <category>utools</category>
-      </categories>
-      <tags>
-        <tag>tools</tag>
-        <tag>utools</tag>
       </tags>
   </entry>
 </search>
