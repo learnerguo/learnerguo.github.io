@@ -2,6 +2,15 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://personalstudy.ltd/2023/11/17/9f417cc2ea5e/</loc>
+    
+    <lastmod>2023-11-17</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>https://personalstudy.ltd/2023/11/15/19e21a188fd0/</loc>
     
     <lastmod>2023-11-17</lastmod>
@@ -12,15 +21,6 @@
   
   <url>
     <loc>https://personalstudy.ltd/2023/11/17/f31e3a7691d6/</loc>
-    
-    <lastmod>2023-11-17</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://personalstudy.ltd/2023/11/17/9f417cc2ea5e/</loc>
     
     <lastmod>2023-11-17</lastmod>
     
@@ -329,13 +329,6 @@
   </url>
   
   <url>
-    <loc>https://personalstudy.ltd/tags/redis/</loc>
-    <lastmod>2023-11-17</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
     <loc>https://personalstudy.ltd/tags/java/</loc>
     <lastmod>2023-11-17</lastmod>
     <changefreq>weekly</changefreq>
@@ -365,6 +358,13 @@
   
   <url>
     <loc>https://personalstudy.ltd/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B/</loc>
+    <lastmod>2023-11-17</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://personalstudy.ltd/tags/redis/</loc>
     <lastmod>2023-11-17</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -408,13 +408,6 @@
   </url>
   
   <url>
-    <loc>https://personalstudy.ltd/categories/redis/</loc>
-    <lastmod>2023-11-17</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
     <loc>https://personalstudy.ltd/categories/java/</loc>
     <lastmod>2023-11-17</lastmod>
     <changefreq>weekly</changefreq>
@@ -422,7 +415,7 @@
   </url>
   
   <url>
-    <loc>https://personalstudy.ltd/categories/tools/vscode/</loc>
+    <loc>https://personalstudy.ltd/categories/java/%E5%A4%9A%E7%BA%BF%E7%A8%8B/</loc>
     <lastmod>2023-11-17</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -430,6 +423,20 @@
   
   <url>
     <loc>https://personalstudy.ltd/categories/java/java%E5%9F%BA%E7%A1%80/</loc>
+    <lastmod>2023-11-17</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://personalstudy.ltd/categories/redis/</loc>
+    <lastmod>2023-11-17</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://personalstudy.ltd/categories/tools/vscode/</loc>
     <lastmod>2023-11-17</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -451,13 +458,6 @@
   
   <url>
     <loc>https://personalstudy.ltd/categories/java/jvm/</loc>
-    <lastmod>2023-11-17</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://personalstudy.ltd/categories/java/%E5%A4%9A%E7%BA%BF%E7%A8%8B/</loc>
     <lastmod>2023-11-17</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
