@@ -100,6 +100,53 @@
       </tags>
   </entry>
   <entry>
+    <title>宝贵的人生建议</title>
+    <url>/2023/11/12/5792ca8e5e27/</url>
+    <content><![CDATA[<ul>
+<li>书名：《宝贵的人生建议》</li>
+<li>作者：凯文凯利</li>
+</ul>
+<p>看过了，觉得有道理，想要改变都不代表你真的认同并理解，”做出来”就是对”认同”最好的回复</p>
+<span id="more"></span>
+
+<blockquote>
+<p>把”创造”和”改进”这两个过程分开，你不能边写作边编辑，边雕刻边打磨，边制作边分析。如果你这么做，编辑就会阻遏创造，发明时，不要选择。画草图时，不要检查。写初稿时，不要反思。一开始，创造性思维必须是自由的，不受批判的干扰。</p>
+</blockquote>
+<p>无论是技术类文章还是其他类型的记录，重点是写，而不是先学习各种各样的套路(套路也很重要，但内容是前提)，后续在写内容之前不要追求完美，先写出来才会有后续的故事</p>
+<blockquote>
+<p>养成习惯的好处是，在行动时，不必再进行内心的权衡。不再消耗能量去思考是否要做这件事。你只管去做。好习惯很多，从说真话到使用牙线。</p>
+</blockquote>
+<p>不要使用意志力去坚持做一件事，慢慢养成习惯，让做某件事成为身体的本能</p>
+<blockquote>
+<p>恐惧是因为缺乏想象力。恐惧的解药不是勇敢，而更可能是想象力</p>
+</blockquote>
+<ul>
+<li>恐惧是因为经历的太少，知道的太少，懂得的太少</li>
+</ul>
+<blockquote>
+<p>你并不需要更多时间，因为你已经拥有了你的所有时间</p>
+</blockquote>
+<blockquote>
+<p>你最近一次改变是在什么年纪，你就是多少岁</p>
+</blockquote>
+<blockquote>
+<p>不要管别人怎么看待你，因为他们根本没看你</p>
+</blockquote>
+<blockquote>
+<p>任何有价值的事都需要无尽的工作。你无法给工作设定上限，所以你必须给工作时间设限。你唯一能管理的是时间，而不是工作</p>
+</blockquote>
+<blockquote>
+<p>如果你想超越你心目中的英雄，那就放下自尊心，像学生一样模仿他们，直到你能超越他们。这是所有大师的成功之道</p>
+</blockquote>
+]]></content>
+      <categories>
+        <category>book</category>
+      </categories>
+      <tags>
+        <tag>book</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>hexo和Next主题修改</title>
     <url>/2019/06/11/fb62824fdbd0/</url>
     <content><![CDATA[<h1 id="文章目录默认展开"><a href="#文章目录默认展开" class="headerlink" title="文章目录默认展开"></a>文章目录默认展开</h1><p>基于 Next7.x 版本</p>
@@ -169,7 +216,7 @@
 <h1 id="显示文章的更新时间"><a href="#显示文章的更新时间" class="headerlink" title="显示文章的更新时间"></a>显示文章的更新时间</h1><p>在主题的配置文件中找到<code>updated_at</code>，然后将其值修改为<code>true</code>即可(这种方式应该是适用于5以后的版本)</p>
 <p>对于以前的方式可以看这篇<a href="https://blog.csdn.net/ganzhilin520/article/details/79053399">别人写的文章</a></p>
 <h1 id="字数统计与阅读时长"><a href="#字数统计与阅读时长" class="headerlink" title="字数统计与阅读时长"></a>字数统计与阅读时长</h1><p><a href="https://www.cnblogs.com/php-linux/p/8418518.html">查看转载文章</a></p>
-<h1 id="添加版权信息"><a href="#添加版权信息" class="headerlink" title="添加版权信息"></a>添加版权信息</h1><p>在站点配置文件搜索<code>post_copyright</code>，将<code>enable</code>修改为<code>true</code>，添加<code>author</code>即可。</p>
+<h1 id="添加版权信息"><a href="#添加版权信息" class="headerlink" title="添加版权信息"></a>添加版权信息</h1><p>在站点配置文件搜索<code>post_copyright</code>，将<code>enable</code>修改为<code>true</code>，添加<code>author</code>即可。<br><a href="https://zhuanlan.zhihu.com/p/463548944#:~:text=%E4%BA%8C%E3%80%81hexo%E5%8D%9A%E5%AE%A2%E6%96%B0%E5%A2%9E%E5%BA%95%E9%83%A8%E7%89%88%E6%9D%83%E4%BF%A1%E6%81%AF%202.1%20%E5%BC%80%E5%90%AF%E6%96%87%E7%AB%A0%E5%BA%95%E9%83%A8%E7%89%88%E6%9D%83%E4%BF%A1%E6%81%AF%E9%85%8D%E7%BD%AE%20%E7%BC%96%E8%BE%91%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6themes%2Fnext%2F_config.yml%EF%BC%8C%E5%B0%86creative_commons%E4%B8%8B%E9%9D%A2%E7%9A%84post%E5%80%BC%E7%94%B1false%E6%94%B9%E4%B8%BAtrue%E3%80%82%20creative_commons%3A%20license%3A%20by-nc-sa,sidebar%3A%20false%20post%3A%20true%20language%3A%202.2%20%E6%9B%B4%E6%96%B0%E7%89%88%E6%9D%83%E8%AF%B4%E6%98%8E%20%E7%BC%96%E8%BE%91%E6%96%87%E4%BB%B6themes%2Fnext%2Flayout%2F_partials%2Fpost%2Fpost-copyright.swig%EF%BC%8C%E6%9B%B4%E6%96%B0%E7%89%88%E6%9D%83%E8%AF%B4%E6%98%8E%E6%96%87%E5%AD%97%EF%BC%8C%E4%BF%9D%E5%AD%98%E3%80%82">参考文章</a></p>
 <figure class="highlight yml"><table><tr><td class="code"><pre><span class="line"><span class="attr">post_copyright:</span></span><br><span class="line">  <span class="attr">enable:</span> <span class="literal">true</span></span><br><span class="line">  <span class="attr">license:</span> <span class="string">CC</span> <span class="string">BY-NC-SA</span> <span class="number">3.0</span></span><br><span class="line">  <span class="attr">license_url:</span> <span class="string">https://creativecommons.org/licenses/by-nc-sa/3.0/</span></span><br><span class="line">  <span class="attr">author:</span> <span class="string">咖啡杯里的茶</span></span><br></pre></td></tr></table></figure>
 
 <h1 id="修改文章底部的标签"><a href="#修改文章底部的标签" class="headerlink" title="修改文章底部的标签"></a>修改文章底部的标签</h1><p>基于 Next7 修改<br>在主题配置文件 <code>_config.yml</code> 中将下面配置设置为 true 即可（该配置默认值为false）</p>
@@ -232,6 +279,7 @@
 <ol start="3">
 <li>重新生成推送即可</li>
 </ol>
+<h1 id="引用自己的文章"><a href="#引用自己的文章" class="headerlink" title="引用自己的文章"></a>引用自己的文章</h1><p><code>&#123;% post_path filename %&#125;</code><br>filename 就是引用文章的名称</p>
 ]]></content>
       <categories>
         <category>tools</category>
@@ -239,140 +287,6 @@
       </categories>
       <tags>
         <tag>hexo</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>宝贵的人生建议</title>
-    <url>/2023/11/12/5792ca8e5e27/</url>
-    <content><![CDATA[<ul>
-<li>书名：《宝贵的人生建议》</li>
-<li>作者：凯文凯利</li>
-</ul>
-<p>看过了，觉得有道理，想要改变都不代表你真的认同并理解，”做出来”就是对”认同”最好的回复</p>
-<span id="more"></span>
-
-<blockquote>
-<p>把”创造”和”改进”这两个过程分开，你不能边写作边编辑，边雕刻边打磨，边制作边分析。如果你这么做，编辑就会阻遏创造，发明时，不要选择。画草图时，不要检查。写初稿时，不要反思。一开始，创造性思维必须是自由的，不受批判的干扰。</p>
-</blockquote>
-<p>无论是技术类文章还是其他类型的记录，重点是写，而不是先学习各种各样的套路(套路也很重要，但内容是前提)，后续在写内容之前不要追求完美，先写出来才会有后续的故事</p>
-<blockquote>
-<p>养成习惯的好处是，在行动时，不必再进行内心的权衡。不再消耗能量去思考是否要做这件事。你只管去做。好习惯很多，从说真话到使用牙线。</p>
-</blockquote>
-<p>不要使用意志力去坚持做一件事，慢慢养成习惯，让做某件事成为身体的本能</p>
-<blockquote>
-<p>恐惧是因为缺乏想象力。恐惧的解药不是勇敢，而更可能是想象力</p>
-</blockquote>
-<ul>
-<li>恐惧是因为经历的太少，知道的太少，懂得的太少</li>
-</ul>
-<blockquote>
-<p>你并不需要更多时间，因为你已经拥有了你的所有时间</p>
-</blockquote>
-<blockquote>
-<p>你最近一次改变是在什么年纪，你就是多少岁</p>
-</blockquote>
-<blockquote>
-<p>不要管别人怎么看待你，因为他们根本没看你</p>
-</blockquote>
-<blockquote>
-<p>任何有价值的事都需要无尽的工作。你无法给工作设定上限，所以你必须给工作时间设限。你唯一能管理的是时间，而不是工作</p>
-</blockquote>
-<blockquote>
-<p>如果你想超越你心目中的英雄，那就放下自尊心，像学生一样模仿他们，直到你能超越他们。这是所有大师的成功之道</p>
-</blockquote>
-<p><img src="https://blog-1308475102.cos.ap-guangzhou.myqcloud.com/picture/202311162113756.png" alt="aaa"></p>
-]]></content>
-      <categories>
-        <category>book</category>
-      </categories>
-      <tags>
-        <tag>book</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>redis底层数据结构</title>
-    <url>/2023/11/15/19e21a188fd0/</url>
-    <content><![CDATA[<h1 id="redis-对象"><a href="#redis-对象" class="headerlink" title="redis 对象"></a>redis 对象</h1><p><code>redis</code> 中所有数据类型都是使用 <code>RedisObject</code> 对象形式来表示，<code>RedisObject</code> 主要包含三个字段</p>
-<span id="more"></span>
-
-<pre class="mermaid">graph LR
-    A[RedisObject]
-    A-->B["type (记录对象的类型) \n 常用5种基本类型，实际还有BitMap（2.2 版新增）\n、HyperLogLog（2.8 版新增）、\n GEO（3.2 版新增）、Stream（5.0 版新增）"]
-
-    B1[String 字符串对象]
-    B2[List 列表集合]
-    B3[Hash 哈希对象]
-    B4[Set 集合对象]
-    B5[Zset 有序集合对象]
-    B--> B1 & B2 & B3 & B4 & B5
-
-    A-->C["encoding (记录对象的编码)"]
-    C1[Intset 整数集合]
-    C2[embstr embstr编码的简单动态字符串]
-    C3[raw 简单动态字符串]
-    C4[HT 字典]
-    C5[Linkedlist 双端列表]
-    C6[ziplist 压缩列表]
-    C7[skiplist 跳跃表和字典]
-    C8[quicklist 快速列表]
-    C-->C1 & C2 & C3 & C4 & C5 & C6 & C7 & C8
-
-    A-->D["*ptr (指向具体的类型)"]</pre>
-
-<h2 id="为什么一个对象需要包含-type-和-encoding"><a href="#为什么一个对象需要包含-type-和-encoding" class="headerlink" title="为什么一个对象需要包含 type 和 encoding"></a>为什么一个对象需要包含 <code>type</code> 和 <code>encoding</code></h2><ol>
-<li>因为 <code>type</code> 只是记录对象的类型</li>
-<li>每一个 <code>type</code> 可以使用不同的底层数据结构来实现，所以还需要具体的 <code>encoding</code> 来指明这个 <code>type</code> 的实现是什么， 下图就列出每一个 <code>type</code> 有哪几种底层数据结构</li>
-</ol>
-<h1 id="5-种基本数据类型对应的底层实现"><a href="#5-种基本数据类型对应的底层实现" class="headerlink" title="5 种基本数据类型对应的底层实现"></a>5 种基本数据类型对应的底层实现</h1><h2 id="String"><a href="#String" class="headerlink" title="String"></a>String</h2><ol>
-<li><code>String</code> 类型的底层的数据结构实现主要是 <code>int</code> 和 <code>SDS</code>（简单动态字符串）<ol>
-<li>如果存储的是数字，则编码使用 <code>int</code> 类型</li>
-</ol>
-</li>
-<li><code>sds</code> 的实际编码又包含 <code>raw</code> 和 <code>embstr</code><ol>
-<li>字符串长度小于 32位时使用 <code>embstr</code>(<code>embstr</code> 的空间挨着 <code>RedisObject，RedisObject</code> 和 <code>embstr</code> 的内存是一次性分配的)</li>
-<li>字符串长度大于 32位时使用 <code>raw</code> 编码(<code>RedisObject</code> 的内存分区和 <code>raw</code> 编码类型的空间分配是分开的，也就是需要两次内存分配)</li>
-</ol>
-</li>
-</ol>
-<h3 id="SDS-和-C-原生字符串的区别"><a href="#SDS-和-C-原生字符串的区别" class="headerlink" title="SDS 和 C 原生字符串的区别"></a>SDS 和 C 原生字符串的区别</h3><ol>
-<li><code>sds</code> 可以保存文本和二进制数据，因为 <code>sds</code> 有 <code>length</code> 字段来判断字符串是否结束，c 使用 ‘\0’ 作为结束符</li>
-<li><code>sds</code> 的 <code>api</code> 安全，不会出现缓冲区溢出，因为 <code>sds</code> 拼接字符串前有做容量检查</li>
-</ol>
-<h2 id="List"><a href="#List" class="headerlink" title="List"></a>List</h2><ol>
-<li><code>List</code> 类型的底层数据结构是由双向链表或压缩列表实现的<ol>
-<li>元素个数小于 512 个（默认值，可由 <code>list-max-ziplist-entries</code> 配置），列表每个元素的值都小于 64 字节（默认值，可由 <code>list-max-ziplist-value</code> <code>配置），Redis</code> 会使用压缩列表作为 <code>List</code> 类型的底层数据结构；</li>
-</ol>
-</li>
-<li>在 <code>Redis3.2</code> 版本之后，<code>List</code> 类型底层数据结构只有 <code>quicklist</code> 一种</li>
-</ol>
-<h2 id="Hash"><a href="#Hash" class="headerlink" title="Hash"></a>Hash</h2><ol>
-<li><code>Hash</code> 类型的底层数据结构是由压缩列表或哈希表实现的<ol>
-<li>元素个数小于 512 个（可通过 <code>hash-max-ziplist-entries</code> 修改），所有值小于 64 字节（可通过 <code>hash-max-ziplist-value</code> 修改）时，<code>Redis</code> 会使用压缩列表作为 <code>Hash</code> 类型的底层数据结构</li>
-</ol>
-</li>
-<li>在 <code>Redis7.0</code> 中，压缩列表数据结构被废弃，由 <code>listpack</code> 数据结构来实现</li>
-</ol>
-<h2 id="Set"><a href="#Set" class="headerlink" title="Set"></a>Set</h2><ol>
-<li><code>Set</code> 类型的底层数据结构是由哈希表或整数集合实现的<ol>
-<li>如果集合中的元素都是整数且元素个数小于 512 （可通过 <code>set-maxintset-entries</code> 修改）个，<code>Redis</code> 会使用整数集合作为 Set 类型的底层数据结构</li>
-</ol>
-</li>
-</ol>
-<h2 id="Zset"><a href="#Zset" class="headerlink" title="Zset"></a>Zset</h2><ol>
-<li><p>Zset 类型底层数据结构是由压缩列表或跳表实现</p>
-<ol>
-<li>若有序集合的元素个数小于 128 个且每个元素的值小于 64 字节，<code>Redis</code> 会使用压缩列表作为 <code>Zset</code> 类型的底层数据结构</li>
-</ol>
-</li>
-<li><p><code>Redis 7.0</code> 中，压缩列表数据结构被废弃，交由 <code>listpack</code> 数据结构来实现</p>
-</li>
-</ol>
-]]></content>
-      <categories>
-        <category>redis</category>
-      </categories>
-      <tags>
-        <tag>redis</tag>
       </tags>
   </entry>
   <entry>
@@ -421,6 +335,40 @@
 <li><code>NoClassDefFoundError</code>是<code>Error</code>，这里说明是可以代码可以通过编译，但是实际运行的是在发现找不到编译后的<code>class</code>就会出现这个错误.</li>
 </ul>
 ]]></content>
+      <categories>
+        <category>java</category>
+        <category>java基础</category>
+      </categories>
+      <tags>
+        <tag>java</tag>
+        <tag>java基础</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>java的io模型</title>
+    <url>/2023/11/17/180f5b629f58/</url>
+    <content><![CDATA[<h1 id="BIO"><a href="#BIO" class="headerlink" title="BIO"></a>BIO</h1><ol>
+<li><code>bio</code> 是同步阻塞 <code>io</code>，每一个连接都需要一个线程去处理</li>
+<li><code>bio</code> 会有资源浪费问题，一个线程只能处理一个连接，如果某个客户端并没有发送数据，对应的服务端线程也只能阻塞</li>
+</ol>
+<span id="more"></span>
+
+<h2 id="java-bio-代码实现"><a href="#java-bio-代码实现" class="headerlink" title="java bio 代码实现"></a>java bio 代码实现</h2><p><strong>服务端代码</strong></p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> org.example.demo.socket;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.io.IOException;</span><br><span class="line"><span class="keyword">import</span> java.net.ServerSocket;</span><br><span class="line"><span class="keyword">import</span> java.net.Socket;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">CusServerSocket</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="keyword">try</span> (<span class="type">ServerSocket</span> <span class="variable">serverSocket</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">ServerSocket</span>(<span class="number">8080</span>);) &#123;</span><br><span class="line">            <span class="keyword">while</span> (<span class="literal">true</span>) &#123;</span><br><span class="line">                <span class="type">Socket</span> <span class="variable">socket</span> <span class="operator">=</span> serverSocket.accept();</span><br><span class="line">                <span class="comment">//连接成功后新开一个线程去处理这个连接</span></span><br><span class="line">                <span class="keyword">new</span> <span class="title class_">Thread</span>(<span class="keyword">new</span> <span class="title class_">Runnable</span>() &#123;</span><br><span class="line">                    <span class="meta">@Override</span></span><br><span class="line">                    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">run</span><span class="params">()</span> &#123;</span><br><span class="line">                        <span class="type">byte</span>[] bytes = <span class="keyword">new</span> <span class="title class_">byte</span>[<span class="number">1024</span>];</span><br><span class="line">                        <span class="type">int</span> <span class="variable">length</span> <span class="operator">=</span> -<span class="number">1</span>;</span><br><span class="line">                        <span class="keyword">try</span> &#123;</span><br><span class="line">                            <span class="comment">// read() 方法上的注释 If no byte is available because the stream is at the end of the file, the value -1 is returned</span></span><br><span class="line">                            <span class="keyword">while</span> ((length = socket.getInputStream().read(bytes)) != -<span class="number">1</span>) &#123;</span><br><span class="line">                                System.out.println(<span class="string">&quot;thredId:&quot;</span> + Thread.currentThread().getName() + <span class="keyword">new</span> <span class="title class_">String</span>(bytes, <span class="number">0</span>, length));</span><br><span class="line">                            &#125;</span><br><span class="line">                        &#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">                            e.printStackTrace();</span><br><span class="line">                        &#125;</span><br><span class="line">                        System.out.println(<span class="string">&quot;客户端关闭, 当前线程:&quot;</span> + Thread.currentThread().getName());</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;).start();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; <span class="keyword">catch</span> (</span><br><span class="line">                IOException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p><strong>客户端实现</strong></p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> org.example.demo.socket;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.io.IOException;</span><br><span class="line"><span class="keyword">import</span> java.net.Socket;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">CusClientSocket</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="comment">// 外层循环会创建多个 socket，用来模拟多个 socket 客户端</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">j</span> <span class="operator">=</span> <span class="number">0</span>; j &lt; <span class="number">3</span>; j++) &#123;</span><br><span class="line">            <span class="keyword">try</span> (<span class="type">Socket</span> <span class="variable">socket</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Socket</span>(<span class="string">&quot;127.0.0.1&quot;</span>,<span class="number">8080</span>)) &#123;</span><br><span class="line">                <span class="comment">// 内存循环用来模拟一个客户端的多次通信</span></span><br><span class="line">                <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">1</span>; i &lt; <span class="number">3</span>; i++) &#123;</span><br><span class="line">                    Thread.sleep(<span class="number">20</span>);</span><br><span class="line">                    socket.getOutputStream().write((<span class="string">&quot;客户端&quot;</span> + j + <span class="string">&quot;第&quot;</span> + i + <span class="string">&quot;次通信&quot;</span>).getBytes());</span><br><span class="line">                &#125;</span><br><span class="line">            &#125; <span class="keyword">catch</span> (IOException | InterruptedException e) &#123;</span><br><span class="line">                <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">RuntimeException</span>(e);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>执行结果</strong></p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">thredId:Thread-<span class="number">0</span>客户端<span class="number">0</span>第<span class="number">1</span>次通信</span><br><span class="line">thredId:Thread-<span class="number">0</span>客户端<span class="number">0</span>第<span class="number">2</span>次通信</span><br><span class="line">客户端关闭, 当前线程:Thread-<span class="number">0</span></span><br><span class="line">thredId:Thread-<span class="number">1</span>客户端<span class="number">1</span>第<span class="number">1</span>次通信</span><br><span class="line">thredId:Thread-<span class="number">1</span>客户端<span class="number">1</span>第<span class="number">2</span>次通信</span><br><span class="line">客户端关闭, 当前线程:Thread-<span class="number">1</span></span><br><span class="line">thredId:Thread-<span class="number">2</span>客户端<span class="number">2</span>第<span class="number">1</span>次通信</span><br><span class="line">thredId:Thread-<span class="number">2</span>客户端<span class="number">2</span>第<span class="number">2</span>次通信</span><br><span class="line">客户端关闭, 当前线程:Thread-<span class="number">2</span></span><br></pre></td></tr></table></figure>
+<ol>
+<li>执行完成之后，服务端程序并不会关闭，会一直在运行</li>
+<li>从上面结果看，一共创建了三个线程来执行</li>
+</ol>
+<h2 id="使用线程池优化-bio-实现"><a href="#使用线程池优化-bio-实现" class="headerlink" title="使用线程池优化 bio 实现"></a>使用线程池优化 bio 实现</h2><p>客户端代码不需要改动，只需要更改服务端代码</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> org.example.demo.socket;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.io.IOException;</span><br><span class="line"><span class="keyword">import</span> java.net.ServerSocket;</span><br><span class="line"><span class="keyword">import</span> java.net.Socket;</span><br><span class="line"><span class="keyword">import</span> java.util.concurrent.ExecutorService;</span><br><span class="line"><span class="keyword">import</span> java.util.concurrent.Executors;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">CusServerSocket</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="type">ExecutorService</span> <span class="variable">executorService</span> <span class="operator">=</span> Executors.newSingleThreadExecutor();</span><br><span class="line">        <span class="keyword">try</span> (<span class="type">ServerSocket</span> <span class="variable">serverSocket</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">ServerSocket</span>(<span class="number">8080</span>);) &#123;</span><br><span class="line">            <span class="keyword">while</span> (<span class="literal">true</span>) &#123;</span><br><span class="line">                <span class="type">Socket</span> <span class="variable">socket</span> <span class="operator">=</span> serverSocket.accept();</span><br><span class="line">                <span class="comment">//连接成功后新开一个线程去处理这个连接</span></span><br><span class="line">                executorService.execute(<span class="keyword">new</span> <span class="title class_">ClientTask</span>(socket));</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; <span class="keyword">catch</span> (</span><br><span class="line">                IOException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">class</span> <span class="title class_">ClientTask</span> <span class="keyword">implements</span> <span class="title class_">Runnable</span> &#123;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">private</span> Socket socket;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">public</span> <span class="title function_">ClientTask</span><span class="params">(Socket socket)</span> &#123;</span><br><span class="line">            <span class="built_in">this</span>.socket = socket;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">run</span><span class="params">()</span> &#123;</span><br><span class="line">            <span class="type">byte</span>[] bytes = <span class="keyword">new</span> <span class="title class_">byte</span>[<span class="number">1024</span>];</span><br><span class="line">            <span class="type">int</span> <span class="variable">length</span> <span class="operator">=</span> -<span class="number">1</span>;</span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                <span class="comment">// read() 方法上的注释 If no byte is available because the stream is at the end of the file, the value -1 is returned</span></span><br><span class="line">                <span class="keyword">while</span> ((length = socket.getInputStream().read(bytes)) != -<span class="number">1</span>) &#123;</span><br><span class="line">                    System.out.println(<span class="string">&quot;thredId:&quot;</span> + Thread.currentThread().getName() + <span class="keyword">new</span> <span class="title class_">String</span>(bytes, <span class="number">0</span>, length));</span><br><span class="line">                &#125;</span><br><span class="line">            &#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">                e.printStackTrace();</span><br><span class="line">            &#125;</span><br><span class="line">            System.out.println(<span class="string">&quot;客户端关闭, 当前线程:&quot;</span> + Thread.currentThread().getName());</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>执行结果</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">thredId:pool-<span class="number">1</span>-thread-<span class="number">1</span>客户端<span class="number">0</span>第<span class="number">1</span>次通信</span><br><span class="line">thredId:pool-<span class="number">1</span>-thread-<span class="number">1</span>客户端<span class="number">0</span>第<span class="number">2</span>次通信</span><br><span class="line">客户端关闭, 当前线程:pool-<span class="number">1</span>-thread-<span class="number">1</span></span><br><span class="line">thredId:pool-<span class="number">1</span>-thread-<span class="number">1</span>客户端<span class="number">1</span>第<span class="number">1</span>次通信</span><br><span class="line">thredId:pool-<span class="number">1</span>-thread-<span class="number">1</span>客户端<span class="number">1</span>第<span class="number">2</span>次通信</span><br><span class="line">客户端关闭, 当前线程:pool-<span class="number">1</span>-thread-<span class="number">1</span></span><br><span class="line">thredId:pool-<span class="number">1</span>-thread-<span class="number">1</span>客户端<span class="number">2</span>第<span class="number">1</span>次通信</span><br><span class="line">thredId:pool-<span class="number">1</span>-thread-<span class="number">1</span>客户端<span class="number">2</span>第<span class="number">2</span>次通信</span><br><span class="line">客户端关闭, 当前线程:pool-<span class="number">1</span>-thread-<span class="number">1</span></span><br></pre></td></tr></table></figure>
+<p>即使使用线程池进行了优化，本地还是阻塞io，只有当一个客户端通信完成（socket关闭了），另外一个 socket 才可以开始进行通信</p>
+<h1 id="NIO"><a href="#NIO" class="headerlink" title="NIO"></a>NIO</h1>]]></content>
       <categories>
         <category>java</category>
         <category>java基础</category>
@@ -552,97 +500,6 @@
       </tags>
   </entry>
   <entry>
-    <title>枚举</title>
-    <url>/2019/09/06/6d25aa9e1653/</url>
-    <content><![CDATA[<h1 id="基本的枚举定义"><a href="#基本的枚举定义" class="headerlink" title="基本的枚举定义"></a>基本的枚举定义</h1><p><code>enum</code> 的全称为 <code>enumeration</code>， 是 <code>JDK 1.5</code>  中引入的新特性，存放在 <code>java.lang</code> 包中。</p>
-<p>定义：</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> top.twolovelypig;</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">enum</span> <span class="title class_">EnumMain</span> &#123;</span><br><span class="line">	MON, TUE, WED, THU, FRI, SAT, SUN;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<span id="more"></span>
-
-<p>输出枚举值代码:</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> top.twolovelypig;</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Test</span> &#123;</span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">		<span class="keyword">for</span> (EnumMain e : EnumMain.values()) &#123;</span><br><span class="line">            System.out.println(e.toString());</span><br><span class="line">        &#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h1 id="enum对象基本方法"><a href="#enum对象基本方法" class="headerlink" title="enum对象基本方法"></a>enum对象基本方法</h1><ul>
-<li><p><code>int compareTo(E o)</code>	该方法用来比较枚举与指定对象的顺序</p>
-  <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">	<span class="comment">//值为6，表明SUN在MON后面六位</span></span><br><span class="line">	System.out.println(EnumMain.SUN.compareTo(EnumMain.MON));</span><br><span class="line">	<span class="comment">//值为-2，表明tue比thu小两位(tue在thu前面两位)</span></span><br><span class="line">	System.out.println(EnumMain.TUE.compareTo(EnumMain.THU));</span><br><span class="line">	<span class="comment">//值为0，表示二者是一样的</span></span><br><span class="line">	System.out.println(EnumMain.MON.compareTo(EnumMain.MON));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>  需要注意的是这里比较的值是有大小和正负的，不是说后面的与前面的相比结果就是1，也有可能是其他正数，具体结果是几就需要看后面的枚举是在前面的枚举<strong>后几位</strong></p>
-</li>
-<li><p><code>Class&lt;E&gt; ``**getDeclaringClass**()</code>返回与枚举常量的枚举类型相对应的<code>class</code>对象</p>
-  <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> top.twolovelypig;</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Test</span> &#123;</span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">		<span class="type">EnumMain</span> <span class="variable">enumMain</span> <span class="operator">=</span> EnumMain.FRI;</span><br><span class="line">		 System.out.println(<span class="string">&quot;getDeclaringClass(): &quot;</span> + enumMain.getDeclaringClass().getName());</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>  输出的结果是类的全路径: <code>getDeclaringClass(): top.twolovelypig.EnumMain</code></p>
-</li>
-<li><p><code>String name()</code>返回此枚举常量的名称</p>
-  <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">	<span class="type">EnumMain</span> <span class="variable">enumMain</span> <span class="operator">=</span> EnumMain.FRI;</span><br><span class="line">	System.out.println(<span class="string">&quot;name(): &quot;</span> + enumMain.name());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>  输出结果是: <code>name(): FRI</code></p>
-</li>
-<li><p><code>int ordinal()</code> 返回枚举常量的序数(初始常量序数为0)</p>
-  <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">	<span class="type">EnumMain</span> <span class="variable">enumMain</span> <span class="operator">=</span> EnumMain.FRI;</span><br><span class="line">	System.out.println(<span class="string">&quot;ordinal(): &quot;</span> + enumMain.ordinal());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>  输出结果是4，因为<code>FRI</code>是第五个，初始常量序数是0，所以输出结果是4</p>
-</li>
-<li><p><code>String toString()</code> 返回枚举常量的名称</p>
-</li>
-</ul>
-<h1 id="给enum自定义属性和方法-带参数的enum"><a href="#给enum自定义属性和方法-带参数的enum" class="headerlink" title="给enum自定义属性和方法(带参数的enum)"></a>给enum自定义属性和方法(带参数的enum)</h1><p><code>enum</code></p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> top.twolovelypig;</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">enum</span> <span class="title class_">EnumMain</span> &#123; </span><br><span class="line">	MON(<span class="string">&quot;星期一&quot;</span>, <span class="number">1</span>), </span><br><span class="line">	TUE(<span class="string">&quot;星期二&quot;</span>, <span class="number">2</span>), </span><br><span class="line">	WED(<span class="string">&quot;星期三&quot;</span>, <span class="number">3</span>), </span><br><span class="line">	THU(<span class="string">&quot;星期四&quot;</span>, <span class="number">4</span>), </span><br><span class="line">	FRI(<span class="string">&quot;星期五&quot;</span>, <span class="number">5</span>), </span><br><span class="line">	SAT(<span class="string">&quot;星期六&quot;</span>, <span class="number">6</span>), </span><br><span class="line">	SUN(<span class="string">&quot;星期天&quot;</span>,<span class="number">7</span>);</span><br><span class="line">	</span><br><span class="line">    <span class="comment">// 成员变量  </span></span><br><span class="line">    <span class="keyword">private</span> String name;  </span><br><span class="line">    <span class="keyword">private</span> <span class="type">int</span> index;  </span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 构造方法  </span></span><br><span class="line">    <span class="keyword">private</span> <span class="title function_">EnumMain</span><span class="params">(String name, <span class="type">int</span> index)</span> &#123;  </span><br><span class="line">        <span class="built_in">this</span>.name = name;  </span><br><span class="line">        <span class="built_in">this</span>.index = index;  </span><br><span class="line">    &#125; </span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 普通方法  根据index获取name</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> String <span class="title function_">getNameByIndex</span><span class="params">(<span class="type">int</span> index)</span> &#123;  </span><br><span class="line">        <span class="keyword">for</span> (EnumMain c : EnumMain.values()) &#123;  </span><br><span class="line">            <span class="keyword">if</span> (c.getIndex() == index) &#123;  </span><br><span class="line">                <span class="keyword">return</span> c.name;  </span><br><span class="line">            &#125;  </span><br><span class="line">        &#125;  </span><br><span class="line">        <span class="keyword">return</span> <span class="literal">null</span>;  </span><br><span class="line">    &#125; </span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 普通方法  根据index获取name</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="type">int</span> <span class="title function_">getIndexByName</span><span class="params">(String name)</span> &#123;  </span><br><span class="line">        <span class="keyword">for</span> (EnumMain c : EnumMain.values()) &#123;  </span><br><span class="line">            <span class="keyword">if</span> (c.name.equals(name)) &#123;</span><br><span class="line">                <span class="keyword">return</span> c.index;</span><br><span class="line">            &#125;  </span><br><span class="line">        &#125;  </span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>; </span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// get set 方法  </span></span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">getName</span><span class="params">()</span> &#123;  </span><br><span class="line">        <span class="keyword">return</span> name;  </span><br><span class="line">    &#125;  </span><br><span class="line">    </span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">setName</span><span class="params">(String name)</span> &#123;  </span><br><span class="line">        <span class="built_in">this</span>.name = name;  </span><br><span class="line">    &#125; </span><br><span class="line">    </span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">getIndex</span><span class="params">()</span> &#123;  </span><br><span class="line">        <span class="keyword">return</span> index;  </span><br><span class="line">    &#125;  </span><br><span class="line">    </span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">setIndex</span><span class="params">(<span class="type">int</span> index)</span> &#123;  </span><br><span class="line">        <span class="built_in">this</span>.index = index;  </span><br><span class="line">    &#125;  </span><br><span class="line">&#125;  </span><br></pre></td></tr></table></figure>
-
-<p>上面代码中<code>getIndexByName()</code>方法中需要注意<code>c.name</code>与<code>c.getName()</code>的区别，<code>c.name</code>获取的是中文比如<strong>星期三</strong>，而<code>c.getName()</code>的结果是<strong>FRI</strong>。</p>
-<p>测试代码，根据名称获取索引，根据索引获取名称等:</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> top.twolovelypig;</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Test</span> &#123;</span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">		<span class="type">EnumMain</span> <span class="variable">enumMain</span> <span class="operator">=</span> EnumMain.FRI;</span><br><span class="line">		<span class="comment">//普通get方法		输出结果是5</span></span><br><span class="line">		System.out.println(enumMain.getIndex());</span><br><span class="line">		<span class="comment">//普通getName()方法		输出结果是星期五</span></span><br><span class="line">		System.out.println(enumMain.getName());</span><br><span class="line">		<span class="comment">//根据index获取name		输出结果是星期三</span></span><br><span class="line">		System.out.println(EnumMain.getNameByIndex(<span class="number">3</span>));</span><br><span class="line">		<span class="comment">//根据name获取index		输出结果是3</span></span><br><span class="line">		System.out.println(EnumMain.getIndexByName(<span class="string">&quot;星期三&quot;</span>));</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h1 id="对枚举的理解"><a href="#对枚举的理解" class="headerlink" title="对枚举的理解"></a>对枚举的理解</h1><p>&#x3D;&#x3D;可能不好理解的就是上面具有参数的枚举，其实只需要记住一点，<strong>java中一切皆对象</strong>，可以把枚举页当做一个类，这样来看的话上面的代码可以写成下面这样&#x3D;&#x3D;:</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> top.twolovelypig;</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">EnumMain</span> &#123; 	</span><br><span class="line">    <span class="comment">// 成员变量  </span></span><br><span class="line">    <span class="keyword">private</span> String name;  </span><br><span class="line">    <span class="keyword">private</span> <span class="type">int</span> index;  </span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 构造方法  </span></span><br><span class="line">    <span class="keyword">private</span> <span class="title function_">EnumMain</span><span class="params">(String name, <span class="type">int</span> index)</span> &#123;  </span><br><span class="line">        <span class="built_in">this</span>.name = name;  </span><br><span class="line">        <span class="built_in">this</span>.index = index;  </span><br><span class="line">    &#125; </span><br><span class="line"></span><br><span class="line">    <span class="comment">// get set 方法  </span></span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">getName</span><span class="params">()</span> &#123;  </span><br><span class="line">        <span class="keyword">return</span> name;  </span><br><span class="line">    &#125;  </span><br><span class="line">    </span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">setName</span><span class="params">(String name)</span> &#123;  </span><br><span class="line">        <span class="built_in">this</span>.name = name;  </span><br><span class="line">    &#125; </span><br><span class="line">    </span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">getIndex</span><span class="params">()</span> &#123;  </span><br><span class="line">        <span class="keyword">return</span> index;  </span><br><span class="line">    &#125;  </span><br><span class="line">    </span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">setIndex</span><span class="params">(<span class="type">int</span> index)</span> &#123;  </span><br><span class="line">        <span class="built_in">this</span>.index = index;  </span><br><span class="line">    &#125;  </span><br><span class="line">&#125;  </span><br></pre></td></tr></table></figure>
-
-<p>对于上面的类比较好理解吧，就是具有两个属性而已，然后呢就是一个私有构造方法以及get&#x2F;set方法。而对于枚举中的这些声明</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">MON(<span class="string">&quot;星期一&quot;</span>, <span class="number">1</span>), </span><br><span class="line">TUE(<span class="string">&quot;星期二&quot;</span>, <span class="number">2</span>), </span><br><span class="line">WED(<span class="string">&quot;星期三&quot;</span>, <span class="number">3</span>), </span><br><span class="line">THU(<span class="string">&quot;星期四&quot;</span>, <span class="number">4</span>), </span><br><span class="line">FRI(<span class="string">&quot;星期五&quot;</span>, <span class="number">5</span>), </span><br><span class="line">SAT(<span class="string">&quot;星期六&quot;</span>, <span class="number">6</span>), </span><br><span class="line">SUN(<span class="string">&quot;星期天&quot;</span>,<span class="number">7</span>);</span><br></pre></td></tr></table></figure>
-
-<p>其实就是该枚举类的对象，每一个声明都是一个对象，也就是这里其实有七个对象，此时简单理解枚举与类的区别就是枚举中对象是数量固定，相当于在一开始就实例化了几个固定的对象而已。然后后面哪些根据<code>key</code>获取<code>name</code>，以及根据<code>name</code>获取<code>key</code>都是自己加的一些方法而已。</p>
-<h1 id="enumMap"><a href="#enumMap" class="headerlink" title="enumMap"></a>enumMap</h1><p><strong>以下内容来自《java编程的逻辑》这本书。</strong></p>
-<blockquote>
-<p>如果需要一个Map的实现类，并且建的类型为枚举类型，可以使用HashMap,但应该使用一个专门的实现类EnumMap。因为枚举类型有两个特征:</p>
-<ul>
-<li>枚举所有可能的值时有限的并且是预定义的</li>
-<li>所有的枚举值有一个顺序</li>
-</ul>
-<p>这两个特征可以更为高效的实现Map接口。</p>
-</blockquote>
-<h2 id="案例"><a href="#案例" class="headerlink" title="案例"></a>案例</h2><p>比如有一批关于衣服的记录，想要通过尺寸统计衣服的数量，定义一个简单的枚举类<code>Size</code>；都表示衣服的尺寸。</p>
-<p><code>Size</code>枚举:</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">enum</span> <span class="title class_">Size</span>&#123;</span><br><span class="line">    SMALL, MEDIUM, LARGE</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p><code>Clothes</code>类</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Clothes</span>&#123;</span><br><span class="line">    String id;</span><br><span class="line">    Size size;</span><br><span class="line">    <span class="comment">//get与set</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>按尺寸统计数量:</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> Map&lt;Size, Integer&gt; <span class="title function_">countBySize</span><span class="params">(List&lt;Clothes&gt; clothes)</span>&#123;</span><br><span class="line">    Map&lt;Size, Integer&gt; map = <span class="keyword">new</span> <span class="title class_">EnumMap</span>(Size.class);</span><br><span class="line">    <span class="keyword">for</span>(Clothes c : clothes)&#123;</span><br><span class="line">        <span class="type">Size</span> <span class="variable">size</span> <span class="operator">=</span> c.getSize();</span><br><span class="line">        <span class="type">Integer</span> <span class="variable">count</span> <span class="operator">=</span> map.get(size);</span><br><span class="line">        <span class="keyword">if</span>(count != <span class="literal">null</span>)&#123;</span><br><span class="line">            map.put(size, count+<span class="number">1</span>);</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            map.put(size, <span class="number">1</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>&#x3D;&#x3D;需要注意EnumMap的构造方法&#x3D;&#x3D;</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">Map&lt;Size, Integer&gt; map = <span class="keyword">new</span> <span class="title class_">EnumMap</span>(Size.class);</span><br></pre></td></tr></table></figure>
-
-<p><code>EnumMap</code>需要传递一个<strong>类型</strong>信息，<code>Size.class</code>表示枚举类<code>Size</code>的运行时信息，需要这个参数是因为<code>EnumMap</code>要知道具体的枚举类是什么。</p>
-<p>测试代码：</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">List&lt;Clothes&gt; clothes = Arrays.asList(</span><br><span class="line">	<span class="keyword">new</span> <span class="title class_">Clothes</span>[]&#123;</span><br><span class="line">        <span class="keyword">new</span> <span class="title class_">Clothes</span>(<span class="string">&quot;c001&quot;</span>, Size.SMALL),</span><br><span class="line">        <span class="keyword">new</span> <span class="title class_">Clothes</span>(<span class="string">&quot;c002&quot;</span>, Size.MEDIUM),</span><br><span class="line">        <span class="keyword">new</span> <span class="title class_">Clothes</span>(<span class="string">&quot;c003&quot;</span>, Size.LARGE),</span><br><span class="line">        <span class="keyword">new</span> <span class="title class_">Clothes</span>(<span class="string">&quot;c004&quot;</span>, Size.SMALL),</span><br><span class="line">        <span class="keyword">new</span> <span class="title class_">Clothes</span>(<span class="string">&quot;c005&quot;</span>, Size.MEDIUM),</span><br><span class="line">        <span class="keyword">new</span> <span class="title class_">Clothes</span>(<span class="string">&quot;c006&quot;</span>, Size.LARGE)</span><br><span class="line">    &#125;</span><br><span class="line">);</span><br><span class="line">System.out.println(countBySize(clothes));</span><br></pre></td></tr></table></figure>
-
-<p>需要说明的是，<code>EnumMap</code>是保证顺序的，输出是按照键在枚举中的顺序的。</p>
-<h2 id="enum的另外两个构造方法"><a href="#enum的另外两个构造方法" class="headerlink" title="enum的另外两个构造方法"></a>enum的另外两个构造方法</h2><p>除了以上介绍的构造方法，EnumMap还有两个构造方法，可以接受一个键值匹配的EnumMap或普通Map，如下所示：</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="title function_">EnumMap</span><span class="params">(EnumMap&lt;K, ? extends V&gt; m)</span></span><br><span class="line"><span class="keyword">public</span> <span class="title function_">EnumMap</span><span class="params">(Map&lt;K, ? extends V&gt; m)</span></span><br></pre></td></tr></table></figure>
-
-<p>比如:</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">Map&lt;Size,Integer&gt; hashMap = <span class="keyword">new</span> <span class="title class_">HashMap</span>&lt;&gt;();</span><br><span class="line">hashMap.put(Size.LARGE, <span class="number">2</span>);</span><br><span class="line">hashMap.put(Size.SMALL, <span class="number">1</span>);</span><br><span class="line">Map&lt;Size, Integer&gt; enumMap = <span class="keyword">new</span> <span class="title class_">EnumMap</span>&lt;&gt;(hashMap);</span><br></pre></td></tr></table></figure>]]></content>
-      <categories>
-        <category>java</category>
-        <category>java基础</category>
-      </categories>
-      <tags>
-        <tag>java</tag>
-        <tag>java基础</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>注解</title>
     <url>/2019/08/19/a2e18fa87946/</url>
     <content><![CDATA[<h1 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h1><p>注解(<code>Annotation</code>)也可以叫做元数据。是一种代码级别的说明。它是<code>jdk1.5</code>及以后引入的一个特性，与类，接口和枚举是在同一个层次，他可以声明在<strong>包、类、字段、方法、局部变量、方法参数</strong>等的前面，用来对这些元素进行说明，注释。</p>
@@ -756,165 +613,94 @@
       </tags>
   </entry>
   <entry>
-    <title>java内存模型</title>
-    <url>/2019/12/19/585a644e7d52/</url>
-    <content><![CDATA[<h1 id="主要内容"><a href="#主要内容" class="headerlink" title="主要内容"></a>主要内容</h1><p><code>java</code>内存模型实际上是一个抽象的概念，是一套规范，而不是一个实际的东西，而<code>java</code>内存结构就是根据这一套规范来进行划分的。</p>
+    <title>枚举</title>
+    <url>/2019/09/06/6d25aa9e1653/</url>
+    <content><![CDATA[<h1 id="基本的枚举定义"><a href="#基本的枚举定义" class="headerlink" title="基本的枚举定义"></a>基本的枚举定义</h1><p><code>enum</code> 的全称为 <code>enumeration</code>， 是 <code>JDK 1.5</code>  中引入的新特性，存放在 <code>java.lang</code> 包中。</p>
+<p>定义：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> top.twolovelypig;</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">enum</span> <span class="title class_">EnumMain</span> &#123;</span><br><span class="line">	MON, TUE, WED, THU, FRI, SAT, SUN;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 <span id="more"></span>
 
-<p>对于<code>java</code>内存模型我们主要需要了解以下几个内容：</p>
-<ul>
-<li>硬件内存架构</li>
-<li>线程和<code>jvm</code></li>
-<li><code>java</code>内存模型</li>
-<li><code>java</code>内存模型对并发编程的支持</li>
+<p>输出枚举值代码:</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> top.twolovelypig;</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Test</span> &#123;</span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">		<span class="keyword">for</span> (EnumMain e : EnumMain.values()) &#123;</span><br><span class="line">            System.out.println(e.toString());</span><br><span class="line">        &#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="enum对象基本方法"><a href="#enum对象基本方法" class="headerlink" title="enum对象基本方法"></a>enum对象基本方法</h1><ul>
+<li><p><code>int compareTo(E o)</code>	该方法用来比较枚举与指定对象的顺序</p>
+  <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">	<span class="comment">//值为6，表明SUN在MON后面六位</span></span><br><span class="line">	System.out.println(EnumMain.SUN.compareTo(EnumMain.MON));</span><br><span class="line">	<span class="comment">//值为-2，表明tue比thu小两位(tue在thu前面两位)</span></span><br><span class="line">	System.out.println(EnumMain.TUE.compareTo(EnumMain.THU));</span><br><span class="line">	<span class="comment">//值为0，表示二者是一样的</span></span><br><span class="line">	System.out.println(EnumMain.MON.compareTo(EnumMain.MON));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>  需要注意的是这里比较的值是有大小和正负的，不是说后面的与前面的相比结果就是1，也有可能是其他正数，具体结果是几就需要看后面的枚举是在前面的枚举<strong>后几位</strong></p>
+</li>
+<li><p><code>Class&lt;E&gt; ``**getDeclaringClass**()</code>返回与枚举常量的枚举类型相对应的<code>class</code>对象</p>
+  <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> top.twolovelypig;</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Test</span> &#123;</span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">		<span class="type">EnumMain</span> <span class="variable">enumMain</span> <span class="operator">=</span> EnumMain.FRI;</span><br><span class="line">		 System.out.println(<span class="string">&quot;getDeclaringClass(): &quot;</span> + enumMain.getDeclaringClass().getName());</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>  输出的结果是类的全路径: <code>getDeclaringClass(): top.twolovelypig.EnumMain</code></p>
+</li>
+<li><p><code>String name()</code>返回此枚举常量的名称</p>
+  <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">	<span class="type">EnumMain</span> <span class="variable">enumMain</span> <span class="operator">=</span> EnumMain.FRI;</span><br><span class="line">	System.out.println(<span class="string">&quot;name(): &quot;</span> + enumMain.name());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>  输出结果是: <code>name(): FRI</code></p>
+</li>
+<li><p><code>int ordinal()</code> 返回枚举常量的序数(初始常量序数为0)</p>
+  <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">	<span class="type">EnumMain</span> <span class="variable">enumMain</span> <span class="operator">=</span> EnumMain.FRI;</span><br><span class="line">	System.out.println(<span class="string">&quot;ordinal(): &quot;</span> + enumMain.ordinal());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>  输出结果是4，因为<code>FRI</code>是第五个，初始常量序数是0，所以输出结果是4</p>
+</li>
+<li><p><code>String toString()</code> 返回枚举常量的名称</p>
+</li>
 </ul>
-<h1 id="硬件内存架构"><a href="#硬件内存架构" class="headerlink" title="硬件内存架构"></a>硬件内存架构</h1><blockquote>
-<p>物理机遇到的并发问题与虚拟机中的情况有很多相似之处，物理机对并发的处理方案对虚拟机的实现也有相当大的参考意义</p>
+<h1 id="给enum自定义属性和方法-带参数的enum"><a href="#给enum自定义属性和方法-带参数的enum" class="headerlink" title="给enum自定义属性和方法(带参数的enum)"></a>给enum自定义属性和方法(带参数的enum)</h1><p><code>enum</code></p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> top.twolovelypig;</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">enum</span> <span class="title class_">EnumMain</span> &#123; </span><br><span class="line">	MON(<span class="string">&quot;星期一&quot;</span>, <span class="number">1</span>), </span><br><span class="line">	TUE(<span class="string">&quot;星期二&quot;</span>, <span class="number">2</span>), </span><br><span class="line">	WED(<span class="string">&quot;星期三&quot;</span>, <span class="number">3</span>), </span><br><span class="line">	THU(<span class="string">&quot;星期四&quot;</span>, <span class="number">4</span>), </span><br><span class="line">	FRI(<span class="string">&quot;星期五&quot;</span>, <span class="number">5</span>), </span><br><span class="line">	SAT(<span class="string">&quot;星期六&quot;</span>, <span class="number">6</span>), </span><br><span class="line">	SUN(<span class="string">&quot;星期天&quot;</span>,<span class="number">7</span>);</span><br><span class="line">	</span><br><span class="line">    <span class="comment">// 成员变量  </span></span><br><span class="line">    <span class="keyword">private</span> String name;  </span><br><span class="line">    <span class="keyword">private</span> <span class="type">int</span> index;  </span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 构造方法  </span></span><br><span class="line">    <span class="keyword">private</span> <span class="title function_">EnumMain</span><span class="params">(String name, <span class="type">int</span> index)</span> &#123;  </span><br><span class="line">        <span class="built_in">this</span>.name = name;  </span><br><span class="line">        <span class="built_in">this</span>.index = index;  </span><br><span class="line">    &#125; </span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 普通方法  根据index获取name</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> String <span class="title function_">getNameByIndex</span><span class="params">(<span class="type">int</span> index)</span> &#123;  </span><br><span class="line">        <span class="keyword">for</span> (EnumMain c : EnumMain.values()) &#123;  </span><br><span class="line">            <span class="keyword">if</span> (c.getIndex() == index) &#123;  </span><br><span class="line">                <span class="keyword">return</span> c.name;  </span><br><span class="line">            &#125;  </span><br><span class="line">        &#125;  </span><br><span class="line">        <span class="keyword">return</span> <span class="literal">null</span>;  </span><br><span class="line">    &#125; </span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 普通方法  根据index获取name</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="type">int</span> <span class="title function_">getIndexByName</span><span class="params">(String name)</span> &#123;  </span><br><span class="line">        <span class="keyword">for</span> (EnumMain c : EnumMain.values()) &#123;  </span><br><span class="line">            <span class="keyword">if</span> (c.name.equals(name)) &#123;</span><br><span class="line">                <span class="keyword">return</span> c.index;</span><br><span class="line">            &#125;  </span><br><span class="line">        &#125;  </span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>; </span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// get set 方法  </span></span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">getName</span><span class="params">()</span> &#123;  </span><br><span class="line">        <span class="keyword">return</span> name;  </span><br><span class="line">    &#125;  </span><br><span class="line">    </span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">setName</span><span class="params">(String name)</span> &#123;  </span><br><span class="line">        <span class="built_in">this</span>.name = name;  </span><br><span class="line">    &#125; </span><br><span class="line">    </span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">getIndex</span><span class="params">()</span> &#123;  </span><br><span class="line">        <span class="keyword">return</span> index;  </span><br><span class="line">    &#125;  </span><br><span class="line">    </span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">setIndex</span><span class="params">(<span class="type">int</span> index)</span> &#123;  </span><br><span class="line">        <span class="built_in">this</span>.index = index;  </span><br><span class="line">    &#125;  </span><br><span class="line">&#125;  </span><br></pre></td></tr></table></figure>
+
+<p>上面代码中<code>getIndexByName()</code>方法中需要注意<code>c.name</code>与<code>c.getName()</code>的区别，<code>c.name</code>获取的是中文比如<strong>星期三</strong>，而<code>c.getName()</code>的结果是<strong>FRI</strong>。</p>
+<p>测试代码，根据名称获取索引，根据索引获取名称等:</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> top.twolovelypig;</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Test</span> &#123;</span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">		<span class="type">EnumMain</span> <span class="variable">enumMain</span> <span class="operator">=</span> EnumMain.FRI;</span><br><span class="line">		<span class="comment">//普通get方法		输出结果是5</span></span><br><span class="line">		System.out.println(enumMain.getIndex());</span><br><span class="line">		<span class="comment">//普通getName()方法		输出结果是星期五</span></span><br><span class="line">		System.out.println(enumMain.getName());</span><br><span class="line">		<span class="comment">//根据index获取name		输出结果是星期三</span></span><br><span class="line">		System.out.println(EnumMain.getNameByIndex(<span class="number">3</span>));</span><br><span class="line">		<span class="comment">//根据name获取index		输出结果是3</span></span><br><span class="line">		System.out.println(EnumMain.getIndexByName(<span class="string">&quot;星期三&quot;</span>));</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="对枚举的理解"><a href="#对枚举的理解" class="headerlink" title="对枚举的理解"></a>对枚举的理解</h1><p>&#x3D;&#x3D;可能不好理解的就是上面具有参数的枚举，其实只需要记住一点，<strong>java中一切皆对象</strong>，可以把枚举页当做一个类，这样来看的话上面的代码可以写成下面这样&#x3D;&#x3D;:</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> top.twolovelypig;</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">EnumMain</span> &#123; 	</span><br><span class="line">    <span class="comment">// 成员变量  </span></span><br><span class="line">    <span class="keyword">private</span> String name;  </span><br><span class="line">    <span class="keyword">private</span> <span class="type">int</span> index;  </span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 构造方法  </span></span><br><span class="line">    <span class="keyword">private</span> <span class="title function_">EnumMain</span><span class="params">(String name, <span class="type">int</span> index)</span> &#123;  </span><br><span class="line">        <span class="built_in">this</span>.name = name;  </span><br><span class="line">        <span class="built_in">this</span>.index = index;  </span><br><span class="line">    &#125; </span><br><span class="line"></span><br><span class="line">    <span class="comment">// get set 方法  </span></span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">getName</span><span class="params">()</span> &#123;  </span><br><span class="line">        <span class="keyword">return</span> name;  </span><br><span class="line">    &#125;  </span><br><span class="line">    </span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">setName</span><span class="params">(String name)</span> &#123;  </span><br><span class="line">        <span class="built_in">this</span>.name = name;  </span><br><span class="line">    &#125; </span><br><span class="line">    </span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">getIndex</span><span class="params">()</span> &#123;  </span><br><span class="line">        <span class="keyword">return</span> index;  </span><br><span class="line">    &#125;  </span><br><span class="line">    </span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">setIndex</span><span class="params">(<span class="type">int</span> index)</span> &#123;  </span><br><span class="line">        <span class="built_in">this</span>.index = index;  </span><br><span class="line">    &#125;  </span><br><span class="line">&#125;  </span><br></pre></td></tr></table></figure>
+
+<p>对于上面的类比较好理解吧，就是具有两个属性而已，然后呢就是一个私有构造方法以及get&#x2F;set方法。而对于枚举中的这些声明</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">MON(<span class="string">&quot;星期一&quot;</span>, <span class="number">1</span>), </span><br><span class="line">TUE(<span class="string">&quot;星期二&quot;</span>, <span class="number">2</span>), </span><br><span class="line">WED(<span class="string">&quot;星期三&quot;</span>, <span class="number">3</span>), </span><br><span class="line">THU(<span class="string">&quot;星期四&quot;</span>, <span class="number">4</span>), </span><br><span class="line">FRI(<span class="string">&quot;星期五&quot;</span>, <span class="number">5</span>), </span><br><span class="line">SAT(<span class="string">&quot;星期六&quot;</span>, <span class="number">6</span>), </span><br><span class="line">SUN(<span class="string">&quot;星期天&quot;</span>,<span class="number">7</span>);</span><br></pre></td></tr></table></figure>
+
+<p>其实就是该枚举类的对象，每一个声明都是一个对象，也就是这里其实有七个对象，此时简单理解枚举与类的区别就是枚举中对象是数量固定，相当于在一开始就实例化了几个固定的对象而已。然后后面哪些根据<code>key</code>获取<code>name</code>，以及根据<code>name</code>获取<code>key</code>都是自己加的一些方法而已。</p>
+<h1 id="enumMap"><a href="#enumMap" class="headerlink" title="enumMap"></a>enumMap</h1><p><strong>以下内容来自《java编程的逻辑》这本书。</strong></p>
+<blockquote>
+<p>如果需要一个Map的实现类，并且建的类型为枚举类型，可以使用HashMap,但应该使用一个专门的实现类EnumMap。因为枚举类型有两个特征:</p>
+<ul>
+<li>枚举所有可能的值时有限的并且是预定义的</li>
+<li>所有的枚举值有一个顺序</li>
+</ul>
+<p>这两个特征可以更为高效的实现Map接口。</p>
 </blockquote>
-<p>在计算机模型中主要是有五个部分来组成的</p>
-<ol>
-<li>输入</li>
-<li>寄存器</li>
-<li>cpu<ol>
-<li>处理器</li>
-<li>控制器</li>
-</ol>
-</li>
-<li>输出</li>
-</ol>
-<p>其中<strong>处理器</strong>和<strong>控制器</strong>合起来就是我们所示的<code>cpu</code></p>
-<p>运算器的运算速度都是很快的，但是我们的数据存储不可能所有数据都存放在寄存器中，所以数据的<code>io</code>操作都是很有必要 的，这样就不能充分利用<code>cpu</code>的运算能力，此时就需要<strong>加上读写速度和处理器运算速度差不多的的高速缓存</strong>来作为<strong>内存和处理器之间</strong>的缓冲。将运算需要使用的数据复制到缓存中，让运算能快速进行，当运算结束后再从缓存同步回内存之中，这样处理器就无须等待缓慢的内存读写了。</p>
-<h2 id="缓存一致性问题"><a href="#缓存一致性问题" class="headerlink" title="缓存一致性问题"></a>缓存一致性问题</h2><p>上面加上了缓存可以解决内存的读写速度赶不上处理器的运算速度问题，但是又出现了另外一个问题。<strong>缓存一致性问题</strong></p>
-<p>因为 在多处理器中，每一个处理器都有自己的高速缓存，但是内存是只有一个。对于缓存一致性问题在硬件层面主要有两个解决方式</p>
-<ul>
-<li><p>总线加锁</p>
-<ul>
-<li>所谓的总线加锁就每一次都会锁定一个<code>cpu</code>，只有这个锁定的<code>cpu</code>才可以执行，其余的<code>cpu</code>是不能执行的。这种方式会降低<code>cpu</code>的吞吐量。</li>
-</ul>
-</li>
-<li><p>使用缓存一致性协议，所谓使用缓存一致性协议也就是在缓存和主内存之间加上一个访问规则，通过这种规则来解决缓存一致性问题。</p>
-</li>
-</ul>
-<pre class="mermaid">graph LR
-  A-->B
-  subgraph A[处理器]
-    direction TB
-    A1[处理器1]~~~A2[处理器2]~~~A3[处理器3]
-  end
-  subgraph B[高速缓存]
-    direction TB
-    B1[缓存1]~~~B2[缓存2]~~~B3[缓存3]
-  end
-  B-->C
-  C[缓存一致性]-->D[主内存]</pre>
-<p>这里的<strong>缓存一致性其实是一个协议</strong>，是处理缓存一致性问题的一个协议(也可以任认为是处理缓存一致性问题的一个理论基础)。</p>
-<h1 id="java内存模型-java-memory-mode"><a href="#java内存模型-java-memory-mode" class="headerlink" title="java内存模型(java memory mode)"></a>java内存模型(java memory mode)</h1><h2 id="什么是java内存模型-JMM规范"><a href="#什么是java内存模型-JMM规范" class="headerlink" title="什么是java内存模型(JMM规范)"></a>什么是<code>java</code>内存模型(JMM规范)</h2><p><strong><code>java</code>内存模型其实也是一个理论上的东西，是一个规范，这个规范的主要目的是定义程序中各种变量的访问规则，也就是关注的是虚拟机中把变量值存储到内存和从内存中取出变量值这样的底层细节。</strong>此处的变量和<code>java</code>编程中的变量是不同的，这里的变量包含了实例字段，静态字段和构成数组对象的元素，但是不包括局部变量和方法参数。（上面这段话是《深入理解java虚拟机》这本书中的）</p>
-<p><code>jvm</code>将内存组织结构主要划分为两个部分</p>
-<ul>
-<li>主内存</li>
-<li>工作内存</li>
-</ul>
-<pre class="mermaid">graph LR
-  A-->B
-  subgraph A[java线程]
-    direction TB
-    A1[线程1]~~~A2[线程2]~~~A3[线程3]
-  end
-  subgraph B[工作内存]
-    direction TB
-    B1[工作内存1]~~~B2[工作内存2]~~~B3[工作内存3]
-  end
-  B-->C
-  C[save和load操作]-->D[主内存]</pre>
+<h2 id="案例"><a href="#案例" class="headerlink" title="案例"></a>案例</h2><p>比如有一批关于衣服的记录，想要通过尺寸统计衣服的数量，定义一个简单的枚举类<code>Size</code>；都表示衣服的尺寸。</p>
+<p><code>Size</code>枚举:</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">enum</span> <span class="title class_">Size</span>&#123;</span><br><span class="line">    SMALL, MEDIUM, LARGE</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<h3 id="主内存"><a href="#主内存" class="headerlink" title="主内存"></a>主内存</h3><ul>
-<li>主要包含本地方法区和堆</li>
-<li>所有变量都要存储在主内存中，这些变量对于所有线程都是共享的</li>
-</ul>
-<h3 id="工作内存"><a href="#工作内存" class="headerlink" title="工作内存"></a>工作内存</h3><ul>
-<li>每一个线程都有自己独立工作的地方，也就是工作内存</li>
-<li>工作内存中保存的是主内存中某些变量的拷贝，线程堆变量的所有操作都必须在工作内存中进行，不能直接操作主内存</li>
-<li><strong>如果是基本数据类型，那么直接分配到工作内存，如果是引用类型，引用的地址存在在工作空间中，但是具体的对象是存在在堆中(也就是主内存中)，是可以共享的</strong></li>
-</ul>
-<pre class="mermaid">graph LR
-  subgraph B[java线程]
-    direction BT
-    B1[线程2]-->B2[工作内存2]
-    B2-->B1
-  end
-  subgraph A[java线程]
-    direction BT
-    A1[线程1]-->A2[工作内存1]
-    A2-->A1
-  end
-  C[主内存]
-  A & B --> C
-  C --> A & B</pre>
+<p><code>Clothes</code>类</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Clothes</span>&#123;</span><br><span class="line">    String id;</span><br><span class="line">    Size size;</span><br><span class="line">    <span class="comment">//get与set</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p>看上图，之所以存在<code>java</code>内存模型一说是因为<code>java</code>虚拟机的工作机制。当有多个线程的时候，每一个线程可以操作的数据有两种类型</p>
-<ul>
-<li>线程私有的数据，也就是这个数据就算改变了也不会影响其余线程，比如说局部变量就是线程私有的数据</li>
-<li>线程共享的数据，这样的数据多个线程都可以访问，就会出现线程安全的问题</li>
-</ul>
-<p>因为线程操作的数据有不同类型，所以在<code>java</code>中一个线程去操作数据的时候不是在主内存中直接操作，其实还有一个属于线程自己的内存(工作内存)，当操作线程私有的数据比较好理解，直接在工作内存中完成就可以咯，如果是操作共享的数据，那么就在主内存中拿一份数据到自己工作内存中操作，操作完了再将数据给到主内存中。</p>
-<h2 id="内存结构和内存模型的关系"><a href="#内存结构和内存模型的关系" class="headerlink" title="内存结构和内存模型的关系"></a>内存结构和内存模型的关系</h2><p>上面说了什么是<code>java</code>的内存模型，知道<code>java</code>内存模型是一个规范，定义的是程序中变量的访问规则，那么这个内存模型和我们平时所有的内存结构有什么关系呢？先看一下<code>java</code>内存结构</p>
-<h3 id="java内存结构"><a href="#java内存结构" class="headerlink" title="java内存结构"></a>java内存结构</h3><p><code>java</code>中内存结构主要是有五个部分</p>
-<ul>
-<li>程序计数器</li>
-<li>堆</li>
-<li>虚拟机栈<ul>
-<li>存放方法运行时所需的数据，成为栈帧</li>
-</ul>
-</li>
-<li>本地方法栈</li>
-<li>方法区<ul>
-<li>存储运行时常量池、已被虚拟机加载的类信息、常量、静态变量，即时编译后的代码等</li>
-</ul>
-</li>
-</ul>
-<p>上面<code>java</code>的五个部分其实就是根据<code>JMM</code>规范(<code>java</code>内存模型)来划分的一个内存结构。</p>
-<h1 id="并发编程的三个特性"><a href="#并发编程的三个特性" class="headerlink" title="并发编程的三个特性"></a>并发编程的三个特性</h1><h2 id="原子性"><a href="#原子性" class="headerlink" title="原子性"></a>原子性</h2><p>执行的操作不可分割，可以理解为就是一步操作，因为只有一步所以肯定是不能分割的</p>
-<h2 id="可见性"><a href="#可见性" class="headerlink" title="可见性"></a>可见性</h2><p>线程都是有自己的工作空间的，每一个线程都只能操作自己工作空间的数据，别的线程是看不到自己线程的工作空间的数据的</p>
-<h2 id="有序性"><a href="#有序性" class="headerlink" title="有序性"></a>有序性</h2><p>程序中代码的顺序不一定就是在<code>cpu</code>中执行的顺序，因为存在两种重排</p>
-<ul>
-<li>编译重排序(编译期)</li>
-<li>指令重排序(运行期)</li>
-</ul>
-<h1 id="JMM规范是如何保证并发编程的三个特征的呢"><a href="#JMM规范是如何保证并发编程的三个特征的呢" class="headerlink" title="JMM规范是如何保证并发编程的三个特征的呢"></a>JMM规范是如何保证并发编程的三个特征的呢</h1><h2 id="JMM和原子性"><a href="#JMM和原子性" class="headerlink" title="JMM和原子性"></a><code>JMM</code>和原子性</h2><h3 id="原子性案例1"><a href="#原子性案例1" class="headerlink" title="原子性案例1"></a>原子性案例1</h3><p><code>X = 10</code>这样一个操作具有原子性么？</p>
-<ul>
-<li>如果<code>X</code>是私有数据，是分配到工作空间的，那么就是有原子性的，因为只有一个写的操作</li>
-<li>如果<code>X</code>是共享的数据，就是在主内存中，这样就需要先在主内存中读取(复制)到工作空间中，修改完成后再将数据通过到主内存中，这样就是两步，也就是没有原子性</li>
-</ul>
-<h3 id="原子性案例2"><a href="#原子性案例2" class="headerlink" title="原子性案例2"></a>原子性案例2</h3><p><code>i++</code>这个操作具有原子性么？</p>
-<p><code>i++</code>这个操作其实是需要分为下面这几个步骤的</p>
-<ul>
-<li>读取<code>i</code>的值</li>
-<li>将<code>i</code>的值加一</li>
-<li>将修改后的值赋值给<code>i</code></li>
-</ul>
-<p>可以看到每一步都是原子操作，但是这三个原子操作合在一起之后去不是原子操作了</p>
-<h3 id="JMM如何保证原子性的"><a href="#JMM如何保证原子性的" class="headerlink" title="JMM如何保证原子性的"></a>JMM如何保证原子性的</h3><ul>
-<li>使用<code>Synchronized</code>关键字</li>
-<li>使用<code>JUC</code>的<code>lock</code>和<code>unlock</code>关键字</li>
-</ul>
-<h2 id="JMM和可见性"><a href="#JMM和可见性" class="headerlink" title="JMM和可见性"></a><code>JMM</code>和可见性</h2><p>线程是不能操作主内存中的数据的，只能操作自己的工作空间的数据，所以需要数据时会先去工作空间找，如果找到了就会使用工作空间中的数据，找不到才会从主内存中找，但是如果一个线程在工作空间找到了，不过这个数据在别的线程中已经修改了，并且刷新到主内中了，由于当前线程的工作空间中有这个数据，没有在主内存中拿，这样当前线程拿到的就不是最新的数据。<code>JMM</code>是如何解决这个问题的呢？</p>
-<h3 id="JMM如何保证可见性的"><a href="#JMM如何保证可见性的" class="headerlink" title="JMM如何保证可见性的"></a><code>JMM</code>如何保证可见性的</h3><ul>
-<li><code>Volatile</code>关键字，使用这个关键字后，当线程需要使用这个关键字修饰的数据时，每一次都会从主内存中去找数据，而不是从工作空间中找。</li>
-<li><code>JUC</code>  可以使用<code>JUC</code>的<code>lock</code>和<code>unlock</code></li>
-</ul>
-<h2 id="JMM和有序性-重排序"><a href="#JMM和有序性-重排序" class="headerlink" title="JMM和有序性(重排序)"></a><code>JMM</code>和有序性(重排序)</h2><p>对于有序性问题可以使用下面两种方式来解决</p>
-<ul>
-<li>使用<code>Volatile</code>关键字</li>
-<li>使用<code>Synchronized</code>来加锁</li>
-</ul>
-]]></content>
+<p>按尺寸统计数量:</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> Map&lt;Size, Integer&gt; <span class="title function_">countBySize</span><span class="params">(List&lt;Clothes&gt; clothes)</span>&#123;</span><br><span class="line">    Map&lt;Size, Integer&gt; map = <span class="keyword">new</span> <span class="title class_">EnumMap</span>(Size.class);</span><br><span class="line">    <span class="keyword">for</span>(Clothes c : clothes)&#123;</span><br><span class="line">        <span class="type">Size</span> <span class="variable">size</span> <span class="operator">=</span> c.getSize();</span><br><span class="line">        <span class="type">Integer</span> <span class="variable">count</span> <span class="operator">=</span> map.get(size);</span><br><span class="line">        <span class="keyword">if</span>(count != <span class="literal">null</span>)&#123;</span><br><span class="line">            map.put(size, count+<span class="number">1</span>);</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            map.put(size, <span class="number">1</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>&#x3D;&#x3D;需要注意EnumMap的构造方法&#x3D;&#x3D;</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">Map&lt;Size, Integer&gt; map = <span class="keyword">new</span> <span class="title class_">EnumMap</span>(Size.class);</span><br></pre></td></tr></table></figure>
+
+<p><code>EnumMap</code>需要传递一个<strong>类型</strong>信息，<code>Size.class</code>表示枚举类<code>Size</code>的运行时信息，需要这个参数是因为<code>EnumMap</code>要知道具体的枚举类是什么。</p>
+<p>测试代码：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">List&lt;Clothes&gt; clothes = Arrays.asList(</span><br><span class="line">	<span class="keyword">new</span> <span class="title class_">Clothes</span>[]&#123;</span><br><span class="line">        <span class="keyword">new</span> <span class="title class_">Clothes</span>(<span class="string">&quot;c001&quot;</span>, Size.SMALL),</span><br><span class="line">        <span class="keyword">new</span> <span class="title class_">Clothes</span>(<span class="string">&quot;c002&quot;</span>, Size.MEDIUM),</span><br><span class="line">        <span class="keyword">new</span> <span class="title class_">Clothes</span>(<span class="string">&quot;c003&quot;</span>, Size.LARGE),</span><br><span class="line">        <span class="keyword">new</span> <span class="title class_">Clothes</span>(<span class="string">&quot;c004&quot;</span>, Size.SMALL),</span><br><span class="line">        <span class="keyword">new</span> <span class="title class_">Clothes</span>(<span class="string">&quot;c005&quot;</span>, Size.MEDIUM),</span><br><span class="line">        <span class="keyword">new</span> <span class="title class_">Clothes</span>(<span class="string">&quot;c006&quot;</span>, Size.LARGE)</span><br><span class="line">    &#125;</span><br><span class="line">);</span><br><span class="line">System.out.println(countBySize(clothes));</span><br></pre></td></tr></table></figure>
+
+<p>需要说明的是，<code>EnumMap</code>是保证顺序的，输出是按照键在枚举中的顺序的。</p>
+<h2 id="enum的另外两个构造方法"><a href="#enum的另外两个构造方法" class="headerlink" title="enum的另外两个构造方法"></a>enum的另外两个构造方法</h2><p>除了以上介绍的构造方法，EnumMap还有两个构造方法，可以接受一个键值匹配的EnumMap或普通Map，如下所示：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="title function_">EnumMap</span><span class="params">(EnumMap&lt;K, ? extends V&gt; m)</span></span><br><span class="line"><span class="keyword">public</span> <span class="title function_">EnumMap</span><span class="params">(Map&lt;K, ? extends V&gt; m)</span></span><br></pre></td></tr></table></figure>
+
+<p>比如:</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">Map&lt;Size,Integer&gt; hashMap = <span class="keyword">new</span> <span class="title class_">HashMap</span>&lt;&gt;();</span><br><span class="line">hashMap.put(Size.LARGE, <span class="number">2</span>);</span><br><span class="line">hashMap.put(Size.SMALL, <span class="number">1</span>);</span><br><span class="line">Map&lt;Size, Integer&gt; enumMap = <span class="keyword">new</span> <span class="title class_">EnumMap</span>&lt;&gt;(hashMap);</span><br></pre></td></tr></table></figure>]]></content>
       <categories>
         <category>java</category>
-        <category>jvm</category>
+        <category>java基础</category>
       </categories>
       <tags>
         <tag>java</tag>
-        <tag>jvm</tag>
+        <tag>java基础</tag>
       </tags>
   </entry>
   <entry>
@@ -1084,6 +870,325 @@
       </tags>
   </entry>
   <entry>
+    <title>策略模式</title>
+    <url>/2020/03/06/d799834e3476/</url>
+    <content><![CDATA[<h1 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h1><p>策略模式是一种定义一系列算法的方法，从概念上来看，所有这些算法完成的都是相同的工作，只是实现不同，它可以以相同的方式调用所有的算法，减少了各种算法类与使用算法类之间的耦合。</p>
+<span id="more"></span>
+
+<h1 id="案例"><a href="#案例" class="headerlink" title="案例"></a>案例</h1><p>比如我们平时买东西付款方式可以用多种</p>
+<ul>
+<li>支付宝支付</li>
+<li>微信支付</li>
+<li>银联支付</li>
+<li>京东白条支付</li>
+</ul>
+<p>现在来看一下平时我们代码应该如何写。</p>
+<h2 id="不使用策略模式"><a href="#不使用策略模式" class="headerlink" title="不使用策略模式"></a>不使用策略模式</h2><h3 id="支付订单类"><a href="#支付订单类" class="headerlink" title="支付订单类"></a>支付订单类</h3><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> designmode.strategypattern.normal;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> designmode.strategypattern.MsgResult;</span><br><span class="line"><span class="keyword">import</span> designmode.strategypattern.PayStrategy;</span><br><span class="line"><span class="keyword">import</span> designmode.strategypattern.Payment;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Created by Tom.</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">NormalOrder</span> &#123;</span><br><span class="line">    <span class="keyword">private</span> String uid;</span><br><span class="line">    <span class="keyword">private</span> String orderId;</span><br><span class="line">    <span class="keyword">private</span> <span class="type">double</span> amount;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">NormalOrder</span><span class="params">(String uid, String orderId, <span class="type">double</span> amount)</span>&#123;</span><br><span class="line">        <span class="built_in">this</span>.uid = uid;</span><br><span class="line">        <span class="built_in">this</span>.orderId = orderId;</span><br><span class="line">        <span class="built_in">this</span>.amount = amount;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">pay</span><span class="params">(String payKey)</span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (<span class="string">&quot;京东&quot;</span>.equals(payKey)) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="string">&quot;使用京东支付，支付成功&quot;</span>;</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (<span class="string">&quot;支付宝&quot;</span>.equals(payKey)) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="string">&quot;使用支付宝支付，支付成功&quot;</span>;</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (<span class="string">&quot;微信&quot;</span>.equals(payKey)) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="string">&quot;使用微信支付,支付成功&quot;</span>;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="string">&quot;支付方式错误&quot;</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="测试类"><a href="#测试类" class="headerlink" title="测试类"></a>测试类</h3><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> designmode.strategypattern.normal;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">NormalOrderTest</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="type">NormalOrder</span> <span class="variable">order</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">NormalOrder</span>(<span class="string">&quot;1&quot;</span>, <span class="string">&quot;13424123432&quot;</span>, <span class="number">33.22</span>);</span><br><span class="line">        System.out.println(order.pay(<span class="string">&quot;支付宝&quot;</span>));</span><br><span class="line">        System.out.println(order.pay(<span class="string">&quot;微信&quot;</span>));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h3><p>加上后面还有别的支付方式，我们就一直需要修改<code>NormalOrder</code>类的<code>pay</code>方法，需要在里面不断的加上判断，去修改支付逻辑，这就违背了开闭原则。</p>
+<h2 id="使用策略模式"><a href="#使用策略模式" class="headerlink" title="使用策略模式"></a>使用策略模式</h2><p>先看一下使用策略模式的<code>UML</code>类图</p>
+<p><img src="https://s2.loli.net/2023/11/15/6RgaxTJvh5lEdHQ.png"></p>
+<p>从上面的类图中可以看到主体是分为三类</p>
+<ul>
+<li><code>payment</code>接口或抽象类和具体的支付方式<ul>
+<li>因为支付都有相似的功能，比如支付类型，判断该支付类型下账号的余额等，所以需要有一个接口或者抽象类，然后具体的支付方式来实现或者继承这个接口或抽象类。</li>
+</ul>
+</li>
+<li>具体策略，这里就是<code>PayStrategy</code>类，这个类的作用是给上层客户端来调用，获取具体的支付方式</li>
+<li><code>order</code>类就是订单类，可以认为是客户端类</li>
+</ul>
+<p><a href="https://gitee.com/Gwei11/code/tree/master/javabase/strategypattern">策略模式代码</a></p>
+]]></content>
+      <categories>
+        <category>java</category>
+        <category>设计模式</category>
+      </categories>
+      <tags>
+        <tag>java</tag>
+        <tag>设计模式</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>java内存模型</title>
+    <url>/2019/12/19/585a644e7d52/</url>
+    <content><![CDATA[<h1 id="主要内容"><a href="#主要内容" class="headerlink" title="主要内容"></a>主要内容</h1><p><code>java</code>内存模型实际上是一个抽象的概念，是一套规范，而不是一个实际的东西，而<code>java</code>内存结构就是根据这一套规范来进行划分的。</p>
+<span id="more"></span>
+
+<p>对于<code>java</code>内存模型我们主要需要了解以下几个内容：</p>
+<ul>
+<li>硬件内存架构</li>
+<li>线程和<code>jvm</code></li>
+<li><code>java</code>内存模型</li>
+<li><code>java</code>内存模型对并发编程的支持</li>
+</ul>
+<h1 id="硬件内存架构"><a href="#硬件内存架构" class="headerlink" title="硬件内存架构"></a>硬件内存架构</h1><blockquote>
+<p>物理机遇到的并发问题与虚拟机中的情况有很多相似之处，物理机对并发的处理方案对虚拟机的实现也有相当大的参考意义</p>
+</blockquote>
+<p>在计算机模型中主要是有五个部分来组成的</p>
+<ol>
+<li>输入</li>
+<li>寄存器</li>
+<li>cpu<ol>
+<li>处理器</li>
+<li>控制器</li>
+</ol>
+</li>
+<li>输出</li>
+</ol>
+<p>其中<strong>处理器</strong>和<strong>控制器</strong>合起来就是我们所示的<code>cpu</code></p>
+<p>运算器的运算速度都是很快的，但是我们的数据存储不可能所有数据都存放在寄存器中，所以数据的<code>io</code>操作都是很有必要 的，这样就不能充分利用<code>cpu</code>的运算能力，此时就需要<strong>加上读写速度和处理器运算速度差不多的的高速缓存</strong>来作为<strong>内存和处理器之间</strong>的缓冲。将运算需要使用的数据复制到缓存中，让运算能快速进行，当运算结束后再从缓存同步回内存之中，这样处理器就无须等待缓慢的内存读写了。</p>
+<h2 id="缓存一致性问题"><a href="#缓存一致性问题" class="headerlink" title="缓存一致性问题"></a>缓存一致性问题</h2><p>上面加上了缓存可以解决内存的读写速度赶不上处理器的运算速度问题，但是又出现了另外一个问题。<strong>缓存一致性问题</strong></p>
+<p>因为 在多处理器中，每一个处理器都有自己的高速缓存，但是内存是只有一个。对于缓存一致性问题在硬件层面主要有两个解决方式</p>
+<ul>
+<li><p>总线加锁</p>
+<ul>
+<li>所谓的总线加锁就每一次都会锁定一个<code>cpu</code>，只有这个锁定的<code>cpu</code>才可以执行，其余的<code>cpu</code>是不能执行的。这种方式会降低<code>cpu</code>的吞吐量。</li>
+</ul>
+</li>
+<li><p>使用缓存一致性协议，所谓使用缓存一致性协议也就是在缓存和主内存之间加上一个访问规则，通过这种规则来解决缓存一致性问题。</p>
+</li>
+</ul>
+<pre class="mermaid">graph LR
+  A-->B
+  subgraph A[处理器]
+    direction TB
+    A1[处理器1]~~~A2[处理器2]~~~A3[处理器3]
+  end
+  subgraph B[高速缓存]
+    direction TB
+    B1[缓存1]~~~B2[缓存2]~~~B3[缓存3]
+  end
+  B-->C
+  C[缓存一致性]-->D[主内存]</pre>
+<p>这里的<strong>缓存一致性其实是一个协议</strong>，是处理缓存一致性问题的一个协议(也可以任认为是处理缓存一致性问题的一个理论基础)。</p>
+<h1 id="java内存模型-java-memory-mode"><a href="#java内存模型-java-memory-mode" class="headerlink" title="java内存模型(java memory mode)"></a>java内存模型(java memory mode)</h1><h2 id="什么是java内存模型-JMM规范"><a href="#什么是java内存模型-JMM规范" class="headerlink" title="什么是java内存模型(JMM规范)"></a>什么是<code>java</code>内存模型(JMM规范)</h2><p><strong><code>java</code>内存模型其实也是一个理论上的东西，是一个规范，这个规范的主要目的是定义程序中各种变量的访问规则，也就是关注的是虚拟机中把变量值存储到内存和从内存中取出变量值这样的底层细节。</strong>此处的变量和<code>java</code>编程中的变量是不同的，这里的变量包含了实例字段，静态字段和构成数组对象的元素，但是不包括局部变量和方法参数。（上面这段话是《深入理解java虚拟机》这本书中的）</p>
+<p><code>jvm</code>将内存组织结构主要划分为两个部分</p>
+<ul>
+<li>主内存</li>
+<li>工作内存</li>
+</ul>
+<pre class="mermaid">graph LR
+  A-->B
+  subgraph A[java线程]
+    direction TB
+    A1[线程1]~~~A2[线程2]~~~A3[线程3]
+  end
+  subgraph B[工作内存]
+    direction TB
+    B1[工作内存1]~~~B2[工作内存2]~~~B3[工作内存3]
+  end
+  B-->C
+  C[save和load操作]-->D[主内存]</pre>
+
+<h3 id="主内存"><a href="#主内存" class="headerlink" title="主内存"></a>主内存</h3><ul>
+<li>主要包含本地方法区和堆</li>
+<li>所有变量都要存储在主内存中，这些变量对于所有线程都是共享的</li>
+</ul>
+<h3 id="工作内存"><a href="#工作内存" class="headerlink" title="工作内存"></a>工作内存</h3><ul>
+<li>每一个线程都有自己独立工作的地方，也就是工作内存</li>
+<li>工作内存中保存的是主内存中某些变量的拷贝，线程堆变量的所有操作都必须在工作内存中进行，不能直接操作主内存</li>
+<li><strong>如果是基本数据类型，那么直接分配到工作内存，如果是引用类型，引用的地址存在在工作空间中，但是具体的对象是存在在堆中(也就是主内存中)，是可以共享的</strong></li>
+</ul>
+<pre class="mermaid">graph LR
+  subgraph B[java线程]
+    direction BT
+    B1[线程2]-->B2[工作内存2]
+    B2-->B1
+  end
+  subgraph A[java线程]
+    direction BT
+    A1[线程1]-->A2[工作内存1]
+    A2-->A1
+  end
+  C[主内存]
+  A & B --> C
+  C --> A & B</pre>
+
+<p>看上图，之所以存在<code>java</code>内存模型一说是因为<code>java</code>虚拟机的工作机制。当有多个线程的时候，每一个线程可以操作的数据有两种类型</p>
+<ul>
+<li>线程私有的数据，也就是这个数据就算改变了也不会影响其余线程，比如说局部变量就是线程私有的数据</li>
+<li>线程共享的数据，这样的数据多个线程都可以访问，就会出现线程安全的问题</li>
+</ul>
+<p>因为线程操作的数据有不同类型，所以在<code>java</code>中一个线程去操作数据的时候不是在主内存中直接操作，其实还有一个属于线程自己的内存(工作内存)，当操作线程私有的数据比较好理解，直接在工作内存中完成就可以咯，如果是操作共享的数据，那么就在主内存中拿一份数据到自己工作内存中操作，操作完了再将数据给到主内存中。</p>
+<h2 id="内存结构和内存模型的关系"><a href="#内存结构和内存模型的关系" class="headerlink" title="内存结构和内存模型的关系"></a>内存结构和内存模型的关系</h2><p>上面说了什么是<code>java</code>的内存模型，知道<code>java</code>内存模型是一个规范，定义的是程序中变量的访问规则，那么这个内存模型和我们平时所有的内存结构有什么关系呢？先看一下<code>java</code>内存结构</p>
+<h3 id="java内存结构"><a href="#java内存结构" class="headerlink" title="java内存结构"></a>java内存结构</h3><p><code>java</code>中内存结构主要是有五个部分</p>
+<ul>
+<li>程序计数器</li>
+<li>堆</li>
+<li>虚拟机栈<ul>
+<li>存放方法运行时所需的数据，成为栈帧</li>
+</ul>
+</li>
+<li>本地方法栈</li>
+<li>方法区<ul>
+<li>存储运行时常量池、已被虚拟机加载的类信息、常量、静态变量，即时编译后的代码等</li>
+</ul>
+</li>
+</ul>
+<p>上面<code>java</code>的五个部分其实就是根据<code>JMM</code>规范(<code>java</code>内存模型)来划分的一个内存结构。</p>
+<h1 id="并发编程的三个特性"><a href="#并发编程的三个特性" class="headerlink" title="并发编程的三个特性"></a>并发编程的三个特性</h1><h2 id="原子性"><a href="#原子性" class="headerlink" title="原子性"></a>原子性</h2><p>执行的操作不可分割，可以理解为就是一步操作，因为只有一步所以肯定是不能分割的</p>
+<h2 id="可见性"><a href="#可见性" class="headerlink" title="可见性"></a>可见性</h2><p>线程都是有自己的工作空间的，每一个线程都只能操作自己工作空间的数据，别的线程是看不到自己线程的工作空间的数据的</p>
+<h2 id="有序性"><a href="#有序性" class="headerlink" title="有序性"></a>有序性</h2><p>程序中代码的顺序不一定就是在<code>cpu</code>中执行的顺序，因为存在两种重排</p>
+<ul>
+<li>编译重排序(编译期)</li>
+<li>指令重排序(运行期)</li>
+</ul>
+<h1 id="JMM规范是如何保证并发编程的三个特征的呢"><a href="#JMM规范是如何保证并发编程的三个特征的呢" class="headerlink" title="JMM规范是如何保证并发编程的三个特征的呢"></a>JMM规范是如何保证并发编程的三个特征的呢</h1><h2 id="JMM和原子性"><a href="#JMM和原子性" class="headerlink" title="JMM和原子性"></a><code>JMM</code>和原子性</h2><h3 id="原子性案例1"><a href="#原子性案例1" class="headerlink" title="原子性案例1"></a>原子性案例1</h3><p><code>X = 10</code>这样一个操作具有原子性么？</p>
+<ul>
+<li>如果<code>X</code>是私有数据，是分配到工作空间的，那么就是有原子性的，因为只有一个写的操作</li>
+<li>如果<code>X</code>是共享的数据，就是在主内存中，这样就需要先在主内存中读取(复制)到工作空间中，修改完成后再将数据通过到主内存中，这样就是两步，也就是没有原子性</li>
+</ul>
+<h3 id="原子性案例2"><a href="#原子性案例2" class="headerlink" title="原子性案例2"></a>原子性案例2</h3><p><code>i++</code>这个操作具有原子性么？</p>
+<p><code>i++</code>这个操作其实是需要分为下面这几个步骤的</p>
+<ul>
+<li>读取<code>i</code>的值</li>
+<li>将<code>i</code>的值加一</li>
+<li>将修改后的值赋值给<code>i</code></li>
+</ul>
+<p>可以看到每一步都是原子操作，但是这三个原子操作合在一起之后去不是原子操作了</p>
+<h3 id="JMM如何保证原子性的"><a href="#JMM如何保证原子性的" class="headerlink" title="JMM如何保证原子性的"></a>JMM如何保证原子性的</h3><ul>
+<li>使用<code>Synchronized</code>关键字</li>
+<li>使用<code>JUC</code>的<code>lock</code>和<code>unlock</code>关键字</li>
+</ul>
+<h2 id="JMM和可见性"><a href="#JMM和可见性" class="headerlink" title="JMM和可见性"></a><code>JMM</code>和可见性</h2><p>线程是不能操作主内存中的数据的，只能操作自己的工作空间的数据，所以需要数据时会先去工作空间找，如果找到了就会使用工作空间中的数据，找不到才会从主内存中找，但是如果一个线程在工作空间找到了，不过这个数据在别的线程中已经修改了，并且刷新到主内中了，由于当前线程的工作空间中有这个数据，没有在主内存中拿，这样当前线程拿到的就不是最新的数据。<code>JMM</code>是如何解决这个问题的呢？</p>
+<h3 id="JMM如何保证可见性的"><a href="#JMM如何保证可见性的" class="headerlink" title="JMM如何保证可见性的"></a><code>JMM</code>如何保证可见性的</h3><ul>
+<li><code>Volatile</code>关键字，使用这个关键字后，当线程需要使用这个关键字修饰的数据时，每一次都会从主内存中去找数据，而不是从工作空间中找。</li>
+<li><code>JUC</code>  可以使用<code>JUC</code>的<code>lock</code>和<code>unlock</code></li>
+</ul>
+<h2 id="JMM和有序性-重排序"><a href="#JMM和有序性-重排序" class="headerlink" title="JMM和有序性(重排序)"></a><code>JMM</code>和有序性(重排序)</h2><p>对于有序性问题可以使用下面两种方式来解决</p>
+<ul>
+<li>使用<code>Volatile</code>关键字</li>
+<li>使用<code>Synchronized</code>来加锁</li>
+</ul>
+]]></content>
+      <categories>
+        <category>java</category>
+        <category>jvm</category>
+      </categories>
+      <tags>
+        <tag>java</tag>
+        <tag>jvm</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>CompletableFuture的使用</title>
+    <url>/2023/11/17/f31e3a7691d6/</url>
+    <content><![CDATA[<h1 id="为什么要用-CompletableFuture"><a href="#为什么要用-CompletableFuture" class="headerlink" title="为什么要用 CompletableFuture"></a>为什么要用 CompletableFuture</h1><ol>
+<li>任务完成后自动回调</li>
+<li>多任务并行执行</li>
+<li>有依赖任务的串行执行</li>
+</ol>
+<span id="more"></span>]]></content>
+      <categories>
+        <category>java</category>
+        <category>多线程</category>
+      </categories>
+      <tags>
+        <tag>java</tag>
+        <tag>多线程</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Future的使用</title>
+    <url>/2023/11/17/9f417cc2ea5e/</url>
+    <content><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p><code>java</code> 中异步执行任务可以让任务类实现 <code>Runnable</code> 接口即可，但是使用 <code>Runnable</code> 接口执行的任务无法获取返回值，所以 <code>java</code> 在 <code>jdk1.5</code> 版本中增加了 <code>Future</code> 接口和 <code>Callable</code></p>
+<span id="more"></span>
+<h1 id="先给结论"><a href="#先给结论" class="headerlink" title="先给结论"></a>先给结论</h1><ol>
+<li><code>Future</code> 可以使用 <code>get()</code> 方法获取线程调用的结果，该方法会阻塞主线程</li>
+<li><code>Future</code> 类有提供 <code>isDone()</code> 方法来判断线程是否执行完成，该方法不会阻塞</li>
+<li><code>Future</code> 可以拿到线程结果是因为在线程任务类（<code>FutureTask</code>）中执行完任务之后将结果设置到了 <code>Future</code> 中【先有个概念，下文会分析】</li>
+</ol>
+<h1 id="Future-的使用示例"><a href="#Future-的使用示例" class="headerlink" title="Future 的使用示例"></a>Future 的使用示例</h1><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">TestThread</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> ExecutionException, InterruptedException &#123;</span><br><span class="line">        <span class="type">ExecutorService</span> <span class="variable">executorService</span> <span class="operator">=</span> Executors.newSingleThreadExecutor();</span><br><span class="line">        <span class="comment">// 这里submit 方法是 &lt;T&gt; Future&lt;T&gt; submit(Callable&lt;T&gt; task);</span></span><br><span class="line">        Future&lt;String&gt; future = executorService.submit(() -&gt; &#123;</span><br><span class="line">            System.out.println(<span class="string">&quot;start execute:&quot;</span> + DateTimeFormatter.ofPattern(<span class="string">&quot;yyyy-MM-dd HH:mm:ss&quot;</span>).format(LocalDateTime.now()));</span><br><span class="line">            Thread.sleep(<span class="number">3000</span>);</span><br><span class="line">            <span class="keyword">return</span> <span class="string">&quot;hello&quot;</span>;</span><br><span class="line">        &#125;);</span><br><span class="line">        <span class="comment">// 非阻塞调用，不断查询结果是否完成</span></span><br><span class="line">        <span class="keyword">while</span> (!future.isDone()) &#123;</span><br><span class="line">            System.out.println(<span class="string">&quot;线程未执行完成&quot;</span>);</span><br><span class="line">            Thread.sleep(<span class="number">1000</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 若任务未执行完成，get 方法会阻塞主线程</span></span><br><span class="line">        <span class="type">String</span> <span class="variable">result</span> <span class="operator">=</span> future.get();</span><br><span class="line">        System.out.println(<span class="string">&quot;after execute Time:&quot;</span> +  DateTimeFormatter.ofPattern(<span class="string">&quot;yyyy-MM-dd HH:mm:ss&quot;</span>).format(LocalDateTime.now()));</span><br><span class="line">        System.out.println(result);</span><br><span class="line">        <span class="comment">// 关闭线程池，否则jvm进程会一直在运行</span></span><br><span class="line">        executorService.shutdown();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>执行结果</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">线程未执行完成</span><br><span class="line">start execute:<span class="number">2023</span>-<span class="number">11</span>-<span class="number">17</span> <span class="number">15</span>:<span class="number">14</span>:<span class="number">35</span></span><br><span class="line">线程未执行完成</span><br><span class="line">线程未执行完成</span><br><span class="line">线程未执行完成</span><br><span class="line">after execute Time:<span class="number">2023</span>-<span class="number">11</span>-<span class="number">17</span> <span class="number">15</span>:<span class="number">14</span>:<span class="number">39</span></span><br><span class="line">hello</span><br></pre></td></tr></table></figure>
+<h1 id="核心类"><a href="#核心类" class="headerlink" title="核心类"></a>核心类</h1><p>TODO</p>
+<h2 id="说明"><a href="#说明" class="headerlink" title="说明"></a>说明</h2><p>从上面类图看到核心类是 <code>FutureTask</code>, 这个类实现了 <code>Future</code> 和 <code>Runnable</code>, 并且在构造函数中需要传入 <code>Callable</code></p>
+<ol>
+<li><code>FutureTask</code> 和 <code>Runnable</code> 接口的关系是实现，目的是便于向上转型传参，线程池中接收任务的顶层接口就是 <code>Runnable</code></li>
+<li><code>FutureTask</code> 类和 <code>Callable</code> 实现类的关系是 <strong>组合</strong>，下面是 <code>FutureTask</code> 的构造方法</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="title function_">FutureTask</span><span class="params">(Callable&lt;V&gt; callable)</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (callable == <span class="literal">null</span>)</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">NullPointerException</span>();</span><br><span class="line">    <span class="built_in">this</span>.callable = callable;</span><br><span class="line">    <span class="built_in">this</span>.state = NEW;       <span class="comment">// ensure visibility of callable</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>描述上面两点是因为先弄清楚 <code>FutureTask</code> 和 <code>Callable</code> 和 <code>Runnable</code> 三者之间的关系，这样才能知道最终的任务类是哪个（任务类的 <code>run()</code> 方法就是重点了）</p>
+<pre class="mermaid">sequenceDiagram
+    participant A as ExecutorService
+    participant B as AbstractExecutorService
+    participant C as ThreadPoolExecutor
+    A->>B: submit(Callable)
+    Note over A,B: 将Callable转换成FutureTask
+    B->>B: RunnableFuture = new FutureTask<T>(callable)
+    Note over B,C: 将FutureTask转换成RunnableFuture
+    B->>C: execute(Runnable command) {
+    B->>A: return RunnableFuture</T></pre>
+<p>下面再跟着代码看一遍这个过程</p>
+<ol>
+<li><code>TestThread#main</code> 中创建线程池并调用 <code>submit()</code> 方法<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="type">ExecutorService</span> <span class="variable">executorService</span> <span class="operator">=</span> Executors.newSingleThreadExecutor();</span><br><span class="line"><span class="comment">// 接下来看submit(Callable) 方法</span></span><br><span class="line">Future&lt;String&gt; future = executorService.submit(() -&gt; &#123;</span><br><span class="line">    System.out.println(<span class="string">&quot;start execute:&quot;</span> + DateTimeFormatter.ofPattern(<span class="string">&quot;yyyy-MM-dd HH:mm:ss&quot;</span>).format(LocalDateTime.now()));</span><br><span class="line">    Thread.sleep(<span class="number">3000</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="string">&quot;hello&quot;</span>;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></li>
+<li><code>submit()</code> 方法最终会调用到 <code>java.util.concurrent.AbstractExecutorService#submit(java.util.concurrent.Callable&lt;T&gt;)</code></li>
+</ol>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> &lt;T&gt; Future&lt;T&gt; <span class="title function_">submit</span><span class="params">(Callable&lt;T&gt; task)</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (task == <span class="literal">null</span>) <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">NullPointerException</span>();</span><br><span class="line">    <span class="comment">// 这里就是根据 Callable 生成 FutureTask 类</span></span><br><span class="line">    RunnableFuture&lt;T&gt; ftask = newTaskFor(task);</span><br><span class="line">    <span class="comment">// 接下来看 execute 方法，这个就是 ThreadPoolExecutor 中的 execute() 方法</span></span><br><span class="line">    execute(ftask);</span><br><span class="line">    <span class="keyword">return</span> ftask;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">protected</span> &lt;T&gt; RunnableFuture&lt;T&gt; <span class="title function_">newTaskFor</span><span class="params">(Callable&lt;T&gt; callable)</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">FutureTask</span>&lt;T&gt;(callable);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ol start="3">
+<li><code>java.util.concurrent.ThreadPoolExecutor#execute(Runnable)</code> 这个就是线程池的执行逻辑，参考</li>
+</ol>
+<p><code>&#123;% post_path 线程池实现原理 %&#125;</code><br>通过上面的步骤已经知道线程池中使用的 <strong>任务类</strong> 是 <code>FutureTask</code>，那么就一定会调用 <code>FutureTask</code> 类中的 <code>run()</code> 方法</p>
+<h1 id="FutureTask-类中重要属性"><a href="#FutureTask-类中重要属性" class="headerlink" title="FutureTask 类中重要属性"></a>FutureTask 类中重要属性</h1><p>但是在看 <code>run()</code> 方法之前先看一下 <code>FutureTask</code> 类中比较重要的两个属性，在后面的方法中会遇到</p>
+<ol>
+<li>描述任务状态的字段 <code>state</code></li>
+<li>结果保存字段 <code>Object outcome</code></li>
+<li>等待队列 <code>volatile WaitNode waiters;</code></li>
+</ol>
+<h2 id="FutureTask-任务状态字段-state"><a href="#FutureTask-任务状态字段-state" class="headerlink" title="FutureTask 任务状态字段 state"></a>FutureTask 任务状态字段 state</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">volatile</span> <span class="type">int</span> state;</span><br><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">int</span> <span class="variable">NEW</span>          <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">int</span> <span class="variable">COMPLETING</span>   <span class="operator">=</span> <span class="number">1</span>;</span><br><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">int</span> <span class="variable">NORMAL</span>       <span class="operator">=</span> <span class="number">2</span>;</span><br><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">int</span> <span class="variable">EXCEPTIONAL</span>  <span class="operator">=</span> <span class="number">3</span>;</span><br><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">int</span> <span class="variable">CANCELLED</span>    <span class="operator">=</span> <span class="number">4</span>;</span><br><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">int</span> <span class="variable">INTERRUPTING</span> <span class="operator">=</span> <span class="number">5</span>;</span><br><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">int</span> <span class="variable">INTERRUPTED</span>  <span class="operator">=</span> <span class="number">6</span>;</span><br></pre></td></tr></table></figure>
+<h3 id="state-状态转换流程"><a href="#state-状态转换流程" class="headerlink" title="state 状态转换流程"></a>state 状态转换流程</h3><pre class="mermaid">graph LR
+    A[new]
+    B[COMPLETING]
+    C[NORMAL]
+    D[EXCEPTIONAL]
+    E[CANCELLED]
+    F[INTERRUPTING]
+    G[INTERRUPTED]
+    A--"set() or setException()"-->B-->C & D
+    A--"cancel(false)"-->E
+    A--"cancel(true)"-->F-->G</pre>
+<h2 id="Object-outcome"><a href="#Object-outcome" class="headerlink" title="Object outcome"></a><code>Object outcome</code></h2><p><code>outcome</code> 字段就是用来保存线程执行的结果的</p>
+<h2 id="等待队列-WaitNode-waiters"><a href="#等待队列-WaitNode-waiters" class="headerlink" title="等待队列 WaitNode waiters"></a>等待队列 <code>WaitNode waiters</code></h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">class</span> <span class="title class_">WaitNode</span> &#123;</span><br><span class="line">    <span class="keyword">volatile</span> Thread thread;</span><br><span class="line">    <span class="keyword">volatile</span> WaitNode next;</span><br><span class="line">    WaitNode() &#123; thread = Thread.currentThread(); &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ol>
+<li>waiters 是一个链表，waiters 字段就是这个链表的头部</li>
+<li>因为可以有多个线程去调用 <code>Future.get()</code> 方法，当没有获取到结果时，所有调用 <code>get()</code> 方法的线程都是需要阻塞的</li>
+</ol>
+<h1 id="FutureTask-的-run-方法"><a href="#FutureTask-的-run-方法" class="headerlink" title="FutureTask 的 run() 方法"></a>FutureTask 的 run() 方法</h1><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">run</span><span class="params">()</span> &#123;</span><br><span class="line">    <span class="comment">// 1. state 记录的是当前任务的状态</span></span><br><span class="line">    <span class="keyword">if</span> (state != NEW ||</span><br><span class="line">        !RUNNER.compareAndSet(<span class="built_in">this</span>, <span class="literal">null</span>, Thread.currentThread()))</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        Callable&lt;V&gt; c = callable;</span><br><span class="line">        <span class="keyword">if</span> (c != <span class="literal">null</span> &amp;&amp; state == NEW) &#123;</span><br><span class="line">            V result;</span><br><span class="line">            <span class="type">boolean</span> ran;</span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                <span class="comment">// 2. 构造 FutureTask 时将 Callable 传递进来了，在这里进行调用</span></span><br><span class="line">                result = c.call();</span><br><span class="line">                <span class="comment">// 设置调用完成的标识</span></span><br><span class="line">                ran = <span class="literal">true</span>;</span><br><span class="line">            &#125; <span class="keyword">catch</span> (Throwable ex) &#123;</span><br><span class="line">                result = <span class="literal">null</span>;</span><br><span class="line">                ran = <span class="literal">false</span>;</span><br><span class="line">                setException(ex);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span> (ran)</span><br><span class="line">                <span class="comment">// 3. 调用完成之后设置结果</span></span><br><span class="line">                set(result);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">        runner = <span class="literal">null</span>;</span><br><span class="line">        <span class="type">int</span> <span class="variable">s</span> <span class="operator">=</span> state;</span><br><span class="line">        <span class="keyword">if</span> (s &gt;= INTERRUPTING)</span><br><span class="line">            handlePossibleCancellationInterrupt(s);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>接下来看看注释中的第 <code>3</code> 步， 调用完成之后设置结果</p>
+<h2 id="set-V-v-方法"><a href="#set-V-v-方法" class="headerlink" title="set(V v) 方法"></a>set(V v) 方法</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title function_">set</span><span class="params">(V v)</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (STATE.compareAndSet(<span class="built_in">this</span>, NEW, COMPLETING)) &#123;</span><br><span class="line">        <span class="comment">// 1. 将执行的结果赋值给 outcome</span></span><br><span class="line">        outcome = v;</span><br><span class="line">        STATE.setRelease(<span class="built_in">this</span>, NORMAL); <span class="comment">// final state</span></span><br><span class="line">        <span class="comment">// 2. 通知阻塞的线程（唤醒）</span></span><br><span class="line">        finishCompletion();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>将结果赋值给 <code>outcome</code> 属性之后，还调用了 <code>finishCompletion()</code> 方法，这个方法的作用是什么呢？这个其实就是 <strong>生产者消费者</strong> 模型的应用</p>
+<h1 id="Future-中生产者消费者模型"><a href="#Future-中生产者消费者模型" class="headerlink" title="Future 中生产者消费者模型"></a>Future 中生产者消费者模型</h1><ol>
+<li>调用 <code>Future.get()</code> 方法若线程还没有执行完成，主线程会 <strong>阻塞</strong>，当任务完成后会任务类中会 <strong>唤醒</strong> 阻塞的线程</li>
+<li>阻塞是阻塞在 <code>get()</code> 方法，那唤醒呢？ 其实就是上面的 <code>finishCompletion()</code> 知道了方法的作用之后，我们再看看看 <code>get()</code> 方法和 <code>finishCompletion()</code> 方法</li>
+</ol>
+<h2 id="get-方法"><a href="#get-方法" class="headerlink" title="get() 方法"></a>get() 方法</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> V <span class="title function_">get</span><span class="params">()</span> <span class="keyword">throws</span> InterruptedException, ExecutionException &#123;</span><br><span class="line">    <span class="type">int</span> <span class="variable">s</span> <span class="operator">=</span> state;</span><br><span class="line">    <span class="comment">// 先获取任务状态，任务没有完成，就进行阻塞等待</span></span><br><span class="line">    <span class="keyword">if</span> (s &lt;= COMPLETING)</span><br><span class="line">        s = awaitDone(<span class="literal">false</span>, <span class="number">0L</span>);</span><br><span class="line">    <span class="keyword">return</span> report(s);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>阻塞等待是调用的 <code>awaitDone()</code> 方法, 还是先总结一下这个方法的作用再看源码</p>
+<ol>
+<li>任务未完成时，将当前线程封装成一个 <code>WaitNode</code> 对象，添加到 <code>WaitNode waiters</code> 数属性的后面</li>
+<li>保存到等待链表之后，就使用 <code>LockSupport.park(this)</code> 来阻塞当前线程</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="type">int</span> <span class="title function_">awaitDone</span><span class="params">(<span class="type">boolean</span> timed, <span class="type">long</span> nanos)</span> <span class="keyword">throws</span> InterruptedException &#123;</span><br><span class="line">    <span class="type">long</span> <span class="variable">startTime</span> <span class="operator">=</span> <span class="number">0L</span>;    <span class="comment">// Special value 0L means not yet parked</span></span><br><span class="line">    <span class="type">WaitNode</span> <span class="variable">q</span> <span class="operator">=</span> <span class="literal">null</span>;</span><br><span class="line">    <span class="type">boolean</span> <span class="variable">queued</span> <span class="operator">=</span> <span class="literal">false</span>;</span><br><span class="line">    <span class="keyword">for</span> (;;) &#123;</span><br><span class="line">        <span class="type">int</span> <span class="variable">s</span> <span class="operator">=</span> state;</span><br><span class="line">        <span class="keyword">if</span> (s &gt; COMPLETING) &#123;</span><br><span class="line">            <span class="keyword">if</span> (q != <span class="literal">null</span>)</span><br><span class="line">                q.thread = <span class="literal">null</span>;</span><br><span class="line">            <span class="keyword">return</span> s;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span> (s == COMPLETING)</span><br><span class="line">            Thread.<span class="keyword">yield</span>();</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span> (Thread.interrupted()) &#123;</span><br><span class="line">            removeWaiter(q);</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">InterruptedException</span>();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span> (q == <span class="literal">null</span>) &#123;</span><br><span class="line">            <span class="keyword">if</span> (timed &amp;&amp; nanos &lt;= <span class="number">0L</span>)</span><br><span class="line">                <span class="keyword">return</span> s;</span><br><span class="line">            <span class="comment">// 由当前线程构成一个 WaitNode 对象</span></span><br><span class="line">            q = <span class="keyword">new</span> <span class="title class_">WaitNode</span>();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span> (!queued)</span><br><span class="line">            <span class="comment">// 将构造的 waitNode 对象添加到 waiters 链表中【可能有人有点疑惑，这两个逻辑处在不同 else if 条件中，为什么会同时执行到，其实这里不是同时执行到，而是串行的，因为这整块代码在一个for循环中，前面进行一个else分支后，下一次循环条件就改变了，导致进入到了不同的else分支中】</span></span><br><span class="line">            queued = WAITERS.weakCompareAndSet(<span class="built_in">this</span>, q.next = waiters, q);</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span> (timed) &#123;</span><br><span class="line">            <span class="keyword">final</span> <span class="type">long</span> parkNanos;</span><br><span class="line">            <span class="keyword">if</span> (startTime == <span class="number">0L</span>) &#123; <span class="comment">// first time</span></span><br><span class="line">                startTime = System.nanoTime();</span><br><span class="line">                <span class="keyword">if</span> (startTime == <span class="number">0L</span>)</span><br><span class="line">                    startTime = <span class="number">1L</span>;</span><br><span class="line">                parkNanos = nanos;</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                <span class="type">long</span> <span class="variable">elapsed</span> <span class="operator">=</span> System.nanoTime() - startTime;</span><br><span class="line">                <span class="keyword">if</span> (elapsed &gt;= nanos) &#123;</span><br><span class="line">                    removeWaiter(q);</span><br><span class="line">                    <span class="keyword">return</span> state;</span><br><span class="line">                &#125;</span><br><span class="line">                parkNanos = nanos - elapsed;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span> (state &lt; COMPLETING)</span><br><span class="line">                LockSupport.parkNanos(<span class="built_in">this</span>, parkNanos);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">            <span class="comment">// 阻塞当前线程</span></span><br><span class="line">            LockSupport.park(<span class="built_in">this</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="finishCompletion-方法"><a href="#finishCompletion-方法" class="headerlink" title="finishCompletion() 方法"></a><code>finishCompletion()</code> 方法</h2><p>看完了 <code>get()</code> 阻塞方法，就可以来看看唤醒阻塞的线程方法 <code>finishCompletion()</code> 了, 同样的先简单总结一下该方法做的事情</p>
+<ol>
+<li>遍历 <code>waiters</code> 从里面获取阻塞的线程</li>
+<li>获取到阻塞的线程之后，调用 <code>LockSupport.unpark(thread)</code> 来唤醒对应的线程<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title function_">finishCompletion</span><span class="params">()</span> &#123;</span><br><span class="line">    <span class="keyword">for</span> (WaitNode q; (q = waiters) != <span class="literal">null</span>;) &#123;</span><br><span class="line">        <span class="keyword">if</span> (WAITERS.weakCompareAndSet(<span class="built_in">this</span>, q, <span class="literal">null</span>)) &#123;</span><br><span class="line">            <span class="keyword">for</span> (;;) &#123;</span><br><span class="line">                <span class="type">Thread</span> <span class="variable">t</span> <span class="operator">=</span> q.thread;</span><br><span class="line">                <span class="keyword">if</span> (t != <span class="literal">null</span>) &#123;</span><br><span class="line">                    q.thread = <span class="literal">null</span>;</span><br><span class="line">                    <span class="comment">// 唤醒线程</span></span><br><span class="line">                    LockSupport.unpark(t);</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="type">WaitNode</span> <span class="variable">next</span> <span class="operator">=</span> q.next;</span><br><span class="line">                <span class="keyword">if</span> (next == <span class="literal">null</span>)</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                q.next = <span class="literal">null</span>; <span class="comment">// unlink to help gc</span></span><br><span class="line">                q = next;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    done();</span><br><span class="line">    callable = <span class="literal">null</span>;        <span class="comment">// to reduce footprint</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ol>
+]]></content>
+      <categories>
+        <category>java</category>
+        <category>多线程</category>
+      </categories>
+      <tags>
+        <tag>java</tag>
+        <tag>多线程</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>join方法详解</title>
     <url>/2019/11/06/86139434f79c/</url>
     <content><![CDATA[<h1 id="join的使用"><a href="#join的使用" class="headerlink" title="join的使用"></a>join的使用</h1><h2 id="正常情形"><a href="#正常情形" class="headerlink" title="正常情形"></a>正常情形</h2><p><code>join</code>的目的是让调用线程等待被调用的线程执行完成之后再继续。</p>
@@ -1132,87 +1237,9 @@
       </tags>
   </entry>
   <entry>
-    <title>策略模式</title>
-    <url>/2020/03/06/d799834e3476/</url>
-    <content><![CDATA[<h1 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h1><p>策略模式是一种定义一系列算法的方法，从概念上来看，所有这些算法完成的都是相同的工作，只是实现不同，它可以以相同的方式调用所有的算法，减少了各种算法类与使用算法类之间的耦合。</p>
-<span id="more"></span>
-
-<h1 id="案例"><a href="#案例" class="headerlink" title="案例"></a>案例</h1><p>比如我们平时买东西付款方式可以用多种</p>
-<ul>
-<li>支付宝支付</li>
-<li>微信支付</li>
-<li>银联支付</li>
-<li>京东白条支付</li>
-</ul>
-<p>现在来看一下平时我们代码应该如何写。</p>
-<h2 id="不使用策略模式"><a href="#不使用策略模式" class="headerlink" title="不使用策略模式"></a>不使用策略模式</h2><h3 id="支付订单类"><a href="#支付订单类" class="headerlink" title="支付订单类"></a>支付订单类</h3><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> designmode.strategypattern.normal;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> designmode.strategypattern.MsgResult;</span><br><span class="line"><span class="keyword">import</span> designmode.strategypattern.PayStrategy;</span><br><span class="line"><span class="keyword">import</span> designmode.strategypattern.Payment;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Created by Tom.</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">NormalOrder</span> &#123;</span><br><span class="line">    <span class="keyword">private</span> String uid;</span><br><span class="line">    <span class="keyword">private</span> String orderId;</span><br><span class="line">    <span class="keyword">private</span> <span class="type">double</span> amount;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">NormalOrder</span><span class="params">(String uid, String orderId, <span class="type">double</span> amount)</span>&#123;</span><br><span class="line">        <span class="built_in">this</span>.uid = uid;</span><br><span class="line">        <span class="built_in">this</span>.orderId = orderId;</span><br><span class="line">        <span class="built_in">this</span>.amount = amount;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">pay</span><span class="params">(String payKey)</span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (<span class="string">&quot;京东&quot;</span>.equals(payKey)) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="string">&quot;使用京东支付，支付成功&quot;</span>;</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (<span class="string">&quot;支付宝&quot;</span>.equals(payKey)) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="string">&quot;使用支付宝支付，支付成功&quot;</span>;</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (<span class="string">&quot;微信&quot;</span>.equals(payKey)) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="string">&quot;使用微信支付,支付成功&quot;</span>;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="string">&quot;支付方式错误&quot;</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-<h3 id="测试类"><a href="#测试类" class="headerlink" title="测试类"></a>测试类</h3><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> designmode.strategypattern.normal;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">NormalOrderTest</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="type">NormalOrder</span> <span class="variable">order</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">NormalOrder</span>(<span class="string">&quot;1&quot;</span>, <span class="string">&quot;13424123432&quot;</span>, <span class="number">33.22</span>);</span><br><span class="line">        System.out.println(order.pay(<span class="string">&quot;支付宝&quot;</span>));</span><br><span class="line">        System.out.println(order.pay(<span class="string">&quot;微信&quot;</span>));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h3><p>加上后面还有别的支付方式，我们就一直需要修改<code>NormalOrder</code>类的<code>pay</code>方法，需要在里面不断的加上判断，去修改支付逻辑，这就违背了开闭原则。</p>
-<h2 id="使用策略模式"><a href="#使用策略模式" class="headerlink" title="使用策略模式"></a>使用策略模式</h2><p>先看一下使用策略模式的<code>UML</code>类图</p>
-<p><img src="https://s2.loli.net/2023/11/15/6RgaxTJvh5lEdHQ.png"></p>
-<p>从上面的类图中可以看到主体是分为三类</p>
-<ul>
-<li><code>payment</code>接口或抽象类和具体的支付方式<ul>
-<li>因为支付都有相似的功能，比如支付类型，判断该支付类型下账号的余额等，所以需要有一个接口或者抽象类，然后具体的支付方式来实现或者继承这个接口或抽象类。</li>
-</ul>
-</li>
-<li>具体策略，这里就是<code>PayStrategy</code>类，这个类的作用是给上层客户端来调用，获取具体的支付方式</li>
-<li><code>order</code>类就是订单类，可以认为是客户端类</li>
-</ul>
-<p><a href="https://gitee.com/Gwei11/code/tree/master/javabase/strategypattern">策略模式代码</a></p>
-]]></content>
-      <categories>
-        <category>java</category>
-        <category>设计模式</category>
-      </categories>
-      <tags>
-        <tag>java</tag>
-        <tag>设计模式</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>synchronized的作用和实现原理</title>
     <url>/2023/11/11/138a9fb1d57d/</url>
     <content><![CDATA[<p>[参考链接](<a href="https://www.yuque.com/guoweiblog/nxz7iv/xikre6?singleDoc#">https://www.yuque.com/guoweiblog/nxz7iv/xikre6?singleDoc#</a> 《synchronized 的作用和实现原理》)</p>
-]]></content>
-      <categories>
-        <category>java</category>
-        <category>多线程</category>
-      </categories>
-      <tags>
-        <tag>java</tag>
-        <tag>多线程</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>实现多线程的两种方式</title>
-    <url>/2019/12/06/df5fc5395378/</url>
-    <content><![CDATA[<h1 id="线程到底有几种创建方式"><a href="#线程到底有几种创建方式" class="headerlink" title="线程到底有几种创建方式"></a>线程到底有几种创建方式</h1><p>有的说是三种，有的说是四种，还有的两种或者六种，那么到底是几种呢，我们看一下<code>oracle</code>的<code>javase</code>文档就知道了。</p>
-<span id="more"></span>
-
-<p><a href="https://docs.oracle.com/javase/8/docs/api/index.html">官方文档</a><br>文档中提到有两种方式来创建线程，那么到底是哪两种呢？</p>
-<ul>
-<li>通过继承<code>Thread</code>来来创建线程</li>
-<li>通过实现<code>Runnable</code>接口来创建线程</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> createthread;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">TwoWayToCreateThread</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="type">One</span> <span class="variable">one</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">One</span>();</span><br><span class="line">        one.start();</span><br><span class="line">        <span class="type">Two</span> <span class="variable">two</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Two</span>();</span><br><span class="line">        <span class="keyword">new</span> <span class="title class_">Thread</span>(<span class="keyword">new</span> <span class="title class_">Two</span>()).start();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">One</span> <span class="keyword">extends</span> <span class="title class_">Thread</span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">run</span><span class="params">()</span> &#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;通过继承Threa来创建线程&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Two</span> <span class="keyword">implements</span> <span class="title class_">Runnable</span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">run</span><span class="params">()</span> &#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;通过实现Runnable接口的方式来实现一个线程&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="创建线程的本质"><a href="#创建线程的本质" class="headerlink" title="创建线程的本质"></a>创建线程的本质</h2><p>上面写了线程创建的两种方式，线程创建中其实都是执行<code>run</code>方法，只不过使用继承<code>Thread</code>类的时候是执行<code>Thread</code>类中<code>run</code>方法，如果是实现<code>Runnable</code>接口，则是执行<code>Runnable</code>接口中的<code>run</code>方法。</p>
-<p><font color="red">注:无论是使用Thread还是Runnable，启动线程都是使用需要Thread，所以其实都是调用Thread类的run方法</font></p>
-<p>看一下<code>Thread</code>的<code>run</code>方法</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">private</span> Runnable target;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">run</span><span class="params">()</span> &#123;</span><br><span class="line">  <span class="keyword">if</span> (target != <span class="literal">null</span>) &#123;</span><br><span class="line">    target.run();</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>所以如果是使用<code>Runnable</code>的形式实际上是将我们实现<code>Runnable</code>的类传到<code>Thread</code>类中，然后调用<code>run</code>方法的时候就是调用我们的<code>run</code>方法。如果是继承<code>Thread</code>类的话我们自己的类也会重写<code>run</code>方法，子类重写父类的方法，只会调用子类的方法，所以<code>Thread</code>类中<code>run</code>方法就不会执行。</p>
-<h2 id="两种方式同时使用"><a href="#两种方式同时使用" class="headerlink" title="两种方式同时使用"></a>两种方式同时使用</h2><p>上面说有两种方式可以创建线程，那么如果我们将两种方式一起使用，会是怎么个情形呢？请看下面代码：</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> createthread;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">UseTwoWayTogather</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="keyword">new</span> <span class="title class_">Thread</span>(<span class="keyword">new</span> <span class="title class_">Runnable</span>() &#123;</span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">run</span><span class="params">()</span> &#123;</span><br><span class="line">                System.out.println(<span class="string">&quot;使用实现Runnable的方式来创建线程&quot;</span>);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;)&#123;</span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">run</span><span class="params">()</span> &#123;</span><br><span class="line">                System.out.println(<span class="string">&quot;使用继承Thread的方式来创建线程&quot;</span>);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;.start();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>上面通过匿名内部类的方式将两种创建线程的方式同时使用，那么打印的结果会是什么呢？</p>
-<p>结果是： <strong>使用继承Thread的方式来创建线程</strong>？<strong>why</strong></p>
-<p>上面已经说了创建线程的本质是执行<code>Thread</code>类中<code>run</code>，如果两种方式同时使用，那么子类中重写了父类方法，父类方法就不会继续执行，所以此时执行的是子类的<code>run</code>方法，这样<code>Thread</code>类中的<code>run</code>方法就不会执行，所以也就不会是通过实现<code>Runnable</code>的方式来创建线程。</p>
 ]]></content>
       <categories>
         <category>java</category>
@@ -1294,6 +1321,41 @@
 <p>你可能有一个疑问，上面使用<code>volatile</code>在生产者中之所以没有起作用，是因为线程被阻塞了，那么使用<code>interrupt</code>的时候，线程不也是会被阻塞么？当线程阻塞的时候为什么还会走到<code>while</code>判断呢？这是因为在消费者线程即使是在阻塞的状态也是可以接收线程中断的信号的，并且会抛出异常，这样去就可以进行下一次循环，而且这个阻塞队列也不会消除中断标识，所以在<code>while</code>判断中可以使用线程中断标识。</p>
 <h1 id="对于线程中方法正确调用姿势"><a href="#对于线程中方法正确调用姿势" class="headerlink" title="对于线程中方法正确调用姿势"></a>对于线程中方法正确调用姿势</h1><h2 id="抛出是首选"><a href="#抛出是首选" class="headerlink" title="抛出是首选"></a>抛出是首选</h2><p>如果在一个线程中(也就是<code>run</code>方法)需要去调用另外一个方法A,那么在方法A中应该如何处理<code>InterruptException</code>呢。我们知道异常的处理方式有两种，一种是<code>try-catch</code>,还有一种是<code>throws</code>,正确的姿势是使用<code>throw</code>来抛出异常，让方法调用方来处理异常。</p>
 <h2 id="恢复中断"><a href="#恢复中断" class="headerlink" title="恢复中断"></a>恢复中断</h2><p>当然有可能是不想抛出或者是没有办法抛出，那么此时就需要捕获异常，并且在<code>catch</code>块中再一次恢复中断，怎么恢复中断呢，其实就是调用<code>Thread.currentThread.inerrupt()</code>方法即可。</p>
+]]></content>
+      <categories>
+        <category>java</category>
+        <category>多线程</category>
+      </categories>
+      <tags>
+        <tag>java</tag>
+        <tag>多线程</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>实现多线程的两种方式</title>
+    <url>/2019/12/06/df5fc5395378/</url>
+    <content><![CDATA[<h1 id="线程到底有几种创建方式"><a href="#线程到底有几种创建方式" class="headerlink" title="线程到底有几种创建方式"></a>线程到底有几种创建方式</h1><p>有的说是三种，有的说是四种，还有的两种或者六种，那么到底是几种呢，我们看一下<code>oracle</code>的<code>javase</code>文档就知道了。</p>
+<span id="more"></span>
+
+<p><a href="https://docs.oracle.com/javase/8/docs/api/index.html">官方文档</a><br>文档中提到有两种方式来创建线程，那么到底是哪两种呢？</p>
+<ul>
+<li>通过继承<code>Thread</code>来来创建线程</li>
+<li>通过实现<code>Runnable</code>接口来创建线程</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> createthread;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">TwoWayToCreateThread</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="type">One</span> <span class="variable">one</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">One</span>();</span><br><span class="line">        one.start();</span><br><span class="line">        <span class="type">Two</span> <span class="variable">two</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Two</span>();</span><br><span class="line">        <span class="keyword">new</span> <span class="title class_">Thread</span>(<span class="keyword">new</span> <span class="title class_">Two</span>()).start();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">One</span> <span class="keyword">extends</span> <span class="title class_">Thread</span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">run</span><span class="params">()</span> &#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;通过继承Threa来创建线程&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Two</span> <span class="keyword">implements</span> <span class="title class_">Runnable</span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">run</span><span class="params">()</span> &#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;通过实现Runnable接口的方式来实现一个线程&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="创建线程的本质"><a href="#创建线程的本质" class="headerlink" title="创建线程的本质"></a>创建线程的本质</h2><p>上面写了线程创建的两种方式，线程创建中其实都是执行<code>run</code>方法，只不过使用继承<code>Thread</code>类的时候是执行<code>Thread</code>类中<code>run</code>方法，如果是实现<code>Runnable</code>接口，则是执行<code>Runnable</code>接口中的<code>run</code>方法。</p>
+<p><font color="red">注:无论是使用Thread还是Runnable，启动线程都是使用需要Thread，所以其实都是调用Thread类的run方法</font></p>
+<p>看一下<code>Thread</code>的<code>run</code>方法</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">private</span> Runnable target;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">run</span><span class="params">()</span> &#123;</span><br><span class="line">  <span class="keyword">if</span> (target != <span class="literal">null</span>) &#123;</span><br><span class="line">    target.run();</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>所以如果是使用<code>Runnable</code>的形式实际上是将我们实现<code>Runnable</code>的类传到<code>Thread</code>类中，然后调用<code>run</code>方法的时候就是调用我们的<code>run</code>方法。如果是继承<code>Thread</code>类的话我们自己的类也会重写<code>run</code>方法，子类重写父类的方法，只会调用子类的方法，所以<code>Thread</code>类中<code>run</code>方法就不会执行。</p>
+<h2 id="两种方式同时使用"><a href="#两种方式同时使用" class="headerlink" title="两种方式同时使用"></a>两种方式同时使用</h2><p>上面说有两种方式可以创建线程，那么如果我们将两种方式一起使用，会是怎么个情形呢？请看下面代码：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> createthread;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">UseTwoWayTogather</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="keyword">new</span> <span class="title class_">Thread</span>(<span class="keyword">new</span> <span class="title class_">Runnable</span>() &#123;</span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">run</span><span class="params">()</span> &#123;</span><br><span class="line">                System.out.println(<span class="string">&quot;使用实现Runnable的方式来创建线程&quot;</span>);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;)&#123;</span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">run</span><span class="params">()</span> &#123;</span><br><span class="line">                System.out.println(<span class="string">&quot;使用继承Thread的方式来创建线程&quot;</span>);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;.start();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>上面通过匿名内部类的方式将两种创建线程的方式同时使用，那么打印的结果会是什么呢？</p>
+<p>结果是： <strong>使用继承Thread的方式来创建线程</strong>？<strong>why</strong></p>
+<p>上面已经说了创建线程的本质是执行<code>Thread</code>类中<code>run</code>，如果两种方式同时使用，那么子类中重写了父类方法，父类方法就不会继续执行，所以此时执行的是子类的<code>run</code>方法，这样<code>Thread</code>类中的<code>run</code>方法就不会执行，所以也就不会是通过实现<code>Runnable</code>的方式来创建线程。</p>
 ]]></content>
       <categories>
         <category>java</category>
@@ -1475,32 +1537,6 @@
       </tags>
   </entry>
   <entry>
-    <title>utools自动化脚本插件</title>
-    <url>/2023/11/11/d899f5ff1973/</url>
-    <content><![CDATA[<h1 id="utools-使用自动化脚本打开本地程序"><a href="#utools-使用自动化脚本打开本地程序" class="headerlink" title="utools 使用自动化脚本打开本地程序"></a>utools 使用自动化脚本打开本地程序</h1><ol>
-<li>比如 typora 可以打开之前的文件和目录，但是目录只能到文件的上一个层级，如果源目录包含很多子目录，重新打开时可能不是我们想要的结果，那可以在命令行执行 <code>typora folder</code>, eg: <code>typora E:\\blog</code> <span id="more"></span></li>
-</ol>
-<blockquote>
-<p>在命令行执行 typora 命令需要先配置 typora 的环境变量</p>
-</blockquote>
-<ol>
-<li>更简便的方式是直接使用 utools 的自动化脚本这个插件，新增一个自己的插件脚本，内容如下</li>
-</ol>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> &#123; execFile &#125; = <span class="built_in">require</span>(<span class="string">&quot;child_process&quot;</span>)</span><br><span class="line"></span><br><span class="line"> <span class="comment">// 以下是关键代码，调用 typora 来执行目标文件</span></span><br><span class="line"><span class="title function_">execFile</span>(<span class="string">&#x27;typora&#x27;</span>, [<span class="string">&#x27;E:/code/learnerguo&#x27;</span>], <span class="function">(<span class="params">error, stdout, stderr</span>) =&gt;</span> &#123;</span><br><span class="line">    process.<span class="title function_">exit</span>()</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-
-<p>然后自定义关键字，后续当打开 utools 输入对应关键字就可以打开 typora 的目录</p>
-<h1 id="使用自动化脚本获取当天起始时间"><a href="#使用自动化脚本获取当天起始时间" class="headerlink" title="使用自动化脚本获取当天起始时间"></a>使用自动化脚本获取当天起始时间</h1><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> now = <span class="keyword">new</span> <span class="title class_">Date</span>();</span><br><span class="line"><span class="comment">// 设置当前时间的小时、分钟、秒和毫秒为0，即将时间设置为当天的开始时间</span></span><br><span class="line">now.<span class="title function_">setHours</span>(<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>);</span><br><span class="line"><span class="comment">// 获取当天开始时间点的毫秒数</span></span><br><span class="line"><span class="keyword">const</span> startTime = now.<span class="title function_">getTime</span>();</span><br><span class="line">utools.<span class="title function_">copyText</span>(<span class="string">&quot;&quot;</span>+startTime);</span><br><span class="line"><span class="title function_">print</span>(<span class="string">&#x27;开始时间已复制&#x27;</span> + startTime);</span><br><span class="line">utools.<span class="title function_">hideMainWindow</span>();</span><br><span class="line">process.<span class="title function_">exit</span>()</span><br></pre></td></tr></table></figure>
-]]></content>
-      <categories>
-        <category>tools</category>
-        <category>utools</category>
-      </categories>
-      <tags>
-        <tag>tools</tag>
-        <tag>utools</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>vscode相关设置</title>
     <url>/2023/11/12/6b613d963af3/</url>
     <content><![CDATA[<h1 id="vscode-中-markdown-的-snippets-的设置"><a href="#vscode-中-markdown-的-snippets-的设置" class="headerlink" title="vscode 中 markdown 的 snippets 的设置"></a>vscode 中 markdown 的 snippets 的设置</h1><h2 id="snippets-的设置"><a href="#snippets-的设置" class="headerlink" title="snippets 的设置"></a>snippets 的设置</h2><ol>
@@ -1530,6 +1566,32 @@
       </tags>
   </entry>
   <entry>
+    <title>utools自动化脚本插件</title>
+    <url>/2023/11/11/d899f5ff1973/</url>
+    <content><![CDATA[<h1 id="utools-使用自动化脚本打开本地程序"><a href="#utools-使用自动化脚本打开本地程序" class="headerlink" title="utools 使用自动化脚本打开本地程序"></a>utools 使用自动化脚本打开本地程序</h1><ol>
+<li>比如 typora 可以打开之前的文件和目录，但是目录只能到文件的上一个层级，如果源目录包含很多子目录，重新打开时可能不是我们想要的结果，那可以在命令行执行 <code>typora folder</code>, eg: <code>typora E:\\blog</code> <span id="more"></span></li>
+</ol>
+<blockquote>
+<p>在命令行执行 typora 命令需要先配置 typora 的环境变量</p>
+</blockquote>
+<ol>
+<li>更简便的方式是直接使用 utools 的自动化脚本这个插件，新增一个自己的插件脚本，内容如下</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> &#123; execFile &#125; = <span class="built_in">require</span>(<span class="string">&quot;child_process&quot;</span>)</span><br><span class="line"></span><br><span class="line"> <span class="comment">// 以下是关键代码，调用 typora 来执行目标文件</span></span><br><span class="line"><span class="title function_">execFile</span>(<span class="string">&#x27;typora&#x27;</span>, [<span class="string">&#x27;E:/code/learnerguo&#x27;</span>], <span class="function">(<span class="params">error, stdout, stderr</span>) =&gt;</span> &#123;</span><br><span class="line">    process.<span class="title function_">exit</span>()</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<p>然后自定义关键字，后续当打开 utools 输入对应关键字就可以打开 typora 的目录</p>
+<h1 id="使用自动化脚本获取当天起始时间"><a href="#使用自动化脚本获取当天起始时间" class="headerlink" title="使用自动化脚本获取当天起始时间"></a>使用自动化脚本获取当天起始时间</h1><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> now = <span class="keyword">new</span> <span class="title class_">Date</span>();</span><br><span class="line"><span class="comment">// 设置当前时间的小时、分钟、秒和毫秒为0，即将时间设置为当天的开始时间</span></span><br><span class="line">now.<span class="title function_">setHours</span>(<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>);</span><br><span class="line"><span class="comment">// 获取当天开始时间点的毫秒数</span></span><br><span class="line"><span class="keyword">const</span> startTime = now.<span class="title function_">getTime</span>();</span><br><span class="line">utools.<span class="title function_">copyText</span>(<span class="string">&quot;&quot;</span>+startTime);</span><br><span class="line"><span class="title function_">print</span>(<span class="string">&#x27;开始时间已复制&#x27;</span> + startTime);</span><br><span class="line">utools.<span class="title function_">hideMainWindow</span>();</span><br><span class="line">process.<span class="title function_">exit</span>()</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>tools</category>
+        <category>utools</category>
+      </categories>
+      <tags>
+        <tag>tools</tag>
+        <tag>utools</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>vscode设置markdown图片默认路径</title>
     <url>/2023/11/15/5b4d784e18c2/</url>
     <content><![CDATA[<p><code>vscode</code> 在 <code>markdown</code> 文档中直接复制图片时是放在当前目录，如果需要修改可以按照下面方式设置</p>
@@ -1546,6 +1608,132 @@
       </categories>
       <tags>
         <tag>tools</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>redis线程模型</title>
+    <url>/2023/11/16/e4db3f95ceb5/</url>
+    <content><![CDATA[<p>总结：<code>redis</code> 整体是多线程的，至于平时所说的 <code>redis</code> 单线程是指 <strong>redis的网络io 和 键值对读写</strong> 是在同一个线程中完成</p>
+<span id="more"></span>
+<h1 id="一次-redis-请求过程"><a href="#一次-redis-请求过程" class="headerlink" title="一次 redis 请求过程"></a>一次 redis 请求过程</h1><ol>
+<li>监听客户端请求（<code>bind/listen</code>）</li>
+<li>等待客户端的连接（<code>accept</code>）</li>
+<li>从 <code>socket</code> 中读取数据（<code>recv</code>）</li>
+<li>解析客户端发送的内容（<code>parse</code>）</li>
+<li>根据解析出来的内容进行内存操作（<code>get/set</code>）</li>
+<li>执行完成命令之后给客户端响应结果，即向 <code>socket</code> 中写数据（<code>send</code>）</li>
+</ol>
+<pre class="mermaid">graph TB
+    subgraph A[redis线程]
+        subgraph B[网络IO处理]
+            B1[bind/listen]
+            B2[accept]
+            B3[recv]
+            B4[parse]
+        end
+        subgraph C[键值对读写]
+            C1[get/set]
+        end
+        subgraph D[网络IO处理]
+            D1[send]
+        end
+    end
+    B-->C-->D</pre>
+<ul>
+<li>网络 io 处理过程中， <code>listen</code> 和 <code>recv</code> 这两个步骤是可能阻塞的，即当没有链接或客户端没有发送命令时，服务器处理这两个环节时会阻塞，<strong>但是socket网络模型自身就支持非阻塞的形式</strong></li>
+</ul>
+]]></content>
+      <categories>
+        <category>redis</category>
+      </categories>
+      <tags>
+        <tag>redis</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>redis底层数据结构</title>
+    <url>/2023/11/15/19e21a188fd0/</url>
+    <content><![CDATA[<h1 id="redis-对象"><a href="#redis-对象" class="headerlink" title="redis 对象"></a>redis 对象</h1><p><code>redis</code> 中所有数据类型都是使用 <code>RedisObject</code> 对象形式来表示，<code>RedisObject</code> 主要包含三个字段</p>
+<span id="more"></span>
+
+<pre class="mermaid">graph LR
+    A[RedisObject]
+    A-->B["type (记录对象的类型) \n 常用5种基本类型，实际还有BitMap（2.2 版新增）\n、HyperLogLog（2.8 版新增）、\n GEO（3.2 版新增）、Stream（5.0 版新增）"]
+
+    B1[String 字符串对象]
+    B2[List 列表集合]
+    B3[Hash 哈希对象]
+    B4[Set 集合对象]
+    B5[Zset 有序集合对象]
+    B--> B1 & B2 & B3 & B4 & B5
+
+    A-->C["encoding (记录对象的编码)"]
+    C1[Intset 整数集合]
+    C2[embstr embstr编码的简单动态字符串]
+    C3[raw 简单动态字符串]
+    C4[HT 字典]
+    C5[Linkedlist 双端列表]
+    C6[ziplist 压缩列表]
+    C7[skiplist 跳跃表和字典]
+    C8[quicklist 快速列表]
+    C-->C1 & C2 & C3 & C4 & C5 & C6 & C7 & C8
+
+    A-->D["*ptr (指向具体的类型)"]</pre>
+
+<h2 id="为什么一个对象需要包含-type-和-encoding"><a href="#为什么一个对象需要包含-type-和-encoding" class="headerlink" title="为什么一个对象需要包含 type 和 encoding"></a>为什么一个对象需要包含 <code>type</code> 和 <code>encoding</code></h2><ol>
+<li>因为 <code>type</code> 只是记录对象的类型</li>
+<li>每一个 <code>type</code> 可以使用不同的底层数据结构来实现，所以还需要具体的 <code>encoding</code> 来指明这个 <code>type</code> 的实现是什么， 下图就列出每一个 <code>type</code> 有哪几种底层数据结构</li>
+</ol>
+<h1 id="5-种基本数据类型对应的底层实现"><a href="#5-种基本数据类型对应的底层实现" class="headerlink" title="5 种基本数据类型对应的底层实现"></a>5 种基本数据类型对应的底层实现</h1><h2 id="String"><a href="#String" class="headerlink" title="String"></a>String</h2><ol>
+<li><code>String</code> 类型的底层的数据结构实现主要是 <code>int</code> 和 <code>SDS</code>（简单动态字符串）<ol>
+<li>如果存储的是数字，则编码使用 <code>int</code> 类型</li>
+</ol>
+</li>
+<li><code>sds</code> 的实际编码又包含 <code>raw</code> 和 <code>embstr</code><ol>
+<li>字符串长度小于 32位时使用 <code>embstr</code>(<code>embstr</code> 的空间挨着 <code>RedisObject，RedisObject</code> 和 <code>embstr</code> 的内存是一次性分配的)</li>
+<li>字符串长度大于 32位时使用 <code>raw</code> 编码(<code>RedisObject</code> 的内存分区和 <code>raw</code> 编码类型的空间分配是分开的，也就是需要两次内存分配)</li>
+</ol>
+</li>
+</ol>
+<h3 id="SDS-和-C-原生字符串的区别"><a href="#SDS-和-C-原生字符串的区别" class="headerlink" title="SDS 和 C 原生字符串的区别"></a>SDS 和 C 原生字符串的区别</h3><ol>
+<li><code>sds</code> 可以保存文本和二进制数据，因为 <code>sds</code> 有 <code>length</code> 字段来判断字符串是否结束，c 使用 ‘\0’ 作为结束符</li>
+<li><code>sds</code> 的 <code>api</code> 安全，不会出现缓冲区溢出，因为 <code>sds</code> 拼接字符串前有做容量检查</li>
+</ol>
+<h2 id="List"><a href="#List" class="headerlink" title="List"></a>List</h2><ol>
+<li><code>List</code> 类型的底层数据结构是由双向链表或压缩列表实现的<ol>
+<li>元素个数小于 512 个（默认值，可由 <code>list-max-ziplist-entries</code> 配置），列表每个元素的值都小于 64 字节（默认值，可由 <code>list-max-ziplist-value</code> <code>配置），Redis</code> 会使用压缩列表作为 <code>List</code> 类型的底层数据结构；</li>
+</ol>
+</li>
+<li>在 <code>Redis3.2</code> 版本之后，<code>List</code> 类型底层数据结构只有 <code>quicklist</code> 一种</li>
+</ol>
+<h2 id="Hash"><a href="#Hash" class="headerlink" title="Hash"></a>Hash</h2><ol>
+<li><code>Hash</code> 类型的底层数据结构是由压缩列表或哈希表实现的<ol>
+<li>元素个数小于 512 个（可通过 <code>hash-max-ziplist-entries</code> 修改），所有值小于 64 字节（可通过 <code>hash-max-ziplist-value</code> 修改）时，<code>Redis</code> 会使用压缩列表作为 <code>Hash</code> 类型的底层数据结构</li>
+</ol>
+</li>
+<li>在 <code>Redis7.0</code> 中，压缩列表数据结构被废弃，由 <code>listpack</code> 数据结构来实现</li>
+</ol>
+<h2 id="Set"><a href="#Set" class="headerlink" title="Set"></a>Set</h2><ol>
+<li><code>Set</code> 类型的底层数据结构是由哈希表或整数集合实现的<ol>
+<li>如果集合中的元素都是整数且元素个数小于 512 （可通过 <code>set-maxintset-entries</code> 修改）个，<code>Redis</code> 会使用整数集合作为 Set 类型的底层数据结构</li>
+</ol>
+</li>
+</ol>
+<h2 id="Zset"><a href="#Zset" class="headerlink" title="Zset"></a>Zset</h2><ol>
+<li><p>Zset 类型底层数据结构是由压缩列表或跳表实现</p>
+<ol>
+<li>若有序集合的元素个数小于 128 个且每个元素的值小于 64 字节，<code>Redis</code> 会使用压缩列表作为 <code>Zset</code> 类型的底层数据结构</li>
+</ol>
+</li>
+<li><p><code>Redis 7.0</code> 中，压缩列表数据结构被废弃，交由 <code>listpack</code> 数据结构来实现</p>
+</li>
+</ol>
+]]></content>
+      <categories>
+        <category>redis</category>
+      </categories>
+      <tags>
+        <tag>redis</tag>
       </tags>
   </entry>
 </search>
