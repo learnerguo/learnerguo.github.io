@@ -45,8 +45,8 @@ https://learnerguo.gitee.io/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/
 https://learnerguo.gitee.io/tags/jvm/
 https://learnerguo.gitee.io/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B/
 https://learnerguo.gitee.io/tags/redis/
-https://learnerguo.gitee.io/tags/vscode/
 https://learnerguo.gitee.io/tags/utools/
+https://learnerguo.gitee.io/tags/vscode/
 https://learnerguo.gitee.io/categories/tools/
 https://learnerguo.gitee.io/categories/tools/hexo/
 https://learnerguo.gitee.io/categories/record/
@@ -56,7 +56,7 @@ https://learnerguo.gitee.io/categories/book/%E6%88%90%E9%95%BF/
 https://learnerguo.gitee.io/categories/java/%E5%A4%9A%E7%BA%BF%E7%A8%8B/
 https://learnerguo.gitee.io/categories/java/java%E5%9F%BA%E7%A1%80/
 https://learnerguo.gitee.io/categories/redis/
-https://learnerguo.gitee.io/categories/tools/vscode/
 https://learnerguo.gitee.io/categories/tools/utools/
+https://learnerguo.gitee.io/categories/tools/vscode/
 https://learnerguo.gitee.io/categories/java/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/
 https://learnerguo.gitee.io/categories/java/jvm/

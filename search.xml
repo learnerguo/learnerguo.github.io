@@ -406,6 +406,59 @@
       </tags>
   </entry>
   <entry>
+    <title>动态代理和使用jdk自带的HSDB查看被代理的类的代码</title>
+    <url>/2020/01/06/bc6a8f6aeb2a/</url>
+    <content><![CDATA[<h1 id="概念理解"><a href="#概念理解" class="headerlink" title="概念理解"></a>概念理解</h1><p>所谓的代理模式简单理解就是对原有的功能增强的一种模式。代理模式有三个角色：	</p>
+<ul>
+<li>接口(<code>Subject</code>)   </li>
+<li>委托类(<code>RealSubject</code>),该类也是真正实现功能的类	</li>
+<li>代理类(<code>ProxySubject</code>)这个代理类对我们的委托类进行增强处理</li>
+</ul>
+<span id="more"></span>
+
+<h1 id="动态代理分类"><a href="#动态代理分类" class="headerlink" title="动态代理分类"></a>动态代理分类</h1><h2 id="jdk动态代理"><a href="#jdk动态代理" class="headerlink" title="jdk动态代理"></a>jdk动态代理</h2><p><code>jdk</code>动态代理的的核心是主要是有两个类</p>
+<ul>
+<li><code>Proxy</code>类的<code>newProxyInstance</code>方法</li>
+<li><code>InvocationHandler</code> 接口</li>
+</ul>
+<h3 id="jdk动态代理案例"><a href="#jdk动态代理案例" class="headerlink" title="jdk动态代理案例"></a><code>jdk</code>动态代理案例</h3><ul>
+<li>一个接口</li>
+<li>该接口的实现类</li>
+<li>一个实现了<code>InvocationHandler</code> 接口的处理类</li>
+</ul>
+<p><strong>接口</strong></p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> com.dynamicProxy;</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">interface</span> <span class="title class_">NeedProxyInterface</span> &#123;</span><br><span class="line">    <span class="keyword">void</span> <span class="title function_">sayHello</span><span class="params">()</span>;</span><br><span class="line">    <span class="type">int</span> <span class="title function_">add</span><span class="params">(<span class="type">int</span> a, <span class="type">int</span> b)</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>实现类</strong></p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> com.dynamicProxy;</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">NeedProxyInterfaceImpl</span> <span class="keyword">implements</span> <span class="title class_">NeedProxyInterface</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">sayHello</span><span class="params">()</span> &#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;hello&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">add</span><span class="params">(<span class="type">int</span> a, <span class="type">int</span> b)</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> a + b;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>实现了<code>InvocationHandler</code> 接口的处理类</strong></p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> com.dynamicProxy;</span><br><span class="line"><span class="keyword">import</span> java.lang.reflect.InvocationHandler;</span><br><span class="line"><span class="keyword">import</span> java.lang.reflect.Method;</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">MyInvocationHandler</span> <span class="keyword">implements</span> <span class="title class_">InvocationHandler</span> &#123;</span><br><span class="line">    <span class="type">NeedProxyInterface</span> <span class="variable">needProxyInterface</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">NeedProxyInterfaceImpl</span>();</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> Object <span class="title function_">invoke</span><span class="params">(Object proxy, Method method, Object[] args)</span> <span class="keyword">throws</span> Throwable &#123;</span><br><span class="line">        System.out.println(<span class="number">111</span>);</span><br><span class="line">        <span class="keyword">return</span> method.invoke(needProxyInterface, args);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>测试代码</strong></p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> com.dynamicProxy;</span><br><span class="line"><span class="keyword">import</span> java.lang.reflect.Proxy;</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">DynamicProxyMain</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="type">NeedProxyInterface</span> <span class="variable">object</span> <span class="operator">=</span></span><br><span class="line">               (NeedProxyInterface)Proxy.newProxyInstance(NeedProxyInterface.class.getClassLoader(),</span><br><span class="line">                <span class="keyword">new</span> <span class="title class_">Class</span>[]&#123;NeedProxyInterface.class&#125;, <span class="keyword">new</span> <span class="title class_">MyInvocationHandler</span>());</span><br><span class="line">        object.sayHello();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>我们可以根据下面介绍的使用方式使用<code>HSDL</code>工具生成代理类文件，生成的文件内容如下：</p>
+<p><strong>代理类</strong></p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> com.sun.proxy;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> com.dynamicProxy.NeedProxyInterface;</span><br><span class="line"><span class="keyword">import</span> java.lang.reflect.InvocationHandler;</span><br><span class="line"><span class="keyword">import</span> java.lang.reflect.Method;</span><br><span class="line"><span class="keyword">import</span> java.lang.reflect.Proxy;</span><br><span class="line"><span class="keyword">import</span> java.lang.reflect.UndeclaredThrowableException;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">class</span> <span class="title class_">$Proxy0</span> <span class="keyword">extends</span> <span class="title class_">Proxy</span> <span class="keyword">implements</span> <span class="title class_">NeedProxyInterface</span> &#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> Method m1;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> Method m4;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> Method m2;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> Method m3;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> Method m0;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> $Proxy0(InvocationHandler var1) &#123;</span><br><span class="line">        <span class="built_in">super</span>(var1);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">static</span> &#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            m1 = Class.forName(<span class="string">&quot;java.lang.Object&quot;</span>).getMethod(<span class="string">&quot;equals&quot;</span>, Class.forName(<span class="string">&quot;java.lang.Object&quot;</span>));</span><br><span class="line">            m4 = Class.forName(<span class="string">&quot;com.dynamicProxy.NeedProxyInterface&quot;</span>).getMethod(<span class="string">&quot;sayHello&quot;</span>);</span><br><span class="line">            m2 = Class.forName(<span class="string">&quot;java.lang.Object&quot;</span>).getMethod(<span class="string">&quot;toString&quot;</span>);</span><br><span class="line">            m3 = Class.forName(<span class="string">&quot;com.dynamicProxy.NeedProxyInterface&quot;</span>).getMethod(<span class="string">&quot;add&quot;</span>, Integer.TYPE, Integer.TYPE);</span><br><span class="line">            m0 = Class.forName(<span class="string">&quot;java.lang.Object&quot;</span>).getMethod(<span class="string">&quot;hashCode&quot;</span>);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (NoSuchMethodException var2) &#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">NoSuchMethodError</span>(var2.getMessage());</span><br><span class="line">        &#125; <span class="keyword">catch</span> (ClassNotFoundException var3) &#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">NoClassDefFoundError</span>(var3.getMessage());</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">final</span> <span class="type">int</span> <span class="title function_">add</span><span class="params">(<span class="type">int</span> var1, <span class="type">int</span> var2)</span> &#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="keyword">return</span> (Integer)<span class="built_in">super</span>.h.invoke(<span class="built_in">this</span>, m3, <span class="keyword">new</span> <span class="title class_">Object</span>[]&#123;var1, var2&#125;);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (RuntimeException | Error var4) &#123;</span><br><span class="line">            <span class="keyword">throw</span> var4;</span><br><span class="line">        &#125; <span class="keyword">catch</span> (Throwable var5) &#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">UndeclaredThrowableException</span>(var5);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">final</span> <span class="type">boolean</span> <span class="title function_">equals</span><span class="params">(Object var1)</span> &#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="keyword">return</span> (Boolean)<span class="built_in">super</span>.h.invoke(<span class="built_in">this</span>, m1, <span class="keyword">new</span> <span class="title class_">Object</span>[]&#123;var1&#125;);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (RuntimeException | Error var3) &#123;</span><br><span class="line">            <span class="keyword">throw</span> var3;</span><br><span class="line">        &#125; <span class="keyword">catch</span> (Throwable var4) &#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">UndeclaredThrowableException</span>(var4);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">final</span> String <span class="title function_">toString</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="keyword">return</span> (String)<span class="built_in">super</span>.h.invoke(<span class="built_in">this</span>, m2, (Object[])<span class="literal">null</span>);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (RuntimeException | Error var2) &#123;</span><br><span class="line">            <span class="keyword">throw</span> var2;</span><br><span class="line">        &#125; <span class="keyword">catch</span> (Throwable var3) &#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">UndeclaredThrowableException</span>(var3);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">final</span> <span class="type">int</span> <span class="title function_">hashCode</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="keyword">return</span> (Integer)<span class="built_in">super</span>.h.invoke(<span class="built_in">this</span>, m0, (Object[])<span class="literal">null</span>);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (RuntimeException | Error var2) &#123;</span><br><span class="line">            <span class="keyword">throw</span> var2;</span><br><span class="line">        &#125; <span class="keyword">catch</span> (Throwable var3) &#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">UndeclaredThrowableException</span>(var3);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">void</span> <span class="title function_">sayHello</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="built_in">super</span>.h.invoke(<span class="built_in">this</span>, m4, (Object[])<span class="literal">null</span>);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (RuntimeException | Error var2) &#123;</span><br><span class="line">            <span class="keyword">throw</span> var2;</span><br><span class="line">        &#125; <span class="keyword">catch</span> (Throwable var3) &#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">UndeclaredThrowableException</span>(var3);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>其实我们之所以不懂代理，是因为这个代理类生成后是在内存中的，如果我们能看到这样的一个类的代码就不会觉得难，所以可以使用上面所说的<code>HSDL</code>工具将代理类下载下来就比较容易看懂。</p>
+<h1 id="直接使用jdk类生成代理类代码"><a href="#直接使用jdk类生成代理类代码" class="headerlink" title="直接使用jdk类生成代理类代码"></a>直接使用jdk类生成代理类代码</h1><p>还有一种方式可以直接使用<code>jdk</code>生成类的方式来生成代理类并且使用输出流输出到本地，然后使用反编译工具来查看即可。比如还是上面的那个接口，现在想要生成代理类。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="type">byte</span>[] bytes = ProxyGenerator.generateProxyClass(<span class="string">&quot;$Proxy0&quot;</span>, <span class="keyword">new</span> <span class="title class_">Class</span>[]&#123;NeedProxyInterface.class&#125;);</span><br><span class="line"><span class="type">FileOutputStream</span> <span class="variable">os</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">FileOutputStream</span>(<span class="string">&quot;D://$Proxy0.class&quot;</span>);</span><br><span class="line">os.write(bytes);</span><br><span class="line">os.close();</span><br></pre></td></tr></table></figure>
+
+<p>这样就可以在D盘看到<code>$Proxy0.class</code>文件，<code>$Proxy0</code>这个是我们自己取的代理类的名字。</p>
+<p>再使用反编译工具查看发现和我们使用<code>HSDL</code>查看的工具类时一样的。</p>
+]]></content>
+      <categories>
+        <category>java</category>
+        <category>java基础</category>
+      </categories>
+      <tags>
+        <tag>java</tag>
+        <tag>java基础</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>java反射</title>
     <url>/2019/10/24/67ad9cf3b516/</url>
     <content><![CDATA[<h1 id="什么是反射"><a href="#什么是反射" class="headerlink" title="什么是反射"></a>什么是反射</h1><p>将类的各个组成部分封装成其他的对象，就是反射机制</p>
@@ -463,59 +516,6 @@
 <li><code>getMethod</code><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> Method <span class="title function_">getMethod</span><span class="params">(String name, Class&lt;?&gt;... parameterTypes)</span></span><br><span class="line">        <span class="keyword">throws</span> NoSuchMethodException, SecurityException &#123;&#125;</span><br><span class="line"><span class="keyword">public</span> Method <span class="title function_">getMethod</span><span class="params">(String name, Class&lt;?&gt;... parameterTypes)</span></span><br><span class="line">        <span class="keyword">throws</span> NoSuchMethodException, SecurityException &#123;&#125;</span><br></pre></td></tr></table></figure></li>
 </ol>
 <h3 id="成员方法的作用"><a href="#成员方法的作用" class="headerlink" title="成员方法的作用"></a>成员方法的作用</h3><p>上面的几个方法是为了获取成员方法，获取成员方法的作用其实就是为了<strong>可以执行方法</strong>，此时需要使用<code>Method</code>类中的<code>invoke</code>方法，该方法第一个参数是一个实际需要执行的对象，第二个参数是一个可变参数列表。</p>
-]]></content>
-      <categories>
-        <category>java</category>
-        <category>java基础</category>
-      </categories>
-      <tags>
-        <tag>java</tag>
-        <tag>java基础</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>动态代理和使用jdk自带的HSDB查看被代理的类的代码</title>
-    <url>/2020/01/06/bc6a8f6aeb2a/</url>
-    <content><![CDATA[<h1 id="概念理解"><a href="#概念理解" class="headerlink" title="概念理解"></a>概念理解</h1><p>所谓的代理模式简单理解就是对原有的功能增强的一种模式。代理模式有三个角色：	</p>
-<ul>
-<li>接口(<code>Subject</code>)   </li>
-<li>委托类(<code>RealSubject</code>),该类也是真正实现功能的类	</li>
-<li>代理类(<code>ProxySubject</code>)这个代理类对我们的委托类进行增强处理</li>
-</ul>
-<span id="more"></span>
-
-<h1 id="动态代理分类"><a href="#动态代理分类" class="headerlink" title="动态代理分类"></a>动态代理分类</h1><h2 id="jdk动态代理"><a href="#jdk动态代理" class="headerlink" title="jdk动态代理"></a>jdk动态代理</h2><p><code>jdk</code>动态代理的的核心是主要是有两个类</p>
-<ul>
-<li><code>Proxy</code>类的<code>newProxyInstance</code>方法</li>
-<li><code>InvocationHandler</code> 接口</li>
-</ul>
-<h3 id="jdk动态代理案例"><a href="#jdk动态代理案例" class="headerlink" title="jdk动态代理案例"></a><code>jdk</code>动态代理案例</h3><ul>
-<li>一个接口</li>
-<li>该接口的实现类</li>
-<li>一个实现了<code>InvocationHandler</code> 接口的处理类</li>
-</ul>
-<p><strong>接口</strong></p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> com.dynamicProxy;</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">interface</span> <span class="title class_">NeedProxyInterface</span> &#123;</span><br><span class="line">    <span class="keyword">void</span> <span class="title function_">sayHello</span><span class="params">()</span>;</span><br><span class="line">    <span class="type">int</span> <span class="title function_">add</span><span class="params">(<span class="type">int</span> a, <span class="type">int</span> b)</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p><strong>实现类</strong></p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> com.dynamicProxy;</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">NeedProxyInterfaceImpl</span> <span class="keyword">implements</span> <span class="title class_">NeedProxyInterface</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">sayHello</span><span class="params">()</span> &#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;hello&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">add</span><span class="params">(<span class="type">int</span> a, <span class="type">int</span> b)</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> a + b;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p><strong>实现了<code>InvocationHandler</code> 接口的处理类</strong></p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> com.dynamicProxy;</span><br><span class="line"><span class="keyword">import</span> java.lang.reflect.InvocationHandler;</span><br><span class="line"><span class="keyword">import</span> java.lang.reflect.Method;</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">MyInvocationHandler</span> <span class="keyword">implements</span> <span class="title class_">InvocationHandler</span> &#123;</span><br><span class="line">    <span class="type">NeedProxyInterface</span> <span class="variable">needProxyInterface</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">NeedProxyInterfaceImpl</span>();</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> Object <span class="title function_">invoke</span><span class="params">(Object proxy, Method method, Object[] args)</span> <span class="keyword">throws</span> Throwable &#123;</span><br><span class="line">        System.out.println(<span class="number">111</span>);</span><br><span class="line">        <span class="keyword">return</span> method.invoke(needProxyInterface, args);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p><strong>测试代码</strong></p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> com.dynamicProxy;</span><br><span class="line"><span class="keyword">import</span> java.lang.reflect.Proxy;</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">DynamicProxyMain</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="type">NeedProxyInterface</span> <span class="variable">object</span> <span class="operator">=</span></span><br><span class="line">               (NeedProxyInterface)Proxy.newProxyInstance(NeedProxyInterface.class.getClassLoader(),</span><br><span class="line">                <span class="keyword">new</span> <span class="title class_">Class</span>[]&#123;NeedProxyInterface.class&#125;, <span class="keyword">new</span> <span class="title class_">MyInvocationHandler</span>());</span><br><span class="line">        object.sayHello();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>我们可以根据下面介绍的使用方式使用<code>HSDL</code>工具生成代理类文件，生成的文件内容如下：</p>
-<p><strong>代理类</strong></p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> com.sun.proxy;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> com.dynamicProxy.NeedProxyInterface;</span><br><span class="line"><span class="keyword">import</span> java.lang.reflect.InvocationHandler;</span><br><span class="line"><span class="keyword">import</span> java.lang.reflect.Method;</span><br><span class="line"><span class="keyword">import</span> java.lang.reflect.Proxy;</span><br><span class="line"><span class="keyword">import</span> java.lang.reflect.UndeclaredThrowableException;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">class</span> <span class="title class_">$Proxy0</span> <span class="keyword">extends</span> <span class="title class_">Proxy</span> <span class="keyword">implements</span> <span class="title class_">NeedProxyInterface</span> &#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> Method m1;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> Method m4;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> Method m2;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> Method m3;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> Method m0;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> $Proxy0(InvocationHandler var1) &#123;</span><br><span class="line">        <span class="built_in">super</span>(var1);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">static</span> &#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            m1 = Class.forName(<span class="string">&quot;java.lang.Object&quot;</span>).getMethod(<span class="string">&quot;equals&quot;</span>, Class.forName(<span class="string">&quot;java.lang.Object&quot;</span>));</span><br><span class="line">            m4 = Class.forName(<span class="string">&quot;com.dynamicProxy.NeedProxyInterface&quot;</span>).getMethod(<span class="string">&quot;sayHello&quot;</span>);</span><br><span class="line">            m2 = Class.forName(<span class="string">&quot;java.lang.Object&quot;</span>).getMethod(<span class="string">&quot;toString&quot;</span>);</span><br><span class="line">            m3 = Class.forName(<span class="string">&quot;com.dynamicProxy.NeedProxyInterface&quot;</span>).getMethod(<span class="string">&quot;add&quot;</span>, Integer.TYPE, Integer.TYPE);</span><br><span class="line">            m0 = Class.forName(<span class="string">&quot;java.lang.Object&quot;</span>).getMethod(<span class="string">&quot;hashCode&quot;</span>);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (NoSuchMethodException var2) &#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">NoSuchMethodError</span>(var2.getMessage());</span><br><span class="line">        &#125; <span class="keyword">catch</span> (ClassNotFoundException var3) &#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">NoClassDefFoundError</span>(var3.getMessage());</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">final</span> <span class="type">int</span> <span class="title function_">add</span><span class="params">(<span class="type">int</span> var1, <span class="type">int</span> var2)</span> &#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="keyword">return</span> (Integer)<span class="built_in">super</span>.h.invoke(<span class="built_in">this</span>, m3, <span class="keyword">new</span> <span class="title class_">Object</span>[]&#123;var1, var2&#125;);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (RuntimeException | Error var4) &#123;</span><br><span class="line">            <span class="keyword">throw</span> var4;</span><br><span class="line">        &#125; <span class="keyword">catch</span> (Throwable var5) &#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">UndeclaredThrowableException</span>(var5);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">final</span> <span class="type">boolean</span> <span class="title function_">equals</span><span class="params">(Object var1)</span> &#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="keyword">return</span> (Boolean)<span class="built_in">super</span>.h.invoke(<span class="built_in">this</span>, m1, <span class="keyword">new</span> <span class="title class_">Object</span>[]&#123;var1&#125;);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (RuntimeException | Error var3) &#123;</span><br><span class="line">            <span class="keyword">throw</span> var3;</span><br><span class="line">        &#125; <span class="keyword">catch</span> (Throwable var4) &#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">UndeclaredThrowableException</span>(var4);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">final</span> String <span class="title function_">toString</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="keyword">return</span> (String)<span class="built_in">super</span>.h.invoke(<span class="built_in">this</span>, m2, (Object[])<span class="literal">null</span>);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (RuntimeException | Error var2) &#123;</span><br><span class="line">            <span class="keyword">throw</span> var2;</span><br><span class="line">        &#125; <span class="keyword">catch</span> (Throwable var3) &#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">UndeclaredThrowableException</span>(var3);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">final</span> <span class="type">int</span> <span class="title function_">hashCode</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="keyword">return</span> (Integer)<span class="built_in">super</span>.h.invoke(<span class="built_in">this</span>, m0, (Object[])<span class="literal">null</span>);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (RuntimeException | Error var2) &#123;</span><br><span class="line">            <span class="keyword">throw</span> var2;</span><br><span class="line">        &#125; <span class="keyword">catch</span> (Throwable var3) &#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">UndeclaredThrowableException</span>(var3);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">void</span> <span class="title function_">sayHello</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="built_in">super</span>.h.invoke(<span class="built_in">this</span>, m4, (Object[])<span class="literal">null</span>);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (RuntimeException | Error var2) &#123;</span><br><span class="line">            <span class="keyword">throw</span> var2;</span><br><span class="line">        &#125; <span class="keyword">catch</span> (Throwable var3) &#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">UndeclaredThrowableException</span>(var3);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>其实我们之所以不懂代理，是因为这个代理类生成后是在内存中的，如果我们能看到这样的一个类的代码就不会觉得难，所以可以使用上面所说的<code>HSDL</code>工具将代理类下载下来就比较容易看懂。</p>
-<h1 id="直接使用jdk类生成代理类代码"><a href="#直接使用jdk类生成代理类代码" class="headerlink" title="直接使用jdk类生成代理类代码"></a>直接使用jdk类生成代理类代码</h1><p>还有一种方式可以直接使用<code>jdk</code>生成类的方式来生成代理类并且使用输出流输出到本地，然后使用反编译工具来查看即可。比如还是上面的那个接口，现在想要生成代理类。</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="type">byte</span>[] bytes = ProxyGenerator.generateProxyClass(<span class="string">&quot;$Proxy0&quot;</span>, <span class="keyword">new</span> <span class="title class_">Class</span>[]&#123;NeedProxyInterface.class&#125;);</span><br><span class="line"><span class="type">FileOutputStream</span> <span class="variable">os</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">FileOutputStream</span>(<span class="string">&quot;D://$Proxy0.class&quot;</span>);</span><br><span class="line">os.write(bytes);</span><br><span class="line">os.close();</span><br></pre></td></tr></table></figure>
-
-<p>这样就可以在D盘看到<code>$Proxy0.class</code>文件，<code>$Proxy0</code>这个是我们自己取的代理类的名字。</p>
-<p>再使用反编译工具查看发现和我们使用<code>HSDL</code>查看的工具类时一样的。</p>
 ]]></content>
       <categories>
         <category>java</category>
@@ -1102,24 +1102,6 @@
       </tags>
   </entry>
   <entry>
-    <title>CompletableFuture的使用</title>
-    <url>/2023/11/17/f31e3a7691d6/</url>
-    <content><![CDATA[<h1 id="为什么要用-CompletableFuture"><a href="#为什么要用-CompletableFuture" class="headerlink" title="为什么要用 CompletableFuture"></a>为什么要用 CompletableFuture</h1><ol>
-<li>任务完成后自动回调</li>
-<li>多任务并行执行</li>
-<li>有依赖任务的串行执行</li>
-</ol>
-<span id="more"></span>]]></content>
-      <categories>
-        <category>java</category>
-        <category>多线程</category>
-      </categories>
-      <tags>
-        <tag>java</tag>
-        <tag>多线程</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Future的使用</title>
     <url>/2023/11/17/9f417cc2ea5e/</url>
     <content><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p><code>java</code> 中异步执行任务可以让任务类实现 <code>Runnable</code> 接口即可，但是使用 <code>Runnable</code> 接口执行的任务无法获取返回值，所以 <code>java</code> 在 <code>jdk1.5</code> 版本中增加了 <code>Future</code> 接口和 <code>Callable</code></p>
@@ -1216,6 +1198,24 @@
       </tags>
   </entry>
   <entry>
+    <title>CompletableFuture的使用</title>
+    <url>/2023/11/17/f31e3a7691d6/</url>
+    <content><![CDATA[<h1 id="为什么要用-CompletableFuture"><a href="#为什么要用-CompletableFuture" class="headerlink" title="为什么要用 CompletableFuture"></a>为什么要用 CompletableFuture</h1><ol>
+<li>任务完成后自动回调</li>
+<li>多任务并行执行</li>
+<li>有依赖任务的串行执行</li>
+</ol>
+<span id="more"></span>]]></content>
+      <categories>
+        <category>java</category>
+        <category>多线程</category>
+      </categories>
+      <tags>
+        <tag>java</tag>
+        <tag>多线程</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>join方法详解</title>
     <url>/2019/11/06/86139434f79c/</url>
     <content><![CDATA[<h1 id="join的使用"><a href="#join的使用" class="headerlink" title="join的使用"></a>join的使用</h1><h2 id="正常情形"><a href="#正常情形" class="headerlink" title="正常情形"></a>正常情形</h2><p><code>join</code>的目的是让调用线程等待被调用的线程执行完成之后再继续。</p>
@@ -1267,6 +1267,20 @@
     <title>synchronized的作用和实现原理</title>
     <url>/2023/11/11/138a9fb1d57d/</url>
     <content><![CDATA[<p>[参考链接](<a href="https://www.yuque.com/guoweiblog/nxz7iv/xikre6?singleDoc#">https://www.yuque.com/guoweiblog/nxz7iv/xikre6?singleDoc#</a> 《synchronized 的作用和实现原理》)</p>
+]]></content>
+      <categories>
+        <category>java</category>
+        <category>多线程</category>
+      </categories>
+      <tags>
+        <tag>java</tag>
+        <tag>多线程</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>多线程切换包含哪些内容</title>
+    <url>/2023/11/18/c51368ba5d47/</url>
+    <content><![CDATA[<h1 id="结论"><a href="#结论" class="headerlink" title="结论"></a>结论</h1><p>上下文切换主要包含以下内容</p>
 ]]></content>
       <categories>
         <category>java</category>
@@ -1348,20 +1362,6 @@
 <p>你可能有一个疑问，上面使用<code>volatile</code>在生产者中之所以没有起作用，是因为线程被阻塞了，那么使用<code>interrupt</code>的时候，线程不也是会被阻塞么？当线程阻塞的时候为什么还会走到<code>while</code>判断呢？这是因为在消费者线程即使是在阻塞的状态也是可以接收线程中断的信号的，并且会抛出异常，这样去就可以进行下一次循环，而且这个阻塞队列也不会消除中断标识，所以在<code>while</code>判断中可以使用线程中断标识。</p>
 <h1 id="对于线程中方法正确调用姿势"><a href="#对于线程中方法正确调用姿势" class="headerlink" title="对于线程中方法正确调用姿势"></a>对于线程中方法正确调用姿势</h1><h2 id="抛出是首选"><a href="#抛出是首选" class="headerlink" title="抛出是首选"></a>抛出是首选</h2><p>如果在一个线程中(也就是<code>run</code>方法)需要去调用另外一个方法A,那么在方法A中应该如何处理<code>InterruptException</code>呢。我们知道异常的处理方式有两种，一种是<code>try-catch</code>,还有一种是<code>throws</code>,正确的姿势是使用<code>throw</code>来抛出异常，让方法调用方来处理异常。</p>
 <h2 id="恢复中断"><a href="#恢复中断" class="headerlink" title="恢复中断"></a>恢复中断</h2><p>当然有可能是不想抛出或者是没有办法抛出，那么此时就需要捕获异常，并且在<code>catch</code>块中再一次恢复中断，怎么恢复中断呢，其实就是调用<code>Thread.currentThread.inerrupt()</code>方法即可。</p>
-]]></content>
-      <categories>
-        <category>java</category>
-        <category>多线程</category>
-      </categories>
-      <tags>
-        <tag>java</tag>
-        <tag>多线程</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>多线程切换包含哪些内容</title>
-    <url>/2023/11/18/c51368ba5d47/</url>
-    <content><![CDATA[<h1 id="结论"><a href="#结论" class="headerlink" title="结论"></a>结论</h1><p>上下文切换主要包含以下内容</p>
 ]]></content>
       <categories>
         <category>java</category>
@@ -1528,56 +1528,6 @@
       </tags>
   </entry>
   <entry>
-    <title>线程间通信的几种方式</title>
-    <url>/2019/12/23/ca2ba133c31e/</url>
-    <content><![CDATA[<h1 id="什么是线程间通信"><a href="#什么是线程间通信" class="headerlink" title="什么是线程间通信"></a>什么是线程间通信</h1><span id="more"></span>
-
-<h1 id="三种通信方式"><a href="#三种通信方式" class="headerlink" title="三种通信方式"></a>三种通信方式</h1><ul>
-<li><code>suspend</code>和<code>resume</code></li>
-<li><code>wait</code>和<code>notify</code></li>
-<li><code>park</code>和<code>unpark</code></li>
-</ul>
-<p><a href="https://gitee.com/Gwei11/code/tree/master/javabase/%E5%A4%9A%E7%BA%BF%E7%A8%8B">示例代码</a></p>
-<h2 id="suspend和resume"><a href="#suspend和resume" class="headerlink" title="suspend和resume"></a><code>suspend</code>和<code>resume</code></h2><ul>
-<li>这两个方法已经被弃用，主要有以下两个原因<ul>
-<li><code>resume</code>必须在<code>suspend</code>之后调用</li>
-<li>如果加了锁的话，<code>suspend</code>方法是不会释放锁的</li>
-</ul>
-</li>
-<li>案例代码请点击上面的<strong>示例代码</strong>链接</li>
-</ul>
-<h2 id="wait和notify"><a href="#wait和notify" class="headerlink" title="wait和notify"></a><code>wait</code>和<code>notify</code></h2><p>当一个线程调用一个<strong>共享变量</strong>的<code>wait</code>方法时，该调用线程会被挂起。在以下情形下才返回</p>
-<ol>
-<li>其他线程调用了该<strong>共享变量</strong>的<code>notify()</code>或<code>notifyAll()</code>方法</li>
-<li>其他线程调用了<strong>该线程</strong>的<code>interrupt()</code>方法，该线程会抛出<code>InterruptedException</code>异常返回</li>
-</ol>
-<p><font color="red">注：上面所说的共享变量其实就是指锁，也就是说需要获取对象的监视器锁才能执行wait方法</font></p>
-<p>那么如何获取对象监视器锁呢？有以下两种方式：</p>
-<ol>
-<li>使用<code>synchronized</code>同步代码块</li>
-<li>使用<code>synchronized</code>同步方法</li>
-</ol>
-<ul>
-<li><code>wait</code>和<code>notify</code>必须加锁才能使用</li>
-<li><code>wait</code>调用时会释放锁</li>
-<li><code>wait</code>方法和<code>notify</code>方法也有调用顺序问题，如果先调用<code>notify</code>，然后再调用<code>wait</code>会发生死锁</li>
-</ul>
-<h2 id="park和unpark"><a href="#park和unpark" class="headerlink" title="park和unpark"></a><code>park</code>和<code>unpark</code></h2><ul>
-<li><code>park</code>和<code>unpark</code>是<code>LockSupport</code>类中静态方法</li>
-<li>这两个方法解决了顺序问题，也就是无论哪个先执行都可以，这是一种令牌机制</li>
-<li>但是这两个方法没有解决锁的问题，也就是<code>park</code>方法中如果拿到了锁，当执行<code>park</code>的时候不会释放锁</li>
-</ul>
-]]></content>
-      <categories>
-        <category>java</category>
-        <category>多线程</category>
-      </categories>
-      <tags>
-        <tag>java</tag>
-        <tag>多线程</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>redis底层数据结构</title>
     <url>/2023/11/15/19e21a188fd0/</url>
     <content><![CDATA[<h1 id="redis-对象"><a href="#redis-对象" class="headerlink" title="redis 对象"></a>redis 对象</h1><p><code>redis</code> 中所有数据类型都是使用 <code>RedisObject</code> 对象形式来表示，<code>RedisObject</code> 主要包含三个字段</p>
@@ -1664,6 +1614,56 @@
       </tags>
   </entry>
   <entry>
+    <title>线程间通信的几种方式</title>
+    <url>/2019/12/23/ca2ba133c31e/</url>
+    <content><![CDATA[<h1 id="什么是线程间通信"><a href="#什么是线程间通信" class="headerlink" title="什么是线程间通信"></a>什么是线程间通信</h1><span id="more"></span>
+
+<h1 id="三种通信方式"><a href="#三种通信方式" class="headerlink" title="三种通信方式"></a>三种通信方式</h1><ul>
+<li><code>suspend</code>和<code>resume</code></li>
+<li><code>wait</code>和<code>notify</code></li>
+<li><code>park</code>和<code>unpark</code></li>
+</ul>
+<p><a href="https://gitee.com/Gwei11/code/tree/master/javabase/%E5%A4%9A%E7%BA%BF%E7%A8%8B">示例代码</a></p>
+<h2 id="suspend和resume"><a href="#suspend和resume" class="headerlink" title="suspend和resume"></a><code>suspend</code>和<code>resume</code></h2><ul>
+<li>这两个方法已经被弃用，主要有以下两个原因<ul>
+<li><code>resume</code>必须在<code>suspend</code>之后调用</li>
+<li>如果加了锁的话，<code>suspend</code>方法是不会释放锁的</li>
+</ul>
+</li>
+<li>案例代码请点击上面的<strong>示例代码</strong>链接</li>
+</ul>
+<h2 id="wait和notify"><a href="#wait和notify" class="headerlink" title="wait和notify"></a><code>wait</code>和<code>notify</code></h2><p>当一个线程调用一个<strong>共享变量</strong>的<code>wait</code>方法时，该调用线程会被挂起。在以下情形下才返回</p>
+<ol>
+<li>其他线程调用了该<strong>共享变量</strong>的<code>notify()</code>或<code>notifyAll()</code>方法</li>
+<li>其他线程调用了<strong>该线程</strong>的<code>interrupt()</code>方法，该线程会抛出<code>InterruptedException</code>异常返回</li>
+</ol>
+<p><font color="red">注：上面所说的共享变量其实就是指锁，也就是说需要获取对象的监视器锁才能执行wait方法</font></p>
+<p>那么如何获取对象监视器锁呢？有以下两种方式：</p>
+<ol>
+<li>使用<code>synchronized</code>同步代码块</li>
+<li>使用<code>synchronized</code>同步方法</li>
+</ol>
+<ul>
+<li><code>wait</code>和<code>notify</code>必须加锁才能使用</li>
+<li><code>wait</code>调用时会释放锁</li>
+<li><code>wait</code>方法和<code>notify</code>方法也有调用顺序问题，如果先调用<code>notify</code>，然后再调用<code>wait</code>会发生死锁</li>
+</ul>
+<h2 id="park和unpark"><a href="#park和unpark" class="headerlink" title="park和unpark"></a><code>park</code>和<code>unpark</code></h2><ul>
+<li><code>park</code>和<code>unpark</code>是<code>LockSupport</code>类中静态方法</li>
+<li>这两个方法解决了顺序问题，也就是无论哪个先执行都可以，这是一种令牌机制</li>
+<li>但是这两个方法没有解决锁的问题，也就是<code>park</code>方法中如果拿到了锁，当执行<code>park</code>的时候不会释放锁</li>
+</ul>
+]]></content>
+      <categories>
+        <category>java</category>
+        <category>多线程</category>
+      </categories>
+      <tags>
+        <tag>java</tag>
+        <tag>多线程</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>redis线程模型</title>
     <url>/2023/11/16/e4db3f95ceb5/</url>
     <content><![CDATA[<p>总结：<code>redis</code> 整体是多线程的，至于平时所说的 <code>redis</code> 单线程是指 <strong>redis的网络io 和 键值对读写</strong> 是在同一个线程中完成</p>
@@ -1704,6 +1704,32 @@
       </tags>
   </entry>
   <entry>
+    <title>utools自动化脚本插件</title>
+    <url>/2023/11/11/d899f5ff1973/</url>
+    <content><![CDATA[<h1 id="utools-使用自动化脚本打开本地程序"><a href="#utools-使用自动化脚本打开本地程序" class="headerlink" title="utools 使用自动化脚本打开本地程序"></a>utools 使用自动化脚本打开本地程序</h1><ol>
+<li>比如 typora 可以打开之前的文件和目录，但是目录只能到文件的上一个层级，如果源目录包含很多子目录，重新打开时可能不是我们想要的结果，那可以在命令行执行 <code>typora folder</code>, eg: <code>typora E:\\blog</code> <span id="more"></span></li>
+</ol>
+<blockquote>
+<p>在命令行执行 typora 命令需要先配置 typora 的环境变量</p>
+</blockquote>
+<ol>
+<li>更简便的方式是直接使用 utools 的自动化脚本这个插件，新增一个自己的插件脚本，内容如下</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> &#123; execFile &#125; = <span class="built_in">require</span>(<span class="string">&quot;child_process&quot;</span>)</span><br><span class="line"></span><br><span class="line"> <span class="comment">// 以下是关键代码，调用 typora 来执行目标文件</span></span><br><span class="line"><span class="title function_">execFile</span>(<span class="string">&#x27;typora&#x27;</span>, [<span class="string">&#x27;E:/code/learnerguo&#x27;</span>], <span class="function">(<span class="params">error, stdout, stderr</span>) =&gt;</span> &#123;</span><br><span class="line">    process.<span class="title function_">exit</span>()</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<p>然后自定义关键字，后续当打开 utools 输入对应关键字就可以打开 typora 的目录</p>
+<h1 id="使用自动化脚本获取当天起始时间"><a href="#使用自动化脚本获取当天起始时间" class="headerlink" title="使用自动化脚本获取当天起始时间"></a>使用自动化脚本获取当天起始时间</h1><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> now = <span class="keyword">new</span> <span class="title class_">Date</span>();</span><br><span class="line"><span class="comment">// 设置当前时间的小时、分钟、秒和毫秒为0，即将时间设置为当天的开始时间</span></span><br><span class="line">now.<span class="title function_">setHours</span>(<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>);</span><br><span class="line"><span class="comment">// 获取当天开始时间点的毫秒数</span></span><br><span class="line"><span class="keyword">const</span> startTime = now.<span class="title function_">getTime</span>();</span><br><span class="line">utools.<span class="title function_">copyText</span>(<span class="string">&quot;&quot;</span>+startTime);</span><br><span class="line"><span class="title function_">print</span>(<span class="string">&#x27;开始时间已复制&#x27;</span> + startTime);</span><br><span class="line">utools.<span class="title function_">hideMainWindow</span>();</span><br><span class="line">process.<span class="title function_">exit</span>()</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>tools</category>
+        <category>utools</category>
+      </categories>
+      <tags>
+        <tag>tools</tag>
+        <tag>utools</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>vscode相关设置</title>
     <url>/2023/11/12/6b613d963af3/</url>
     <content><![CDATA[<h1 id="vscode-中-markdown-的-snippets-的设置"><a href="#vscode-中-markdown-的-snippets-的设置" class="headerlink" title="vscode 中 markdown 的 snippets 的设置"></a>vscode 中 markdown 的 snippets 的设置</h1><h2 id="snippets-的设置"><a href="#snippets-的设置" class="headerlink" title="snippets 的设置"></a>snippets 的设置</h2><ol>
@@ -1730,32 +1756,6 @@
       <tags>
         <tag>tools</tag>
         <tag>vscode</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>utools自动化脚本插件</title>
-    <url>/2023/11/11/d899f5ff1973/</url>
-    <content><![CDATA[<h1 id="utools-使用自动化脚本打开本地程序"><a href="#utools-使用自动化脚本打开本地程序" class="headerlink" title="utools 使用自动化脚本打开本地程序"></a>utools 使用自动化脚本打开本地程序</h1><ol>
-<li>比如 typora 可以打开之前的文件和目录，但是目录只能到文件的上一个层级，如果源目录包含很多子目录，重新打开时可能不是我们想要的结果，那可以在命令行执行 <code>typora folder</code>, eg: <code>typora E:\\blog</code> <span id="more"></span></li>
-</ol>
-<blockquote>
-<p>在命令行执行 typora 命令需要先配置 typora 的环境变量</p>
-</blockquote>
-<ol>
-<li>更简便的方式是直接使用 utools 的自动化脚本这个插件，新增一个自己的插件脚本，内容如下</li>
-</ol>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> &#123; execFile &#125; = <span class="built_in">require</span>(<span class="string">&quot;child_process&quot;</span>)</span><br><span class="line"></span><br><span class="line"> <span class="comment">// 以下是关键代码，调用 typora 来执行目标文件</span></span><br><span class="line"><span class="title function_">execFile</span>(<span class="string">&#x27;typora&#x27;</span>, [<span class="string">&#x27;E:/code/learnerguo&#x27;</span>], <span class="function">(<span class="params">error, stdout, stderr</span>) =&gt;</span> &#123;</span><br><span class="line">    process.<span class="title function_">exit</span>()</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-
-<p>然后自定义关键字，后续当打开 utools 输入对应关键字就可以打开 typora 的目录</p>
-<h1 id="使用自动化脚本获取当天起始时间"><a href="#使用自动化脚本获取当天起始时间" class="headerlink" title="使用自动化脚本获取当天起始时间"></a>使用自动化脚本获取当天起始时间</h1><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> now = <span class="keyword">new</span> <span class="title class_">Date</span>();</span><br><span class="line"><span class="comment">// 设置当前时间的小时、分钟、秒和毫秒为0，即将时间设置为当天的开始时间</span></span><br><span class="line">now.<span class="title function_">setHours</span>(<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>);</span><br><span class="line"><span class="comment">// 获取当天开始时间点的毫秒数</span></span><br><span class="line"><span class="keyword">const</span> startTime = now.<span class="title function_">getTime</span>();</span><br><span class="line">utools.<span class="title function_">copyText</span>(<span class="string">&quot;&quot;</span>+startTime);</span><br><span class="line"><span class="title function_">print</span>(<span class="string">&#x27;开始时间已复制&#x27;</span> + startTime);</span><br><span class="line">utools.<span class="title function_">hideMainWindow</span>();</span><br><span class="line">process.<span class="title function_">exit</span>()</span><br></pre></td></tr></table></figure>
-]]></content>
-      <categories>
-        <category>tools</category>
-        <category>utools</category>
-      </categories>
-      <tags>
-        <tag>tools</tag>
-        <tag>utools</tag>
       </tags>
   </entry>
   <entry>
