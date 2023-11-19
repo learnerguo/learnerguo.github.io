@@ -52,34 +52,6 @@
       </tags>
   </entry>
   <entry>
-    <title>hexo使用插入本地图片路径问题</title>
-    <url>/2023/11/15/563e23df91d3/</url>
-    <content><![CDATA[<p>Hexo version: 7.0<br>Next version: 8.18</p>
-<span id="more"></span>
-<ol>
-<li>安装插件</li>
-</ol>
-<figure class="highlight ada"><table><tr><td class="code"><pre><span class="line">npm install hexo-renderer-marked <span class="comment">--save</span></span><br></pre></td></tr></table></figure>
-<ol start="2">
-<li>修改 hexo 配置文件 <code>_config.yml</code> (不是next 主题的配置文件)</li>
-</ol>
-<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 这样文章生成的路径会是年/月/日/hash值形式</span></span><br><span class="line"><span class="attr">permalink:</span> <span class="string">:year/:month/:day/:hash/</span></span><br><span class="line"><span class="comment"># 开启资源文件夹功能</span></span><br><span class="line"><span class="attr">post_asset_folder:</span> <span class="literal">true</span></span><br><span class="line"><span class="attr">marked:</span></span><br><span class="line">  <span class="comment"># 这两个值都配置为false，网上很多文章配置成true，可能是不同版本效果不同，在 Next8.18, hexo7 这个版本若配置成true，图片路径会多了日期导致显示失败 </span></span><br><span class="line">  <span class="attr">prependRoot:</span> <span class="literal">false</span></span><br><span class="line">  <span class="attr">postAsset:</span> <span class="literal">false</span></span><br></pre></td></tr></table></figure>
-
-<ol start="3">
-<li>在 md 文章目录中创建同名的文件夹，比如当前这篇文章的名称是 <code>hexo插入本地图片路径问题</code>， 那就需要在这篇文章的同级目录中创建一个同名的文件夹，然后图片就放在这个文件夹中</li>
-<li>在使用 md 语法引入图片的时候，因为图片是放在目录中（和文章同名的那个目录），但是如果在本地 vscode 中将目录也加上，虽然本地可以访问，但是 hexo g 生成之后，访问博客地址是无法访问的，所以本地引入图片的时候只能写图片的文件名，不要路径，这样虽然本地无法预览，但是 hexo s 和 hexo d 之后的结果都可以正常查看</li>
-</ol>
-]]></content>
-      <categories>
-        <category>tools</category>
-        <category>hexo</category>
-      </categories>
-      <tags>
-        <tag>tools</tag>
-        <tag>hexo</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>hexo和Next主题修改</title>
     <url>/2023/11/08/52739010ef7c/</url>
     <content><![CDATA[<h1 id="文章目录默认展开"><a href="#文章目录默认展开" class="headerlink" title="文章目录默认展开"></a>文章目录默认展开</h1><p>基于 Next7.x 版本</p>
@@ -226,6 +198,34 @@
       </tags>
   </entry>
   <entry>
+    <title>hexo使用插入本地图片路径问题</title>
+    <url>/2023/11/15/563e23df91d3/</url>
+    <content><![CDATA[<p>Hexo version: 7.0<br>Next version: 8.18</p>
+<span id="more"></span>
+<ol>
+<li>安装插件</li>
+</ol>
+<figure class="highlight ada"><table><tr><td class="code"><pre><span class="line">npm install hexo-renderer-marked <span class="comment">--save</span></span><br></pre></td></tr></table></figure>
+<ol start="2">
+<li>修改 hexo 配置文件 <code>_config.yml</code> (不是next 主题的配置文件)</li>
+</ol>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 这样文章生成的路径会是年/月/日/hash值形式</span></span><br><span class="line"><span class="attr">permalink:</span> <span class="string">:year/:month/:day/:hash/</span></span><br><span class="line"><span class="comment"># 开启资源文件夹功能</span></span><br><span class="line"><span class="attr">post_asset_folder:</span> <span class="literal">true</span></span><br><span class="line"><span class="attr">marked:</span></span><br><span class="line">  <span class="comment"># 这两个值都配置为false，网上很多文章配置成true，可能是不同版本效果不同，在 Next8.18, hexo7 这个版本若配置成true，图片路径会多了日期导致显示失败 </span></span><br><span class="line">  <span class="attr">prependRoot:</span> <span class="literal">false</span></span><br><span class="line">  <span class="attr">postAsset:</span> <span class="literal">false</span></span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li>在 md 文章目录中创建同名的文件夹，比如当前这篇文章的名称是 <code>hexo插入本地图片路径问题</code>， 那就需要在这篇文章的同级目录中创建一个同名的文件夹，然后图片就放在这个文件夹中</li>
+<li>在使用 md 语法引入图片的时候，因为图片是放在目录中（和文章同名的那个目录），但是如果在本地 vscode 中将目录也加上，虽然本地可以访问，但是 hexo g 生成之后，访问博客地址是无法访问的，所以本地引入图片的时候只能写图片的文件名，不要路径，这样虽然本地无法预览，但是 hexo s 和 hexo d 之后的结果都可以正常查看</li>
+</ol>
+]]></content>
+      <categories>
+        <category>tools</category>
+        <category>hexo</category>
+      </categories>
+      <tags>
+        <tag>tools</tag>
+        <tag>hexo</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>比较</title>
     <url>/2023/11/18/2084759b2332/</url>
     <content><![CDATA[<blockquote>
@@ -243,6 +243,74 @@
       </categories>
       <tags>
         <tag>record</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>微信读书阅读条挑战</title>
+    <url>/2023/11/19/c4c074b722a1/</url>
+    <content><![CDATA[<p>参与微信阅读挑战</p>
+<ol>
+<li>365 天不间断</li>
+<li>期间最少阅读 300 小时</li>
+<li>每周更新进度</li>
+</ol>
+<div class="tabs" id="202311"><ul class="nav-tabs"><button type="button" class="tab  active" data-href="202311-1">23/11/16~23/11/19</button><button type="button" class="tab " data-href="202311-2">23/11/20~23/11/26</button></ul><div class="tab-contents"><div class="tab-item-content active" id="202311-1"><pre><code>![11/19](https://blog-1308475102.cos.ap-guangzhou.myqcloud.com/picture/202311192143934.png)
+</code></pre></div><div class="tab-item-content" id="202311-2"><pre><code>测试内容222
+</code></pre></div></div><div class="tab-to-top"><button type="button" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div></div>
+]]></content>
+      <categories>
+        <category>book</category>
+      </categories>
+      <tags>
+        <tag>book</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>宝贵的人生建议</title>
+    <url>/2023/11/12/5792ca8e5e27/</url>
+    <content><![CDATA[<ul>
+<li>书名：《宝贵的人生建议》</li>
+<li>作者：凯文凯利</li>
+</ul>
+<p>看过了，觉得有道理，想要改变都不代表你真的认同并理解，”做出来”就是对”认同”最好的回复</p>
+<span id="more"></span>
+
+<blockquote>
+<p>把”创造”和”改进”这两个过程分开，你不能边写作边编辑，边雕刻边打磨，边制作边分析。如果你这么做，编辑就会阻遏创造，发明时，不要选择。画草图时，不要检查。写初稿时，不要反思。一开始，创造性思维必须是自由的，不受批判的干扰。</p>
+</blockquote>
+<p>无论是技术类文章还是其他类型的记录，重点是写，而不是先学习各种各样的套路(套路也很重要，但内容是前提)，后续在写内容之前不要追求完美，先写出来才会有后续的故事</p>
+<blockquote>
+<p>养成习惯的好处是，在行动时，不必再进行内心的权衡。不再消耗能量去思考是否要做这件事。你只管去做。好习惯很多，从说真话到使用牙线。</p>
+</blockquote>
+<p>不要使用意志力去坚持做一件事，慢慢养成习惯，让做某件事成为身体的本能</p>
+<blockquote>
+<p>恐惧是因为缺乏想象力。恐惧的解药不是勇敢，而更可能是想象力</p>
+</blockquote>
+<ul>
+<li>恐惧是因为经历的太少，知道的太少，懂得的太少</li>
+</ul>
+<blockquote>
+<p>你并不需要更多时间，因为你已经拥有了你的所有时间</p>
+</blockquote>
+<blockquote>
+<p>你最近一次改变是在什么年纪，你就是多少岁</p>
+</blockquote>
+<blockquote>
+<p>不要管别人怎么看待你，因为他们根本没看你</p>
+</blockquote>
+<blockquote>
+<p>任何有价值的事都需要无尽的工作。你无法给工作设定上限，所以你必须给工作时间设限。你唯一能管理的是时间，而不是工作</p>
+</blockquote>
+<blockquote>
+<p>如果你想超越你心目中的英雄，那就放下自尊心，像学生一样模仿他们，直到你能超越他们。这是所有大师的成功之道</p>
+</blockquote>
+]]></content>
+      <categories>
+        <category>book</category>
+        <category>成长</category>
+      </categories>
+      <tags>
+        <tag>book</tag>
       </tags>
   </entry>
   <entry>
@@ -735,54 +803,6 @@
       </tags>
   </entry>
   <entry>
-    <title>宝贵的人生建议</title>
-    <url>/2023/11/12/5792ca8e5e27/</url>
-    <content><![CDATA[<ul>
-<li>书名：《宝贵的人生建议》</li>
-<li>作者：凯文凯利</li>
-</ul>
-<p>看过了，觉得有道理，想要改变都不代表你真的认同并理解，”做出来”就是对”认同”最好的回复</p>
-<span id="more"></span>
-
-<blockquote>
-<p>把”创造”和”改进”这两个过程分开，你不能边写作边编辑，边雕刻边打磨，边制作边分析。如果你这么做，编辑就会阻遏创造，发明时，不要选择。画草图时，不要检查。写初稿时，不要反思。一开始，创造性思维必须是自由的，不受批判的干扰。</p>
-</blockquote>
-<p>无论是技术类文章还是其他类型的记录，重点是写，而不是先学习各种各样的套路(套路也很重要，但内容是前提)，后续在写内容之前不要追求完美，先写出来才会有后续的故事</p>
-<blockquote>
-<p>养成习惯的好处是，在行动时，不必再进行内心的权衡。不再消耗能量去思考是否要做这件事。你只管去做。好习惯很多，从说真话到使用牙线。</p>
-</blockquote>
-<p>不要使用意志力去坚持做一件事，慢慢养成习惯，让做某件事成为身体的本能</p>
-<blockquote>
-<p>恐惧是因为缺乏想象力。恐惧的解药不是勇敢，而更可能是想象力</p>
-</blockquote>
-<ul>
-<li>恐惧是因为经历的太少，知道的太少，懂得的太少</li>
-</ul>
-<blockquote>
-<p>你并不需要更多时间，因为你已经拥有了你的所有时间</p>
-</blockquote>
-<blockquote>
-<p>你最近一次改变是在什么年纪，你就是多少岁</p>
-</blockquote>
-<blockquote>
-<p>不要管别人怎么看待你，因为他们根本没看你</p>
-</blockquote>
-<blockquote>
-<p>任何有价值的事都需要无尽的工作。你无法给工作设定上限，所以你必须给工作时间设限。你唯一能管理的是时间，而不是工作</p>
-</blockquote>
-<blockquote>
-<p>如果你想超越你心目中的英雄，那就放下自尊心，像学生一样模仿他们，直到你能超越他们。这是所有大师的成功之道</p>
-</blockquote>
-]]></content>
-      <categories>
-        <category>book</category>
-        <category>成长</category>
-      </categories>
-      <tags>
-        <tag>book</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>redis底层数据结构</title>
     <url>/2023/11/15/19e21a188fd0/</url>
     <content><![CDATA[<h1 id="redis-对象"><a href="#redis-对象" class="headerlink" title="redis 对象"></a>redis 对象</h1><p><code>redis</code> 中所有数据类型都是使用 <code>RedisObject</code> 对象形式来表示，<code>RedisObject</code> 主要包含三个字段</p>
@@ -909,6 +929,32 @@
       </tags>
   </entry>
   <entry>
+    <title>utools自动化脚本插件</title>
+    <url>/2023/11/11/d899f5ff1973/</url>
+    <content><![CDATA[<h1 id="utools-使用自动化脚本打开本地程序"><a href="#utools-使用自动化脚本打开本地程序" class="headerlink" title="utools 使用自动化脚本打开本地程序"></a>utools 使用自动化脚本打开本地程序</h1><ol>
+<li>比如 typora 可以打开之前的文件和目录，但是目录只能到文件的上一个层级，如果源目录包含很多子目录，重新打开时可能不是我们想要的结果，那可以在命令行执行 <code>typora folder</code>, eg: <code>typora E:\\blog</code> <span id="more"></span></li>
+</ol>
+<blockquote>
+<p>在命令行执行 typora 命令需要先配置 typora 的环境变量</p>
+</blockquote>
+<ol>
+<li>更简便的方式是直接使用 utools 的自动化脚本这个插件，新增一个自己的插件脚本，内容如下</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> &#123; execFile &#125; = <span class="built_in">require</span>(<span class="string">&quot;child_process&quot;</span>)</span><br><span class="line"></span><br><span class="line"> <span class="comment">// 以下是关键代码，调用 typora 来执行目标文件</span></span><br><span class="line"><span class="title function_">execFile</span>(<span class="string">&#x27;typora&#x27;</span>, [<span class="string">&#x27;E:/code/learnerguo&#x27;</span>], <span class="function">(<span class="params">error, stdout, stderr</span>) =&gt;</span> &#123;</span><br><span class="line">    process.<span class="title function_">exit</span>()</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<p>然后自定义关键字，后续当打开 utools 输入对应关键字就可以打开 typora 的目录</p>
+<h1 id="使用自动化脚本获取当天起始时间"><a href="#使用自动化脚本获取当天起始时间" class="headerlink" title="使用自动化脚本获取当天起始时间"></a>使用自动化脚本获取当天起始时间</h1><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> now = <span class="keyword">new</span> <span class="title class_">Date</span>();</span><br><span class="line"><span class="comment">// 设置当前时间的小时、分钟、秒和毫秒为0，即将时间设置为当天的开始时间</span></span><br><span class="line">now.<span class="title function_">setHours</span>(<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>);</span><br><span class="line"><span class="comment">// 获取当天开始时间点的毫秒数</span></span><br><span class="line"><span class="keyword">const</span> startTime = now.<span class="title function_">getTime</span>();</span><br><span class="line">utools.<span class="title function_">copyText</span>(<span class="string">&quot;&quot;</span>+startTime);</span><br><span class="line"><span class="title function_">print</span>(<span class="string">&#x27;开始时间已复制&#x27;</span> + startTime);</span><br><span class="line">utools.<span class="title function_">hideMainWindow</span>();</span><br><span class="line">process.<span class="title function_">exit</span>()</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>tools</category>
+        <category>utools</category>
+      </categories>
+      <tags>
+        <tag>tools</tag>
+        <tag>utools</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>vscode相关设置</title>
     <url>/2023/11/12/6b613d963af3/</url>
     <content><![CDATA[<h1 id="vscode-中-markdown-的-snippets-的设置"><a href="#vscode-中-markdown-的-snippets-的设置" class="headerlink" title="vscode 中 markdown 的 snippets 的设置"></a>vscode 中 markdown 的 snippets 的设置</h1><h2 id="snippets-的设置"><a href="#snippets-的设置" class="headerlink" title="snippets 的设置"></a>snippets 的设置</h2><ol>
@@ -954,32 +1000,6 @@
       </categories>
       <tags>
         <tag>tools</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>utools自动化脚本插件</title>
-    <url>/2023/11/11/d899f5ff1973/</url>
-    <content><![CDATA[<h1 id="utools-使用自动化脚本打开本地程序"><a href="#utools-使用自动化脚本打开本地程序" class="headerlink" title="utools 使用自动化脚本打开本地程序"></a>utools 使用自动化脚本打开本地程序</h1><ol>
-<li>比如 typora 可以打开之前的文件和目录，但是目录只能到文件的上一个层级，如果源目录包含很多子目录，重新打开时可能不是我们想要的结果，那可以在命令行执行 <code>typora folder</code>, eg: <code>typora E:\\blog</code> <span id="more"></span></li>
-</ol>
-<blockquote>
-<p>在命令行执行 typora 命令需要先配置 typora 的环境变量</p>
-</blockquote>
-<ol>
-<li>更简便的方式是直接使用 utools 的自动化脚本这个插件，新增一个自己的插件脚本，内容如下</li>
-</ol>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> &#123; execFile &#125; = <span class="built_in">require</span>(<span class="string">&quot;child_process&quot;</span>)</span><br><span class="line"></span><br><span class="line"> <span class="comment">// 以下是关键代码，调用 typora 来执行目标文件</span></span><br><span class="line"><span class="title function_">execFile</span>(<span class="string">&#x27;typora&#x27;</span>, [<span class="string">&#x27;E:/code/learnerguo&#x27;</span>], <span class="function">(<span class="params">error, stdout, stderr</span>) =&gt;</span> &#123;</span><br><span class="line">    process.<span class="title function_">exit</span>()</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-
-<p>然后自定义关键字，后续当打开 utools 输入对应关键字就可以打开 typora 的目录</p>
-<h1 id="使用自动化脚本获取当天起始时间"><a href="#使用自动化脚本获取当天起始时间" class="headerlink" title="使用自动化脚本获取当天起始时间"></a>使用自动化脚本获取当天起始时间</h1><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> now = <span class="keyword">new</span> <span class="title class_">Date</span>();</span><br><span class="line"><span class="comment">// 设置当前时间的小时、分钟、秒和毫秒为0，即将时间设置为当天的开始时间</span></span><br><span class="line">now.<span class="title function_">setHours</span>(<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>);</span><br><span class="line"><span class="comment">// 获取当天开始时间点的毫秒数</span></span><br><span class="line"><span class="keyword">const</span> startTime = now.<span class="title function_">getTime</span>();</span><br><span class="line">utools.<span class="title function_">copyText</span>(<span class="string">&quot;&quot;</span>+startTime);</span><br><span class="line"><span class="title function_">print</span>(<span class="string">&#x27;开始时间已复制&#x27;</span> + startTime);</span><br><span class="line">utools.<span class="title function_">hideMainWindow</span>();</span><br><span class="line">process.<span class="title function_">exit</span>()</span><br></pre></td></tr></table></figure>
-]]></content>
-      <categories>
-        <category>tools</category>
-        <category>utools</category>
-      </categories>
-      <tags>
-        <tag>tools</tag>
-        <tag>utools</tag>
       </tags>
   </entry>
 </search>
