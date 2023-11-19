@@ -294,6 +294,61 @@
       </tags>
   </entry>
   <entry>
+    <title>java的io模型</title>
+    <url>/2023/11/17/180f5b629f58/</url>
+    <content><![CDATA[<span class="hide_first_mermaid">
+<div class="mermaid-wrap"><pre class="mermaid-src" hidden>
+  flowchart LR
+    A
+  </pre></div>
+</span>
+
+<h1 id="BIO"><a href="#BIO" class="headerlink" title="BIO"></a>BIO</h1><ol>
+<li><code>bio</code> 是同步阻塞 <code>io</code>，每一个连接都需要一个线程去处理</li>
+<li><code>bio</code> 会有资源浪费问题，一个线程只能处理一个连接，如果某个客户端并没有发送数据，对应的服务端线程也只能阻塞</li>
+</ol>
+<span id="more"></span>
+<h2 id="阻塞的含义"><a href="#阻塞的含义" class="headerlink" title="阻塞的含义"></a>阻塞的含义</h2><ol>
+<li>服务端 <code>ServerSocket</code> 调用 <code>accept()</code> 方法会阻塞（如果没有客户端进行连接，调用这个方法后不会继续往下执行）</li>
+<li>线程从Socket的输入流读入数据时,如果输入流没有足够的数据，就会进入阻塞状态</li>
+</ol>
+<h2 id="java-bio-代码实现"><a href="#java-bio-代码实现" class="headerlink" title="java bio 代码实现"></a>java bio 代码实现</h2><p><strong>服务端代码</strong></p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> org.example.demo.socket;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.io.IOException;</span><br><span class="line"><span class="keyword">import</span> java.net.ServerSocket;</span><br><span class="line"><span class="keyword">import</span> java.net.Socket;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">CusServerSocket</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="keyword">try</span> (<span class="type">ServerSocket</span> <span class="variable">serverSocket</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">ServerSocket</span>(<span class="number">8080</span>);) &#123;</span><br><span class="line">            <span class="keyword">while</span> (<span class="literal">true</span>) &#123;</span><br><span class="line">                <span class="type">Socket</span> <span class="variable">socket</span> <span class="operator">=</span> serverSocket.accept();</span><br><span class="line">                <span class="comment">//连接成功后新开一个线程去处理这个连接</span></span><br><span class="line">                <span class="keyword">new</span> <span class="title class_">Thread</span>(<span class="keyword">new</span> <span class="title class_">Runnable</span>() &#123;</span><br><span class="line">                    <span class="meta">@Override</span></span><br><span class="line">                    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">run</span><span class="params">()</span> &#123;</span><br><span class="line">                        <span class="type">byte</span>[] bytes = <span class="keyword">new</span> <span class="title class_">byte</span>[<span class="number">1024</span>];</span><br><span class="line">                        <span class="type">int</span> <span class="variable">length</span> <span class="operator">=</span> -<span class="number">1</span>;</span><br><span class="line">                        <span class="keyword">try</span> &#123;</span><br><span class="line">                            <span class="comment">// read() 方法上的注释 If no byte is available because the stream is at the end of the file, the value -1 is returned</span></span><br><span class="line">                            <span class="keyword">while</span> ((length = socket.getInputStream().read(bytes)) != -<span class="number">1</span>) &#123;</span><br><span class="line">                                System.out.println(<span class="string">&quot;thredId:&quot;</span> + Thread.currentThread().getName() + <span class="keyword">new</span> <span class="title class_">String</span>(bytes, <span class="number">0</span>, length));</span><br><span class="line">                            &#125;</span><br><span class="line">                        &#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">                            e.printStackTrace();</span><br><span class="line">                        &#125;</span><br><span class="line">                        System.out.println(<span class="string">&quot;客户端关闭, 当前线程:&quot;</span> + Thread.currentThread().getName());</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;).start();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; <span class="keyword">catch</span> (</span><br><span class="line">                IOException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p><strong>客户端实现</strong></p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> org.example.demo.socket;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.io.IOException;</span><br><span class="line"><span class="keyword">import</span> java.net.Socket;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">CusClientSocket</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="comment">// 外层循环会创建多个 socket，用来模拟多个 socket 客户端</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">j</span> <span class="operator">=</span> <span class="number">0</span>; j &lt; <span class="number">3</span>; j++) &#123;</span><br><span class="line">            <span class="keyword">try</span> (<span class="type">Socket</span> <span class="variable">socket</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Socket</span>(<span class="string">&quot;127.0.0.1&quot;</span>,<span class="number">8080</span>)) &#123;</span><br><span class="line">                <span class="comment">// 内存循环用来模拟一个客户端的多次通信</span></span><br><span class="line">                <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">1</span>; i &lt; <span class="number">3</span>; i++) &#123;</span><br><span class="line">                    Thread.sleep(<span class="number">20</span>);</span><br><span class="line">                    socket.getOutputStream().write((<span class="string">&quot;客户端&quot;</span> + j + <span class="string">&quot;第&quot;</span> + i + <span class="string">&quot;次通信&quot;</span>).getBytes());</span><br><span class="line">                &#125;</span><br><span class="line">            &#125; <span class="keyword">catch</span> (IOException | InterruptedException e) &#123;</span><br><span class="line">                <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">RuntimeException</span>(e);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>执行结果</strong></p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">thredId:Thread-<span class="number">0</span>客户端<span class="number">0</span>第<span class="number">1</span>次通信</span><br><span class="line">thredId:Thread-<span class="number">0</span>客户端<span class="number">0</span>第<span class="number">2</span>次通信</span><br><span class="line">客户端关闭, 当前线程:Thread-<span class="number">0</span></span><br><span class="line">thredId:Thread-<span class="number">1</span>客户端<span class="number">1</span>第<span class="number">1</span>次通信</span><br><span class="line">thredId:Thread-<span class="number">1</span>客户端<span class="number">1</span>第<span class="number">2</span>次通信</span><br><span class="line">客户端关闭, 当前线程:Thread-<span class="number">1</span></span><br><span class="line">thredId:Thread-<span class="number">2</span>客户端<span class="number">2</span>第<span class="number">1</span>次通信</span><br><span class="line">thredId:Thread-<span class="number">2</span>客户端<span class="number">2</span>第<span class="number">2</span>次通信</span><br><span class="line">客户端关闭, 当前线程:Thread-<span class="number">2</span></span><br></pre></td></tr></table></figure>
+<ol>
+<li>执行完成之后，服务端程序并不会关闭，会一直在运行</li>
+<li>从上面结果看，一共创建了三个线程来执行</li>
+</ol>
+<h2 id="使用线程池优化-bio-实现"><a href="#使用线程池优化-bio-实现" class="headerlink" title="使用线程池优化 bio 实现"></a>使用线程池优化 bio 实现</h2><p>客户端代码不需要改动，只需要更改服务端代码</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> org.example.demo.socket;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.io.IOException;</span><br><span class="line"><span class="keyword">import</span> java.net.ServerSocket;</span><br><span class="line"><span class="keyword">import</span> java.net.Socket;</span><br><span class="line"><span class="keyword">import</span> java.util.concurrent.ExecutorService;</span><br><span class="line"><span class="keyword">import</span> java.util.concurrent.Executors;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">CusServerSocket</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="type">ExecutorService</span> <span class="variable">executorService</span> <span class="operator">=</span> Executors.newSingleThreadExecutor();</span><br><span class="line">        <span class="keyword">try</span> (<span class="type">ServerSocket</span> <span class="variable">serverSocket</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">ServerSocket</span>(<span class="number">8080</span>);) &#123;</span><br><span class="line">            <span class="keyword">while</span> (<span class="literal">true</span>) &#123;</span><br><span class="line">                <span class="type">Socket</span> <span class="variable">socket</span> <span class="operator">=</span> serverSocket.accept();</span><br><span class="line">                <span class="comment">//连接成功后新开一个线程去处理这个连接</span></span><br><span class="line">                executorService.execute(<span class="keyword">new</span> <span class="title class_">ClientTask</span>(socket));</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; <span class="keyword">catch</span> (</span><br><span class="line">                IOException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">class</span> <span class="title class_">ClientTask</span> <span class="keyword">implements</span> <span class="title class_">Runnable</span> &#123;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">private</span> Socket socket;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">public</span> <span class="title function_">ClientTask</span><span class="params">(Socket socket)</span> &#123;</span><br><span class="line">            <span class="built_in">this</span>.socket = socket;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">run</span><span class="params">()</span> &#123;</span><br><span class="line">            <span class="type">byte</span>[] bytes = <span class="keyword">new</span> <span class="title class_">byte</span>[<span class="number">1024</span>];</span><br><span class="line">            <span class="type">int</span> <span class="variable">length</span> <span class="operator">=</span> -<span class="number">1</span>;</span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                <span class="comment">// read() 方法上的注释 If no byte is available because the stream is at the end of the file, the value -1 is returned</span></span><br><span class="line">                <span class="keyword">while</span> ((length = socket.getInputStream().read(bytes)) != -<span class="number">1</span>) &#123;</span><br><span class="line">                    System.out.println(<span class="string">&quot;thredId:&quot;</span> + Thread.currentThread().getName() + <span class="keyword">new</span> <span class="title class_">String</span>(bytes, <span class="number">0</span>, length));</span><br><span class="line">                &#125;</span><br><span class="line">            &#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">                e.printStackTrace();</span><br><span class="line">            &#125;</span><br><span class="line">            System.out.println(<span class="string">&quot;客户端关闭, 当前线程:&quot;</span> + Thread.currentThread().getName());</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>执行结果</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">thredId:pool-<span class="number">1</span>-thread-<span class="number">1</span>客户端<span class="number">0</span>第<span class="number">1</span>次通信</span><br><span class="line">thredId:pool-<span class="number">1</span>-thread-<span class="number">1</span>客户端<span class="number">0</span>第<span class="number">2</span>次通信</span><br><span class="line">客户端关闭, 当前线程:pool-<span class="number">1</span>-thread-<span class="number">1</span></span><br><span class="line">thredId:pool-<span class="number">1</span>-thread-<span class="number">1</span>客户端<span class="number">1</span>第<span class="number">1</span>次通信</span><br><span class="line">thredId:pool-<span class="number">1</span>-thread-<span class="number">1</span>客户端<span class="number">1</span>第<span class="number">2</span>次通信</span><br><span class="line">客户端关闭, 当前线程:pool-<span class="number">1</span>-thread-<span class="number">1</span></span><br><span class="line">thredId:pool-<span class="number">1</span>-thread-<span class="number">1</span>客户端<span class="number">2</span>第<span class="number">1</span>次通信</span><br><span class="line">thredId:pool-<span class="number">1</span>-thread-<span class="number">1</span>客户端<span class="number">2</span>第<span class="number">2</span>次通信</span><br><span class="line">客户端关闭, 当前线程:pool-<span class="number">1</span>-thread-<span class="number">1</span></span><br></pre></td></tr></table></figure>
+<p>即使使用线程池进行了优化，本地还是阻塞io，只有当一个客户端通信完成（socket关闭了），另外一个 socket 才可以开始进行通信</p>
+<h1 id="NIO"><a href="#NIO" class="headerlink" title="NIO"></a>NIO</h1><ol>
+<li>nio 是非阻塞 io（Non-block io）</li>
+<li>非阻塞 io 的重点是 <strong>事件</strong> 和 <strong>通知或轮询</strong></li>
+<li><code>java.nio.channerls</code> 包提供了支持非阻塞通信的类<ol>
+<li><code>ServerSocketChannel</code>: <code>ServerSocket</code> 的替代类，支持阻塞通信与非阻塞通信</li>
+<li><code>SocketChannerl</code>： <code>Socket</code> 的替代类，支持阻塞通信与非阻塞通信</li>
+<li><code>Selector</code>： 为<code>ServerSocketChannel</code>监控接收连接就绪事件，为<code>SocketChannel</code>监控连接就绪、读就绪和写就绪事件</li>
+<li><code>SelectionKey</code>：代表<code>ServerSocketChannel</code>以及<code>SocketChannel</code>向<code>Selector</code>注册事件的句柄。当一个<code>SelectionKey</code>对象位于<code>Selector</code>对象的<code>selected-keys</code>集合中，就表示与这个<code>SelectionKey</code>对象相关的事件发生了</li>
+</ol>
+</li>
+</ol>
+]]></content>
+      <categories>
+        <category>java</category>
+        <category>java基础</category>
+      </categories>
+      <tags>
+        <tag>java</tag>
+        <tag>java基础</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>java内存模型</title>
     <url>/2023/11/10/08549388833c/</url>
     <content><![CDATA[<h1 id="主要内容"><a href="#主要内容" class="headerlink" title="主要内容"></a>主要内容</h1><p><code>java</code>内存模型实际上是一个抽象的概念，是一套规范，而不是一个实际的东西，而<code>java</code>内存结构就是根据这一套规范来进行划分的。</p>
@@ -456,85 +511,6 @@
       </tags>
   </entry>
   <entry>
-    <title>微信读书阅读条挑战</title>
-    <url>/2023/11/19/c4c074b722a1/</url>
-    <content><![CDATA[<p>参与微信阅读挑战</p>
-<ol>
-<li>365 天不间断</li>
-<li>期间最少阅读 300 小时</li>
-<li>每周更新进度</li>
-</ol>
-<p><img src="https://blog-1308475102.cos.ap-guangzhou.myqcloud.com/picture/202311192143934.png" alt="aa"></p>
-<div class="tabs" id="202311"><ul class="nav-tabs"><button type="button" class="tab  active" data-href="202311-1">23/11/16~23/11/19</button><button type="button" class="tab " data-href="202311-2">23/11/20~23/11/26</button></ul><div class="tab-contents"><div class="tab-item-content active" id="202311-1"><pre><code>&lt;img src=&quot;https://blog-1308475102.cos.ap-guangzhou.myqcloud.com/picture/202311192143934.png&quot; class=&quot;&quot;&gt;
-</code></pre></div><div class="tab-item-content" id="202311-2"><pre><code>测试内容222
-</code></pre></div></div><div class="tab-to-top"><button type="button" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div></div>
-]]></content>
-      <categories>
-        <category>book</category>
-      </categories>
-      <tags>
-        <tag>book</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>java的io模型</title>
-    <url>/2023/11/17/180f5b629f58/</url>
-    <content><![CDATA[<span class="hide_first_mermaid">
-<div class="mermaid-wrap"><pre class="mermaid-src" hidden>
-  flowchart LR
-    A
-  </pre></div>
-</span>
-
-<h1 id="BIO"><a href="#BIO" class="headerlink" title="BIO"></a>BIO</h1><ol>
-<li><code>bio</code> 是同步阻塞 <code>io</code>，每一个连接都需要一个线程去处理</li>
-<li><code>bio</code> 会有资源浪费问题，一个线程只能处理一个连接，如果某个客户端并没有发送数据，对应的服务端线程也只能阻塞</li>
-</ol>
-<span id="more"></span>
-<h2 id="阻塞的含义"><a href="#阻塞的含义" class="headerlink" title="阻塞的含义"></a>阻塞的含义</h2><ol>
-<li>服务端 <code>ServerSocket</code> 调用 <code>accept()</code> 方法会阻塞（如果没有客户端进行连接，调用这个方法后不会继续往下执行）</li>
-<li>线程从Socket的输入流读入数据时,如果输入流没有足够的数据，就会进入阻塞状态</li>
-</ol>
-<h2 id="java-bio-代码实现"><a href="#java-bio-代码实现" class="headerlink" title="java bio 代码实现"></a>java bio 代码实现</h2><p><strong>服务端代码</strong></p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> org.example.demo.socket;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.io.IOException;</span><br><span class="line"><span class="keyword">import</span> java.net.ServerSocket;</span><br><span class="line"><span class="keyword">import</span> java.net.Socket;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">CusServerSocket</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="keyword">try</span> (<span class="type">ServerSocket</span> <span class="variable">serverSocket</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">ServerSocket</span>(<span class="number">8080</span>);) &#123;</span><br><span class="line">            <span class="keyword">while</span> (<span class="literal">true</span>) &#123;</span><br><span class="line">                <span class="type">Socket</span> <span class="variable">socket</span> <span class="operator">=</span> serverSocket.accept();</span><br><span class="line">                <span class="comment">//连接成功后新开一个线程去处理这个连接</span></span><br><span class="line">                <span class="keyword">new</span> <span class="title class_">Thread</span>(<span class="keyword">new</span> <span class="title class_">Runnable</span>() &#123;</span><br><span class="line">                    <span class="meta">@Override</span></span><br><span class="line">                    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">run</span><span class="params">()</span> &#123;</span><br><span class="line">                        <span class="type">byte</span>[] bytes = <span class="keyword">new</span> <span class="title class_">byte</span>[<span class="number">1024</span>];</span><br><span class="line">                        <span class="type">int</span> <span class="variable">length</span> <span class="operator">=</span> -<span class="number">1</span>;</span><br><span class="line">                        <span class="keyword">try</span> &#123;</span><br><span class="line">                            <span class="comment">// read() 方法上的注释 If no byte is available because the stream is at the end of the file, the value -1 is returned</span></span><br><span class="line">                            <span class="keyword">while</span> ((length = socket.getInputStream().read(bytes)) != -<span class="number">1</span>) &#123;</span><br><span class="line">                                System.out.println(<span class="string">&quot;thredId:&quot;</span> + Thread.currentThread().getName() + <span class="keyword">new</span> <span class="title class_">String</span>(bytes, <span class="number">0</span>, length));</span><br><span class="line">                            &#125;</span><br><span class="line">                        &#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">                            e.printStackTrace();</span><br><span class="line">                        &#125;</span><br><span class="line">                        System.out.println(<span class="string">&quot;客户端关闭, 当前线程:&quot;</span> + Thread.currentThread().getName());</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;).start();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; <span class="keyword">catch</span> (</span><br><span class="line">                IOException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<p><strong>客户端实现</strong></p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> org.example.demo.socket;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.io.IOException;</span><br><span class="line"><span class="keyword">import</span> java.net.Socket;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">CusClientSocket</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="comment">// 外层循环会创建多个 socket，用来模拟多个 socket 客户端</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">j</span> <span class="operator">=</span> <span class="number">0</span>; j &lt; <span class="number">3</span>; j++) &#123;</span><br><span class="line">            <span class="keyword">try</span> (<span class="type">Socket</span> <span class="variable">socket</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Socket</span>(<span class="string">&quot;127.0.0.1&quot;</span>,<span class="number">8080</span>)) &#123;</span><br><span class="line">                <span class="comment">// 内存循环用来模拟一个客户端的多次通信</span></span><br><span class="line">                <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">1</span>; i &lt; <span class="number">3</span>; i++) &#123;</span><br><span class="line">                    Thread.sleep(<span class="number">20</span>);</span><br><span class="line">                    socket.getOutputStream().write((<span class="string">&quot;客户端&quot;</span> + j + <span class="string">&quot;第&quot;</span> + i + <span class="string">&quot;次通信&quot;</span>).getBytes());</span><br><span class="line">                &#125;</span><br><span class="line">            &#125; <span class="keyword">catch</span> (IOException | InterruptedException e) &#123;</span><br><span class="line">                <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">RuntimeException</span>(e);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p><strong>执行结果</strong></p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">thredId:Thread-<span class="number">0</span>客户端<span class="number">0</span>第<span class="number">1</span>次通信</span><br><span class="line">thredId:Thread-<span class="number">0</span>客户端<span class="number">0</span>第<span class="number">2</span>次通信</span><br><span class="line">客户端关闭, 当前线程:Thread-<span class="number">0</span></span><br><span class="line">thredId:Thread-<span class="number">1</span>客户端<span class="number">1</span>第<span class="number">1</span>次通信</span><br><span class="line">thredId:Thread-<span class="number">1</span>客户端<span class="number">1</span>第<span class="number">2</span>次通信</span><br><span class="line">客户端关闭, 当前线程:Thread-<span class="number">1</span></span><br><span class="line">thredId:Thread-<span class="number">2</span>客户端<span class="number">2</span>第<span class="number">1</span>次通信</span><br><span class="line">thredId:Thread-<span class="number">2</span>客户端<span class="number">2</span>第<span class="number">2</span>次通信</span><br><span class="line">客户端关闭, 当前线程:Thread-<span class="number">2</span></span><br></pre></td></tr></table></figure>
-<ol>
-<li>执行完成之后，服务端程序并不会关闭，会一直在运行</li>
-<li>从上面结果看，一共创建了三个线程来执行</li>
-</ol>
-<h2 id="使用线程池优化-bio-实现"><a href="#使用线程池优化-bio-实现" class="headerlink" title="使用线程池优化 bio 实现"></a>使用线程池优化 bio 实现</h2><p>客户端代码不需要改动，只需要更改服务端代码</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> org.example.demo.socket;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.io.IOException;</span><br><span class="line"><span class="keyword">import</span> java.net.ServerSocket;</span><br><span class="line"><span class="keyword">import</span> java.net.Socket;</span><br><span class="line"><span class="keyword">import</span> java.util.concurrent.ExecutorService;</span><br><span class="line"><span class="keyword">import</span> java.util.concurrent.Executors;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">CusServerSocket</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="type">ExecutorService</span> <span class="variable">executorService</span> <span class="operator">=</span> Executors.newSingleThreadExecutor();</span><br><span class="line">        <span class="keyword">try</span> (<span class="type">ServerSocket</span> <span class="variable">serverSocket</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">ServerSocket</span>(<span class="number">8080</span>);) &#123;</span><br><span class="line">            <span class="keyword">while</span> (<span class="literal">true</span>) &#123;</span><br><span class="line">                <span class="type">Socket</span> <span class="variable">socket</span> <span class="operator">=</span> serverSocket.accept();</span><br><span class="line">                <span class="comment">//连接成功后新开一个线程去处理这个连接</span></span><br><span class="line">                executorService.execute(<span class="keyword">new</span> <span class="title class_">ClientTask</span>(socket));</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; <span class="keyword">catch</span> (</span><br><span class="line">                IOException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">class</span> <span class="title class_">ClientTask</span> <span class="keyword">implements</span> <span class="title class_">Runnable</span> &#123;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">private</span> Socket socket;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">public</span> <span class="title function_">ClientTask</span><span class="params">(Socket socket)</span> &#123;</span><br><span class="line">            <span class="built_in">this</span>.socket = socket;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">run</span><span class="params">()</span> &#123;</span><br><span class="line">            <span class="type">byte</span>[] bytes = <span class="keyword">new</span> <span class="title class_">byte</span>[<span class="number">1024</span>];</span><br><span class="line">            <span class="type">int</span> <span class="variable">length</span> <span class="operator">=</span> -<span class="number">1</span>;</span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                <span class="comment">// read() 方法上的注释 If no byte is available because the stream is at the end of the file, the value -1 is returned</span></span><br><span class="line">                <span class="keyword">while</span> ((length = socket.getInputStream().read(bytes)) != -<span class="number">1</span>) &#123;</span><br><span class="line">                    System.out.println(<span class="string">&quot;thredId:&quot;</span> + Thread.currentThread().getName() + <span class="keyword">new</span> <span class="title class_">String</span>(bytes, <span class="number">0</span>, length));</span><br><span class="line">                &#125;</span><br><span class="line">            &#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">                e.printStackTrace();</span><br><span class="line">            &#125;</span><br><span class="line">            System.out.println(<span class="string">&quot;客户端关闭, 当前线程:&quot;</span> + Thread.currentThread().getName());</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>执行结果</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">thredId:pool-<span class="number">1</span>-thread-<span class="number">1</span>客户端<span class="number">0</span>第<span class="number">1</span>次通信</span><br><span class="line">thredId:pool-<span class="number">1</span>-thread-<span class="number">1</span>客户端<span class="number">0</span>第<span class="number">2</span>次通信</span><br><span class="line">客户端关闭, 当前线程:pool-<span class="number">1</span>-thread-<span class="number">1</span></span><br><span class="line">thredId:pool-<span class="number">1</span>-thread-<span class="number">1</span>客户端<span class="number">1</span>第<span class="number">1</span>次通信</span><br><span class="line">thredId:pool-<span class="number">1</span>-thread-<span class="number">1</span>客户端<span class="number">1</span>第<span class="number">2</span>次通信</span><br><span class="line">客户端关闭, 当前线程:pool-<span class="number">1</span>-thread-<span class="number">1</span></span><br><span class="line">thredId:pool-<span class="number">1</span>-thread-<span class="number">1</span>客户端<span class="number">2</span>第<span class="number">1</span>次通信</span><br><span class="line">thredId:pool-<span class="number">1</span>-thread-<span class="number">1</span>客户端<span class="number">2</span>第<span class="number">2</span>次通信</span><br><span class="line">客户端关闭, 当前线程:pool-<span class="number">1</span>-thread-<span class="number">1</span></span><br></pre></td></tr></table></figure>
-<p>即使使用线程池进行了优化，本地还是阻塞io，只有当一个客户端通信完成（socket关闭了），另外一个 socket 才可以开始进行通信</p>
-<h1 id="NIO"><a href="#NIO" class="headerlink" title="NIO"></a>NIO</h1><ol>
-<li>nio 是非阻塞 io（Non-block io）</li>
-<li>非阻塞 io 的重点是 <strong>事件</strong> 和 <strong>通知或轮询</strong></li>
-<li><code>java.nio.channerls</code> 包提供了支持非阻塞通信的类<ol>
-<li><code>ServerSocketChannel</code>: <code>ServerSocket</code> 的替代类，支持阻塞通信与非阻塞通信</li>
-<li><code>SocketChannerl</code>： <code>Socket</code> 的替代类，支持阻塞通信与非阻塞通信</li>
-<li><code>Selector</code>： 为<code>ServerSocketChannel</code>监控接收连接就绪事件，为<code>SocketChannel</code>监控连接就绪、读就绪和写就绪事件</li>
-<li><code>SelectionKey</code>：代表<code>ServerSocketChannel</code>以及<code>SocketChannel</code>向<code>Selector</code>注册事件的句柄。当一个<code>SelectionKey</code>对象位于<code>Selector</code>对象的<code>selected-keys</code>集合中，就表示与这个<code>SelectionKey</code>对象相关的事件发生了</li>
-</ol>
-</li>
-</ol>
-<pre class="mermaid">graph LR
-    A-->B</pre>
-
-]]></content>
-      <categories>
-        <category>java</category>
-        <category>java基础</category>
-      </categories>
-      <tags>
-        <tag>java</tag>
-        <tag>java基础</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>CompletableFuture的使用</title>
     <url>/2023/11/17/f31e3a7691d6/</url>
     <content><![CDATA[<h1 id="为什么要用-CompletableFuture"><a href="#为什么要用-CompletableFuture" class="headerlink" title="为什么要用 CompletableFuture"></a>为什么要用 CompletableFuture</h1><ol>
@@ -550,6 +526,36 @@
       <tags>
         <tag>java</tag>
         <tag>多线程</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>微信读书阅读条挑战</title>
+    <url>/2023/11/19/c4c074b722a1/</url>
+    <content><![CDATA[<span class="hide_first_mermaid">
+<div class="mermaid-wrap"><pre class="mermaid-src" hidden>
+  flowchart LR
+    A
+  </pre></div>
+</span>
+
+<p>参与微信阅读挑战</p>
+<ol>
+<li>365 天不间断</li>
+<li>期间最少阅读 300 小时</li>
+<li>每周更新进度</li>
+</ol>
+<p><img src="https://blog-1308475102.cos.ap-guangzhou.myqcloud.com/picture/202311192143934.png" alt="aa"></p>
+<div class="tabs" id="202311"><ul class="nav-tabs"><button type="button" class="tab  active" data-href="202311-1">23/11/16~23/11/19</button><button type="button" class="tab " data-href="202311-2">23/11/20~23/11/26</button></ul><div class="tab-contents"><div class="tab-item-content active" id="202311-1"><pre><code>&lt;div class=&quot;mermaid-wrap&quot;&gt;&lt;pre class=&quot;mermaid-src&quot; hidden&gt;
+</code></pre>
+<p>  graph LR<br>    A–&gt;B</p>
+<p>  </p></div><p></p></div><div class="tab-item-content" id="202311-2"><pre><code>测试内容222
+</code></pre></div></div><div class="tab-to-top"><button type="button" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div>
+]]></content>
+      <categories>
+        <category>book</category>
+      </categories>
+      <tags>
+        <tag>book</tag>
       </tags>
   </entry>
   <entry>
@@ -674,132 +680,6 @@
       <tags>
         <tag>java</tag>
         <tag>多线程</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>redis底层数据结构</title>
-    <url>/2023/11/15/19e21a188fd0/</url>
-    <content><![CDATA[<h1 id="redis-对象"><a href="#redis-对象" class="headerlink" title="redis 对象"></a>redis 对象</h1><p><code>redis</code> 中所有数据类型都是使用 <code>RedisObject</code> 对象形式来表示，<code>RedisObject</code> 主要包含三个字段</p>
-<span id="more"></span>
-
-<pre class="mermaid">graph LR
-    A[RedisObject]
-    A-->B["type (记录对象的类型) \n 常用5种基本类型，实际还有BitMap（2.2 版新增）\n、HyperLogLog（2.8 版新增）、\n GEO（3.2 版新增）、Stream（5.0 版新增）"]
-
-    B1[String 字符串对象]
-    B2[List 列表集合]
-    B3[Hash 哈希对象]
-    B4[Set 集合对象]
-    B5[Zset 有序集合对象]
-    B--> B1 & B2 & B3 & B4 & B5
-
-    A-->C["encoding (记录对象的编码)"]
-    C1[Intset 整数集合]
-    C2[embstr embstr编码的简单动态字符串]
-    C3[raw 简单动态字符串]
-    C4[HT 字典]
-    C5[Linkedlist 双端列表]
-    C6[ziplist 压缩列表]
-    C7[skiplist 跳跃表和字典]
-    C8[quicklist 快速列表]
-    C-->C1 & C2 & C3 & C4 & C5 & C6 & C7 & C8
-
-    A-->D["*ptr (指向具体的类型)"]</pre>
-
-<h2 id="为什么一个对象需要包含-type-和-encoding"><a href="#为什么一个对象需要包含-type-和-encoding" class="headerlink" title="为什么一个对象需要包含 type 和 encoding"></a>为什么一个对象需要包含 <code>type</code> 和 <code>encoding</code></h2><ol>
-<li>因为 <code>type</code> 只是记录对象的类型</li>
-<li>每一个 <code>type</code> 可以使用不同的底层数据结构来实现，所以还需要具体的 <code>encoding</code> 来指明这个 <code>type</code> 的实现是什么， 下图就列出每一个 <code>type</code> 有哪几种底层数据结构</li>
-</ol>
-<h1 id="5-种基本数据类型对应的底层实现"><a href="#5-种基本数据类型对应的底层实现" class="headerlink" title="5 种基本数据类型对应的底层实现"></a>5 种基本数据类型对应的底层实现</h1><h2 id="String"><a href="#String" class="headerlink" title="String"></a>String</h2><ol>
-<li><code>String</code> 类型的底层的数据结构实现主要是 <code>int</code> 和 <code>SDS</code>（简单动态字符串）<ol>
-<li>如果存储的是数字，则编码使用 <code>int</code> 类型</li>
-</ol>
-</li>
-<li><code>sds</code> 的实际编码又包含 <code>raw</code> 和 <code>embstr</code><ol>
-<li>字符串长度小于 32位时使用 <code>embstr</code>(<code>embstr</code> 的空间挨着 <code>RedisObject，RedisObject</code> 和 <code>embstr</code> 的内存是一次性分配的)</li>
-<li>字符串长度大于 32位时使用 <code>raw</code> 编码(<code>RedisObject</code> 的内存分区和 <code>raw</code> 编码类型的空间分配是分开的，也就是需要两次内存分配)</li>
-</ol>
-</li>
-</ol>
-<h3 id="SDS-和-C-原生字符串的区别"><a href="#SDS-和-C-原生字符串的区别" class="headerlink" title="SDS 和 C 原生字符串的区别"></a>SDS 和 C 原生字符串的区别</h3><ol>
-<li><code>sds</code> 可以保存文本和二进制数据，因为 <code>sds</code> 有 <code>length</code> 字段来判断字符串是否结束，c 使用 ‘\0’ 作为结束符</li>
-<li><code>sds</code> 的 <code>api</code> 安全，不会出现缓冲区溢出，因为 <code>sds</code> 拼接字符串前有做容量检查</li>
-</ol>
-<h2 id="List"><a href="#List" class="headerlink" title="List"></a>List</h2><ol>
-<li><code>List</code> 类型的底层数据结构是由双向链表或压缩列表实现的<ol>
-<li>元素个数小于 512 个（默认值，可由 <code>list-max-ziplist-entries</code> 配置），列表每个元素的值都小于 64 字节（默认值，可由 <code>list-max-ziplist-value</code> <code>配置），Redis</code> 会使用压缩列表作为 <code>List</code> 类型的底层数据结构；</li>
-</ol>
-</li>
-<li>在 <code>Redis3.2</code> 版本之后，<code>List</code> 类型底层数据结构只有 <code>quicklist</code> 一种</li>
-</ol>
-<h2 id="Hash"><a href="#Hash" class="headerlink" title="Hash"></a>Hash</h2><ol>
-<li><code>Hash</code> 类型的底层数据结构是由压缩列表或哈希表实现的<ol>
-<li>元素个数小于 512 个（可通过 <code>hash-max-ziplist-entries</code> 修改），所有值小于 64 字节（可通过 <code>hash-max-ziplist-value</code> 修改）时，<code>Redis</code> 会使用压缩列表作为 <code>Hash</code> 类型的底层数据结构</li>
-</ol>
-</li>
-<li>在 <code>Redis7.0</code> 中，压缩列表数据结构被废弃，由 <code>listpack</code> 数据结构来实现</li>
-</ol>
-<h2 id="Set"><a href="#Set" class="headerlink" title="Set"></a>Set</h2><ol>
-<li><code>Set</code> 类型的底层数据结构是由哈希表或整数集合实现的<ol>
-<li>如果集合中的元素都是整数且元素个数小于 512 （可通过 <code>set-maxintset-entries</code> 修改）个，<code>Redis</code> 会使用整数集合作为 Set 类型的底层数据结构</li>
-</ol>
-</li>
-</ol>
-<h2 id="Zset"><a href="#Zset" class="headerlink" title="Zset"></a>Zset</h2><ol>
-<li><p>Zset 类型底层数据结构是由压缩列表或跳表实现</p>
-<ol>
-<li>若有序集合的元素个数小于 128 个且每个元素的值小于 64 字节，<code>Redis</code> 会使用压缩列表作为 <code>Zset</code> 类型的底层数据结构</li>
-</ol>
-</li>
-<li><p><code>Redis 7.0</code> 中，压缩列表数据结构被废弃，交由 <code>listpack</code> 数据结构来实现</p>
-</li>
-</ol>
-]]></content>
-      <categories>
-        <category>redis</category>
-      </categories>
-      <tags>
-        <tag>redis</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>redis线程模型</title>
-    <url>/2023/11/16/e4db3f95ceb5/</url>
-    <content><![CDATA[<p>总结：<code>redis</code> 整体是多线程的，至于平时所说的 <code>redis</code> 单线程是指 <strong>redis的网络io 和 键值对读写</strong> 是在同一个线程中完成</p>
-<span id="more"></span>
-<h1 id="一次-redis-请求过程"><a href="#一次-redis-请求过程" class="headerlink" title="一次 redis 请求过程"></a>一次 redis 请求过程</h1><ol>
-<li>监听客户端请求（<code>bind/listen</code>）</li>
-<li>等待客户端的连接（<code>accept</code>）</li>
-<li>从 <code>socket</code> 中读取数据（<code>recv</code>）</li>
-<li>解析客户端发送的内容（<code>parse</code>）</li>
-<li>根据解析出来的内容进行内存操作（<code>get/set</code>）</li>
-<li>执行完成命令之后给客户端响应结果，即向 <code>socket</code> 中写数据（<code>send</code>）</li>
-</ol>
-<pre class="mermaid">graph TB
-    subgraph A[redis线程]
-        subgraph B[网络IO处理]
-            B1[bind/listen]
-            B2[accept]
-            B3[recv]
-            B4[parse]
-        end
-        subgraph C[键值对读写]
-            C1[get/set]
-        end
-        subgraph D[网络IO处理]
-            D1[send]
-        end
-    end
-    B-->C-->D</pre>
-<ul>
-<li>网络 io 处理过程中， <code>listen</code> 和 <code>recv</code> 这两个步骤是可能阻塞的，即当没有链接或客户端没有发送命令时，服务器处理这两个环节时会阻塞，<strong>但是socket网络模型自身就支持非阻塞的形式</strong></li>
-</ul>
-]]></content>
-      <categories>
-        <category>redis</category>
-      </categories>
-      <tags>
-        <tag>redis</tag>
       </tags>
   </entry>
   <entry>
@@ -930,6 +810,25 @@
       </tags>
   </entry>
   <entry>
+    <title>vscode设置markdown图片默认路径</title>
+    <url>/2023/11/15/5b4d784e18c2/</url>
+    <content><![CDATA[<p><code>vscode</code> 在 <code>markdown</code> 文档中直接复制图片时是放在当前目录，如果需要修改可以按照下面方式设置</p>
+<span id="more"></span>
+<ol>
+<li>输入快捷键 <code>ctrl+,</code> 可以快速打开设置</li>
+<li>搜索 <code>markdown.copy: Destination</code></li>
+</ol>
+<p><img src="/2023/11/15/5b4d784e18c2/1700033681108.png" alt="Alt text"></p>
+]]></content>
+      <categories>
+        <category>tools</category>
+        <category>vscode</category>
+      </categories>
+      <tags>
+        <tag>tools</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>utools自动化脚本插件</title>
     <url>/2023/11/11/d899f5ff1973/</url>
     <content><![CDATA[<h1 id="utools-使用自动化脚本打开本地程序"><a href="#utools-使用自动化脚本打开本地程序" class="headerlink" title="utools 使用自动化脚本打开本地程序"></a>utools 使用自动化脚本打开本地程序</h1><ol>
@@ -985,22 +884,129 @@
       </tags>
   </entry>
   <entry>
-    <title>vscode设置markdown图片默认路径</title>
-    <url>/2023/11/15/5b4d784e18c2/</url>
-    <content><![CDATA[<p><code>vscode</code> 在 <code>markdown</code> 文档中直接复制图片时是放在当前目录，如果需要修改可以按照下面方式设置</p>
+    <title>redis底层数据结构</title>
+    <url>/2023/11/15/19e21a188fd0/</url>
+    <content><![CDATA[<h1 id="redis-对象"><a href="#redis-对象" class="headerlink" title="redis 对象"></a>redis 对象</h1><p><code>redis</code> 中所有数据类型都是使用 <code>RedisObject</code> 对象形式来表示，<code>RedisObject</code> 主要包含三个字段</p>
 <span id="more"></span>
-<ol>
-<li>输入快捷键 <code>ctrl+,</code> 可以快速打开设置</li>
-<li>搜索 <code>markdown.copy: Destination</code></li>
+
+<pre class="mermaid">graph LR
+    A[RedisObject]
+    A-->B["type (记录对象的类型) \n 常用5种基本类型，实际还有BitMap（2.2 版新增）\n、HyperLogLog（2.8 版新增）、\n GEO（3.2 版新增）、Stream（5.0 版新增）"]
+
+    B1[String 字符串对象]
+    B2[List 列表集合]
+    B3[Hash 哈希对象]
+    B4[Set 集合对象]
+    B5[Zset 有序集合对象]
+    B--> B1 & B2 & B3 & B4 & B5
+
+    A-->C["encoding (记录对象的编码)"]
+    C1[Intset 整数集合]
+    C2[embstr embstr编码的简单动态字符串]
+    C3[raw 简单动态字符串]
+    C4[HT 字典]
+    C5[Linkedlist 双端列表]
+    C6[ziplist 压缩列表]
+    C7[skiplist 跳跃表和字典]
+    C8[quicklist 快速列表]
+    C-->C1 & C2 & C3 & C4 & C5 & C6 & C7 & C8
+
+    A-->D["*ptr (指向具体的类型)"]</pre>
+
+<h2 id="为什么一个对象需要包含-type-和-encoding"><a href="#为什么一个对象需要包含-type-和-encoding" class="headerlink" title="为什么一个对象需要包含 type 和 encoding"></a>为什么一个对象需要包含 <code>type</code> 和 <code>encoding</code></h2><ol>
+<li>因为 <code>type</code> 只是记录对象的类型</li>
+<li>每一个 <code>type</code> 可以使用不同的底层数据结构来实现，所以还需要具体的 <code>encoding</code> 来指明这个 <code>type</code> 的实现是什么， 下图就列出每一个 <code>type</code> 有哪几种底层数据结构</li>
 </ol>
-<p><img src="/2023/11/15/5b4d784e18c2/1700033681108.png" alt="Alt text"></p>
+<h1 id="5-种基本数据类型对应的底层实现"><a href="#5-种基本数据类型对应的底层实现" class="headerlink" title="5 种基本数据类型对应的底层实现"></a>5 种基本数据类型对应的底层实现</h1><h2 id="String"><a href="#String" class="headerlink" title="String"></a>String</h2><ol>
+<li><code>String</code> 类型的底层的数据结构实现主要是 <code>int</code> 和 <code>SDS</code>（简单动态字符串）<ol>
+<li>如果存储的是数字，则编码使用 <code>int</code> 类型</li>
+</ol>
+</li>
+<li><code>sds</code> 的实际编码又包含 <code>raw</code> 和 <code>embstr</code><ol>
+<li>字符串长度小于 32位时使用 <code>embstr</code>(<code>embstr</code> 的空间挨着 <code>RedisObject，RedisObject</code> 和 <code>embstr</code> 的内存是一次性分配的)</li>
+<li>字符串长度大于 32位时使用 <code>raw</code> 编码(<code>RedisObject</code> 的内存分区和 <code>raw</code> 编码类型的空间分配是分开的，也就是需要两次内存分配)</li>
+</ol>
+</li>
+</ol>
+<h3 id="SDS-和-C-原生字符串的区别"><a href="#SDS-和-C-原生字符串的区别" class="headerlink" title="SDS 和 C 原生字符串的区别"></a>SDS 和 C 原生字符串的区别</h3><ol>
+<li><code>sds</code> 可以保存文本和二进制数据，因为 <code>sds</code> 有 <code>length</code> 字段来判断字符串是否结束，c 使用 ‘\0’ 作为结束符</li>
+<li><code>sds</code> 的 <code>api</code> 安全，不会出现缓冲区溢出，因为 <code>sds</code> 拼接字符串前有做容量检查</li>
+</ol>
+<h2 id="List"><a href="#List" class="headerlink" title="List"></a>List</h2><ol>
+<li><code>List</code> 类型的底层数据结构是由双向链表或压缩列表实现的<ol>
+<li>元素个数小于 512 个（默认值，可由 <code>list-max-ziplist-entries</code> 配置），列表每个元素的值都小于 64 字节（默认值，可由 <code>list-max-ziplist-value</code> <code>配置），Redis</code> 会使用压缩列表作为 <code>List</code> 类型的底层数据结构；</li>
+</ol>
+</li>
+<li>在 <code>Redis3.2</code> 版本之后，<code>List</code> 类型底层数据结构只有 <code>quicklist</code> 一种</li>
+</ol>
+<h2 id="Hash"><a href="#Hash" class="headerlink" title="Hash"></a>Hash</h2><ol>
+<li><code>Hash</code> 类型的底层数据结构是由压缩列表或哈希表实现的<ol>
+<li>元素个数小于 512 个（可通过 <code>hash-max-ziplist-entries</code> 修改），所有值小于 64 字节（可通过 <code>hash-max-ziplist-value</code> 修改）时，<code>Redis</code> 会使用压缩列表作为 <code>Hash</code> 类型的底层数据结构</li>
+</ol>
+</li>
+<li>在 <code>Redis7.0</code> 中，压缩列表数据结构被废弃，由 <code>listpack</code> 数据结构来实现</li>
+</ol>
+<h2 id="Set"><a href="#Set" class="headerlink" title="Set"></a>Set</h2><ol>
+<li><code>Set</code> 类型的底层数据结构是由哈希表或整数集合实现的<ol>
+<li>如果集合中的元素都是整数且元素个数小于 512 （可通过 <code>set-maxintset-entries</code> 修改）个，<code>Redis</code> 会使用整数集合作为 Set 类型的底层数据结构</li>
+</ol>
+</li>
+</ol>
+<h2 id="Zset"><a href="#Zset" class="headerlink" title="Zset"></a>Zset</h2><ol>
+<li><p>Zset 类型底层数据结构是由压缩列表或跳表实现</p>
+<ol>
+<li>若有序集合的元素个数小于 128 个且每个元素的值小于 64 字节，<code>Redis</code> 会使用压缩列表作为 <code>Zset</code> 类型的底层数据结构</li>
+</ol>
+</li>
+<li><p><code>Redis 7.0</code> 中，压缩列表数据结构被废弃，交由 <code>listpack</code> 数据结构来实现</p>
+</li>
+</ol>
 ]]></content>
       <categories>
-        <category>tools</category>
-        <category>vscode</category>
+        <category>redis</category>
       </categories>
       <tags>
-        <tag>tools</tag>
+        <tag>redis</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>redis线程模型</title>
+    <url>/2023/11/16/e4db3f95ceb5/</url>
+    <content><![CDATA[<p>总结：<code>redis</code> 整体是多线程的，至于平时所说的 <code>redis</code> 单线程是指 <strong>redis的网络io 和 键值对读写</strong> 是在同一个线程中完成</p>
+<span id="more"></span>
+<h1 id="一次-redis-请求过程"><a href="#一次-redis-请求过程" class="headerlink" title="一次 redis 请求过程"></a>一次 redis 请求过程</h1><ol>
+<li>监听客户端请求（<code>bind/listen</code>）</li>
+<li>等待客户端的连接（<code>accept</code>）</li>
+<li>从 <code>socket</code> 中读取数据（<code>recv</code>）</li>
+<li>解析客户端发送的内容（<code>parse</code>）</li>
+<li>根据解析出来的内容进行内存操作（<code>get/set</code>）</li>
+<li>执行完成命令之后给客户端响应结果，即向 <code>socket</code> 中写数据（<code>send</code>）</li>
+</ol>
+<pre class="mermaid">graph TB
+    subgraph A[redis线程]
+        subgraph B[网络IO处理]
+            B1[bind/listen]
+            B2[accept]
+            B3[recv]
+            B4[parse]
+        end
+        subgraph C[键值对读写]
+            C1[get/set]
+        end
+        subgraph D[网络IO处理]
+            D1[send]
+        end
+    end
+    B-->C-->D</pre>
+<ul>
+<li>网络 io 处理过程中， <code>listen</code> 和 <code>recv</code> 这两个步骤是可能阻塞的，即当没有链接或客户端没有发送命令时，服务器处理这两个环节时会阻塞，<strong>但是socket网络模型自身就支持非阻塞的形式</strong></li>
+</ul>
+]]></content>
+      <categories>
+        <category>redis</category>
+      </categories>
+      <tags>
+        <tag>redis</tag>
       </tags>
   </entry>
 </search>
