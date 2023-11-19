@@ -39,8 +39,8 @@ https://personalstudy.ltd/categories/tools/hexo/
 https://personalstudy.ltd/categories/record/
 https://personalstudy.ltd/categories/book/
 https://personalstudy.ltd/categories/java/
-https://personalstudy.ltd/categories/tools/vscode/
 https://personalstudy.ltd/categories/tools/utools/
+https://personalstudy.ltd/categories/tools/vscode/
 https://personalstudy.ltd/categories/book/%E6%88%90%E9%95%BF/
 https://personalstudy.ltd/categories/redis/
 https://personalstudy.ltd/categories/java/java%E5%9F%BA%E7%A1%80/
