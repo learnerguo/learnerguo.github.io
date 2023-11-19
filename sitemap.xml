@@ -29,7 +29,7 @@
   </url>
   
   <url>
-    <loc>https://personalstudy.ltd/2023/11/17/180f5b629f58/</loc>
+    <loc>https://personalstudy.ltd/2023/11/10/08549388833c/</loc>
     
     <lastmod>2023-11-19</lastmod>
     
@@ -38,7 +38,7 @@
   </url>
   
   <url>
-    <loc>https://personalstudy.ltd/2023/11/10/08549388833c/</loc>
+    <loc>https://personalstudy.ltd/2023/11/17/180f5b629f58/</loc>
     
     <lastmod>2023-11-19</lastmod>
     
@@ -262,14 +262,14 @@
   </url>
   
   <url>
-    <loc>https://personalstudy.ltd/tags/java%E5%9F%BA%E7%A1%80/</loc>
+    <loc>https://personalstudy.ltd/tags/jvm/</loc>
     <lastmod>2023-11-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://personalstudy.ltd/tags/jvm/</loc>
+    <loc>https://personalstudy.ltd/tags/java%E5%9F%BA%E7%A1%80/</loc>
     <lastmod>2023-11-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -348,6 +348,13 @@
   </url>
   
   <url>
+    <loc>https://personalstudy.ltd/categories/book/%E6%88%90%E9%95%BF/</loc>
+    <lastmod>2023-11-19</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
     <loc>https://personalstudy.ltd/categories/tools/utools/</loc>
     <lastmod>2023-11-19</lastmod>
     <changefreq>weekly</changefreq>
@@ -362,7 +369,7 @@
   </url>
   
   <url>
-    <loc>https://personalstudy.ltd/categories/book/%E6%88%90%E9%95%BF/</loc>
+    <loc>https://personalstudy.ltd/categories/java/jvm/</loc>
     <lastmod>2023-11-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -370,13 +377,6 @@
   
   <url>
     <loc>https://personalstudy.ltd/categories/java/java%E5%9F%BA%E7%A1%80/</loc>
-    <lastmod>2023-11-19</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://personalstudy.ltd/categories/java/jvm/</loc>
     <lastmod>2023-11-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
