@@ -72,6 +72,26 @@
       </tags>
   </entry>
   <entry>
+    <title>比较</title>
+    <url>/2023/11/18/2084759b2332/</url>
+    <content><![CDATA[<blockquote>
+<p>人感到不幸福大多来源于比较，感到满足也源于比较</p>
+</blockquote>
+<span id="more"></span>
+<p>在微信读书看到一位书友写到，作为农村出来的孩子，应该如何改变自己的命运，因为周围的一切在告诉我们，就算你努力了二十几年，才勉强达到了别人的起跑线，但是我们的出身是自己无法决定的，那我们应该如何更进一步呢？</p>
+<p>看到另外一位书友的回答很有感触，且记录在此，和有缘人共勉</p>
+<blockquote>
+<p>回头看，轻舟已过万重山<br>向前看，长路漫漫亦灿灿<br>平常看，人间烟火甚灿烂<br>低头看，万里黄山皆脚下  </p>
+</blockquote>
+]]></content>
+      <categories>
+        <category>record</category>
+      </categories>
+      <tags>
+        <tag>record</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>hexo使用插入本地图片路径问题</title>
     <url>/2023/11/15/563e23df91d3/</url>
     <content><![CDATA[<p>Hexo version: 7.0<br>Next version: 8.18</p>
@@ -246,26 +266,6 @@
       </tags>
   </entry>
   <entry>
-    <title>比较</title>
-    <url>/2023/11/18/2084759b2332/</url>
-    <content><![CDATA[<blockquote>
-<p>人感到不幸福大多来源于比较，感到满足也源于比较</p>
-</blockquote>
-<span id="more"></span>
-<p>在微信读书看到一位书友写到，作为农村出来的孩子，应该如何改变自己的命运，因为周围的一切在告诉我们，就算你努力了二十几年，才勉强达到了别人的起跑线，但是我们的出身是自己无法决定的，那我们应该如何更进一步呢？</p>
-<p>看到另外一位书友的回答很有感触，且记录在此，和有缘人共勉</p>
-<blockquote>
-<p>回头看，轻舟已过万重山<br>向前看，长路漫漫亦灿灿<br>平常看，人间烟火甚灿烂<br>低头看，万里黄山皆脚下  </p>
-</blockquote>
-]]></content>
-      <categories>
-        <category>record</category>
-      </categories>
-      <tags>
-        <tag>record</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>宝贵的人生建议</title>
     <url>/2023/11/12/5792ca8e5e27/</url>
     <content><![CDATA[<ul>
@@ -371,7 +371,14 @@
   <entry>
     <title>java的io模型</title>
     <url>/2023/11/17/180f5b629f58/</url>
-    <content><![CDATA[<h1 id="BIO"><a href="#BIO" class="headerlink" title="BIO"></a>BIO</h1><ol>
+    <content><![CDATA[<span class="hide_first_mermaid">
+<div class="mermaid-wrap"><pre class="mermaid-src" hidden>
+  flowchart LR
+    A
+  </pre></div>
+</span>
+
+<h1 id="BIO"><a href="#BIO" class="headerlink" title="BIO"></a>BIO</h1><ol>
 <li><code>bio</code> 是同步阻塞 <code>io</code>，每一个连接都需要一个线程去处理</li>
 <li><code>bio</code> 会有资源浪费问题，一个线程只能处理一个连接，如果某个客户端并没有发送数据，对应的服务端线程也只能阻塞</li>
 </ol>
@@ -395,7 +402,21 @@
 <p>执行结果</p>
 <figure class="highlight java"><table><tr><td class="code"><pre><span class="line">thredId:pool-<span class="number">1</span>-thread-<span class="number">1</span>客户端<span class="number">0</span>第<span class="number">1</span>次通信</span><br><span class="line">thredId:pool-<span class="number">1</span>-thread-<span class="number">1</span>客户端<span class="number">0</span>第<span class="number">2</span>次通信</span><br><span class="line">客户端关闭, 当前线程:pool-<span class="number">1</span>-thread-<span class="number">1</span></span><br><span class="line">thredId:pool-<span class="number">1</span>-thread-<span class="number">1</span>客户端<span class="number">1</span>第<span class="number">1</span>次通信</span><br><span class="line">thredId:pool-<span class="number">1</span>-thread-<span class="number">1</span>客户端<span class="number">1</span>第<span class="number">2</span>次通信</span><br><span class="line">客户端关闭, 当前线程:pool-<span class="number">1</span>-thread-<span class="number">1</span></span><br><span class="line">thredId:pool-<span class="number">1</span>-thread-<span class="number">1</span>客户端<span class="number">2</span>第<span class="number">1</span>次通信</span><br><span class="line">thredId:pool-<span class="number">1</span>-thread-<span class="number">1</span>客户端<span class="number">2</span>第<span class="number">2</span>次通信</span><br><span class="line">客户端关闭, 当前线程:pool-<span class="number">1</span>-thread-<span class="number">1</span></span><br></pre></td></tr></table></figure>
 <p>即使使用线程池进行了优化，本地还是阻塞io，只有当一个客户端通信完成（socket关闭了），另外一个 socket 才可以开始进行通信</p>
-<h1 id="NIO"><a href="#NIO" class="headerlink" title="NIO"></a>NIO</h1>]]></content>
+<h1 id="NIO"><a href="#NIO" class="headerlink" title="NIO"></a>NIO</h1><ol>
+<li>nio 是非阻塞 io（Non-block io）</li>
+<li>非阻塞 io 的重点是 <strong>事件</strong> 和 <strong>通知或轮询</strong></li>
+<li><code>java.nio.channerls</code> 包提供了支持非阻塞通信的类<ol>
+<li><code>ServerSocketChannel</code>: <code>ServerSocket</code> 的替代类，支持阻塞通信与非阻塞通信</li>
+<li><code>SocketChannerl</code>： <code>Socket</code> 的替代类，支持阻塞通信与非阻塞通信</li>
+<li><code>Selector</code>： 为<code>ServerSocketChannel</code>监控接收连接就绪事件，为<code>SocketChannel</code>监控连接就绪、读就绪和写就绪事件</li>
+<li><code>SelectionKey</code>：代表<code>ServerSocketChannel</code>以及<code>SocketChannel</code>向<code>Selector</code>注册事件的句柄。当一个<code>SelectionKey</code>对象位于<code>Selector</code>对象的<code>selected-keys</code>集合中，就表示与这个<code>SelectionKey</code>对象相关的事件发生了</li>
+</ol>
+</li>
+</ol>
+<pre class="mermaid">graph LR
+    A-->B</pre>
+
+]]></content>
       <categories>
         <category>java</category>
         <category>java基础</category>
@@ -1102,6 +1123,72 @@
       </tags>
   </entry>
   <entry>
+    <title>CompletableFuture的使用</title>
+    <url>/2023/11/17/f31e3a7691d6/</url>
+    <content><![CDATA[<h1 id="为什么要用-CompletableFuture"><a href="#为什么要用-CompletableFuture" class="headerlink" title="为什么要用 CompletableFuture"></a>为什么要用 CompletableFuture</h1><ol>
+<li>任务完成后自动回调</li>
+<li>多任务并行执行</li>
+<li>有依赖任务的串行执行</li>
+</ol>
+<span id="more"></span>]]></content>
+      <categories>
+        <category>java</category>
+        <category>多线程</category>
+      </categories>
+      <tags>
+        <tag>java</tag>
+        <tag>多线程</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>join方法详解</title>
+    <url>/2019/11/06/86139434f79c/</url>
+    <content><![CDATA[<h1 id="join的使用"><a href="#join的使用" class="headerlink" title="join的使用"></a>join的使用</h1><h2 id="正常情形"><a href="#正常情形" class="headerlink" title="正常情形"></a>正常情形</h2><p><code>join</code>的目的是让调用线程等待被调用的线程执行完成之后再继续。</p>
+<ul>
+<li>对于<code>join</code>方法需要注意的是谁等待谁<ul>
+<li>调用<code>join</code>方法所在的线程需要等待调用<code>join</code>方法的对象线程执行完毕</li>
+</ul>
+</li>
+<li>下面代码案例中<code>thread.join()</code>和<code>thread2.join()</code>都是在<code>main</code>线程中调用的，所以是<code>main</code>线程要等其他线程，那么这里的其他线程是哪个线程呢？就是调用<code>join</code>的<code>thread</code>和<code>thread2</code>线程</li>
+</ul>
+<span id="more"></span>
+
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> testjoin;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">JoinDemo</span> <span class="keyword">implements</span> <span class="title class_">Runnable</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="type">JoinDemo</span> <span class="variable">joinDemo</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">JoinDemo</span>();</span><br><span class="line">        <span class="type">Thread</span> <span class="variable">thread</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Thread</span>(joinDemo);</span><br><span class="line">        <span class="type">Thread</span> <span class="variable">thread2</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Thread</span>(joinDemo);</span><br><span class="line">        thread.start();</span><br><span class="line">        thread2.start();</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            thread.join();</span><br><span class="line">            thread2.join();</span><br><span class="line">        &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">        System.out.println(<span class="string">&quot;子线程都执行完了&quot;</span>);</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">run</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            Thread.sleep(<span class="number">1000</span>);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">        System.out.println(Thread.currentThread().getName() + <span class="string">&quot;执行完毕&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>上面是正常的情形，也就是说<code>main</code>线程确实是等到另外两个线程执行完毕之后才执行的。</p>
+<h2 id="中断情形"><a href="#中断情形" class="headerlink" title="中断情形"></a>中断情形</h2><p>下面演示的是在子线程中中断了主线程，这样虽然主线程中调用了子线程的<code>join</code>方法，但是也有可能是主线程先执行完。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> testjoin;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">JoinDemoInterrupt</span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="comment">// 获取主线程的引用</span></span><br><span class="line">        <span class="type">Thread</span> <span class="variable">threadMain</span> <span class="operator">=</span> Thread.currentThread();</span><br><span class="line">        <span class="type">Thread</span> <span class="variable">thread</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Thread</span>(() -&gt; &#123;</span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                <span class="comment">// 中断主线程</span></span><br><span class="line">                threadMain.interrupt();</span><br><span class="line">                Thread.sleep(<span class="number">1000</span>);</span><br><span class="line">            &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">                e.printStackTrace();</span><br><span class="line">            &#125;</span><br><span class="line">            System.out.println(Thread.currentThread().getName() + <span class="string">&quot;执行完毕&quot;</span>);</span><br><span class="line">        &#125;);</span><br><span class="line">        thread.start();</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            thread.join();</span><br><span class="line">        &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">        System.out.println(<span class="string">&quot;子线程都执行完了&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>执行结果会出现 <code>InterruptedException</code> 并且是主线程先执行完成</p>
+<h2 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h2><p>上面中断的情形显然是不对，那么应该如何解决呢？其实在主线程被中断之后，应该通知子线程，通知子线程的方式就是中断子线程。所以代码也很简单，就是在上面的点啊基础上加一行代码即可。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> testjoin;</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">JoinDemoInterrupt</span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="comment">// 获取主线程的引用</span></span><br><span class="line">        <span class="type">Thread</span> <span class="variable">threadMain</span> <span class="operator">=</span> Thread.currentThread();</span><br><span class="line">        <span class="type">Thread</span> <span class="variable">thread</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Thread</span>(() -&gt; &#123;</span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                <span class="comment">// 中断主线程</span></span><br><span class="line">                threadMain.interrupt();</span><br><span class="line">                Thread.sleep(<span class="number">1000</span>);</span><br><span class="line">            &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">                e.printStackTrace();</span><br><span class="line">            &#125;</span><br><span class="line">            System.out.println(Thread.currentThread().getName() + <span class="string">&quot;执行完毕&quot;</span>);</span><br><span class="line">        &#125;);</span><br><span class="line">        thread.start();</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            thread.join();</span><br><span class="line">        &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">            <span class="comment">// 中断子线程</span></span><br><span class="line">            thread.interrupt();</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">        System.out.println(<span class="string">&quot;子线程都执行完了&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>上面的代码就加一一句<code>thread.interrupt();</code>这是中断子线程，但是需要注意的是不代表加上这一句话之后，子线程一定会先执行完。因为当调用<code>join</code>的线程被中断之后实际上是已经不会继续等其他线程执行完了。</p>
+<h1 id="join的原理"><a href="#join的原理" class="headerlink" title="join的原理"></a>join的原理</h1><p>我们来看一下<code>join</code>方法</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">synchronized</span> <span class="keyword">void</span> <span class="title function_">join</span><span class="params">(<span class="type">long</span> millis)</span></span><br><span class="line">    <span class="keyword">throws</span> InterruptedException &#123;</span><br><span class="line">        <span class="type">long</span> <span class="variable">base</span> <span class="operator">=</span> System.currentTimeMillis();</span><br><span class="line">        <span class="type">long</span> <span class="variable">now</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (millis &lt; <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">IllegalArgumentException</span>(<span class="string">&quot;timeout value is negative&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (millis == <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="keyword">while</span> (isAlive()) &#123;</span><br><span class="line">                wait(<span class="number">0</span>);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">while</span> (isAlive()) &#123;</span><br><span class="line">                <span class="type">long</span> <span class="variable">delay</span> <span class="operator">=</span> millis - now;</span><br><span class="line">                <span class="keyword">if</span> (delay &lt;= <span class="number">0</span>) &#123;</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                &#125;</span><br><span class="line">                wait(delay);</span><br><span class="line">                now = System.currentTimeMillis() - base;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<p>上面是<code>join</code>方法的源码，可以看出来实际上底层调用的就是<code>wait</code>，但是我们调用<code>wait</code>的时候是需要<code>notify</code>或者<code>notifyAll</code>方法来唤醒的，但是这里没有看到任何的<code>notify</code>方法的身影啊。其实这是因为每一个线程执行完成之后都会调用当前线程的<code>notify</code>方法。这是线程底层做的事情。</p>
+<h1 id="join的替代方式"><a href="#join的替代方式" class="headerlink" title="join的替代方式"></a>join的替代方式</h1><p>上面说每一个线程执行完成后都会调用当前线程的<code>notify</code>方法，那么我们是不是就可以使用<code>wait</code>方法来替换<code>join</code>方法呢？请看下面代码</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> testjoin;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">JoinDemoInterrupt</span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="comment">// 获取主线程的引用</span></span><br><span class="line">        <span class="type">Thread</span> <span class="variable">threadMain</span> <span class="operator">=</span> Thread.currentThread();</span><br><span class="line">        <span class="type">Thread</span> <span class="variable">thread</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Thread</span>(() -&gt; &#123;</span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                Thread.sleep(<span class="number">1000</span>);</span><br><span class="line">            &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">                e.printStackTrace();</span><br><span class="line">            &#125;</span><br><span class="line">            System.out.println(Thread.currentThread().getName() + <span class="string">&quot;执行完毕&quot;</span>);</span><br><span class="line">        &#125;);</span><br><span class="line">        thread.start();</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="comment">//thread.join();</span></span><br><span class="line">            <span class="keyword">synchronized</span> (thread) &#123;</span><br><span class="line">                thread.wait();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">        System.out.println(<span class="string">&quot;子线程都执行完了&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>执行结果和正常情形的执行结果是一样的。我们所做的就是将<code>thread.join()</code>方法替换为了</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">synchronized</span> (thread) &#123;</span><br><span class="line">  thread.wait();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>这里使用了<code>synchronized</code>是因为<code>wait</code>方法必须在同步代码块中使用</li>
+<li>这里的锁对象<code>thread</code>就是子线程的名称，这里需要注意的是替换后要想达到一样的效果这里的锁对象就必须是被等待线程的引用，因为上面说每一个线程执行完成后都会调用当前线程的<code>notify</code>方法，<code>wait</code>和<code>notify</code>必须是在同一个锁上面才会生效。</li>
+</ul>
+]]></content>
+      <categories>
+        <category>java</category>
+        <category>多线程</category>
+      </categories>
+      <tags>
+        <tag>java</tag>
+        <tag>多线程</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Future的使用</title>
     <url>/2023/11/17/9f417cc2ea5e/</url>
     <content><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p><code>java</code> 中异步执行任务可以让任务类实现 <code>Runnable</code> 接口即可，但是使用 <code>Runnable</code> 接口执行的任务无法获取返回值，所以 <code>java</code> 在 <code>jdk1.5</code> 版本中增加了 <code>Future</code> 接口和 <code>Callable</code></p>
@@ -1198,61 +1285,9 @@
       </tags>
   </entry>
   <entry>
-    <title>CompletableFuture的使用</title>
-    <url>/2023/11/17/f31e3a7691d6/</url>
-    <content><![CDATA[<h1 id="为什么要用-CompletableFuture"><a href="#为什么要用-CompletableFuture" class="headerlink" title="为什么要用 CompletableFuture"></a>为什么要用 CompletableFuture</h1><ol>
-<li>任务完成后自动回调</li>
-<li>多任务并行执行</li>
-<li>有依赖任务的串行执行</li>
-</ol>
-<span id="more"></span>]]></content>
-      <categories>
-        <category>java</category>
-        <category>多线程</category>
-      </categories>
-      <tags>
-        <tag>java</tag>
-        <tag>多线程</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>join方法详解</title>
-    <url>/2019/11/06/86139434f79c/</url>
-    <content><![CDATA[<h1 id="join的使用"><a href="#join的使用" class="headerlink" title="join的使用"></a>join的使用</h1><h2 id="正常情形"><a href="#正常情形" class="headerlink" title="正常情形"></a>正常情形</h2><p><code>join</code>的目的是让调用线程等待被调用的线程执行完成之后再继续。</p>
-<ul>
-<li>对于<code>join</code>方法需要注意的是谁等待谁<ul>
-<li>调用<code>join</code>方法所在的线程需要等待调用<code>join</code>方法的对象线程执行完毕</li>
-</ul>
-</li>
-<li>下面代码案例中<code>thread.join()</code>和<code>thread2.join()</code>都是在<code>main</code>线程中调用的，所以是<code>main</code>线程要等其他线程，那么这里的其他线程是哪个线程呢？就是调用<code>join</code>的<code>thread</code>和<code>thread2</code>线程</li>
-</ul>
-<span id="more"></span>
-
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> testjoin;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">JoinDemo</span> <span class="keyword">implements</span> <span class="title class_">Runnable</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="type">JoinDemo</span> <span class="variable">joinDemo</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">JoinDemo</span>();</span><br><span class="line">        <span class="type">Thread</span> <span class="variable">thread</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Thread</span>(joinDemo);</span><br><span class="line">        <span class="type">Thread</span> <span class="variable">thread2</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Thread</span>(joinDemo);</span><br><span class="line">        thread.start();</span><br><span class="line">        thread2.start();</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            thread.join();</span><br><span class="line">            thread2.join();</span><br><span class="line">        &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">        System.out.println(<span class="string">&quot;子线程都执行完了&quot;</span>);</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">run</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            Thread.sleep(<span class="number">1000</span>);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">        System.out.println(Thread.currentThread().getName() + <span class="string">&quot;执行完毕&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>上面是正常的情形，也就是说<code>main</code>线程确实是等到另外两个线程执行完毕之后才执行的。</p>
-<h2 id="中断情形"><a href="#中断情形" class="headerlink" title="中断情形"></a>中断情形</h2><p>下面演示的是在子线程中中断了主线程，这样虽然主线程中调用了子线程的<code>join</code>方法，但是也有可能是主线程先执行完。</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> testjoin;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">JoinDemoInterrupt</span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="comment">// 获取主线程的引用</span></span><br><span class="line">        <span class="type">Thread</span> <span class="variable">threadMain</span> <span class="operator">=</span> Thread.currentThread();</span><br><span class="line">        <span class="type">Thread</span> <span class="variable">thread</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Thread</span>(() -&gt; &#123;</span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                <span class="comment">// 中断主线程</span></span><br><span class="line">                threadMain.interrupt();</span><br><span class="line">                Thread.sleep(<span class="number">1000</span>);</span><br><span class="line">            &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">                e.printStackTrace();</span><br><span class="line">            &#125;</span><br><span class="line">            System.out.println(Thread.currentThread().getName() + <span class="string">&quot;执行完毕&quot;</span>);</span><br><span class="line">        &#125;);</span><br><span class="line">        thread.start();</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            thread.join();</span><br><span class="line">        &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">        System.out.println(<span class="string">&quot;子线程都执行完了&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>执行结果会出现 <code>InterruptedException</code> 并且是主线程先执行完成</p>
-<h2 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h2><p>上面中断的情形显然是不对，那么应该如何解决呢？其实在主线程被中断之后，应该通知子线程，通知子线程的方式就是中断子线程。所以代码也很简单，就是在上面的点啊基础上加一行代码即可。</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> testjoin;</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">JoinDemoInterrupt</span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="comment">// 获取主线程的引用</span></span><br><span class="line">        <span class="type">Thread</span> <span class="variable">threadMain</span> <span class="operator">=</span> Thread.currentThread();</span><br><span class="line">        <span class="type">Thread</span> <span class="variable">thread</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Thread</span>(() -&gt; &#123;</span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                <span class="comment">// 中断主线程</span></span><br><span class="line">                threadMain.interrupt();</span><br><span class="line">                Thread.sleep(<span class="number">1000</span>);</span><br><span class="line">            &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">                e.printStackTrace();</span><br><span class="line">            &#125;</span><br><span class="line">            System.out.println(Thread.currentThread().getName() + <span class="string">&quot;执行完毕&quot;</span>);</span><br><span class="line">        &#125;);</span><br><span class="line">        thread.start();</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            thread.join();</span><br><span class="line">        &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">            <span class="comment">// 中断子线程</span></span><br><span class="line">            thread.interrupt();</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">        System.out.println(<span class="string">&quot;子线程都执行完了&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>上面的代码就加一一句<code>thread.interrupt();</code>这是中断子线程，但是需要注意的是不代表加上这一句话之后，子线程一定会先执行完。因为当调用<code>join</code>的线程被中断之后实际上是已经不会继续等其他线程执行完了。</p>
-<h1 id="join的原理"><a href="#join的原理" class="headerlink" title="join的原理"></a>join的原理</h1><p>我们来看一下<code>join</code>方法</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">synchronized</span> <span class="keyword">void</span> <span class="title function_">join</span><span class="params">(<span class="type">long</span> millis)</span></span><br><span class="line">    <span class="keyword">throws</span> InterruptedException &#123;</span><br><span class="line">        <span class="type">long</span> <span class="variable">base</span> <span class="operator">=</span> System.currentTimeMillis();</span><br><span class="line">        <span class="type">long</span> <span class="variable">now</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (millis &lt; <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">IllegalArgumentException</span>(<span class="string">&quot;timeout value is negative&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (millis == <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="keyword">while</span> (isAlive()) &#123;</span><br><span class="line">                wait(<span class="number">0</span>);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">while</span> (isAlive()) &#123;</span><br><span class="line">                <span class="type">long</span> <span class="variable">delay</span> <span class="operator">=</span> millis - now;</span><br><span class="line">                <span class="keyword">if</span> (delay &lt;= <span class="number">0</span>) &#123;</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                &#125;</span><br><span class="line">                wait(delay);</span><br><span class="line">                now = System.currentTimeMillis() - base;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
-
-<p>上面是<code>join</code>方法的源码，可以看出来实际上底层调用的就是<code>wait</code>，但是我们调用<code>wait</code>的时候是需要<code>notify</code>或者<code>notifyAll</code>方法来唤醒的，但是这里没有看到任何的<code>notify</code>方法的身影啊。其实这是因为每一个线程执行完成之后都会调用当前线程的<code>notify</code>方法。这是线程底层做的事情。</p>
-<h1 id="join的替代方式"><a href="#join的替代方式" class="headerlink" title="join的替代方式"></a>join的替代方式</h1><p>上面说每一个线程执行完成后都会调用当前线程的<code>notify</code>方法，那么我们是不是就可以使用<code>wait</code>方法来替换<code>join</code>方法呢？请看下面代码</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> testjoin;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">JoinDemoInterrupt</span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="comment">// 获取主线程的引用</span></span><br><span class="line">        <span class="type">Thread</span> <span class="variable">threadMain</span> <span class="operator">=</span> Thread.currentThread();</span><br><span class="line">        <span class="type">Thread</span> <span class="variable">thread</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Thread</span>(() -&gt; &#123;</span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                Thread.sleep(<span class="number">1000</span>);</span><br><span class="line">            &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">                e.printStackTrace();</span><br><span class="line">            &#125;</span><br><span class="line">            System.out.println(Thread.currentThread().getName() + <span class="string">&quot;执行完毕&quot;</span>);</span><br><span class="line">        &#125;);</span><br><span class="line">        thread.start();</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="comment">//thread.join();</span></span><br><span class="line">            <span class="keyword">synchronized</span> (thread) &#123;</span><br><span class="line">                thread.wait();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">        System.out.println(<span class="string">&quot;子线程都执行完了&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>执行结果和正常情形的执行结果是一样的。我们所做的就是将<code>thread.join()</code>方法替换为了</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">synchronized</span> (thread) &#123;</span><br><span class="line">  thread.wait();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>这里使用了<code>synchronized</code>是因为<code>wait</code>方法必须在同步代码块中使用</li>
-<li>这里的锁对象<code>thread</code>就是子线程的名称，这里需要注意的是替换后要想达到一样的效果这里的锁对象就必须是被等待线程的引用，因为上面说每一个线程执行完成后都会调用当前线程的<code>notify</code>方法，<code>wait</code>和<code>notify</code>必须是在同一个锁上面才会生效。</li>
-</ul>
+    <title>多线程切换包含哪些内容</title>
+    <url>/2023/11/18/c51368ba5d47/</url>
+    <content><![CDATA[<h1 id="结论"><a href="#结论" class="headerlink" title="结论"></a>结论</h1><p>上下文切换主要包含以下内容</p>
 ]]></content>
       <categories>
         <category>java</category>
@@ -1267,20 +1302,6 @@
     <title>synchronized的作用和实现原理</title>
     <url>/2023/11/11/138a9fb1d57d/</url>
     <content><![CDATA[<p>[参考链接](<a href="https://www.yuque.com/guoweiblog/nxz7iv/xikre6?singleDoc#">https://www.yuque.com/guoweiblog/nxz7iv/xikre6?singleDoc#</a> 《synchronized 的作用和实现原理》)</p>
-]]></content>
-      <categories>
-        <category>java</category>
-        <category>多线程</category>
-      </categories>
-      <tags>
-        <tag>java</tag>
-        <tag>多线程</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>多线程切换包含哪些内容</title>
-    <url>/2023/11/18/c51368ba5d47/</url>
-    <content><![CDATA[<h1 id="结论"><a href="#结论" class="headerlink" title="结论"></a>结论</h1><p>上下文切换主要包含以下内容</p>
 ]]></content>
       <categories>
         <category>java</category>
@@ -1373,6 +1394,56 @@
       </tags>
   </entry>
   <entry>
+    <title>线程间通信的几种方式</title>
+    <url>/2019/12/23/ca2ba133c31e/</url>
+    <content><![CDATA[<h1 id="什么是线程间通信"><a href="#什么是线程间通信" class="headerlink" title="什么是线程间通信"></a>什么是线程间通信</h1><span id="more"></span>
+
+<h1 id="三种通信方式"><a href="#三种通信方式" class="headerlink" title="三种通信方式"></a>三种通信方式</h1><ul>
+<li><code>suspend</code>和<code>resume</code></li>
+<li><code>wait</code>和<code>notify</code></li>
+<li><code>park</code>和<code>unpark</code></li>
+</ul>
+<p><a href="https://gitee.com/Gwei11/code/tree/master/javabase/%E5%A4%9A%E7%BA%BF%E7%A8%8B">示例代码</a></p>
+<h2 id="suspend和resume"><a href="#suspend和resume" class="headerlink" title="suspend和resume"></a><code>suspend</code>和<code>resume</code></h2><ul>
+<li>这两个方法已经被弃用，主要有以下两个原因<ul>
+<li><code>resume</code>必须在<code>suspend</code>之后调用</li>
+<li>如果加了锁的话，<code>suspend</code>方法是不会释放锁的</li>
+</ul>
+</li>
+<li>案例代码请点击上面的<strong>示例代码</strong>链接</li>
+</ul>
+<h2 id="wait和notify"><a href="#wait和notify" class="headerlink" title="wait和notify"></a><code>wait</code>和<code>notify</code></h2><p>当一个线程调用一个<strong>共享变量</strong>的<code>wait</code>方法时，该调用线程会被挂起。在以下情形下才返回</p>
+<ol>
+<li>其他线程调用了该<strong>共享变量</strong>的<code>notify()</code>或<code>notifyAll()</code>方法</li>
+<li>其他线程调用了<strong>该线程</strong>的<code>interrupt()</code>方法，该线程会抛出<code>InterruptedException</code>异常返回</li>
+</ol>
+<p><font color="red">注：上面所说的共享变量其实就是指锁，也就是说需要获取对象的监视器锁才能执行wait方法</font></p>
+<p>那么如何获取对象监视器锁呢？有以下两种方式：</p>
+<ol>
+<li>使用<code>synchronized</code>同步代码块</li>
+<li>使用<code>synchronized</code>同步方法</li>
+</ol>
+<ul>
+<li><code>wait</code>和<code>notify</code>必须加锁才能使用</li>
+<li><code>wait</code>调用时会释放锁</li>
+<li><code>wait</code>方法和<code>notify</code>方法也有调用顺序问题，如果先调用<code>notify</code>，然后再调用<code>wait</code>会发生死锁</li>
+</ul>
+<h2 id="park和unpark"><a href="#park和unpark" class="headerlink" title="park和unpark"></a><code>park</code>和<code>unpark</code></h2><ul>
+<li><code>park</code>和<code>unpark</code>是<code>LockSupport</code>类中静态方法</li>
+<li>这两个方法解决了顺序问题，也就是无论哪个先执行都可以，这是一种令牌机制</li>
+<li>但是这两个方法没有解决锁的问题，也就是<code>park</code>方法中如果拿到了锁，当执行<code>park</code>的时候不会释放锁</li>
+</ul>
+]]></content>
+      <categories>
+        <category>java</category>
+        <category>多线程</category>
+      </categories>
+      <tags>
+        <tag>java</tag>
+        <tag>多线程</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>实现多线程的两种方式</title>
     <url>/2019/12/06/df5fc5395378/</url>
     <content><![CDATA[<h1 id="线程到底有几种创建方式"><a href="#线程到底有几种创建方式" class="headerlink" title="线程到底有几种创建方式"></a>线程到底有几种创建方式</h1><p>有的说是三种，有的说是四种，还有的两种或者六种，那么到底是几种呢，我们看一下<code>oracle</code>的<code>javase</code>文档就知道了。</p>
@@ -1410,7 +1481,14 @@
   <entry>
     <title>线程池实现原理</title>
     <url>/2023/11/13/63b6d22fbd8f/</url>
-    <content><![CDATA[<h1 id="1-为什么要使用线程池"><a href="#1-为什么要使用线程池" class="headerlink" title="1. 为什么要使用线程池"></a>1. 为什么要使用线程池</h1><ol>
+    <content><![CDATA[<span class="hide_first_mermaid">
+<div class="mermaid-wrap"><pre class="mermaid-src" hidden>
+  flowchart LR
+    A
+  </pre></div>
+</span>
+
+<h1 id="1-为什么要使用线程池"><a href="#1-为什么要使用线程池" class="headerlink" title="1. 为什么要使用线程池"></a>1. 为什么要使用线程池</h1><ol>
 <li>线程的创建和销毁都需要消耗资源（cpu，内存）</li>
 <li>使用线程池可以预先创建好线程，开始使用时速度更快<span id="more"></span></li>
 </ol>
@@ -1611,56 +1689,6 @@
       </categories>
       <tags>
         <tag>redis</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>线程间通信的几种方式</title>
-    <url>/2019/12/23/ca2ba133c31e/</url>
-    <content><![CDATA[<h1 id="什么是线程间通信"><a href="#什么是线程间通信" class="headerlink" title="什么是线程间通信"></a>什么是线程间通信</h1><span id="more"></span>
-
-<h1 id="三种通信方式"><a href="#三种通信方式" class="headerlink" title="三种通信方式"></a>三种通信方式</h1><ul>
-<li><code>suspend</code>和<code>resume</code></li>
-<li><code>wait</code>和<code>notify</code></li>
-<li><code>park</code>和<code>unpark</code></li>
-</ul>
-<p><a href="https://gitee.com/Gwei11/code/tree/master/javabase/%E5%A4%9A%E7%BA%BF%E7%A8%8B">示例代码</a></p>
-<h2 id="suspend和resume"><a href="#suspend和resume" class="headerlink" title="suspend和resume"></a><code>suspend</code>和<code>resume</code></h2><ul>
-<li>这两个方法已经被弃用，主要有以下两个原因<ul>
-<li><code>resume</code>必须在<code>suspend</code>之后调用</li>
-<li>如果加了锁的话，<code>suspend</code>方法是不会释放锁的</li>
-</ul>
-</li>
-<li>案例代码请点击上面的<strong>示例代码</strong>链接</li>
-</ul>
-<h2 id="wait和notify"><a href="#wait和notify" class="headerlink" title="wait和notify"></a><code>wait</code>和<code>notify</code></h2><p>当一个线程调用一个<strong>共享变量</strong>的<code>wait</code>方法时，该调用线程会被挂起。在以下情形下才返回</p>
-<ol>
-<li>其他线程调用了该<strong>共享变量</strong>的<code>notify()</code>或<code>notifyAll()</code>方法</li>
-<li>其他线程调用了<strong>该线程</strong>的<code>interrupt()</code>方法，该线程会抛出<code>InterruptedException</code>异常返回</li>
-</ol>
-<p><font color="red">注：上面所说的共享变量其实就是指锁，也就是说需要获取对象的监视器锁才能执行wait方法</font></p>
-<p>那么如何获取对象监视器锁呢？有以下两种方式：</p>
-<ol>
-<li>使用<code>synchronized</code>同步代码块</li>
-<li>使用<code>synchronized</code>同步方法</li>
-</ol>
-<ul>
-<li><code>wait</code>和<code>notify</code>必须加锁才能使用</li>
-<li><code>wait</code>调用时会释放锁</li>
-<li><code>wait</code>方法和<code>notify</code>方法也有调用顺序问题，如果先调用<code>notify</code>，然后再调用<code>wait</code>会发生死锁</li>
-</ul>
-<h2 id="park和unpark"><a href="#park和unpark" class="headerlink" title="park和unpark"></a><code>park</code>和<code>unpark</code></h2><ul>
-<li><code>park</code>和<code>unpark</code>是<code>LockSupport</code>类中静态方法</li>
-<li>这两个方法解决了顺序问题，也就是无论哪个先执行都可以，这是一种令牌机制</li>
-<li>但是这两个方法没有解决锁的问题，也就是<code>park</code>方法中如果拿到了锁，当执行<code>park</code>的时候不会释放锁</li>
-</ul>
-]]></content>
-      <categories>
-        <category>java</category>
-        <category>多线程</category>
-      </categories>
-      <tags>
-        <tag>java</tag>
-        <tag>多线程</tag>
       </tags>
   </entry>
   <entry>
