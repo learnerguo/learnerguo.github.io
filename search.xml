@@ -1,6 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>Next8版本主题优化修改的文件</title>
+    <url>/2023/11/16/44b973fe011c/</url>
+    <content><![CDATA[<p><a href="https://zhuanlan.zhihu.com/p/252983030">参考文章</a></p>
+<span id="more"></span>
+
+<p>首页每篇文章变成圆角，只需要在 <code>styles.styl</code> 中添加如下内容</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">// 添加首页每篇文章圆角独立 start ------------</span><br><span class="line">.post-block&#123;</span><br><span class="line">        background-color: rgba(255, 255, 255, 1);</span><br><span class="line">        //margin-top: 24px;</span><br><span class="line">        margin-bottom: 24px;</span><br><span class="line">        padding: 20px;</span><br><span class="line">        border-radius: 30px 50px 30px 50px;</span><br><span class="line">        box-shadow: 8px 7px 2px 0 rgba(0,0,0,0.12), 7px 4px 1px -2px rgba(0,0,0,0.06), 0 1px 5px 0 rgba(0,0,0,0.12);</span><br><span class="line">&#125;</span><br><span class="line">// 添加首页每篇文章圆角独立 end ------------</span><br></pre></td></tr></table></figure>
+<p><code>styles.styl</code> 在博客根目录下的，<code>source/_data</code> 下，若没有则需要自己创建并且在 <code>next</code> 主题的 <code>_config.yml</code> 中打开下面的注释</p>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">custom_file_path:</span></span><br><span class="line">  <span class="comment">#head: source/_data/head.njk</span></span><br><span class="line">  <span class="comment">#header: source/_data/header.njk</span></span><br><span class="line">  <span class="attr">style:</span> <span class="string">source/_data/styles.styl</span></span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>tools</category>
+        <category>hexo</category>
+      </categories>
+      <tags>
+        <tag>tools</tag>
+        <tag>hexo</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Next7主题自定义分类</title>
     <url>/2023/11/13/baf924a75393/</url>
     <content><![CDATA[<p><a href="https://enigmatisms.github.io/2022/02/18/Hexo-NexT%E4%B8%BB%E9%A2%98-%E6%9B%B4%E5%BC%BA%E7%9A%84%E8%87%AA%E5%AE%9A%E4%B9%89%E9%A1%B5%E9%9D%A2/">参考文章</a></p>
@@ -32,50 +52,6 @@
       </tags>
   </entry>
   <entry>
-    <title>butterfly主题多级分类折叠与展开</title>
-    <url>/2023/11/20/acbd53e5de56/</url>
-    <content><![CDATA[<ol>
-<li>引入 <code>jquery</code> 和 自定义的 js 文件</li>
-</ol>
-<p>打开 <code>_config.butterfly.yml</code> 文件，添加如下内容</p>
-<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">inject:</span></span><br><span class="line">  <span class="attr">head:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">&lt;link</span> <span class="string">rel=&quot;stylesheet&quot;</span> <span class="string">href=&quot;/cusconfig/css/hidemermaid.css?1&quot;&gt;</span></span><br><span class="line">    <span class="comment"># 引入jquery</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">&lt;script</span> <span class="string">src=&quot;https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js&quot;&gt;&lt;/script&gt;</span></span><br><span class="line">    <span class="comment"># 引入自定义文件，自定义文件放在博客根目录的 /cusconfig/js 目录下，名称是 category.js</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">&lt;script</span> <span class="string">src=&quot;/cusconfig/js/category.js&quot;&gt;&lt;/script&gt;</span></span><br><span class="line">  <span class="attr">bottom:</span></span><br><span class="line">    <span class="comment"># - &lt;script src=&quot;xxxx&quot;&gt;&lt;/script&gt;</span></span><br><span class="line">    <span class="comment"># - &lt;script src=&quot;https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js&quot;&gt;&lt;/script&gt;</span></span><br></pre></td></tr></table></figure>
-
-<ol start="2">
-<li>category.js 文件内容</li>
-</ol>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">$(<span class="variable language_">document</span>).<span class="title function_">ready</span>(<span class="keyword">function</span>(<span class="params"></span>) &#123;</span><br><span class="line">	<span class="title function_">categoryUnfold</span>();</span><br><span class="line">	<span class="keyword">function</span> <span class="title function_">categoryUnfold</span>(<span class="params"></span>) &#123;</span><br><span class="line">		$(<span class="string">&quot;.category-list-link&quot;</span>).<span class="title function_">filter</span>(<span class="keyword">function</span>(<span class="params"></span>) &#123;</span><br><span class="line">			<span class="keyword">if</span>($(<span class="variable language_">this</span>).<span class="title function_">siblings</span>(<span class="string">&quot;.category-list-child&quot;</span>).<span class="property">length</span> &gt; <span class="number">0</span>)</span><br><span class="line">                <span class="comment">// 这里引入了向下展开的图标，可以直接从本站下载放入对应目录即可</span></span><br><span class="line">				$(<span class="variable language_">this</span>).<span class="title function_">parent</span>().<span class="title function_">css</span>(<span class="string">&quot;list-style-image&quot;</span>,<span class="string">&quot;url(&#x27;/cusconfig/img/category-unfold-16x16.png&#x27;&quot;</span>);</span><br><span class="line">		&#125;);</span><br><span class="line">		</span><br><span class="line">		<span class="comment">//点击含有子标签category-list-child的category-list-link标签时，不进行跳转</span></span><br><span class="line">		$(<span class="string">&quot;.category-list-link&quot;</span>).<span class="title function_">filter</span>(<span class="keyword">function</span>(<span class="params"></span>) &#123;</span><br><span class="line">			<span class="keyword">return</span> $(<span class="variable language_">this</span>).<span class="title function_">siblings</span>(<span class="string">&quot;.category-list-child&quot;</span>).<span class="property">length</span> &gt; <span class="number">0</span></span><br><span class="line">		&#125;).<span class="title function_">attr</span>(<span class="string">&quot;href&quot;</span>, <span class="string">&quot;javascript:void(0)&quot;</span>);</span><br><span class="line">		</span><br><span class="line">		<span class="comment">//含有子标签category-list-child的category-list-link标签将自动隐藏子标签</span></span><br><span class="line">		$(<span class="string">&quot;.category-list-link&quot;</span>).<span class="title function_">filter</span>(<span class="keyword">function</span>(<span class="params"></span>) &#123;</span><br><span class="line">			<span class="keyword">if</span>($(<span class="variable language_">this</span>).<span class="title function_">siblings</span>(<span class="string">&quot;.category-list-child&quot;</span>).<span class="property">length</span> &gt; <span class="number">0</span>)</span><br><span class="line">				$(<span class="variable language_">this</span>).<span class="title function_">siblings</span>(<span class="string">&quot;.category-list-child&quot;</span>).<span class="title function_">hide</span>();</span><br><span class="line">		&#125;);	</span><br><span class="line">		</span><br><span class="line">		<span class="comment">//点击含有子标签category-list-child的category-list-link标签时，将隐藏子标签展开</span></span><br><span class="line">		$(<span class="string">&quot;.category-list-link&quot;</span>).<span class="title function_">click</span>(<span class="keyword">function</span>(<span class="params"></span>) &#123;</span><br><span class="line">			$(<span class="variable language_">this</span>).<span class="title function_">siblings</span>(<span class="string">&quot;.category-list-child&quot;</span>).<span class="title function_">slideToggle</span>();</span><br><span class="line">		&#125;);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
-
-]]></content>
-      <categories>
-        <category>tools</category>
-        <category>hexo</category>
-      </categories>
-      <tags>
-        <tag>tools</tag>
-        <tag>hexo</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Next8版本主题优化修改的文件</title>
-    <url>/2023/11/16/44b973fe011c/</url>
-    <content><![CDATA[<p><a href="https://zhuanlan.zhihu.com/p/252983030">参考文章</a></p>
-<span id="more"></span>
-
-<p>首页每篇文章变成圆角，只需要在 <code>styles.styl</code> 中添加如下内容</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">// 添加首页每篇文章圆角独立 start ------------</span><br><span class="line">.post-block&#123;</span><br><span class="line">        background-color: rgba(255, 255, 255, 1);</span><br><span class="line">        //margin-top: 24px;</span><br><span class="line">        margin-bottom: 24px;</span><br><span class="line">        padding: 20px;</span><br><span class="line">        border-radius: 30px 50px 30px 50px;</span><br><span class="line">        box-shadow: 8px 7px 2px 0 rgba(0,0,0,0.12), 7px 4px 1px -2px rgba(0,0,0,0.06), 0 1px 5px 0 rgba(0,0,0,0.12);</span><br><span class="line">&#125;</span><br><span class="line">// 添加首页每篇文章圆角独立 end ------------</span><br></pre></td></tr></table></figure>
-<p><code>styles.styl</code> 在博客根目录下的，<code>source/_data</code> 下，若没有则需要自己创建并且在 <code>next</code> 主题的 <code>_config.yml</code> 中打开下面的注释</p>
-<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">custom_file_path:</span></span><br><span class="line">  <span class="comment">#head: source/_data/head.njk</span></span><br><span class="line">  <span class="comment">#header: source/_data/header.njk</span></span><br><span class="line">  <span class="attr">style:</span> <span class="string">source/_data/styles.styl</span></span><br></pre></td></tr></table></figure>
-]]></content>
-      <categories>
-        <category>tools</category>
-        <category>hexo</category>
-      </categories>
-      <tags>
-        <tag>tools</tag>
-        <tag>hexo</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>hexo使用插入本地图片路径问题</title>
     <url>/2023/11/15/563e23df91d3/</url>
     <content><![CDATA[<p>Hexo version: 7.0<br>Next version: 8.18</p>
@@ -93,6 +69,30 @@
 <li>在 md 文章目录中创建同名的文件夹，比如当前这篇文章的名称是 <code>hexo插入本地图片路径问题</code>， 那就需要在这篇文章的同级目录中创建一个同名的文件夹，然后图片就放在这个文件夹中</li>
 <li>在使用 md 语法引入图片的时候，因为图片是放在目录中（和文章同名的那个目录），但是如果在本地 vscode 中将目录也加上，虽然本地可以访问，但是 hexo g 生成之后，访问博客地址是无法访问的，所以本地引入图片的时候只能写图片的文件名，不要路径，这样虽然本地无法预览，但是 hexo s 和 hexo d 之后的结果都可以正常查看</li>
 </ol>
+]]></content>
+      <categories>
+        <category>tools</category>
+        <category>hexo</category>
+      </categories>
+      <tags>
+        <tag>tools</tag>
+        <tag>hexo</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>butterfly主题多级分类折叠与展开</title>
+    <url>/2023/11/20/acbd53e5de56/</url>
+    <content><![CDATA[<ol>
+<li>引入 <code>jquery</code> 和 自定义的 js 文件</li>
+</ol>
+<p>打开 <code>_config.butterfly.yml</code> 文件，添加如下内容</p>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">inject:</span></span><br><span class="line">  <span class="attr">head:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">&lt;link</span> <span class="string">rel=&quot;stylesheet&quot;</span> <span class="string">href=&quot;/cusconfig/css/hidemermaid.css?1&quot;&gt;</span></span><br><span class="line">    <span class="comment"># 引入jquery</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">&lt;script</span> <span class="string">src=&quot;https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js&quot;&gt;&lt;/script&gt;</span></span><br><span class="line">    <span class="comment"># 引入自定义文件，自定义文件放在博客根目录的 /cusconfig/js 目录下，名称是 category.js</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">&lt;script</span> <span class="string">src=&quot;/cusconfig/js/category.js&quot;&gt;&lt;/script&gt;</span></span><br><span class="line">  <span class="attr">bottom:</span></span><br><span class="line">    <span class="comment"># - &lt;script src=&quot;xxxx&quot;&gt;&lt;/script&gt;</span></span><br><span class="line">    <span class="comment"># - &lt;script src=&quot;https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js&quot;&gt;&lt;/script&gt;</span></span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>category.js 文件内容</li>
+</ol>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">$(<span class="variable language_">document</span>).<span class="title function_">ready</span>(<span class="keyword">function</span>(<span class="params"></span>) &#123;</span><br><span class="line">	<span class="title function_">categoryUnfold</span>();</span><br><span class="line">	<span class="keyword">function</span> <span class="title function_">categoryUnfold</span>(<span class="params"></span>) &#123;</span><br><span class="line">		$(<span class="string">&quot;.category-list-link&quot;</span>).<span class="title function_">filter</span>(<span class="keyword">function</span>(<span class="params"></span>) &#123;</span><br><span class="line">			<span class="keyword">if</span>($(<span class="variable language_">this</span>).<span class="title function_">siblings</span>(<span class="string">&quot;.category-list-child&quot;</span>).<span class="property">length</span> &gt; <span class="number">0</span>)</span><br><span class="line">                <span class="comment">// 这里引入了向下展开的图标，可以直接从本站下载放入对应目录即可</span></span><br><span class="line">				$(<span class="variable language_">this</span>).<span class="title function_">parent</span>().<span class="title function_">css</span>(<span class="string">&quot;list-style-image&quot;</span>,<span class="string">&quot;url(&#x27;/cusconfig/img/category-unfold-16x16.png&#x27;&quot;</span>);</span><br><span class="line">		&#125;);</span><br><span class="line">		</span><br><span class="line">		<span class="comment">//点击含有子标签category-list-child的category-list-link标签时，不进行跳转</span></span><br><span class="line">		$(<span class="string">&quot;.category-list-link&quot;</span>).<span class="title function_">filter</span>(<span class="keyword">function</span>(<span class="params"></span>) &#123;</span><br><span class="line">			<span class="keyword">return</span> $(<span class="variable language_">this</span>).<span class="title function_">siblings</span>(<span class="string">&quot;.category-list-child&quot;</span>).<span class="property">length</span> &gt; <span class="number">0</span></span><br><span class="line">		&#125;).<span class="title function_">attr</span>(<span class="string">&quot;href&quot;</span>, <span class="string">&quot;javascript:void(0)&quot;</span>);</span><br><span class="line">		</span><br><span class="line">		<span class="comment">//含有子标签category-list-child的category-list-link标签将自动隐藏子标签</span></span><br><span class="line">		$(<span class="string">&quot;.category-list-link&quot;</span>).<span class="title function_">filter</span>(<span class="keyword">function</span>(<span class="params"></span>) &#123;</span><br><span class="line">			<span class="keyword">if</span>($(<span class="variable language_">this</span>).<span class="title function_">siblings</span>(<span class="string">&quot;.category-list-child&quot;</span>).<span class="property">length</span> &gt; <span class="number">0</span>)</span><br><span class="line">				$(<span class="variable language_">this</span>).<span class="title function_">siblings</span>(<span class="string">&quot;.category-list-child&quot;</span>).<span class="title function_">hide</span>();</span><br><span class="line">		&#125;);	</span><br><span class="line">		</span><br><span class="line">		<span class="comment">//点击含有子标签category-list-child的category-list-link标签时，将隐藏子标签展开</span></span><br><span class="line">		$(<span class="string">&quot;.category-list-link&quot;</span>).<span class="title function_">click</span>(<span class="keyword">function</span>(<span class="params"></span>) &#123;</span><br><span class="line">			$(<span class="variable language_">this</span>).<span class="title function_">siblings</span>(<span class="string">&quot;.category-list-child&quot;</span>).<span class="title function_">slideToggle</span>();</span><br><span class="line">		&#125;);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
 ]]></content>
       <categories>
         <category>tools</category>
@@ -318,6 +318,33 @@
       </tags>
   </entry>
   <entry>
+    <title>微信读书阅读条挑战</title>
+    <url>/2023/11/19/c4c074b722a1/</url>
+    <content><![CDATA[<span class="hide_first_mermaid">
+<div class="mermaid-wrap"><pre class="mermaid-src" hidden>
+  flowchart LR
+    A
+  </pre></div>
+</span>
+
+<p>参与微信阅读挑战</p>
+<ol>
+<li>365 天不间断</li>
+<li>期间最少阅读 300 小时</li>
+<li>每月更新进度</li>
+</ol>
+<pre class="mermaid">pie title 总天数(365)
+    "已读" : 4
+    "未读" : 361</pre>
+]]></content>
+      <categories>
+        <category>book</category>
+      </categories>
+      <tags>
+        <tag>book</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>java的io模型</title>
     <url>/2023/11/17/180f5b629f58/</url>
     <content><![CDATA[<span class="hide_first_mermaid">
@@ -417,8 +444,8 @@
       </tags>
   </entry>
   <entry>
-    <title>微信读书阅读条挑战</title>
-    <url>/2023/11/19/c4c074b722a1/</url>
+    <title>CompletableFuture的使用</title>
+    <url>/2023/11/17/f31e3a7691d6/</url>
     <content><![CDATA[<span class="hide_first_mermaid">
 <div class="mermaid-wrap"><pre class="mermaid-src" hidden>
   flowchart LR
@@ -426,21 +453,107 @@
   </pre></div>
 </span>
 
-<p>参与微信阅读挑战</p>
+<h1 id="为什么要用-CompletableFuture"><a href="#为什么要用-CompletableFuture" class="headerlink" title="为什么要用 CompletableFuture"></a>为什么要用 <code>CompletableFuture</code></h1><p>使用 <code>CompletableFuture</code> 是因为 <code>Future</code> 虽然可以获取线程执行结果，但是无法使用回调函数，只能依靠阻塞方法 <code>get()</code> 来获取线程结果，<code>CompletableFuture</code> 就是对 <code>Future</code> 的优化和增强，具体可以实现以下功能</p>
 <ol>
-<li>365 天不间断</li>
-<li>期间最少阅读 300 小时</li>
-<li>每月更新进度</li>
+<li>提供了类似 <code>Future</code> 的阻塞式获取结果和状态的方法</li>
+<li>提供 <code>CompletionStage</code> 任务执行之后回调</li>
+<li>多个异步任务的聚合，串行，并行等功能</li>
 </ol>
-<pre class="mermaid">pie title 总天数(365)
-    "已读" : 4
-    "未读" : 361</pre>
-]]></content>
+<h1 id="构造异步方法"><a href="#构造异步方法" class="headerlink" title="构造异步方法"></a>构造异步方法</h1><p><code>CompletableFuture</code> 提供了 4 个静态方法来构造一个异步事件</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 含有返回值的异步方法（自定义线程池和默认线程池）</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> &lt;U&gt; CompletableFuture&lt;U&gt; <span class="title function_">supplyAsync</span><span class="params">(Supplier&lt;U&gt; supplier)</span>;</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> &lt;U&gt; CompletableFuture&lt;U&gt; <span class="title function_">supplyAsync</span><span class="params">(Supplier&lt;U&gt; supplier, Executor executor)</span>;</span><br><span class="line"><span class="comment">// 不含有返回值的异步方法（自定义线程池和默认线程池）</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> CompletableFuture&lt;Void&gt; <span class="title function_">runAsync</span><span class="params">(Runnable runnable)</span>;</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> CompletableFuture&lt;Void&gt; <span class="title function_">runAsync</span><span class="params">(Runnable runnable,Executor executor)</span></span><br></pre></td></tr></table></figure>
+<div class="tabs" id="代码示例"><ul class="nav-tabs"><button type="button" class="tab  active" data-href="代码示例-1">supplyAsync</button><button type="button" class="tab " data-href="代码示例-2">runAsync示例</button></ul><div class="tab-contents"><div class="tab-item-content active" id="代码示例-1"><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> ExecutionException, InterruptedException &#123;</span><br><span class="line">      CompletableFuture&lt;Integer&gt; future = CompletableFuture.supplyAsync(() -&gt; &#123;</span><br><span class="line">          System.out.println(<span class="string">&quot;当前线程：&quot;</span> + Thread.currentThread().getName());</span><br><span class="line">          <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">      &#125;);</span><br><span class="line">      System.out.println(<span class="string">&quot;线程执行结果：&quot;</span> + future.get());</span><br><span class="line">      System.out.println(<span class="string">&quot;主线程:&quot;</span> + Thread.currentThread().getName());</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><figcaption><span>执行结果</span></figcaption><table><tr><td class="code"><pre><span class="line">当前线程：ForkJoinPool.commonPool-worker-<span class="number">1</span></span><br><span class="line">线程执行结果：<span class="number">1</span></span><br><span class="line">主线程:main</span><br></pre></td></tr></table></figure></div><div class="tab-item-content" id="代码示例-2"><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> ExecutionException, InterruptedException &#123;</span><br><span class="line">      CompletableFuture&lt;Void&gt; future = CompletableFuture.runAsync(() -&gt; &#123;</span><br><span class="line">          System.out.println(<span class="string">&quot;当前线程：&quot;</span> + Thread.currentThread().getName());</span><br><span class="line">      &#125;);</span><br><span class="line">      System.out.println(<span class="string">&quot;线程执行结果：&quot;</span> + future.get());</span><br><span class="line">      System.out.println(<span class="string">&quot;主线程:&quot;</span> + Thread.currentThread().getName());</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><figcaption><span>执行结果</span></figcaption><table><tr><td class="code"><pre><span class="line">当前线程：ForkJoinPool.commonPool-worker-<span class="number">1</span></span><br><span class="line">线程执行结果：<span class="literal">null</span></span><br><span class="line">主线程:main</span><br></pre></td></tr></table></figure></div></div><div class="tab-to-top"><button type="button" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div></div>
+
+<h1 id="任务与和或的静态方法"><a href="#任务与和或的静态方法" class="headerlink" title="任务与和或的静态方法"></a>任务与和或的静态方法</h1><p><code>CompletableFuture</code> 中还有另外两个特殊的静态方法</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 接收多个CompletableFuture无返回值任务，当所有的CompletableFuture任务执行结束后，返回一个新的CompletableFuture对象</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> CompletableFuture&lt;Void&gt; <span class="title function_">allOf</span><span class="params">(CompletableFuture&lt;?&gt;... cfs)</span>;</span><br><span class="line"><span class="comment">//接收多个CompletableFuture带有返回值任务，当任何一个CompletableFuture任务执行完成后，返回一个新的CompletableFuture对象</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> CompletableFuture&lt;Object&gt; <span class="title function_">anyOf</span><span class="params">(CompletableFuture&lt;?&gt;... cfs)</span>;</span><br></pre></td></tr></table></figure>
+<div class="tabs" id="allof()和anyof()"><ul class="nav-tabs"><button type="button" class="tab  active" data-href="allof()和anyof()-1">allOf()</button><button type="button" class="tab " data-href="allof()和anyof()-2">anyOf()</button></ul><div class="tab-contents"><div class="tab-item-content active" id="allof()和anyof()-1"><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> ExecutionException, InterruptedException &#123;</span><br><span class="line">    CompletableFuture&lt;Void&gt; future1 = CompletableFuture.runAsync(() -&gt; &#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            Thread.sleep(<span class="number">3000</span>);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">RuntimeException</span>(e);</span><br><span class="line">        &#125;</span><br><span class="line">        System.out.println(<span class="string">&quot;当前线程：&quot;</span> + Thread.currentThread().getName());</span><br><span class="line">    &#125;);</span><br><span class="line">    CompletableFuture&lt;Void&gt; future2 = CompletableFuture.runAsync(() -&gt; &#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            Thread.sleep(<span class="number">5000</span>);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">RuntimeException</span>(e);</span><br><span class="line">        &#125;</span><br><span class="line">        System.out.println(<span class="string">&quot;当前线程：&quot;</span> + Thread.currentThread().getName());</span><br><span class="line">    &#125;);</span><br><span class="line">    <span class="type">LocalTime</span> <span class="variable">now</span> <span class="operator">=</span> LocalTime.now();</span><br><span class="line">    System.out.println(<span class="string">&quot;before time:&quot;</span> + now.getMinute() + <span class="string">&quot;:&quot;</span> + now.getSecond());</span><br><span class="line">    CompletableFuture.allOf(future1, future2).join();</span><br><span class="line">    now = LocalTime.now();</span><br><span class="line">    System.out.println(<span class="string">&quot;after time:&quot;</span> + now.getMinute() + <span class="string">&quot;:&quot;</span> + now.getSecond());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>执行结果，用了5s才返回，因为要所有都执行完成才返回，就需要看耗时最长的那个线程</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">before time:<span class="number">50</span>:<span class="number">33</span></span><br><span class="line">当前线程：ForkJoinPool.commonPool-worker-<span class="number">1</span></span><br><span class="line">当前线程：ForkJoinPool.commonPool-worker-<span class="number">2</span></span><br><span class="line">after time:<span class="number">50</span>:<span class="number">38</span></span><br></pre></td></tr></table></figure></div><div class="tab-item-content" id="allof()和anyof()-2"><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> ExecutionException, InterruptedException &#123;</span><br><span class="line">    CompletableFuture&lt;Void&gt; future1 = CompletableFuture.runAsync(() -&gt; &#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            Thread.sleep(<span class="number">3000</span>);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">RuntimeException</span>(e);</span><br><span class="line">        &#125;</span><br><span class="line">        System.out.println(<span class="string">&quot;当前线程：&quot;</span> + Thread.currentThread().getName());</span><br><span class="line">    &#125;);</span><br><span class="line">    CompletableFuture&lt;Void&gt; future2 = CompletableFuture.runAsync(() -&gt; &#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            Thread.sleep(<span class="number">5000</span>);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">RuntimeException</span>(e);</span><br><span class="line">        &#125;</span><br><span class="line">        System.out.println(<span class="string">&quot;当前线程：&quot;</span> + Thread.currentThread().getName());</span><br><span class="line">    &#125;);</span><br><span class="line">    <span class="type">LocalTime</span> <span class="variable">now</span> <span class="operator">=</span> LocalTime.now();</span><br><span class="line">    System.out.println(<span class="string">&quot;before time:&quot;</span> + now.getMinute() + <span class="string">&quot;:&quot;</span> + now.getSecond());</span><br><span class="line">    CompletableFuture.anyOf(future1, future2).join();</span><br><span class="line">    now = LocalTime.now();</span><br><span class="line">    System.out.println(<span class="string">&quot;after time:&quot;</span> + now.getMinute() + <span class="string">&quot;:&quot;</span> + now.getSecond());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>执行结果，只用了3s就返回了，因为是其中一个执行完成就行，所以看耗时最短的那个线程</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">before time:<span class="number">53</span>:<span class="number">43</span></span><br><span class="line">当前线程：ForkJoinPool.commonPool-worker-<span class="number">1</span></span><br><span class="line">after time:<span class="number">53</span>:<span class="number">46</span></span><br></pre></td></tr></table></figure></div></div><div class="tab-to-top"><button type="button" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div></div>
+
+<h1 id="CompletionStage-详解"><a href="#CompletionStage-详解" class="headerlink" title="CompletionStage 详解"></a><code>CompletionStage</code> 详解</h1><ol>
+<li><code>CompletionStage</code> 表示任务执行的一个阶段，每个异步任务都会返回一个新的 <code>CompletionStage</code> 对象</li>
+<li>可以针对多个 <code>CompletionStage</code> 对象进行串行、并行或者聚合来进行下一阶段的操作</li>
+</ol>
+<p><code>CompletionStage</code> 类中提供了很多方法来实现多个 <code>CompletionStage</code> 的串行，并行等功能，可以按照如下方式进行分类</p>
+<pre class="mermaid">flowchart LR
+    A[CompletionStage]
+    B["纯消费性方法 \n (上一个异步结果 \n 作为当前方法的参数进行计算 \n 都含有 Accept 关键字)"]
+        B1[依赖单个 CompletionStage任务完成]
+            B11["thenAccept(Consumer)"]
+            B12["thenAcceptAsync(Consumer)"]
+            B13["thenAcceptAsync(Consumer,Executor)"]
+            B1-->B11 & B12 & B13
+        B2[依赖两个 CompletionStage任务完成]
+            B21["thenAcceptBoth(CompletionStage,Consumer)"]
+            B22["thenAcceptBothAsync(CompletionStage,Consumer)"]
+            B23["thenAcceptBothAsync(CompletionStage,Consumer,Executor)"]
+            B2-->B21 & B22 & B23
+        B3[依赖两个 CompletionStage任务中任何一个完成]
+            B31["acceptEither(CompletionStage,Consumer)"]
+            B32["acceptEitherAsync(CompletionStage,Consumer)"]
+            B33["acceptEitherAsync(CompletionStage,Consumer,Executor)"]
+            B3-->B31 & B32 & B33
+        B-->B1 & B2 & B3
+
+    C["有返回值类型的方法 \n (上一个异步结果 \n 作为当前方法的参数进行计算 \n 并且会产生新的有返回值\n的CompletionStage对象)"]
+        C1[依赖单个 CompletionStage任务完成]
+            C11["thenApply(Function)"]
+            C12["thenApplyAsync(Function)"]
+            C13["thenApplyAsync(Function,Executor)"]
+            C1-->C11 & C12 & C13
+        C2[依赖两个 CompletionStage任务完成]
+            C21["thenCombine(CompletionStage,BiFunction)"]
+            C22["thenCombineAsync(CompletionStage,BiFunction)"]
+            C23["thenCombineAsync(CompletionStage,BiFunction,Executor)"]
+            C2-->C21 & C22 & C23
+        C3[依赖两个 CompletionStage任务中任何一个完成]
+            C31["acceptToEither(CompletionStage,Function)"]
+            C32["acceptToEitherAsync(CompletionStage,Function)"]
+            C33["acceptToEitherAsync(CompletionStage,Function,Executor)"]
+            C3-->C31 & C32 & C33
+        C-->C1 & C2 & C3
+    D["不消费也没有返回值类型的方法\n不依赖上个阶段的结果\n上一个阶段完成就执行指定的任务\n这类方法都包含 run 关键字"]
+        D1[依赖单个 CompletionStage任务完成]
+            D11["thenRun(Runnable)"]
+            D12["thenRunAsync(Runnable)"]
+            D13["thenRunAsync(FuncRunnabletion,Executor)"]
+            D1-->D11 & D12 & D13
+        D2[依赖两个 CompletionStage任务完成]
+            D21["runAfterBoth(CompletionStage,Runnable)"]
+            D22["runAfterBothAsync(CompletionStage,Runnable)"]
+            D23["runAfterBothAsync(CompletionStage,Runnable,Executor)"]
+            D2-->D21 & D22 & D23
+        D3[依赖两个 CompletionStage任务中任何一个完成]
+            D31["runAfterEither(CompletionStage,Runnable)"]
+            D32["runAfterEitherAsync(CompletionStage,Runnable)"]
+            D33["runAfterEitherAsync(CompletionStage,Runnable,Executor)"]
+            D3-->D31 & D32 & D33
+        D-->D1 & D2 & D3
+    E[组合类型的方法]
+        E1["thenCompose(Function,CompletionStage)"]
+        E2["thenComposeAsync(Function,CompletionStage)"]
+        E3["thenComposeAsync(Function,CompletionStage,Executor)"]
+        E-->E1 & E2 & E3
+    A-->B & C & D & E</pre>
+
+<div class="tabs" id="代码示例"><ul class="nav-tabs"><button type="button" class="tab  active" data-href="代码示例-1">纯消费型</button><button type="button" class="tab " data-href="代码示例-2">有返回值类型</button><button type="button" class="tab " data-href="代码示例-3">不消费也没有返回值类型</button><button type="button" class="tab " data-href="代码示例-4">组合类型</button></ul><div class="tab-contents"><div class="tab-item-content active" id="代码示例-1"><figure class="highlight java"><figcaption><span>thenAccept</span></figcaption><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> ExecutionException, InterruptedException &#123;</span><br><span class="line">    System.out.println(<span class="string">&quot;thread main:&quot;</span> + Thread.currentThread().getName());</span><br><span class="line">    CompletableFuture.supplyAsync(()-&gt;&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;first stage:&quot;</span> + Thread.currentThread().getName());</span><br><span class="line">        <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">    &#125;).thenAccept((Integer v)-&gt; &#123;</span><br><span class="line">        <span class="comment">// v 就是第一步返回的结果</span></span><br><span class="line">        System.out.println(<span class="string">&quot;then accept thread:&quot;</span> + Thread.currentThread().getName());</span><br><span class="line">        System.out.println(v + <span class="number">1</span>); <span class="comment">// 2</span></span><br><span class="line">    &#125;).join();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><figcaption><span>执行结果</span></figcaption><table><tr><td class="code"><pre><span class="line">thread main:main</span><br><span class="line">first stage:ForkJoinPool.commonPool-worker-<span class="number">1</span></span><br><span class="line">then accept thread:main</span><br><span class="line"><span class="number">2</span></span><br></pre></td></tr></table></figure>
+<p>上面代码调用 <code>thenAccept()</code> 使用的是 <code>main</code> 线程，如果是使用 <code>thenAcceptAsync()</code>, 调用结果如下</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">thread main:main</span><br><span class="line">first stage:ForkJoinPool.commonPool-worker-<span class="number">1</span></span><br><span class="line">then accept thread:ForkJoinPool.commonPool-worker-<span class="number">1</span></span><br><span class="line"><span class="number">2</span></span><br></pre></td></tr></table></figure></div><div class="tab-item-content" id="代码示例-2"><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> ExecutionException, InterruptedException &#123;</span><br><span class="line">    System.out.println(<span class="string">&quot;thread main:&quot;</span> + Thread.currentThread().getName());</span><br><span class="line">    CompletableFuture&lt;String&gt; completableFuture = CompletableFuture.supplyAsync(() -&gt; &#123;</span><br><span class="line">        <span class="comment">// 第一个阶段任务返回的是 int 类型</span></span><br><span class="line">        <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">    &#125;).thenCombineAsync(CompletableFuture.supplyAsync(() -&gt; &#123;</span><br><span class="line">        <span class="comment">// 第二个阶段任务返回的是 String 类型</span></span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;2&quot;</span>;</span><br><span class="line">    &#125;), (Integer i1, String s1) -&gt; &#123;</span><br><span class="line">        <span class="keyword">return</span> i1 + s1;</span><br><span class="line">    &#125;);</span><br><span class="line">    System.out.println(completableFuture.get()); <span class="comment">// 12</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div><div class="tab-item-content" id="代码示例-3"><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> Exception &#123;</span><br><span class="line">    <span class="type">DateTimeFormatter</span> <span class="variable">formatter</span> <span class="operator">=</span> DateTimeFormatter.ofPattern(<span class="string">&quot;yyyy-MM-dd HH:mm:ss&quot;</span>);</span><br><span class="line">    CompletableFuture.supplyAsync(() -&gt; &#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="comment">// 第一个阶段任务等待4s</span></span><br><span class="line">            Thread.sleep(<span class="number">4000</span>);</span><br><span class="line">            System.out.println(<span class="string">&quot;第一个阶段:&quot;</span> + LocalDateTime.now().format(formatter));</span><br><span class="line">        &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">RuntimeException</span>(e);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">    &#125;).runAfterEitherAsync(CompletableFuture.supplyAsync(() -&gt; &#123;</span><br><span class="line">        <span class="comment">// 第二个阶段任务等待2s</span></span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            Thread.sleep(<span class="number">2000</span>);</span><br><span class="line">            System.out.println(<span class="string">&quot;第二个阶段：&quot;</span> + LocalDateTime.now().format(formatter));</span><br><span class="line">        &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">RuntimeException</span>(e);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;2&quot;</span>;</span><br><span class="line">    &#125;), () -&gt; &#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;最终:&quot;</span> + LocalDateTime.now().format(formatter));</span><br><span class="line">        System.out.println(<span class="string">&quot;最终执行的任务&quot;</span>);</span><br><span class="line">    &#125;).join();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>执行结果</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">第二个阶段：<span class="number">2023</span>-<span class="number">11</span>-<span class="number">20</span> <span class="number">23</span>:<span class="number">56</span>:<span class="number">32</span></span><br><span class="line">最终:<span class="number">2023</span>-<span class="number">11</span>-<span class="number">20</span> <span class="number">23</span>:<span class="number">56</span>:<span class="number">32</span></span><br><span class="line">最终执行的任务</span><br></pre></td></tr></table></figure></div><div class="tab-item-content" id="代码示例-4"><ol>
+<li><code>thenCompose()</code>是多任务组合方法，它的作用是把两个<code>CompletionStage</code>任务进行组合达到串行执行的目的，也就是把第一个任务的执行结果作为参数传递给第二个任务执行，它有点类似于前面提到的<code>thenCombine()</code>方法，最大的不同在于<code>thenCompose()</code>方法中的任务存在先后关系，而<code>thenCombine()</code>中两个任务是并行执行的</li>
+</ol></div></div><div class="tab-to-top"><button type="button" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div></div>]]></content>
       <categories>
-        <category>book</category>
+        <category>java</category>
+        <category>多线程</category>
       </categories>
       <tags>
-        <tag>book</tag>
+        <tag>java</tag>
+        <tag>多线程</tag>
       </tags>
   </entry>
   <entry>
@@ -606,24 +719,6 @@
       </tags>
   </entry>
   <entry>
-    <title>CompletableFuture的使用</title>
-    <url>/2023/11/17/f31e3a7691d6/</url>
-    <content><![CDATA[<h1 id="为什么要用-CompletableFuture"><a href="#为什么要用-CompletableFuture" class="headerlink" title="为什么要用 CompletableFuture"></a>为什么要用 CompletableFuture</h1><ol>
-<li>任务完成后自动回调</li>
-<li>多任务并行执行</li>
-<li>有依赖任务的串行执行</li>
-</ol>
-<span id="more"></span>]]></content>
-      <categories>
-        <category>java</category>
-        <category>多线程</category>
-      </categories>
-      <tags>
-        <tag>java</tag>
-        <tag>多线程</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Future的使用</title>
     <url>/2023/11/17/9f417cc2ea5e/</url>
     <content><![CDATA[<span class="hide_first_mermaid">
@@ -716,20 +811,6 @@
 <li>遍历 <code>waiters</code> 从里面获取阻塞的线程</li>
 <li>获取到阻塞的线程之后，调用 <code>LockSupport.unpark(thread)</code> 来唤醒对应的线程<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title function_">finishCompletion</span><span class="params">()</span> &#123;</span><br><span class="line">    <span class="keyword">for</span> (WaitNode q; (q = waiters) != <span class="literal">null</span>;) &#123;</span><br><span class="line">        <span class="keyword">if</span> (WAITERS.weakCompareAndSet(<span class="built_in">this</span>, q, <span class="literal">null</span>)) &#123;</span><br><span class="line">            <span class="keyword">for</span> (;;) &#123;</span><br><span class="line">                <span class="type">Thread</span> <span class="variable">t</span> <span class="operator">=</span> q.thread;</span><br><span class="line">                <span class="keyword">if</span> (t != <span class="literal">null</span>) &#123;</span><br><span class="line">                    q.thread = <span class="literal">null</span>;</span><br><span class="line">                    <span class="comment">// 唤醒线程</span></span><br><span class="line">                    LockSupport.unpark(t);</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="type">WaitNode</span> <span class="variable">next</span> <span class="operator">=</span> q.next;</span><br><span class="line">                <span class="keyword">if</span> (next == <span class="literal">null</span>)</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                q.next = <span class="literal">null</span>; <span class="comment">// unlink to help gc</span></span><br><span class="line">                q = next;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    done();</span><br><span class="line">    callable = <span class="literal">null</span>;        <span class="comment">// to reduce footprint</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
 </ol>
-]]></content>
-      <categories>
-        <category>java</category>
-        <category>多线程</category>
-      </categories>
-      <tags>
-        <tag>java</tag>
-        <tag>多线程</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>synchronized的作用和实现原理</title>
-    <url>/2023/11/11/138a9fb1d57d/</url>
-    <content><![CDATA[<p>[参考链接](<a href="https://www.yuque.com/guoweiblog/nxz7iv/xikre6?singleDoc#">https://www.yuque.com/guoweiblog/nxz7iv/xikre6?singleDoc#</a> 《synchronized 的作用和实现原理》)</p>
 ]]></content>
       <categories>
         <category>java</category>
@@ -928,43 +1009,91 @@
       </tags>
   </entry>
   <entry>
-    <title>redis线程模型</title>
-    <url>/2023/11/16/e4db3f95ceb5/</url>
-    <content><![CDATA[<p>总结：<code>redis</code> 整体是多线程的，至于平时所说的 <code>redis</code> 单线程是指 <strong>redis的网络io 和 键值对读写</strong> 是在同一个线程中完成</p>
-<span id="more"></span>
-<h1 id="一次-redis-请求过程"><a href="#一次-redis-请求过程" class="headerlink" title="一次 redis 请求过程"></a>一次 redis 请求过程</h1><ol>
-<li>监听客户端请求（<code>bind/listen</code>）</li>
-<li>等待客户端的连接（<code>accept</code>）</li>
-<li>从 <code>socket</code> 中读取数据（<code>recv</code>）</li>
-<li>解析客户端发送的内容（<code>parse</code>）</li>
-<li>根据解析出来的内容进行内存操作（<code>get/set</code>）</li>
-<li>执行完成命令之后给客户端响应结果，即向 <code>socket</code> 中写数据（<code>send</code>）</li>
-</ol>
-<pre class="mermaid">graph TB
-    subgraph A[redis线程]
-        subgraph B[网络IO处理]
-            B1[bind/listen]
-            B2[accept]
-            B3[recv]
-            B4[parse]
-        end
-        subgraph C[键值对读写]
-            C1[get/set]
-        end
-        subgraph D[网络IO处理]
-            D1[send]
-        end
-    end
-    B-->C-->D</pre>
-<ul>
-<li>网络 io 处理过程中， <code>listen</code> 和 <code>recv</code> 这两个步骤是可能阻塞的，即当没有链接或客户端没有发送命令时，服务器处理这两个环节时会阻塞，<strong>但是socket网络模型自身就支持非阻塞的形式</strong></li>
-</ul>
+    <title>synchronized的作用和实现原理</title>
+    <url>/2023/11/11/138a9fb1d57d/</url>
+    <content><![CDATA[<p>[参考链接](<a href="https://www.yuque.com/guoweiblog/nxz7iv/xikre6?singleDoc#">https://www.yuque.com/guoweiblog/nxz7iv/xikre6?singleDoc#</a> 《synchronized 的作用和实现原理》)</p>
 ]]></content>
       <categories>
-        <category>redis</category>
+        <category>java</category>
+        <category>多线程</category>
       </categories>
       <tags>
-        <tag>redis</tag>
+        <tag>java</tag>
+        <tag>多线程</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>vscode相关设置</title>
+    <url>/2023/11/12/6b613d963af3/</url>
+    <content><![CDATA[<h1 id="vscode-中-markdown-的-snippets-的设置"><a href="#vscode-中-markdown-的-snippets-的设置" class="headerlink" title="vscode 中 markdown 的 snippets 的设置"></a>vscode 中 markdown 的 snippets 的设置</h1><h2 id="snippets-的设置"><a href="#snippets-的设置" class="headerlink" title="snippets 的设置"></a>snippets 的设置</h2><ol>
+<li>打开 ctrl+shift+p , 搜索 <code>configure user snippets</code> </li>
+<li>选择 markdown.json, 会出现如下内容</li>
+</ol>
+<span id="more"></span>
+<figure class="highlight json"><table><tr><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">	<span class="comment">// Place your snippets for markdown here. Each snippet is defined under a snippet name and has a prefix, body and </span></span><br><span class="line">	<span class="comment">// description. The prefix is what is used to trigger the snippet and the body will be expanded and inserted. Possible variables are:</span></span><br><span class="line">	<span class="comment">// $1, $2 for tab stops, $0 for the final cursor position, and $&#123;1:label&#125;, $&#123;2:another&#125; for placeholders. Placeholders with the </span></span><br><span class="line">	<span class="comment">// same ids are connected.</span></span><br><span class="line">	<span class="comment">// Example:</span></span><br><span class="line">	<span class="comment">// &quot;Print to console&quot;: &#123;</span></span><br><span class="line">	<span class="comment">// 	&quot;prefix&quot;: &quot;log&quot;,</span></span><br><span class="line">	<span class="comment">// 	&quot;body&quot;: [</span></span><br><span class="line">	<span class="comment">// 		&quot;console.log(&#x27;$1&#x27;);&quot;,</span></span><br><span class="line">	<span class="comment">// 		&quot;$2&quot;</span></span><br><span class="line">	<span class="comment">// 	],</span></span><br><span class="line">	<span class="comment">// 	&quot;description&quot;: &quot;Log output to console&quot;</span></span><br><span class="line">	<span class="comment">// &#125;</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+
+<ol>
+<li>可以根据示例文件进行修改，如下图所示：</li>
+</ol>
+<p><img src="/2023/11/12/6b613d963af3/1700035948191.png" alt="Alt text"></p>
+<p>上面示例的意思是 当输入 codeblock 时就会出现 mermaid 代码块， $0 是光标出现的地方</p>
+<h2 id="markdown-snippets-不生效的解决方式"><a href="#markdown-snippets-不生效的解决方式" class="headerlink" title="markdown snippets 不生效的解决方式"></a>markdown snippets 不生效的解决方式</h2><p>使用上面的步骤设置完 snippets 之后，在 markdown 文档中编写关键字，但是并没有生效，还需要在  settings.json 中（可以输入 ctrl+shift+p, 搜索 settings， 选择 Open User Settings(JSON)）, 然后填写下面的内容</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="string">&quot;[markdown]&quot;</span>:&#123;</span><br><span class="line">	<span class="string">&quot;editor.formatOnSave&quot;</span>: <span class="literal">true</span>,</span><br><span class="line">	<span class="string">&quot;editor.renderWhitespace&quot;</span>: <span class="string">&quot;all&quot;</span>,</span><br><span class="line">	<span class="string">&quot;editor.quickSuggestions&quot;</span>: &#123;</span><br><span class="line">		<span class="string">&quot;other&quot;</span>: <span class="string">&quot;on&quot;</span>,</span><br><span class="line">		<span class="string">&quot;comments&quot;</span>: <span class="string">&quot;on&quot;</span>,</span><br><span class="line">		<span class="string">&quot;strings&quot;</span>: <span class="string">&quot;on&quot;</span></span><br><span class="line">	&#125;,</span><br><span class="line">	<span class="string">&quot;editor.acceptSuggestionOnEnter&quot;</span>: <span class="string">&quot;on&quot;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>添加上述内容后就可以生效了</p>
+]]></content>
+      <categories>
+        <category>tools</category>
+        <category>vscode</category>
+      </categories>
+      <tags>
+        <tag>tools</tag>
+        <tag>vscode</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>vscode设置markdown图片默认路径</title>
+    <url>/2023/11/15/5b4d784e18c2/</url>
+    <content><![CDATA[<p><code>vscode</code> 在 <code>markdown</code> 文档中直接复制图片时是放在当前目录，如果需要修改可以按照下面方式设置</p>
+<span id="more"></span>
+<ol>
+<li>输入快捷键 <code>ctrl+,</code> 可以快速打开设置</li>
+<li>搜索 <code>markdown.copy: Destination</code></li>
+</ol>
+<p><img src="/2023/11/15/5b4d784e18c2/1700033681108.png" alt="Alt text"></p>
+]]></content>
+      <categories>
+        <category>tools</category>
+        <category>vscode</category>
+      </categories>
+      <tags>
+        <tag>tools</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>utools自动化脚本插件</title>
+    <url>/2023/11/11/d899f5ff1973/</url>
+    <content><![CDATA[<h1 id="utools-使用自动化脚本打开本地程序"><a href="#utools-使用自动化脚本打开本地程序" class="headerlink" title="utools 使用自动化脚本打开本地程序"></a>utools 使用自动化脚本打开本地程序</h1><ol>
+<li>比如 typora 可以打开之前的文件和目录，但是目录只能到文件的上一个层级，如果源目录包含很多子目录，重新打开时可能不是我们想要的结果，那可以在命令行执行 <code>typora folder</code>, eg: <code>typora E:\\blog</code> <span id="more"></span></li>
+</ol>
+<blockquote>
+<p>在命令行执行 typora 命令需要先配置 typora 的环境变量</p>
+</blockquote>
+<ol>
+<li>更简便的方式是直接使用 utools 的自动化脚本这个插件，新增一个自己的插件脚本，内容如下</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> &#123; execFile &#125; = <span class="built_in">require</span>(<span class="string">&quot;child_process&quot;</span>)</span><br><span class="line"></span><br><span class="line"> <span class="comment">// 以下是关键代码，调用 typora 来执行目标文件</span></span><br><span class="line"><span class="title function_">execFile</span>(<span class="string">&#x27;typora&#x27;</span>, [<span class="string">&#x27;E:/code/learnerguo&#x27;</span>], <span class="function">(<span class="params">error, stdout, stderr</span>) =&gt;</span> &#123;</span><br><span class="line">    process.<span class="title function_">exit</span>()</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<p>然后自定义关键字，后续当打开 utools 输入对应关键字就可以打开 typora 的目录</p>
+<h1 id="使用自动化脚本获取当天起始时间"><a href="#使用自动化脚本获取当天起始时间" class="headerlink" title="使用自动化脚本获取当天起始时间"></a>使用自动化脚本获取当天起始时间</h1><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> now = <span class="keyword">new</span> <span class="title class_">Date</span>();</span><br><span class="line"><span class="comment">// 设置当前时间的小时、分钟、秒和毫秒为0，即将时间设置为当天的开始时间</span></span><br><span class="line">now.<span class="title function_">setHours</span>(<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>);</span><br><span class="line"><span class="comment">// 获取当天开始时间点的毫秒数</span></span><br><span class="line"><span class="keyword">const</span> startTime = now.<span class="title function_">getTime</span>();</span><br><span class="line">utools.<span class="title function_">copyText</span>(<span class="string">&quot;&quot;</span>+startTime);</span><br><span class="line"><span class="title function_">print</span>(<span class="string">&#x27;开始时间已复制&#x27;</span> + startTime);</span><br><span class="line">utools.<span class="title function_">hideMainWindow</span>();</span><br><span class="line">process.<span class="title function_">exit</span>()</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>tools</category>
+        <category>utools</category>
+      </categories>
+      <tags>
+        <tag>tools</tag>
+        <tag>utools</tag>
       </tags>
   </entry>
   <entry>
@@ -1054,77 +1183,43 @@
       </tags>
   </entry>
   <entry>
-    <title>utools自动化脚本插件</title>
-    <url>/2023/11/11/d899f5ff1973/</url>
-    <content><![CDATA[<h1 id="utools-使用自动化脚本打开本地程序"><a href="#utools-使用自动化脚本打开本地程序" class="headerlink" title="utools 使用自动化脚本打开本地程序"></a>utools 使用自动化脚本打开本地程序</h1><ol>
-<li>比如 typora 可以打开之前的文件和目录，但是目录只能到文件的上一个层级，如果源目录包含很多子目录，重新打开时可能不是我们想要的结果，那可以在命令行执行 <code>typora folder</code>, eg: <code>typora E:\\blog</code> <span id="more"></span></li>
-</ol>
-<blockquote>
-<p>在命令行执行 typora 命令需要先配置 typora 的环境变量</p>
-</blockquote>
-<ol>
-<li>更简便的方式是直接使用 utools 的自动化脚本这个插件，新增一个自己的插件脚本，内容如下</li>
-</ol>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> &#123; execFile &#125; = <span class="built_in">require</span>(<span class="string">&quot;child_process&quot;</span>)</span><br><span class="line"></span><br><span class="line"> <span class="comment">// 以下是关键代码，调用 typora 来执行目标文件</span></span><br><span class="line"><span class="title function_">execFile</span>(<span class="string">&#x27;typora&#x27;</span>, [<span class="string">&#x27;E:/code/learnerguo&#x27;</span>], <span class="function">(<span class="params">error, stdout, stderr</span>) =&gt;</span> &#123;</span><br><span class="line">    process.<span class="title function_">exit</span>()</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-
-<p>然后自定义关键字，后续当打开 utools 输入对应关键字就可以打开 typora 的目录</p>
-<h1 id="使用自动化脚本获取当天起始时间"><a href="#使用自动化脚本获取当天起始时间" class="headerlink" title="使用自动化脚本获取当天起始时间"></a>使用自动化脚本获取当天起始时间</h1><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> now = <span class="keyword">new</span> <span class="title class_">Date</span>();</span><br><span class="line"><span class="comment">// 设置当前时间的小时、分钟、秒和毫秒为0，即将时间设置为当天的开始时间</span></span><br><span class="line">now.<span class="title function_">setHours</span>(<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>);</span><br><span class="line"><span class="comment">// 获取当天开始时间点的毫秒数</span></span><br><span class="line"><span class="keyword">const</span> startTime = now.<span class="title function_">getTime</span>();</span><br><span class="line">utools.<span class="title function_">copyText</span>(<span class="string">&quot;&quot;</span>+startTime);</span><br><span class="line"><span class="title function_">print</span>(<span class="string">&#x27;开始时间已复制&#x27;</span> + startTime);</span><br><span class="line">utools.<span class="title function_">hideMainWindow</span>();</span><br><span class="line">process.<span class="title function_">exit</span>()</span><br></pre></td></tr></table></figure>
-]]></content>
-      <categories>
-        <category>tools</category>
-        <category>utools</category>
-      </categories>
-      <tags>
-        <tag>tools</tag>
-        <tag>utools</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>vscode设置markdown图片默认路径</title>
-    <url>/2023/11/15/5b4d784e18c2/</url>
-    <content><![CDATA[<p><code>vscode</code> 在 <code>markdown</code> 文档中直接复制图片时是放在当前目录，如果需要修改可以按照下面方式设置</p>
+    <title>redis线程模型</title>
+    <url>/2023/11/16/e4db3f95ceb5/</url>
+    <content><![CDATA[<p>总结：<code>redis</code> 整体是多线程的，至于平时所说的 <code>redis</code> 单线程是指 <strong>redis的网络io 和 键值对读写</strong> 是在同一个线程中完成</p>
 <span id="more"></span>
-<ol>
-<li>输入快捷键 <code>ctrl+,</code> 可以快速打开设置</li>
-<li>搜索 <code>markdown.copy: Destination</code></li>
+<h1 id="一次-redis-请求过程"><a href="#一次-redis-请求过程" class="headerlink" title="一次 redis 请求过程"></a>一次 redis 请求过程</h1><ol>
+<li>监听客户端请求（<code>bind/listen</code>）</li>
+<li>等待客户端的连接（<code>accept</code>）</li>
+<li>从 <code>socket</code> 中读取数据（<code>recv</code>）</li>
+<li>解析客户端发送的内容（<code>parse</code>）</li>
+<li>根据解析出来的内容进行内存操作（<code>get/set</code>）</li>
+<li>执行完成命令之后给客户端响应结果，即向 <code>socket</code> 中写数据（<code>send</code>）</li>
 </ol>
-<p><img src="/2023/11/15/5b4d784e18c2/1700033681108.png" alt="Alt text"></p>
+<pre class="mermaid">graph TB
+    subgraph A[redis线程]
+        subgraph B[网络IO处理]
+            B1[bind/listen]
+            B2[accept]
+            B3[recv]
+            B4[parse]
+        end
+        subgraph C[键值对读写]
+            C1[get/set]
+        end
+        subgraph D[网络IO处理]
+            D1[send]
+        end
+    end
+    B-->C-->D</pre>
+<ul>
+<li>网络 io 处理过程中， <code>listen</code> 和 <code>recv</code> 这两个步骤是可能阻塞的，即当没有链接或客户端没有发送命令时，服务器处理这两个环节时会阻塞，<strong>但是socket网络模型自身就支持非阻塞的形式</strong></li>
+</ul>
 ]]></content>
       <categories>
-        <category>tools</category>
-        <category>vscode</category>
+        <category>redis</category>
       </categories>
       <tags>
-        <tag>tools</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>vscode相关设置</title>
-    <url>/2023/11/12/6b613d963af3/</url>
-    <content><![CDATA[<h1 id="vscode-中-markdown-的-snippets-的设置"><a href="#vscode-中-markdown-的-snippets-的设置" class="headerlink" title="vscode 中 markdown 的 snippets 的设置"></a>vscode 中 markdown 的 snippets 的设置</h1><h2 id="snippets-的设置"><a href="#snippets-的设置" class="headerlink" title="snippets 的设置"></a>snippets 的设置</h2><ol>
-<li>打开 ctrl+shift+p , 搜索 <code>configure user snippets</code> </li>
-<li>选择 markdown.json, 会出现如下内容</li>
-</ol>
-<span id="more"></span>
-<figure class="highlight json"><table><tr><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">	<span class="comment">// Place your snippets for markdown here. Each snippet is defined under a snippet name and has a prefix, body and </span></span><br><span class="line">	<span class="comment">// description. The prefix is what is used to trigger the snippet and the body will be expanded and inserted. Possible variables are:</span></span><br><span class="line">	<span class="comment">// $1, $2 for tab stops, $0 for the final cursor position, and $&#123;1:label&#125;, $&#123;2:another&#125; for placeholders. Placeholders with the </span></span><br><span class="line">	<span class="comment">// same ids are connected.</span></span><br><span class="line">	<span class="comment">// Example:</span></span><br><span class="line">	<span class="comment">// &quot;Print to console&quot;: &#123;</span></span><br><span class="line">	<span class="comment">// 	&quot;prefix&quot;: &quot;log&quot;,</span></span><br><span class="line">	<span class="comment">// 	&quot;body&quot;: [</span></span><br><span class="line">	<span class="comment">// 		&quot;console.log(&#x27;$1&#x27;);&quot;,</span></span><br><span class="line">	<span class="comment">// 		&quot;$2&quot;</span></span><br><span class="line">	<span class="comment">// 	],</span></span><br><span class="line">	<span class="comment">// 	&quot;description&quot;: &quot;Log output to console&quot;</span></span><br><span class="line">	<span class="comment">// &#125;</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
-
-<ol>
-<li>可以根据示例文件进行修改，如下图所示：</li>
-</ol>
-<p><img src="/2023/11/12/6b613d963af3/1700035948191.png" alt="Alt text"></p>
-<p>上面示例的意思是 当输入 codeblock 时就会出现 mermaid 代码块， $0 是光标出现的地方</p>
-<h2 id="markdown-snippets-不生效的解决方式"><a href="#markdown-snippets-不生效的解决方式" class="headerlink" title="markdown snippets 不生效的解决方式"></a>markdown snippets 不生效的解决方式</h2><p>使用上面的步骤设置完 snippets 之后，在 markdown 文档中编写关键字，但是并没有生效，还需要在  settings.json 中（可以输入 ctrl+shift+p, 搜索 settings， 选择 Open User Settings(JSON)）, 然后填写下面的内容</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="string">&quot;[markdown]&quot;</span>:&#123;</span><br><span class="line">	<span class="string">&quot;editor.formatOnSave&quot;</span>: <span class="literal">true</span>,</span><br><span class="line">	<span class="string">&quot;editor.renderWhitespace&quot;</span>: <span class="string">&quot;all&quot;</span>,</span><br><span class="line">	<span class="string">&quot;editor.quickSuggestions&quot;</span>: &#123;</span><br><span class="line">		<span class="string">&quot;other&quot;</span>: <span class="string">&quot;on&quot;</span>,</span><br><span class="line">		<span class="string">&quot;comments&quot;</span>: <span class="string">&quot;on&quot;</span>,</span><br><span class="line">		<span class="string">&quot;strings&quot;</span>: <span class="string">&quot;on&quot;</span></span><br><span class="line">	&#125;,</span><br><span class="line">	<span class="string">&quot;editor.acceptSuggestionOnEnter&quot;</span>: <span class="string">&quot;on&quot;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>添加上述内容后就可以生效了</p>
-]]></content>
-      <categories>
-        <category>tools</category>
-        <category>vscode</category>
-      </categories>
-      <tags>
-        <tag>tools</tag>
-        <tag>vscode</tag>
+        <tag>redis</tag>
       </tags>
   </entry>
 </search>
