@@ -1,26 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>Next8版本主题优化修改的文件</title>
-    <url>/2023/11/16/44b973fe011c/</url>
-    <content><![CDATA[<p><a href="https://zhuanlan.zhihu.com/p/252983030">参考文章</a></p>
-<span id="more"></span>
-
-<p>首页每篇文章变成圆角，只需要在 <code>styles.styl</code> 中添加如下内容</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">// 添加首页每篇文章圆角独立 start ------------</span><br><span class="line">.post-block&#123;</span><br><span class="line">        background-color: rgba(255, 255, 255, 1);</span><br><span class="line">        //margin-top: 24px;</span><br><span class="line">        margin-bottom: 24px;</span><br><span class="line">        padding: 20px;</span><br><span class="line">        border-radius: 30px 50px 30px 50px;</span><br><span class="line">        box-shadow: 8px 7px 2px 0 rgba(0,0,0,0.12), 7px 4px 1px -2px rgba(0,0,0,0.06), 0 1px 5px 0 rgba(0,0,0,0.12);</span><br><span class="line">&#125;</span><br><span class="line">// 添加首页每篇文章圆角独立 end ------------</span><br></pre></td></tr></table></figure>
-<p><code>styles.styl</code> 在博客根目录下的，<code>source/_data</code> 下，若没有则需要自己创建并且在 <code>next</code> 主题的 <code>_config.yml</code> 中打开下面的注释</p>
-<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">custom_file_path:</span></span><br><span class="line">  <span class="comment">#head: source/_data/head.njk</span></span><br><span class="line">  <span class="comment">#header: source/_data/header.njk</span></span><br><span class="line">  <span class="attr">style:</span> <span class="string">source/_data/styles.styl</span></span><br></pre></td></tr></table></figure>
-]]></content>
-      <categories>
-        <category>tools</category>
-        <category>hexo</category>
-      </categories>
-      <tags>
-        <tag>tools</tag>
-        <tag>hexo</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Next7主题自定义分类</title>
     <url>/2023/11/13/baf924a75393/</url>
     <content><![CDATA[<p><a href="https://enigmatisms.github.io/2022/02/18/Hexo-NexT%E4%B8%BB%E9%A2%98-%E6%9B%B4%E5%BC%BA%E7%9A%84%E8%87%AA%E5%AE%9A%E4%B9%89%E9%A1%B5%E9%9D%A2/">参考文章</a></p>
@@ -52,6 +32,26 @@
       </tags>
   </entry>
   <entry>
+    <title>Next8版本主题优化修改的文件</title>
+    <url>/2023/11/16/44b973fe011c/</url>
+    <content><![CDATA[<p><a href="https://zhuanlan.zhihu.com/p/252983030">参考文章</a></p>
+<span id="more"></span>
+
+<p>首页每篇文章变成圆角，只需要在 <code>styles.styl</code> 中添加如下内容</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">// 添加首页每篇文章圆角独立 start ------------</span><br><span class="line">.post-block&#123;</span><br><span class="line">        background-color: rgba(255, 255, 255, 1);</span><br><span class="line">        //margin-top: 24px;</span><br><span class="line">        margin-bottom: 24px;</span><br><span class="line">        padding: 20px;</span><br><span class="line">        border-radius: 30px 50px 30px 50px;</span><br><span class="line">        box-shadow: 8px 7px 2px 0 rgba(0,0,0,0.12), 7px 4px 1px -2px rgba(0,0,0,0.06), 0 1px 5px 0 rgba(0,0,0,0.12);</span><br><span class="line">&#125;</span><br><span class="line">// 添加首页每篇文章圆角独立 end ------------</span><br></pre></td></tr></table></figure>
+<p><code>styles.styl</code> 在博客根目录下的，<code>source/_data</code> 下，若没有则需要自己创建并且在 <code>next</code> 主题的 <code>_config.yml</code> 中打开下面的注释</p>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">custom_file_path:</span></span><br><span class="line">  <span class="comment">#head: source/_data/head.njk</span></span><br><span class="line">  <span class="comment">#header: source/_data/header.njk</span></span><br><span class="line">  <span class="attr">style:</span> <span class="string">source/_data/styles.styl</span></span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>tools</category>
+        <category>hexo</category>
+      </categories>
+      <tags>
+        <tag>tools</tag>
+        <tag>hexo</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>butterfly主题多级分类折叠与展开</title>
     <url>/2023/11/20/acbd53e5de56/</url>
     <content><![CDATA[<ol>
@@ -65,6 +65,34 @@
 </ol>
 <figure class="highlight js"><table><tr><td class="code"><pre><span class="line">$(<span class="variable language_">document</span>).<span class="title function_">ready</span>(<span class="keyword">function</span>(<span class="params"></span>) &#123;</span><br><span class="line">	<span class="title function_">categoryUnfold</span>();</span><br><span class="line">	<span class="keyword">function</span> <span class="title function_">categoryUnfold</span>(<span class="params"></span>) &#123;</span><br><span class="line">		$(<span class="string">&quot;.category-list-link&quot;</span>).<span class="title function_">filter</span>(<span class="keyword">function</span>(<span class="params"></span>) &#123;</span><br><span class="line">			<span class="keyword">if</span>($(<span class="variable language_">this</span>).<span class="title function_">siblings</span>(<span class="string">&quot;.category-list-child&quot;</span>).<span class="property">length</span> &gt; <span class="number">0</span>)</span><br><span class="line">                <span class="comment">// 这里引入了向下展开的图标，可以直接从本站下载放入对应目录即可</span></span><br><span class="line">				$(<span class="variable language_">this</span>).<span class="title function_">parent</span>().<span class="title function_">css</span>(<span class="string">&quot;list-style-image&quot;</span>,<span class="string">&quot;url(&#x27;/cusconfig/img/category-unfold-16x16.png&#x27;&quot;</span>);</span><br><span class="line">		&#125;);</span><br><span class="line">		</span><br><span class="line">		<span class="comment">//点击含有子标签category-list-child的category-list-link标签时，不进行跳转</span></span><br><span class="line">		$(<span class="string">&quot;.category-list-link&quot;</span>).<span class="title function_">filter</span>(<span class="keyword">function</span>(<span class="params"></span>) &#123;</span><br><span class="line">			<span class="keyword">return</span> $(<span class="variable language_">this</span>).<span class="title function_">siblings</span>(<span class="string">&quot;.category-list-child&quot;</span>).<span class="property">length</span> &gt; <span class="number">0</span></span><br><span class="line">		&#125;).<span class="title function_">attr</span>(<span class="string">&quot;href&quot;</span>, <span class="string">&quot;javascript:void(0)&quot;</span>);</span><br><span class="line">		</span><br><span class="line">		<span class="comment">//含有子标签category-list-child的category-list-link标签将自动隐藏子标签</span></span><br><span class="line">		$(<span class="string">&quot;.category-list-link&quot;</span>).<span class="title function_">filter</span>(<span class="keyword">function</span>(<span class="params"></span>) &#123;</span><br><span class="line">			<span class="keyword">if</span>($(<span class="variable language_">this</span>).<span class="title function_">siblings</span>(<span class="string">&quot;.category-list-child&quot;</span>).<span class="property">length</span> &gt; <span class="number">0</span>)</span><br><span class="line">				$(<span class="variable language_">this</span>).<span class="title function_">siblings</span>(<span class="string">&quot;.category-list-child&quot;</span>).<span class="title function_">hide</span>();</span><br><span class="line">		&#125;);	</span><br><span class="line">		</span><br><span class="line">		<span class="comment">//点击含有子标签category-list-child的category-list-link标签时，将隐藏子标签展开</span></span><br><span class="line">		$(<span class="string">&quot;.category-list-link&quot;</span>).<span class="title function_">click</span>(<span class="keyword">function</span>(<span class="params"></span>) &#123;</span><br><span class="line">			$(<span class="variable language_">this</span>).<span class="title function_">siblings</span>(<span class="string">&quot;.category-list-child&quot;</span>).<span class="title function_">slideToggle</span>();</span><br><span class="line">		&#125;);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
 
+]]></content>
+      <categories>
+        <category>tools</category>
+        <category>hexo</category>
+      </categories>
+      <tags>
+        <tag>tools</tag>
+        <tag>hexo</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>hexo使用插入本地图片路径问题</title>
+    <url>/2023/11/15/563e23df91d3/</url>
+    <content><![CDATA[<p>Hexo version: 7.0<br>Next version: 8.18</p>
+<span id="more"></span>
+<ol>
+<li>安装插件</li>
+</ol>
+<figure class="highlight ada"><table><tr><td class="code"><pre><span class="line">npm install hexo-renderer-marked <span class="comment">--save</span></span><br></pre></td></tr></table></figure>
+<ol start="2">
+<li>修改 hexo 配置文件 <code>_config.yml</code> (不是next 主题的配置文件)</li>
+</ol>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 这样文章生成的路径会是年/月/日/hash值形式</span></span><br><span class="line"><span class="attr">permalink:</span> <span class="string">:year/:month/:day/:hash/</span></span><br><span class="line"><span class="comment"># 开启资源文件夹功能</span></span><br><span class="line"><span class="attr">post_asset_folder:</span> <span class="literal">true</span></span><br><span class="line"><span class="attr">marked:</span></span><br><span class="line">  <span class="comment"># 这两个值都配置为false，网上很多文章配置成true，可能是不同版本效果不同，在 Next8.18, hexo7 这个版本若配置成true，图片路径会多了日期导致显示失败 </span></span><br><span class="line">  <span class="attr">prependRoot:</span> <span class="literal">false</span></span><br><span class="line">  <span class="attr">postAsset:</span> <span class="literal">false</span></span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li>在 md 文章目录中创建同名的文件夹，比如当前这篇文章的名称是 <code>hexo插入本地图片路径问题</code>， 那就需要在这篇文章的同级目录中创建一个同名的文件夹，然后图片就放在这个文件夹中</li>
+<li>在使用 md 语法引入图片的时候，因为图片是放在目录中（和文章同名的那个目录），但是如果在本地 vscode 中将目录也加上，虽然本地可以访问，但是 hexo g 生成之后，访问博客地址是无法访问的，所以本地引入图片的时候只能写图片的文件名，不要路径，这样虽然本地无法预览，但是 hexo s 和 hexo d 之后的结果都可以正常查看</li>
+</ol>
 ]]></content>
       <categories>
         <category>tools</category>
@@ -218,34 +246,6 @@
         <category>hexo</category>
       </categories>
       <tags>
-        <tag>hexo</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>hexo使用插入本地图片路径问题</title>
-    <url>/2023/11/15/563e23df91d3/</url>
-    <content><![CDATA[<p>Hexo version: 7.0<br>Next version: 8.18</p>
-<span id="more"></span>
-<ol>
-<li>安装插件</li>
-</ol>
-<figure class="highlight ada"><table><tr><td class="code"><pre><span class="line">npm install hexo-renderer-marked <span class="comment">--save</span></span><br></pre></td></tr></table></figure>
-<ol start="2">
-<li>修改 hexo 配置文件 <code>_config.yml</code> (不是next 主题的配置文件)</li>
-</ol>
-<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 这样文章生成的路径会是年/月/日/hash值形式</span></span><br><span class="line"><span class="attr">permalink:</span> <span class="string">:year/:month/:day/:hash/</span></span><br><span class="line"><span class="comment"># 开启资源文件夹功能</span></span><br><span class="line"><span class="attr">post_asset_folder:</span> <span class="literal">true</span></span><br><span class="line"><span class="attr">marked:</span></span><br><span class="line">  <span class="comment"># 这两个值都配置为false，网上很多文章配置成true，可能是不同版本效果不同，在 Next8.18, hexo7 这个版本若配置成true，图片路径会多了日期导致显示失败 </span></span><br><span class="line">  <span class="attr">prependRoot:</span> <span class="literal">false</span></span><br><span class="line">  <span class="attr">postAsset:</span> <span class="literal">false</span></span><br></pre></td></tr></table></figure>
-
-<ol start="3">
-<li>在 md 文章目录中创建同名的文件夹，比如当前这篇文章的名称是 <code>hexo插入本地图片路径问题</code>， 那就需要在这篇文章的同级目录中创建一个同名的文件夹，然后图片就放在这个文件夹中</li>
-<li>在使用 md 语法引入图片的时候，因为图片是放在目录中（和文章同名的那个目录），但是如果在本地 vscode 中将目录也加上，虽然本地可以访问，但是 hexo g 生成之后，访问博客地址是无法访问的，所以本地引入图片的时候只能写图片的文件名，不要路径，这样虽然本地无法预览，但是 hexo s 和 hexo d 之后的结果都可以正常查看</li>
-</ol>
-]]></content>
-      <categories>
-        <category>tools</category>
-        <category>hexo</category>
-      </categories>
-      <tags>
-        <tag>tools</tag>
         <tag>hexo</tag>
       </tags>
   </entry>
@@ -908,6 +908,66 @@
       </tags>
   </entry>
   <entry>
+    <title>多线程上下文切换包含哪些内容</title>
+    <url>/2023/11/18/c51368ba5d47/</url>
+    <content><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p><code>cpu</code> 不知道什么是进程和线程，<code>cpu</code> 只知道两件事情</p>
+<ol>
+<li>从内存中取出指令</li>
+<li>执行指令</li>
+<li>一直重复上面两个步骤，所以 <strong>取指令</strong>-&gt; <strong>执行指令</strong> 就是 <code>cpu</code> 所能做的所有事情</li>
+</ol>
+<h1 id="cpu-获取指令执行的流程"><a href="#cpu-获取指令执行的流程" class="headerlink" title="cpu 获取指令执行的流程"></a>cpu 获取指令执行的流程</h1><ol>
+<li>编写源代码，源代码中都会有 main 函数，这个 main 函数就是执行入口</li>
+<li>程序启动后，会将 main 函数的第一条机器指令放入 pc 寄存器中（程序计数器）</li>
+<li>pc 寄存器的地址默认是自动 +1， 初始地址就是 main 函数的指令地址</li>
+<li>当遇到 if else 等语句时程序会根据计算结果或者指令中指定的跳转地址来动态改变 pc 寄存器中的值</li>
+</ol>
+<h1 id="进程和线程的区别"><a href="#进程和线程的区别" class="headerlink" title="进程和线程的区别"></a>进程和线程的区别</h1><ol>
+<li>进程是操作系统分配资源的最小单位</li>
+<li>线程是调用的基本单位，线程之间共享进程资源<ol>
+<li>线程之间共享了哪些资源<ol>
+<li>堆区</li>
+<li>代码区</li>
+<li>数据区：存放的就是全局变量</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+<h1 id="什么是线程上下文"><a href="#什么是线程上下文" class="headerlink" title="什么是线程上下文"></a>什么是线程上下文</h1><ol>
+<li>线程上下文就是指线程在某个时刻的状态，或者说某个时刻的数据，这个数据是线程私有的才能称为是线程的上下文</li>
+<li>要看线程上下文包含哪些信息，就需要看哪些数据都是线程私有的，这些线程私有的数据整体就是线程上下文</li>
+</ol>
+<h2 id="线程的私有数据有哪些"><a href="#线程的私有数据有哪些" class="headerlink" title="线程的私有数据有哪些"></a>线程的私有数据有哪些</h2><p>线程本质就是函数的执行，函数执行的信息都是放在栈帧中，栈帧主要包含如下内容</p>
+<ol>
+<li>当前函数的返回值</li>
+<li>调用其他函数的参数（寄存器不够时参数是会放在栈帧中的）</li>
+<li>函数使用的局部变量</li>
+<li>函数使用的寄存器信息</li>
+<li>程序计数器是线程私有的</li>
+<li>栈指针（该线程栈区的栈顶位置）</li>
+<li>执行函数时所使用的寄存器也是线程私有的</li>
+</ol>
+<p>所有上面这些信息包含在一起就是线程上下文</p>
+<h1 id="常用的几种寄存器"><a href="#常用的几种寄存器" class="headerlink" title="常用的几种寄存器"></a>常用的几种寄存器</h1><ol>
+<li>栈寄存器<ol>
+<li>函数运行时都有一个栈帧，对于栈来说重要的信息之一就是栈顶，栈寄存器就是保存栈顶信息的</li>
+</ol>
+</li>
+<li>指令寄存器（pc寄存器）</li>
+<li>状态寄存器，线程是运行在内核态还是用户态的信息保存在状态寄存器中</li>
+</ol>
+]]></content>
+      <categories>
+        <category>java</category>
+        <category>多线程</category>
+      </categories>
+      <tags>
+        <tag>java</tag>
+        <tag>多线程</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>线程池实现原理</title>
     <url>/2023/11/13/63b6d22fbd8f/</url>
     <content><![CDATA[<span class="hide_first_mermaid">
@@ -1024,66 +1084,6 @@
 <li>已经超过了设置的空闲时间</li>
 </ol>
 <p>这样就可以退出让 Thread 的run 方法流程走完，退出 run 方法之后相当于这个线程就被回收了</p>
-]]></content>
-      <categories>
-        <category>java</category>
-        <category>多线程</category>
-      </categories>
-      <tags>
-        <tag>java</tag>
-        <tag>多线程</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>多线程上下文切换包含哪些内容</title>
-    <url>/2023/11/18/c51368ba5d47/</url>
-    <content><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p><code>cpu</code> 不知道什么是进程和线程，<code>cpu</code> 只知道两件事情</p>
-<ol>
-<li>从内存中取出指令</li>
-<li>执行指令</li>
-<li>一直重复上面两个步骤，所以 <strong>取指令</strong>-&gt; <strong>执行指令</strong> 就是 <code>cpu</code> 所能做的所有事情</li>
-</ol>
-<h1 id="cpu-获取指令执行的流程"><a href="#cpu-获取指令执行的流程" class="headerlink" title="cpu 获取指令执行的流程"></a>cpu 获取指令执行的流程</h1><ol>
-<li>编写源代码，源代码中都会有 main 函数，这个 main 函数就是执行入口</li>
-<li>程序启动后，会将 main 函数的第一条机器指令放入 pc 寄存器中（程序计数器）</li>
-<li>pc 寄存器的地址默认是自动 +1， 初始地址就是 main 函数的指令地址</li>
-<li>当遇到 if else 等语句时程序会根据计算结果或者指令中指定的跳转地址来动态改变 pc 寄存器中的值</li>
-</ol>
-<h1 id="进程和线程的区别"><a href="#进程和线程的区别" class="headerlink" title="进程和线程的区别"></a>进程和线程的区别</h1><ol>
-<li>进程是操作系统分配资源的最小单位</li>
-<li>线程是调用的基本单位，线程之间共享进程资源<ol>
-<li>线程之间共享了哪些资源<ol>
-<li>堆区</li>
-<li>代码区</li>
-<li>数据区：存放的就是全局变量</li>
-</ol>
-</li>
-</ol>
-</li>
-</ol>
-<h1 id="什么是线程上下文"><a href="#什么是线程上下文" class="headerlink" title="什么是线程上下文"></a>什么是线程上下文</h1><ol>
-<li>线程上下文就是指线程在某个时刻的状态，或者说某个时刻的数据，这个数据是线程私有的才能称为是线程的上下文</li>
-<li>要看线程上下文包含哪些信息，就需要看哪些数据都是线程私有的，这些线程私有的数据整体就是线程上下文</li>
-</ol>
-<h2 id="线程的私有数据有哪些"><a href="#线程的私有数据有哪些" class="headerlink" title="线程的私有数据有哪些"></a>线程的私有数据有哪些</h2><p>线程本质就是函数的执行，函数执行的信息都是放在栈帧中，栈帧主要包含如下内容</p>
-<ol>
-<li>当前函数的返回值</li>
-<li>调用其他函数的参数（寄存器不够时参数是会放在栈帧中的）</li>
-<li>函数使用的局部变量</li>
-<li>函数使用的寄存器信息</li>
-<li>程序计数器是线程私有的</li>
-<li>栈指针（该线程栈区的栈顶位置）</li>
-<li>执行函数时所使用的寄存器也是线程私有的</li>
-</ol>
-<p>所有上面这些信息包含在一起就是线程上下文</p>
-<h1 id="常用的几种寄存器"><a href="#常用的几种寄存器" class="headerlink" title="常用的几种寄存器"></a>常用的几种寄存器</h1><ol>
-<li>栈寄存器<ol>
-<li>函数运行时都有一个栈帧，对于栈来说重要的信息之一就是栈顶，栈寄存器就是保存栈顶信息的</li>
-</ol>
-</li>
-<li>指令寄存器（pc寄存器）</li>
-<li>状态寄存器，线程是运行在内核态还是用户态的信息保存在状态寄存器中</li>
-</ol>
 ]]></content>
       <categories>
         <category>java</category>
