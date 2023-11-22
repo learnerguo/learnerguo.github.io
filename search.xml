@@ -346,134 +346,6 @@
       </tags>
   </entry>
   <entry>
-    <title>redis底层数据结构</title>
-    <url>/2023/11/15/19e21a188fd0/</url>
-    <content><![CDATA[<h1 id="redis-对象"><a href="#redis-对象" class="headerlink" title="redis 对象"></a>redis 对象</h1><p><code>redis</code> 中所有数据类型都是使用 <code>RedisObject</code> 对象形式来表示，<code>RedisObject</code> 主要包含三个字段</p>
-<span id="more"></span>
-
-<pre class="mermaid">graph LR
-    A[RedisObject]
-    A-->B["type (记录对象的类型) \n 常用5种基本类型，实际还有BitMap（2.2 版新增）\n、HyperLogLog（2.8 版新增）、\n GEO（3.2 版新增）、Stream（5.0 版新增）"]
-
-    B1[String 字符串对象]
-    B2[List 列表集合]
-    B3[Hash 哈希对象]
-    B4[Set 集合对象]
-    B5[Zset 有序集合对象]
-    B--> B1 & B2 & B3 & B4 & B5
-
-    A-->C["encoding (记录对象的编码)"]
-    C1[Intset 整数集合]
-    C2[embstr embstr编码的简单动态字符串]
-    C3[raw 简单动态字符串]
-    C4[HT 字典]
-    C5[Linkedlist 双端列表]
-    C6[ziplist 压缩列表]
-    C7[skiplist 跳跃表和字典]
-    C8[quicklist 快速列表]
-    C-->C1 & C2 & C3 & C4 & C5 & C6 & C7 & C8
-
-    A-->D["*ptr (指向具体的类型)"]</pre>
-
-<h2 id="为什么一个对象需要包含-type-和-encoding"><a href="#为什么一个对象需要包含-type-和-encoding" class="headerlink" title="为什么一个对象需要包含 type 和 encoding"></a>为什么一个对象需要包含 <code>type</code> 和 <code>encoding</code></h2><ol>
-<li>因为 <code>type</code> 只是记录对象的类型</li>
-<li>每一个 <code>type</code> 可以使用不同的底层数据结构来实现，所以还需要具体的 <code>encoding</code> 来指明这个 <code>type</code> 的实现是什么， 下图就列出每一个 <code>type</code> 有哪几种底层数据结构</li>
-</ol>
-<h1 id="5-种基本数据类型对应的底层实现"><a href="#5-种基本数据类型对应的底层实现" class="headerlink" title="5 种基本数据类型对应的底层实现"></a>5 种基本数据类型对应的底层实现</h1><h2 id="String"><a href="#String" class="headerlink" title="String"></a>String</h2><ol>
-<li><code>String</code> 类型的底层的数据结构实现主要是 <code>int</code> 和 <code>SDS</code>（简单动态字符串）<ol>
-<li>如果存储的是数字，则编码使用 <code>int</code> 类型</li>
-</ol>
-</li>
-<li><code>sds</code> 的实际编码又包含 <code>raw</code> 和 <code>embstr</code><ol>
-<li>字符串长度小于 32位时使用 <code>embstr</code>(<code>embstr</code> 的空间挨着 <code>RedisObject，RedisObject</code> 和 <code>embstr</code> 的内存是一次性分配的)</li>
-<li>字符串长度大于 32位时使用 <code>raw</code> 编码(<code>RedisObject</code> 的内存分区和 <code>raw</code> 编码类型的空间分配是分开的，也就是需要两次内存分配)</li>
-</ol>
-</li>
-</ol>
-<h3 id="SDS-和-C-原生字符串的区别"><a href="#SDS-和-C-原生字符串的区别" class="headerlink" title="SDS 和 C 原生字符串的区别"></a>SDS 和 C 原生字符串的区别</h3><ol>
-<li><code>sds</code> 可以保存文本和二进制数据，因为 <code>sds</code> 有 <code>length</code> 字段来判断字符串是否结束，c 使用 ‘\0’ 作为结束符</li>
-<li><code>sds</code> 的 <code>api</code> 安全，不会出现缓冲区溢出，因为 <code>sds</code> 拼接字符串前有做容量检查</li>
-</ol>
-<h2 id="List"><a href="#List" class="headerlink" title="List"></a>List</h2><ol>
-<li><code>List</code> 类型的底层数据结构是由双向链表或压缩列表实现的<ol>
-<li>元素个数小于 512 个（默认值，可由 <code>list-max-ziplist-entries</code> 配置），列表每个元素的值都小于 64 字节（默认值，可由 <code>list-max-ziplist-value</code> <code>配置），Redis</code> 会使用压缩列表作为 <code>List</code> 类型的底层数据结构；</li>
-</ol>
-</li>
-<li>在 <code>Redis3.2</code> 版本之后，<code>List</code> 类型底层数据结构只有 <code>quicklist</code> 一种</li>
-</ol>
-<h2 id="Hash"><a href="#Hash" class="headerlink" title="Hash"></a>Hash</h2><ol>
-<li><code>Hash</code> 类型的底层数据结构是由压缩列表或哈希表实现的<ol>
-<li>元素个数小于 512 个（可通过 <code>hash-max-ziplist-entries</code> 修改），所有值小于 64 字节（可通过 <code>hash-max-ziplist-value</code> 修改）时，<code>Redis</code> 会使用压缩列表作为 <code>Hash</code> 类型的底层数据结构</li>
-</ol>
-</li>
-<li>在 <code>Redis7.0</code> 中，压缩列表数据结构被废弃，由 <code>listpack</code> 数据结构来实现</li>
-</ol>
-<h2 id="Set"><a href="#Set" class="headerlink" title="Set"></a>Set</h2><ol>
-<li><code>Set</code> 类型的底层数据结构是由哈希表或整数集合实现的<ol>
-<li>如果集合中的元素都是整数且元素个数小于 512 （可通过 <code>set-maxintset-entries</code> 修改）个，<code>Redis</code> 会使用整数集合作为 Set 类型的底层数据结构</li>
-</ol>
-</li>
-</ol>
-<h2 id="Zset"><a href="#Zset" class="headerlink" title="Zset"></a>Zset</h2><ol>
-<li><p>Zset 类型底层数据结构是由压缩列表或跳表实现</p>
-<ol>
-<li>若有序集合的元素个数小于 128 个且每个元素的值小于 64 字节，<code>Redis</code> 会使用压缩列表作为 <code>Zset</code> 类型的底层数据结构</li>
-</ol>
-</li>
-<li><p><code>Redis 7.0</code> 中，压缩列表数据结构被废弃，交由 <code>listpack</code> 数据结构来实现</p>
-</li>
-</ol>
-]]></content>
-      <categories>
-        <category>中间件</category>
-        <category>redis</category>
-      </categories>
-      <tags>
-        <tag>redis</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>redis线程模型</title>
-    <url>/2023/11/16/e4db3f95ceb5/</url>
-    <content><![CDATA[<p>总结：<code>redis</code> 整体是多线程的，至于平时所说的 <code>redis</code> 单线程是指 <strong>redis的网络io 和 键值对读写</strong> 是在同一个线程中完成</p>
-<span id="more"></span>
-<h1 id="一次-redis-请求过程"><a href="#一次-redis-请求过程" class="headerlink" title="一次 redis 请求过程"></a>一次 redis 请求过程</h1><ol>
-<li>监听客户端请求（<code>bind/listen</code>）</li>
-<li>等待客户端的连接（<code>accept</code>）</li>
-<li>从 <code>socket</code> 中读取数据（<code>recv</code>）</li>
-<li>解析客户端发送的内容（<code>parse</code>）</li>
-<li>根据解析出来的内容进行内存操作（<code>get/set</code>）</li>
-<li>执行完成命令之后给客户端响应结果，即向 <code>socket</code> 中写数据（<code>send</code>）</li>
-</ol>
-<pre class="mermaid">graph TB
-    subgraph A[redis线程]
-        subgraph B[网络IO处理]
-            B1[bind/listen]
-            B2[accept]
-            B3[recv]
-            B4[parse]
-        end
-        subgraph C[键值对读写]
-            C1[get/set]
-        end
-        subgraph D[网络IO处理]
-            D1[send]
-        end
-    end
-    B-->C-->D</pre>
-<ul>
-<li>网络 io 处理过程中， <code>listen</code> 和 <code>recv</code> 这两个步骤是可能阻塞的，即当没有链接或客户端没有发送命令时，服务器处理这两个环节时会阻塞，<strong>但是socket网络模型自身就支持非阻塞的形式</strong></li>
-</ul>
-]]></content>
-      <categories>
-        <category>中间件</category>
-        <category>redis</category>
-      </categories>
-      <tags>
-        <tag>redis</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>HashMap详解</title>
     <url>/2023/11/21/834224a16039/</url>
     <content><![CDATA[<h1 id="HashMap的底层数据结构是什么？"><a href="#HashMap的底层数据结构是什么？" class="headerlink" title="HashMap的底层数据结构是什么？"></a>HashMap的底层数据结构是什么？</h1><ol>
@@ -782,6 +654,7 @@
   </pre></div>
 </span>
 
+<p>以下内容参考《Java并发编程深度解析与实战》谭锋（第11章）</p>
 <h1 id="为什么要用-CompletableFuture"><a href="#为什么要用-CompletableFuture" class="headerlink" title="为什么要用 CompletableFuture"></a>为什么要用 <code>CompletableFuture</code></h1><p>使用 <code>CompletableFuture</code> 是因为 <code>Future</code> 虽然可以获取线程执行结果，但是无法使用回调函数，只能依靠阻塞方法 <code>get()</code> 来获取线程结果，<code>CompletableFuture</code> 就是对 <code>Future</code> 的优化和增强，具体可以实现以下功能</p>
 <ol>
 <li>提供了类似 <code>Future</code> 的阻塞式获取结果和状态的方法</li>
@@ -875,7 +748,39 @@
 <p>执行结果</p>
 <figure class="highlight java"><table><tr><td class="code"><pre><span class="line">第二个阶段：<span class="number">2023</span>-<span class="number">11</span>-<span class="number">20</span> <span class="number">23</span>:<span class="number">56</span>:<span class="number">32</span></span><br><span class="line">最终:<span class="number">2023</span>-<span class="number">11</span>-<span class="number">20</span> <span class="number">23</span>:<span class="number">56</span>:<span class="number">32</span></span><br><span class="line">最终执行的任务</span><br></pre></td></tr></table></figure></div><div class="tab-item-content" id="代码示例-4"><ol>
 <li><code>thenCompose()</code>是多任务组合方法，它的作用是把两个<code>CompletionStage</code>任务进行组合达到串行执行的目的，也就是把第一个任务的执行结果作为参数传递给第二个任务执行，它有点类似于前面提到的<code>thenCombine()</code>方法，最大的不同在于<code>thenCompose()</code>方法中的任务存在先后关系，而<code>thenCombine()</code>中两个任务是并行执行的</li>
-</ol></div></div><div class="tab-to-top"><button type="button" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div></div>]]></content>
+</ol></div></div><div class="tab-to-top"><button type="button" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div></div>
+
+<h1 id="异常处理"><a href="#异常处理" class="headerlink" title="异常处理"></a>异常处理</h1><p><code>CompletionStage</code> 是链式处理，当前面的任务出现异常的时候，会导致后面的任务无法处理</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> Exception &#123;</span><br><span class="line">    CompletableFuture.supplyAsync(() -&gt; &#123;</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">RuntimeException</span>(<span class="string">&quot;第一个任务出现异常&quot;</span>);</span><br><span class="line">    &#125;).thenRun(()-&gt;&#123;</span><br><span class="line">        <span class="comment">// 这里并不会打印，因为前面一个任务出现了异常，导致该任务无法执行</span></span><br><span class="line">        System.out.println(<span class="string">&quot;第二个任务&quot;</span>);</span><br><span class="line">    &#125;).join();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>所以在 <code>CompletionStage</code> 中也提供了异常处理的相关方法，主要有以下三类</p>
+<pre class="mermaid">flowchart LR
+    A[CompletionStage异常处理]
+    B["以whenComplete前缀开头的方法\n不论前置的CompletionStage任务是正常执行结束\n还是出现异常，都能够触发特定的action\n这些方法都接收两个参数，\n一个是正常的结果，一个是异常\n没有异常时第二个就是null"]
+        B1["whenComplete(BiConsumer)"]
+        B2["whenCompleteAsync(BiConsumer)"]
+        B3["whenCompleteAsync(BiConsumer,Executor)"]
+        B-->B1 & B2 & B3
+    C["以handle前缀开头的方法\n表示前置任务执行完成后，\n不管前置任务执行状态是正常还是异常，\n都会执行其中的函数fn，\n它和whenComplete类方法的\n作用几乎一致，不同点在于，\n这类方法是有返回值类型的方法"]
+        C1["handle(BiFunction)"]
+        C2["handleAsync(BiFunction)"]
+        C3["handleAsync(BiFunction,Executor)"]
+        C-->C1 & C2 & C3
+    D["exceptionally()"]
+        D1["exceptionally()方法接收一个函数fn，\n当上一个CompletionStage出现异常时，\n会把该异常作为参数传递给函数fn。\n该方法有一个CompletionStage的返回值，\n说明当前方法可以在接收到\n上一个阶段的异常时进行进一步处理，\n返回一个新的CompletionStage对象实例"]
+        D-->D1
+    A-->B & C & D</pre>
+
+<h2 id="whenComplete类型方法"><a href="#whenComplete类型方法" class="headerlink" title="whenComplete类型方法"></a>whenComplete类型方法</h2><div class="tabs" id="whencomplete类型异常"><ul class="nav-tabs"><button type="button" class="tab  active" data-href="whencomplete类型异常-1">没有异常的情况</button><button type="button" class="tab " data-href="whencomplete类型异常-2">有异常的情况</button></ul><div class="tab-contents"><div class="tab-item-content active" id="whencomplete类型异常-1"><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> Exception &#123;</span><br><span class="line">    CompletableFuture.supplyAsync(() -&gt; &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">    &#125;).whenCompleteAsync((result, excep)-&gt;&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;任务结果:&quot;</span> + result);</span><br><span class="line">        System.out.println(<span class="string">&quot;第一个任务的异常:&quot;</span> + excep);</span><br><span class="line">    &#125;).join();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>执行结果</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">任务结果:<span class="number">1</span></span><br><span class="line">第一个任务的异常:<span class="literal">null</span></span><br></pre></td></tr></table></figure></div><div class="tab-item-content" id="whencomplete类型异常-2"><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> Exception &#123;</span><br><span class="line">    CompletableFuture.supplyAsync(() -&gt; &#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">1</span> / <span class="number">0</span>;</span><br><span class="line">        &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">RuntimeException</span>(<span class="string">&quot;第一个任务出现异常&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">    &#125;).whenCompleteAsync((result, excep)-&gt;&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;任务结果:&quot;</span> + result);</span><br><span class="line">        System.out.println(<span class="string">&quot;第一个任务的异常:&quot;</span> + excep);</span><br><span class="line">    &#125;).join();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>执行结果</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">任务结果:<span class="literal">null</span></span><br><span class="line">第一个任务的异常:java.util.concurrent.CompletionException: java.lang.RuntimeException: 第一个任务出现异常</span><br><span class="line">Exception in thread <span class="string">&quot;main&quot;</span> java.util.concurrent.CompletionException: java.lang.RuntimeException: 第一个任务出现异常</span><br></pre></td></tr></table></figure></div></div><div class="tab-to-top"><button type="button" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div></div>
+
+<h2 id="handle-类型方法"><a href="#handle-类型方法" class="headerlink" title="handle 类型方法"></a>handle 类型方法</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> Exception &#123;</span><br><span class="line">    CompletableFuture&lt;String&gt; completableFuture = CompletableFuture.supplyAsync(() -&gt; &#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">1</span> / <span class="number">0</span>;</span><br><span class="line">        &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">RuntimeException</span>(<span class="string">&quot;第一个任务出现异常&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">    &#125;).handle((result, excep) -&gt; &#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;任务结果:&quot;</span> + result);</span><br><span class="line">        System.out.println(<span class="string">&quot;第一个任务的异常:&quot;</span> + excep.toString().substring(<span class="number">1</span>, <span class="number">70</span>));</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;第二个任务的结果&quot;</span>;</span><br><span class="line">    &#125;);</span><br><span class="line">    <span class="comment">// 最终的执行结果</span></span><br><span class="line">    System.out.println(completableFuture.get());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>执行结果</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">任务结果:<span class="literal">null</span></span><br><span class="line">第一个任务的异常:ava.util.concurrent.CompletionException: java.lang.RuntimeException: </span><br><span class="line">第二个任务的结果</span><br></pre></td></tr></table></figure>
+<h2 id="exceptionally-方法"><a href="#exceptionally-方法" class="headerlink" title="exceptionally()方法"></a>exceptionally()方法</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> Exception &#123;</span><br><span class="line">    CompletableFuture&lt;Integer&gt; completableFuture = CompletableFuture.supplyAsync(() -&gt; &#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">1</span> / <span class="number">0</span>;</span><br><span class="line">        &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">RuntimeException</span>(<span class="string">&quot;第一个任务出现异常&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">    &#125;).exceptionally(exec -&gt; &#123;</span><br><span class="line">        <span class="comment">// exceptionally 里面的返回值需要和前面的 stage 返回值保持一致</span></span><br><span class="line">        <span class="keyword">return</span> Integer.valueOf(<span class="string">&quot;2&quot;</span>);</span><br><span class="line">    &#125;);</span><br><span class="line">    <span class="comment">// 最终的执行结果</span></span><br><span class="line">    System.out.println(completableFuture.get());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+]]></content>
       <categories>
         <category>java</category>
         <category>多线程</category>
@@ -1190,6 +1095,134 @@
       </tags>
   </entry>
   <entry>
+    <title>redis底层数据结构</title>
+    <url>/2023/11/15/19e21a188fd0/</url>
+    <content><![CDATA[<h1 id="redis-对象"><a href="#redis-对象" class="headerlink" title="redis 对象"></a>redis 对象</h1><p><code>redis</code> 中所有数据类型都是使用 <code>RedisObject</code> 对象形式来表示，<code>RedisObject</code> 主要包含三个字段</p>
+<span id="more"></span>
+
+<pre class="mermaid">graph LR
+    A[RedisObject]
+    A-->B["type (记录对象的类型) \n 常用5种基本类型，实际还有BitMap（2.2 版新增）\n、HyperLogLog（2.8 版新增）、\n GEO（3.2 版新增）、Stream（5.0 版新增）"]
+
+    B1[String 字符串对象]
+    B2[List 列表集合]
+    B3[Hash 哈希对象]
+    B4[Set 集合对象]
+    B5[Zset 有序集合对象]
+    B--> B1 & B2 & B3 & B4 & B5
+
+    A-->C["encoding (记录对象的编码)"]
+    C1[Intset 整数集合]
+    C2[embstr embstr编码的简单动态字符串]
+    C3[raw 简单动态字符串]
+    C4[HT 字典]
+    C5[Linkedlist 双端列表]
+    C6[ziplist 压缩列表]
+    C7[skiplist 跳跃表和字典]
+    C8[quicklist 快速列表]
+    C-->C1 & C2 & C3 & C4 & C5 & C6 & C7 & C8
+
+    A-->D["*ptr (指向具体的类型)"]</pre>
+
+<h2 id="为什么一个对象需要包含-type-和-encoding"><a href="#为什么一个对象需要包含-type-和-encoding" class="headerlink" title="为什么一个对象需要包含 type 和 encoding"></a>为什么一个对象需要包含 <code>type</code> 和 <code>encoding</code></h2><ol>
+<li>因为 <code>type</code> 只是记录对象的类型</li>
+<li>每一个 <code>type</code> 可以使用不同的底层数据结构来实现，所以还需要具体的 <code>encoding</code> 来指明这个 <code>type</code> 的实现是什么， 下图就列出每一个 <code>type</code> 有哪几种底层数据结构</li>
+</ol>
+<h1 id="5-种基本数据类型对应的底层实现"><a href="#5-种基本数据类型对应的底层实现" class="headerlink" title="5 种基本数据类型对应的底层实现"></a>5 种基本数据类型对应的底层实现</h1><h2 id="String"><a href="#String" class="headerlink" title="String"></a>String</h2><ol>
+<li><code>String</code> 类型的底层的数据结构实现主要是 <code>int</code> 和 <code>SDS</code>（简单动态字符串）<ol>
+<li>如果存储的是数字，则编码使用 <code>int</code> 类型</li>
+</ol>
+</li>
+<li><code>sds</code> 的实际编码又包含 <code>raw</code> 和 <code>embstr</code><ol>
+<li>字符串长度小于 32位时使用 <code>embstr</code>(<code>embstr</code> 的空间挨着 <code>RedisObject，RedisObject</code> 和 <code>embstr</code> 的内存是一次性分配的)</li>
+<li>字符串长度大于 32位时使用 <code>raw</code> 编码(<code>RedisObject</code> 的内存分区和 <code>raw</code> 编码类型的空间分配是分开的，也就是需要两次内存分配)</li>
+</ol>
+</li>
+</ol>
+<h3 id="SDS-和-C-原生字符串的区别"><a href="#SDS-和-C-原生字符串的区别" class="headerlink" title="SDS 和 C 原生字符串的区别"></a>SDS 和 C 原生字符串的区别</h3><ol>
+<li><code>sds</code> 可以保存文本和二进制数据，因为 <code>sds</code> 有 <code>length</code> 字段来判断字符串是否结束，c 使用 ‘\0’ 作为结束符</li>
+<li><code>sds</code> 的 <code>api</code> 安全，不会出现缓冲区溢出，因为 <code>sds</code> 拼接字符串前有做容量检查</li>
+</ol>
+<h2 id="List"><a href="#List" class="headerlink" title="List"></a>List</h2><ol>
+<li><code>List</code> 类型的底层数据结构是由双向链表或压缩列表实现的<ol>
+<li>元素个数小于 512 个（默认值，可由 <code>list-max-ziplist-entries</code> 配置），列表每个元素的值都小于 64 字节（默认值，可由 <code>list-max-ziplist-value</code> <code>配置），Redis</code> 会使用压缩列表作为 <code>List</code> 类型的底层数据结构；</li>
+</ol>
+</li>
+<li>在 <code>Redis3.2</code> 版本之后，<code>List</code> 类型底层数据结构只有 <code>quicklist</code> 一种</li>
+</ol>
+<h2 id="Hash"><a href="#Hash" class="headerlink" title="Hash"></a>Hash</h2><ol>
+<li><code>Hash</code> 类型的底层数据结构是由压缩列表或哈希表实现的<ol>
+<li>元素个数小于 512 个（可通过 <code>hash-max-ziplist-entries</code> 修改），所有值小于 64 字节（可通过 <code>hash-max-ziplist-value</code> 修改）时，<code>Redis</code> 会使用压缩列表作为 <code>Hash</code> 类型的底层数据结构</li>
+</ol>
+</li>
+<li>在 <code>Redis7.0</code> 中，压缩列表数据结构被废弃，由 <code>listpack</code> 数据结构来实现</li>
+</ol>
+<h2 id="Set"><a href="#Set" class="headerlink" title="Set"></a>Set</h2><ol>
+<li><code>Set</code> 类型的底层数据结构是由哈希表或整数集合实现的<ol>
+<li>如果集合中的元素都是整数且元素个数小于 512 （可通过 <code>set-maxintset-entries</code> 修改）个，<code>Redis</code> 会使用整数集合作为 Set 类型的底层数据结构</li>
+</ol>
+</li>
+</ol>
+<h2 id="Zset"><a href="#Zset" class="headerlink" title="Zset"></a>Zset</h2><ol>
+<li><p>Zset 类型底层数据结构是由压缩列表或跳表实现</p>
+<ol>
+<li>若有序集合的元素个数小于 128 个且每个元素的值小于 64 字节，<code>Redis</code> 会使用压缩列表作为 <code>Zset</code> 类型的底层数据结构</li>
+</ol>
+</li>
+<li><p><code>Redis 7.0</code> 中，压缩列表数据结构被废弃，交由 <code>listpack</code> 数据结构来实现</p>
+</li>
+</ol>
+]]></content>
+      <categories>
+        <category>中间件</category>
+        <category>redis</category>
+      </categories>
+      <tags>
+        <tag>redis</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>redis线程模型</title>
+    <url>/2023/11/16/e4db3f95ceb5/</url>
+    <content><![CDATA[<p>总结：<code>redis</code> 整体是多线程的，至于平时所说的 <code>redis</code> 单线程是指 <strong>redis的网络io 和 键值对读写</strong> 是在同一个线程中完成</p>
+<span id="more"></span>
+<h1 id="一次-redis-请求过程"><a href="#一次-redis-请求过程" class="headerlink" title="一次 redis 请求过程"></a>一次 redis 请求过程</h1><ol>
+<li>监听客户端请求（<code>bind/listen</code>）</li>
+<li>等待客户端的连接（<code>accept</code>）</li>
+<li>从 <code>socket</code> 中读取数据（<code>recv</code>）</li>
+<li>解析客户端发送的内容（<code>parse</code>）</li>
+<li>根据解析出来的内容进行内存操作（<code>get/set</code>）</li>
+<li>执行完成命令之后给客户端响应结果，即向 <code>socket</code> 中写数据（<code>send</code>）</li>
+</ol>
+<pre class="mermaid">graph TB
+    subgraph A[redis线程]
+        subgraph B[网络IO处理]
+            B1[bind/listen]
+            B2[accept]
+            B3[recv]
+            B4[parse]
+        end
+        subgraph C[键值对读写]
+            C1[get/set]
+        end
+        subgraph D[网络IO处理]
+            D1[send]
+        end
+    end
+    B-->C-->D</pre>
+<ul>
+<li>网络 io 处理过程中， <code>listen</code> 和 <code>recv</code> 这两个步骤是可能阻塞的，即当没有链接或客户端没有发送命令时，服务器处理这两个环节时会阻塞，<strong>但是socket网络模型自身就支持非阻塞的形式</strong></li>
+</ul>
+]]></content>
+      <categories>
+        <category>中间件</category>
+        <category>redis</category>
+      </categories>
+      <tags>
+        <tag>redis</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>WindTerm功能设置</title>
     <url>/2023/11/21/0ff9c6825506/</url>
     <content><![CDATA[<h1 id="自定义快捷键"><a href="#自定义快捷键" class="headerlink" title="自定义快捷键"></a>自定义快捷键</h1><p><a href="https://github.com/kingToolbox/WindTerm/issues/267">参考github</a></p>
@@ -1243,14 +1276,15 @@
 <figure class="highlight json"><table><tr><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">	<span class="comment">// Place your snippets for markdown here. Each snippet is defined under a snippet name and has a prefix, body and </span></span><br><span class="line">	<span class="comment">// description. The prefix is what is used to trigger the snippet and the body will be expanded and inserted. Possible variables are:</span></span><br><span class="line">	<span class="comment">// $1, $2 for tab stops, $0 for the final cursor position, and $&#123;1:label&#125;, $&#123;2:another&#125; for placeholders. Placeholders with the </span></span><br><span class="line">	<span class="comment">// same ids are connected.</span></span><br><span class="line">	<span class="comment">// Example:</span></span><br><span class="line">	<span class="comment">// &quot;Print to console&quot;: &#123;</span></span><br><span class="line">	<span class="comment">// 	&quot;prefix&quot;: &quot;log&quot;,</span></span><br><span class="line">	<span class="comment">// 	&quot;body&quot;: [</span></span><br><span class="line">	<span class="comment">// 		&quot;console.log(&#x27;$1&#x27;);&quot;,</span></span><br><span class="line">	<span class="comment">// 		&quot;$2&quot;</span></span><br><span class="line">	<span class="comment">// 	],</span></span><br><span class="line">	<span class="comment">// 	&quot;description&quot;: &quot;Log output to console&quot;</span></span><br><span class="line">	<span class="comment">// &#125;</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
 
 <ol>
-<li>可以根据示例文件进行修改，如下图所示：</li>
+<li>可以根据示例文件进行修改，如下图所示：<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="string">&quot;markdown code graph&quot;</span>: &#123;</span><br><span class="line">	<span class="string">&quot;prefix&quot;</span>: <span class="string">&quot;codeblock&quot;</span>,</span><br><span class="line">	<span class="string">&quot;body&quot;</span>: [</span><br><span class="line">		<span class="string">&quot;&lt;pre class=&quot;</span>mermaid<span class="string">&quot;&gt;<span class="variable">$0</span>&quot;</span>,</span><br><span class="line">		<span class="string">&quot;```&quot;</span></span><br><span class="line">	],</span><br><span class="line">	<span class="string">&quot;description&quot;</span>: <span class="string">&quot;insert markdown code graph&quot;</span></span><br><span class="line">&#125;&lt;/pre&gt;</span><br><span class="line"></span><br><span class="line">上面示例的意思是 当输入 codeblock 时就会出现 mermaid 代码块， <span class="variable">$0</span> 是光标出现的地方</span><br><span class="line"></span><br><span class="line"><span class="comment">## markdown snippets 不生效的解决方式</span></span><br><span class="line">使用上面的步骤设置完 snippets 之后，在 markdown 文档中编写关键字，但是并没有生效，还需要在  settings.json 中（可以输入 ctrl+<span class="built_in">shift</span>+p, 搜索 settings， 选择 Open User Settings(JSON)）, 然后填写下面的内容</span><br><span class="line"></span><br><span class="line">```java</span><br><span class="line"><span class="string">&quot;[markdown]&quot;</span>:&#123;</span><br><span class="line">	<span class="string">&quot;editor.formatOnSave&quot;</span>: <span class="literal">true</span>,</span><br><span class="line">	<span class="string">&quot;editor.renderWhitespace&quot;</span>: <span class="string">&quot;all&quot;</span>,</span><br><span class="line">	<span class="string">&quot;editor.quickSuggestions&quot;</span>: &#123;</span><br><span class="line">		<span class="string">&quot;other&quot;</span>: <span class="string">&quot;on&quot;</span>,</span><br><span class="line">		<span class="string">&quot;comments&quot;</span>: <span class="string">&quot;on&quot;</span>,</span><br><span class="line">		<span class="string">&quot;strings&quot;</span>: <span class="string">&quot;on&quot;</span></span><br><span class="line">	&#125;,</span><br><span class="line">	<span class="string">&quot;editor.acceptSuggestionOnEnter&quot;</span>: <span class="string">&quot;on&quot;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
 </ol>
-<p><img src="/2023/11/12/6b613d963af3/1700035948191.png" alt="Alt text"></p>
-<p>上面示例的意思是 当输入 codeblock 时就会出现 mermaid 代码块， $0 是光标出现的地方</p>
-<h2 id="markdown-snippets-不生效的解决方式"><a href="#markdown-snippets-不生效的解决方式" class="headerlink" title="markdown snippets 不生效的解决方式"></a>markdown snippets 不生效的解决方式</h2><p>使用上面的步骤设置完 snippets 之后，在 markdown 文档中编写关键字，但是并没有生效，还需要在  settings.json 中（可以输入 ctrl+shift+p, 搜索 settings， 选择 Open User Settings(JSON)）, 然后填写下面的内容</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="string">&quot;[markdown]&quot;</span>:&#123;</span><br><span class="line">	<span class="string">&quot;editor.formatOnSave&quot;</span>: <span class="literal">true</span>,</span><br><span class="line">	<span class="string">&quot;editor.renderWhitespace&quot;</span>: <span class="string">&quot;all&quot;</span>,</span><br><span class="line">	<span class="string">&quot;editor.quickSuggestions&quot;</span>: &#123;</span><br><span class="line">		<span class="string">&quot;other&quot;</span>: <span class="string">&quot;on&quot;</span>,</span><br><span class="line">		<span class="string">&quot;comments&quot;</span>: <span class="string">&quot;on&quot;</span>,</span><br><span class="line">		<span class="string">&quot;strings&quot;</span>: <span class="string">&quot;on&quot;</span></span><br><span class="line">	&#125;,</span><br><span class="line">	<span class="string">&quot;editor.acceptSuggestionOnEnter&quot;</span>: <span class="string">&quot;on&quot;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
 <p>添加上述内容后就可以生效了</p>
+<h1 id="vscode-设置白天黑夜自动切换主题"><a href="#vscode-设置白天黑夜自动切换主题" class="headerlink" title="vscode 设置白天黑夜自动切换主题"></a>vscode 设置白天黑夜自动切换主题</h1><ol>
+<li>vscode 可以根据系统设置的 <code>light</code> 或 <code>dark</code> 主题来进行切换</li>
+<li>系统自动切换主题软件可以在 <code>store</code> 中安装 <code>Auto Dark Mode</code> 这个软件并进行设置</li>
+<li><code>window</code> 系统设置完成之后可以在 <code>vscode</code> 的 <code>user setting</code> 中添加如下内容, 第一个配置是开启自动切换，后面的配置是设置的 <code>light</code> 和 <code>dark</code> 主题的名称</li>
+</ol>
+<figure class="highlight json"><table><tr><td class="code"><pre><span class="line"><span class="attr">&quot;window.autoDetectColorScheme&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">true</span></span><span class="punctuation">,</span></span><br><span class="line"><span class="attr">&quot;workbench.preferredLightColorTheme&quot;</span><span class="punctuation">:</span> <span class="string">&quot;Atom One Light&quot;</span><span class="punctuation">,</span></span><br><span class="line"><span class="attr">&quot;workbench.preferredDarkColorTheme&quot;</span><span class="punctuation">:</span> <span class="string">&quot;Default Dark Modern&quot;</span></span><br></pre></td></tr></table></figure>
 ]]></content>
       <categories>
         <category>tools</category>
