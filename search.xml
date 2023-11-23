@@ -346,44 +346,6 @@
       </tags>
   </entry>
   <entry>
-    <title>HashMap详解</title>
-    <url>/2023/834224a16039/</url>
-    <content><![CDATA[<h1 id="HashMap的底层数据结构是什么？"><a href="#HashMap的底层数据结构是什么？" class="headerlink" title="HashMap的底层数据结构是什么？"></a>HashMap的底层数据结构是什么？</h1><ol>
-<li>之前 <code>Jdk1.7</code> 的存储结构是数组+链表，到了 <code>Jdk1.8</code> 变成了数组+链表+红黑树。</li>
-</ol>
-<h1 id="HashMap-是如何定位索引下标的"><a href="#HashMap-是如何定位索引下标的" class="headerlink" title="HashMap 是如何定位索引下标的"></a>HashMap 是如何定位索引下标的</h1><p>定位 <code>index</code> 分成两步</p>
-<ol>
-<li><p>根据 hash 函数获取 hash 值</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">static</span> <span class="keyword">final</span> <span class="type">int</span> <span class="title function_">hash</span><span class="params">(Object key)</span> &#123;</span><br><span class="line">    <span class="type">int</span> h;</span><br><span class="line">    <span class="keyword">return</span> (key == <span class="literal">null</span>) ? <span class="number">0</span> : (h = key.hashCode()) ^ (h &gt;&gt;&gt; <span class="number">16</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p><strong>可以看到上面代码获取到 hashCode 之后还右移 16 位，具体原因在下面分析</strong></p>
-</li>
-<li><p>根据第一步计算的 <code>hash</code> 值获取数组位置（一般是对数组长度取模，<code>HashMap</code> 中是对长度 -1 进行 <code>&amp;</code> 运算）</p>
-</li>
-</ol>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">final</span> V <span class="title function_">putVal</span><span class="params">(<span class="type">int</span> hash, K key, V value, <span class="type">boolean</span> onlyIfAbsent,</span></span><br><span class="line"><span class="params">                   <span class="type">boolean</span> evict)</span> &#123;</span><br><span class="line">    Node&lt;K,V&gt;[] tab; Node&lt;K,V&gt; p; <span class="type">int</span> n, i;</span><br><span class="line">    <span class="keyword">if</span> ((tab = table) == <span class="literal">null</span> || (n = tab.length) == <span class="number">0</span>)</span><br><span class="line">        n = (tab = resize()).length;</span><br><span class="line">        <span class="comment">// 获取下标的操作是  i = (n-1) &amp; hash</span></span><br><span class="line">    <span class="keyword">if</span> ((p = tab[i = (n - <span class="number">1</span>) &amp; hash]) == <span class="literal">null</span>)</span><br><span class="line">        tab[i] = newNode(hash, key, value, <span class="literal">null</span>);</span><br><span class="line">    <span class="keyword">else</span> &#123;</span><br><span class="line">       ...</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p><strong>获取下标为什么是对 n-1 进行与操作而不是取模？具体原因下面分析</strong></p>
-<h1 id="为什么需要对key的-hash-值右移-16位"><a href="#为什么需要对key的-hash-值右移-16位" class="headerlink" title="为什么需要对key的 hash 值右移 16位"></a>为什么需要对key的 hash 值右移 16位</h1><figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="string">HashMap</span> <span class="string">中使用的</span> <span class="string">hash</span> <span class="string">函数是</span> <span class="string">key.hash</span> <span class="string">^</span> <span class="string">(key.hash</span> <span class="string">&gt;&gt;</span> <span class="number">16</span><span class="string">)</span>  <span class="string">而不是直接使用</span> <span class="string">key.hash,</span> <span class="string">这么做的原因是增加了扰动计算，使得</span> <span class="string">hash</span> <span class="string">分布的尽可能的均匀，</span> <span class="string">让元素的高16</span> <span class="string">位和低16</span> <span class="string">位都参与运算</span></span><br><span class="line"><span class="string">示例：</span></span><br><span class="line"><span class="string">比如有一个元素1换成二进制如下</span></span><br><span class="line"><span class="number">1111 </span><span class="number">1111 </span><span class="number">1111 </span><span class="number">1111 </span><span class="number">1010 </span><span class="number">1010 </span><span class="number">1010 </span><span class="number">1010</span> <span class="string">（没有右移16位的二进制）</span></span><br><span class="line"><span class="number">0000 </span><span class="number">0000 </span><span class="number">0000 </span><span class="number">0000 </span><span class="number">1111 </span><span class="number">1111 </span><span class="number">1111 </span><span class="number">1111</span>  <span class="string">（右移16位的二进制）</span></span><br><span class="line"></span><br><span class="line"><span class="string">另外一个元素2换成二进制如下</span></span><br><span class="line"><span class="number">1111 </span><span class="number">1111 </span><span class="number">1111 </span><span class="number">1110 </span><span class="number">1010 </span><span class="number">1010 </span><span class="number">1010 </span><span class="number">1010</span> <span class="string">（没有右移16位的二进制）</span></span><br><span class="line"><span class="number">0000 </span><span class="number">0000 </span><span class="number">0000 </span><span class="number">0000 </span><span class="number">1111 </span><span class="number">1111 </span><span class="number">1111 </span><span class="number">1110</span>  <span class="string">（右移16位的二进制）</span></span><br><span class="line"></span><br><span class="line"><span class="string">在计算数组位置的时候使用的是</span> <span class="string">hash</span> <span class="string">&amp;</span> <span class="string">(n</span> <span class="number">-1</span><span class="string">),</span>  <span class="string">要知道</span> <span class="string">n-1</span> <span class="string">肯定是一个相对来说比较小的数字（32个bit</span> <span class="string">只会使用比较少的低位），</span> <span class="string">比如长度是</span> <span class="number">32</span><span class="string">，</span> <span class="string">对应的二进制是</span> <span class="number">0000 </span><span class="number">0000 </span><span class="number">0000 </span><span class="number">0000 </span><span class="number">0000 </span><span class="number">0000 </span><span class="number">0001 </span><span class="number">1111</span></span><br><span class="line"></span><br><span class="line"><span class="string">使用没有右移的元素1和</span> <span class="string">（32</span> <span class="number">-1</span><span class="string">）</span> <span class="string">进行与操作（与操作是都为1才为1，否则为0）</span></span><br><span class="line"><span class="number">1111 </span><span class="number">1111 </span><span class="number">1111 </span><span class="number">1111     </span><span class="number">1010 </span><span class="number">1010 </span><span class="number">1010 </span><span class="number">1010</span> <span class="string">（没有右移16位的二进制）</span></span><br><span class="line"><span class="number">0000 </span><span class="number">0000 </span><span class="number">0000 </span><span class="number">0000      </span><span class="number">0000 </span><span class="number">0000 </span><span class="number">0001 </span><span class="number">1111</span></span><br><span class="line"><span class="number">0000 </span><span class="number">0000 </span><span class="number">0000 </span><span class="number">0000      </span><span class="number">0000 </span><span class="number">0000 </span><span class="number">0000 </span><span class="number">1010</span></span><br><span class="line"></span><br><span class="line"><span class="string">使用没有右移的元素2和</span> <span class="string">（32</span> <span class="number">-1</span><span class="string">）</span> <span class="string">进行与操作（与操作是都为1才为1，否则为0）</span></span><br><span class="line"><span class="number">1111 </span><span class="number">1111 </span><span class="number">1111 </span><span class="number">1100     </span><span class="number">1010 </span><span class="number">1010 </span><span class="number">1010 </span><span class="number">1010</span> <span class="string">（没有右移16位的二进制）</span></span><br><span class="line"><span class="number">0000 </span><span class="number">0000 </span><span class="number">0000 </span><span class="number">0000      </span><span class="number">0000 </span><span class="number">0000 </span><span class="number">0001 </span><span class="number">1111</span></span><br><span class="line"><span class="number">0000 </span><span class="number">0000 </span><span class="number">0000 </span><span class="number">0000      </span><span class="number">0000 </span><span class="number">0000 </span><span class="number">0000 </span><span class="number">1010</span></span><br><span class="line"><span class="string">可以看到元素1和元素2计算出来下标是相同的，这个不同是因为元素1和元素2的低16位是完全相同的，不同之处只在于高16位，但是当我们对</span> <span class="string">（n-1）进行与操作的时候，由于</span> <span class="string">n-1</span> <span class="string">的值比较小，绝大部分情况下，只有低16位会进行运算的</span></span><br><span class="line"></span><br><span class="line"><span class="string">接下来再看一下如果使用右移的hash进行计算会有什么不同</span></span><br><span class="line"><span class="string">使用右移的元素1和</span> <span class="string">（32</span> <span class="number">-1</span><span class="string">）</span> <span class="string">进行与操作（与操作是都为1才为1，否则为0）</span></span><br><span class="line"><span class="number">0000 </span><span class="number">0000 </span><span class="number">0000 </span><span class="number">0000      </span><span class="number">1111 </span><span class="number">1111 </span><span class="number">1111 </span><span class="number">1111</span> <span class="string">（没有右移16位的二进制）</span></span><br><span class="line"><span class="number">0000 </span><span class="number">0000 </span><span class="number">0000 </span><span class="number">0000      </span><span class="number">0000 </span><span class="number">0000 </span><span class="number">0001 </span><span class="number">1111</span></span><br><span class="line"><span class="number">0000 </span><span class="number">0000 </span><span class="number">0000 </span><span class="number">0000      </span><span class="number">0000 </span><span class="number">0000 </span><span class="number">0000  </span><span class="number">1111</span></span><br><span class="line"></span><br><span class="line"><span class="string">用右移的元素2和</span> <span class="string">（32</span> <span class="number">-1</span><span class="string">）</span> <span class="string">进行与操作（与操作是都为1才为1，否则为0）</span></span><br><span class="line"><span class="number">0000 </span><span class="number">0000 </span><span class="number">0000 </span><span class="number">0000      </span><span class="number">1111 </span><span class="number">1111 </span><span class="number">1111 </span><span class="number">1110</span> <span class="string">（没有右移16位的二进制）</span></span><br><span class="line"><span class="number">0000 </span><span class="number">0000 </span><span class="number">0000 </span><span class="number">0000      </span><span class="number">0000 </span><span class="number">0000 </span><span class="number">0001 </span><span class="number">1111</span></span><br><span class="line"><span class="number">0000 </span><span class="number">0000 </span><span class="number">0000 </span><span class="number">0000      </span><span class="number">0000 </span><span class="number">0000 </span><span class="number">0000  </span><span class="number">1110</span></span><br><span class="line"><span class="string">可以看到计算出来的</span> <span class="string">index</span> <span class="string">值是不同的，这就是右移带来的让高16位有参与运算的效果</span></span><br></pre></td></tr></table></figure>
-
-<h1 id="为什么不对长度取模而是使用与运算"><a href="#为什么不对长度取模而是使用与运算" class="headerlink" title="为什么不对长度取模而是使用与运算"></a>为什么不对长度取模而是使用与运算</h1><ol>
-<li><code>X % 2^n = X &amp; (2^n – 1)</code>  这两种运算等价，所以这也是 <code>HashMap</code> 长度取 <code>2^n</code> 的原因<br>也可以从数据角度记住，当 <code>n</code> 是 2 的倍数时， <code>X % 2^n = X &amp; (2^n – 1)</code>  等价</li>
-</ol>
-<p><a href="https://www.cnblogs.com/ysocean/p/9054804.html">公式计算参考链接</a></p>
-<h1 id="HashMap是如何实现扩容的"><a href="#HashMap是如何实现扩容的" class="headerlink" title="HashMap是如何实现扩容的"></a>HashMap是如何实现扩容的</h1><p>扩容后索引其实也是使用 <code>hash &amp; （newLength -1）</code>, 这样计算出来的位置要是和原来的元素在相同的位置，要么是 原来的位置+旧数组长度&#x3D;新索引位置</p>
-<h1 id="HashMap是如何解决hash冲突的"><a href="#HashMap是如何解决hash冲突的" class="headerlink" title="HashMap是如何解决hash冲突的"></a>HashMap是如何解决hash冲突的</h1><ol>
-<li>对 <code>hash</code> 的计算进行优化，不是直接使用 <code>hashcode</code>,  而是右移16位，让高16位也参与运算，减少<code>hash</code> 冲突</li>
-<li>如果遇到冲突，使用拉链法解决</li>
-</ol>
-]]></content>
-      <categories>
-        <category>java</category>
-        <category>java基础</category>
-      </categories>
-      <tags>
-        <tag>java</tag>
-        <tag>java基础</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>java的io模型</title>
     <url>/2023/180f5b629f58/</url>
     <content><![CDATA[<span class="hide_first_mermaid">
@@ -642,6 +604,114 @@
       <tags>
         <tag>java</tag>
         <tag>jvm</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>HashMap详解</title>
+    <url>/2023/834224a16039/</url>
+    <content><![CDATA[<h1 id="HashMap的底层数据结构是什么？"><a href="#HashMap的底层数据结构是什么？" class="headerlink" title="HashMap的底层数据结构是什么？"></a>HashMap的底层数据结构是什么？</h1><ol>
+<li>之前 <code>Jdk1.7</code> 的存储结构是数组+链表，到了 <code>Jdk1.8</code> 变成了数组+链表+红黑树。</li>
+</ol>
+<h1 id="HashMap-是如何定位索引下标的"><a href="#HashMap-是如何定位索引下标的" class="headerlink" title="HashMap 是如何定位索引下标的"></a>HashMap 是如何定位索引下标的</h1><p>定位 <code>index</code> 分成两步</p>
+<ol>
+<li><p>根据 hash 函数获取 hash 值</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">static</span> <span class="keyword">final</span> <span class="type">int</span> <span class="title function_">hash</span><span class="params">(Object key)</span> &#123;</span><br><span class="line">    <span class="type">int</span> h;</span><br><span class="line">    <span class="keyword">return</span> (key == <span class="literal">null</span>) ? <span class="number">0</span> : (h = key.hashCode()) ^ (h &gt;&gt;&gt; <span class="number">16</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>可以看到上面代码获取到 hashCode 之后还右移 16 位，具体原因在下面分析</strong></p>
+</li>
+<li><p>根据第一步计算的 <code>hash</code> 值获取数组位置（一般是对数组长度取模，<code>HashMap</code> 中是对长度 -1 进行 <code>&amp;</code> 运算）</p>
+</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">final</span> V <span class="title function_">putVal</span><span class="params">(<span class="type">int</span> hash, K key, V value, <span class="type">boolean</span> onlyIfAbsent,</span></span><br><span class="line"><span class="params">                   <span class="type">boolean</span> evict)</span> &#123;</span><br><span class="line">    Node&lt;K,V&gt;[] tab; Node&lt;K,V&gt; p; <span class="type">int</span> n, i;</span><br><span class="line">    <span class="keyword">if</span> ((tab = table) == <span class="literal">null</span> || (n = tab.length) == <span class="number">0</span>)</span><br><span class="line">        n = (tab = resize()).length;</span><br><span class="line">        <span class="comment">// 获取下标的操作是  i = (n-1) &amp; hash</span></span><br><span class="line">    <span class="keyword">if</span> ((p = tab[i = (n - <span class="number">1</span>) &amp; hash]) == <span class="literal">null</span>)</span><br><span class="line">        tab[i] = newNode(hash, key, value, <span class="literal">null</span>);</span><br><span class="line">    <span class="keyword">else</span> &#123;</span><br><span class="line">       ...</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>获取下标为什么是对 n-1 进行与操作而不是取模？具体原因下面分析</strong></p>
+<h1 id="为什么需要对key的-hash-值右移-16位"><a href="#为什么需要对key的-hash-值右移-16位" class="headerlink" title="为什么需要对key的 hash 值右移 16位"></a>为什么需要对key的 hash 值右移 16位</h1><figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="string">HashMap</span> <span class="string">中使用的</span> <span class="string">hash</span> <span class="string">函数是</span> <span class="string">key.hash</span> <span class="string">^</span> <span class="string">(key.hash</span> <span class="string">&gt;&gt;</span> <span class="number">16</span><span class="string">)</span>  <span class="string">而不是直接使用</span> <span class="string">key.hash,</span> <span class="string">这么做的原因是增加了扰动计算，使得</span> <span class="string">hash</span> <span class="string">分布的尽可能的均匀，</span> <span class="string">让元素的高16</span> <span class="string">位和低16</span> <span class="string">位都参与运算</span></span><br><span class="line"><span class="string">示例：</span></span><br><span class="line"><span class="string">比如有一个元素1换成二进制如下</span></span><br><span class="line"><span class="number">1111 </span><span class="number">1111 </span><span class="number">1111 </span><span class="number">1111 </span><span class="number">1010 </span><span class="number">1010 </span><span class="number">1010 </span><span class="number">1010</span> <span class="string">（没有右移16位的二进制）</span></span><br><span class="line"><span class="number">0000 </span><span class="number">0000 </span><span class="number">0000 </span><span class="number">0000 </span><span class="number">1111 </span><span class="number">1111 </span><span class="number">1111 </span><span class="number">1111</span>  <span class="string">（右移16位的二进制）</span></span><br><span class="line"></span><br><span class="line"><span class="string">另外一个元素2换成二进制如下</span></span><br><span class="line"><span class="number">1111 </span><span class="number">1111 </span><span class="number">1111 </span><span class="number">1110 </span><span class="number">1010 </span><span class="number">1010 </span><span class="number">1010 </span><span class="number">1010</span> <span class="string">（没有右移16位的二进制）</span></span><br><span class="line"><span class="number">0000 </span><span class="number">0000 </span><span class="number">0000 </span><span class="number">0000 </span><span class="number">1111 </span><span class="number">1111 </span><span class="number">1111 </span><span class="number">1110</span>  <span class="string">（右移16位的二进制）</span></span><br><span class="line"></span><br><span class="line"><span class="string">在计算数组位置的时候使用的是</span> <span class="string">hash</span> <span class="string">&amp;</span> <span class="string">(n</span> <span class="number">-1</span><span class="string">),</span>  <span class="string">要知道</span> <span class="string">n-1</span> <span class="string">肯定是一个相对来说比较小的数字（32个bit</span> <span class="string">只会使用比较少的低位），</span> <span class="string">比如长度是</span> <span class="number">32</span><span class="string">，</span> <span class="string">对应的二进制是</span> <span class="number">0000 </span><span class="number">0000 </span><span class="number">0000 </span><span class="number">0000 </span><span class="number">0000 </span><span class="number">0000 </span><span class="number">0001 </span><span class="number">1111</span></span><br><span class="line"></span><br><span class="line"><span class="string">使用没有右移的元素1和</span> <span class="string">（32</span> <span class="number">-1</span><span class="string">）</span> <span class="string">进行与操作（与操作是都为1才为1，否则为0）</span></span><br><span class="line"><span class="number">1111 </span><span class="number">1111 </span><span class="number">1111 </span><span class="number">1111     </span><span class="number">1010 </span><span class="number">1010 </span><span class="number">1010 </span><span class="number">1010</span> <span class="string">（没有右移16位的二进制）</span></span><br><span class="line"><span class="number">0000 </span><span class="number">0000 </span><span class="number">0000 </span><span class="number">0000      </span><span class="number">0000 </span><span class="number">0000 </span><span class="number">0001 </span><span class="number">1111</span></span><br><span class="line"><span class="number">0000 </span><span class="number">0000 </span><span class="number">0000 </span><span class="number">0000      </span><span class="number">0000 </span><span class="number">0000 </span><span class="number">0000 </span><span class="number">1010</span></span><br><span class="line"></span><br><span class="line"><span class="string">使用没有右移的元素2和</span> <span class="string">（32</span> <span class="number">-1</span><span class="string">）</span> <span class="string">进行与操作（与操作是都为1才为1，否则为0）</span></span><br><span class="line"><span class="number">1111 </span><span class="number">1111 </span><span class="number">1111 </span><span class="number">1100     </span><span class="number">1010 </span><span class="number">1010 </span><span class="number">1010 </span><span class="number">1010</span> <span class="string">（没有右移16位的二进制）</span></span><br><span class="line"><span class="number">0000 </span><span class="number">0000 </span><span class="number">0000 </span><span class="number">0000      </span><span class="number">0000 </span><span class="number">0000 </span><span class="number">0001 </span><span class="number">1111</span></span><br><span class="line"><span class="number">0000 </span><span class="number">0000 </span><span class="number">0000 </span><span class="number">0000      </span><span class="number">0000 </span><span class="number">0000 </span><span class="number">0000 </span><span class="number">1010</span></span><br><span class="line"><span class="string">可以看到元素1和元素2计算出来下标是相同的，这个不同是因为元素1和元素2的低16位是完全相同的，不同之处只在于高16位，但是当我们对</span> <span class="string">（n-1）进行与操作的时候，由于</span> <span class="string">n-1</span> <span class="string">的值比较小，绝大部分情况下，只有低16位会进行运算的</span></span><br><span class="line"></span><br><span class="line"><span class="string">接下来再看一下如果使用右移的hash进行计算会有什么不同</span></span><br><span class="line"><span class="string">使用右移的元素1和</span> <span class="string">（32</span> <span class="number">-1</span><span class="string">）</span> <span class="string">进行与操作（与操作是都为1才为1，否则为0）</span></span><br><span class="line"><span class="number">0000 </span><span class="number">0000 </span><span class="number">0000 </span><span class="number">0000      </span><span class="number">1111 </span><span class="number">1111 </span><span class="number">1111 </span><span class="number">1111</span> <span class="string">（没有右移16位的二进制）</span></span><br><span class="line"><span class="number">0000 </span><span class="number">0000 </span><span class="number">0000 </span><span class="number">0000      </span><span class="number">0000 </span><span class="number">0000 </span><span class="number">0001 </span><span class="number">1111</span></span><br><span class="line"><span class="number">0000 </span><span class="number">0000 </span><span class="number">0000 </span><span class="number">0000      </span><span class="number">0000 </span><span class="number">0000 </span><span class="number">0000  </span><span class="number">1111</span></span><br><span class="line"></span><br><span class="line"><span class="string">用右移的元素2和</span> <span class="string">（32</span> <span class="number">-1</span><span class="string">）</span> <span class="string">进行与操作（与操作是都为1才为1，否则为0）</span></span><br><span class="line"><span class="number">0000 </span><span class="number">0000 </span><span class="number">0000 </span><span class="number">0000      </span><span class="number">1111 </span><span class="number">1111 </span><span class="number">1111 </span><span class="number">1110</span> <span class="string">（没有右移16位的二进制）</span></span><br><span class="line"><span class="number">0000 </span><span class="number">0000 </span><span class="number">0000 </span><span class="number">0000      </span><span class="number">0000 </span><span class="number">0000 </span><span class="number">0001 </span><span class="number">1111</span></span><br><span class="line"><span class="number">0000 </span><span class="number">0000 </span><span class="number">0000 </span><span class="number">0000      </span><span class="number">0000 </span><span class="number">0000 </span><span class="number">0000  </span><span class="number">1110</span></span><br><span class="line"><span class="string">可以看到计算出来的</span> <span class="string">index</span> <span class="string">值是不同的，这就是右移带来的让高16位有参与运算的效果</span></span><br></pre></td></tr></table></figure>
+
+<h1 id="为什么不对长度取模而是使用与运算"><a href="#为什么不对长度取模而是使用与运算" class="headerlink" title="为什么不对长度取模而是使用与运算"></a>为什么不对长度取模而是使用与运算</h1><ol>
+<li><code>X % 2^n = X &amp; (2^n – 1)</code>  这两种运算等价，所以这也是 <code>HashMap</code> 长度取 <code>2^n</code> 的原因<br>也可以从数据角度记住，当 <code>n</code> 是 2 的倍数时， <code>X % 2^n = X &amp; (2^n – 1)</code>  等价</li>
+</ol>
+<p><a href="https://www.cnblogs.com/ysocean/p/9054804.html">公式计算参考链接</a></p>
+<h1 id="HashMap是如何实现扩容的"><a href="#HashMap是如何实现扩容的" class="headerlink" title="HashMap是如何实现扩容的"></a>HashMap是如何实现扩容的</h1><p>扩容后索引其实也是使用 <code>hash &amp; （newLength -1）</code>, 这样计算出来的位置要是和原来的元素在相同的位置，要么是 原来的位置+旧数组长度&#x3D;新索引位置</p>
+<h1 id="HashMap是如何解决hash冲突的"><a href="#HashMap是如何解决hash冲突的" class="headerlink" title="HashMap是如何解决hash冲突的"></a>HashMap是如何解决hash冲突的</h1><ol>
+<li>对 <code>hash</code> 的计算进行优化，不是直接使用 <code>hashcode</code>,  而是右移16位，让高16位也参与运算，减少<code>hash</code> 冲突</li>
+<li>如果遇到冲突，使用拉链法解决</li>
+</ol>
+]]></content>
+      <categories>
+        <category>java</category>
+        <category>java基础</category>
+      </categories>
+      <tags>
+        <tag>java</tag>
+        <tag>java基础</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>jvm运行时内存区域</title>
+    <url>/2023/70e7b048ccf4/</url>
+    <content><![CDATA[<span class="hide_first_mermaid">
+<div class="mermaid-wrap"><pre class="mermaid-src" hidden>
+  flowchart LR
+    A
+  </pre></div>
+</span>
+以下内容参考《剑指JVM:虚拟机实践与性能调优》
+
+<h1 id="JVM-整体结构"><a href="#JVM-整体结构" class="headerlink" title="JVM 整体结构"></a>JVM 整体结构</h1><ol>
+<li><code>JVM</code> 在程序执行期间把它所管理的内存分为若干个不同的数据区域</li>
+<li><code>JVM</code> 内存布局规定了 <code>Java</code> 在运行过程中内存申请、分配、管理的策略，保证了JVM的高效稳定运行</li>
+<li>线程私有区域： 虚拟机栈，本地方法栈，程序计数器</li>
+<li>线程共享区域： 堆，方法区</li>
+</ol>
+<p><img src="https://blog-1308475102.cos.ap-guangzhou.myqcloud.com/picture/202311222254661.png" alt="jvm 整体结构"></p>
+<h1 id="程序计数器"><a href="#程序计数器" class="headerlink" title="程序计数器"></a>程序计数器</h1><h2 id="程序计数器相关概念"><a href="#程序计数器相关概念" class="headerlink" title="程序计数器相关概念"></a>程序计数器相关概念</h2><ol>
+<li>程序计数器中的寄存器并非是广义上所指的物理寄存器，JVM中的程序计数器是对物理寄存器的一种抽象模拟</li>
+<li>JVM中的程序计数器英文全称是 Program Counter Register</li>
+<li>程序计数器既没有垃圾回收也没有内存溢出</li>
+<li>如果线程正在执行的是一个Java方法，这个计数器记录的是正在执行的虚拟机字节码指令的地址；如果正在执行的是本地(Native)方法，这个计数器值则应为空(Undefined)</li>
+<li>每一个线程都有一个程序计数器（程序计数器和寄存器是两个概念）</li>
+</ol>
+<h2 id="为什么需要程序计数器"><a href="#为什么需要程序计数器" class="headerlink" title="为什么需要程序计数器"></a>为什么需要程序计数器</h2><p>因为CPU需要不停地切换各个线程，切换回来以后，就需要知道接着从哪里开始继续执行。JVM的字节码解释器通过改变程序计数器的值，来明确下一条应该执行什么样的字节码指令</p>
+<h1 id="虚拟机栈"><a href="#虚拟机栈" class="headerlink" title="虚拟机栈"></a>虚拟机栈</h1><ol>
+<li>每个线程在创建时都会创建一个虚拟机栈，其内部由许多栈帧(Stack Frame)构成，每个栈帧对应着一个Java方法的调用</li>
+<li>每个方法被执行的时候，JVM都会同步创建一个栈帧用于存储<strong>局部变量表、操作数栈、动态链接、方法出口</strong>等信息</li>
+</ol>
+<h2 id="栈帧-栈的存储单位"><a href="#栈帧-栈的存储单位" class="headerlink" title="栈帧-栈的存储单位"></a>栈帧-栈的存储单位</h2><ol>
+<li>每个线程上正在执行的每个方法都各自对应一个栈帧</li>
+</ol>
+]]></content>
+      <categories>
+        <category>java</category>
+        <category>jvm</category>
+      </categories>
+      <tags>
+        <tag>java</tag>
+        <tag>jvm</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>SpringBoot编写测试类</title>
+    <url>/2023/71c38fa0a58b/</url>
+    <content><![CDATA[<p>版本说明：</p>
+<ol>
+<li>SpringBoot3.x</li>
+</ol>
+<h1 id="引入依赖"><a href="#引入依赖" class="headerlink" title="引入依赖"></a>引入依赖</h1><figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-test<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h1 id="编写测试类"><a href="#编写测试类" class="headerlink" title="编写测试类"></a>编写测试类</h1><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@SpringBootTest</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">TestRedis</span> &#123;</span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">testOne</span><span class="params">()</span> &#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;测试类&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="注意点"><a href="#注意点" class="headerlink" title="注意点"></a>注意点</h2><ol>
+<li><code>SpringBoot2.5</code> 之后测试类中已经不需要添加 <code>RunWith</code> 注解，只需要一个 <code>SpringBootTest</code></li>
+<li>需要保证测试类所在的包和项目主配置类包一致（项目 <code>main</code> 方法所在的包），如果不一致，则可以按照下面方式配置</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@SpringBootTest(classes = TestApplication.class)</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">TestRedis</span> &#123;</span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">testOne</span><span class="params">()</span> &#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;测试类&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+]]></content>
+      <categories>
+        <category>java</category>
+        <category>SpringBoot</category>
+      </categories>
+      <tags>
+        <tag>java</tag>
+        <tag>SpringBoot</tag>
       </tags>
   </entry>
   <entry>
@@ -1095,6 +1165,57 @@
       </tags>
   </entry>
   <entry>
+    <title>SpringBoot中使用Redis</title>
+    <url>/2023/5ef02c37afab/</url>
+    <content><![CDATA[<p>版本说明：</p>
+<ol>
+<li>SpringBoot 3.x</li>
+</ol>
+<h1 id="引入依赖"><a href="#引入依赖" class="headerlink" title="引入依赖"></a>引入依赖</h1><figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="comment">&lt;!-- springboot 版本 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">parent</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-parent<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>3.0.4<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">relativePath</span>/&gt;</span> <span class="comment">&lt;!-- lookup parent from repository --&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">parent</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- 引入redis依赖 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-data-redis<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.apache.commons<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>commons-pool2<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h1 id="redis-配置"><a href="#redis-配置" class="headerlink" title="redis 配置"></a>redis 配置</h1><ol>
+<li>下面 <code>redis</code> 配置的前缀都是 <code>spring.data.redis</code>, 如果使用的是 <code>SpringBoot2.x</code> 版本，前缀是 <code>spring.redis</code><figure class="highlight properties"><table><tr><td class="code"><pre><span class="line"><span class="comment">#默认是0号库</span></span><br><span class="line"><span class="attr">spring.data.redis.database</span>=<span class="string">3</span></span><br><span class="line"><span class="comment"># Redis服务器地址</span></span><br><span class="line"><span class="attr">spring.data.redis.host</span>=<span class="string">192.168.0.236</span></span><br><span class="line"><span class="comment"># Redis服务器连接端口</span></span><br><span class="line"><span class="attr">spring.data.redis.port</span>=<span class="string">6379</span></span><br><span class="line"><span class="attr">spring.data.redis.username</span>=<span class="string">default</span></span><br><span class="line"><span class="comment"># Redis服务器连接密码,默认为空</span></span><br><span class="line"><span class="attr">spring.data.redis.password</span>=<span class="string">123456</span></span><br><span class="line"><span class="comment"># 连接池最大连接数</span></span><br><span class="line"><span class="attr">spring.data.redis.lettuce.pool.max-active</span>=<span class="string">10</span></span><br><span class="line"><span class="comment"># 连接池最大阻塞等待时间,默认-1表示没有限制</span></span><br><span class="line"><span class="attr">spring.data.redis.lettuce.pool.max-wait</span>=<span class="string">-1</span></span><br><span class="line"><span class="comment"># 连接池中的最大空闲连接</span></span><br><span class="line"><span class="attr">spring.data.redis.lettuce.pool.max-idle</span>=<span class="string">10</span></span><br><span class="line"><span class="comment"># 连接池中的最小空闲连接,默认是0</span></span><br><span class="line"><span class="attr">spring.data.redis.lettuce.pool.min-idle</span>=<span class="string">0</span></span><br></pre></td></tr></table></figure></li>
+</ol>
+<h1 id="编写测试类"><a href="#编写测试类" class="headerlink" title="编写测试类"></a>编写测试类</h1><ol><li><a href="/2023/71c38fa0a58b/" title="SpringBoot编写测试类">SpringBoot编写测试类</a></li></ol>
+
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@SpringBootTest(classes = TestApplication.class)</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">TestRedis</span> &#123;</span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> RedisTemplate redisTemplate;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">testRedis</span><span class="params">()</span>&#123;</span><br><span class="line">        redisTemplate.opsForValue().set(<span class="string">&quot;key1&quot;</span>, <span class="string">&quot;value1&quot;</span>);</span><br><span class="line">        <span class="type">Object</span> <span class="variable">o</span> <span class="operator">=</span> redisTemplate.opsForValue().get(<span class="string">&quot;key1&quot;</span>);</span><br><span class="line">        System.out.println(<span class="string">&quot;获取redis key1 的结果:&quot;</span> + o);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>使用 <code>redis</code> 客户端看一下这个 <code>key</code> 和 <code>value</code></p>
+<figure class="highlight wren"><table><tr><td class="code"><pre><span class="line">[<span class="variable">db3</span>] <span class="operator">&gt;</span> <span class="variable">get</span> <span class="title function_">key1</span></span><br><span class="line">(<span class="variable">nil</span>)</span><br><span class="line"></span><br><span class="line">[<span class="variable">db3</span>] <span class="operator">&gt;</span> <span class="variable">keys</span> <span class="operator">*</span><span class="variable">key1</span><span class="operator">*</span></span><br><span class="line"><span class="number">1</span>) <span class="string">&quot;\xac\xed<span class="char escape_">\x00</span><span class="char escape_">\x05</span>t<span class="char escape_">\x00</span><span class="char escape_">\x04</span>key1&quot;</span></span><br><span class="line"></span><br><span class="line">[<span class="variable">db3</span>] <span class="operator">&gt;</span> <span class="variable">keys</span> <span class="operator">*</span><span class="variable">key1</span><span class="operator">*</span></span><br><span class="line"><span class="number">1</span>) <span class="string">&quot;\xac\xed<span class="char escape_">\x00</span><span class="char escape_">\x05</span>t<span class="char escape_">\x00</span><span class="char escape_">\x04</span>key1&quot;</span></span><br></pre></td></tr></table></figure>
+<p>可以看到直接使用 <code>key1</code> 竟然获取不到数据，使用模拟匹配后能看到，发现都是进行了编码，这是因为 <code>RedisTemplate</code> 默认使用 <code>jdk</code> 的序列化方式，可以通过自定义 <code>RedisTemplate</code> 方式来修改序列化方式</p>
+<h1 id="自定义-RedisTemplate"><a href="#自定义-RedisTemplate" class="headerlink" title="自定义 RedisTemplate"></a>自定义 RedisTemplate</h1><p>下面代码将 <code>RedisTemplate</code> 修改成使用 <code>json</code> 方式进行序列化</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">CusConfig</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="meta">@SuppressWarnings(&quot;all&quot;)</span></span><br><span class="line">    <span class="keyword">public</span> RedisTemplate&lt;String, Object&gt; <span class="title function_">redisTemplate</span><span class="params">(RedisConnectionFactory factory)</span> &#123;</span><br><span class="line">        RedisTemplate&lt;String, Object&gt; template = <span class="keyword">new</span> <span class="title class_">RedisTemplate</span>&lt;&gt;();</span><br><span class="line">        template.setConnectionFactory(factory);</span><br><span class="line">        <span class="type">Jackson2JsonRedisSerializer</span> <span class="variable">jackson2JsonRedisSerializer</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Jackson2JsonRedisSerializer</span>(Object.class);</span><br><span class="line">        <span class="type">ObjectMapper</span> <span class="variable">om</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">ObjectMapper</span>();</span><br><span class="line">        om.setVisibility(PropertyAccessor.ALL, JsonAutoDetect.Visibility.ANY);</span><br><span class="line">        om.activateDefaultTyping(LaissezFaireSubTypeValidator.instance , ObjectMapper.DefaultTyping.NON_FINAL);</span><br><span class="line">        om.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, <span class="literal">false</span>);</span><br><span class="line">        jackson2JsonRedisSerializer.setObjectMapper(om);</span><br><span class="line">        <span class="type">StringRedisSerializer</span> <span class="variable">stringRedisSerializer</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">StringRedisSerializer</span>();</span><br><span class="line">        <span class="comment">// key采用String的序列化方式</span></span><br><span class="line">        template.setKeySerializer(stringRedisSerializer);</span><br><span class="line">        <span class="comment">// hash的key也采用String的序列化方式</span></span><br><span class="line">        template.setHashKeySerializer(stringRedisSerializer);</span><br><span class="line">        <span class="comment">// value序列化方式采用jackson</span></span><br><span class="line">        template.setValueSerializer(jackson2JsonRedisSerializer);</span><br><span class="line">        <span class="comment">// hash的value序列化方式采用jackson</span></span><br><span class="line">        template.setHashValueSerializer(jackson2JsonRedisSerializer);</span><br><span class="line">        template.afterPropertiesSet();</span><br><span class="line">        <span class="keyword">return</span> template;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>执行测试代码后再次查看结果</p>
+<figure class="highlight swift"><table><tr><td class="code"><pre><span class="line">[db3] <span class="operator">&gt;</span> <span class="keyword">get</span> key1</span><br><span class="line"><span class="string">&quot;<span class="subst">\&quot;</span>value1<span class="subst">\&quot;</span>&quot;</span></span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>中间件</category>
+        <category>redis</category>
+      </categories>
+      <tags>
+        <tag>redis</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>redis分布式锁</title>
+    <url>/2023/c21b41047d75/</url>
+    <content><![CDATA[<h1 id="redis-分布式锁要做到的事情"><a href="#redis-分布式锁要做到的事情" class="headerlink" title="redis 分布式锁要做到的事情"></a>redis 分布式锁要做到的事情</h1><ol>
+<li>独占性： 任何时刻只能有一个线程持有</li>
+<li>高可用： 若在 <code>redis</code> 集群环境下，不能因为某一个节点挂了而出现获取锁和释放锁失败的情况</li>
+<li>防止死锁： 要有超时控制机制或者撤销操作</li>
+<li>正确性： 不能 <code>unlock</code> 别人的锁，自己的锁只能自己释放</li>
+<li>可重入</li>
+</ol>
+<h1 id="分布式锁的实现"><a href="#分布式锁的实现" class="headerlink" title="分布式锁的实现"></a>分布式锁的实现</h1><p>TODO</p>
+]]></content>
+      <categories>
+        <category>中间件</category>
+        <category>redis</category>
+      </categories>
+      <tags>
+        <tag>java</tag>
+        <tag>redis</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>redis底层数据结构</title>
     <url>/2023/19e21a188fd0/</url>
     <content><![CDATA[<h1 id="redis-对象"><a href="#redis-对象" class="headerlink" title="redis 对象"></a>redis 对象</h1><p><code>redis</code> 中所有数据类型都是使用 <code>RedisObject</code> 对象形式来表示，<code>RedisObject</code> 主要包含三个字段</p>
@@ -1213,6 +1334,7 @@
 <ul>
 <li>网络 io 处理过程中， <code>listen</code> 和 <code>recv</code> 这两个步骤是可能阻塞的，即当没有链接或客户端没有发送命令时，服务器处理这两个环节时会阻塞，<strong>但是socket网络模型自身就支持非阻塞的形式</strong></li>
 </ul>
+<p>TODO</p>
 ]]></content>
       <categories>
         <category>中间件</category>
@@ -1220,6 +1342,23 @@
       </categories>
       <tags>
         <tag>redis</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>WindTerm功能设置</title>
+    <url>/2023/0ff9c6825506/</url>
+    <content><![CDATA[<h1 id="自定义快捷键"><a href="#自定义快捷键" class="headerlink" title="自定义快捷键"></a>自定义快捷键</h1><p><a href="https://github.com/kingToolbox/WindTerm/issues/267">参考github</a></p>
+<h1 id="去除锁屏"><a href="#去除锁屏" class="headerlink" title="去除锁屏"></a>去除锁屏</h1><ol>
+<li>找到配置文件，可以在 <strong>会话-&gt;首选项-&gt;配置文件</strong> 中查看配置文件的位置</li>
+<li>找到 <code>application.lockScreenTimeout</code>， 将值改成 0</li>
+</ol>
+]]></content>
+      <categories>
+        <category>tools</category>
+        <category>other</category>
+      </categories>
+      <tags>
+        <tag>tools</tag>
       </tags>
   </entry>
   <entry>
@@ -1246,23 +1385,6 @@
       <tags>
         <tag>tools</tag>
         <tag>utools</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>WindTerm功能设置</title>
-    <url>/2023/0ff9c6825506/</url>
-    <content><![CDATA[<h1 id="自定义快捷键"><a href="#自定义快捷键" class="headerlink" title="自定义快捷键"></a>自定义快捷键</h1><p><a href="https://github.com/kingToolbox/WindTerm/issues/267">参考github</a></p>
-<h1 id="去除锁屏"><a href="#去除锁屏" class="headerlink" title="去除锁屏"></a>去除锁屏</h1><ol>
-<li>找到配置文件，可以在 <strong>会话-&gt;首选项-&gt;配置文件</strong> 中查看配置文件的位置</li>
-<li>找到 <code>application.lockScreenTimeout</code>， 将值改成 0</li>
-</ol>
-]]></content>
-      <categories>
-        <category>tools</category>
-        <category>other</category>
-      </categories>
-      <tags>
-        <tag>tools</tag>
       </tags>
   </entry>
   <entry>
