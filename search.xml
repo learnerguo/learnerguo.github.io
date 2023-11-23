@@ -96,23 +96,21 @@
       </tags>
   </entry>
   <entry>
-    <title>hexo使用插入本地图片路径问题</title>
-    <url>/2023/563e23df91d3/</url>
-    <content><![CDATA[<p>Hexo version: 7.0<br>Next version: 8.18</p>
-<span id="more"></span>
-<ol>
-<li>安装插件</li>
+    <title>butterfly主题归档分类页面展示成双栏</title>
+    <url>/2023/e641424208d5/</url>
+    <content><![CDATA[<ol>
+<li>在 博客根目录的 <code>source</code> 目录下创建文件夹 <code>cusconfig/css</code>, 并创建文件, <code>cus_butterfly.css</code>, 添加如下内容</li>
 </ol>
-<figure class="highlight ada"><table><tr><td class="code"><pre><span class="line">npm install hexo-renderer-marked <span class="comment">--save</span></span><br></pre></td></tr></table></figure>
-<ol start="2">
-<li>修改 hexo 配置文件 <code>_config.yml</code> (不是next 主题的配置文件)</li>
-</ol>
-<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 这样文章生成的路径会是年/月/日/hash值形式</span></span><br><span class="line"><span class="attr">permalink:</span> <span class="string">:year/:month/:day/:hash/</span></span><br><span class="line"><span class="comment"># 开启资源文件夹功能</span></span><br><span class="line"><span class="attr">post_asset_folder:</span> <span class="literal">true</span></span><br><span class="line"><span class="attr">marked:</span></span><br><span class="line">  <span class="comment"># 这两个值都配置为false，网上很多文章配置成true，可能是不同版本效果不同，在 Next8.18, hexo7 这个版本若配置成true，图片路径会多了日期导致显示失败 </span></span><br><span class="line">  <span class="attr">prependRoot:</span> <span class="literal">false</span></span><br><span class="line">  <span class="attr">postAsset:</span> <span class="literal">false</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="comment">/* 归档，分类文档页面设置双栏展示， 增加边框 */</span></span><br><span class="line"><span class="selector-class">.no-article-cover</span> &#123;</span><br><span class="line">    <span class="attribute">width</span>: <span class="number">45%</span>;</span><br><span class="line">    <span class="attribute">border</span>: <span class="number">1px</span> dashed lightblue;</span><br><span class="line">    <span class="attribute">float</span>: left;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-id">#pagination</span> &#123;</span><br><span class="line">    <span class="attribute">clear</span>:both;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<ol start="3">
-<li>在 md 文章目录中创建同名的文件夹，比如当前这篇文章的名称是 <code>hexo插入本地图片路径问题</code>， 那就需要在这篇文章的同级目录中创建一个同名的文件夹，然后图片就放在这个文件夹中</li>
-<li>在使用 md 语法引入图片的时候，因为图片是放在目录中（和文章同名的那个目录），但是如果在本地 vscode 中将目录也加上，虽然本地可以访问，但是 hexo g 生成之后，访问博客地址是无法访问的，所以本地引入图片的时候只能写图片的文件名，不要路径，这样虽然本地无法预览，但是 hexo s 和 hexo d 之后的结果都可以正常查看</li>
+<ol start="2">
+<li>引入自定义 <code>css</code> 文件， 打开主题配置文件 <code>_config.butterfly.yml</code>, 添加如下内容</li>
 </ol>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">inject:</span></span><br><span class="line">  <span class="attr">head:</span></span><br><span class="line">    <span class="comment"># 添加下面这行内容引入自定义 js</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">&lt;link</span> <span class="string">rel=&quot;stylesheet&quot;</span> <span class="string">href=&quot;/cusconfig/css/cus_butterfly.css?1&quot;&gt;</span></span><br></pre></td></tr></table></figure>
+
+
+
+
 ]]></content>
       <categories>
         <category>tools</category>
@@ -270,6 +268,34 @@
       </tags>
   </entry>
   <entry>
+    <title>hexo使用插入本地图片路径问题</title>
+    <url>/2023/563e23df91d3/</url>
+    <content><![CDATA[<p>Hexo version: 7.0<br>Next version: 8.18</p>
+<span id="more"></span>
+<ol>
+<li>安装插件</li>
+</ol>
+<figure class="highlight ada"><table><tr><td class="code"><pre><span class="line">npm install hexo-renderer-marked <span class="comment">--save</span></span><br></pre></td></tr></table></figure>
+<ol start="2">
+<li>修改 hexo 配置文件 <code>_config.yml</code> (不是next 主题的配置文件)</li>
+</ol>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 这样文章生成的路径会是年/月/日/hash值形式</span></span><br><span class="line"><span class="attr">permalink:</span> <span class="string">:year/:month/:day/:hash/</span></span><br><span class="line"><span class="comment"># 开启资源文件夹功能</span></span><br><span class="line"><span class="attr">post_asset_folder:</span> <span class="literal">true</span></span><br><span class="line"><span class="attr">marked:</span></span><br><span class="line">  <span class="comment"># 这两个值都配置为false，网上很多文章配置成true，可能是不同版本效果不同，在 Next8.18, hexo7 这个版本若配置成true，图片路径会多了日期导致显示失败 </span></span><br><span class="line">  <span class="attr">prependRoot:</span> <span class="literal">false</span></span><br><span class="line">  <span class="attr">postAsset:</span> <span class="literal">false</span></span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li>在 md 文章目录中创建同名的文件夹，比如当前这篇文章的名称是 <code>hexo插入本地图片路径问题</code>， 那就需要在这篇文章的同级目录中创建一个同名的文件夹，然后图片就放在这个文件夹中</li>
+<li>在使用 md 语法引入图片的时候，因为图片是放在目录中（和文章同名的那个目录），但是如果在本地 vscode 中将目录也加上，虽然本地可以访问，但是 hexo g 生成之后，访问博客地址是无法访问的，所以本地引入图片的时候只能写图片的文件名，不要路径，这样虽然本地无法预览，但是 hexo s 和 hexo d 之后的结果都可以正常查看</li>
+</ol>
+]]></content>
+      <categories>
+        <category>tools</category>
+        <category>hexo</category>
+      </categories>
+      <tags>
+        <tag>tools</tag>
+        <tag>hexo</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>宝贵的人生建议</title>
     <url>/2023/5792ca8e5e27/</url>
     <content><![CDATA[<ul>
@@ -343,264 +369,6 @@
       </categories>
       <tags>
         <tag>book</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>redis底层数据结构</title>
-    <url>/2023/19e21a188fd0/</url>
-    <content><![CDATA[<h1 id="redis-对象"><a href="#redis-对象" class="headerlink" title="redis 对象"></a>redis 对象</h1><p><code>redis</code> 中所有数据类型都是使用 <code>RedisObject</code> 对象形式来表示，<code>RedisObject</code> 主要包含三个字段</p>
-<span id="more"></span>
-
-<pre class="mermaid">graph LR
-    A[RedisObject]
-    A-->B["type (记录对象的类型) \n 常用5种基本类型，实际还有BitMap（2.2 版新增）\n、HyperLogLog（2.8 版新增）、\n GEO（3.2 版新增）、Stream（5.0 版新增）"]
-
-    B1[String 字符串对象]
-    B2[List 列表集合]
-    B3[Hash 哈希对象]
-    B4[Set 集合对象]
-    B5[Zset 有序集合对象]
-    B--> B1 & B2 & B3 & B4 & B5
-
-    A-->C["encoding (记录对象的编码)"]
-    C1[Intset 整数集合]
-    C2[embstr embstr编码的简单动态字符串]
-    C3[raw 简单动态字符串]
-    C4[HT 字典]
-    C5[Linkedlist 双端列表]
-    C6[ziplist 压缩列表]
-    C7[skiplist 跳跃表和字典]
-    C8[quicklist 快速列表]
-    C-->C1 & C2 & C3 & C4 & C5 & C6 & C7 & C8
-
-    A-->D["*ptr (指向具体的类型)"]</pre>
-
-<h2 id="为什么一个对象需要包含-type-和-encoding"><a href="#为什么一个对象需要包含-type-和-encoding" class="headerlink" title="为什么一个对象需要包含 type 和 encoding"></a>为什么一个对象需要包含 <code>type</code> 和 <code>encoding</code></h2><ol>
-<li>因为 <code>type</code> 只是记录对象的类型</li>
-<li>每一个 <code>type</code> 可以使用不同的底层数据结构来实现，所以还需要具体的 <code>encoding</code> 来指明这个 <code>type</code> 的实现是什么， 下图就列出每一个 <code>type</code> 有哪几种底层数据结构</li>
-</ol>
-<h1 id="5-种基本数据类型对应的底层实现"><a href="#5-种基本数据类型对应的底层实现" class="headerlink" title="5 种基本数据类型对应的底层实现"></a>5 种基本数据类型对应的底层实现</h1><h2 id="String"><a href="#String" class="headerlink" title="String"></a>String</h2><ol>
-<li><code>String</code> 类型的底层的数据结构实现主要是 <code>int</code> 和 <code>SDS</code>（简单动态字符串）<ol>
-<li>如果存储的是数字，则编码使用 <code>int</code> 类型</li>
-</ol>
-</li>
-<li><code>sds</code> 的实际编码又包含 <code>raw</code> 和 <code>embstr</code><ol>
-<li>字符串长度小于 32位时使用 <code>embstr</code>(<code>embstr</code> 的空间挨着 <code>RedisObject，RedisObject</code> 和 <code>embstr</code> 的内存是一次性分配的)</li>
-<li>字符串长度大于 32位时使用 <code>raw</code> 编码(<code>RedisObject</code> 的内存分区和 <code>raw</code> 编码类型的空间分配是分开的，也就是需要两次内存分配)</li>
-</ol>
-</li>
-</ol>
-<h3 id="SDS-和-C-原生字符串的区别"><a href="#SDS-和-C-原生字符串的区别" class="headerlink" title="SDS 和 C 原生字符串的区别"></a>SDS 和 C 原生字符串的区别</h3><ol>
-<li><code>sds</code> 可以保存文本和二进制数据，因为 <code>sds</code> 有 <code>length</code> 字段来判断字符串是否结束，c 使用 ‘\0’ 作为结束符</li>
-<li><code>sds</code> 的 <code>api</code> 安全，不会出现缓冲区溢出，因为 <code>sds</code> 拼接字符串前有做容量检查</li>
-</ol>
-<h2 id="List"><a href="#List" class="headerlink" title="List"></a>List</h2><ol>
-<li><code>List</code> 类型的底层数据结构是由双向链表或压缩列表实现的<ol>
-<li>元素个数小于 512 个（默认值，可由 <code>list-max-ziplist-entries</code> 配置），列表每个元素的值都小于 64 字节（默认值，可由 <code>list-max-ziplist-value</code> <code>配置），Redis</code> 会使用压缩列表作为 <code>List</code> 类型的底层数据结构；</li>
-</ol>
-</li>
-<li>在 <code>Redis3.2</code> 版本之后，<code>List</code> 类型底层数据结构只有 <code>quicklist</code> 一种</li>
-</ol>
-<h2 id="Hash"><a href="#Hash" class="headerlink" title="Hash"></a>Hash</h2><ol>
-<li><code>Hash</code> 类型的底层数据结构是由压缩列表或哈希表实现的<ol>
-<li>元素个数小于 512 个（可通过 <code>hash-max-ziplist-entries</code> 修改），所有值小于 64 字节（可通过 <code>hash-max-ziplist-value</code> 修改）时，<code>Redis</code> 会使用压缩列表作为 <code>Hash</code> 类型的底层数据结构</li>
-</ol>
-</li>
-<li>在 <code>Redis7.0</code> 中，压缩列表数据结构被废弃，由 <code>listpack</code> 数据结构来实现</li>
-</ol>
-<h2 id="Set"><a href="#Set" class="headerlink" title="Set"></a>Set</h2><ol>
-<li><code>Set</code> 类型的底层数据结构是由哈希表或整数集合实现的<ol>
-<li>如果集合中的元素都是整数且元素个数小于 512 （可通过 <code>set-maxintset-entries</code> 修改）个，<code>Redis</code> 会使用整数集合作为 Set 类型的底层数据结构</li>
-</ol>
-</li>
-</ol>
-<h2 id="Zset"><a href="#Zset" class="headerlink" title="Zset"></a>Zset</h2><ol>
-<li><p>Zset 类型底层数据结构是由压缩列表或跳表实现</p>
-<ol>
-<li>若有序集合的元素个数小于 128 个且每个元素的值小于 64 字节，<code>Redis</code> 会使用压缩列表作为 <code>Zset</code> 类型的底层数据结构</li>
-</ol>
-</li>
-<li><p><code>Redis 7.0</code> 中，压缩列表数据结构被废弃，交由 <code>listpack</code> 数据结构来实现</p>
-</li>
-</ol>
-]]></content>
-      <categories>
-        <category>中间件</category>
-        <category>redis</category>
-      </categories>
-      <tags>
-        <tag>redis</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>redis线程模型</title>
-    <url>/2023/e4db3f95ceb5/</url>
-    <content><![CDATA[<p>总结：<code>redis</code> 整体是多线程的，至于平时所说的 <code>redis</code> 单线程是指 <strong>redis的网络io 和 键值对读写</strong> 是在同一个线程中完成</p>
-<span id="more"></span>
-<h1 id="一次-redis-请求过程"><a href="#一次-redis-请求过程" class="headerlink" title="一次 redis 请求过程"></a>一次 redis 请求过程</h1><ol>
-<li>监听客户端请求（<code>bind/listen</code>）</li>
-<li>等待客户端的连接（<code>accept</code>）</li>
-<li>从 <code>socket</code> 中读取数据（<code>recv</code>）</li>
-<li>解析客户端发送的内容（<code>parse</code>）</li>
-<li>根据解析出来的内容进行内存操作（<code>get/set</code>）</li>
-<li>执行完成命令之后给客户端响应结果，即向 <code>socket</code> 中写数据（<code>send</code>）</li>
-</ol>
-<pre class="mermaid">graph TB
-    subgraph A[redis线程]
-        subgraph B[网络IO处理]
-            B1[bind/listen]
-            B2[accept]
-            B3[recv]
-            B4[parse]
-        end
-        subgraph C[键值对读写]
-            C1[get/set]
-        end
-        subgraph D[网络IO处理]
-            D1[send]
-        end
-    end
-    B-->C-->D</pre>
-<ul>
-<li>网络 io 处理过程中， <code>listen</code> 和 <code>recv</code> 这两个步骤是可能阻塞的，即当没有链接或客户端没有发送命令时，服务器处理这两个环节时会阻塞，<strong>但是socket网络模型自身就支持非阻塞的形式</strong></li>
-</ul>
-]]></content>
-      <categories>
-        <category>中间件</category>
-        <category>redis</category>
-      </categories>
-      <tags>
-        <tag>redis</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>WindTerm功能设置</title>
-    <url>/2023/0ff9c6825506/</url>
-    <content><![CDATA[<h1 id="自定义快捷键"><a href="#自定义快捷键" class="headerlink" title="自定义快捷键"></a>自定义快捷键</h1><p><a href="https://github.com/kingToolbox/WindTerm/issues/267">参考github</a></p>
-<h1 id="去除锁屏"><a href="#去除锁屏" class="headerlink" title="去除锁屏"></a>去除锁屏</h1><ol>
-<li>找到配置文件，可以在 <strong>会话-&gt;首选项-&gt;配置文件</strong> 中查看配置文件的位置</li>
-<li>找到 <code>application.lockScreenTimeout</code>， 将值改成 0</li>
-</ol>
-]]></content>
-      <categories>
-        <category>tools</category>
-        <category>other</category>
-      </categories>
-      <tags>
-        <tag>tools</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>utools自动化脚本插件</title>
-    <url>/2023/d899f5ff1973/</url>
-    <content><![CDATA[<h1 id="utools-使用自动化脚本打开本地程序"><a href="#utools-使用自动化脚本打开本地程序" class="headerlink" title="utools 使用自动化脚本打开本地程序"></a>utools 使用自动化脚本打开本地程序</h1><ol>
-<li>比如 typora 可以打开之前的文件和目录，但是目录只能到文件的上一个层级，如果源目录包含很多子目录，重新打开时可能不是我们想要的结果，那可以在命令行执行 <code>typora folder</code>, eg: <code>typora E:\\blog</code> <span id="more"></span></li>
-</ol>
-<blockquote>
-<p>在命令行执行 typora 命令需要先配置 typora 的环境变量</p>
-</blockquote>
-<ol>
-<li>更简便的方式是直接使用 utools 的自动化脚本这个插件，新增一个自己的插件脚本，内容如下</li>
-</ol>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> &#123; execFile &#125; = <span class="built_in">require</span>(<span class="string">&quot;child_process&quot;</span>)</span><br><span class="line"></span><br><span class="line"> <span class="comment">// 以下是关键代码，调用 typora 来执行目标文件</span></span><br><span class="line"><span class="title function_">execFile</span>(<span class="string">&#x27;typora&#x27;</span>, [<span class="string">&#x27;E:/code/learnerguo&#x27;</span>], <span class="function">(<span class="params">error, stdout, stderr</span>) =&gt;</span> &#123;</span><br><span class="line">    process.<span class="title function_">exit</span>()</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-
-<p>然后自定义关键字，后续当打开 utools 输入对应关键字就可以打开 typora 的目录</p>
-<h1 id="使用自动化脚本获取当天起始时间"><a href="#使用自动化脚本获取当天起始时间" class="headerlink" title="使用自动化脚本获取当天起始时间"></a>使用自动化脚本获取当天起始时间</h1><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> now = <span class="keyword">new</span> <span class="title class_">Date</span>();</span><br><span class="line"><span class="comment">// 设置当前时间的小时、分钟、秒和毫秒为0，即将时间设置为当天的开始时间</span></span><br><span class="line">now.<span class="title function_">setHours</span>(<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>);</span><br><span class="line"><span class="comment">// 获取当天开始时间点的毫秒数</span></span><br><span class="line"><span class="keyword">const</span> startTime = now.<span class="title function_">getTime</span>();</span><br><span class="line">utools.<span class="title function_">copyText</span>(<span class="string">&quot;&quot;</span>+startTime);</span><br><span class="line"><span class="title function_">print</span>(<span class="string">&#x27;开始时间已复制&#x27;</span> + startTime);</span><br><span class="line">utools.<span class="title function_">hideMainWindow</span>();</span><br><span class="line">process.<span class="title function_">exit</span>()</span><br></pre></td></tr></table></figure>
-]]></content>
-      <categories>
-        <category>tools</category>
-        <category>utools</category>
-      </categories>
-      <tags>
-        <tag>tools</tag>
-        <tag>utools</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>vscode相关设置</title>
-    <url>/2023/6b613d963af3/</url>
-    <content><![CDATA[<h1 id="vscode-中-markdown-的-snippets-的设置"><a href="#vscode-中-markdown-的-snippets-的设置" class="headerlink" title="vscode 中 markdown 的 snippets 的设置"></a>vscode 中 markdown 的 snippets 的设置</h1><h2 id="snippets-的设置"><a href="#snippets-的设置" class="headerlink" title="snippets 的设置"></a>snippets 的设置</h2><ol>
-<li>打开 ctrl+shift+p , 搜索 <code>configure user snippets</code> </li>
-<li>选择 markdown.json, 会出现如下内容</li>
-</ol>
-<span id="more"></span>
-<figure class="highlight json"><table><tr><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">	<span class="comment">// Place your snippets for markdown here. Each snippet is defined under a snippet name and has a prefix, body and </span></span><br><span class="line">	<span class="comment">// description. The prefix is what is used to trigger the snippet and the body will be expanded and inserted. Possible variables are:</span></span><br><span class="line">	<span class="comment">// $1, $2 for tab stops, $0 for the final cursor position, and $&#123;1:label&#125;, $&#123;2:another&#125; for placeholders. Placeholders with the </span></span><br><span class="line">	<span class="comment">// same ids are connected.</span></span><br><span class="line">	<span class="comment">// Example:</span></span><br><span class="line">	<span class="comment">// &quot;Print to console&quot;: &#123;</span></span><br><span class="line">	<span class="comment">// 	&quot;prefix&quot;: &quot;log&quot;,</span></span><br><span class="line">	<span class="comment">// 	&quot;body&quot;: [</span></span><br><span class="line">	<span class="comment">// 		&quot;console.log(&#x27;$1&#x27;);&quot;,</span></span><br><span class="line">	<span class="comment">// 		&quot;$2&quot;</span></span><br><span class="line">	<span class="comment">// 	],</span></span><br><span class="line">	<span class="comment">// 	&quot;description&quot;: &quot;Log output to console&quot;</span></span><br><span class="line">	<span class="comment">// &#125;</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
-
-<ol>
-<li>可以根据示例文件进行修改，如下图所示：<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="string">&quot;markdown code graph&quot;</span>: &#123;</span><br><span class="line">	<span class="string">&quot;prefix&quot;</span>: <span class="string">&quot;codeblock&quot;</span>,</span><br><span class="line">	<span class="string">&quot;body&quot;</span>: [</span><br><span class="line">		<span class="string">&quot;&lt;pre class=&quot;</span>mermaid<span class="string">&quot;&gt;<span class="variable">$0</span>&quot;</span>,</span><br><span class="line">		<span class="string">&quot;```&quot;</span></span><br><span class="line">	],</span><br><span class="line">	<span class="string">&quot;description&quot;</span>: <span class="string">&quot;insert markdown code graph&quot;</span></span><br><span class="line">&#125;&lt;/pre&gt;</span><br><span class="line"></span><br><span class="line">上面示例的意思是 当输入 codeblock 时就会出现 mermaid 代码块， <span class="variable">$0</span> 是光标出现的地方</span><br><span class="line"></span><br><span class="line"><span class="comment">## markdown snippets 不生效的解决方式</span></span><br><span class="line">使用上面的步骤设置完 snippets 之后，在 markdown 文档中编写关键字，但是并没有生效，还需要在  settings.json 中（可以输入 ctrl+<span class="built_in">shift</span>+p, 搜索 settings， 选择 Open User Settings(JSON)）, 然后填写下面的内容</span><br><span class="line"></span><br><span class="line">```java</span><br><span class="line"><span class="string">&quot;[markdown]&quot;</span>:&#123;</span><br><span class="line">	<span class="string">&quot;editor.formatOnSave&quot;</span>: <span class="literal">true</span>,</span><br><span class="line">	<span class="string">&quot;editor.renderWhitespace&quot;</span>: <span class="string">&quot;all&quot;</span>,</span><br><span class="line">	<span class="string">&quot;editor.quickSuggestions&quot;</span>: &#123;</span><br><span class="line">		<span class="string">&quot;other&quot;</span>: <span class="string">&quot;on&quot;</span>,</span><br><span class="line">		<span class="string">&quot;comments&quot;</span>: <span class="string">&quot;on&quot;</span>,</span><br><span class="line">		<span class="string">&quot;strings&quot;</span>: <span class="string">&quot;on&quot;</span></span><br><span class="line">	&#125;,</span><br><span class="line">	<span class="string">&quot;editor.acceptSuggestionOnEnter&quot;</span>: <span class="string">&quot;on&quot;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
-</ol>
-<p>添加上述内容后就可以生效了</p>
-<h1 id="vscode-设置白天黑夜自动切换主题"><a href="#vscode-设置白天黑夜自动切换主题" class="headerlink" title="vscode 设置白天黑夜自动切换主题"></a>vscode 设置白天黑夜自动切换主题</h1><ol>
-<li>vscode 可以根据系统设置的 <code>light</code> 或 <code>dark</code> 主题来进行切换</li>
-<li>系统自动切换主题软件可以在 <code>store</code> 中安装 <code>Auto Dark Mode</code> 这个软件并进行设置</li>
-<li><code>window</code> 系统设置完成之后可以在 <code>vscode</code> 的 <code>user setting</code> 中添加如下内容, 第一个配置是开启自动切换，后面的配置是设置的 <code>light</code> 和 <code>dark</code> 主题的名称</li>
-</ol>
-<figure class="highlight json"><table><tr><td class="code"><pre><span class="line"><span class="attr">&quot;window.autoDetectColorScheme&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">true</span></span><span class="punctuation">,</span></span><br><span class="line"><span class="attr">&quot;workbench.preferredLightColorTheme&quot;</span><span class="punctuation">:</span> <span class="string">&quot;Atom One Light&quot;</span><span class="punctuation">,</span></span><br><span class="line"><span class="attr">&quot;workbench.preferredDarkColorTheme&quot;</span><span class="punctuation">:</span> <span class="string">&quot;Default Dark Modern&quot;</span></span><br></pre></td></tr></table></figure>
-]]></content>
-      <categories>
-        <category>tools</category>
-        <category>vscode</category>
-      </categories>
-      <tags>
-        <tag>tools</tag>
-        <tag>vscode</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>vscode设置markdown图片默认路径</title>
-    <url>/2023/5b4d784e18c2/</url>
-    <content><![CDATA[<p><code>vscode</code> 在 <code>markdown</code> 文档中直接复制图片时是放在当前目录，如果需要修改可以按照下面方式设置</p>
-<span id="more"></span>
-<ol>
-<li>输入快捷键 <code>ctrl+,</code> 可以快速打开设置</li>
-<li>搜索 <code>markdown.copy: Destination</code></li>
-</ol>
-<p><img src="/2023/5b4d784e18c2/1700033681108.png" alt="Alt text"></p>
-]]></content>
-      <categories>
-        <category>tools</category>
-        <category>vscode</category>
-      </categories>
-      <tags>
-        <tag>tools</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>HashMap详解</title>
-    <url>/2023/834224a16039/</url>
-    <content><![CDATA[<h1 id="HashMap的底层数据结构是什么？"><a href="#HashMap的底层数据结构是什么？" class="headerlink" title="HashMap的底层数据结构是什么？"></a>HashMap的底层数据结构是什么？</h1><ol>
-<li>之前 <code>Jdk1.7</code> 的存储结构是数组+链表，到了 <code>Jdk1.8</code> 变成了数组+链表+红黑树。</li>
-</ol>
-<h1 id="HashMap-是如何定位索引下标的"><a href="#HashMap-是如何定位索引下标的" class="headerlink" title="HashMap 是如何定位索引下标的"></a>HashMap 是如何定位索引下标的</h1><p>定位 <code>index</code> 分成两步</p>
-<ol>
-<li><p>根据 hash 函数获取 hash 值</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">static</span> <span class="keyword">final</span> <span class="type">int</span> <span class="title function_">hash</span><span class="params">(Object key)</span> &#123;</span><br><span class="line">    <span class="type">int</span> h;</span><br><span class="line">    <span class="keyword">return</span> (key == <span class="literal">null</span>) ? <span class="number">0</span> : (h = key.hashCode()) ^ (h &gt;&gt;&gt; <span class="number">16</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p><strong>可以看到上面代码获取到 hashCode 之后还右移 16 位，具体原因在下面分析</strong></p>
-</li>
-<li><p>根据第一步计算的 <code>hash</code> 值获取数组位置（一般是对数组长度取模，<code>HashMap</code> 中是对长度 -1 进行 <code>&amp;</code> 运算）</p>
-</li>
-</ol>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">final</span> V <span class="title function_">putVal</span><span class="params">(<span class="type">int</span> hash, K key, V value, <span class="type">boolean</span> onlyIfAbsent,</span></span><br><span class="line"><span class="params">                   <span class="type">boolean</span> evict)</span> &#123;</span><br><span class="line">    Node&lt;K,V&gt;[] tab; Node&lt;K,V&gt; p; <span class="type">int</span> n, i;</span><br><span class="line">    <span class="keyword">if</span> ((tab = table) == <span class="literal">null</span> || (n = tab.length) == <span class="number">0</span>)</span><br><span class="line">        n = (tab = resize()).length;</span><br><span class="line">        <span class="comment">// 获取下标的操作是  i = (n-1) &amp; hash</span></span><br><span class="line">    <span class="keyword">if</span> ((p = tab[i = (n - <span class="number">1</span>) &amp; hash]) == <span class="literal">null</span>)</span><br><span class="line">        tab[i] = newNode(hash, key, value, <span class="literal">null</span>);</span><br><span class="line">    <span class="keyword">else</span> &#123;</span><br><span class="line">       ...</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p><strong>获取下标为什么是对 n-1 进行与操作而不是取模？具体原因下面分析</strong></p>
-<h1 id="为什么需要对key的-hash-值右移-16位"><a href="#为什么需要对key的-hash-值右移-16位" class="headerlink" title="为什么需要对key的 hash 值右移 16位"></a>为什么需要对key的 hash 值右移 16位</h1><figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="string">HashMap</span> <span class="string">中使用的</span> <span class="string">hash</span> <span class="string">函数是</span> <span class="string">key.hash</span> <span class="string">^</span> <span class="string">(key.hash</span> <span class="string">&gt;&gt;</span> <span class="number">16</span><span class="string">)</span>  <span class="string">而不是直接使用</span> <span class="string">key.hash,</span> <span class="string">这么做的原因是增加了扰动计算，使得</span> <span class="string">hash</span> <span class="string">分布的尽可能的均匀，</span> <span class="string">让元素的高16</span> <span class="string">位和低16</span> <span class="string">位都参与运算</span></span><br><span class="line"><span class="string">示例：</span></span><br><span class="line"><span class="string">比如有一个元素1换成二进制如下</span></span><br><span class="line"><span class="number">1111 </span><span class="number">1111 </span><span class="number">1111 </span><span class="number">1111 </span><span class="number">1010 </span><span class="number">1010 </span><span class="number">1010 </span><span class="number">1010</span> <span class="string">（没有右移16位的二进制）</span></span><br><span class="line"><span class="number">0000 </span><span class="number">0000 </span><span class="number">0000 </span><span class="number">0000 </span><span class="number">1111 </span><span class="number">1111 </span><span class="number">1111 </span><span class="number">1111</span>  <span class="string">（右移16位的二进制）</span></span><br><span class="line"></span><br><span class="line"><span class="string">另外一个元素2换成二进制如下</span></span><br><span class="line"><span class="number">1111 </span><span class="number">1111 </span><span class="number">1111 </span><span class="number">1110 </span><span class="number">1010 </span><span class="number">1010 </span><span class="number">1010 </span><span class="number">1010</span> <span class="string">（没有右移16位的二进制）</span></span><br><span class="line"><span class="number">0000 </span><span class="number">0000 </span><span class="number">0000 </span><span class="number">0000 </span><span class="number">1111 </span><span class="number">1111 </span><span class="number">1111 </span><span class="number">1110</span>  <span class="string">（右移16位的二进制）</span></span><br><span class="line"></span><br><span class="line"><span class="string">在计算数组位置的时候使用的是</span> <span class="string">hash</span> <span class="string">&amp;</span> <span class="string">(n</span> <span class="number">-1</span><span class="string">),</span>  <span class="string">要知道</span> <span class="string">n-1</span> <span class="string">肯定是一个相对来说比较小的数字（32个bit</span> <span class="string">只会使用比较少的低位），</span> <span class="string">比如长度是</span> <span class="number">32</span><span class="string">，</span> <span class="string">对应的二进制是</span> <span class="number">0000 </span><span class="number">0000 </span><span class="number">0000 </span><span class="number">0000 </span><span class="number">0000 </span><span class="number">0000 </span><span class="number">0001 </span><span class="number">1111</span></span><br><span class="line"></span><br><span class="line"><span class="string">使用没有右移的元素1和</span> <span class="string">（32</span> <span class="number">-1</span><span class="string">）</span> <span class="string">进行与操作（与操作是都为1才为1，否则为0）</span></span><br><span class="line"><span class="number">1111 </span><span class="number">1111 </span><span class="number">1111 </span><span class="number">1111     </span><span class="number">1010 </span><span class="number">1010 </span><span class="number">1010 </span><span class="number">1010</span> <span class="string">（没有右移16位的二进制）</span></span><br><span class="line"><span class="number">0000 </span><span class="number">0000 </span><span class="number">0000 </span><span class="number">0000      </span><span class="number">0000 </span><span class="number">0000 </span><span class="number">0001 </span><span class="number">1111</span></span><br><span class="line"><span class="number">0000 </span><span class="number">0000 </span><span class="number">0000 </span><span class="number">0000      </span><span class="number">0000 </span><span class="number">0000 </span><span class="number">0000 </span><span class="number">1010</span></span><br><span class="line"></span><br><span class="line"><span class="string">使用没有右移的元素2和</span> <span class="string">（32</span> <span class="number">-1</span><span class="string">）</span> <span class="string">进行与操作（与操作是都为1才为1，否则为0）</span></span><br><span class="line"><span class="number">1111 </span><span class="number">1111 </span><span class="number">1111 </span><span class="number">1100     </span><span class="number">1010 </span><span class="number">1010 </span><span class="number">1010 </span><span class="number">1010</span> <span class="string">（没有右移16位的二进制）</span></span><br><span class="line"><span class="number">0000 </span><span class="number">0000 </span><span class="number">0000 </span><span class="number">0000      </span><span class="number">0000 </span><span class="number">0000 </span><span class="number">0001 </span><span class="number">1111</span></span><br><span class="line"><span class="number">0000 </span><span class="number">0000 </span><span class="number">0000 </span><span class="number">0000      </span><span class="number">0000 </span><span class="number">0000 </span><span class="number">0000 </span><span class="number">1010</span></span><br><span class="line"><span class="string">可以看到元素1和元素2计算出来下标是相同的，这个不同是因为元素1和元素2的低16位是完全相同的，不同之处只在于高16位，但是当我们对</span> <span class="string">（n-1）进行与操作的时候，由于</span> <span class="string">n-1</span> <span class="string">的值比较小，绝大部分情况下，只有低16位会进行运算的</span></span><br><span class="line"></span><br><span class="line"><span class="string">接下来再看一下如果使用右移的hash进行计算会有什么不同</span></span><br><span class="line"><span class="string">使用右移的元素1和</span> <span class="string">（32</span> <span class="number">-1</span><span class="string">）</span> <span class="string">进行与操作（与操作是都为1才为1，否则为0）</span></span><br><span class="line"><span class="number">0000 </span><span class="number">0000 </span><span class="number">0000 </span><span class="number">0000      </span><span class="number">1111 </span><span class="number">1111 </span><span class="number">1111 </span><span class="number">1111</span> <span class="string">（没有右移16位的二进制）</span></span><br><span class="line"><span class="number">0000 </span><span class="number">0000 </span><span class="number">0000 </span><span class="number">0000      </span><span class="number">0000 </span><span class="number">0000 </span><span class="number">0001 </span><span class="number">1111</span></span><br><span class="line"><span class="number">0000 </span><span class="number">0000 </span><span class="number">0000 </span><span class="number">0000      </span><span class="number">0000 </span><span class="number">0000 </span><span class="number">0000  </span><span class="number">1111</span></span><br><span class="line"></span><br><span class="line"><span class="string">用右移的元素2和</span> <span class="string">（32</span> <span class="number">-1</span><span class="string">）</span> <span class="string">进行与操作（与操作是都为1才为1，否则为0）</span></span><br><span class="line"><span class="number">0000 </span><span class="number">0000 </span><span class="number">0000 </span><span class="number">0000      </span><span class="number">1111 </span><span class="number">1111 </span><span class="number">1111 </span><span class="number">1110</span> <span class="string">（没有右移16位的二进制）</span></span><br><span class="line"><span class="number">0000 </span><span class="number">0000 </span><span class="number">0000 </span><span class="number">0000      </span><span class="number">0000 </span><span class="number">0000 </span><span class="number">0001 </span><span class="number">1111</span></span><br><span class="line"><span class="number">0000 </span><span class="number">0000 </span><span class="number">0000 </span><span class="number">0000      </span><span class="number">0000 </span><span class="number">0000 </span><span class="number">0000  </span><span class="number">1110</span></span><br><span class="line"><span class="string">可以看到计算出来的</span> <span class="string">index</span> <span class="string">值是不同的，这就是右移带来的让高16位有参与运算的效果</span></span><br></pre></td></tr></table></figure>
-
-<h1 id="为什么不对长度取模而是使用与运算"><a href="#为什么不对长度取模而是使用与运算" class="headerlink" title="为什么不对长度取模而是使用与运算"></a>为什么不对长度取模而是使用与运算</h1><ol>
-<li><code>X % 2^n = X &amp; (2^n – 1)</code>  这两种运算等价，所以这也是 <code>HashMap</code> 长度取 <code>2^n</code> 的原因<br>也可以从数据角度记住，当 <code>n</code> 是 2 的倍数时， <code>X % 2^n = X &amp; (2^n – 1)</code>  等价</li>
-</ol>
-<p><a href="https://www.cnblogs.com/ysocean/p/9054804.html">公式计算参考链接</a></p>
-<h1 id="HashMap是如何实现扩容的"><a href="#HashMap是如何实现扩容的" class="headerlink" title="HashMap是如何实现扩容的"></a>HashMap是如何实现扩容的</h1><p>扩容后索引其实也是使用 <code>hash &amp; （newLength -1）</code>, 这样计算出来的位置要是和原来的元素在相同的位置，要么是 原来的位置+旧数组长度&#x3D;新索引位置</p>
-<h1 id="HashMap是如何解决hash冲突的"><a href="#HashMap是如何解决hash冲突的" class="headerlink" title="HashMap是如何解决hash冲突的"></a>HashMap是如何解决hash冲突的</h1><ol>
-<li>对 <code>hash</code> 的计算进行优化，不是直接使用 <code>hashcode</code>,  而是右移16位，让高16位也参与运算，减少<code>hash</code> 冲突</li>
-<li>如果遇到冲突，使用拉链法解决</li>
-</ol>
-]]></content>
-      <categories>
-        <category>java</category>
-        <category>java基础</category>
-      </categories>
-      <tags>
-        <tag>java</tag>
-        <tag>java基础</tag>
       </tags>
   </entry>
   <entry>
@@ -692,6 +460,44 @@
 <div class="tabs" id="执行结果"><ul class="nav-tabs"><button type="button" class="tab  active" data-href="执行结果-1">服务端结果</button><button type="button" class="tab " data-href="执行结果-2">用户端结果</button></ul><div class="tab-contents"><div class="tab-item-content active" id="执行结果-1"><figure class="highlight brainfuck"><table><tr><td class="code"><pre><span class="line"><span class="comment">服务启动</span><span class="literal">----</span><span class="comment">8080:</span></span><br><span class="line"><span class="comment">服务器端接受客户端数据</span><span class="literal">--</span><span class="comment">:客户端发送的数据</span><span class="literal">--</span>&gt;<span class="comment">59:45</span></span><br><span class="line"><span class="comment">服务器端接受客户端数据</span><span class="literal">--</span><span class="comment">:客户端发送的数据</span><span class="literal">--</span>&gt;<span class="comment">59:47</span></span><br><span class="line"><span class="comment">服务器端接受客户端数据</span><span class="literal">--</span><span class="comment">:客户端发送的数据</span><span class="literal">--</span>&gt;<span class="comment">59:49</span></span><br><span class="line"><span class="comment">服务器端接受客户端数据</span><span class="literal">--</span><span class="comment">:客户端发送的数据</span><span class="literal">--</span>&gt;<span class="comment">59:51</span></span><br><span class="line"><span class="comment">服务器端接受客户端数据</span><span class="literal">--</span><span class="comment">:客户端发送的数据</span><span class="literal">--</span>&gt;<span class="comment">59:53</span></span><br><span class="line"><span class="comment">服务器端接受客户端数据</span><span class="literal">--</span><span class="comment">:客户端发送的数据</span><span class="literal">--</span>&gt;<span class="comment">59:55</span></span><br><span class="line"><span class="comment">服务器端接受客户端数据</span><span class="literal">--</span><span class="comment">:客户端发送的数据</span><span class="literal">--</span>&gt;<span class="comment">59:57</span></span><br><span class="line"><span class="comment">服务器端接受客户端数据</span><span class="literal">--</span><span class="comment">:客户端发送的数据</span><span class="literal">--</span>&gt;<span class="comment">59:59</span></span><br></pre></td></tr></table></figure></div><div class="tab-item-content" id="执行结果-2"><figure class="highlight brainfuck"><table><tr><td class="code"><pre><span class="line"><span class="comment">client connect</span></span><br><span class="line"><span class="comment">完成连接!</span></span><br><span class="line"><span class="comment">客户端接受服务器端数据</span><span class="literal">--</span><span class="comment">:服务端</span><span class="literal">--</span><span class="comment">》客户端  59:45</span></span><br><span class="line"><span class="comment">客户端接受服务器端数据</span><span class="literal">--</span><span class="comment">:服务端</span><span class="literal">--</span><span class="comment">》客户端  59:47</span></span><br><span class="line"><span class="comment">客户端接受服务器端数据</span><span class="literal">--</span><span class="comment">:服务端</span><span class="literal">--</span><span class="comment">》客户端  59:49</span></span><br><span class="line"><span class="comment">客户端接受服务器端数据</span><span class="literal">--</span><span class="comment">:服务端</span><span class="literal">--</span><span class="comment">》客户端  59:51</span></span><br><span class="line"><span class="comment">客户端接受服务器端数据</span><span class="literal">--</span><span class="comment">:服务端</span><span class="literal">--</span><span class="comment">》客户端  59:53</span></span><br><span class="line"><span class="comment">客户端接受服务器端数据</span><span class="literal">--</span><span class="comment">:服务端</span><span class="literal">--</span><span class="comment">》客户端  59:55</span></span><br><span class="line"><span class="comment">客户端接受服务器端数据</span><span class="literal">--</span><span class="comment">:服务端</span><span class="literal">--</span><span class="comment">》客户端  59:57</span></span><br><span class="line"><span class="comment">客户端接受服务器端数据</span><span class="literal">--</span><span class="comment">:服务端</span><span class="literal">--</span><span class="comment">》客户端  59:59</span></span><br></pre></td></tr></table></figure></div></div><div class="tab-to-top"><button type="button" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div></div>
 
 
+]]></content>
+      <categories>
+        <category>java</category>
+        <category>java基础</category>
+      </categories>
+      <tags>
+        <tag>java</tag>
+        <tag>java基础</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>HashMap详解</title>
+    <url>/2023/834224a16039/</url>
+    <content><![CDATA[<h1 id="HashMap的底层数据结构是什么？"><a href="#HashMap的底层数据结构是什么？" class="headerlink" title="HashMap的底层数据结构是什么？"></a>HashMap的底层数据结构是什么？</h1><ol>
+<li>之前 <code>Jdk1.7</code> 的存储结构是数组+链表，到了 <code>Jdk1.8</code> 变成了数组+链表+红黑树。</li>
+</ol>
+<h1 id="HashMap-是如何定位索引下标的"><a href="#HashMap-是如何定位索引下标的" class="headerlink" title="HashMap 是如何定位索引下标的"></a>HashMap 是如何定位索引下标的</h1><p>定位 <code>index</code> 分成两步</p>
+<ol>
+<li><p>根据 hash 函数获取 hash 值</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">static</span> <span class="keyword">final</span> <span class="type">int</span> <span class="title function_">hash</span><span class="params">(Object key)</span> &#123;</span><br><span class="line">    <span class="type">int</span> h;</span><br><span class="line">    <span class="keyword">return</span> (key == <span class="literal">null</span>) ? <span class="number">0</span> : (h = key.hashCode()) ^ (h &gt;&gt;&gt; <span class="number">16</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>可以看到上面代码获取到 hashCode 之后还右移 16 位，具体原因在下面分析</strong></p>
+</li>
+<li><p>根据第一步计算的 <code>hash</code> 值获取数组位置（一般是对数组长度取模，<code>HashMap</code> 中是对长度 -1 进行 <code>&amp;</code> 运算）</p>
+</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">final</span> V <span class="title function_">putVal</span><span class="params">(<span class="type">int</span> hash, K key, V value, <span class="type">boolean</span> onlyIfAbsent,</span></span><br><span class="line"><span class="params">                   <span class="type">boolean</span> evict)</span> &#123;</span><br><span class="line">    Node&lt;K,V&gt;[] tab; Node&lt;K,V&gt; p; <span class="type">int</span> n, i;</span><br><span class="line">    <span class="keyword">if</span> ((tab = table) == <span class="literal">null</span> || (n = tab.length) == <span class="number">0</span>)</span><br><span class="line">        n = (tab = resize()).length;</span><br><span class="line">        <span class="comment">// 获取下标的操作是  i = (n-1) &amp; hash</span></span><br><span class="line">    <span class="keyword">if</span> ((p = tab[i = (n - <span class="number">1</span>) &amp; hash]) == <span class="literal">null</span>)</span><br><span class="line">        tab[i] = newNode(hash, key, value, <span class="literal">null</span>);</span><br><span class="line">    <span class="keyword">else</span> &#123;</span><br><span class="line">       ...</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>获取下标为什么是对 n-1 进行与操作而不是取模？具体原因下面分析</strong></p>
+<h1 id="为什么需要对key的-hash-值右移-16位"><a href="#为什么需要对key的-hash-值右移-16位" class="headerlink" title="为什么需要对key的 hash 值右移 16位"></a>为什么需要对key的 hash 值右移 16位</h1><figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="string">HashMap</span> <span class="string">中使用的</span> <span class="string">hash</span> <span class="string">函数是</span> <span class="string">key.hash</span> <span class="string">^</span> <span class="string">(key.hash</span> <span class="string">&gt;&gt;</span> <span class="number">16</span><span class="string">)</span>  <span class="string">而不是直接使用</span> <span class="string">key.hash,</span> <span class="string">这么做的原因是增加了扰动计算，使得</span> <span class="string">hash</span> <span class="string">分布的尽可能的均匀，</span> <span class="string">让元素的高16</span> <span class="string">位和低16</span> <span class="string">位都参与运算</span></span><br><span class="line"><span class="string">示例：</span></span><br><span class="line"><span class="string">比如有一个元素1换成二进制如下</span></span><br><span class="line"><span class="number">1111 </span><span class="number">1111 </span><span class="number">1111 </span><span class="number">1111 </span><span class="number">1010 </span><span class="number">1010 </span><span class="number">1010 </span><span class="number">1010</span> <span class="string">（没有右移16位的二进制）</span></span><br><span class="line"><span class="number">0000 </span><span class="number">0000 </span><span class="number">0000 </span><span class="number">0000 </span><span class="number">1111 </span><span class="number">1111 </span><span class="number">1111 </span><span class="number">1111</span>  <span class="string">（右移16位的二进制）</span></span><br><span class="line"></span><br><span class="line"><span class="string">另外一个元素2换成二进制如下</span></span><br><span class="line"><span class="number">1111 </span><span class="number">1111 </span><span class="number">1111 </span><span class="number">1110 </span><span class="number">1010 </span><span class="number">1010 </span><span class="number">1010 </span><span class="number">1010</span> <span class="string">（没有右移16位的二进制）</span></span><br><span class="line"><span class="number">0000 </span><span class="number">0000 </span><span class="number">0000 </span><span class="number">0000 </span><span class="number">1111 </span><span class="number">1111 </span><span class="number">1111 </span><span class="number">1110</span>  <span class="string">（右移16位的二进制）</span></span><br><span class="line"></span><br><span class="line"><span class="string">在计算数组位置的时候使用的是</span> <span class="string">hash</span> <span class="string">&amp;</span> <span class="string">(n</span> <span class="number">-1</span><span class="string">),</span>  <span class="string">要知道</span> <span class="string">n-1</span> <span class="string">肯定是一个相对来说比较小的数字（32个bit</span> <span class="string">只会使用比较少的低位），</span> <span class="string">比如长度是</span> <span class="number">32</span><span class="string">，</span> <span class="string">对应的二进制是</span> <span class="number">0000 </span><span class="number">0000 </span><span class="number">0000 </span><span class="number">0000 </span><span class="number">0000 </span><span class="number">0000 </span><span class="number">0001 </span><span class="number">1111</span></span><br><span class="line"></span><br><span class="line"><span class="string">使用没有右移的元素1和</span> <span class="string">（32</span> <span class="number">-1</span><span class="string">）</span> <span class="string">进行与操作（与操作是都为1才为1，否则为0）</span></span><br><span class="line"><span class="number">1111 </span><span class="number">1111 </span><span class="number">1111 </span><span class="number">1111     </span><span class="number">1010 </span><span class="number">1010 </span><span class="number">1010 </span><span class="number">1010</span> <span class="string">（没有右移16位的二进制）</span></span><br><span class="line"><span class="number">0000 </span><span class="number">0000 </span><span class="number">0000 </span><span class="number">0000      </span><span class="number">0000 </span><span class="number">0000 </span><span class="number">0001 </span><span class="number">1111</span></span><br><span class="line"><span class="number">0000 </span><span class="number">0000 </span><span class="number">0000 </span><span class="number">0000      </span><span class="number">0000 </span><span class="number">0000 </span><span class="number">0000 </span><span class="number">1010</span></span><br><span class="line"></span><br><span class="line"><span class="string">使用没有右移的元素2和</span> <span class="string">（32</span> <span class="number">-1</span><span class="string">）</span> <span class="string">进行与操作（与操作是都为1才为1，否则为0）</span></span><br><span class="line"><span class="number">1111 </span><span class="number">1111 </span><span class="number">1111 </span><span class="number">1100     </span><span class="number">1010 </span><span class="number">1010 </span><span class="number">1010 </span><span class="number">1010</span> <span class="string">（没有右移16位的二进制）</span></span><br><span class="line"><span class="number">0000 </span><span class="number">0000 </span><span class="number">0000 </span><span class="number">0000      </span><span class="number">0000 </span><span class="number">0000 </span><span class="number">0001 </span><span class="number">1111</span></span><br><span class="line"><span class="number">0000 </span><span class="number">0000 </span><span class="number">0000 </span><span class="number">0000      </span><span class="number">0000 </span><span class="number">0000 </span><span class="number">0000 </span><span class="number">1010</span></span><br><span class="line"><span class="string">可以看到元素1和元素2计算出来下标是相同的，这个不同是因为元素1和元素2的低16位是完全相同的，不同之处只在于高16位，但是当我们对</span> <span class="string">（n-1）进行与操作的时候，由于</span> <span class="string">n-1</span> <span class="string">的值比较小，绝大部分情况下，只有低16位会进行运算的</span></span><br><span class="line"></span><br><span class="line"><span class="string">接下来再看一下如果使用右移的hash进行计算会有什么不同</span></span><br><span class="line"><span class="string">使用右移的元素1和</span> <span class="string">（32</span> <span class="number">-1</span><span class="string">）</span> <span class="string">进行与操作（与操作是都为1才为1，否则为0）</span></span><br><span class="line"><span class="number">0000 </span><span class="number">0000 </span><span class="number">0000 </span><span class="number">0000      </span><span class="number">1111 </span><span class="number">1111 </span><span class="number">1111 </span><span class="number">1111</span> <span class="string">（没有右移16位的二进制）</span></span><br><span class="line"><span class="number">0000 </span><span class="number">0000 </span><span class="number">0000 </span><span class="number">0000      </span><span class="number">0000 </span><span class="number">0000 </span><span class="number">0001 </span><span class="number">1111</span></span><br><span class="line"><span class="number">0000 </span><span class="number">0000 </span><span class="number">0000 </span><span class="number">0000      </span><span class="number">0000 </span><span class="number">0000 </span><span class="number">0000  </span><span class="number">1111</span></span><br><span class="line"></span><br><span class="line"><span class="string">用右移的元素2和</span> <span class="string">（32</span> <span class="number">-1</span><span class="string">）</span> <span class="string">进行与操作（与操作是都为1才为1，否则为0）</span></span><br><span class="line"><span class="number">0000 </span><span class="number">0000 </span><span class="number">0000 </span><span class="number">0000      </span><span class="number">1111 </span><span class="number">1111 </span><span class="number">1111 </span><span class="number">1110</span> <span class="string">（没有右移16位的二进制）</span></span><br><span class="line"><span class="number">0000 </span><span class="number">0000 </span><span class="number">0000 </span><span class="number">0000      </span><span class="number">0000 </span><span class="number">0000 </span><span class="number">0001 </span><span class="number">1111</span></span><br><span class="line"><span class="number">0000 </span><span class="number">0000 </span><span class="number">0000 </span><span class="number">0000      </span><span class="number">0000 </span><span class="number">0000 </span><span class="number">0000  </span><span class="number">1110</span></span><br><span class="line"><span class="string">可以看到计算出来的</span> <span class="string">index</span> <span class="string">值是不同的，这就是右移带来的让高16位有参与运算的效果</span></span><br></pre></td></tr></table></figure>
+
+<h1 id="为什么不对长度取模而是使用与运算"><a href="#为什么不对长度取模而是使用与运算" class="headerlink" title="为什么不对长度取模而是使用与运算"></a>为什么不对长度取模而是使用与运算</h1><ol>
+<li><code>X % 2^n = X &amp; (2^n – 1)</code>  这两种运算等价，所以这也是 <code>HashMap</code> 长度取 <code>2^n</code> 的原因<br>也可以从数据角度记住，当 <code>n</code> 是 2 的倍数时， <code>X % 2^n = X &amp; (2^n – 1)</code>  等价</li>
+</ol>
+<p><a href="https://www.cnblogs.com/ysocean/p/9054804.html">公式计算参考链接</a></p>
+<h1 id="HashMap是如何实现扩容的"><a href="#HashMap是如何实现扩容的" class="headerlink" title="HashMap是如何实现扩容的"></a>HashMap是如何实现扩容的</h1><p>扩容后索引其实也是使用 <code>hash &amp; （newLength -1）</code>, 这样计算出来的位置要是和原来的元素在相同的位置，要么是 原来的位置+旧数组长度&#x3D;新索引位置</p>
+<h1 id="HashMap是如何解决hash冲突的"><a href="#HashMap是如何解决hash冲突的" class="headerlink" title="HashMap是如何解决hash冲突的"></a>HashMap是如何解决hash冲突的</h1><ol>
+<li>对 <code>hash</code> 的计算进行优化，不是直接使用 <code>hashcode</code>,  而是右移16位，让高16位也参与运算，减少<code>hash</code> 冲突</li>
+<li>如果遇到冲突，使用拉链法解决</li>
+</ol>
 ]]></content>
       <categories>
         <category>java</category>
@@ -865,9 +671,152 @@
       </tags>
   </entry>
   <entry>
+    <title>jvm垃圾回收</title>
+    <url>/2023/63d242ce6cb3/</url>
+    <content><![CDATA[<span class="hide_first_mermaid">
+<div class="mermaid-wrap"><pre class="mermaid-src" hidden>
+  flowchart LR
+    A
+  </pre></div>
+</span>
+
+<p>以下内容参考《剑指JVM:虚拟机实践与性能调优》</p>
+<h1 id="垃圾回收的分类"><a href="#垃圾回收的分类" class="headerlink" title="垃圾回收的分类"></a>垃圾回收的分类</h1><ol>
+<li><code>GC</code> 按照回收区域分为两种类型，分别是部分<code>GC(Partial GC)</code>和整堆<code>GC(Full GC)</code></li>
+<li>新生代<code>GC(Minor GC / Young GC)</code>：只是新生代<code>（Eden、S0和S1区）</code>的垃圾收集</li>
+<li>老年代<code>GC(Major GC / Old GC)</code>：只是老年代的垃圾收集。目前，只有<code>CMS GC</code>会有单独收集老年代的行为。很多时候<code>Major GC</code>会和<code>Full GC</code>混淆使用，需要具体分辨是老年代回收还是整堆回收</li>
+<li>混合<code>GC(Mixed GC)</code>：收集整个新生代以及部分老年代的垃圾收集。目前，只有<code>G1 GC</code>会有这种行为</li>
+</ol>
+]]></content>
+      <categories>
+        <category>java</category>
+        <category>jvm</category>
+      </categories>
+      <tags>
+        <tag>java</tag>
+        <tag>jvm</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>jvm运行时内存区域</title>
     <url>/2023/70e7b048ccf4/</url>
-    <content><![CDATA[<p>运行时数据区域</p>
+    <content><![CDATA[<span class="hide_first_mermaid">
+<div class="mermaid-wrap"><pre class="mermaid-src" hidden>
+  flowchart LR
+    A
+  </pre></div>
+</span>
+以下内容参考《剑指JVM:虚拟机实践与性能调优》
+
+<h1 id="JVM-整体结构"><a href="#JVM-整体结构" class="headerlink" title="JVM 整体结构"></a>JVM 整体结构</h1><ol>
+<li><code>JVM</code> 在程序执行期间把它所管理的内存分为若干个不同的数据区域</li>
+<li><code>JVM</code> 内存布局规定了 <code>Java</code> 在运行过程中内存申请、分配、管理的策略，保证了JVM的高效稳定运行</li>
+<li>线程私有区域： 虚拟机栈，本地方法栈，程序计数器</li>
+<li>线程共享区域： 堆，方法区</li>
+</ol>
+<p><img src="https://blog-1308475102.cos.ap-guangzhou.myqcloud.com/picture/202311222254661.png" alt="jvm 整体结构"></p>
+<h1 id="程序计数器"><a href="#程序计数器" class="headerlink" title="程序计数器"></a>程序计数器</h1><h2 id="程序计数器相关概念"><a href="#程序计数器相关概念" class="headerlink" title="程序计数器相关概念"></a>程序计数器相关概念</h2><ol>
+<li>程序计数器中的寄存器并非是广义上所指的物理寄存器，JVM中的程序计数器是对物理寄存器的一种抽象模拟</li>
+<li>JVM中的程序计数器英文全称是 Program Counter Register</li>
+<li>程序计数器既没有垃圾回收也没有内存溢出</li>
+<li>如果线程正在执行的是一个Java方法，这个计数器记录的是正在执行的虚拟机字节码指令的地址；如果正在执行的是本地(Native)方法，这个计数器值则应为空(Undefined)</li>
+<li>每一个线程都有一个程序计数器（程序计数器和寄存器是两个概念）</li>
+</ol>
+<h2 id="为什么需要程序计数器"><a href="#为什么需要程序计数器" class="headerlink" title="为什么需要程序计数器"></a>为什么需要程序计数器</h2><p>因为CPU需要不停地切换各个线程，切换回来以后，就需要知道接着从哪里开始继续执行。JVM的字节码解释器通过改变程序计数器的值，来明确下一条应该执行什么样的字节码指令</p>
+<h1 id="虚拟机栈"><a href="#虚拟机栈" class="headerlink" title="虚拟机栈"></a>虚拟机栈</h1><ol>
+<li>每个线程在创建时都会创建一个虚拟机栈，其内部由许多栈帧(Stack Frame)构成，每个栈帧对应着一个Java方法的调用</li>
+<li>每个方法被执行的时候，JVM都会同步创建一个栈帧用于存储<strong>局部变量表、操作数栈、动态链接、方法出口</strong>等信息</li>
+</ol>
+<h2 id="栈帧-栈的存储单位"><a href="#栈帧-栈的存储单位" class="headerlink" title="栈帧-栈的存储单位"></a>栈帧-栈的存储单位</h2><ol>
+<li>每个线程上正在执行的每个方法都各自对应一个栈帧</li>
+</ol>
+<h2 id="栈帧中存储的内容"><a href="#栈帧中存储的内容" class="headerlink" title="栈帧中存储的内容"></a>栈帧中存储的内容</h2><pre class="mermaid">flowchart TB
+  subgraph A[栈]
+    subgraph B[栈帧]
+      direction LR
+        B1[局部变量表]
+        B2[方法返回值]
+        B3[操作数栈]
+        B4[动态链接]
+        B5["附加信息\n比如对程序调试相关信息"]
+        B1~~~B2~~~B3~~~B4~~~B5
+    end
+    subgraph C[栈帧]
+      direction LR
+        C1[局部变量表]
+        C2[方法返回值]
+        C3[操作数栈]
+        C4[动态链接]
+        C5["附加信息\n比如对程序调试相关信息"]
+        C1~~~C2~~~C3~~~C4~~~C5
+    end
+  end</pre>
+<h3 id="局部变量表"><a href="#局部变量表" class="headerlink" title="局部变量表"></a>局部变量表</h3><ol>
+<li>局部变量表是一个数组</li>
+<li>局部变量表的作用是存储方法参数和定义在方法体内的局部变量<ol>
+<li>局部变量数据类型可以是基本数据类型，对象引用(存储的是指向对象的引用)</li>
+</ol>
+</li>
+<li>局部变量表的大小在编译器确定，方法运行期间不会大概局部变量表的大小</li>
+</ol>
+<h4 id="slot"><a href="#slot" class="headerlink" title="slot"></a>slot</h4><ol>
+<li>局部变量表达存储单元是 <code>slot</code></li>
+<li>32 位以内的类型只占用一个 <code>slot</code>， 64 位的类型（<code>long</code> 和 <code>double</code> ）占用两个 <code>slot</code></li>
+<li><code>byte，short，char</code> 在存储前会被转换成 <code>int</code></li>
+<li><code>JVM</code> 会为局部变量表中的每一个 <code>slot</code> 都分配一个访问索引，通过这个索引即可成功访问到局部变量表中指定的局部变量值</li>
+</ol>
+<h3 id="操作数栈"><a href="#操作数栈" class="headerlink" title="操作数栈"></a>操作数栈</h3><ol>
+<li>操作数栈主要用于保存计算过程的中间结果，同时作为计算过程中变量临时的存储空间</li>
+<li>每一个操作数栈都拥有一个明确的栈深度用于存储数值，其所需的最大深度在编译期就定义好了，保存在方法的 <code>Code</code> 属性中的<code>Maximum stack size</code>数据项中</li>
+<li>操作数栈只能通过入栈(<code>push</code>)和出栈(<code>pop</code>)操作来完成一次数据访问</li>
+</ol>
+<h3 id="动态链接"><a href="#动态链接" class="headerlink" title="动态链接"></a>动态链接</h3><ol>
+<li>每一个栈帧内部都包含一个指向运行时常量池中该栈帧所属方法的引用。包含这个引用的目的就是为了支持当前方法的代码能够实现动态链接</li>
+<li>动态链接的目的是在 <code>jvm</code> 加载了字节码文件，将类数据加载到内存之后，可以将字节码文件中记录的符号引用转换位为调用方法的直接引用</li>
+</ol>
+<h3 id="方法返回地址"><a href="#方法返回地址" class="headerlink" title="方法返回地址"></a>方法返回地址</h3><ol>
+<li>方法返回地址存储的是调用该方法的程序计数器的值</li>
+<li>方法正常退出时，调用者的程序计数器的值作为返回地址，即调用该方法的指令的下一条指令的地址</li>
+<li>方法正常退出时，调用者的程序计数器的值作为返回地址，即调用该方法的指令的下一条指令的地址</li>
+</ol>
+<h1 id="堆区"><a href="#堆区" class="headerlink" title="堆区"></a>堆区</h1><ol>
+<li>前面讲解的 <strong>栈</strong> 解决的是程序的运行问题，即程序是如何运行，如何处理数据的，但是数据从哪里来呢？ 这就涉及到下面要讲的堆</li>
+<li>堆是存储的单位，堆解决的是数据存储的问题，即数据怎么放、放在哪儿</li>
+</ol>
+<h2 id="堆空间的划分"><a href="#堆空间的划分" class="headerlink" title="堆空间的划分"></a>堆空间的划分</h2><pre class="mermaid">flowchart LR
+  subgraph A[堆]
+    subgraph B[新生代]
+      B1["\nEden\n\n"]
+      B2["\nfrom\n\n"]
+      B3["\nto\n\n"]
+      B1~~~B2~~~B3
+    end
+    subgraph C["\n\n\n &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp老年代&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp\n\n\n\n"]
+    end
+  end</pre>
+
+<ol>
+<li>堆空间可以通过参数 <code>-Xms</code>(代表堆最小值) 和 <code>-Xmx</code> （代表堆空间最大值）来设置</li>
+<li>新生代与老年代的空间比例可以通过 <code>-XX:NewRatio=4</code> 参数来设置，这个案例代表，新生代占比1，老年代占比4，新生代占整个堆的 1&#x2F;5</li>
+<li><code>Eden</code> 区和两个 <code>Survivor</code> 区默认的比例是 8:1:1, 可以通过参数 <code>-XX:SurvivorRatio=8</code> 来显示设置比例， 如果 <code>-XX:SurvivorRatio=5</code> 代表 <code>Eden</code> 和两个 <code>Survivor</code> 区占比为 5:1:1</li>
+</ol>
+<h2 id="对象内存分配过程"><a href="#对象内存分配过程" class="headerlink" title="对象内存分配过程"></a>对象内存分配过程</h2><p><img src="https://blog-1308475102.cos.ap-guangzhou.myqcloud.com/picture/202311232258657.png" alt="对象内存分配过程"></p>
+<h2 id="TLAB"><a href="#TLAB" class="headerlink" title="TLAB"></a>TLAB</h2><ol>
+<li>堆中还有一部分区域是线程私有，这部分区域称为线程本地分配缓存区(<code>Thread Local Allocation Buffer,TLAB</code>)</li>
+<li><code>TLAB</code> 表示<code>JVM</code>为每个线程分配了一个私有缓存区域，这块缓存区域包含在<code>Eden</code>区内</li>
+<li>可以通过参数  <code>-XX:+/-UseTLAB</code> 来设置是否开启 <code>TLAB</code> 功能</li>
+<li>可以通过参数 <code>-XX:TLABWasteTargetPercent</code> 开设置 <code>TLAB</code> 占用 <code>Eden</code> 区域的大小，默认是占用 1%</li>
+<li>对象在<code>TLAB</code>空间分配内存失败时，<code>JVM</code>就会尝试着通过使用加锁机制确保数据操作的原子性，从而直接在<code>Eden</code>区中分配内存</li>
+</ol>
+<h3 id="使用-TLAB-的原因"><a href="#使用-TLAB-的原因" class="headerlink" title="使用 TLAB 的原因"></a>使用 TLAB 的原因</h3><ol>
+<li>堆区是线程共享区域，对象实例的创建在<code>JVM</code>中非常频繁，因此在并发环境下从堆区中划分内存空间是线程不安全的</li>
+<li>避免多个线程操作同一地址，就需要使用加锁等机制，但是加锁会影响分配速度</li>
+</ol>
+<h2 id="逃逸分析"><a href="#逃逸分析" class="headerlink" title="逃逸分析"></a>逃逸分析</h2><p>逃逸分析是指：当一个对象在方法中创建后，若对象只是在方法内部使用，则认为对象没有发生逃逸，若这个对象被方法外部使用，则认为发生了逃逸</p>
+<h3 id="逃逸分析之同步省略"><a href="#逃逸分析之同步省略" class="headerlink" title="逃逸分析之同步省略"></a>逃逸分析之同步省略</h3><p>遇到同步代码块时，<code>JIT</code>编译器可以借助逃逸分析，来判断同步块所使用的锁对象是否只能够被一个线程访问而没有被发布到其他线程, 如果没有被发布到其它线程，<code>JIT</code> 编译器在编译同步代码块时会取消堆这部分代码的同步</p>
+<h3 id="逃逸分析之栈上分配"><a href="#逃逸分析之栈上分配" class="headerlink" title="逃逸分析之栈上分配"></a>逃逸分析之栈上分配</h3><p><code>JIT(Just In Time)</code>编译器在编译期间根据逃逸分析的结果，发现如果一个对象没有逃逸出方法的话，就可能被优化成栈上分配</p>
+<h3 id="逃逸分析之标量替换"><a href="#逃逸分析之标量替换" class="headerlink" title="逃逸分析之标量替换"></a>逃逸分析之标量替换</h3><p>标量<code>(Scalar)</code>是指一个无法再分解成更小数据的数据。<code>Java</code>中的原始数据类型就是标量。相对的，那些还可以分解的数据叫作聚合量<code>(Aggregate)</code>，<code>Java</code>中的对象就是聚合量，因为它可以分解成其他聚合量和标量。在<code>JIT</code>编译器的编译阶段，如果经过逃逸分析，发现一个对象不会被外界访问的话，那么经过<code>JIT</code>优化，就会把这个对象拆解成若干个成员变量。这个过程就是标量替换</p>
+<h1 id="方法区"><a href="#方法区" class="headerlink" title="方法区"></a>方法区</h1><p>TODO</p>
 ]]></content>
       <categories>
         <category>java</category>
@@ -1022,6 +971,33 @@
       <tags>
         <tag>java</tag>
         <tag>多线程</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>SpringBoot编写测试类</title>
+    <url>/2023/71c38fa0a58b/</url>
+    <content><![CDATA[<p>版本说明：</p>
+<ol>
+<li>SpringBoot3.x</li>
+</ol>
+<h1 id="引入依赖"><a href="#引入依赖" class="headerlink" title="引入依赖"></a>引入依赖</h1><figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-test<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h1 id="编写测试类"><a href="#编写测试类" class="headerlink" title="编写测试类"></a>编写测试类</h1><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@SpringBootTest</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">TestRedis</span> &#123;</span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">testOne</span><span class="params">()</span> &#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;测试类&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="注意点"><a href="#注意点" class="headerlink" title="注意点"></a>注意点</h2><ol>
+<li><code>SpringBoot2.5</code> 之后测试类中已经不需要添加 <code>RunWith</code> 注解，只需要一个 <code>SpringBootTest</code></li>
+<li>需要保证测试类所在的包和项目主配置类包一致（项目 <code>main</code> 方法所在的包），如果不一致，则可以按照下面方式配置</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@SpringBootTest(classes = TestApplication.class)</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">TestRedis</span> &#123;</span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">testOne</span><span class="params">()</span> &#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;测试类&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+]]></content>
+      <categories>
+        <category>java</category>
+        <category>SpringBoot</category>
+      </categories>
+      <tags>
+        <tag>java</tag>
+        <tag>SpringBoot</tag>
       </tags>
   </entry>
   <entry>
@@ -1326,6 +1302,278 @@
       <tags>
         <tag>java</tag>
         <tag>多线程</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>redis分布式锁</title>
+    <url>/2023/c21b41047d75/</url>
+    <content><![CDATA[<h1 id="redis-分布式锁要做到的事情"><a href="#redis-分布式锁要做到的事情" class="headerlink" title="redis 分布式锁要做到的事情"></a>redis 分布式锁要做到的事情</h1><ol>
+<li>独占性： 任何时刻只能有一个线程持有</li>
+<li>高可用： 若在 <code>redis</code> 集群环境下，不能因为某一个节点挂了而出现获取锁和释放锁失败的情况</li>
+<li>防止死锁： 要有超时控制机制或者撤销操作</li>
+<li>正确性： 不能 <code>unlock</code> 别人的锁，自己的锁只能自己释放</li>
+<li>可重入</li>
+</ol>
+<h1 id="分布式锁的实现"><a href="#分布式锁的实现" class="headerlink" title="分布式锁的实现"></a>分布式锁的实现</h1><p>TODO</p>
+]]></content>
+      <categories>
+        <category>中间件</category>
+        <category>redis</category>
+      </categories>
+      <tags>
+        <tag>java</tag>
+        <tag>redis</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>redis底层数据结构</title>
+    <url>/2023/19e21a188fd0/</url>
+    <content><![CDATA[<h1 id="redis-对象"><a href="#redis-对象" class="headerlink" title="redis 对象"></a>redis 对象</h1><p><code>redis</code> 中所有数据类型都是使用 <code>RedisObject</code> 对象形式来表示，<code>RedisObject</code> 主要包含三个字段</p>
+<span id="more"></span>
+
+<pre class="mermaid">graph LR
+    A[RedisObject]
+    A-->B["type (记录对象的类型) \n 常用5种基本类型，实际还有BitMap（2.2 版新增）\n、HyperLogLog（2.8 版新增）、\n GEO（3.2 版新增）、Stream（5.0 版新增）"]
+
+    B1[String 字符串对象]
+    B2[List 列表集合]
+    B3[Hash 哈希对象]
+    B4[Set 集合对象]
+    B5[Zset 有序集合对象]
+    B--> B1 & B2 & B3 & B4 & B5
+
+    A-->C["encoding (记录对象的编码)"]
+    C1[Intset 整数集合]
+    C2[embstr embstr编码的简单动态字符串]
+    C3[raw 简单动态字符串]
+    C4[HT 字典]
+    C5[Linkedlist 双端列表]
+    C6[ziplist 压缩列表]
+    C7[skiplist 跳跃表和字典]
+    C8[quicklist 快速列表]
+    C-->C1 & C2 & C3 & C4 & C5 & C6 & C7 & C8
+
+    A-->D["*ptr (指向具体的类型)"]</pre>
+
+<h2 id="为什么一个对象需要包含-type-和-encoding"><a href="#为什么一个对象需要包含-type-和-encoding" class="headerlink" title="为什么一个对象需要包含 type 和 encoding"></a>为什么一个对象需要包含 <code>type</code> 和 <code>encoding</code></h2><ol>
+<li>因为 <code>type</code> 只是记录对象的类型</li>
+<li>每一个 <code>type</code> 可以使用不同的底层数据结构来实现，所以还需要具体的 <code>encoding</code> 来指明这个 <code>type</code> 的实现是什么， 下图就列出每一个 <code>type</code> 有哪几种底层数据结构</li>
+</ol>
+<h1 id="5-种基本数据类型对应的底层实现"><a href="#5-种基本数据类型对应的底层实现" class="headerlink" title="5 种基本数据类型对应的底层实现"></a>5 种基本数据类型对应的底层实现</h1><h2 id="String"><a href="#String" class="headerlink" title="String"></a>String</h2><ol>
+<li><code>String</code> 类型的底层的数据结构实现主要是 <code>int</code> 和 <code>SDS</code>（简单动态字符串）<ol>
+<li>如果存储的是数字，则编码使用 <code>int</code> 类型</li>
+</ol>
+</li>
+<li><code>sds</code> 的实际编码又包含 <code>raw</code> 和 <code>embstr</code><ol>
+<li>字符串长度小于 32位时使用 <code>embstr</code>(<code>embstr</code> 的空间挨着 <code>RedisObject，RedisObject</code> 和 <code>embstr</code> 的内存是一次性分配的)</li>
+<li>字符串长度大于 32位时使用 <code>raw</code> 编码(<code>RedisObject</code> 的内存分区和 <code>raw</code> 编码类型的空间分配是分开的，也就是需要两次内存分配)</li>
+</ol>
+</li>
+</ol>
+<h3 id="SDS-和-C-原生字符串的区别"><a href="#SDS-和-C-原生字符串的区别" class="headerlink" title="SDS 和 C 原生字符串的区别"></a>SDS 和 C 原生字符串的区别</h3><ol>
+<li><code>sds</code> 可以保存文本和二进制数据，因为 <code>sds</code> 有 <code>length</code> 字段来判断字符串是否结束，c 使用 ‘\0’ 作为结束符</li>
+<li><code>sds</code> 的 <code>api</code> 安全，不会出现缓冲区溢出，因为 <code>sds</code> 拼接字符串前有做容量检查</li>
+</ol>
+<h2 id="List"><a href="#List" class="headerlink" title="List"></a>List</h2><ol>
+<li><code>List</code> 类型的底层数据结构是由双向链表或压缩列表实现的<ol>
+<li>元素个数小于 512 个（默认值，可由 <code>list-max-ziplist-entries</code> 配置），列表每个元素的值都小于 64 字节（默认值，可由 <code>list-max-ziplist-value</code> <code>配置），Redis</code> 会使用压缩列表作为 <code>List</code> 类型的底层数据结构；</li>
+</ol>
+</li>
+<li>在 <code>Redis3.2</code> 版本之后，<code>List</code> 类型底层数据结构只有 <code>quicklist</code> 一种</li>
+</ol>
+<h2 id="Hash"><a href="#Hash" class="headerlink" title="Hash"></a>Hash</h2><ol>
+<li><code>Hash</code> 类型的底层数据结构是由压缩列表或哈希表实现的<ol>
+<li>元素个数小于 512 个（可通过 <code>hash-max-ziplist-entries</code> 修改），所有值小于 64 字节（可通过 <code>hash-max-ziplist-value</code> 修改）时，<code>Redis</code> 会使用压缩列表作为 <code>Hash</code> 类型的底层数据结构</li>
+</ol>
+</li>
+<li>在 <code>Redis7.0</code> 中，压缩列表数据结构被废弃，由 <code>listpack</code> 数据结构来实现</li>
+</ol>
+<h2 id="Set"><a href="#Set" class="headerlink" title="Set"></a>Set</h2><ol>
+<li><code>Set</code> 类型的底层数据结构是由哈希表或整数集合实现的<ol>
+<li>如果集合中的元素都是整数且元素个数小于 512 （可通过 <code>set-maxintset-entries</code> 修改）个，<code>Redis</code> 会使用整数集合作为 Set 类型的底层数据结构</li>
+</ol>
+</li>
+</ol>
+<h2 id="Zset"><a href="#Zset" class="headerlink" title="Zset"></a>Zset</h2><ol>
+<li><p>Zset 类型底层数据结构是由压缩列表或跳表实现</p>
+<ol>
+<li>若有序集合的元素个数小于 128 个且每个元素的值小于 64 字节，<code>Redis</code> 会使用压缩列表作为 <code>Zset</code> 类型的底层数据结构</li>
+</ol>
+</li>
+<li><p><code>Redis 7.0</code> 中，压缩列表数据结构被废弃，交由 <code>listpack</code> 数据结构来实现</p>
+</li>
+</ol>
+]]></content>
+      <categories>
+        <category>中间件</category>
+        <category>redis</category>
+      </categories>
+      <tags>
+        <tag>redis</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>SpringBoot中使用Redis</title>
+    <url>/2023/5ef02c37afab/</url>
+    <content><![CDATA[<p>版本说明：</p>
+<ol>
+<li>SpringBoot 3.x</li>
+</ol>
+<h1 id="引入依赖"><a href="#引入依赖" class="headerlink" title="引入依赖"></a>引入依赖</h1><figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="comment">&lt;!-- springboot 版本 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">parent</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-parent<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>3.0.4<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">relativePath</span>/&gt;</span> <span class="comment">&lt;!-- lookup parent from repository --&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">parent</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- 引入redis依赖 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-data-redis<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.apache.commons<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>commons-pool2<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h1 id="redis-配置"><a href="#redis-配置" class="headerlink" title="redis 配置"></a>redis 配置</h1><ol>
+<li>下面 <code>redis</code> 配置的前缀都是 <code>spring.data.redis</code>, 如果使用的是 <code>SpringBoot2.x</code> 版本，前缀是 <code>spring.redis</code><figure class="highlight properties"><table><tr><td class="code"><pre><span class="line"><span class="comment">#默认是0号库</span></span><br><span class="line"><span class="attr">spring.data.redis.database</span>=<span class="string">3</span></span><br><span class="line"><span class="comment"># Redis服务器地址</span></span><br><span class="line"><span class="attr">spring.data.redis.host</span>=<span class="string">192.168.0.236</span></span><br><span class="line"><span class="comment"># Redis服务器连接端口</span></span><br><span class="line"><span class="attr">spring.data.redis.port</span>=<span class="string">6379</span></span><br><span class="line"><span class="attr">spring.data.redis.username</span>=<span class="string">default</span></span><br><span class="line"><span class="comment"># Redis服务器连接密码,默认为空</span></span><br><span class="line"><span class="attr">spring.data.redis.password</span>=<span class="string">123456</span></span><br><span class="line"><span class="comment"># 连接池最大连接数</span></span><br><span class="line"><span class="attr">spring.data.redis.lettuce.pool.max-active</span>=<span class="string">10</span></span><br><span class="line"><span class="comment"># 连接池最大阻塞等待时间,默认-1表示没有限制</span></span><br><span class="line"><span class="attr">spring.data.redis.lettuce.pool.max-wait</span>=<span class="string">-1</span></span><br><span class="line"><span class="comment"># 连接池中的最大空闲连接</span></span><br><span class="line"><span class="attr">spring.data.redis.lettuce.pool.max-idle</span>=<span class="string">10</span></span><br><span class="line"><span class="comment"># 连接池中的最小空闲连接,默认是0</span></span><br><span class="line"><span class="attr">spring.data.redis.lettuce.pool.min-idle</span>=<span class="string">0</span></span><br></pre></td></tr></table></figure></li>
+</ol>
+<h1 id="编写测试类"><a href="#编写测试类" class="headerlink" title="编写测试类"></a>编写测试类</h1><ol><li><a href="/2023/71c38fa0a58b/" title="SpringBoot编写测试类">SpringBoot编写测试类</a></li></ol>
+
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@SpringBootTest(classes = TestApplication.class)</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">TestRedis</span> &#123;</span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> RedisTemplate redisTemplate;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">testRedis</span><span class="params">()</span>&#123;</span><br><span class="line">        redisTemplate.opsForValue().set(<span class="string">&quot;key1&quot;</span>, <span class="string">&quot;value1&quot;</span>);</span><br><span class="line">        <span class="type">Object</span> <span class="variable">o</span> <span class="operator">=</span> redisTemplate.opsForValue().get(<span class="string">&quot;key1&quot;</span>);</span><br><span class="line">        System.out.println(<span class="string">&quot;获取redis key1 的结果:&quot;</span> + o);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>使用 <code>redis</code> 客户端看一下这个 <code>key</code> 和 <code>value</code></p>
+<figure class="highlight wren"><table><tr><td class="code"><pre><span class="line">[<span class="variable">db3</span>] <span class="operator">&gt;</span> <span class="variable">get</span> <span class="title function_">key1</span></span><br><span class="line">(<span class="variable">nil</span>)</span><br><span class="line"></span><br><span class="line">[<span class="variable">db3</span>] <span class="operator">&gt;</span> <span class="variable">keys</span> <span class="operator">*</span><span class="variable">key1</span><span class="operator">*</span></span><br><span class="line"><span class="number">1</span>) <span class="string">&quot;\xac\xed<span class="char escape_">\x00</span><span class="char escape_">\x05</span>t<span class="char escape_">\x00</span><span class="char escape_">\x04</span>key1&quot;</span></span><br><span class="line"></span><br><span class="line">[<span class="variable">db3</span>] <span class="operator">&gt;</span> <span class="variable">keys</span> <span class="operator">*</span><span class="variable">key1</span><span class="operator">*</span></span><br><span class="line"><span class="number">1</span>) <span class="string">&quot;\xac\xed<span class="char escape_">\x00</span><span class="char escape_">\x05</span>t<span class="char escape_">\x00</span><span class="char escape_">\x04</span>key1&quot;</span></span><br></pre></td></tr></table></figure>
+<p>可以看到直接使用 <code>key1</code> 竟然获取不到数据，使用模拟匹配后能看到，发现都是进行了编码，这是因为 <code>RedisTemplate</code> 默认使用 <code>jdk</code> 的序列化方式，可以通过自定义 <code>RedisTemplate</code> 方式来修改序列化方式</p>
+<h1 id="自定义-RedisTemplate"><a href="#自定义-RedisTemplate" class="headerlink" title="自定义 RedisTemplate"></a>自定义 RedisTemplate</h1><p>下面代码将 <code>RedisTemplate</code> 修改成使用 <code>json</code> 方式进行序列化</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">CusConfig</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="meta">@SuppressWarnings(&quot;all&quot;)</span></span><br><span class="line">    <span class="keyword">public</span> RedisTemplate&lt;String, Object&gt; <span class="title function_">redisTemplate</span><span class="params">(RedisConnectionFactory factory)</span> &#123;</span><br><span class="line">        RedisTemplate&lt;String, Object&gt; template = <span class="keyword">new</span> <span class="title class_">RedisTemplate</span>&lt;&gt;();</span><br><span class="line">        template.setConnectionFactory(factory);</span><br><span class="line">        <span class="type">Jackson2JsonRedisSerializer</span> <span class="variable">jackson2JsonRedisSerializer</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Jackson2JsonRedisSerializer</span>(Object.class);</span><br><span class="line">        <span class="type">ObjectMapper</span> <span class="variable">om</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">ObjectMapper</span>();</span><br><span class="line">        om.setVisibility(PropertyAccessor.ALL, JsonAutoDetect.Visibility.ANY);</span><br><span class="line">        om.activateDefaultTyping(LaissezFaireSubTypeValidator.instance , ObjectMapper.DefaultTyping.NON_FINAL);</span><br><span class="line">        om.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, <span class="literal">false</span>);</span><br><span class="line">        jackson2JsonRedisSerializer.setObjectMapper(om);</span><br><span class="line">        <span class="type">StringRedisSerializer</span> <span class="variable">stringRedisSerializer</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">StringRedisSerializer</span>();</span><br><span class="line">        <span class="comment">// key采用String的序列化方式</span></span><br><span class="line">        template.setKeySerializer(stringRedisSerializer);</span><br><span class="line">        <span class="comment">// hash的key也采用String的序列化方式</span></span><br><span class="line">        template.setHashKeySerializer(stringRedisSerializer);</span><br><span class="line">        <span class="comment">// value序列化方式采用jackson</span></span><br><span class="line">        template.setValueSerializer(jackson2JsonRedisSerializer);</span><br><span class="line">        <span class="comment">// hash的value序列化方式采用jackson</span></span><br><span class="line">        template.setHashValueSerializer(jackson2JsonRedisSerializer);</span><br><span class="line">        template.afterPropertiesSet();</span><br><span class="line">        <span class="keyword">return</span> template;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>执行测试代码后再次查看结果</p>
+<figure class="highlight swift"><table><tr><td class="code"><pre><span class="line">[db3] <span class="operator">&gt;</span> <span class="keyword">get</span> key1</span><br><span class="line"><span class="string">&quot;<span class="subst">\&quot;</span>value1<span class="subst">\&quot;</span>&quot;</span></span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>中间件</category>
+        <category>redis</category>
+      </categories>
+      <tags>
+        <tag>redis</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>redis线程模型</title>
+    <url>/2023/e4db3f95ceb5/</url>
+    <content><![CDATA[<p>总结：<code>redis</code> 整体是多线程的，至于平时所说的 <code>redis</code> 单线程是指 <strong>redis的网络io 和 键值对读写</strong> 是在同一个线程中完成</p>
+<span id="more"></span>
+<h1 id="一次-redis-请求过程"><a href="#一次-redis-请求过程" class="headerlink" title="一次 redis 请求过程"></a>一次 redis 请求过程</h1><ol>
+<li>监听客户端请求（<code>bind/listen</code>）</li>
+<li>等待客户端的连接（<code>accept</code>）</li>
+<li>从 <code>socket</code> 中读取数据（<code>recv</code>）</li>
+<li>解析客户端发送的内容（<code>parse</code>）</li>
+<li>根据解析出来的内容进行内存操作（<code>get/set</code>）</li>
+<li>执行完成命令之后给客户端响应结果，即向 <code>socket</code> 中写数据（<code>send</code>）</li>
+</ol>
+<pre class="mermaid">graph TB
+    subgraph A[redis线程]
+        subgraph B[网络IO处理]
+            B1[bind/listen]
+            B2[accept]
+            B3[recv]
+            B4[parse]
+        end
+        subgraph C[键值对读写]
+            C1[get/set]
+        end
+        subgraph D[网络IO处理]
+            D1[send]
+        end
+    end
+    B-->C-->D</pre>
+<ul>
+<li>网络 io 处理过程中， <code>listen</code> 和 <code>recv</code> 这两个步骤是可能阻塞的，即当没有链接或客户端没有发送命令时，服务器处理这两个环节时会阻塞，<strong>但是socket网络模型自身就支持非阻塞的形式</strong></li>
+</ul>
+<p>TODO</p>
+]]></content>
+      <categories>
+        <category>中间件</category>
+        <category>redis</category>
+      </categories>
+      <tags>
+        <tag>redis</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>WindTerm功能设置</title>
+    <url>/2023/0ff9c6825506/</url>
+    <content><![CDATA[<h1 id="自定义快捷键"><a href="#自定义快捷键" class="headerlink" title="自定义快捷键"></a>自定义快捷键</h1><p><a href="https://github.com/kingToolbox/WindTerm/issues/267">参考github</a></p>
+<h1 id="去除锁屏"><a href="#去除锁屏" class="headerlink" title="去除锁屏"></a>去除锁屏</h1><ol>
+<li>找到配置文件，可以在 <strong>会话-&gt;首选项-&gt;配置文件</strong> 中查看配置文件的位置</li>
+<li>找到 <code>application.lockScreenTimeout</code>， 将值改成 0</li>
+</ol>
+]]></content>
+      <categories>
+        <category>tools</category>
+        <category>other</category>
+      </categories>
+      <tags>
+        <tag>tools</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>vscode相关设置</title>
+    <url>/2023/6b613d963af3/</url>
+    <content><![CDATA[<h1 id="vscode-中-markdown-的-snippets-的设置"><a href="#vscode-中-markdown-的-snippets-的设置" class="headerlink" title="vscode 中 markdown 的 snippets 的设置"></a>vscode 中 markdown 的 snippets 的设置</h1><h2 id="snippets-的设置"><a href="#snippets-的设置" class="headerlink" title="snippets 的设置"></a>snippets 的设置</h2><ol>
+<li>打开 ctrl+shift+p , 搜索 <code>configure user snippets</code> </li>
+<li>选择 markdown.json, 会出现如下内容</li>
+</ol>
+<span id="more"></span>
+<figure class="highlight json"><table><tr><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">	<span class="comment">// Place your snippets for markdown here. Each snippet is defined under a snippet name and has a prefix, body and </span></span><br><span class="line">	<span class="comment">// description. The prefix is what is used to trigger the snippet and the body will be expanded and inserted. Possible variables are:</span></span><br><span class="line">	<span class="comment">// $1, $2 for tab stops, $0 for the final cursor position, and $&#123;1:label&#125;, $&#123;2:another&#125; for placeholders. Placeholders with the </span></span><br><span class="line">	<span class="comment">// same ids are connected.</span></span><br><span class="line">	<span class="comment">// Example:</span></span><br><span class="line">	<span class="comment">// &quot;Print to console&quot;: &#123;</span></span><br><span class="line">	<span class="comment">// 	&quot;prefix&quot;: &quot;log&quot;,</span></span><br><span class="line">	<span class="comment">// 	&quot;body&quot;: [</span></span><br><span class="line">	<span class="comment">// 		&quot;console.log(&#x27;$1&#x27;);&quot;,</span></span><br><span class="line">	<span class="comment">// 		&quot;$2&quot;</span></span><br><span class="line">	<span class="comment">// 	],</span></span><br><span class="line">	<span class="comment">// 	&quot;description&quot;: &quot;Log output to console&quot;</span></span><br><span class="line">	<span class="comment">// &#125;</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+
+<ol>
+<li>可以根据示例文件进行修改，如下图所示：<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="string">&quot;markdown code graph&quot;</span>: &#123;</span><br><span class="line">	<span class="string">&quot;prefix&quot;</span>: <span class="string">&quot;codeblock&quot;</span>,</span><br><span class="line">	<span class="string">&quot;body&quot;</span>: [</span><br><span class="line">		<span class="string">&quot;&lt;pre class=&quot;</span>mermaid<span class="string">&quot;&gt;<span class="variable">$0</span>&quot;</span>,</span><br><span class="line">		<span class="string">&quot;```&quot;</span></span><br><span class="line">	],</span><br><span class="line">	<span class="string">&quot;description&quot;</span>: <span class="string">&quot;insert markdown code graph&quot;</span></span><br><span class="line">&#125;&lt;/pre&gt;</span><br><span class="line"></span><br><span class="line">上面示例的意思是 当输入 codeblock 时就会出现 mermaid 代码块， <span class="variable">$0</span> 是光标出现的地方</span><br><span class="line"></span><br><span class="line"><span class="comment">## markdown snippets 不生效的解决方式</span></span><br><span class="line">使用上面的步骤设置完 snippets 之后，在 markdown 文档中编写关键字，但是并没有生效，还需要在  settings.json 中（可以输入 ctrl+<span class="built_in">shift</span>+p, 搜索 settings， 选择 Open User Settings(JSON)）, 然后填写下面的内容</span><br><span class="line"></span><br><span class="line">```java</span><br><span class="line"><span class="string">&quot;[markdown]&quot;</span>:&#123;</span><br><span class="line">	<span class="string">&quot;editor.formatOnSave&quot;</span>: <span class="literal">true</span>,</span><br><span class="line">	<span class="string">&quot;editor.renderWhitespace&quot;</span>: <span class="string">&quot;all&quot;</span>,</span><br><span class="line">	<span class="string">&quot;editor.quickSuggestions&quot;</span>: &#123;</span><br><span class="line">		<span class="string">&quot;other&quot;</span>: <span class="string">&quot;on&quot;</span>,</span><br><span class="line">		<span class="string">&quot;comments&quot;</span>: <span class="string">&quot;on&quot;</span>,</span><br><span class="line">		<span class="string">&quot;strings&quot;</span>: <span class="string">&quot;on&quot;</span></span><br><span class="line">	&#125;,</span><br><span class="line">	<span class="string">&quot;editor.acceptSuggestionOnEnter&quot;</span>: <span class="string">&quot;on&quot;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ol>
+<p>添加上述内容后就可以生效了</p>
+<h1 id="vscode-设置白天黑夜自动切换主题"><a href="#vscode-设置白天黑夜自动切换主题" class="headerlink" title="vscode 设置白天黑夜自动切换主题"></a>vscode 设置白天黑夜自动切换主题</h1><ol>
+<li>vscode 可以根据系统设置的 <code>light</code> 或 <code>dark</code> 主题来进行切换</li>
+<li>系统自动切换主题软件可以在 <code>store</code> 中安装 <code>Auto Dark Mode</code> 这个软件并进行设置</li>
+<li><code>window</code> 系统设置完成之后可以在 <code>vscode</code> 的 <code>user setting</code> 中添加如下内容, 第一个配置是开启自动切换，后面的配置是设置的 <code>light</code> 和 <code>dark</code> 主题的名称</li>
+</ol>
+<figure class="highlight json"><table><tr><td class="code"><pre><span class="line"><span class="attr">&quot;window.autoDetectColorScheme&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">true</span></span><span class="punctuation">,</span></span><br><span class="line"><span class="attr">&quot;workbench.preferredLightColorTheme&quot;</span><span class="punctuation">:</span> <span class="string">&quot;Atom One Light&quot;</span><span class="punctuation">,</span></span><br><span class="line"><span class="attr">&quot;workbench.preferredDarkColorTheme&quot;</span><span class="punctuation">:</span> <span class="string">&quot;Default Dark Modern&quot;</span></span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>tools</category>
+        <category>vscode</category>
+      </categories>
+      <tags>
+        <tag>tools</tag>
+        <tag>vscode</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>utools自动化脚本插件</title>
+    <url>/2023/d899f5ff1973/</url>
+    <content><![CDATA[<h1 id="utools-使用自动化脚本打开本地程序"><a href="#utools-使用自动化脚本打开本地程序" class="headerlink" title="utools 使用自动化脚本打开本地程序"></a>utools 使用自动化脚本打开本地程序</h1><ol>
+<li>比如 typora 可以打开之前的文件和目录，但是目录只能到文件的上一个层级，如果源目录包含很多子目录，重新打开时可能不是我们想要的结果，那可以在命令行执行 <code>typora folder</code>, eg: <code>typora E:\\blog</code> <span id="more"></span></li>
+</ol>
+<blockquote>
+<p>在命令行执行 typora 命令需要先配置 typora 的环境变量</p>
+</blockquote>
+<ol>
+<li>更简便的方式是直接使用 utools 的自动化脚本这个插件，新增一个自己的插件脚本，内容如下</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> &#123; execFile &#125; = <span class="built_in">require</span>(<span class="string">&quot;child_process&quot;</span>)</span><br><span class="line"></span><br><span class="line"> <span class="comment">// 以下是关键代码，调用 typora 来执行目标文件</span></span><br><span class="line"><span class="title function_">execFile</span>(<span class="string">&#x27;typora&#x27;</span>, [<span class="string">&#x27;E:/code/learnerguo&#x27;</span>], <span class="function">(<span class="params">error, stdout, stderr</span>) =&gt;</span> &#123;</span><br><span class="line">    process.<span class="title function_">exit</span>()</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<p>然后自定义关键字，后续当打开 utools 输入对应关键字就可以打开 typora 的目录</p>
+<h1 id="使用自动化脚本获取当天起始时间"><a href="#使用自动化脚本获取当天起始时间" class="headerlink" title="使用自动化脚本获取当天起始时间"></a>使用自动化脚本获取当天起始时间</h1><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> now = <span class="keyword">new</span> <span class="title class_">Date</span>();</span><br><span class="line"><span class="comment">// 设置当前时间的小时、分钟、秒和毫秒为0，即将时间设置为当天的开始时间</span></span><br><span class="line">now.<span class="title function_">setHours</span>(<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>);</span><br><span class="line"><span class="comment">// 获取当天开始时间点的毫秒数</span></span><br><span class="line"><span class="keyword">const</span> startTime = now.<span class="title function_">getTime</span>();</span><br><span class="line">utools.<span class="title function_">copyText</span>(<span class="string">&quot;&quot;</span>+startTime);</span><br><span class="line"><span class="title function_">print</span>(<span class="string">&#x27;开始时间已复制&#x27;</span> + startTime);</span><br><span class="line">utools.<span class="title function_">hideMainWindow</span>();</span><br><span class="line">process.<span class="title function_">exit</span>()</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>tools</category>
+        <category>utools</category>
+      </categories>
+      <tags>
+        <tag>tools</tag>
+        <tag>utools</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>vscode设置markdown图片默认路径</title>
+    <url>/2023/5b4d784e18c2/</url>
+    <content><![CDATA[<p><code>vscode</code> 在 <code>markdown</code> 文档中直接复制图片时是放在当前目录，如果需要修改可以按照下面方式设置</p>
+<span id="more"></span>
+<ol>
+<li>输入快捷键 <code>ctrl+,</code> 可以快速打开设置</li>
+<li>搜索 <code>markdown.copy: Destination</code></li>
+</ol>
+<p><img src="/2023/5b4d784e18c2/1700033681108.png" alt="Alt text"></p>
+]]></content>
+      <categories>
+        <category>tools</category>
+        <category>vscode</category>
+      </categories>
+      <tags>
+        <tag>tools</tag>
       </tags>
   </entry>
 </search>
