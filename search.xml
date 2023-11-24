@@ -32,6 +32,26 @@
       </tags>
   </entry>
   <entry>
+    <title>Next8版本主题优化修改的文件</title>
+    <url>/2023/44b973fe011c/</url>
+    <content><![CDATA[<p><a href="https://zhuanlan.zhihu.com/p/252983030">参考文章</a></p>
+<span id="more"></span>
+
+<p>首页每篇文章变成圆角，只需要在 <code>styles.styl</code> 中添加如下内容</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">// 添加首页每篇文章圆角独立 start ------------</span><br><span class="line">.post-block&#123;</span><br><span class="line">        background-color: rgba(255, 255, 255, 1);</span><br><span class="line">        //margin-top: 24px;</span><br><span class="line">        margin-bottom: 24px;</span><br><span class="line">        padding: 20px;</span><br><span class="line">        border-radius: 30px 50px 30px 50px;</span><br><span class="line">        box-shadow: 8px 7px 2px 0 rgba(0,0,0,0.12), 7px 4px 1px -2px rgba(0,0,0,0.06), 0 1px 5px 0 rgba(0,0,0,0.12);</span><br><span class="line">&#125;</span><br><span class="line">// 添加首页每篇文章圆角独立 end ------------</span><br></pre></td></tr></table></figure>
+<p><code>styles.styl</code> 在博客根目录下的，<code>source/_data</code> 下，若没有则需要自己创建并且在 <code>next</code> 主题的 <code>_config.yml</code> 中打开下面的注释</p>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">custom_file_path:</span></span><br><span class="line">  <span class="comment">#head: source/_data/head.njk</span></span><br><span class="line">  <span class="comment">#header: source/_data/header.njk</span></span><br><span class="line">  <span class="attr">style:</span> <span class="string">source/_data/styles.styl</span></span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>tools</category>
+        <category>hexo</category>
+      </categories>
+      <tags>
+        <tag>tools</tag>
+        <tag>hexo</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>butterfly主题多级分类折叠与展开</title>
     <url>/2023/acbd53e5de56/</url>
     <content><![CDATA[<ol>
@@ -56,15 +76,24 @@
       </tags>
   </entry>
   <entry>
-    <title>Next8版本主题优化修改的文件</title>
-    <url>/2023/44b973fe011c/</url>
-    <content><![CDATA[<p><a href="https://zhuanlan.zhihu.com/p/252983030">参考文章</a></p>
-<span id="more"></span>
+    <title>butterfly主题归档分类页面展示成双栏</title>
+    <url>/2023/e641424208d5/</url>
+    <content><![CDATA[<ol>
+<li>在 博客根目录的 <code>source</code> 目录下创建文件夹 <code>cusconfig/css</code>, 并创建文件, <code>cus_butterfly.css</code>, 添加如下内容</li>
+</ol>
+<figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="comment">/* 归档，分类文档页面设置双栏展示， 增加边框 */</span></span><br><span class="line"><span class="selector-class">.no-article-cover</span> &#123;</span><br><span class="line">    <span class="attribute">width</span>: <span class="number">48%</span>;</span><br><span class="line">    <span class="attribute">border</span>: <span class="number">1px</span> dashed lightblue;</span><br><span class="line">    <span class="attribute">background-color</span>: <span class="built_in">rgba</span>(<span class="number">241</span>, <span class="number">242</span>, <span class="number">246</span>, <span class="number">0.5</span>);</span><br><span class="line">    <span class="attribute">float</span>: left;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-class">.article-sort-item</span><span class="selector-class">.year</span> &#123;</span><br><span class="line">    <span class="attribute">clear</span>: both;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-id">#pagination</span> &#123;</span><br><span class="line">    <span class="attribute">clear</span>:both;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p>首页每篇文章变成圆角，只需要在 <code>styles.styl</code> 中添加如下内容</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">// 添加首页每篇文章圆角独立 start ------------</span><br><span class="line">.post-block&#123;</span><br><span class="line">        background-color: rgba(255, 255, 255, 1);</span><br><span class="line">        //margin-top: 24px;</span><br><span class="line">        margin-bottom: 24px;</span><br><span class="line">        padding: 20px;</span><br><span class="line">        border-radius: 30px 50px 30px 50px;</span><br><span class="line">        box-shadow: 8px 7px 2px 0 rgba(0,0,0,0.12), 7px 4px 1px -2px rgba(0,0,0,0.06), 0 1px 5px 0 rgba(0,0,0,0.12);</span><br><span class="line">&#125;</span><br><span class="line">// 添加首页每篇文章圆角独立 end ------------</span><br></pre></td></tr></table></figure>
-<p><code>styles.styl</code> 在博客根目录下的，<code>source/_data</code> 下，若没有则需要自己创建并且在 <code>next</code> 主题的 <code>_config.yml</code> 中打开下面的注释</p>
-<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">custom_file_path:</span></span><br><span class="line">  <span class="comment">#head: source/_data/head.njk</span></span><br><span class="line">  <span class="comment">#header: source/_data/header.njk</span></span><br><span class="line">  <span class="attr">style:</span> <span class="string">source/_data/styles.styl</span></span><br></pre></td></tr></table></figure>
+<ol start="2">
+<li>引入自定义 <code>css</code> 文件， 打开主题配置文件 <code>_config.butterfly.yml</code>, 添加如下内容</li>
+</ol>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">inject:</span></span><br><span class="line">  <span class="attr">head:</span></span><br><span class="line">    <span class="comment"># 添加下面这行内容引入自定义 js</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">&lt;link</span> <span class="string">rel=&quot;stylesheet&quot;</span> <span class="string">href=&quot;/cusconfig/css/cus_butterfly.css?1&quot;&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h1 id="去掉文档前面的点和竖线"><a href="#去掉文档前面的点和竖线" class="headerlink" title="去掉文档前面的点和竖线"></a>去掉文档前面的点和竖线</h1><p>修改 <code>archives.styl</code> 文件，该文件路径为 <code>博客根目录/themes/butterfly/source/css_page</code> 下面， 有注释的地方代表修改过</p>
+<figure class="highlight nestedtext"><table><tr><td class="code"><pre><span class="line"><span class="attribute">.article-sort</span></span><br><span class="line"><span class="attribute">  margin-left</span><span class="punctuation">:</span> <span class="string">10px</span></span><br><span class="line">  <span class="attribute">padding-left</span><span class="punctuation">:</span> <span class="string">20px</span></span><br><span class="line">  <span class="attribute">// border-left</span><span class="punctuation">:</span> <span class="string">2px solid lighten($light-blue, 20)   这一行注释掉，这里去掉竖线</span></span><br><span class="line"></span><br><span class="line">  <span class="attribute">&amp;-title</span></span><br><span class="line"><span class="attribute">    position</span><span class="punctuation">:</span> <span class="string">relative</span></span><br><span class="line">    <span class="attribute">margin-left</span><span class="punctuation">:</span> <span class="string">10px</span></span><br><span class="line">    <span class="attribute">padding-bottom</span><span class="punctuation">:</span> <span class="string">20px</span></span><br><span class="line">    <span class="attribute">padding-left</span><span class="punctuation">:</span> <span class="string">20px</span></span><br><span class="line">    <span class="attribute">font-size</span><span class="punctuation">:</span> <span class="string">1.72em</span></span><br><span class="line"></span><br><span class="line">    &amp;:hover</span><br><span class="line">      &amp;:before</span><br><span class="line">        <span class="attribute">border-color</span><span class="punctuation">:</span> <span class="string">var(--pseudo-hover)</span></span><br><span class="line"></span><br><span class="line">    &amp;:before</span><br><span class="line">      <span class="attribute">position</span><span class="punctuation">:</span> <span class="string">absolute</span></span><br><span class="line">      <span class="attribute">top</span><span class="punctuation">:</span> <span class="string">calc(((100% - 36px) / 2))</span></span><br><span class="line">      <span class="attribute">left</span><span class="punctuation">:</span> <span class="string">-9px</span></span><br><span class="line">      <span class="attribute">z-index</span><span class="punctuation">:</span> <span class="string">1</span></span><br><span class="line">      <span class="attribute">width</span><span class="punctuation">:</span> <span class="string">w = 10px</span></span><br><span class="line">      <span class="attribute">height</span><span class="punctuation">:</span> <span class="string">h = w</span></span><br><span class="line">      <span class="attribute">border</span><span class="punctuation">:</span> <span class="string">.5 * w solid $light-blue</span></span><br><span class="line">      <span class="attribute">border-radius</span><span class="punctuation">:</span> <span class="string">w</span></span><br><span class="line">      <span class="attribute">background</span><span class="punctuation">:</span> <span class="string">var(--card-bg)</span></span><br><span class="line">      <span class="attribute">content</span><span class="punctuation">:</span> <span class="string">&#x27;&#x27;</span></span><br><span class="line">      <span class="attribute">line-height</span><span class="punctuation">:</span> <span class="string">h</span></span><br><span class="line">      <span class="attribute">transition</span><span class="punctuation">:</span> <span class="string">all .2s ease-in-out</span></span><br><span class="line"></span><br><span class="line">    &amp;:after</span><br><span class="line">      <span class="attribute">position</span><span class="punctuation">:</span> <span class="string">absolute</span></span><br><span class="line">      <span class="attribute">bottom</span><span class="punctuation">:</span> <span class="string">0</span></span><br><span class="line">      <span class="attribute">left</span><span class="punctuation">:</span> <span class="string">0</span></span><br><span class="line">      <span class="attribute">z-index</span><span class="punctuation">:</span> <span class="string">0</span></span><br><span class="line">      <span class="attribute">width</span><span class="punctuation">:</span> <span class="string">2px</span></span><br><span class="line">      <span class="attribute">height</span><span class="punctuation">:</span> <span class="string">1.5em</span></span><br><span class="line">      <span class="attribute">background</span><span class="punctuation">:</span> <span class="string">lighten($light-blue, 20)</span></span><br><span class="line">      <span class="attribute">content</span><span class="punctuation">:</span> <span class="string">&#x27;&#x27;</span></span><br><span class="line"></span><br><span class="line">  <span class="attribute">&amp;-item</span></span><br><span class="line"><span class="attribute">    position</span><span class="punctuation">:</span> <span class="string">relative</span></span><br><span class="line">    <span class="attribute">display</span><span class="punctuation">:</span> <span class="string">flex</span></span><br><span class="line">    <span class="attribute">align-items</span><span class="punctuation">:</span> <span class="string">center</span></span><br><span class="line">    <span class="attribute">margin</span><span class="punctuation">:</span> <span class="string">0 0 20px 10px</span></span><br><span class="line">    <span class="attribute">transition</span><span class="punctuation">:</span> <span class="string">all .2s ease-in-out</span></span><br><span class="line"></span><br><span class="line">    &amp;:hover</span><br><span class="line">      &amp;:before</span><br><span class="line">        <span class="attribute">border-color</span><span class="punctuation">:</span> <span class="string">var(--pseudo-hover)</span></span><br><span class="line"></span><br><span class="line">    /* &amp;:before   这一整块都注释掉，这里是去掉文章前面的点</span><br><span class="line">      <span class="attribute">$w = 6px</span></span><br><span class="line"><span class="attribute">      position</span><span class="punctuation">:</span> <span class="string">absolute</span></span><br><span class="line">      <span class="attribute">left</span><span class="punctuation">:</span> <span class="string">calc(-20px - 17px)</span></span><br><span class="line">      <span class="attribute">width</span><span class="punctuation">:</span> <span class="string">w = $w</span></span><br><span class="line">      <span class="attribute">height</span><span class="punctuation">:</span> <span class="string">h = w</span></span><br><span class="line">      <span class="attribute">border</span><span class="punctuation">:</span> <span class="string">.5 * w solid $light-blue</span></span><br><span class="line">      <span class="attribute">border-radius</span><span class="punctuation">:</span> <span class="string">w</span></span><br><span class="line">      <span class="attribute">background</span><span class="punctuation">:</span> <span class="string">var(--card-bg)</span></span><br><span class="line">      <span class="attribute">content</span><span class="punctuation">:</span> <span class="string">&#x27;&#x27;</span></span><br><span class="line">      <span class="attribute">transition</span><span class="punctuation">:</span> <span class="string">all .2s ease-in-out */</span></span><br><span class="line"></span><br><span class="line">    <span class="attribute">&amp;.no-article-cover</span></span><br><span class="line"><span class="attribute">      height</span><span class="punctuation">:</span> <span class="string">80px</span></span><br><span class="line"></span><br><span class="line">      <span class="attribute">.article-sort-item-info</span></span><br><span class="line"><span class="attribute">        padding</span><span class="punctuation">:</span> <span class="string">0</span></span><br><span class="line"></span><br><span class="line">    <span class="attribute">&amp;.year</span></span><br><span class="line"><span class="attribute">      font-size</span><span class="punctuation">:</span> <span class="string">1.43em</span></span><br><span class="line"></span><br><span class="line">      &amp;:hover</span><br><span class="line">        &amp;:before</span><br><span class="line">          <span class="attribute">border-color</span><span class="punctuation">:</span> <span class="string">$light-blue</span></span><br><span class="line"></span><br><span class="line">      &amp;:before</span><br><span class="line">        <span class="attribute">border-color</span><span class="punctuation">:</span> <span class="string">var(--pseudo-hover)</span></span><br><span class="line"></span><br><span class="line">    <span class="attribute">&amp;-time</span></span><br><span class="line"><span class="attribute">      color</span><span class="punctuation">:</span> <span class="string">$theme-meta-color</span></span><br><span class="line">      <span class="attribute">font-size</span><span class="punctuation">:</span> <span class="string">95%</span></span><br><span class="line"></span><br><span class="line">      <span class="attribute">time</span></span><br><span class="line"><span class="attribute">        padding-left</span><span class="punctuation">:</span> <span class="string">6px</span></span><br><span class="line">        <span class="attribute">cursor</span><span class="punctuation">:</span> <span class="string">default</span></span><br><span class="line"></span><br><span class="line">    <span class="attribute">&amp;-title</span></span><br><span class="line"><span class="attribute">      @extend .limit-more-line</span></span><br><span class="line"><span class="attribute">      color</span><span class="punctuation">:</span> <span class="string">var(--font-color)</span></span><br><span class="line">      <span class="attribute">font-size</span><span class="punctuation">:</span> <span class="string">1.1em</span></span><br><span class="line">      <span class="attribute">transition</span><span class="punctuation">:</span> <span class="string">all .3s</span></span><br><span class="line">      <span class="attribute">-webkit-line-clamp</span><span class="punctuation">:</span> <span class="string">2</span></span><br><span class="line"></span><br><span class="line">      &amp;:hover</span><br><span class="line">        <span class="attribute">color</span><span class="punctuation">:</span> <span class="string">$text-hover</span></span><br><span class="line">        <span class="attribute">transform</span><span class="punctuation">:</span> <span class="string">translateX(10px)</span></span><br><span class="line"></span><br><span class="line">    <span class="attribute">&amp;-img</span></span><br><span class="line"><span class="attribute">      overflow</span><span class="punctuation">:</span> <span class="string">hidden</span></span><br><span class="line">      <span class="attribute">width</span><span class="punctuation">:</span> <span class="string">80px</span></span><br><span class="line">      <span class="attribute">height</span><span class="punctuation">:</span> <span class="string">80px</span></span><br><span class="line"></span><br><span class="line">      :first-child</span><br><span class="line">        <span class="attribute">@extend .imgHover</span></span><br><span class="line"><span class="attribute"></span></span><br><span class="line"><span class="attribute">    &amp;-info</span></span><br><span class="line"><span class="attribute">      flex</span><span class="punctuation">:</span> <span class="string">1</span></span><br><span class="line">      <span class="attribute">padding</span><span class="punctuation">:</span> <span class="string">0 16px</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+
 ]]></content>
       <categories>
         <category>tools</category>
@@ -76,22 +105,16 @@
       </tags>
   </entry>
   <entry>
-    <title>butterfly主题归档分类页面展示成双栏</title>
-    <url>/2023/e641424208d5/</url>
+    <title>butterfly标签页固定每行个数</title>
+    <url>/2023/1099169ec3c6/</url>
     <content><![CDATA[<ol>
-<li>在 博客根目录的 <code>source</code> 目录下创建文件夹 <code>cusconfig/css</code>, 并创建文件, <code>cus_butterfly.css</code>, 添加如下内容</li>
+<li><p>可以先参考如下文章添加自定义 <code>css</code> 文件</p>
+<ol><li><a href="/2023/e641424208d5/" title="butterfly主题归档分类页面展示成双栏">butterfly主题归档分类页面展示成双栏</a></li></ol>
+</li>
+<li><p>在 <code>cus_butterfly.css</code> 文件中添加如下内容</p>
+</li>
 </ol>
-<figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="comment">/* 归档，分类文档页面设置双栏展示， 增加边框 */</span></span><br><span class="line"><span class="selector-class">.no-article-cover</span> &#123;</span><br><span class="line">    <span class="attribute">width</span>: <span class="number">45%</span>;</span><br><span class="line">    <span class="attribute">border</span>: <span class="number">1px</span> dashed lightblue;</span><br><span class="line">    <span class="attribute">float</span>: left;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-id">#pagination</span> &#123;</span><br><span class="line">    <span class="attribute">clear</span>:both;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<ol start="2">
-<li>引入自定义 <code>css</code> 文件， 打开主题配置文件 <code>_config.butterfly.yml</code>, 添加如下内容</li>
-</ol>
-<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">inject:</span></span><br><span class="line">  <span class="attr">head:</span></span><br><span class="line">    <span class="comment"># 添加下面这行内容引入自定义 js</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">&lt;link</span> <span class="string">rel=&quot;stylesheet&quot;</span> <span class="string">href=&quot;/cusconfig/css/cus_butterfly.css?1&quot;&gt;</span></span><br></pre></td></tr></table></figure>
-
-
-
-
-]]></content>
+<figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="comment">/* 修改标签页，每个标签宽度固定  start -------------- */</span></span><br><span class="line"><span class="selector-class">.tag-cloud-list</span> &#123;</span><br><span class="line">    <span class="attribute">display</span>: flex;</span><br><span class="line">    <span class="attribute">flex-wrap</span>: wrap;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* 每行放5个标签 */</span></span><br><span class="line"><span class="selector-class">.tag-cloud-list</span> <span class="selector-tag">a</span> &#123;</span><br><span class="line">    <span class="attribute">width</span>: <span class="number">20%</span>;</span><br><span class="line">    <span class="attribute">text-align</span>: center;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* 修改标签页，每个标签宽度固定  end -------------- */</span></span><br></pre></td></tr></table></figure>]]></content>
       <categories>
         <category>tools</category>
         <category>hexo</category>
@@ -509,33 +532,6 @@
       </tags>
   </entry>
   <entry>
-    <title>SpringBoot编写测试类</title>
-    <url>/2023/71c38fa0a58b/</url>
-    <content><![CDATA[<p>版本说明：</p>
-<ol>
-<li>SpringBoot3.x</li>
-</ol>
-<h1 id="引入依赖"><a href="#引入依赖" class="headerlink" title="引入依赖"></a>引入依赖</h1><figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-test<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<h1 id="编写测试类"><a href="#编写测试类" class="headerlink" title="编写测试类"></a>编写测试类</h1><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@SpringBootTest</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">TestRedis</span> &#123;</span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">testOne</span><span class="params">()</span> &#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;测试类&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="注意点"><a href="#注意点" class="headerlink" title="注意点"></a>注意点</h2><ol>
-<li><code>SpringBoot2.5</code> 之后测试类中已经不需要添加 <code>RunWith</code> 注解，只需要一个 <code>SpringBootTest</code></li>
-<li>需要保证测试类所在的包和项目主配置类包一致（项目 <code>main</code> 方法所在的包），如果不一致，则可以按照下面方式配置</li>
-</ol>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@SpringBootTest(classes = TestApplication.class)</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">TestRedis</span> &#123;</span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">testOne</span><span class="params">()</span> &#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;测试类&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-]]></content>
-      <categories>
-        <category>java</category>
-        <category>SpringBoot</category>
-      </categories>
-      <tags>
-        <tag>java</tag>
-        <tag>SpringBoot</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>java内存模型</title>
     <url>/2023/08549388833c/</url>
     <content><![CDATA[<h1 id="主要内容"><a href="#主要内容" class="headerlink" title="主要内容"></a>主要内容</h1><p><code>java</code>内存模型实际上是一个抽象的概念，是一套规范，而不是一个实际的东西，而<code>java</code>内存结构就是根据这一套规范来进行划分的。</p>
@@ -698,6 +694,33 @@
       </tags>
   </entry>
   <entry>
+    <title>jvm垃圾回收</title>
+    <url>/2023/63d242ce6cb3/</url>
+    <content><![CDATA[<span class="hide_first_mermaid">
+<div class="mermaid-wrap"><pre class="mermaid-src" hidden>
+  flowchart LR
+    A
+  </pre></div>
+</span>
+
+<p>以下内容参考《剑指JVM:虚拟机实践与性能调优》</p>
+<h1 id="垃圾回收的分类"><a href="#垃圾回收的分类" class="headerlink" title="垃圾回收的分类"></a>垃圾回收的分类</h1><ol>
+<li><code>GC</code> 按照回收区域分为两种类型，分别是部分<code>GC(Partial GC)</code>和整堆<code>GC(Full GC)</code></li>
+<li>新生代<code>GC(Minor GC / Young GC)</code>：只是新生代<code>（Eden、S0和S1区）</code>的垃圾收集</li>
+<li>老年代<code>GC(Major GC / Old GC)</code>：只是老年代的垃圾收集。目前，只有<code>CMS GC</code>会有单独收集老年代的行为。很多时候<code>Major GC</code>会和<code>Full GC</code>混淆使用，需要具体分辨是老年代回收还是整堆回收</li>
+<li>混合<code>GC(Mixed GC)</code>：收集整个新生代以及部分老年代的垃圾收集。目前，只有<code>G1 GC</code>会有这种行为</li>
+</ol>
+]]></content>
+      <categories>
+        <category>java</category>
+        <category>jvm</category>
+      </categories>
+      <tags>
+        <tag>java</tag>
+        <tag>jvm</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>jvm运行时内存区域</title>
     <url>/2023/70e7b048ccf4/</url>
     <content><![CDATA[<span class="hide_first_mermaid">
@@ -730,6 +753,93 @@
 <h2 id="栈帧-栈的存储单位"><a href="#栈帧-栈的存储单位" class="headerlink" title="栈帧-栈的存储单位"></a>栈帧-栈的存储单位</h2><ol>
 <li>每个线程上正在执行的每个方法都各自对应一个栈帧</li>
 </ol>
+<h2 id="栈帧中存储的内容"><a href="#栈帧中存储的内容" class="headerlink" title="栈帧中存储的内容"></a>栈帧中存储的内容</h2><pre class="mermaid">flowchart TB
+  subgraph A[栈]
+    subgraph B[栈帧]
+      direction LR
+        B1[局部变量表]
+        B2[方法返回值]
+        B3[操作数栈]
+        B4[动态链接]
+        B5["附加信息\n比如对程序调试相关信息"]
+        B1~~~B2~~~B3~~~B4~~~B5
+    end
+    subgraph C[栈帧]
+      direction LR
+        C1[局部变量表]
+        C2[方法返回值]
+        C3[操作数栈]
+        C4[动态链接]
+        C5["附加信息\n比如对程序调试相关信息"]
+        C1~~~C2~~~C3~~~C4~~~C5
+    end
+  end</pre>
+<h3 id="局部变量表"><a href="#局部变量表" class="headerlink" title="局部变量表"></a>局部变量表</h3><ol>
+<li>局部变量表是一个数组</li>
+<li>局部变量表的作用是存储方法参数和定义在方法体内的局部变量<ol>
+<li>局部变量数据类型可以是基本数据类型，对象引用(存储的是指向对象的引用)</li>
+</ol>
+</li>
+<li>局部变量表的大小在编译器确定，方法运行期间不会大概局部变量表的大小</li>
+</ol>
+<h4 id="slot"><a href="#slot" class="headerlink" title="slot"></a>slot</h4><ol>
+<li>局部变量表达存储单元是 <code>slot</code></li>
+<li>32 位以内的类型只占用一个 <code>slot</code>， 64 位的类型（<code>long</code> 和 <code>double</code> ）占用两个 <code>slot</code></li>
+<li><code>byte，short，char</code> 在存储前会被转换成 <code>int</code></li>
+<li><code>JVM</code> 会为局部变量表中的每一个 <code>slot</code> 都分配一个访问索引，通过这个索引即可成功访问到局部变量表中指定的局部变量值</li>
+</ol>
+<h3 id="操作数栈"><a href="#操作数栈" class="headerlink" title="操作数栈"></a>操作数栈</h3><ol>
+<li>操作数栈主要用于保存计算过程的中间结果，同时作为计算过程中变量临时的存储空间</li>
+<li>每一个操作数栈都拥有一个明确的栈深度用于存储数值，其所需的最大深度在编译期就定义好了，保存在方法的 <code>Code</code> 属性中的<code>Maximum stack size</code>数据项中</li>
+<li>操作数栈只能通过入栈(<code>push</code>)和出栈(<code>pop</code>)操作来完成一次数据访问</li>
+</ol>
+<h3 id="动态链接"><a href="#动态链接" class="headerlink" title="动态链接"></a>动态链接</h3><ol>
+<li>每一个栈帧内部都包含一个指向运行时常量池中该栈帧所属方法的引用。包含这个引用的目的就是为了支持当前方法的代码能够实现动态链接</li>
+<li>动态链接的目的是在 <code>jvm</code> 加载了字节码文件，将类数据加载到内存之后，可以将字节码文件中记录的符号引用转换位为调用方法的直接引用</li>
+</ol>
+<h3 id="方法返回地址"><a href="#方法返回地址" class="headerlink" title="方法返回地址"></a>方法返回地址</h3><ol>
+<li>方法返回地址存储的是调用该方法的程序计数器的值</li>
+<li>方法正常退出时，调用者的程序计数器的值作为返回地址，即调用该方法的指令的下一条指令的地址</li>
+<li>方法正常退出时，调用者的程序计数器的值作为返回地址，即调用该方法的指令的下一条指令的地址</li>
+</ol>
+<h1 id="堆区"><a href="#堆区" class="headerlink" title="堆区"></a>堆区</h1><ol>
+<li>前面讲解的 <strong>栈</strong> 解决的是程序的运行问题，即程序是如何运行，如何处理数据的，但是数据从哪里来呢？ 这就涉及到下面要讲的堆</li>
+<li>堆是存储的单位，堆解决的是数据存储的问题，即数据怎么放、放在哪儿</li>
+</ol>
+<h2 id="堆空间的划分"><a href="#堆空间的划分" class="headerlink" title="堆空间的划分"></a>堆空间的划分</h2><pre class="mermaid">flowchart LR
+  subgraph A[堆]
+    subgraph B[新生代]
+      B1["\nEden\n\n"]
+      B2["\nfrom\n\n"]
+      B3["\nto\n\n"]
+      B1~~~B2~~~B3
+    end
+    subgraph C["\n\n\n &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp老年代&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp\n\n\n\n"]
+    end
+  end</pre>
+
+<ol>
+<li>堆空间可以通过参数 <code>-Xms</code>(代表堆最小值) 和 <code>-Xmx</code> （代表堆空间最大值）来设置</li>
+<li>新生代与老年代的空间比例可以通过 <code>-XX:NewRatio=4</code> 参数来设置，这个案例代表，新生代占比1，老年代占比4，新生代占整个堆的 1&#x2F;5</li>
+<li><code>Eden</code> 区和两个 <code>Survivor</code> 区默认的比例是 8:1:1, 可以通过参数 <code>-XX:SurvivorRatio=8</code> 来显示设置比例， 如果 <code>-XX:SurvivorRatio=5</code> 代表 <code>Eden</code> 和两个 <code>Survivor</code> 区占比为 5:1:1</li>
+</ol>
+<h2 id="对象内存分配过程"><a href="#对象内存分配过程" class="headerlink" title="对象内存分配过程"></a>对象内存分配过程</h2><p><img src="https://blog-1308475102.cos.ap-guangzhou.myqcloud.com/picture/202311232258657.png" alt="对象内存分配过程"></p>
+<h2 id="TLAB"><a href="#TLAB" class="headerlink" title="TLAB"></a>TLAB</h2><ol>
+<li>堆中还有一部分区域是线程私有，这部分区域称为线程本地分配缓存区(<code>Thread Local Allocation Buffer,TLAB</code>)</li>
+<li><code>TLAB</code> 表示<code>JVM</code>为每个线程分配了一个私有缓存区域，这块缓存区域包含在<code>Eden</code>区内</li>
+<li>可以通过参数  <code>-XX:+/-UseTLAB</code> 来设置是否开启 <code>TLAB</code> 功能</li>
+<li>可以通过参数 <code>-XX:TLABWasteTargetPercent</code> 开设置 <code>TLAB</code> 占用 <code>Eden</code> 区域的大小，默认是占用 1%</li>
+<li>对象在<code>TLAB</code>空间分配内存失败时，<code>JVM</code>就会尝试着通过使用加锁机制确保数据操作的原子性，从而直接在<code>Eden</code>区中分配内存</li>
+</ol>
+<h3 id="使用-TLAB-的原因"><a href="#使用-TLAB-的原因" class="headerlink" title="使用 TLAB 的原因"></a>使用 TLAB 的原因</h3><ol>
+<li>堆区是线程共享区域，对象实例的创建在<code>JVM</code>中非常频繁，因此在并发环境下从堆区中划分内存空间是线程不安全的</li>
+<li>避免多个线程操作同一地址，就需要使用加锁等机制，但是加锁会影响分配速度</li>
+</ol>
+<h2 id="逃逸分析"><a href="#逃逸分析" class="headerlink" title="逃逸分析"></a>逃逸分析</h2><p>逃逸分析是指：当一个对象在方法中创建后，若对象只是在方法内部使用，则认为对象没有发生逃逸，若这个对象被方法外部使用，则认为发生了逃逸</p>
+<h3 id="逃逸分析之同步省略"><a href="#逃逸分析之同步省略" class="headerlink" title="逃逸分析之同步省略"></a>逃逸分析之同步省略</h3><p>遇到同步代码块时，<code>JIT</code>编译器可以借助逃逸分析，来判断同步块所使用的锁对象是否只能够被一个线程访问而没有被发布到其他线程, 如果没有被发布到其它线程，<code>JIT</code> 编译器在编译同步代码块时会取消堆这部分代码的同步</p>
+<h3 id="逃逸分析之栈上分配"><a href="#逃逸分析之栈上分配" class="headerlink" title="逃逸分析之栈上分配"></a>逃逸分析之栈上分配</h3><p><code>JIT(Just In Time)</code>编译器在编译期间根据逃逸分析的结果，发现如果一个对象没有逃逸出方法的话，就可能被优化成栈上分配</p>
+<h3 id="逃逸分析之标量替换"><a href="#逃逸分析之标量替换" class="headerlink" title="逃逸分析之标量替换"></a>逃逸分析之标量替换</h3><p>标量<code>(Scalar)</code>是指一个无法再分解成更小数据的数据。<code>Java</code>中的原始数据类型就是标量。相对的，那些还可以分解的数据叫作聚合量<code>(Aggregate)</code>，<code>Java</code>中的对象就是聚合量，因为它可以分解成其他聚合量和标量。在<code>JIT</code>编译器的编译阶段，如果经过逃逸分析，发现一个对象不会被外界访问的话，那么经过<code>JIT</code>优化，就会把这个对象拆解成若干个成员变量。这个过程就是标量替换</p>
+<h1 id="方法区"><a href="#方法区" class="headerlink" title="方法区"></a>方法区</h1><p>TODO</p>
 ]]></content>
       <categories>
         <category>java</category>
@@ -738,6 +848,33 @@
       <tags>
         <tag>java</tag>
         <tag>jvm</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>SpringBoot编写测试类</title>
+    <url>/2023/71c38fa0a58b/</url>
+    <content><![CDATA[<p>版本说明：</p>
+<ol>
+<li>SpringBoot3.x</li>
+</ol>
+<h1 id="引入依赖"><a href="#引入依赖" class="headerlink" title="引入依赖"></a>引入依赖</h1><figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-test<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h1 id="编写测试类"><a href="#编写测试类" class="headerlink" title="编写测试类"></a>编写测试类</h1><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@SpringBootTest</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">TestRedis</span> &#123;</span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">testOne</span><span class="params">()</span> &#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;测试类&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="注意点"><a href="#注意点" class="headerlink" title="注意点"></a>注意点</h2><ol>
+<li><code>SpringBoot2.5</code> 之后测试类中已经不需要添加 <code>RunWith</code> 注解，只需要一个 <code>SpringBootTest</code></li>
+<li>需要保证测试类所在的包和项目主配置类包一致（项目 <code>main</code> 方法所在的包），如果不一致，则可以按照下面方式配置</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@SpringBootTest(classes = TestApplication.class)</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">TestRedis</span> &#123;</span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">testOne</span><span class="params">()</span> &#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;测试类&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+]]></content>
+      <categories>
+        <category>java</category>
+        <category>SpringBoot</category>
+      </categories>
+      <tags>
+        <tag>java</tag>
+        <tag>SpringBoot</tag>
       </tags>
   </entry>
   <entry>
