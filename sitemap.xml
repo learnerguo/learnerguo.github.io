@@ -2,6 +2,15 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://www.learnerguo.cn/book/index.html</loc>
+    
+    <lastmod>2023-11-24</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>https://www.learnerguo.cn/2023/1099169ec3c6/</loc>
     
     <lastmod>2023-11-24</lastmod>
@@ -210,15 +219,6 @@
   
   <url>
     <loc>https://www.learnerguo.cn/about/index.html</loc>
-    
-    <lastmod>2023-11-20</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.learnerguo.cn/book/index.html</loc>
     
     <lastmod>2023-11-20</lastmod>
     
@@ -459,20 +459,6 @@
   </url>
   
   <url>
-    <loc>https://www.learnerguo.cn/categories/tools/utools/</loc>
-    <lastmod>2023-11-24</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.learnerguo.cn/categories/tools/vscode/</loc>
-    <lastmod>2023-11-24</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
     <loc>https://www.learnerguo.cn/categories/book/other/</loc>
     <lastmod>2023-11-24</lastmod>
     <changefreq>weekly</changefreq>
@@ -509,6 +495,20 @@
   
   <url>
     <loc>https://www.learnerguo.cn/categories/%E4%B8%AD%E9%97%B4%E4%BB%B6/redis/</loc>
+    <lastmod>2023-11-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.learnerguo.cn/categories/tools/utools/</loc>
+    <lastmod>2023-11-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.learnerguo.cn/categories/tools/vscode/</loc>
     <lastmod>2023-11-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>

@@ -52,30 +52,6 @@
       </tags>
   </entry>
   <entry>
-    <title>butterfly主题多级分类折叠与展开</title>
-    <url>/2023/acbd53e5de56/</url>
-    <content><![CDATA[<ol>
-<li>引入 <code>jquery</code> 和 自定义的 js 文件</li>
-</ol>
-<p>打开 <code>_config.butterfly.yml</code> 文件，添加如下内容</p>
-<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">inject:</span></span><br><span class="line">  <span class="attr">head:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">&lt;link</span> <span class="string">rel=&quot;stylesheet&quot;</span> <span class="string">href=&quot;/cusconfig/css/hidemermaid.css?1&quot;&gt;</span></span><br><span class="line">    <span class="comment"># 引入jquery</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">&lt;script</span> <span class="string">src=&quot;https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js&quot;&gt;&lt;/script&gt;</span></span><br><span class="line">    <span class="comment"># 引入自定义文件，自定义文件放在博客根目录的 /cusconfig/js 目录下，名称是 category.js</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">&lt;script</span> <span class="string">src=&quot;/cusconfig/js/category.js&quot;&gt;&lt;/script&gt;</span></span><br><span class="line">  <span class="attr">bottom:</span></span><br><span class="line">    <span class="comment"># - &lt;script src=&quot;xxxx&quot;&gt;&lt;/script&gt;</span></span><br><span class="line">    <span class="comment"># - &lt;script src=&quot;https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js&quot;&gt;&lt;/script&gt;</span></span><br></pre></td></tr></table></figure>
-
-<ol start="2">
-<li>category.js 文件内容</li>
-</ol>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">$(<span class="variable language_">document</span>).<span class="title function_">ready</span>(<span class="keyword">function</span>(<span class="params"></span>) &#123;</span><br><span class="line">	<span class="title function_">categoryUnfold</span>();</span><br><span class="line">	<span class="keyword">function</span> <span class="title function_">categoryUnfold</span>(<span class="params"></span>) &#123;</span><br><span class="line">		$(<span class="string">&quot;.category-list-link&quot;</span>).<span class="title function_">filter</span>(<span class="keyword">function</span>(<span class="params"></span>) &#123;</span><br><span class="line">			<span class="keyword">if</span>($(<span class="variable language_">this</span>).<span class="title function_">siblings</span>(<span class="string">&quot;.category-list-child&quot;</span>).<span class="property">length</span> &gt; <span class="number">0</span>)</span><br><span class="line">                <span class="comment">// 这里引入了向下展开的图标，可以直接从本站下载放入对应目录即可</span></span><br><span class="line">				$(<span class="variable language_">this</span>).<span class="title function_">parent</span>().<span class="title function_">css</span>(<span class="string">&quot;list-style-image&quot;</span>,<span class="string">&quot;url(&#x27;/cusconfig/img/category-unfold-16x16.png&#x27;&quot;</span>);</span><br><span class="line">		&#125;);</span><br><span class="line">		</span><br><span class="line">		<span class="comment">//点击含有子标签category-list-child的category-list-link标签时，不进行跳转</span></span><br><span class="line">		$(<span class="string">&quot;.category-list-link&quot;</span>).<span class="title function_">filter</span>(<span class="keyword">function</span>(<span class="params"></span>) &#123;</span><br><span class="line">			<span class="keyword">return</span> $(<span class="variable language_">this</span>).<span class="title function_">siblings</span>(<span class="string">&quot;.category-list-child&quot;</span>).<span class="property">length</span> &gt; <span class="number">0</span></span><br><span class="line">		&#125;).<span class="title function_">attr</span>(<span class="string">&quot;href&quot;</span>, <span class="string">&quot;javascript:void(0)&quot;</span>);</span><br><span class="line">		</span><br><span class="line">		<span class="comment">//含有子标签category-list-child的category-list-link标签将自动隐藏子标签</span></span><br><span class="line">		$(<span class="string">&quot;.category-list-link&quot;</span>).<span class="title function_">filter</span>(<span class="keyword">function</span>(<span class="params"></span>) &#123;</span><br><span class="line">			<span class="keyword">if</span>($(<span class="variable language_">this</span>).<span class="title function_">siblings</span>(<span class="string">&quot;.category-list-child&quot;</span>).<span class="property">length</span> &gt; <span class="number">0</span>)</span><br><span class="line">				$(<span class="variable language_">this</span>).<span class="title function_">siblings</span>(<span class="string">&quot;.category-list-child&quot;</span>).<span class="title function_">hide</span>();</span><br><span class="line">		&#125;);	</span><br><span class="line">		</span><br><span class="line">		<span class="comment">//点击含有子标签category-list-child的category-list-link标签时，将隐藏子标签展开</span></span><br><span class="line">		$(<span class="string">&quot;.category-list-link&quot;</span>).<span class="title function_">click</span>(<span class="keyword">function</span>(<span class="params"></span>) &#123;</span><br><span class="line">			$(<span class="variable language_">this</span>).<span class="title function_">siblings</span>(<span class="string">&quot;.category-list-child&quot;</span>).<span class="title function_">slideToggle</span>();</span><br><span class="line">		&#125;);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
-
-]]></content>
-      <categories>
-        <category>tools</category>
-        <category>hexo</category>
-      </categories>
-      <tags>
-        <tag>tools</tag>
-        <tag>hexo</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>butterfly主题归档分类页面展示成双栏</title>
     <url>/2023/e641424208d5/</url>
     <content><![CDATA[<ol>
@@ -93,6 +69,30 @@
 
 
 
+
+]]></content>
+      <categories>
+        <category>tools</category>
+        <category>hexo</category>
+      </categories>
+      <tags>
+        <tag>tools</tag>
+        <tag>hexo</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>butterfly主题多级分类折叠与展开</title>
+    <url>/2023/acbd53e5de56/</url>
+    <content><![CDATA[<ol>
+<li>引入 <code>jquery</code> 和 自定义的 js 文件</li>
+</ol>
+<p>打开 <code>_config.butterfly.yml</code> 文件，添加如下内容</p>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">inject:</span></span><br><span class="line">  <span class="attr">head:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">&lt;link</span> <span class="string">rel=&quot;stylesheet&quot;</span> <span class="string">href=&quot;/cusconfig/css/hidemermaid.css?1&quot;&gt;</span></span><br><span class="line">    <span class="comment"># 引入jquery</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">&lt;script</span> <span class="string">src=&quot;https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js&quot;&gt;&lt;/script&gt;</span></span><br><span class="line">    <span class="comment"># 引入自定义文件，自定义文件放在博客根目录的 /cusconfig/js 目录下，名称是 category.js</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">&lt;script</span> <span class="string">src=&quot;/cusconfig/js/category.js&quot;&gt;&lt;/script&gt;</span></span><br><span class="line">  <span class="attr">bottom:</span></span><br><span class="line">    <span class="comment"># - &lt;script src=&quot;xxxx&quot;&gt;&lt;/script&gt;</span></span><br><span class="line">    <span class="comment"># - &lt;script src=&quot;https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js&quot;&gt;&lt;/script&gt;</span></span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>category.js 文件内容</li>
+</ol>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">$(<span class="variable language_">document</span>).<span class="title function_">ready</span>(<span class="keyword">function</span>(<span class="params"></span>) &#123;</span><br><span class="line">	<span class="title function_">categoryUnfold</span>();</span><br><span class="line">	<span class="keyword">function</span> <span class="title function_">categoryUnfold</span>(<span class="params"></span>) &#123;</span><br><span class="line">		$(<span class="string">&quot;.category-list-link&quot;</span>).<span class="title function_">filter</span>(<span class="keyword">function</span>(<span class="params"></span>) &#123;</span><br><span class="line">			<span class="keyword">if</span>($(<span class="variable language_">this</span>).<span class="title function_">siblings</span>(<span class="string">&quot;.category-list-child&quot;</span>).<span class="property">length</span> &gt; <span class="number">0</span>)</span><br><span class="line">                <span class="comment">// 这里引入了向下展开的图标，可以直接从本站下载放入对应目录即可</span></span><br><span class="line">				$(<span class="variable language_">this</span>).<span class="title function_">parent</span>().<span class="title function_">css</span>(<span class="string">&quot;list-style-image&quot;</span>,<span class="string">&quot;url(&#x27;/cusconfig/img/category-unfold-16x16.png&#x27;&quot;</span>);</span><br><span class="line">		&#125;);</span><br><span class="line">		</span><br><span class="line">		<span class="comment">//点击含有子标签category-list-child的category-list-link标签时，不进行跳转</span></span><br><span class="line">		$(<span class="string">&quot;.category-list-link&quot;</span>).<span class="title function_">filter</span>(<span class="keyword">function</span>(<span class="params"></span>) &#123;</span><br><span class="line">			<span class="keyword">return</span> $(<span class="variable language_">this</span>).<span class="title function_">siblings</span>(<span class="string">&quot;.category-list-child&quot;</span>).<span class="property">length</span> &gt; <span class="number">0</span></span><br><span class="line">		&#125;).<span class="title function_">attr</span>(<span class="string">&quot;href&quot;</span>, <span class="string">&quot;javascript:void(0)&quot;</span>);</span><br><span class="line">		</span><br><span class="line">		<span class="comment">//含有子标签category-list-child的category-list-link标签将自动隐藏子标签</span></span><br><span class="line">		$(<span class="string">&quot;.category-list-link&quot;</span>).<span class="title function_">filter</span>(<span class="keyword">function</span>(<span class="params"></span>) &#123;</span><br><span class="line">			<span class="keyword">if</span>($(<span class="variable language_">this</span>).<span class="title function_">siblings</span>(<span class="string">&quot;.category-list-child&quot;</span>).<span class="property">length</span> &gt; <span class="number">0</span>)</span><br><span class="line">				$(<span class="variable language_">this</span>).<span class="title function_">siblings</span>(<span class="string">&quot;.category-list-child&quot;</span>).<span class="title function_">hide</span>();</span><br><span class="line">		&#125;);	</span><br><span class="line">		</span><br><span class="line">		<span class="comment">//点击含有子标签category-list-child的category-list-link标签时，将隐藏子标签展开</span></span><br><span class="line">		$(<span class="string">&quot;.category-list-link&quot;</span>).<span class="title function_">click</span>(<span class="keyword">function</span>(<span class="params"></span>) &#123;</span><br><span class="line">			$(<span class="variable language_">this</span>).<span class="title function_">siblings</span>(<span class="string">&quot;.category-list-child&quot;</span>).<span class="title function_">slideToggle</span>();</span><br><span class="line">		&#125;);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
 
 ]]></content>
       <categories>

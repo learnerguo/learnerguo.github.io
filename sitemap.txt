@@ -1,3 +1,4 @@
+https://www.learnerguo.cn/book/index.html
 https://www.learnerguo.cn/2023/1099169ec3c6/
 https://www.learnerguo.cn/2023/138a9fb1d57d/
 https://www.learnerguo.cn/2023/52739010ef7c/
@@ -22,7 +23,6 @@ https://www.learnerguo.cn/categories/index.html
 https://www.learnerguo.cn/tags/index.html
 https://www.learnerguo.cn/record/index.html
 https://www.learnerguo.cn/about/index.html
-https://www.learnerguo.cn/book/index.html
 https://www.learnerguo.cn/2023/5b4d784e18c2/
 https://www.learnerguo.cn/2023/d899f5ff1973/
 https://www.learnerguo.cn/2023/2084759b2332/
@@ -53,11 +53,11 @@ https://www.learnerguo.cn/categories/java/
 https://www.learnerguo.cn/categories/%E4%B8%AD%E9%97%B4%E4%BB%B6/
 https://www.learnerguo.cn/categories/tools/other/
 https://www.learnerguo.cn/categories/book/%E6%88%90%E9%95%BF/
-https://www.learnerguo.cn/categories/tools/utools/
-https://www.learnerguo.cn/categories/tools/vscode/
 https://www.learnerguo.cn/categories/book/other/
 https://www.learnerguo.cn/categories/java/java%E5%9F%BA%E7%A1%80/
 https://www.learnerguo.cn/categories/java/jvm/
 https://www.learnerguo.cn/categories/java/SpringBoot/
 https://www.learnerguo.cn/categories/java/%E5%A4%9A%E7%BA%BF%E7%A8%8B/
 https://www.learnerguo.cn/categories/%E4%B8%AD%E9%97%B4%E4%BB%B6/redis/
+https://www.learnerguo.cn/categories/tools/utools/
+https://www.learnerguo.cn/categories/tools/vscode/
