@@ -1,6 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>Next8版本主题优化修改的文件</title>
+    <url>/2023/44b973fe011c/</url>
+    <content><![CDATA[<p><a href="https://zhuanlan.zhihu.com/p/252983030">参考文章</a></p>
+<span id="more"></span>
+
+<p>首页每篇文章变成圆角，只需要在 <code>styles.styl</code> 中添加如下内容</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">// 添加首页每篇文章圆角独立 start ------------</span><br><span class="line">.post-block&#123;</span><br><span class="line">        background-color: rgba(255, 255, 255, 1);</span><br><span class="line">        //margin-top: 24px;</span><br><span class="line">        margin-bottom: 24px;</span><br><span class="line">        padding: 20px;</span><br><span class="line">        border-radius: 30px 50px 30px 50px;</span><br><span class="line">        box-shadow: 8px 7px 2px 0 rgba(0,0,0,0.12), 7px 4px 1px -2px rgba(0,0,0,0.06), 0 1px 5px 0 rgba(0,0,0,0.12);</span><br><span class="line">&#125;</span><br><span class="line">// 添加首页每篇文章圆角独立 end ------------</span><br></pre></td></tr></table></figure>
+<p><code>styles.styl</code> 在博客根目录下的，<code>source/_data</code> 下，若没有则需要自己创建并且在 <code>next</code> 主题的 <code>_config.yml</code> 中打开下面的注释</p>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">custom_file_path:</span></span><br><span class="line">  <span class="comment">#head: source/_data/head.njk</span></span><br><span class="line">  <span class="comment">#header: source/_data/header.njk</span></span><br><span class="line">  <span class="attr">style:</span> <span class="string">source/_data/styles.styl</span></span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>tools</category>
+        <category>hexo</category>
+      </categories>
+      <tags>
+        <tag>tools</tag>
+        <tag>hexo</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Next7主题自定义分类</title>
     <url>/2023/baf924a75393/</url>
     <content><![CDATA[<p><a href="https://enigmatisms.github.io/2022/02/18/Hexo-NexT%E4%B8%BB%E9%A2%98-%E6%9B%B4%E5%BC%BA%E7%9A%84%E8%87%AA%E5%AE%9A%E4%B9%89%E9%A1%B5%E9%9D%A2/">参考文章</a></p>
@@ -21,26 +41,6 @@
 <figure class="highlight django"><table><tr><td class="code"><pre><span class="line"><span class="template-tag">&#123;% <span class="name"><span class="name">extends</span></span> &#x27;_layout.njk&#x27; %&#125;</span><span class="language-xml"></span></span><br><span class="line"><span class="language-xml"></span><span class="template-tag">&#123;% <span class="name">import</span> &#x27;_macro/post-collapse.njk&#x27; <span class="keyword">as</span> post_template with context %&#125;</span><span class="language-xml"></span></span><br><span class="line"><span class="language-xml"></span><span class="template-tag">&#123;% <span class="name">import</span> &#x27;_macro/sidebar.njk&#x27; <span class="keyword">as</span> sidebar_template with context %&#125;</span><span class="language-xml"></span></span><br><span class="line"><span class="language-xml"></span></span><br><span class="line"><span class="language-xml"></span><span class="template-tag">&#123;% <span class="name"><span class="name">block</span></span> title %&#125;</span><span class="template-variable">&#123;&#123; __(&#x27;title.category&#x27;) &#125;&#125;</span><span class="language-xml">: </span><span class="template-variable">&#123;&#123; page.category &#125;&#125;</span><span class="language-xml"> | </span><span class="template-variable">&#123;&#123; title &#125;&#125;</span><span class="template-tag">&#123;% <span class="name"><span class="name">endblock</span></span> %&#125;</span><span class="language-xml"></span></span><br><span class="line"><span class="language-xml"></span></span><br><span class="line"><span class="language-xml"></span><span class="template-tag">&#123;% <span class="name"><span class="name">block</span></span> class %&#125;</span><span class="language-xml">index posts-expand</span><span class="template-tag">&#123;% <span class="name"><span class="name">endblock</span></span> %&#125;</span><span class="language-xml"></span></span><br><span class="line"><span class="language-xml"></span></span><br><span class="line"><span class="language-xml"></span><span class="template-tag">&#123;% <span class="name"><span class="name">block</span></span> content %&#125;</span><span class="language-xml"></span></span><br><span class="line"><span class="language-xml"></span></span><br><span class="line"><span class="language-xml">  </span><span class="template-tag">&#123;%- <span class="name"><span class="name">for</span></span> post <span class="keyword">in</span> page.posts.toArray() %&#125;</span><span class="language-xml"></span></span><br><span class="line"><span class="language-xml">    </span><span class="template-variable">&#123;&#123; partial(&#x27;_macro/post.njk&#x27;, &#123;post: post, is_index: true&#125;) &#125;&#125;</span><span class="language-xml"></span></span><br><span class="line"><span class="language-xml">  </span><span class="template-tag">&#123;%- <span class="name"><span class="name">endfor</span></span> %&#125;</span><span class="language-xml"></span></span><br><span class="line"><span class="language-xml"></span></span><br><span class="line"><span class="language-xml">  </span><span class="template-tag">&#123;%- <span class="name"><span class="name">include</span></span> &#x27;_partials/pagination.njk&#x27; -%&#125;</span><span class="language-xml"></span></span><br><span class="line"><span class="language-xml"></span></span><br><span class="line"><span class="language-xml"></span><span class="template-tag">&#123;% <span class="name"><span class="name">endblock</span></span> %&#125;</span><span class="language-xml"></span></span><br><span class="line"><span class="language-xml"></span></span><br><span class="line"><span class="language-xml"></span><span class="template-tag">&#123;% <span class="name"><span class="name">block</span></span> sidebar %&#125;</span><span class="language-xml"></span></span><br><span class="line"><span class="language-xml">  </span><span class="template-variable">&#123;&#123; sidebar_template.render(false) &#125;&#125;</span><span class="language-xml"></span></span><br><span class="line"><span class="language-xml"></span><span class="template-tag">&#123;% <span class="name"><span class="name">endblock</span></span> %&#125;</span></span><br></pre></td></tr></table></figure>
 
 
-]]></content>
-      <categories>
-        <category>tools</category>
-        <category>hexo</category>
-      </categories>
-      <tags>
-        <tag>tools</tag>
-        <tag>hexo</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Next8版本主题优化修改的文件</title>
-    <url>/2023/44b973fe011c/</url>
-    <content><![CDATA[<p><a href="https://zhuanlan.zhihu.com/p/252983030">参考文章</a></p>
-<span id="more"></span>
-
-<p>首页每篇文章变成圆角，只需要在 <code>styles.styl</code> 中添加如下内容</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">// 添加首页每篇文章圆角独立 start ------------</span><br><span class="line">.post-block&#123;</span><br><span class="line">        background-color: rgba(255, 255, 255, 1);</span><br><span class="line">        //margin-top: 24px;</span><br><span class="line">        margin-bottom: 24px;</span><br><span class="line">        padding: 20px;</span><br><span class="line">        border-radius: 30px 50px 30px 50px;</span><br><span class="line">        box-shadow: 8px 7px 2px 0 rgba(0,0,0,0.12), 7px 4px 1px -2px rgba(0,0,0,0.06), 0 1px 5px 0 rgba(0,0,0,0.12);</span><br><span class="line">&#125;</span><br><span class="line">// 添加首页每篇文章圆角独立 end ------------</span><br></pre></td></tr></table></figure>
-<p><code>styles.styl</code> 在博客根目录下的，<code>source/_data</code> 下，若没有则需要自己创建并且在 <code>next</code> 主题的 <code>_config.yml</code> 中打开下面的注释</p>
-<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">custom_file_path:</span></span><br><span class="line">  <span class="comment">#head: source/_data/head.njk</span></span><br><span class="line">  <span class="comment">#header: source/_data/header.njk</span></span><br><span class="line">  <span class="attr">style:</span> <span class="string">source/_data/styles.styl</span></span><br></pre></td></tr></table></figure>
 ]]></content>
       <categories>
         <category>tools</category>
@@ -76,6 +76,46 @@
       </tags>
   </entry>
   <entry>
+    <title>比较</title>
+    <url>/2023/2084759b2332/</url>
+    <content><![CDATA[<blockquote>
+<p>人感到不幸福大多来源于比较，感到满足也源于比较</p>
+</blockquote>
+<span id="more"></span>
+<p>在微信读书看到一位书友写到，作为农村出来的孩子，应该如何改变自己的命运，因为周围的一切在告诉我们，就算你努力了二十几年，才勉强达到了别人的起跑线，但是我们的出身是自己无法决定的，那我们应该如何更进一步呢？</p>
+<p>看到另外一位书友的回答很有感触，且记录在此，和有缘人共勉</p>
+<blockquote>
+<p>回头看，轻舟已过万重山<br>向前看，长路漫漫亦灿灿<br>平常看，人间烟火甚灿烂<br>低头看，万里黄山皆脚下  </p>
+</blockquote>
+]]></content>
+      <categories>
+        <category>record</category>
+      </categories>
+      <tags>
+        <tag>record</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>butterfly标签页固定每行个数</title>
+    <url>/2023/1099169ec3c6/</url>
+    <content><![CDATA[<ol>
+<li><p>可以先参考如下文章添加自定义 <code>css</code> 文件</p>
+<ol><li><a href="/2023/e641424208d5/" title="butterfly主题归档分类页面展示成双栏">butterfly主题归档分类页面展示成双栏</a></li></ol>
+</li>
+<li><p>在 <code>cus_butterfly.css</code> 文件中添加如下内容</p>
+</li>
+</ol>
+<figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="comment">/* 修改标签页，每个标签宽度固定  start -------------- */</span></span><br><span class="line"><span class="selector-class">.tag-cloud-list</span> &#123;</span><br><span class="line">    <span class="attribute">display</span>: flex;</span><br><span class="line">    <span class="attribute">flex-wrap</span>: wrap;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* 每行放5个标签 */</span></span><br><span class="line"><span class="selector-class">.tag-cloud-list</span> <span class="selector-tag">a</span> &#123;</span><br><span class="line">    <span class="attribute">width</span>: <span class="number">20%</span>;</span><br><span class="line">    <span class="attribute">text-align</span>: center;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* 修改标签页，每个标签宽度固定  end -------------- */</span></span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>tools</category>
+        <category>hexo</category>
+      </categories>
+      <tags>
+        <tag>tools</tag>
+        <tag>hexo</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>butterfly主题归档分类页面展示成双栏</title>
     <url>/2023/e641424208d5/</url>
     <content><![CDATA[<ol>
@@ -95,26 +135,6 @@
 
 
 ]]></content>
-      <categories>
-        <category>tools</category>
-        <category>hexo</category>
-      </categories>
-      <tags>
-        <tag>tools</tag>
-        <tag>hexo</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>butterfly标签页固定每行个数</title>
-    <url>/2023/1099169ec3c6/</url>
-    <content><![CDATA[<ol>
-<li><p>可以先参考如下文章添加自定义 <code>css</code> 文件</p>
-<ol><li><a href="/2023/e641424208d5/" title="butterfly主题归档分类页面展示成双栏">butterfly主题归档分类页面展示成双栏</a></li></ol>
-</li>
-<li><p>在 <code>cus_butterfly.css</code> 文件中添加如下内容</p>
-</li>
-</ol>
-<figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="comment">/* 修改标签页，每个标签宽度固定  start -------------- */</span></span><br><span class="line"><span class="selector-class">.tag-cloud-list</span> &#123;</span><br><span class="line">    <span class="attribute">display</span>: flex;</span><br><span class="line">    <span class="attribute">flex-wrap</span>: wrap;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* 每行放5个标签 */</span></span><br><span class="line"><span class="selector-class">.tag-cloud-list</span> <span class="selector-tag">a</span> &#123;</span><br><span class="line">    <span class="attribute">width</span>: <span class="number">20%</span>;</span><br><span class="line">    <span class="attribute">text-align</span>: center;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* 修改标签页，每个标签宽度固定  end -------------- */</span></span><br></pre></td></tr></table></figure>]]></content>
       <categories>
         <category>tools</category>
         <category>hexo</category>
@@ -320,23 +340,31 @@
       </tags>
   </entry>
   <entry>
-    <title>比较</title>
-    <url>/2023/2084759b2332/</url>
-    <content><![CDATA[<blockquote>
-<p>人感到不幸福大多来源于比较，感到满足也源于比较</p>
-</blockquote>
-<span id="more"></span>
-<p>在微信读书看到一位书友写到，作为农村出来的孩子，应该如何改变自己的命运，因为周围的一切在告诉我们，就算你努力了二十几年，才勉强达到了别人的起跑线，但是我们的出身是自己无法决定的，那我们应该如何更进一步呢？</p>
-<p>看到另外一位书友的回答很有感触，且记录在此，和有缘人共勉</p>
-<blockquote>
-<p>回头看，轻舟已过万重山<br>向前看，长路漫漫亦灿灿<br>平常看，人间烟火甚灿烂<br>低头看，万里黄山皆脚下  </p>
-</blockquote>
+    <title>微信读书阅读挑战</title>
+    <url>/2023/c4c074b722a1/</url>
+    <content><![CDATA[<span class="hide_first_mermaid">
+<div class="mermaid-wrap"><pre class="mermaid-src" hidden>
+  flowchart LR
+    A
+  </pre></div>
+</span>
+
+<p>参与微信阅读挑战</p>
+<ol>
+<li>365 天不间断</li>
+<li>期间最少阅读 300 小时</li>
+<li>每月更新进度</li>
+</ol>
+<pre class="mermaid">pie title 总天数(365)
+    "已读" : 4
+    "未读" : 361</pre>
 ]]></content>
       <categories>
-        <category>record</category>
+        <category>book</category>
+        <category>other</category>
       </categories>
       <tags>
-        <tag>record</tag>
+        <tag>book</tag>
       </tags>
   </entry>
   <entry>
@@ -385,171 +413,6 @@
       </categories>
       <tags>
         <tag>book</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>微信读书阅读挑战</title>
-    <url>/2023/c4c074b722a1/</url>
-    <content><![CDATA[<span class="hide_first_mermaid">
-<div class="mermaid-wrap"><pre class="mermaid-src" hidden>
-  flowchart LR
-    A
-  </pre></div>
-</span>
-
-<p>参与微信阅读挑战</p>
-<ol>
-<li>365 天不间断</li>
-<li>期间最少阅读 300 小时</li>
-<li>每月更新进度</li>
-</ol>
-<pre class="mermaid">pie title 总天数(365)
-    "已读" : 4
-    "未读" : 361</pre>
-]]></content>
-      <categories>
-        <category>book</category>
-        <category>other</category>
-      </categories>
-      <tags>
-        <tag>book</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>HashMap详解</title>
-    <url>/2023/834224a16039/</url>
-    <content><![CDATA[<h1 id="HashMap的底层数据结构是什么？"><a href="#HashMap的底层数据结构是什么？" class="headerlink" title="HashMap的底层数据结构是什么？"></a>HashMap的底层数据结构是什么？</h1><ol>
-<li>之前 <code>Jdk1.7</code> 的存储结构是数组+链表，到了 <code>Jdk1.8</code> 变成了数组+链表+红黑树。</li>
-</ol>
-<h1 id="HashMap-是如何定位索引下标的"><a href="#HashMap-是如何定位索引下标的" class="headerlink" title="HashMap 是如何定位索引下标的"></a>HashMap 是如何定位索引下标的</h1><p>定位 <code>index</code> 分成两步</p>
-<ol>
-<li><p>根据 hash 函数获取 hash 值</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">static</span> <span class="keyword">final</span> <span class="type">int</span> <span class="title function_">hash</span><span class="params">(Object key)</span> &#123;</span><br><span class="line">    <span class="type">int</span> h;</span><br><span class="line">    <span class="keyword">return</span> (key == <span class="literal">null</span>) ? <span class="number">0</span> : (h = key.hashCode()) ^ (h &gt;&gt;&gt; <span class="number">16</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p><strong>可以看到上面代码获取到 hashCode 之后还右移 16 位，具体原因在下面分析</strong></p>
-</li>
-<li><p>根据第一步计算的 <code>hash</code> 值获取数组位置（一般是对数组长度取模，<code>HashMap</code> 中是对长度 -1 进行 <code>&amp;</code> 运算）</p>
-</li>
-</ol>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">final</span> V <span class="title function_">putVal</span><span class="params">(<span class="type">int</span> hash, K key, V value, <span class="type">boolean</span> onlyIfAbsent,</span></span><br><span class="line"><span class="params">                   <span class="type">boolean</span> evict)</span> &#123;</span><br><span class="line">    Node&lt;K,V&gt;[] tab; Node&lt;K,V&gt; p; <span class="type">int</span> n, i;</span><br><span class="line">    <span class="keyword">if</span> ((tab = table) == <span class="literal">null</span> || (n = tab.length) == <span class="number">0</span>)</span><br><span class="line">        n = (tab = resize()).length;</span><br><span class="line">        <span class="comment">// 获取下标的操作是  i = (n-1) &amp; hash</span></span><br><span class="line">    <span class="keyword">if</span> ((p = tab[i = (n - <span class="number">1</span>) &amp; hash]) == <span class="literal">null</span>)</span><br><span class="line">        tab[i] = newNode(hash, key, value, <span class="literal">null</span>);</span><br><span class="line">    <span class="keyword">else</span> &#123;</span><br><span class="line">       ...</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p><strong>获取下标为什么是对 n-1 进行与操作而不是取模？具体原因下面分析</strong></p>
-<h1 id="为什么需要对key的-hash-值右移-16位"><a href="#为什么需要对key的-hash-值右移-16位" class="headerlink" title="为什么需要对key的 hash 值右移 16位"></a>为什么需要对key的 hash 值右移 16位</h1><figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="string">HashMap</span> <span class="string">中使用的</span> <span class="string">hash</span> <span class="string">函数是</span> <span class="string">key.hash</span> <span class="string">^</span> <span class="string">(key.hash</span> <span class="string">&gt;&gt;</span> <span class="number">16</span><span class="string">)</span>  <span class="string">而不是直接使用</span> <span class="string">key.hash,</span> <span class="string">这么做的原因是增加了扰动计算，使得</span> <span class="string">hash</span> <span class="string">分布的尽可能的均匀，</span> <span class="string">让元素的高16</span> <span class="string">位和低16</span> <span class="string">位都参与运算</span></span><br><span class="line"><span class="string">示例：</span></span><br><span class="line"><span class="string">比如有一个元素1换成二进制如下</span></span><br><span class="line"><span class="number">1111 </span><span class="number">1111 </span><span class="number">1111 </span><span class="number">1111 </span><span class="number">1010 </span><span class="number">1010 </span><span class="number">1010 </span><span class="number">1010</span> <span class="string">（没有右移16位的二进制）</span></span><br><span class="line"><span class="number">0000 </span><span class="number">0000 </span><span class="number">0000 </span><span class="number">0000 </span><span class="number">1111 </span><span class="number">1111 </span><span class="number">1111 </span><span class="number">1111</span>  <span class="string">（右移16位的二进制）</span></span><br><span class="line"></span><br><span class="line"><span class="string">另外一个元素2换成二进制如下</span></span><br><span class="line"><span class="number">1111 </span><span class="number">1111 </span><span class="number">1111 </span><span class="number">1110 </span><span class="number">1010 </span><span class="number">1010 </span><span class="number">1010 </span><span class="number">1010</span> <span class="string">（没有右移16位的二进制）</span></span><br><span class="line"><span class="number">0000 </span><span class="number">0000 </span><span class="number">0000 </span><span class="number">0000 </span><span class="number">1111 </span><span class="number">1111 </span><span class="number">1111 </span><span class="number">1110</span>  <span class="string">（右移16位的二进制）</span></span><br><span class="line"></span><br><span class="line"><span class="string">在计算数组位置的时候使用的是</span> <span class="string">hash</span> <span class="string">&amp;</span> <span class="string">(n</span> <span class="number">-1</span><span class="string">),</span>  <span class="string">要知道</span> <span class="string">n-1</span> <span class="string">肯定是一个相对来说比较小的数字（32个bit</span> <span class="string">只会使用比较少的低位），</span> <span class="string">比如长度是</span> <span class="number">32</span><span class="string">，</span> <span class="string">对应的二进制是</span> <span class="number">0000 </span><span class="number">0000 </span><span class="number">0000 </span><span class="number">0000 </span><span class="number">0000 </span><span class="number">0000 </span><span class="number">0001 </span><span class="number">1111</span></span><br><span class="line"></span><br><span class="line"><span class="string">使用没有右移的元素1和</span> <span class="string">（32</span> <span class="number">-1</span><span class="string">）</span> <span class="string">进行与操作（与操作是都为1才为1，否则为0）</span></span><br><span class="line"><span class="number">1111 </span><span class="number">1111 </span><span class="number">1111 </span><span class="number">1111     </span><span class="number">1010 </span><span class="number">1010 </span><span class="number">1010 </span><span class="number">1010</span> <span class="string">（没有右移16位的二进制）</span></span><br><span class="line"><span class="number">0000 </span><span class="number">0000 </span><span class="number">0000 </span><span class="number">0000      </span><span class="number">0000 </span><span class="number">0000 </span><span class="number">0001 </span><span class="number">1111</span></span><br><span class="line"><span class="number">0000 </span><span class="number">0000 </span><span class="number">0000 </span><span class="number">0000      </span><span class="number">0000 </span><span class="number">0000 </span><span class="number">0000 </span><span class="number">1010</span></span><br><span class="line"></span><br><span class="line"><span class="string">使用没有右移的元素2和</span> <span class="string">（32</span> <span class="number">-1</span><span class="string">）</span> <span class="string">进行与操作（与操作是都为1才为1，否则为0）</span></span><br><span class="line"><span class="number">1111 </span><span class="number">1111 </span><span class="number">1111 </span><span class="number">1100     </span><span class="number">1010 </span><span class="number">1010 </span><span class="number">1010 </span><span class="number">1010</span> <span class="string">（没有右移16位的二进制）</span></span><br><span class="line"><span class="number">0000 </span><span class="number">0000 </span><span class="number">0000 </span><span class="number">0000      </span><span class="number">0000 </span><span class="number">0000 </span><span class="number">0001 </span><span class="number">1111</span></span><br><span class="line"><span class="number">0000 </span><span class="number">0000 </span><span class="number">0000 </span><span class="number">0000      </span><span class="number">0000 </span><span class="number">0000 </span><span class="number">0000 </span><span class="number">1010</span></span><br><span class="line"><span class="string">可以看到元素1和元素2计算出来下标是相同的，这个不同是因为元素1和元素2的低16位是完全相同的，不同之处只在于高16位，但是当我们对</span> <span class="string">（n-1）进行与操作的时候，由于</span> <span class="string">n-1</span> <span class="string">的值比较小，绝大部分情况下，只有低16位会进行运算的</span></span><br><span class="line"></span><br><span class="line"><span class="string">接下来再看一下如果使用右移的hash进行计算会有什么不同</span></span><br><span class="line"><span class="string">使用右移的元素1和</span> <span class="string">（32</span> <span class="number">-1</span><span class="string">）</span> <span class="string">进行与操作（与操作是都为1才为1，否则为0）</span></span><br><span class="line"><span class="number">0000 </span><span class="number">0000 </span><span class="number">0000 </span><span class="number">0000      </span><span class="number">1111 </span><span class="number">1111 </span><span class="number">1111 </span><span class="number">1111</span> <span class="string">（没有右移16位的二进制）</span></span><br><span class="line"><span class="number">0000 </span><span class="number">0000 </span><span class="number">0000 </span><span class="number">0000      </span><span class="number">0000 </span><span class="number">0000 </span><span class="number">0001 </span><span class="number">1111</span></span><br><span class="line"><span class="number">0000 </span><span class="number">0000 </span><span class="number">0000 </span><span class="number">0000      </span><span class="number">0000 </span><span class="number">0000 </span><span class="number">0000  </span><span class="number">1111</span></span><br><span class="line"></span><br><span class="line"><span class="string">用右移的元素2和</span> <span class="string">（32</span> <span class="number">-1</span><span class="string">）</span> <span class="string">进行与操作（与操作是都为1才为1，否则为0）</span></span><br><span class="line"><span class="number">0000 </span><span class="number">0000 </span><span class="number">0000 </span><span class="number">0000      </span><span class="number">1111 </span><span class="number">1111 </span><span class="number">1111 </span><span class="number">1110</span> <span class="string">（没有右移16位的二进制）</span></span><br><span class="line"><span class="number">0000 </span><span class="number">0000 </span><span class="number">0000 </span><span class="number">0000      </span><span class="number">0000 </span><span class="number">0000 </span><span class="number">0001 </span><span class="number">1111</span></span><br><span class="line"><span class="number">0000 </span><span class="number">0000 </span><span class="number">0000 </span><span class="number">0000      </span><span class="number">0000 </span><span class="number">0000 </span><span class="number">0000  </span><span class="number">1110</span></span><br><span class="line"><span class="string">可以看到计算出来的</span> <span class="string">index</span> <span class="string">值是不同的，这就是右移带来的让高16位有参与运算的效果</span></span><br></pre></td></tr></table></figure>
-
-<h1 id="为什么不对长度取模而是使用与运算"><a href="#为什么不对长度取模而是使用与运算" class="headerlink" title="为什么不对长度取模而是使用与运算"></a>为什么不对长度取模而是使用与运算</h1><ol>
-<li><code>X % 2^n = X &amp; (2^n – 1)</code>  这两种运算等价，所以这也是 <code>HashMap</code> 长度取 <code>2^n</code> 的原因<br>也可以从数据角度记住，当 <code>n</code> 是 2 的倍数时， <code>X % 2^n = X &amp; (2^n – 1)</code>  等价</li>
-</ol>
-<p><a href="https://www.cnblogs.com/ysocean/p/9054804.html">公式计算参考链接</a></p>
-<h1 id="HashMap是如何实现扩容的"><a href="#HashMap是如何实现扩容的" class="headerlink" title="HashMap是如何实现扩容的"></a>HashMap是如何实现扩容的</h1><p>扩容后索引其实也是使用 <code>hash &amp; （newLength -1）</code>, 这样计算出来的位置要是和原来的元素在相同的位置，要么是 原来的位置+旧数组长度&#x3D;新索引位置</p>
-<h1 id="HashMap是如何解决hash冲突的"><a href="#HashMap是如何解决hash冲突的" class="headerlink" title="HashMap是如何解决hash冲突的"></a>HashMap是如何解决hash冲突的</h1><ol>
-<li>对 <code>hash</code> 的计算进行优化，不是直接使用 <code>hashcode</code>,  而是右移16位，让高16位也参与运算，减少<code>hash</code> 冲突</li>
-<li>如果遇到冲突，使用拉链法解决</li>
-</ol>
-]]></content>
-      <categories>
-        <category>java</category>
-        <category>java基础</category>
-      </categories>
-      <tags>
-        <tag>java</tag>
-        <tag>java基础</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>java的io模型</title>
-    <url>/2023/180f5b629f58/</url>
-    <content><![CDATA[<span class="hide_first_mermaid">
-<div class="mermaid-wrap"><pre class="mermaid-src" hidden>
-  flowchart LR
-    A
-  </pre></div>
-</span>
-
-<h1 id="BIO"><a href="#BIO" class="headerlink" title="BIO"></a>BIO</h1><ol>
-<li><code>bio</code> 是同步阻塞 <code>io</code>，每一个连接都需要一个线程去处理</li>
-<li><code>bio</code> 会有资源浪费问题，一个线程只能处理一个连接，如果某个客户端并没有发送数据，对应的服务端线程也只能阻塞</li>
-</ol>
-<span id="more"></span>
-<h2 id="阻塞的含义"><a href="#阻塞的含义" class="headerlink" title="阻塞的含义"></a>阻塞的含义</h2><ol>
-<li>服务端 <code>ServerSocket</code> 调用 <code>accept()</code> 方法会阻塞（如果没有客户端进行连接，调用这个方法后不会继续往下执行）</li>
-<li>线程从Socket的输入流读入数据时,如果输入流没有足够的数据，就会进入阻塞状态</li>
-</ol>
-<h2 id="java-bio-代码实现"><a href="#java-bio-代码实现" class="headerlink" title="java bio 代码实现"></a>java bio 代码实现</h2><p><strong>服务端代码</strong></p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> org.example.demo.socket;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.io.IOException;</span><br><span class="line"><span class="keyword">import</span> java.net.ServerSocket;</span><br><span class="line"><span class="keyword">import</span> java.net.Socket;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">CusServerSocket</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="keyword">try</span> (<span class="type">ServerSocket</span> <span class="variable">serverSocket</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">ServerSocket</span>(<span class="number">8080</span>);) &#123;</span><br><span class="line">            <span class="keyword">while</span> (<span class="literal">true</span>) &#123;</span><br><span class="line">                <span class="type">Socket</span> <span class="variable">socket</span> <span class="operator">=</span> serverSocket.accept();</span><br><span class="line">                <span class="comment">//连接成功后新开一个线程去处理这个连接</span></span><br><span class="line">                <span class="keyword">new</span> <span class="title class_">Thread</span>(<span class="keyword">new</span> <span class="title class_">Runnable</span>() &#123;</span><br><span class="line">                    <span class="meta">@Override</span></span><br><span class="line">                    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">run</span><span class="params">()</span> &#123;</span><br><span class="line">                        <span class="type">byte</span>[] bytes = <span class="keyword">new</span> <span class="title class_">byte</span>[<span class="number">1024</span>];</span><br><span class="line">                        <span class="type">int</span> <span class="variable">length</span> <span class="operator">=</span> -<span class="number">1</span>;</span><br><span class="line">                        <span class="keyword">try</span> &#123;</span><br><span class="line">                            <span class="comment">// read() 方法上的注释 If no byte is available because the stream is at the end of the file, the value -1 is returned</span></span><br><span class="line">                            <span class="keyword">while</span> ((length = socket.getInputStream().read(bytes)) != -<span class="number">1</span>) &#123;</span><br><span class="line">                                System.out.println(<span class="string">&quot;thredId:&quot;</span> + Thread.currentThread().getName() + <span class="keyword">new</span> <span class="title class_">String</span>(bytes, <span class="number">0</span>, length));</span><br><span class="line">                            &#125;</span><br><span class="line">                        &#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">                            e.printStackTrace();</span><br><span class="line">                        &#125;</span><br><span class="line">                        System.out.println(<span class="string">&quot;客户端关闭, 当前线程:&quot;</span> + Thread.currentThread().getName());</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;).start();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; <span class="keyword">catch</span> (</span><br><span class="line">                IOException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<p><strong>客户端实现</strong></p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> org.example.demo.socket;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.io.IOException;</span><br><span class="line"><span class="keyword">import</span> java.net.Socket;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">CusClientSocket</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="comment">// 外层循环会创建多个 socket，用来模拟多个 socket 客户端</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">j</span> <span class="operator">=</span> <span class="number">0</span>; j &lt; <span class="number">3</span>; j++) &#123;</span><br><span class="line">            <span class="keyword">try</span> (<span class="type">Socket</span> <span class="variable">socket</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Socket</span>(<span class="string">&quot;127.0.0.1&quot;</span>,<span class="number">8080</span>)) &#123;</span><br><span class="line">                <span class="comment">// 内存循环用来模拟一个客户端的多次通信</span></span><br><span class="line">                <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">1</span>; i &lt; <span class="number">3</span>; i++) &#123;</span><br><span class="line">                    Thread.sleep(<span class="number">20</span>);</span><br><span class="line">                    socket.getOutputStream().write((<span class="string">&quot;客户端&quot;</span> + j + <span class="string">&quot;第&quot;</span> + i + <span class="string">&quot;次通信&quot;</span>).getBytes());</span><br><span class="line">                &#125;</span><br><span class="line">            &#125; <span class="keyword">catch</span> (IOException | InterruptedException e) &#123;</span><br><span class="line">                <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">RuntimeException</span>(e);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p><strong>执行结果</strong></p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">thredId:Thread-<span class="number">0</span>客户端<span class="number">0</span>第<span class="number">1</span>次通信</span><br><span class="line">thredId:Thread-<span class="number">0</span>客户端<span class="number">0</span>第<span class="number">2</span>次通信</span><br><span class="line">客户端关闭, 当前线程:Thread-<span class="number">0</span></span><br><span class="line">thredId:Thread-<span class="number">1</span>客户端<span class="number">1</span>第<span class="number">1</span>次通信</span><br><span class="line">thredId:Thread-<span class="number">1</span>客户端<span class="number">1</span>第<span class="number">2</span>次通信</span><br><span class="line">客户端关闭, 当前线程:Thread-<span class="number">1</span></span><br><span class="line">thredId:Thread-<span class="number">2</span>客户端<span class="number">2</span>第<span class="number">1</span>次通信</span><br><span class="line">thredId:Thread-<span class="number">2</span>客户端<span class="number">2</span>第<span class="number">2</span>次通信</span><br><span class="line">客户端关闭, 当前线程:Thread-<span class="number">2</span></span><br></pre></td></tr></table></figure>
-<ol>
-<li>执行完成之后，服务端程序并不会关闭，会一直在运行</li>
-<li>从上面结果看，一共创建了三个线程来执行</li>
-</ol>
-<h2 id="使用线程池优化-bio-实现"><a href="#使用线程池优化-bio-实现" class="headerlink" title="使用线程池优化 bio 实现"></a>使用线程池优化 bio 实现</h2><p>客户端代码不需要改动，只需要更改服务端代码</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> org.example.demo.socket;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.io.IOException;</span><br><span class="line"><span class="keyword">import</span> java.net.ServerSocket;</span><br><span class="line"><span class="keyword">import</span> java.net.Socket;</span><br><span class="line"><span class="keyword">import</span> java.util.concurrent.ExecutorService;</span><br><span class="line"><span class="keyword">import</span> java.util.concurrent.Executors;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">CusServerSocket</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="type">ExecutorService</span> <span class="variable">executorService</span> <span class="operator">=</span> Executors.newSingleThreadExecutor();</span><br><span class="line">        <span class="keyword">try</span> (<span class="type">ServerSocket</span> <span class="variable">serverSocket</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">ServerSocket</span>(<span class="number">8080</span>);) &#123;</span><br><span class="line">            <span class="keyword">while</span> (<span class="literal">true</span>) &#123;</span><br><span class="line">                <span class="type">Socket</span> <span class="variable">socket</span> <span class="operator">=</span> serverSocket.accept();</span><br><span class="line">                <span class="comment">//连接成功后新开一个线程去处理这个连接</span></span><br><span class="line">                executorService.execute(<span class="keyword">new</span> <span class="title class_">ClientTask</span>(socket));</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; <span class="keyword">catch</span> (</span><br><span class="line">                IOException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">class</span> <span class="title class_">ClientTask</span> <span class="keyword">implements</span> <span class="title class_">Runnable</span> &#123;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">private</span> Socket socket;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">public</span> <span class="title function_">ClientTask</span><span class="params">(Socket socket)</span> &#123;</span><br><span class="line">            <span class="built_in">this</span>.socket = socket;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">run</span><span class="params">()</span> &#123;</span><br><span class="line">            <span class="type">byte</span>[] bytes = <span class="keyword">new</span> <span class="title class_">byte</span>[<span class="number">1024</span>];</span><br><span class="line">            <span class="type">int</span> <span class="variable">length</span> <span class="operator">=</span> -<span class="number">1</span>;</span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                <span class="comment">// read() 方法上的注释 If no byte is available because the stream is at the end of the file, the value -1 is returned</span></span><br><span class="line">                <span class="keyword">while</span> ((length = socket.getInputStream().read(bytes)) != -<span class="number">1</span>) &#123;</span><br><span class="line">                    System.out.println(<span class="string">&quot;thredId:&quot;</span> + Thread.currentThread().getName() + <span class="keyword">new</span> <span class="title class_">String</span>(bytes, <span class="number">0</span>, length));</span><br><span class="line">                &#125;</span><br><span class="line">            &#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">                e.printStackTrace();</span><br><span class="line">            &#125;</span><br><span class="line">            System.out.println(<span class="string">&quot;客户端关闭, 当前线程:&quot;</span> + Thread.currentThread().getName());</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>执行结果</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">thredId:pool-<span class="number">1</span>-thread-<span class="number">1</span>客户端<span class="number">0</span>第<span class="number">1</span>次通信</span><br><span class="line">thredId:pool-<span class="number">1</span>-thread-<span class="number">1</span>客户端<span class="number">0</span>第<span class="number">2</span>次通信</span><br><span class="line">客户端关闭, 当前线程:pool-<span class="number">1</span>-thread-<span class="number">1</span></span><br><span class="line">thredId:pool-<span class="number">1</span>-thread-<span class="number">1</span>客户端<span class="number">1</span>第<span class="number">1</span>次通信</span><br><span class="line">thredId:pool-<span class="number">1</span>-thread-<span class="number">1</span>客户端<span class="number">1</span>第<span class="number">2</span>次通信</span><br><span class="line">客户端关闭, 当前线程:pool-<span class="number">1</span>-thread-<span class="number">1</span></span><br><span class="line">thredId:pool-<span class="number">1</span>-thread-<span class="number">1</span>客户端<span class="number">2</span>第<span class="number">1</span>次通信</span><br><span class="line">thredId:pool-<span class="number">1</span>-thread-<span class="number">1</span>客户端<span class="number">2</span>第<span class="number">2</span>次通信</span><br><span class="line">客户端关闭, 当前线程:pool-<span class="number">1</span>-thread-<span class="number">1</span></span><br></pre></td></tr></table></figure>
-<p>即使使用线程池进行了优化，本地还是阻塞io，只有当一个客户端通信完成（socket关闭了），另外一个 socket 才可以开始进行通信</p>
-<h1 id="NIO"><a href="#NIO" class="headerlink" title="NIO"></a>NIO</h1><ol>
-<li>nio 是非阻塞 io（Non-block io）</li>
-<li>非阻塞 io 的重点是 <strong>事件</strong> 和 <strong>通知或轮询</strong></li>
-<li><code>java.nio.channerls</code> 包提供了支持非阻塞通信的类<ol>
-<li><code>ServerSocketChannel</code>: <code>ServerSocket</code> 的替代类，支持阻塞通信与非阻塞通信</li>
-<li><code>SocketChannerl</code>： <code>Socket</code> 的替代类，支持阻塞通信与非阻塞通信</li>
-<li><code>Selector</code>： 为<code>ServerSocketChannel</code>监控接收连接就绪事件，为<code>SocketChannel</code>监控连接就绪、读就绪和写就绪事件</li>
-<li><code>SelectionKey</code>：代表<code>ServerSocketChannel</code>以及<code>SocketChannel</code>向<code>Selector</code>注册事件的句柄。当一个<code>SelectionKey</code>对象位于<code>Selector</code>对象的<code>selected-keys</code>集合中，就表示与这个<code>SelectionKey</code>对象相关的事件发生了</li>
-</ol>
-</li>
-</ol>
-<h2 id="NIO-执行流程"><a href="#NIO-执行流程" class="headerlink" title="NIO 执行流程"></a>NIO 执行流程</h2><pre class="mermaid">sequenceDiagram
-    participant A as ServerSocketChannel
-    participant B as Selector
-    participant C as socketChannel
-    A->>A: open()
-    B-->>B: open()
-    A-->>B: register(SelectionKey.OP_ACCEPT)
-    C-->>C: open()
-    C-->>B: register(SelectionKey.OP_CONNECT)
-    B-->>A: selectionKey.isAcceptable()==true
-    A-->>A: accept()
-    A-->>B: register(SelectionKey.OP_READ)
-    C-->>B: write(byte[])
-    B-->>A: selectionKey.isReadable()==true
-    A-->>A: read()
-    A-->>B: register(SelectionKey.OP_WRITE)</pre>
-
-
-<h2 id="代码示例"><a href="#代码示例" class="headerlink" title="代码示例"></a>代码示例</h2><p>代码执行流程</p>
-<ol>
-<li>服务端启动</li>
-<li>客户端启动连接服务端（注册 <strong>可读</strong>和 <strong>可写</strong>事件）</li>
-<li>客户端发生可写事件，开始写数据到服务端并且 <strong>取消可写事件</strong></li>
-<li>服务端发生可读事件，读取数据并注册可写事件</li>
-<li>服务端写数据到用户端并 <strong>取消可写事件</strong></li>
-<li>客户端发生可读事件，读取数据后注册可写事件</li>
-<li>重复3-6步骤</li>
-</ol>
-<p>上面有一个核心的步骤是，不论是管理端还是服务端，在写完数据之后都要取消可写事件，当想要写数据的时候，再进行注册写事件即可</p>
-<ol>
-<li>如果注册完写事件并且写完数据之后，没有进行取消，那么 <code>selectionKey.isWritable()</code> 会一直返回true， 原因请看第二点</li>
-<li><code>SocketChannel</code> 在如下情况下都是可写的状态<ol>
-<li>当连接建立后，可以向 <code>SocketChannel</code> 中写入数据</li>
-<li>当 <code>SocketChannel</code> 中的输出缓冲区有空间时，可以写入数据, 所处只要缓冲区有空间，就会一直可写</li>
-</ol>
-</li>
-</ol>
-<h3 id="服务端"><a href="#服务端" class="headerlink" title="服务端"></a>服务端</h3><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">CusServerSocket</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/*缓冲区大小*/</span></span><br><span class="line">    <span class="keyword">private</span> <span class="type">int</span> <span class="variable">BLOCK</span> <span class="operator">=</span> <span class="number">1024</span>;</span><br><span class="line">    <span class="comment">/*接受数据缓冲区*/</span></span><br><span class="line">    <span class="keyword">private</span> <span class="type">ByteBuffer</span> <span class="variable">sendBuffer</span> <span class="operator">=</span> ByteBuffer.allocate(BLOCK);</span><br><span class="line">    <span class="comment">/*发送数据缓冲区*/</span></span><br><span class="line">    <span class="keyword">private</span> <span class="type">ByteBuffer</span> <span class="variable">receiveBuffer</span> <span class="operator">=</span> ByteBuffer.allocate(BLOCK);</span><br><span class="line">    <span class="keyword">private</span> Selector selector;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">CusServerSocket</span><span class="params">(<span class="type">int</span> port)</span> <span class="keyword">throws</span> IOException &#123;</span><br><span class="line">        <span class="comment">// 打开服务器套接字通道</span></span><br><span class="line">        <span class="type">ServerSocketChannel</span> <span class="variable">serverSocketChannel</span> <span class="operator">=</span> ServerSocketChannel.open();</span><br><span class="line">        <span class="comment">// 服务器配置为非阻塞</span></span><br><span class="line">        serverSocketChannel.configureBlocking(<span class="literal">false</span>);</span><br><span class="line">        serverSocketChannel.socket().bind(<span class="keyword">new</span> <span class="title class_">InetSocketAddress</span>(port));</span><br><span class="line">        selector = Selector.open();</span><br><span class="line">        <span class="comment">// 注册到selector，等待连接</span></span><br><span class="line">        serverSocketChannel.register(selector, SelectionKey.OP_ACCEPT);</span><br><span class="line">        System.out.println(<span class="string">&quot;服务启动----8080:&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">void</span> <span class="title function_">listen</span><span class="params">()</span> <span class="keyword">throws</span> IOException, InterruptedException &#123;</span><br><span class="line">        <span class="keyword">while</span> (<span class="literal">true</span>) &#123;</span><br><span class="line">            <span class="comment">// 选择一组键，并且相应的通道已经打开</span></span><br><span class="line">            selector.select();</span><br><span class="line">            <span class="comment">// 返回此选择器的已选择键集。</span></span><br><span class="line">            Set&lt;SelectionKey&gt; selectionKeys = selector.selectedKeys();</span><br><span class="line">            Iterator&lt;SelectionKey&gt; iterator = selectionKeys.iterator();</span><br><span class="line">            <span class="keyword">while</span> (iterator.hasNext()) &#123;</span><br><span class="line">                <span class="type">SelectionKey</span> <span class="variable">selectionKey</span> <span class="operator">=</span> iterator.next();</span><br><span class="line">                iterator.remove();</span><br><span class="line">                handleEvent(selectionKey);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 处理请求</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">void</span> <span class="title function_">handleEvent</span><span class="params">(SelectionKey selectionKey)</span> <span class="keyword">throws</span> IOException, InterruptedException &#123;</span><br><span class="line">        String receiveText;</span><br><span class="line">        String sendText;</span><br><span class="line">        <span class="type">int</span> <span class="variable">count</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">        <span class="comment">// 可连接</span></span><br><span class="line">        <span class="keyword">if</span> (selectionKey.isAcceptable()) &#123;</span><br><span class="line">            <span class="type">ServerSocketChannel</span> <span class="variable">server</span> <span class="operator">=</span> (ServerSocketChannel) selectionKey.channel();</span><br><span class="line">            <span class="type">SocketChannel</span> <span class="variable">client</span> <span class="operator">=</span> server.accept();</span><br><span class="line">            <span class="comment">// 设置该通道非阻塞</span></span><br><span class="line">            client.configureBlocking(<span class="literal">false</span>);</span><br><span class="line">            <span class="comment">// 注册可读和可写事件</span></span><br><span class="line">            client.register(selector, SelectionKey.OP_READ);</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (selectionKey.isReadable()) &#123;</span><br><span class="line">            <span class="comment">// 返回为之创建此键的通道。</span></span><br><span class="line">            <span class="type">SocketChannel</span> <span class="variable">client</span> <span class="operator">=</span> (SocketChannel) selectionKey.channel();</span><br><span class="line">            <span class="comment">//将缓冲区清空以备下次读取</span></span><br><span class="line">            receiveBuffer.clear();</span><br><span class="line">            <span class="comment">//读取服务器发送来的数据到缓冲区中</span></span><br><span class="line">            count = client.read(receiveBuffer);</span><br><span class="line">            <span class="keyword">if</span> (count &gt; <span class="number">0</span>) &#123;</span><br><span class="line">                receiveText = <span class="keyword">new</span> <span class="title class_">String</span>(receiveBuffer.array(), <span class="number">0</span>, count);</span><br><span class="line">                System.out.println(<span class="string">&quot;服务器端接受客户端数据--:&quot;</span> + receiveText);</span><br><span class="line">            &#125;</span><br><span class="line">            client.register(selector, SelectionKey.OP_WRITE);</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (selectionKey.isWritable()) &#123;</span><br><span class="line">            sendBuffer.clear();</span><br><span class="line">            <span class="type">SocketChannel</span> <span class="variable">client</span> <span class="operator">=</span> (SocketChannel) selectionKey.channel();</span><br><span class="line">            <span class="type">LocalTime</span> <span class="variable">now</span> <span class="operator">=</span> LocalTime.now();</span><br><span class="line">            sendText = <span class="string">&quot;服务端--》客户端  &quot;</span> + now.getMinute() + <span class="string">&quot;:&quot;</span> + now.getSecond();</span><br><span class="line">            sendBuffer.put(sendText.getBytes());</span><br><span class="line">            <span class="comment">//将缓冲区各标志复位,因为向里面put了数据标志被改变要想从中读取数据发向服务器,就要复位</span></span><br><span class="line">            sendBuffer.flip();</span><br><span class="line">            <span class="comment">//输出到通道</span></span><br><span class="line">            client.write(sendBuffer);</span><br><span class="line">            selectionKey.interestOps(SelectionKey.OP_READ);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> args</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@throws</span> IOException</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> IOException, InterruptedException &#123;</span><br><span class="line">        <span class="type">int</span> <span class="variable">port</span> <span class="operator">=</span> <span class="number">8080</span>;</span><br><span class="line">        <span class="type">CusServerSocket</span> <span class="variable">server</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">CusServerSocket</span>(port);</span><br><span class="line">        server.listen();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="用户端"><a href="#用户端" class="headerlink" title="用户端"></a>用户端</h3><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">CusClientSocket</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/*缓冲区大小*/</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="type">int</span> <span class="variable">BLOCK</span> <span class="operator">=</span> <span class="number">1024</span>;</span><br><span class="line">    <span class="comment">/*接受数据缓冲区*/</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="type">ByteBuffer</span> <span class="variable">sendBuffer</span> <span class="operator">=</span> ByteBuffer.allocate(BLOCK);</span><br><span class="line">    <span class="comment">/*发送数据缓冲区*/</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="type">ByteBuffer</span> <span class="variable">receiveBuffer</span> <span class="operator">=</span> ByteBuffer.allocate(BLOCK);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> IOException, InterruptedException &#123;</span><br><span class="line">        <span class="type">SocketChannel</span> <span class="variable">socketChannel</span> <span class="operator">=</span> SocketChannel.open();</span><br><span class="line">        socketChannel.configureBlocking(<span class="literal">false</span>);</span><br><span class="line">        <span class="type">Selector</span> <span class="variable">selector</span> <span class="operator">=</span> Selector.open();</span><br><span class="line">        socketChannel.register(selector, SelectionKey.OP_CONNECT);</span><br><span class="line">        socketChannel.connect(<span class="keyword">new</span> <span class="title class_">InetSocketAddress</span>(<span class="string">&quot;localhost&quot;</span>, <span class="number">8080</span>));</span><br><span class="line"></span><br><span class="line">        Set&lt;SelectionKey&gt; selectionKeys;</span><br><span class="line">        Iterator&lt;SelectionKey&gt; iterator;</span><br><span class="line">        SelectionKey selectionKey;</span><br><span class="line">        SocketChannel client;</span><br><span class="line">        String receiveText;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">while</span> (<span class="literal">true</span>) &#123;</span><br><span class="line">            selector.select();</span><br><span class="line">            <span class="comment">//返回此选择器的已选择键集。</span></span><br><span class="line">            selectionKeys = selector.selectedKeys();</span><br><span class="line">            iterator = selectionKeys.iterator();</span><br><span class="line">            <span class="keyword">while</span> (iterator.hasNext()) &#123;</span><br><span class="line">                selectionKey = iterator.next();</span><br><span class="line">                iterator.remove();</span><br><span class="line">                <span class="keyword">if</span> (selectionKey.isConnectable()) &#123;</span><br><span class="line">                    System.out.println(<span class="string">&quot;client connect&quot;</span>);</span><br><span class="line">                    client = (SocketChannel) selectionKey.channel();</span><br><span class="line">                    <span class="comment">// 判断此通道上是否正在进行连接操作。</span></span><br><span class="line">                    <span class="comment">// 完成套接字通道的连接过程。</span></span><br><span class="line">                    <span class="keyword">if</span> (client.isConnectionPending()) &#123;</span><br><span class="line">                        client.finishConnect();</span><br><span class="line">                        System.out.println(<span class="string">&quot;完成连接!&quot;</span>);</span><br><span class="line">                    &#125;</span><br><span class="line">                    <span class="comment">// 连接成功之后注册可读和可写事件</span></span><br><span class="line">                    client.register(selector, SelectionKey.OP_READ | SelectionKey.OP_WRITE);</span><br><span class="line">                &#125; <span class="keyword">else</span> <span class="keyword">if</span> (selectionKey.isReadable()) &#123;</span><br><span class="line">                    client = (SocketChannel) selectionKey.channel();</span><br><span class="line">                    <span class="comment">//将缓冲区清空以备下次读取</span></span><br><span class="line">                    receiveBuffer.clear();</span><br><span class="line">                    <span class="comment">//读取服务器发送来的数据到缓冲区中</span></span><br><span class="line">                    <span class="type">int</span> <span class="variable">count</span> <span class="operator">=</span> client.read(receiveBuffer);</span><br><span class="line">                    <span class="keyword">if</span> (count &gt; <span class="number">0</span>) &#123;</span><br><span class="line">                        receiveText = <span class="keyword">new</span> <span class="title class_">String</span>(receiveBuffer.array(), <span class="number">0</span>, count);</span><br><span class="line">                        System.out.println(<span class="string">&quot;客户端接受服务器端数据--:&quot;</span> + receiveText);</span><br><span class="line">                    &#125;</span><br><span class="line">                    client.register(selector, SelectionKey.OP_WRITE);</span><br><span class="line"></span><br><span class="line">                &#125; <span class="keyword">else</span> <span class="keyword">if</span> (selectionKey.isWritable()) &#123;</span><br><span class="line">                    Thread.sleep(<span class="number">2000</span>);</span><br><span class="line">                    sendBuffer.clear();</span><br><span class="line">                    client = (SocketChannel) selectionKey.channel();</span><br><span class="line">                    <span class="type">LocalTime</span> <span class="variable">localTime</span> <span class="operator">=</span> LocalTime.now();</span><br><span class="line">                    <span class="type">String</span> <span class="variable">sendText</span> <span class="operator">=</span> <span class="string">&quot;客户端发送的数据--&gt;&quot;</span> + localTime.getMinute() + <span class="string">&quot;:&quot;</span> + localTime.getSecond();</span><br><span class="line">                    sendBuffer.put(sendText.getBytes());</span><br><span class="line">                    <span class="comment">//将缓冲区各标志复位,因为向里面put了数据标志被改变要想从中读取数据发向服务器,就要复位</span></span><br><span class="line">                    sendBuffer.flip();</span><br><span class="line">                    client.write(sendBuffer);</span><br><span class="line">                    <span class="comment">// 写完之后需要注销写事件，否则会一直判断成可写, 这里表是对读事件感兴趣，就是移除写事件的意思</span></span><br><span class="line">                    selectionKey.interestOps(SelectionKey.OP_READ);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<div class="tabs" id="执行结果"><ul class="nav-tabs"><button type="button" class="tab  active" data-href="执行结果-1">服务端结果</button><button type="button" class="tab " data-href="执行结果-2">用户端结果</button></ul><div class="tab-contents"><div class="tab-item-content active" id="执行结果-1"><figure class="highlight brainfuck"><table><tr><td class="code"><pre><span class="line"><span class="comment">服务启动</span><span class="literal">----</span><span class="comment">8080:</span></span><br><span class="line"><span class="comment">服务器端接受客户端数据</span><span class="literal">--</span><span class="comment">:客户端发送的数据</span><span class="literal">--</span>&gt;<span class="comment">59:45</span></span><br><span class="line"><span class="comment">服务器端接受客户端数据</span><span class="literal">--</span><span class="comment">:客户端发送的数据</span><span class="literal">--</span>&gt;<span class="comment">59:47</span></span><br><span class="line"><span class="comment">服务器端接受客户端数据</span><span class="literal">--</span><span class="comment">:客户端发送的数据</span><span class="literal">--</span>&gt;<span class="comment">59:49</span></span><br><span class="line"><span class="comment">服务器端接受客户端数据</span><span class="literal">--</span><span class="comment">:客户端发送的数据</span><span class="literal">--</span>&gt;<span class="comment">59:51</span></span><br><span class="line"><span class="comment">服务器端接受客户端数据</span><span class="literal">--</span><span class="comment">:客户端发送的数据</span><span class="literal">--</span>&gt;<span class="comment">59:53</span></span><br><span class="line"><span class="comment">服务器端接受客户端数据</span><span class="literal">--</span><span class="comment">:客户端发送的数据</span><span class="literal">--</span>&gt;<span class="comment">59:55</span></span><br><span class="line"><span class="comment">服务器端接受客户端数据</span><span class="literal">--</span><span class="comment">:客户端发送的数据</span><span class="literal">--</span>&gt;<span class="comment">59:57</span></span><br><span class="line"><span class="comment">服务器端接受客户端数据</span><span class="literal">--</span><span class="comment">:客户端发送的数据</span><span class="literal">--</span>&gt;<span class="comment">59:59</span></span><br></pre></td></tr></table></figure></div><div class="tab-item-content" id="执行结果-2"><figure class="highlight brainfuck"><table><tr><td class="code"><pre><span class="line"><span class="comment">client connect</span></span><br><span class="line"><span class="comment">完成连接!</span></span><br><span class="line"><span class="comment">客户端接受服务器端数据</span><span class="literal">--</span><span class="comment">:服务端</span><span class="literal">--</span><span class="comment">》客户端  59:45</span></span><br><span class="line"><span class="comment">客户端接受服务器端数据</span><span class="literal">--</span><span class="comment">:服务端</span><span class="literal">--</span><span class="comment">》客户端  59:47</span></span><br><span class="line"><span class="comment">客户端接受服务器端数据</span><span class="literal">--</span><span class="comment">:服务端</span><span class="literal">--</span><span class="comment">》客户端  59:49</span></span><br><span class="line"><span class="comment">客户端接受服务器端数据</span><span class="literal">--</span><span class="comment">:服务端</span><span class="literal">--</span><span class="comment">》客户端  59:51</span></span><br><span class="line"><span class="comment">客户端接受服务器端数据</span><span class="literal">--</span><span class="comment">:服务端</span><span class="literal">--</span><span class="comment">》客户端  59:53</span></span><br><span class="line"><span class="comment">客户端接受服务器端数据</span><span class="literal">--</span><span class="comment">:服务端</span><span class="literal">--</span><span class="comment">》客户端  59:55</span></span><br><span class="line"><span class="comment">客户端接受服务器端数据</span><span class="literal">--</span><span class="comment">:服务端</span><span class="literal">--</span><span class="comment">》客户端  59:57</span></span><br><span class="line"><span class="comment">客户端接受服务器端数据</span><span class="literal">--</span><span class="comment">:服务端</span><span class="literal">--</span><span class="comment">》客户端  59:59</span></span><br></pre></td></tr></table></figure></div></div><div class="tab-to-top"><button type="button" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div></div>
-
-
-]]></content>
-      <categories>
-        <category>java</category>
-        <category>java基础</category>
-      </categories>
-      <tags>
-        <tag>java</tag>
-        <tag>java基础</tag>
       </tags>
   </entry>
   <entry>
@@ -915,7 +778,7 @@
     A65["异常表"]
     A6-->A61 & A62 & A63 & A64 & A65
   end</pre>
-<h2 id="不同版本jdk方法区的内容"><a href="#不同版本jdk方法区的内容" class="headerlink" title="不同版本jdk方法区的内容"></a>不同版本jdk方法区的内容</h2><div class="tabs" id="方法区内容"><ul class="nav-tabs"><button type="button" class="tab  active" data-href="方法区内容-1">jdk6</button><button type="button" class="tab " data-href="方法区内容-2">jdk7</button><button type="button" class="tab " data-href="方法区内容-3">jdk8</button></ul><div class="tab-contents"><div class="tab-item-content active" id="方法区内容-1"><pre class="mermaid">flowchart LR
+<h2 id="不同版本jdk方法区的内容"><a href="#不同版本jdk方法区的内容" class="headerlink" title="不同版本jdk方法区的内容"></a>不同版本jdk方法区的内容</h2><h3 id="jdk6-方法区"><a href="#jdk6-方法区" class="headerlink" title="jdk6 方法区"></a>jdk6 方法区</h3><pre class="mermaid">flowchart LR
     subgraph A[方法区和堆]
         subgraph A1["方法区(永久代PermGen实现)"]
             subgraph A11["运行时常量池"]
@@ -929,7 +792,9 @@
             A11~~~A12~~~A13~~~A14~~~A15~~~A16
         end
         A2["\n\n\n &nbsp;&nbsp; 堆 &nbsp;&nbsp; \n\n\n"]
-    end</pre></div><div class="tab-item-content" id="方法区内容-2"><pre class="mermaid">flowchart LR
+    end</pre>
+
+<h3 id="jdk7-方法区"><a href="#jdk7-方法区" class="headerlink" title="jdk7 方法区"></a>jdk7 方法区</h3><pre class="mermaid">flowchart LR
     subgraph A[方法区和堆]
         subgraph A1["方法区(永久代PermGen实现)"]
             A11["运行时常量池"]
@@ -944,7 +809,8 @@
             A22["静态变量"]
             A21~~~A22
         end
-    end</pre></div><div class="tab-item-content" id="方法区内容-3"><pre class="mermaid">flowchart LR
+    end</pre>
+<h3 id="jdk8-方法区"><a href="#jdk8-方法区" class="headerlink" title="jdk8 方法区"></a>jdk8 方法区</h3><pre class="mermaid">flowchart LR
     subgraph A[方法区和堆]
         subgraph A1["方法区(元空间Metaspace实现)"]
             A11["运行时常量池"]
@@ -963,7 +829,7 @@
             A21~~~A22
         end
         A21-->A1
-    end</pre></div></div><div class="tab-to-top"><button type="button" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div></div>
+    end</pre>
 
 <h2 id="方法区中为什么使用元空间替代永久代"><a href="#方法区中为什么使用元空间替代永久代" class="headerlink" title="方法区中为什么使用元空间替代永久代"></a>方法区中为什么使用元空间替代永久代</h2><ol>
 <li><code>JRockit</code> 虚拟机和<code>HotSpot</code>虚拟机j进行融合，而<code>JRockit</code>不需要配置永久代</li>
@@ -995,6 +861,143 @@
       <tags>
         <tag>java</tag>
         <tag>jvm</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>HashMap详解</title>
+    <url>/2023/834224a16039/</url>
+    <content><![CDATA[<h1 id="HashMap的底层数据结构是什么？"><a href="#HashMap的底层数据结构是什么？" class="headerlink" title="HashMap的底层数据结构是什么？"></a>HashMap的底层数据结构是什么？</h1><ol>
+<li>之前 <code>Jdk1.7</code> 的存储结构是数组+链表，到了 <code>Jdk1.8</code> 变成了数组+链表+红黑树。</li>
+</ol>
+<h1 id="HashMap-是如何定位索引下标的"><a href="#HashMap-是如何定位索引下标的" class="headerlink" title="HashMap 是如何定位索引下标的"></a>HashMap 是如何定位索引下标的</h1><p>定位 <code>index</code> 分成两步</p>
+<ol>
+<li><p>根据 hash 函数获取 hash 值</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">static</span> <span class="keyword">final</span> <span class="type">int</span> <span class="title function_">hash</span><span class="params">(Object key)</span> &#123;</span><br><span class="line">    <span class="type">int</span> h;</span><br><span class="line">    <span class="keyword">return</span> (key == <span class="literal">null</span>) ? <span class="number">0</span> : (h = key.hashCode()) ^ (h &gt;&gt;&gt; <span class="number">16</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>可以看到上面代码获取到 hashCode 之后还右移 16 位，具体原因在下面分析</strong></p>
+</li>
+<li><p>根据第一步计算的 <code>hash</code> 值获取数组位置（一般是对数组长度取模，<code>HashMap</code> 中是对长度 -1 进行 <code>&amp;</code> 运算）</p>
+</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">final</span> V <span class="title function_">putVal</span><span class="params">(<span class="type">int</span> hash, K key, V value, <span class="type">boolean</span> onlyIfAbsent,</span></span><br><span class="line"><span class="params">                   <span class="type">boolean</span> evict)</span> &#123;</span><br><span class="line">    Node&lt;K,V&gt;[] tab; Node&lt;K,V&gt; p; <span class="type">int</span> n, i;</span><br><span class="line">    <span class="keyword">if</span> ((tab = table) == <span class="literal">null</span> || (n = tab.length) == <span class="number">0</span>)</span><br><span class="line">        n = (tab = resize()).length;</span><br><span class="line">        <span class="comment">// 获取下标的操作是  i = (n-1) &amp; hash</span></span><br><span class="line">    <span class="keyword">if</span> ((p = tab[i = (n - <span class="number">1</span>) &amp; hash]) == <span class="literal">null</span>)</span><br><span class="line">        tab[i] = newNode(hash, key, value, <span class="literal">null</span>);</span><br><span class="line">    <span class="keyword">else</span> &#123;</span><br><span class="line">       ...</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>获取下标为什么是对 n-1 进行与操作而不是取模？具体原因下面分析</strong></p>
+<h1 id="为什么需要对key的-hash-值右移-16位"><a href="#为什么需要对key的-hash-值右移-16位" class="headerlink" title="为什么需要对key的 hash 值右移 16位"></a>为什么需要对key的 hash 值右移 16位</h1><figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="string">HashMap</span> <span class="string">中使用的</span> <span class="string">hash</span> <span class="string">函数是</span> <span class="string">key.hash</span> <span class="string">^</span> <span class="string">(key.hash</span> <span class="string">&gt;&gt;</span> <span class="number">16</span><span class="string">)</span>  <span class="string">而不是直接使用</span> <span class="string">key.hash,</span> <span class="string">这么做的原因是增加了扰动计算，使得</span> <span class="string">hash</span> <span class="string">分布的尽可能的均匀，</span> <span class="string">让元素的高16</span> <span class="string">位和低16</span> <span class="string">位都参与运算</span></span><br><span class="line"><span class="string">示例：</span></span><br><span class="line"><span class="string">比如有一个元素1换成二进制如下</span></span><br><span class="line"><span class="number">1111 </span><span class="number">1111 </span><span class="number">1111 </span><span class="number">1111 </span><span class="number">1010 </span><span class="number">1010 </span><span class="number">1010 </span><span class="number">1010</span> <span class="string">（没有右移16位的二进制）</span></span><br><span class="line"><span class="number">0000 </span><span class="number">0000 </span><span class="number">0000 </span><span class="number">0000 </span><span class="number">1111 </span><span class="number">1111 </span><span class="number">1111 </span><span class="number">1111</span>  <span class="string">（右移16位的二进制）</span></span><br><span class="line"></span><br><span class="line"><span class="string">另外一个元素2换成二进制如下</span></span><br><span class="line"><span class="number">1111 </span><span class="number">1111 </span><span class="number">1111 </span><span class="number">1110 </span><span class="number">1010 </span><span class="number">1010 </span><span class="number">1010 </span><span class="number">1010</span> <span class="string">（没有右移16位的二进制）</span></span><br><span class="line"><span class="number">0000 </span><span class="number">0000 </span><span class="number">0000 </span><span class="number">0000 </span><span class="number">1111 </span><span class="number">1111 </span><span class="number">1111 </span><span class="number">1110</span>  <span class="string">（右移16位的二进制）</span></span><br><span class="line"></span><br><span class="line"><span class="string">在计算数组位置的时候使用的是</span> <span class="string">hash</span> <span class="string">&amp;</span> <span class="string">(n</span> <span class="number">-1</span><span class="string">),</span>  <span class="string">要知道</span> <span class="string">n-1</span> <span class="string">肯定是一个相对来说比较小的数字（32个bit</span> <span class="string">只会使用比较少的低位），</span> <span class="string">比如长度是</span> <span class="number">32</span><span class="string">，</span> <span class="string">对应的二进制是</span> <span class="number">0000 </span><span class="number">0000 </span><span class="number">0000 </span><span class="number">0000 </span><span class="number">0000 </span><span class="number">0000 </span><span class="number">0001 </span><span class="number">1111</span></span><br><span class="line"></span><br><span class="line"><span class="string">使用没有右移的元素1和</span> <span class="string">（32</span> <span class="number">-1</span><span class="string">）</span> <span class="string">进行与操作（与操作是都为1才为1，否则为0）</span></span><br><span class="line"><span class="number">1111 </span><span class="number">1111 </span><span class="number">1111 </span><span class="number">1111     </span><span class="number">1010 </span><span class="number">1010 </span><span class="number">1010 </span><span class="number">1010</span> <span class="string">（没有右移16位的二进制）</span></span><br><span class="line"><span class="number">0000 </span><span class="number">0000 </span><span class="number">0000 </span><span class="number">0000      </span><span class="number">0000 </span><span class="number">0000 </span><span class="number">0001 </span><span class="number">1111</span></span><br><span class="line"><span class="number">0000 </span><span class="number">0000 </span><span class="number">0000 </span><span class="number">0000      </span><span class="number">0000 </span><span class="number">0000 </span><span class="number">0000 </span><span class="number">1010</span></span><br><span class="line"></span><br><span class="line"><span class="string">使用没有右移的元素2和</span> <span class="string">（32</span> <span class="number">-1</span><span class="string">）</span> <span class="string">进行与操作（与操作是都为1才为1，否则为0）</span></span><br><span class="line"><span class="number">1111 </span><span class="number">1111 </span><span class="number">1111 </span><span class="number">1100     </span><span class="number">1010 </span><span class="number">1010 </span><span class="number">1010 </span><span class="number">1010</span> <span class="string">（没有右移16位的二进制）</span></span><br><span class="line"><span class="number">0000 </span><span class="number">0000 </span><span class="number">0000 </span><span class="number">0000      </span><span class="number">0000 </span><span class="number">0000 </span><span class="number">0001 </span><span class="number">1111</span></span><br><span class="line"><span class="number">0000 </span><span class="number">0000 </span><span class="number">0000 </span><span class="number">0000      </span><span class="number">0000 </span><span class="number">0000 </span><span class="number">0000 </span><span class="number">1010</span></span><br><span class="line"><span class="string">可以看到元素1和元素2计算出来下标是相同的，这个不同是因为元素1和元素2的低16位是完全相同的，不同之处只在于高16位，但是当我们对</span> <span class="string">（n-1）进行与操作的时候，由于</span> <span class="string">n-1</span> <span class="string">的值比较小，绝大部分情况下，只有低16位会进行运算的</span></span><br><span class="line"></span><br><span class="line"><span class="string">接下来再看一下如果使用右移的hash进行计算会有什么不同</span></span><br><span class="line"><span class="string">使用右移的元素1和</span> <span class="string">（32</span> <span class="number">-1</span><span class="string">）</span> <span class="string">进行与操作（与操作是都为1才为1，否则为0）</span></span><br><span class="line"><span class="number">0000 </span><span class="number">0000 </span><span class="number">0000 </span><span class="number">0000      </span><span class="number">1111 </span><span class="number">1111 </span><span class="number">1111 </span><span class="number">1111</span> <span class="string">（没有右移16位的二进制）</span></span><br><span class="line"><span class="number">0000 </span><span class="number">0000 </span><span class="number">0000 </span><span class="number">0000      </span><span class="number">0000 </span><span class="number">0000 </span><span class="number">0001 </span><span class="number">1111</span></span><br><span class="line"><span class="number">0000 </span><span class="number">0000 </span><span class="number">0000 </span><span class="number">0000      </span><span class="number">0000 </span><span class="number">0000 </span><span class="number">0000  </span><span class="number">1111</span></span><br><span class="line"></span><br><span class="line"><span class="string">用右移的元素2和</span> <span class="string">（32</span> <span class="number">-1</span><span class="string">）</span> <span class="string">进行与操作（与操作是都为1才为1，否则为0）</span></span><br><span class="line"><span class="number">0000 </span><span class="number">0000 </span><span class="number">0000 </span><span class="number">0000      </span><span class="number">1111 </span><span class="number">1111 </span><span class="number">1111 </span><span class="number">1110</span> <span class="string">（没有右移16位的二进制）</span></span><br><span class="line"><span class="number">0000 </span><span class="number">0000 </span><span class="number">0000 </span><span class="number">0000      </span><span class="number">0000 </span><span class="number">0000 </span><span class="number">0001 </span><span class="number">1111</span></span><br><span class="line"><span class="number">0000 </span><span class="number">0000 </span><span class="number">0000 </span><span class="number">0000      </span><span class="number">0000 </span><span class="number">0000 </span><span class="number">0000  </span><span class="number">1110</span></span><br><span class="line"><span class="string">可以看到计算出来的</span> <span class="string">index</span> <span class="string">值是不同的，这就是右移带来的让高16位有参与运算的效果</span></span><br></pre></td></tr></table></figure>
+
+<h1 id="为什么不对长度取模而是使用与运算"><a href="#为什么不对长度取模而是使用与运算" class="headerlink" title="为什么不对长度取模而是使用与运算"></a>为什么不对长度取模而是使用与运算</h1><ol>
+<li><code>X % 2^n = X &amp; (2^n – 1)</code>  这两种运算等价，所以这也是 <code>HashMap</code> 长度取 <code>2^n</code> 的原因<br>也可以从数据角度记住，当 <code>n</code> 是 2 的倍数时， <code>X % 2^n = X &amp; (2^n – 1)</code>  等价</li>
+</ol>
+<p><a href="https://www.cnblogs.com/ysocean/p/9054804.html">公式计算参考链接</a></p>
+<h1 id="HashMap是如何实现扩容的"><a href="#HashMap是如何实现扩容的" class="headerlink" title="HashMap是如何实现扩容的"></a>HashMap是如何实现扩容的</h1><p>扩容后索引其实也是使用 <code>hash &amp; （newLength -1）</code>, 这样计算出来的位置要是和原来的元素在相同的位置，要么是 原来的位置+旧数组长度&#x3D;新索引位置</p>
+<h1 id="HashMap是如何解决hash冲突的"><a href="#HashMap是如何解决hash冲突的" class="headerlink" title="HashMap是如何解决hash冲突的"></a>HashMap是如何解决hash冲突的</h1><ol>
+<li>对 <code>hash</code> 的计算进行优化，不是直接使用 <code>hashcode</code>,  而是右移16位，让高16位也参与运算，减少<code>hash</code> 冲突</li>
+<li>如果遇到冲突，使用拉链法解决</li>
+</ol>
+]]></content>
+      <categories>
+        <category>java</category>
+        <category>java基础</category>
+      </categories>
+      <tags>
+        <tag>java</tag>
+        <tag>java基础</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>java的io模型</title>
+    <url>/2023/180f5b629f58/</url>
+    <content><![CDATA[<span class="hide_first_mermaid">
+<div class="mermaid-wrap"><pre class="mermaid-src" hidden>
+  flowchart LR
+    A
+  </pre></div>
+</span>
+
+<h1 id="BIO"><a href="#BIO" class="headerlink" title="BIO"></a>BIO</h1><ol>
+<li><code>bio</code> 是同步阻塞 <code>io</code>，每一个连接都需要一个线程去处理</li>
+<li><code>bio</code> 会有资源浪费问题，一个线程只能处理一个连接，如果某个客户端并没有发送数据，对应的服务端线程也只能阻塞</li>
+</ol>
+<span id="more"></span>
+<h2 id="阻塞的含义"><a href="#阻塞的含义" class="headerlink" title="阻塞的含义"></a>阻塞的含义</h2><ol>
+<li>服务端 <code>ServerSocket</code> 调用 <code>accept()</code> 方法会阻塞（如果没有客户端进行连接，调用这个方法后不会继续往下执行）</li>
+<li>线程从Socket的输入流读入数据时,如果输入流没有足够的数据，就会进入阻塞状态</li>
+</ol>
+<h2 id="java-bio-代码实现"><a href="#java-bio-代码实现" class="headerlink" title="java bio 代码实现"></a>java bio 代码实现</h2><p><strong>服务端代码</strong></p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> org.example.demo.socket;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.io.IOException;</span><br><span class="line"><span class="keyword">import</span> java.net.ServerSocket;</span><br><span class="line"><span class="keyword">import</span> java.net.Socket;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">CusServerSocket</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="keyword">try</span> (<span class="type">ServerSocket</span> <span class="variable">serverSocket</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">ServerSocket</span>(<span class="number">8080</span>);) &#123;</span><br><span class="line">            <span class="keyword">while</span> (<span class="literal">true</span>) &#123;</span><br><span class="line">                <span class="type">Socket</span> <span class="variable">socket</span> <span class="operator">=</span> serverSocket.accept();</span><br><span class="line">                <span class="comment">//连接成功后新开一个线程去处理这个连接</span></span><br><span class="line">                <span class="keyword">new</span> <span class="title class_">Thread</span>(<span class="keyword">new</span> <span class="title class_">Runnable</span>() &#123;</span><br><span class="line">                    <span class="meta">@Override</span></span><br><span class="line">                    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">run</span><span class="params">()</span> &#123;</span><br><span class="line">                        <span class="type">byte</span>[] bytes = <span class="keyword">new</span> <span class="title class_">byte</span>[<span class="number">1024</span>];</span><br><span class="line">                        <span class="type">int</span> <span class="variable">length</span> <span class="operator">=</span> -<span class="number">1</span>;</span><br><span class="line">                        <span class="keyword">try</span> &#123;</span><br><span class="line">                            <span class="comment">// read() 方法上的注释 If no byte is available because the stream is at the end of the file, the value -1 is returned</span></span><br><span class="line">                            <span class="keyword">while</span> ((length = socket.getInputStream().read(bytes)) != -<span class="number">1</span>) &#123;</span><br><span class="line">                                System.out.println(<span class="string">&quot;thredId:&quot;</span> + Thread.currentThread().getName() + <span class="keyword">new</span> <span class="title class_">String</span>(bytes, <span class="number">0</span>, length));</span><br><span class="line">                            &#125;</span><br><span class="line">                        &#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">                            e.printStackTrace();</span><br><span class="line">                        &#125;</span><br><span class="line">                        System.out.println(<span class="string">&quot;客户端关闭, 当前线程:&quot;</span> + Thread.currentThread().getName());</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;).start();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; <span class="keyword">catch</span> (</span><br><span class="line">                IOException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p><strong>客户端实现</strong></p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> org.example.demo.socket;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.io.IOException;</span><br><span class="line"><span class="keyword">import</span> java.net.Socket;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">CusClientSocket</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="comment">// 外层循环会创建多个 socket，用来模拟多个 socket 客户端</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">j</span> <span class="operator">=</span> <span class="number">0</span>; j &lt; <span class="number">3</span>; j++) &#123;</span><br><span class="line">            <span class="keyword">try</span> (<span class="type">Socket</span> <span class="variable">socket</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Socket</span>(<span class="string">&quot;127.0.0.1&quot;</span>,<span class="number">8080</span>)) &#123;</span><br><span class="line">                <span class="comment">// 内存循环用来模拟一个客户端的多次通信</span></span><br><span class="line">                <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">1</span>; i &lt; <span class="number">3</span>; i++) &#123;</span><br><span class="line">                    Thread.sleep(<span class="number">20</span>);</span><br><span class="line">                    socket.getOutputStream().write((<span class="string">&quot;客户端&quot;</span> + j + <span class="string">&quot;第&quot;</span> + i + <span class="string">&quot;次通信&quot;</span>).getBytes());</span><br><span class="line">                &#125;</span><br><span class="line">            &#125; <span class="keyword">catch</span> (IOException | InterruptedException e) &#123;</span><br><span class="line">                <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">RuntimeException</span>(e);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>执行结果</strong></p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">thredId:Thread-<span class="number">0</span>客户端<span class="number">0</span>第<span class="number">1</span>次通信</span><br><span class="line">thredId:Thread-<span class="number">0</span>客户端<span class="number">0</span>第<span class="number">2</span>次通信</span><br><span class="line">客户端关闭, 当前线程:Thread-<span class="number">0</span></span><br><span class="line">thredId:Thread-<span class="number">1</span>客户端<span class="number">1</span>第<span class="number">1</span>次通信</span><br><span class="line">thredId:Thread-<span class="number">1</span>客户端<span class="number">1</span>第<span class="number">2</span>次通信</span><br><span class="line">客户端关闭, 当前线程:Thread-<span class="number">1</span></span><br><span class="line">thredId:Thread-<span class="number">2</span>客户端<span class="number">2</span>第<span class="number">1</span>次通信</span><br><span class="line">thredId:Thread-<span class="number">2</span>客户端<span class="number">2</span>第<span class="number">2</span>次通信</span><br><span class="line">客户端关闭, 当前线程:Thread-<span class="number">2</span></span><br></pre></td></tr></table></figure>
+<ol>
+<li>执行完成之后，服务端程序并不会关闭，会一直在运行</li>
+<li>从上面结果看，一共创建了三个线程来执行</li>
+</ol>
+<h2 id="使用线程池优化-bio-实现"><a href="#使用线程池优化-bio-实现" class="headerlink" title="使用线程池优化 bio 实现"></a>使用线程池优化 bio 实现</h2><p>客户端代码不需要改动，只需要更改服务端代码</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> org.example.demo.socket;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.io.IOException;</span><br><span class="line"><span class="keyword">import</span> java.net.ServerSocket;</span><br><span class="line"><span class="keyword">import</span> java.net.Socket;</span><br><span class="line"><span class="keyword">import</span> java.util.concurrent.ExecutorService;</span><br><span class="line"><span class="keyword">import</span> java.util.concurrent.Executors;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">CusServerSocket</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="type">ExecutorService</span> <span class="variable">executorService</span> <span class="operator">=</span> Executors.newSingleThreadExecutor();</span><br><span class="line">        <span class="keyword">try</span> (<span class="type">ServerSocket</span> <span class="variable">serverSocket</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">ServerSocket</span>(<span class="number">8080</span>);) &#123;</span><br><span class="line">            <span class="keyword">while</span> (<span class="literal">true</span>) &#123;</span><br><span class="line">                <span class="type">Socket</span> <span class="variable">socket</span> <span class="operator">=</span> serverSocket.accept();</span><br><span class="line">                <span class="comment">//连接成功后新开一个线程去处理这个连接</span></span><br><span class="line">                executorService.execute(<span class="keyword">new</span> <span class="title class_">ClientTask</span>(socket));</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; <span class="keyword">catch</span> (</span><br><span class="line">                IOException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">class</span> <span class="title class_">ClientTask</span> <span class="keyword">implements</span> <span class="title class_">Runnable</span> &#123;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">private</span> Socket socket;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">public</span> <span class="title function_">ClientTask</span><span class="params">(Socket socket)</span> &#123;</span><br><span class="line">            <span class="built_in">this</span>.socket = socket;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">run</span><span class="params">()</span> &#123;</span><br><span class="line">            <span class="type">byte</span>[] bytes = <span class="keyword">new</span> <span class="title class_">byte</span>[<span class="number">1024</span>];</span><br><span class="line">            <span class="type">int</span> <span class="variable">length</span> <span class="operator">=</span> -<span class="number">1</span>;</span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                <span class="comment">// read() 方法上的注释 If no byte is available because the stream is at the end of the file, the value -1 is returned</span></span><br><span class="line">                <span class="keyword">while</span> ((length = socket.getInputStream().read(bytes)) != -<span class="number">1</span>) &#123;</span><br><span class="line">                    System.out.println(<span class="string">&quot;thredId:&quot;</span> + Thread.currentThread().getName() + <span class="keyword">new</span> <span class="title class_">String</span>(bytes, <span class="number">0</span>, length));</span><br><span class="line">                &#125;</span><br><span class="line">            &#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">                e.printStackTrace();</span><br><span class="line">            &#125;</span><br><span class="line">            System.out.println(<span class="string">&quot;客户端关闭, 当前线程:&quot;</span> + Thread.currentThread().getName());</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>执行结果</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">thredId:pool-<span class="number">1</span>-thread-<span class="number">1</span>客户端<span class="number">0</span>第<span class="number">1</span>次通信</span><br><span class="line">thredId:pool-<span class="number">1</span>-thread-<span class="number">1</span>客户端<span class="number">0</span>第<span class="number">2</span>次通信</span><br><span class="line">客户端关闭, 当前线程:pool-<span class="number">1</span>-thread-<span class="number">1</span></span><br><span class="line">thredId:pool-<span class="number">1</span>-thread-<span class="number">1</span>客户端<span class="number">1</span>第<span class="number">1</span>次通信</span><br><span class="line">thredId:pool-<span class="number">1</span>-thread-<span class="number">1</span>客户端<span class="number">1</span>第<span class="number">2</span>次通信</span><br><span class="line">客户端关闭, 当前线程:pool-<span class="number">1</span>-thread-<span class="number">1</span></span><br><span class="line">thredId:pool-<span class="number">1</span>-thread-<span class="number">1</span>客户端<span class="number">2</span>第<span class="number">1</span>次通信</span><br><span class="line">thredId:pool-<span class="number">1</span>-thread-<span class="number">1</span>客户端<span class="number">2</span>第<span class="number">2</span>次通信</span><br><span class="line">客户端关闭, 当前线程:pool-<span class="number">1</span>-thread-<span class="number">1</span></span><br></pre></td></tr></table></figure>
+<p>即使使用线程池进行了优化，本地还是阻塞io，只有当一个客户端通信完成（socket关闭了），另外一个 socket 才可以开始进行通信</p>
+<h1 id="NIO"><a href="#NIO" class="headerlink" title="NIO"></a>NIO</h1><ol>
+<li>nio 是非阻塞 io（Non-block io）</li>
+<li>非阻塞 io 的重点是 <strong>事件</strong> 和 <strong>通知或轮询</strong></li>
+<li><code>java.nio.channerls</code> 包提供了支持非阻塞通信的类<ol>
+<li><code>ServerSocketChannel</code>: <code>ServerSocket</code> 的替代类，支持阻塞通信与非阻塞通信</li>
+<li><code>SocketChannerl</code>： <code>Socket</code> 的替代类，支持阻塞通信与非阻塞通信</li>
+<li><code>Selector</code>： 为<code>ServerSocketChannel</code>监控接收连接就绪事件，为<code>SocketChannel</code>监控连接就绪、读就绪和写就绪事件</li>
+<li><code>SelectionKey</code>：代表<code>ServerSocketChannel</code>以及<code>SocketChannel</code>向<code>Selector</code>注册事件的句柄。当一个<code>SelectionKey</code>对象位于<code>Selector</code>对象的<code>selected-keys</code>集合中，就表示与这个<code>SelectionKey</code>对象相关的事件发生了</li>
+</ol>
+</li>
+</ol>
+<h2 id="NIO-执行流程"><a href="#NIO-执行流程" class="headerlink" title="NIO 执行流程"></a>NIO 执行流程</h2><pre class="mermaid">sequenceDiagram
+    participant A as ServerSocketChannel
+    participant B as Selector
+    participant C as socketChannel
+    A->>A: open()
+    B-->>B: open()
+    A-->>B: register(SelectionKey.OP_ACCEPT)
+    C-->>C: open()
+    C-->>B: register(SelectionKey.OP_CONNECT)
+    B-->>A: selectionKey.isAcceptable()==true
+    A-->>A: accept()
+    A-->>B: register(SelectionKey.OP_READ)
+    C-->>B: write(byte[])
+    B-->>A: selectionKey.isReadable()==true
+    A-->>A: read()
+    A-->>B: register(SelectionKey.OP_WRITE)</pre>
+
+
+<h2 id="代码示例"><a href="#代码示例" class="headerlink" title="代码示例"></a>代码示例</h2><p>代码执行流程</p>
+<ol>
+<li>服务端启动</li>
+<li>客户端启动连接服务端（注册 <strong>可读</strong>和 <strong>可写</strong>事件）</li>
+<li>客户端发生可写事件，开始写数据到服务端并且 <strong>取消可写事件</strong></li>
+<li>服务端发生可读事件，读取数据并注册可写事件</li>
+<li>服务端写数据到用户端并 <strong>取消可写事件</strong></li>
+<li>客户端发生可读事件，读取数据后注册可写事件</li>
+<li>重复3-6步骤</li>
+</ol>
+<p>上面有一个核心的步骤是，不论是管理端还是服务端，在写完数据之后都要取消可写事件，当想要写数据的时候，再进行注册写事件即可</p>
+<ol>
+<li>如果注册完写事件并且写完数据之后，没有进行取消，那么 <code>selectionKey.isWritable()</code> 会一直返回true， 原因请看第二点</li>
+<li><code>SocketChannel</code> 在如下情况下都是可写的状态<ol>
+<li>当连接建立后，可以向 <code>SocketChannel</code> 中写入数据</li>
+<li>当 <code>SocketChannel</code> 中的输出缓冲区有空间时，可以写入数据, 所处只要缓冲区有空间，就会一直可写</li>
+</ol>
+</li>
+</ol>
+<h3 id="服务端"><a href="#服务端" class="headerlink" title="服务端"></a>服务端</h3><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">CusServerSocket</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/*缓冲区大小*/</span></span><br><span class="line">    <span class="keyword">private</span> <span class="type">int</span> <span class="variable">BLOCK</span> <span class="operator">=</span> <span class="number">1024</span>;</span><br><span class="line">    <span class="comment">/*接受数据缓冲区*/</span></span><br><span class="line">    <span class="keyword">private</span> <span class="type">ByteBuffer</span> <span class="variable">sendBuffer</span> <span class="operator">=</span> ByteBuffer.allocate(BLOCK);</span><br><span class="line">    <span class="comment">/*发送数据缓冲区*/</span></span><br><span class="line">    <span class="keyword">private</span> <span class="type">ByteBuffer</span> <span class="variable">receiveBuffer</span> <span class="operator">=</span> ByteBuffer.allocate(BLOCK);</span><br><span class="line">    <span class="keyword">private</span> Selector selector;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">CusServerSocket</span><span class="params">(<span class="type">int</span> port)</span> <span class="keyword">throws</span> IOException &#123;</span><br><span class="line">        <span class="comment">// 打开服务器套接字通道</span></span><br><span class="line">        <span class="type">ServerSocketChannel</span> <span class="variable">serverSocketChannel</span> <span class="operator">=</span> ServerSocketChannel.open();</span><br><span class="line">        <span class="comment">// 服务器配置为非阻塞</span></span><br><span class="line">        serverSocketChannel.configureBlocking(<span class="literal">false</span>);</span><br><span class="line">        serverSocketChannel.socket().bind(<span class="keyword">new</span> <span class="title class_">InetSocketAddress</span>(port));</span><br><span class="line">        selector = Selector.open();</span><br><span class="line">        <span class="comment">// 注册到selector，等待连接</span></span><br><span class="line">        serverSocketChannel.register(selector, SelectionKey.OP_ACCEPT);</span><br><span class="line">        System.out.println(<span class="string">&quot;服务启动----8080:&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">void</span> <span class="title function_">listen</span><span class="params">()</span> <span class="keyword">throws</span> IOException, InterruptedException &#123;</span><br><span class="line">        <span class="keyword">while</span> (<span class="literal">true</span>) &#123;</span><br><span class="line">            <span class="comment">// 选择一组键，并且相应的通道已经打开</span></span><br><span class="line">            selector.select();</span><br><span class="line">            <span class="comment">// 返回此选择器的已选择键集。</span></span><br><span class="line">            Set&lt;SelectionKey&gt; selectionKeys = selector.selectedKeys();</span><br><span class="line">            Iterator&lt;SelectionKey&gt; iterator = selectionKeys.iterator();</span><br><span class="line">            <span class="keyword">while</span> (iterator.hasNext()) &#123;</span><br><span class="line">                <span class="type">SelectionKey</span> <span class="variable">selectionKey</span> <span class="operator">=</span> iterator.next();</span><br><span class="line">                iterator.remove();</span><br><span class="line">                handleEvent(selectionKey);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 处理请求</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">void</span> <span class="title function_">handleEvent</span><span class="params">(SelectionKey selectionKey)</span> <span class="keyword">throws</span> IOException, InterruptedException &#123;</span><br><span class="line">        String receiveText;</span><br><span class="line">        String sendText;</span><br><span class="line">        <span class="type">int</span> <span class="variable">count</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">        <span class="comment">// 可连接</span></span><br><span class="line">        <span class="keyword">if</span> (selectionKey.isAcceptable()) &#123;</span><br><span class="line">            <span class="type">ServerSocketChannel</span> <span class="variable">server</span> <span class="operator">=</span> (ServerSocketChannel) selectionKey.channel();</span><br><span class="line">            <span class="type">SocketChannel</span> <span class="variable">client</span> <span class="operator">=</span> server.accept();</span><br><span class="line">            <span class="comment">// 设置该通道非阻塞</span></span><br><span class="line">            client.configureBlocking(<span class="literal">false</span>);</span><br><span class="line">            <span class="comment">// 注册可读和可写事件</span></span><br><span class="line">            client.register(selector, SelectionKey.OP_READ);</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (selectionKey.isReadable()) &#123;</span><br><span class="line">            <span class="comment">// 返回为之创建此键的通道。</span></span><br><span class="line">            <span class="type">SocketChannel</span> <span class="variable">client</span> <span class="operator">=</span> (SocketChannel) selectionKey.channel();</span><br><span class="line">            <span class="comment">//将缓冲区清空以备下次读取</span></span><br><span class="line">            receiveBuffer.clear();</span><br><span class="line">            <span class="comment">//读取服务器发送来的数据到缓冲区中</span></span><br><span class="line">            count = client.read(receiveBuffer);</span><br><span class="line">            <span class="keyword">if</span> (count &gt; <span class="number">0</span>) &#123;</span><br><span class="line">                receiveText = <span class="keyword">new</span> <span class="title class_">String</span>(receiveBuffer.array(), <span class="number">0</span>, count);</span><br><span class="line">                System.out.println(<span class="string">&quot;服务器端接受客户端数据--:&quot;</span> + receiveText);</span><br><span class="line">            &#125;</span><br><span class="line">            client.register(selector, SelectionKey.OP_WRITE);</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (selectionKey.isWritable()) &#123;</span><br><span class="line">            sendBuffer.clear();</span><br><span class="line">            <span class="type">SocketChannel</span> <span class="variable">client</span> <span class="operator">=</span> (SocketChannel) selectionKey.channel();</span><br><span class="line">            <span class="type">LocalTime</span> <span class="variable">now</span> <span class="operator">=</span> LocalTime.now();</span><br><span class="line">            sendText = <span class="string">&quot;服务端--》客户端  &quot;</span> + now.getMinute() + <span class="string">&quot;:&quot;</span> + now.getSecond();</span><br><span class="line">            sendBuffer.put(sendText.getBytes());</span><br><span class="line">            <span class="comment">//将缓冲区各标志复位,因为向里面put了数据标志被改变要想从中读取数据发向服务器,就要复位</span></span><br><span class="line">            sendBuffer.flip();</span><br><span class="line">            <span class="comment">//输出到通道</span></span><br><span class="line">            client.write(sendBuffer);</span><br><span class="line">            selectionKey.interestOps(SelectionKey.OP_READ);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> args</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@throws</span> IOException</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> IOException, InterruptedException &#123;</span><br><span class="line">        <span class="type">int</span> <span class="variable">port</span> <span class="operator">=</span> <span class="number">8080</span>;</span><br><span class="line">        <span class="type">CusServerSocket</span> <span class="variable">server</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">CusServerSocket</span>(port);</span><br><span class="line">        server.listen();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="用户端"><a href="#用户端" class="headerlink" title="用户端"></a>用户端</h3><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">CusClientSocket</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/*缓冲区大小*/</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="type">int</span> <span class="variable">BLOCK</span> <span class="operator">=</span> <span class="number">1024</span>;</span><br><span class="line">    <span class="comment">/*接受数据缓冲区*/</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="type">ByteBuffer</span> <span class="variable">sendBuffer</span> <span class="operator">=</span> ByteBuffer.allocate(BLOCK);</span><br><span class="line">    <span class="comment">/*发送数据缓冲区*/</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="type">ByteBuffer</span> <span class="variable">receiveBuffer</span> <span class="operator">=</span> ByteBuffer.allocate(BLOCK);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> IOException, InterruptedException &#123;</span><br><span class="line">        <span class="type">SocketChannel</span> <span class="variable">socketChannel</span> <span class="operator">=</span> SocketChannel.open();</span><br><span class="line">        socketChannel.configureBlocking(<span class="literal">false</span>);</span><br><span class="line">        <span class="type">Selector</span> <span class="variable">selector</span> <span class="operator">=</span> Selector.open();</span><br><span class="line">        socketChannel.register(selector, SelectionKey.OP_CONNECT);</span><br><span class="line">        socketChannel.connect(<span class="keyword">new</span> <span class="title class_">InetSocketAddress</span>(<span class="string">&quot;localhost&quot;</span>, <span class="number">8080</span>));</span><br><span class="line"></span><br><span class="line">        Set&lt;SelectionKey&gt; selectionKeys;</span><br><span class="line">        Iterator&lt;SelectionKey&gt; iterator;</span><br><span class="line">        SelectionKey selectionKey;</span><br><span class="line">        SocketChannel client;</span><br><span class="line">        String receiveText;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">while</span> (<span class="literal">true</span>) &#123;</span><br><span class="line">            selector.select();</span><br><span class="line">            <span class="comment">//返回此选择器的已选择键集。</span></span><br><span class="line">            selectionKeys = selector.selectedKeys();</span><br><span class="line">            iterator = selectionKeys.iterator();</span><br><span class="line">            <span class="keyword">while</span> (iterator.hasNext()) &#123;</span><br><span class="line">                selectionKey = iterator.next();</span><br><span class="line">                iterator.remove();</span><br><span class="line">                <span class="keyword">if</span> (selectionKey.isConnectable()) &#123;</span><br><span class="line">                    System.out.println(<span class="string">&quot;client connect&quot;</span>);</span><br><span class="line">                    client = (SocketChannel) selectionKey.channel();</span><br><span class="line">                    <span class="comment">// 判断此通道上是否正在进行连接操作。</span></span><br><span class="line">                    <span class="comment">// 完成套接字通道的连接过程。</span></span><br><span class="line">                    <span class="keyword">if</span> (client.isConnectionPending()) &#123;</span><br><span class="line">                        client.finishConnect();</span><br><span class="line">                        System.out.println(<span class="string">&quot;完成连接!&quot;</span>);</span><br><span class="line">                    &#125;</span><br><span class="line">                    <span class="comment">// 连接成功之后注册可读和可写事件</span></span><br><span class="line">                    client.register(selector, SelectionKey.OP_READ | SelectionKey.OP_WRITE);</span><br><span class="line">                &#125; <span class="keyword">else</span> <span class="keyword">if</span> (selectionKey.isReadable()) &#123;</span><br><span class="line">                    client = (SocketChannel) selectionKey.channel();</span><br><span class="line">                    <span class="comment">//将缓冲区清空以备下次读取</span></span><br><span class="line">                    receiveBuffer.clear();</span><br><span class="line">                    <span class="comment">//读取服务器发送来的数据到缓冲区中</span></span><br><span class="line">                    <span class="type">int</span> <span class="variable">count</span> <span class="operator">=</span> client.read(receiveBuffer);</span><br><span class="line">                    <span class="keyword">if</span> (count &gt; <span class="number">0</span>) &#123;</span><br><span class="line">                        receiveText = <span class="keyword">new</span> <span class="title class_">String</span>(receiveBuffer.array(), <span class="number">0</span>, count);</span><br><span class="line">                        System.out.println(<span class="string">&quot;客户端接受服务器端数据--:&quot;</span> + receiveText);</span><br><span class="line">                    &#125;</span><br><span class="line">                    client.register(selector, SelectionKey.OP_WRITE);</span><br><span class="line"></span><br><span class="line">                &#125; <span class="keyword">else</span> <span class="keyword">if</span> (selectionKey.isWritable()) &#123;</span><br><span class="line">                    Thread.sleep(<span class="number">2000</span>);</span><br><span class="line">                    sendBuffer.clear();</span><br><span class="line">                    client = (SocketChannel) selectionKey.channel();</span><br><span class="line">                    <span class="type">LocalTime</span> <span class="variable">localTime</span> <span class="operator">=</span> LocalTime.now();</span><br><span class="line">                    <span class="type">String</span> <span class="variable">sendText</span> <span class="operator">=</span> <span class="string">&quot;客户端发送的数据--&gt;&quot;</span> + localTime.getMinute() + <span class="string">&quot;:&quot;</span> + localTime.getSecond();</span><br><span class="line">                    sendBuffer.put(sendText.getBytes());</span><br><span class="line">                    <span class="comment">//将缓冲区各标志复位,因为向里面put了数据标志被改变要想从中读取数据发向服务器,就要复位</span></span><br><span class="line">                    sendBuffer.flip();</span><br><span class="line">                    client.write(sendBuffer);</span><br><span class="line">                    <span class="comment">// 写完之后需要注销写事件，否则会一直判断成可写, 这里表是对读事件感兴趣，就是移除写事件的意思</span></span><br><span class="line">                    selectionKey.interestOps(SelectionKey.OP_READ);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<div class="tabs" id="执行结果"><ul class="nav-tabs"><button type="button" class="tab  active" data-href="执行结果-1">服务端结果</button><button type="button" class="tab " data-href="执行结果-2">用户端结果</button></ul><div class="tab-contents"><div class="tab-item-content active" id="执行结果-1"><figure class="highlight brainfuck"><table><tr><td class="code"><pre><span class="line"><span class="comment">服务启动</span><span class="literal">----</span><span class="comment">8080:</span></span><br><span class="line"><span class="comment">服务器端接受客户端数据</span><span class="literal">--</span><span class="comment">:客户端发送的数据</span><span class="literal">--</span>&gt;<span class="comment">59:45</span></span><br><span class="line"><span class="comment">服务器端接受客户端数据</span><span class="literal">--</span><span class="comment">:客户端发送的数据</span><span class="literal">--</span>&gt;<span class="comment">59:47</span></span><br><span class="line"><span class="comment">服务器端接受客户端数据</span><span class="literal">--</span><span class="comment">:客户端发送的数据</span><span class="literal">--</span>&gt;<span class="comment">59:49</span></span><br><span class="line"><span class="comment">服务器端接受客户端数据</span><span class="literal">--</span><span class="comment">:客户端发送的数据</span><span class="literal">--</span>&gt;<span class="comment">59:51</span></span><br><span class="line"><span class="comment">服务器端接受客户端数据</span><span class="literal">--</span><span class="comment">:客户端发送的数据</span><span class="literal">--</span>&gt;<span class="comment">59:53</span></span><br><span class="line"><span class="comment">服务器端接受客户端数据</span><span class="literal">--</span><span class="comment">:客户端发送的数据</span><span class="literal">--</span>&gt;<span class="comment">59:55</span></span><br><span class="line"><span class="comment">服务器端接受客户端数据</span><span class="literal">--</span><span class="comment">:客户端发送的数据</span><span class="literal">--</span>&gt;<span class="comment">59:57</span></span><br><span class="line"><span class="comment">服务器端接受客户端数据</span><span class="literal">--</span><span class="comment">:客户端发送的数据</span><span class="literal">--</span>&gt;<span class="comment">59:59</span></span><br></pre></td></tr></table></figure></div><div class="tab-item-content" id="执行结果-2"><figure class="highlight brainfuck"><table><tr><td class="code"><pre><span class="line"><span class="comment">client connect</span></span><br><span class="line"><span class="comment">完成连接!</span></span><br><span class="line"><span class="comment">客户端接受服务器端数据</span><span class="literal">--</span><span class="comment">:服务端</span><span class="literal">--</span><span class="comment">》客户端  59:45</span></span><br><span class="line"><span class="comment">客户端接受服务器端数据</span><span class="literal">--</span><span class="comment">:服务端</span><span class="literal">--</span><span class="comment">》客户端  59:47</span></span><br><span class="line"><span class="comment">客户端接受服务器端数据</span><span class="literal">--</span><span class="comment">:服务端</span><span class="literal">--</span><span class="comment">》客户端  59:49</span></span><br><span class="line"><span class="comment">客户端接受服务器端数据</span><span class="literal">--</span><span class="comment">:服务端</span><span class="literal">--</span><span class="comment">》客户端  59:51</span></span><br><span class="line"><span class="comment">客户端接受服务器端数据</span><span class="literal">--</span><span class="comment">:服务端</span><span class="literal">--</span><span class="comment">》客户端  59:53</span></span><br><span class="line"><span class="comment">客户端接受服务器端数据</span><span class="literal">--</span><span class="comment">:服务端</span><span class="literal">--</span><span class="comment">》客户端  59:55</span></span><br><span class="line"><span class="comment">客户端接受服务器端数据</span><span class="literal">--</span><span class="comment">:服务端</span><span class="literal">--</span><span class="comment">》客户端  59:57</span></span><br><span class="line"><span class="comment">客户端接受服务器端数据</span><span class="literal">--</span><span class="comment">:服务端</span><span class="literal">--</span><span class="comment">》客户端  59:59</span></span><br></pre></td></tr></table></figure></div></div><div class="tab-to-top"><button type="button" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div></div>
+
+
+]]></content>
+      <categories>
+        <category>java</category>
+        <category>java基础</category>
+      </categories>
+      <tags>
+        <tag>java</tag>
+        <tag>java基础</tag>
       </tags>
   </entry>
   <entry>
@@ -1505,6 +1508,26 @@
       </tags>
   </entry>
   <entry>
+    <title>redis分布式锁</title>
+    <url>/2023/c21b41047d75/</url>
+    <content><![CDATA[<h1 id="redis-分布式锁要做到的事情"><a href="#redis-分布式锁要做到的事情" class="headerlink" title="redis 分布式锁要做到的事情"></a>redis 分布式锁要做到的事情</h1><ol>
+<li>独占性： 任何时刻只能有一个线程持有</li>
+<li>高可用： 若在 <code>redis</code> 集群环境下，不能因为某一个节点挂了而出现获取锁和释放锁失败的情况</li>
+<li>防止死锁： 要有超时控制机制或者撤销操作</li>
+<li>正确性： 不能 <code>unlock</code> 别人的锁，自己的锁只能自己释放</li>
+<li>可重入</li>
+</ol>
+<h1 id="分布式锁的实现"><a href="#分布式锁的实现" class="headerlink" title="分布式锁的实现"></a>分布式锁的实现</h1><p>TODO</p>
+]]></content>
+      <categories>
+        <category>存储</category>
+        <category>Redis</category>
+      </categories>
+      <tags>
+        <tag>Redis</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>redis底层数据结构</title>
     <url>/2023/19e21a188fd0/</url>
     <content><![CDATA[<span class="hide_first_mermaid">
@@ -1641,26 +1664,6 @@
       </tags>
   </entry>
   <entry>
-    <title>redis分布式锁</title>
-    <url>/2023/c21b41047d75/</url>
-    <content><![CDATA[<h1 id="redis-分布式锁要做到的事情"><a href="#redis-分布式锁要做到的事情" class="headerlink" title="redis 分布式锁要做到的事情"></a>redis 分布式锁要做到的事情</h1><ol>
-<li>独占性： 任何时刻只能有一个线程持有</li>
-<li>高可用： 若在 <code>redis</code> 集群环境下，不能因为某一个节点挂了而出现获取锁和释放锁失败的情况</li>
-<li>防止死锁： 要有超时控制机制或者撤销操作</li>
-<li>正确性： 不能 <code>unlock</code> 别人的锁，自己的锁只能自己释放</li>
-<li>可重入</li>
-</ol>
-<h1 id="分布式锁的实现"><a href="#分布式锁的实现" class="headerlink" title="分布式锁的实现"></a>分布式锁的实现</h1><p>TODO</p>
-]]></content>
-      <categories>
-        <category>存储</category>
-        <category>Redis</category>
-      </categories>
-      <tags>
-        <tag>Redis</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>InnoDB存储引擎</title>
     <url>/2023/a421bfc0bf81/</url>
     <content><![CDATA[<span class="hide_first_mermaid">
@@ -1773,42 +1776,6 @@
       </tags>
   </entry>
   <entry>
-    <title>WindTerm功能设置</title>
-    <url>/2023/0ff9c6825506/</url>
-    <content><![CDATA[<h1 id="自定义快捷键"><a href="#自定义快捷键" class="headerlink" title="自定义快捷键"></a>自定义快捷键</h1><p><a href="https://github.com/kingToolbox/WindTerm/issues/267">参考github</a></p>
-<h1 id="去除锁屏"><a href="#去除锁屏" class="headerlink" title="去除锁屏"></a>去除锁屏</h1><ol>
-<li>找到配置文件，可以在 <strong>会话-&gt;首选项-&gt;配置文件</strong> 中查看配置文件的位置</li>
-<li>找到 <code>application.lockScreenTimeout</code>， 将值改成 0</li>
-</ol>
-]]></content>
-      <categories>
-        <category>tools</category>
-        <category>other</category>
-      </categories>
-      <tags>
-        <tag>tools</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>vscode设置markdown图片默认路径</title>
-    <url>/2023/5b4d784e18c2/</url>
-    <content><![CDATA[<p><code>vscode</code> 在 <code>markdown</code> 文档中直接复制图片时是放在当前目录，如果需要修改可以按照下面方式设置</p>
-<span id="more"></span>
-<ol>
-<li>输入快捷键 <code>ctrl+,</code> 可以快速打开设置</li>
-<li>搜索 <code>markdown.copy: Destination</code></li>
-</ol>
-<p><img src="/2023/5b4d784e18c2/1700033681108.png" alt="Alt text"></p>
-]]></content>
-      <categories>
-        <category>tools</category>
-        <category>vscode</category>
-      </categories>
-      <tags>
-        <tag>tools</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>utools自动化脚本插件</title>
     <url>/2023/d899f5ff1973/</url>
     <content><![CDATA[<h1 id="utools-使用自动化脚本打开本地程序"><a href="#utools-使用自动化脚本打开本地程序" class="headerlink" title="utools 使用自动化脚本打开本地程序"></a>utools 使用自动化脚本打开本地程序</h1><ol>
@@ -1832,6 +1799,23 @@
       <tags>
         <tag>tools</tag>
         <tag>utools</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>WindTerm功能设置</title>
+    <url>/2023/0ff9c6825506/</url>
+    <content><![CDATA[<h1 id="自定义快捷键"><a href="#自定义快捷键" class="headerlink" title="自定义快捷键"></a>自定义快捷键</h1><p><a href="https://github.com/kingToolbox/WindTerm/issues/267">参考github</a></p>
+<h1 id="去除锁屏"><a href="#去除锁屏" class="headerlink" title="去除锁屏"></a>去除锁屏</h1><ol>
+<li>找到配置文件，可以在 <strong>会话-&gt;首选项-&gt;配置文件</strong> 中查看配置文件的位置</li>
+<li>找到 <code>application.lockScreenTimeout</code>， 将值改成 0</li>
+</ol>
+]]></content>
+      <categories>
+        <category>tools</category>
+        <category>other</category>
+      </categories>
+      <tags>
+        <tag>tools</tag>
       </tags>
   </entry>
   <entry>
@@ -1862,6 +1846,25 @@
       <tags>
         <tag>tools</tag>
         <tag>vscode</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>vscode设置markdown图片默认路径</title>
+    <url>/2023/5b4d784e18c2/</url>
+    <content><![CDATA[<p><code>vscode</code> 在 <code>markdown</code> 文档中直接复制图片时是放在当前目录，如果需要修改可以按照下面方式设置</p>
+<span id="more"></span>
+<ol>
+<li>输入快捷键 <code>ctrl+,</code> 可以快速打开设置</li>
+<li>搜索 <code>markdown.copy: Destination</code></li>
+</ol>
+<p><img src="/2023/5b4d784e18c2/1700033681108.png" alt="Alt text"></p>
+]]></content>
+      <categories>
+        <category>tools</category>
+        <category>vscode</category>
+      </categories>
+      <tags>
+        <tag>tools</tag>
       </tags>
   </entry>
 </search>
