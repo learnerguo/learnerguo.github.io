@@ -1,26 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>比较</title>
-    <url>/2023/2084759b2332/</url>
-    <content><![CDATA[<blockquote>
-<p>人感到不幸福大多来源于比较，感到满足也源于比较</p>
-</blockquote>
-<span id="more"></span>
-<p>在微信读书看到一位书友写到，作为农村出来的孩子，应该如何改变自己的命运，因为周围的一切在告诉我们，就算你努力了二十几年，才勉强达到了别人的起跑线，但是我们的出身是自己无法决定的，那我们应该如何更进一步呢？</p>
-<p>看到另外一位书友的回答很有感触，且记录在此，和有缘人共勉</p>
-<blockquote>
-<p>回头看，轻舟已过万重山<br>向前看，长路漫漫亦灿灿<br>平常看，人间烟火甚灿烂<br>低头看，万里黄山皆脚下  </p>
-</blockquote>
-]]></content>
-      <categories>
-        <category>record</category>
-      </categories>
-      <tags>
-        <tag>record</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Next7主题自定义分类</title>
     <url>/2023/baf924a75393/</url>
     <content><![CDATA[<p><a href="https://enigmatisms.github.io/2022/02/18/Hexo-NexT%E4%B8%BB%E9%A2%98-%E6%9B%B4%E5%BC%BA%E7%9A%84%E8%87%AA%E5%AE%9A%E4%B9%89%E9%A1%B5%E9%9D%A2/">参考文章</a></p>
@@ -101,16 +81,67 @@
     <content><![CDATA[<ol>
 <li>在 博客根目录的 <code>source</code> 目录下创建文件夹 <code>cusconfig/css</code>, 并创建文件, <code>cus_butterfly.css</code>, 添加如下内容</li>
 </ol>
-<figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="comment">/* 归档，分类文档页面设置双栏展示， 增加边框 */</span></span><br><span class="line"><span class="selector-class">.no-article-cover</span> &#123;</span><br><span class="line">    <span class="attribute">width</span>: <span class="number">45%</span>;</span><br><span class="line">    <span class="attribute">border</span>: <span class="number">1px</span> dashed lightblue;</span><br><span class="line">    <span class="attribute">float</span>: left;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-id">#pagination</span> &#123;</span><br><span class="line">    <span class="attribute">clear</span>:both;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="comment">/* 归档，分类文档页面设置双栏展示， 增加边框 */</span></span><br><span class="line"><span class="selector-class">.no-article-cover</span> &#123;</span><br><span class="line">    <span class="attribute">width</span>: <span class="number">48%</span>;</span><br><span class="line">    <span class="attribute">border</span>: <span class="number">1px</span> dashed lightblue;</span><br><span class="line">    <span class="attribute">background-color</span>: <span class="built_in">rgba</span>(<span class="number">241</span>, <span class="number">242</span>, <span class="number">246</span>, <span class="number">0.5</span>);</span><br><span class="line">    <span class="attribute">float</span>: left;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-class">.article-sort-item</span><span class="selector-class">.year</span> &#123;</span><br><span class="line">    <span class="attribute">clear</span>: both;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-id">#pagination</span> &#123;</span><br><span class="line">    <span class="attribute">clear</span>:both;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <ol start="2">
 <li>引入自定义 <code>css</code> 文件， 打开主题配置文件 <code>_config.butterfly.yml</code>, 添加如下内容</li>
 </ol>
 <figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">inject:</span></span><br><span class="line">  <span class="attr">head:</span></span><br><span class="line">    <span class="comment"># 添加下面这行内容引入自定义 js</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">&lt;link</span> <span class="string">rel=&quot;stylesheet&quot;</span> <span class="string">href=&quot;/cusconfig/css/cus_butterfly.css?1&quot;&gt;</span></span><br></pre></td></tr></table></figure>
 
+<h1 id="去掉文档前面的点和竖线"><a href="#去掉文档前面的点和竖线" class="headerlink" title="去掉文档前面的点和竖线"></a>去掉文档前面的点和竖线</h1><p>修改 <code>archives.styl</code> 文件，该文件路径为 <code>博客根目录/themes/butterfly/source/css_page</code> 下面， 有注释的地方代表修改过</p>
+<figure class="highlight nestedtext"><table><tr><td class="code"><pre><span class="line"><span class="attribute">.article-sort</span></span><br><span class="line"><span class="attribute">  margin-left</span><span class="punctuation">:</span> <span class="string">10px</span></span><br><span class="line">  <span class="attribute">padding-left</span><span class="punctuation">:</span> <span class="string">20px</span></span><br><span class="line">  <span class="attribute">// border-left</span><span class="punctuation">:</span> <span class="string">2px solid lighten($light-blue, 20)   这一行注释掉，这里去掉竖线</span></span><br><span class="line"></span><br><span class="line">  <span class="attribute">&amp;-title</span></span><br><span class="line"><span class="attribute">    position</span><span class="punctuation">:</span> <span class="string">relative</span></span><br><span class="line">    <span class="attribute">margin-left</span><span class="punctuation">:</span> <span class="string">10px</span></span><br><span class="line">    <span class="attribute">padding-bottom</span><span class="punctuation">:</span> <span class="string">20px</span></span><br><span class="line">    <span class="attribute">padding-left</span><span class="punctuation">:</span> <span class="string">20px</span></span><br><span class="line">    <span class="attribute">font-size</span><span class="punctuation">:</span> <span class="string">1.72em</span></span><br><span class="line"></span><br><span class="line">    &amp;:hover</span><br><span class="line">      &amp;:before</span><br><span class="line">        <span class="attribute">border-color</span><span class="punctuation">:</span> <span class="string">var(--pseudo-hover)</span></span><br><span class="line"></span><br><span class="line">    &amp;:before</span><br><span class="line">      <span class="attribute">position</span><span class="punctuation">:</span> <span class="string">absolute</span></span><br><span class="line">      <span class="attribute">top</span><span class="punctuation">:</span> <span class="string">calc(((100% - 36px) / 2))</span></span><br><span class="line">      <span class="attribute">left</span><span class="punctuation">:</span> <span class="string">-9px</span></span><br><span class="line">      <span class="attribute">z-index</span><span class="punctuation">:</span> <span class="string">1</span></span><br><span class="line">      <span class="attribute">width</span><span class="punctuation">:</span> <span class="string">w = 10px</span></span><br><span class="line">      <span class="attribute">height</span><span class="punctuation">:</span> <span class="string">h = w</span></span><br><span class="line">      <span class="attribute">border</span><span class="punctuation">:</span> <span class="string">.5 * w solid $light-blue</span></span><br><span class="line">      <span class="attribute">border-radius</span><span class="punctuation">:</span> <span class="string">w</span></span><br><span class="line">      <span class="attribute">background</span><span class="punctuation">:</span> <span class="string">var(--card-bg)</span></span><br><span class="line">      <span class="attribute">content</span><span class="punctuation">:</span> <span class="string">&#x27;&#x27;</span></span><br><span class="line">      <span class="attribute">line-height</span><span class="punctuation">:</span> <span class="string">h</span></span><br><span class="line">      <span class="attribute">transition</span><span class="punctuation">:</span> <span class="string">all .2s ease-in-out</span></span><br><span class="line"></span><br><span class="line">    &amp;:after</span><br><span class="line">      <span class="attribute">position</span><span class="punctuation">:</span> <span class="string">absolute</span></span><br><span class="line">      <span class="attribute">bottom</span><span class="punctuation">:</span> <span class="string">0</span></span><br><span class="line">      <span class="attribute">left</span><span class="punctuation">:</span> <span class="string">0</span></span><br><span class="line">      <span class="attribute">z-index</span><span class="punctuation">:</span> <span class="string">0</span></span><br><span class="line">      <span class="attribute">width</span><span class="punctuation">:</span> <span class="string">2px</span></span><br><span class="line">      <span class="attribute">height</span><span class="punctuation">:</span> <span class="string">1.5em</span></span><br><span class="line">      <span class="attribute">background</span><span class="punctuation">:</span> <span class="string">lighten($light-blue, 20)</span></span><br><span class="line">      <span class="attribute">content</span><span class="punctuation">:</span> <span class="string">&#x27;&#x27;</span></span><br><span class="line"></span><br><span class="line">  <span class="attribute">&amp;-item</span></span><br><span class="line"><span class="attribute">    position</span><span class="punctuation">:</span> <span class="string">relative</span></span><br><span class="line">    <span class="attribute">display</span><span class="punctuation">:</span> <span class="string">flex</span></span><br><span class="line">    <span class="attribute">align-items</span><span class="punctuation">:</span> <span class="string">center</span></span><br><span class="line">    <span class="attribute">margin</span><span class="punctuation">:</span> <span class="string">0 0 20px 10px</span></span><br><span class="line">    <span class="attribute">transition</span><span class="punctuation">:</span> <span class="string">all .2s ease-in-out</span></span><br><span class="line"></span><br><span class="line">    &amp;:hover</span><br><span class="line">      &amp;:before</span><br><span class="line">        <span class="attribute">border-color</span><span class="punctuation">:</span> <span class="string">var(--pseudo-hover)</span></span><br><span class="line"></span><br><span class="line">    /* &amp;:before   这一整块都注释掉，这里是去掉文章前面的点</span><br><span class="line">      <span class="attribute">$w = 6px</span></span><br><span class="line"><span class="attribute">      position</span><span class="punctuation">:</span> <span class="string">absolute</span></span><br><span class="line">      <span class="attribute">left</span><span class="punctuation">:</span> <span class="string">calc(-20px - 17px)</span></span><br><span class="line">      <span class="attribute">width</span><span class="punctuation">:</span> <span class="string">w = $w</span></span><br><span class="line">      <span class="attribute">height</span><span class="punctuation">:</span> <span class="string">h = w</span></span><br><span class="line">      <span class="attribute">border</span><span class="punctuation">:</span> <span class="string">.5 * w solid $light-blue</span></span><br><span class="line">      <span class="attribute">border-radius</span><span class="punctuation">:</span> <span class="string">w</span></span><br><span class="line">      <span class="attribute">background</span><span class="punctuation">:</span> <span class="string">var(--card-bg)</span></span><br><span class="line">      <span class="attribute">content</span><span class="punctuation">:</span> <span class="string">&#x27;&#x27;</span></span><br><span class="line">      <span class="attribute">transition</span><span class="punctuation">:</span> <span class="string">all .2s ease-in-out */</span></span><br><span class="line"></span><br><span class="line">    <span class="attribute">&amp;.no-article-cover</span></span><br><span class="line"><span class="attribute">      height</span><span class="punctuation">:</span> <span class="string">80px</span></span><br><span class="line"></span><br><span class="line">      <span class="attribute">.article-sort-item-info</span></span><br><span class="line"><span class="attribute">        padding</span><span class="punctuation">:</span> <span class="string">0</span></span><br><span class="line"></span><br><span class="line">    <span class="attribute">&amp;.year</span></span><br><span class="line"><span class="attribute">      font-size</span><span class="punctuation">:</span> <span class="string">1.43em</span></span><br><span class="line"></span><br><span class="line">      &amp;:hover</span><br><span class="line">        &amp;:before</span><br><span class="line">          <span class="attribute">border-color</span><span class="punctuation">:</span> <span class="string">$light-blue</span></span><br><span class="line"></span><br><span class="line">      &amp;:before</span><br><span class="line">        <span class="attribute">border-color</span><span class="punctuation">:</span> <span class="string">var(--pseudo-hover)</span></span><br><span class="line"></span><br><span class="line">    <span class="attribute">&amp;-time</span></span><br><span class="line"><span class="attribute">      color</span><span class="punctuation">:</span> <span class="string">$theme-meta-color</span></span><br><span class="line">      <span class="attribute">font-size</span><span class="punctuation">:</span> <span class="string">95%</span></span><br><span class="line"></span><br><span class="line">      <span class="attribute">time</span></span><br><span class="line"><span class="attribute">        padding-left</span><span class="punctuation">:</span> <span class="string">6px</span></span><br><span class="line">        <span class="attribute">cursor</span><span class="punctuation">:</span> <span class="string">default</span></span><br><span class="line"></span><br><span class="line">    <span class="attribute">&amp;-title</span></span><br><span class="line"><span class="attribute">      @extend .limit-more-line</span></span><br><span class="line"><span class="attribute">      color</span><span class="punctuation">:</span> <span class="string">var(--font-color)</span></span><br><span class="line">      <span class="attribute">font-size</span><span class="punctuation">:</span> <span class="string">1.1em</span></span><br><span class="line">      <span class="attribute">transition</span><span class="punctuation">:</span> <span class="string">all .3s</span></span><br><span class="line">      <span class="attribute">-webkit-line-clamp</span><span class="punctuation">:</span> <span class="string">2</span></span><br><span class="line"></span><br><span class="line">      &amp;:hover</span><br><span class="line">        <span class="attribute">color</span><span class="punctuation">:</span> <span class="string">$text-hover</span></span><br><span class="line">        <span class="attribute">transform</span><span class="punctuation">:</span> <span class="string">translateX(10px)</span></span><br><span class="line"></span><br><span class="line">    <span class="attribute">&amp;-img</span></span><br><span class="line"><span class="attribute">      overflow</span><span class="punctuation">:</span> <span class="string">hidden</span></span><br><span class="line">      <span class="attribute">width</span><span class="punctuation">:</span> <span class="string">80px</span></span><br><span class="line">      <span class="attribute">height</span><span class="punctuation">:</span> <span class="string">80px</span></span><br><span class="line"></span><br><span class="line">      :first-child</span><br><span class="line">        <span class="attribute">@extend .imgHover</span></span><br><span class="line"><span class="attribute"></span></span><br><span class="line"><span class="attribute">    &amp;-info</span></span><br><span class="line"><span class="attribute">      flex</span><span class="punctuation">:</span> <span class="string">1</span></span><br><span class="line">      <span class="attribute">padding</span><span class="punctuation">:</span> <span class="string">0 16px</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
 
 
+
+]]></content>
+      <categories>
+        <category>tools</category>
+        <category>hexo</category>
+      </categories>
+      <tags>
+        <tag>tools</tag>
+        <tag>hexo</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>butterfly标签页固定每行个数</title>
+    <url>/2023/1099169ec3c6/</url>
+    <content><![CDATA[<ol>
+<li><p>可以先参考如下文章添加自定义 <code>css</code> 文件</p>
+<ol><li><a href="/2023/e641424208d5/" title="butterfly主题归档分类页面展示成双栏">butterfly主题归档分类页面展示成双栏</a></li></ol>
+</li>
+<li><p>在 <code>cus_butterfly.css</code> 文件中添加如下内容</p>
+</li>
+</ol>
+<figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="comment">/* 修改标签页，每个标签宽度固定  start -------------- */</span></span><br><span class="line"><span class="selector-class">.tag-cloud-list</span> &#123;</span><br><span class="line">    <span class="attribute">display</span>: flex;</span><br><span class="line">    <span class="attribute">flex-wrap</span>: wrap;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* 每行放5个标签 */</span></span><br><span class="line"><span class="selector-class">.tag-cloud-list</span> <span class="selector-tag">a</span> &#123;</span><br><span class="line">    <span class="attribute">width</span>: <span class="number">20%</span>;</span><br><span class="line">    <span class="attribute">text-align</span>: center;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* 修改标签页，每个标签宽度固定  end -------------- */</span></span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>tools</category>
+        <category>hexo</category>
+      </categories>
+      <tags>
+        <tag>tools</tag>
+        <tag>hexo</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>hexo使用插入本地图片路径问题</title>
+    <url>/2023/563e23df91d3/</url>
+    <content><![CDATA[<p>Hexo version: 7.0<br>Next version: 8.18</p>
+<span id="more"></span>
+<ol>
+<li>安装插件</li>
+</ol>
+<figure class="highlight ada"><table><tr><td class="code"><pre><span class="line">npm install hexo-renderer-marked <span class="comment">--save</span></span><br></pre></td></tr></table></figure>
+<ol start="2">
+<li>修改 hexo 配置文件 <code>_config.yml</code> (不是next 主题的配置文件)</li>
+</ol>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 这样文章生成的路径会是年/月/日/hash值形式</span></span><br><span class="line"><span class="attr">permalink:</span> <span class="string">:year/:month/:day/:hash/</span></span><br><span class="line"><span class="comment"># 开启资源文件夹功能</span></span><br><span class="line"><span class="attr">post_asset_folder:</span> <span class="literal">true</span></span><br><span class="line"><span class="attr">marked:</span></span><br><span class="line">  <span class="comment"># 这两个值都配置为false，网上很多文章配置成true，可能是不同版本效果不同，在 Next8.18, hexo7 这个版本若配置成true，图片路径会多了日期导致显示失败 </span></span><br><span class="line">  <span class="attr">prependRoot:</span> <span class="literal">false</span></span><br><span class="line">  <span class="attr">postAsset:</span> <span class="literal">false</span></span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li>在 md 文章目录中创建同名的文件夹，比如当前这篇文章的名称是 <code>hexo插入本地图片路径问题</code>， 那就需要在这篇文章的同级目录中创建一个同名的文件夹，然后图片就放在这个文件夹中</li>
+<li>在使用 md 语法引入图片的时候，因为图片是放在目录中（和文章同名的那个目录），但是如果在本地 vscode 中将目录也加上，虽然本地可以访问，但是 hexo g 生成之后，访问博客地址是无法访问的，所以本地引入图片的时候只能写图片的文件名，不要路径，这样虽然本地无法预览，但是 hexo s 和 hexo d 之后的结果都可以正常查看</li>
+</ol>
 ]]></content>
       <categories>
         <category>tools</category>
@@ -268,31 +299,44 @@
       </tags>
   </entry>
   <entry>
-    <title>hexo使用插入本地图片路径问题</title>
-    <url>/2023/563e23df91d3/</url>
-    <content><![CDATA[<p>Hexo version: 7.0<br>Next version: 8.18</p>
-<span id="more"></span>
-<ol>
-<li>安装插件</li>
+    <title>hexo的butterfly主题更换waline系统cdn地址</title>
+    <url>/2023/0fd7aa9951f7/</url>
+    <content><![CDATA[<ol>
+<li><p>butterfly主题默认使用 cdn.jsdelivr.net，在国内使用很慢，有时候加载不出来，可以替换成国内源，比如下面这两个</p>
+<figure class="highlight dts"><table><tr><td class="code"><pre><span class="line"><span class="symbol">http:</span><span class="comment">//www.staticfile.org/</span></span><br><span class="line"><span class="symbol">https:</span><span class="comment">//cdn.onmicrosoft.cn/</span></span><br></pre></td></tr></table></figure>
+<p>这里我使用的是第一个，打开 <code>http://www.staticfile.org/</code> 后，会出现搜索框，搜索 <code>waline</code>， 然后选择对应的版本就好了，如果不知道自己的版本，可以在切换前先打开自己的 <code>wailne</code> 系统，在评论框下面会显示版本</p>
+</li>
+<li><p>找到对应的版本后复制出对应的 <code>css</code> 和 <code>js</code> 地址，添加到 <code>_config.butterfly.yml</code> 文件中,比如我使用的是3.0版本，则打开 <code>wailne_css</code> 和 <code>waline_js</code> 注释并添加如下内容</p>
+</li>
 </ol>
-<figure class="highlight ada"><table><tr><td class="code"><pre><span class="line">npm install hexo-renderer-marked <span class="comment">--save</span></span><br></pre></td></tr></table></figure>
-<ol start="2">
-<li>修改 hexo 配置文件 <code>_config.yml</code> (不是next 主题的配置文件)</li>
-</ol>
-<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 这样文章生成的路径会是年/月/日/hash值形式</span></span><br><span class="line"><span class="attr">permalink:</span> <span class="string">:year/:month/:day/:hash/</span></span><br><span class="line"><span class="comment"># 开启资源文件夹功能</span></span><br><span class="line"><span class="attr">post_asset_folder:</span> <span class="literal">true</span></span><br><span class="line"><span class="attr">marked:</span></span><br><span class="line">  <span class="comment"># 这两个值都配置为false，网上很多文章配置成true，可能是不同版本效果不同，在 Next8.18, hexo7 这个版本若配置成true，图片路径会多了日期导致显示失败 </span></span><br><span class="line">  <span class="attr">prependRoot:</span> <span class="literal">false</span></span><br><span class="line">  <span class="attr">postAsset:</span> <span class="literal">false</span></span><br></pre></td></tr></table></figure>
-
-<ol start="3">
-<li>在 md 文章目录中创建同名的文件夹，比如当前这篇文章的名称是 <code>hexo插入本地图片路径问题</code>， 那就需要在这篇文章的同级目录中创建一个同名的文件夹，然后图片就放在这个文件夹中</li>
-<li>在使用 md 语法引入图片的时候，因为图片是放在目录中（和文章同名的那个目录），但是如果在本地 vscode 中将目录也加上，虽然本地可以访问，但是 hexo g 生成之后，访问博客地址是无法访问的，所以本地引入图片的时候只能写图片的文件名，不要路径，这样虽然本地无法预览，但是 hexo s 和 hexo d 之后的结果都可以正常查看</li>
-</ol>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">CDN:</span></span><br><span class="line">  <span class="attr">option:</span></span><br><span class="line">    <span class="attr">waline_css:</span> <span class="string">https://cdn.staticfile.org/waline/3.0.0-alpha.2/waline.min.css</span></span><br><span class="line">    <span class="attr">waline_js:</span> <span class="string">https://cdn.staticfile.org/waline/3.0.0-alpha.2/waline.min.js</span></span><br></pre></td></tr></table></figure>
 ]]></content>
       <categories>
         <category>tools</category>
         <category>hexo</category>
       </categories>
       <tags>
-        <tag>tools</tag>
         <tag>hexo</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>比较</title>
+    <url>/2023/2084759b2332/</url>
+    <content><![CDATA[<blockquote>
+<p>人感到不幸福大多来源于比较，感到满足也源于比较</p>
+</blockquote>
+<span id="more"></span>
+<p>在微信读书看到一位书友写到，作为农村出来的孩子，应该如何改变自己的命运，因为周围的一切在告诉我们，就算你努力了二十几年，才勉强达到了别人的起跑线，但是我们的出身是自己无法决定的，那我们应该如何更进一步呢？</p>
+<p>看到另外一位书友的回答很有感触，且记录在此，和有缘人共勉</p>
+<blockquote>
+<p>回头看，轻舟已过万重山<br>向前看，长路漫漫亦灿灿<br>平常看，人间烟火甚灿烂<br>低头看，万里黄山皆脚下  </p>
+</blockquote>
+]]></content>
+      <categories>
+        <category>record</category>
+      </categories>
+      <tags>
+        <tag>record</tag>
       </tags>
   </entry>
   <entry>
@@ -369,6 +413,44 @@
       </categories>
       <tags>
         <tag>book</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>HashMap详解</title>
+    <url>/2023/834224a16039/</url>
+    <content><![CDATA[<h1 id="HashMap的底层数据结构是什么？"><a href="#HashMap的底层数据结构是什么？" class="headerlink" title="HashMap的底层数据结构是什么？"></a>HashMap的底层数据结构是什么？</h1><ol>
+<li>之前 <code>Jdk1.7</code> 的存储结构是数组+链表，到了 <code>Jdk1.8</code> 变成了数组+链表+红黑树。</li>
+</ol>
+<h1 id="HashMap-是如何定位索引下标的"><a href="#HashMap-是如何定位索引下标的" class="headerlink" title="HashMap 是如何定位索引下标的"></a>HashMap 是如何定位索引下标的</h1><p>定位 <code>index</code> 分成两步</p>
+<ol>
+<li><p>根据 hash 函数获取 hash 值</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">static</span> <span class="keyword">final</span> <span class="type">int</span> <span class="title function_">hash</span><span class="params">(Object key)</span> &#123;</span><br><span class="line">    <span class="type">int</span> h;</span><br><span class="line">    <span class="keyword">return</span> (key == <span class="literal">null</span>) ? <span class="number">0</span> : (h = key.hashCode()) ^ (h &gt;&gt;&gt; <span class="number">16</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>可以看到上面代码获取到 hashCode 之后还右移 16 位，具体原因在下面分析</strong></p>
+</li>
+<li><p>根据第一步计算的 <code>hash</code> 值获取数组位置（一般是对数组长度取模，<code>HashMap</code> 中是对长度 -1 进行 <code>&amp;</code> 运算）</p>
+</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">final</span> V <span class="title function_">putVal</span><span class="params">(<span class="type">int</span> hash, K key, V value, <span class="type">boolean</span> onlyIfAbsent,</span></span><br><span class="line"><span class="params">                   <span class="type">boolean</span> evict)</span> &#123;</span><br><span class="line">    Node&lt;K,V&gt;[] tab; Node&lt;K,V&gt; p; <span class="type">int</span> n, i;</span><br><span class="line">    <span class="keyword">if</span> ((tab = table) == <span class="literal">null</span> || (n = tab.length) == <span class="number">0</span>)</span><br><span class="line">        n = (tab = resize()).length;</span><br><span class="line">        <span class="comment">// 获取下标的操作是  i = (n-1) &amp; hash</span></span><br><span class="line">    <span class="keyword">if</span> ((p = tab[i = (n - <span class="number">1</span>) &amp; hash]) == <span class="literal">null</span>)</span><br><span class="line">        tab[i] = newNode(hash, key, value, <span class="literal">null</span>);</span><br><span class="line">    <span class="keyword">else</span> &#123;</span><br><span class="line">       ...</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>获取下标为什么是对 n-1 进行与操作而不是取模？具体原因下面分析</strong></p>
+<h1 id="为什么需要对key的-hash-值右移-16位"><a href="#为什么需要对key的-hash-值右移-16位" class="headerlink" title="为什么需要对key的 hash 值右移 16位"></a>为什么需要对key的 hash 值右移 16位</h1><figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="string">HashMap</span> <span class="string">中使用的</span> <span class="string">hash</span> <span class="string">函数是</span> <span class="string">key.hash</span> <span class="string">^</span> <span class="string">(key.hash</span> <span class="string">&gt;&gt;</span> <span class="number">16</span><span class="string">)</span>  <span class="string">而不是直接使用</span> <span class="string">key.hash,</span> <span class="string">这么做的原因是增加了扰动计算，使得</span> <span class="string">hash</span> <span class="string">分布的尽可能的均匀，</span> <span class="string">让元素的高16</span> <span class="string">位和低16</span> <span class="string">位都参与运算</span></span><br><span class="line"><span class="string">示例：</span></span><br><span class="line"><span class="string">比如有一个元素1换成二进制如下</span></span><br><span class="line"><span class="number">1111 </span><span class="number">1111 </span><span class="number">1111 </span><span class="number">1111 </span><span class="number">1010 </span><span class="number">1010 </span><span class="number">1010 </span><span class="number">1010</span> <span class="string">（没有右移16位的二进制）</span></span><br><span class="line"><span class="number">0000 </span><span class="number">0000 </span><span class="number">0000 </span><span class="number">0000 </span><span class="number">1111 </span><span class="number">1111 </span><span class="number">1111 </span><span class="number">1111</span>  <span class="string">（右移16位的二进制）</span></span><br><span class="line"></span><br><span class="line"><span class="string">另外一个元素2换成二进制如下</span></span><br><span class="line"><span class="number">1111 </span><span class="number">1111 </span><span class="number">1111 </span><span class="number">1110 </span><span class="number">1010 </span><span class="number">1010 </span><span class="number">1010 </span><span class="number">1010</span> <span class="string">（没有右移16位的二进制）</span></span><br><span class="line"><span class="number">0000 </span><span class="number">0000 </span><span class="number">0000 </span><span class="number">0000 </span><span class="number">1111 </span><span class="number">1111 </span><span class="number">1111 </span><span class="number">1110</span>  <span class="string">（右移16位的二进制）</span></span><br><span class="line"></span><br><span class="line"><span class="string">在计算数组位置的时候使用的是</span> <span class="string">hash</span> <span class="string">&amp;</span> <span class="string">(n</span> <span class="number">-1</span><span class="string">),</span>  <span class="string">要知道</span> <span class="string">n-1</span> <span class="string">肯定是一个相对来说比较小的数字（32个bit</span> <span class="string">只会使用比较少的低位），</span> <span class="string">比如长度是</span> <span class="number">32</span><span class="string">，</span> <span class="string">对应的二进制是</span> <span class="number">0000 </span><span class="number">0000 </span><span class="number">0000 </span><span class="number">0000 </span><span class="number">0000 </span><span class="number">0000 </span><span class="number">0001 </span><span class="number">1111</span></span><br><span class="line"></span><br><span class="line"><span class="string">使用没有右移的元素1和</span> <span class="string">（32</span> <span class="number">-1</span><span class="string">）</span> <span class="string">进行与操作（与操作是都为1才为1，否则为0）</span></span><br><span class="line"><span class="number">1111 </span><span class="number">1111 </span><span class="number">1111 </span><span class="number">1111     </span><span class="number">1010 </span><span class="number">1010 </span><span class="number">1010 </span><span class="number">1010</span> <span class="string">（没有右移16位的二进制）</span></span><br><span class="line"><span class="number">0000 </span><span class="number">0000 </span><span class="number">0000 </span><span class="number">0000      </span><span class="number">0000 </span><span class="number">0000 </span><span class="number">0001 </span><span class="number">1111</span></span><br><span class="line"><span class="number">0000 </span><span class="number">0000 </span><span class="number">0000 </span><span class="number">0000      </span><span class="number">0000 </span><span class="number">0000 </span><span class="number">0000 </span><span class="number">1010</span></span><br><span class="line"></span><br><span class="line"><span class="string">使用没有右移的元素2和</span> <span class="string">（32</span> <span class="number">-1</span><span class="string">）</span> <span class="string">进行与操作（与操作是都为1才为1，否则为0）</span></span><br><span class="line"><span class="number">1111 </span><span class="number">1111 </span><span class="number">1111 </span><span class="number">1100     </span><span class="number">1010 </span><span class="number">1010 </span><span class="number">1010 </span><span class="number">1010</span> <span class="string">（没有右移16位的二进制）</span></span><br><span class="line"><span class="number">0000 </span><span class="number">0000 </span><span class="number">0000 </span><span class="number">0000      </span><span class="number">0000 </span><span class="number">0000 </span><span class="number">0001 </span><span class="number">1111</span></span><br><span class="line"><span class="number">0000 </span><span class="number">0000 </span><span class="number">0000 </span><span class="number">0000      </span><span class="number">0000 </span><span class="number">0000 </span><span class="number">0000 </span><span class="number">1010</span></span><br><span class="line"><span class="string">可以看到元素1和元素2计算出来下标是相同的，这个不同是因为元素1和元素2的低16位是完全相同的，不同之处只在于高16位，但是当我们对</span> <span class="string">（n-1）进行与操作的时候，由于</span> <span class="string">n-1</span> <span class="string">的值比较小，绝大部分情况下，只有低16位会进行运算的</span></span><br><span class="line"></span><br><span class="line"><span class="string">接下来再看一下如果使用右移的hash进行计算会有什么不同</span></span><br><span class="line"><span class="string">使用右移的元素1和</span> <span class="string">（32</span> <span class="number">-1</span><span class="string">）</span> <span class="string">进行与操作（与操作是都为1才为1，否则为0）</span></span><br><span class="line"><span class="number">0000 </span><span class="number">0000 </span><span class="number">0000 </span><span class="number">0000      </span><span class="number">1111 </span><span class="number">1111 </span><span class="number">1111 </span><span class="number">1111</span> <span class="string">（没有右移16位的二进制）</span></span><br><span class="line"><span class="number">0000 </span><span class="number">0000 </span><span class="number">0000 </span><span class="number">0000      </span><span class="number">0000 </span><span class="number">0000 </span><span class="number">0001 </span><span class="number">1111</span></span><br><span class="line"><span class="number">0000 </span><span class="number">0000 </span><span class="number">0000 </span><span class="number">0000      </span><span class="number">0000 </span><span class="number">0000 </span><span class="number">0000  </span><span class="number">1111</span></span><br><span class="line"></span><br><span class="line"><span class="string">用右移的元素2和</span> <span class="string">（32</span> <span class="number">-1</span><span class="string">）</span> <span class="string">进行与操作（与操作是都为1才为1，否则为0）</span></span><br><span class="line"><span class="number">0000 </span><span class="number">0000 </span><span class="number">0000 </span><span class="number">0000      </span><span class="number">1111 </span><span class="number">1111 </span><span class="number">1111 </span><span class="number">1110</span> <span class="string">（没有右移16位的二进制）</span></span><br><span class="line"><span class="number">0000 </span><span class="number">0000 </span><span class="number">0000 </span><span class="number">0000      </span><span class="number">0000 </span><span class="number">0000 </span><span class="number">0001 </span><span class="number">1111</span></span><br><span class="line"><span class="number">0000 </span><span class="number">0000 </span><span class="number">0000 </span><span class="number">0000      </span><span class="number">0000 </span><span class="number">0000 </span><span class="number">0000  </span><span class="number">1110</span></span><br><span class="line"><span class="string">可以看到计算出来的</span> <span class="string">index</span> <span class="string">值是不同的，这就是右移带来的让高16位有参与运算的效果</span></span><br></pre></td></tr></table></figure>
+
+<h1 id="为什么不对长度取模而是使用与运算"><a href="#为什么不对长度取模而是使用与运算" class="headerlink" title="为什么不对长度取模而是使用与运算"></a>为什么不对长度取模而是使用与运算</h1><ol>
+<li><code>X % 2^n = X &amp; (2^n – 1)</code>  这两种运算等价，所以这也是 <code>HashMap</code> 长度取 <code>2^n</code> 的原因<br>也可以从数据角度记住，当 <code>n</code> 是 2 的倍数时， <code>X % 2^n = X &amp; (2^n – 1)</code>  等价</li>
+</ol>
+<p><a href="https://www.cnblogs.com/ysocean/p/9054804.html">公式计算参考链接</a></p>
+<h1 id="HashMap是如何实现扩容的"><a href="#HashMap是如何实现扩容的" class="headerlink" title="HashMap是如何实现扩容的"></a>HashMap是如何实现扩容的</h1><p>扩容后索引其实也是使用 <code>hash &amp; （newLength -1）</code>, 这样计算出来的位置要是和原来的元素在相同的位置，要么是 原来的位置+旧数组长度&#x3D;新索引位置</p>
+<h1 id="HashMap是如何解决hash冲突的"><a href="#HashMap是如何解决hash冲突的" class="headerlink" title="HashMap是如何解决hash冲突的"></a>HashMap是如何解决hash冲突的</h1><ol>
+<li>对 <code>hash</code> 的计算进行优化，不是直接使用 <code>hashcode</code>,  而是右移16位，让高16位也参与运算，减少<code>hash</code> 冲突</li>
+<li>如果遇到冲突，使用拉链法解决</li>
+</ol>
+]]></content>
+      <categories>
+        <category>java</category>
+        <category>java基础</category>
+      </categories>
+      <tags>
+        <tag>java</tag>
+        <tag>java基础</tag>
       </tags>
   </entry>
   <entry>
@@ -460,44 +542,6 @@
 <div class="tabs" id="执行结果"><ul class="nav-tabs"><button type="button" class="tab  active" data-href="执行结果-1">服务端结果</button><button type="button" class="tab " data-href="执行结果-2">用户端结果</button></ul><div class="tab-contents"><div class="tab-item-content active" id="执行结果-1"><figure class="highlight brainfuck"><table><tr><td class="code"><pre><span class="line"><span class="comment">服务启动</span><span class="literal">----</span><span class="comment">8080:</span></span><br><span class="line"><span class="comment">服务器端接受客户端数据</span><span class="literal">--</span><span class="comment">:客户端发送的数据</span><span class="literal">--</span>&gt;<span class="comment">59:45</span></span><br><span class="line"><span class="comment">服务器端接受客户端数据</span><span class="literal">--</span><span class="comment">:客户端发送的数据</span><span class="literal">--</span>&gt;<span class="comment">59:47</span></span><br><span class="line"><span class="comment">服务器端接受客户端数据</span><span class="literal">--</span><span class="comment">:客户端发送的数据</span><span class="literal">--</span>&gt;<span class="comment">59:49</span></span><br><span class="line"><span class="comment">服务器端接受客户端数据</span><span class="literal">--</span><span class="comment">:客户端发送的数据</span><span class="literal">--</span>&gt;<span class="comment">59:51</span></span><br><span class="line"><span class="comment">服务器端接受客户端数据</span><span class="literal">--</span><span class="comment">:客户端发送的数据</span><span class="literal">--</span>&gt;<span class="comment">59:53</span></span><br><span class="line"><span class="comment">服务器端接受客户端数据</span><span class="literal">--</span><span class="comment">:客户端发送的数据</span><span class="literal">--</span>&gt;<span class="comment">59:55</span></span><br><span class="line"><span class="comment">服务器端接受客户端数据</span><span class="literal">--</span><span class="comment">:客户端发送的数据</span><span class="literal">--</span>&gt;<span class="comment">59:57</span></span><br><span class="line"><span class="comment">服务器端接受客户端数据</span><span class="literal">--</span><span class="comment">:客户端发送的数据</span><span class="literal">--</span>&gt;<span class="comment">59:59</span></span><br></pre></td></tr></table></figure></div><div class="tab-item-content" id="执行结果-2"><figure class="highlight brainfuck"><table><tr><td class="code"><pre><span class="line"><span class="comment">client connect</span></span><br><span class="line"><span class="comment">完成连接!</span></span><br><span class="line"><span class="comment">客户端接受服务器端数据</span><span class="literal">--</span><span class="comment">:服务端</span><span class="literal">--</span><span class="comment">》客户端  59:45</span></span><br><span class="line"><span class="comment">客户端接受服务器端数据</span><span class="literal">--</span><span class="comment">:服务端</span><span class="literal">--</span><span class="comment">》客户端  59:47</span></span><br><span class="line"><span class="comment">客户端接受服务器端数据</span><span class="literal">--</span><span class="comment">:服务端</span><span class="literal">--</span><span class="comment">》客户端  59:49</span></span><br><span class="line"><span class="comment">客户端接受服务器端数据</span><span class="literal">--</span><span class="comment">:服务端</span><span class="literal">--</span><span class="comment">》客户端  59:51</span></span><br><span class="line"><span class="comment">客户端接受服务器端数据</span><span class="literal">--</span><span class="comment">:服务端</span><span class="literal">--</span><span class="comment">》客户端  59:53</span></span><br><span class="line"><span class="comment">客户端接受服务器端数据</span><span class="literal">--</span><span class="comment">:服务端</span><span class="literal">--</span><span class="comment">》客户端  59:55</span></span><br><span class="line"><span class="comment">客户端接受服务器端数据</span><span class="literal">--</span><span class="comment">:服务端</span><span class="literal">--</span><span class="comment">》客户端  59:57</span></span><br><span class="line"><span class="comment">客户端接受服务器端数据</span><span class="literal">--</span><span class="comment">:服务端</span><span class="literal">--</span><span class="comment">》客户端  59:59</span></span><br></pre></td></tr></table></figure></div></div><div class="tab-to-top"><button type="button" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div></div>
 
 
-]]></content>
-      <categories>
-        <category>java</category>
-        <category>java基础</category>
-      </categories>
-      <tags>
-        <tag>java</tag>
-        <tag>java基础</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>HashMap详解</title>
-    <url>/2023/834224a16039/</url>
-    <content><![CDATA[<h1 id="HashMap的底层数据结构是什么？"><a href="#HashMap的底层数据结构是什么？" class="headerlink" title="HashMap的底层数据结构是什么？"></a>HashMap的底层数据结构是什么？</h1><ol>
-<li>之前 <code>Jdk1.7</code> 的存储结构是数组+链表，到了 <code>Jdk1.8</code> 变成了数组+链表+红黑树。</li>
-</ol>
-<h1 id="HashMap-是如何定位索引下标的"><a href="#HashMap-是如何定位索引下标的" class="headerlink" title="HashMap 是如何定位索引下标的"></a>HashMap 是如何定位索引下标的</h1><p>定位 <code>index</code> 分成两步</p>
-<ol>
-<li><p>根据 hash 函数获取 hash 值</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">static</span> <span class="keyword">final</span> <span class="type">int</span> <span class="title function_">hash</span><span class="params">(Object key)</span> &#123;</span><br><span class="line">    <span class="type">int</span> h;</span><br><span class="line">    <span class="keyword">return</span> (key == <span class="literal">null</span>) ? <span class="number">0</span> : (h = key.hashCode()) ^ (h &gt;&gt;&gt; <span class="number">16</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p><strong>可以看到上面代码获取到 hashCode 之后还右移 16 位，具体原因在下面分析</strong></p>
-</li>
-<li><p>根据第一步计算的 <code>hash</code> 值获取数组位置（一般是对数组长度取模，<code>HashMap</code> 中是对长度 -1 进行 <code>&amp;</code> 运算）</p>
-</li>
-</ol>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">final</span> V <span class="title function_">putVal</span><span class="params">(<span class="type">int</span> hash, K key, V value, <span class="type">boolean</span> onlyIfAbsent,</span></span><br><span class="line"><span class="params">                   <span class="type">boolean</span> evict)</span> &#123;</span><br><span class="line">    Node&lt;K,V&gt;[] tab; Node&lt;K,V&gt; p; <span class="type">int</span> n, i;</span><br><span class="line">    <span class="keyword">if</span> ((tab = table) == <span class="literal">null</span> || (n = tab.length) == <span class="number">0</span>)</span><br><span class="line">        n = (tab = resize()).length;</span><br><span class="line">        <span class="comment">// 获取下标的操作是  i = (n-1) &amp; hash</span></span><br><span class="line">    <span class="keyword">if</span> ((p = tab[i = (n - <span class="number">1</span>) &amp; hash]) == <span class="literal">null</span>)</span><br><span class="line">        tab[i] = newNode(hash, key, value, <span class="literal">null</span>);</span><br><span class="line">    <span class="keyword">else</span> &#123;</span><br><span class="line">       ...</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p><strong>获取下标为什么是对 n-1 进行与操作而不是取模？具体原因下面分析</strong></p>
-<h1 id="为什么需要对key的-hash-值右移-16位"><a href="#为什么需要对key的-hash-值右移-16位" class="headerlink" title="为什么需要对key的 hash 值右移 16位"></a>为什么需要对key的 hash 值右移 16位</h1><figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="string">HashMap</span> <span class="string">中使用的</span> <span class="string">hash</span> <span class="string">函数是</span> <span class="string">key.hash</span> <span class="string">^</span> <span class="string">(key.hash</span> <span class="string">&gt;&gt;</span> <span class="number">16</span><span class="string">)</span>  <span class="string">而不是直接使用</span> <span class="string">key.hash,</span> <span class="string">这么做的原因是增加了扰动计算，使得</span> <span class="string">hash</span> <span class="string">分布的尽可能的均匀，</span> <span class="string">让元素的高16</span> <span class="string">位和低16</span> <span class="string">位都参与运算</span></span><br><span class="line"><span class="string">示例：</span></span><br><span class="line"><span class="string">比如有一个元素1换成二进制如下</span></span><br><span class="line"><span class="number">1111 </span><span class="number">1111 </span><span class="number">1111 </span><span class="number">1111 </span><span class="number">1010 </span><span class="number">1010 </span><span class="number">1010 </span><span class="number">1010</span> <span class="string">（没有右移16位的二进制）</span></span><br><span class="line"><span class="number">0000 </span><span class="number">0000 </span><span class="number">0000 </span><span class="number">0000 </span><span class="number">1111 </span><span class="number">1111 </span><span class="number">1111 </span><span class="number">1111</span>  <span class="string">（右移16位的二进制）</span></span><br><span class="line"></span><br><span class="line"><span class="string">另外一个元素2换成二进制如下</span></span><br><span class="line"><span class="number">1111 </span><span class="number">1111 </span><span class="number">1111 </span><span class="number">1110 </span><span class="number">1010 </span><span class="number">1010 </span><span class="number">1010 </span><span class="number">1010</span> <span class="string">（没有右移16位的二进制）</span></span><br><span class="line"><span class="number">0000 </span><span class="number">0000 </span><span class="number">0000 </span><span class="number">0000 </span><span class="number">1111 </span><span class="number">1111 </span><span class="number">1111 </span><span class="number">1110</span>  <span class="string">（右移16位的二进制）</span></span><br><span class="line"></span><br><span class="line"><span class="string">在计算数组位置的时候使用的是</span> <span class="string">hash</span> <span class="string">&amp;</span> <span class="string">(n</span> <span class="number">-1</span><span class="string">),</span>  <span class="string">要知道</span> <span class="string">n-1</span> <span class="string">肯定是一个相对来说比较小的数字（32个bit</span> <span class="string">只会使用比较少的低位），</span> <span class="string">比如长度是</span> <span class="number">32</span><span class="string">，</span> <span class="string">对应的二进制是</span> <span class="number">0000 </span><span class="number">0000 </span><span class="number">0000 </span><span class="number">0000 </span><span class="number">0000 </span><span class="number">0000 </span><span class="number">0001 </span><span class="number">1111</span></span><br><span class="line"></span><br><span class="line"><span class="string">使用没有右移的元素1和</span> <span class="string">（32</span> <span class="number">-1</span><span class="string">）</span> <span class="string">进行与操作（与操作是都为1才为1，否则为0）</span></span><br><span class="line"><span class="number">1111 </span><span class="number">1111 </span><span class="number">1111 </span><span class="number">1111     </span><span class="number">1010 </span><span class="number">1010 </span><span class="number">1010 </span><span class="number">1010</span> <span class="string">（没有右移16位的二进制）</span></span><br><span class="line"><span class="number">0000 </span><span class="number">0000 </span><span class="number">0000 </span><span class="number">0000      </span><span class="number">0000 </span><span class="number">0000 </span><span class="number">0001 </span><span class="number">1111</span></span><br><span class="line"><span class="number">0000 </span><span class="number">0000 </span><span class="number">0000 </span><span class="number">0000      </span><span class="number">0000 </span><span class="number">0000 </span><span class="number">0000 </span><span class="number">1010</span></span><br><span class="line"></span><br><span class="line"><span class="string">使用没有右移的元素2和</span> <span class="string">（32</span> <span class="number">-1</span><span class="string">）</span> <span class="string">进行与操作（与操作是都为1才为1，否则为0）</span></span><br><span class="line"><span class="number">1111 </span><span class="number">1111 </span><span class="number">1111 </span><span class="number">1100     </span><span class="number">1010 </span><span class="number">1010 </span><span class="number">1010 </span><span class="number">1010</span> <span class="string">（没有右移16位的二进制）</span></span><br><span class="line"><span class="number">0000 </span><span class="number">0000 </span><span class="number">0000 </span><span class="number">0000      </span><span class="number">0000 </span><span class="number">0000 </span><span class="number">0001 </span><span class="number">1111</span></span><br><span class="line"><span class="number">0000 </span><span class="number">0000 </span><span class="number">0000 </span><span class="number">0000      </span><span class="number">0000 </span><span class="number">0000 </span><span class="number">0000 </span><span class="number">1010</span></span><br><span class="line"><span class="string">可以看到元素1和元素2计算出来下标是相同的，这个不同是因为元素1和元素2的低16位是完全相同的，不同之处只在于高16位，但是当我们对</span> <span class="string">（n-1）进行与操作的时候，由于</span> <span class="string">n-1</span> <span class="string">的值比较小，绝大部分情况下，只有低16位会进行运算的</span></span><br><span class="line"></span><br><span class="line"><span class="string">接下来再看一下如果使用右移的hash进行计算会有什么不同</span></span><br><span class="line"><span class="string">使用右移的元素1和</span> <span class="string">（32</span> <span class="number">-1</span><span class="string">）</span> <span class="string">进行与操作（与操作是都为1才为1，否则为0）</span></span><br><span class="line"><span class="number">0000 </span><span class="number">0000 </span><span class="number">0000 </span><span class="number">0000      </span><span class="number">1111 </span><span class="number">1111 </span><span class="number">1111 </span><span class="number">1111</span> <span class="string">（没有右移16位的二进制）</span></span><br><span class="line"><span class="number">0000 </span><span class="number">0000 </span><span class="number">0000 </span><span class="number">0000      </span><span class="number">0000 </span><span class="number">0000 </span><span class="number">0001 </span><span class="number">1111</span></span><br><span class="line"><span class="number">0000 </span><span class="number">0000 </span><span class="number">0000 </span><span class="number">0000      </span><span class="number">0000 </span><span class="number">0000 </span><span class="number">0000  </span><span class="number">1111</span></span><br><span class="line"></span><br><span class="line"><span class="string">用右移的元素2和</span> <span class="string">（32</span> <span class="number">-1</span><span class="string">）</span> <span class="string">进行与操作（与操作是都为1才为1，否则为0）</span></span><br><span class="line"><span class="number">0000 </span><span class="number">0000 </span><span class="number">0000 </span><span class="number">0000      </span><span class="number">1111 </span><span class="number">1111 </span><span class="number">1111 </span><span class="number">1110</span> <span class="string">（没有右移16位的二进制）</span></span><br><span class="line"><span class="number">0000 </span><span class="number">0000 </span><span class="number">0000 </span><span class="number">0000      </span><span class="number">0000 </span><span class="number">0000 </span><span class="number">0001 </span><span class="number">1111</span></span><br><span class="line"><span class="number">0000 </span><span class="number">0000 </span><span class="number">0000 </span><span class="number">0000      </span><span class="number">0000 </span><span class="number">0000 </span><span class="number">0000  </span><span class="number">1110</span></span><br><span class="line"><span class="string">可以看到计算出来的</span> <span class="string">index</span> <span class="string">值是不同的，这就是右移带来的让高16位有参与运算的效果</span></span><br></pre></td></tr></table></figure>
-
-<h1 id="为什么不对长度取模而是使用与运算"><a href="#为什么不对长度取模而是使用与运算" class="headerlink" title="为什么不对长度取模而是使用与运算"></a>为什么不对长度取模而是使用与运算</h1><ol>
-<li><code>X % 2^n = X &amp; (2^n – 1)</code>  这两种运算等价，所以这也是 <code>HashMap</code> 长度取 <code>2^n</code> 的原因<br>也可以从数据角度记住，当 <code>n</code> 是 2 的倍数时， <code>X % 2^n = X &amp; (2^n – 1)</code>  等价</li>
-</ol>
-<p><a href="https://www.cnblogs.com/ysocean/p/9054804.html">公式计算参考链接</a></p>
-<h1 id="HashMap是如何实现扩容的"><a href="#HashMap是如何实现扩容的" class="headerlink" title="HashMap是如何实现扩容的"></a>HashMap是如何实现扩容的</h1><p>扩容后索引其实也是使用 <code>hash &amp; （newLength -1）</code>, 这样计算出来的位置要是和原来的元素在相同的位置，要么是 原来的位置+旧数组长度&#x3D;新索引位置</p>
-<h1 id="HashMap是如何解决hash冲突的"><a href="#HashMap是如何解决hash冲突的" class="headerlink" title="HashMap是如何解决hash冲突的"></a>HashMap是如何解决hash冲突的</h1><ol>
-<li>对 <code>hash</code> 的计算进行优化，不是直接使用 <code>hashcode</code>,  而是右移16位，让高16位也参与运算，减少<code>hash</code> 冲突</li>
-<li>如果遇到冲突，使用拉链法解决</li>
-</ol>
 ]]></content>
       <categories>
         <category>java</category>
@@ -816,7 +860,133 @@
 <h3 id="逃逸分析之同步省略"><a href="#逃逸分析之同步省略" class="headerlink" title="逃逸分析之同步省略"></a>逃逸分析之同步省略</h3><p>遇到同步代码块时，<code>JIT</code>编译器可以借助逃逸分析，来判断同步块所使用的锁对象是否只能够被一个线程访问而没有被发布到其他线程, 如果没有被发布到其它线程，<code>JIT</code> 编译器在编译同步代码块时会取消堆这部分代码的同步</p>
 <h3 id="逃逸分析之栈上分配"><a href="#逃逸分析之栈上分配" class="headerlink" title="逃逸分析之栈上分配"></a>逃逸分析之栈上分配</h3><p><code>JIT(Just In Time)</code>编译器在编译期间根据逃逸分析的结果，发现如果一个对象没有逃逸出方法的话，就可能被优化成栈上分配</p>
 <h3 id="逃逸分析之标量替换"><a href="#逃逸分析之标量替换" class="headerlink" title="逃逸分析之标量替换"></a>逃逸分析之标量替换</h3><p>标量<code>(Scalar)</code>是指一个无法再分解成更小数据的数据。<code>Java</code>中的原始数据类型就是标量。相对的，那些还可以分解的数据叫作聚合量<code>(Aggregate)</code>，<code>Java</code>中的对象就是聚合量，因为它可以分解成其他聚合量和标量。在<code>JIT</code>编译器的编译阶段，如果经过逃逸分析，发现一个对象不会被外界访问的话，那么经过<code>JIT</code>优化，就会把这个对象拆解成若干个成员变量。这个过程就是标量替换</p>
-<h1 id="方法区"><a href="#方法区" class="headerlink" title="方法区"></a>方法区</h1><p>TODO</p>
+<h1 id="方法区"><a href="#方法区" class="headerlink" title="方法区"></a>方法区</h1><h2 id="方法区-栈和堆三者之间的关系"><a href="#方法区-栈和堆三者之间的关系" class="headerlink" title="方法区, 栈和堆三者之间的关系"></a>方法区, 栈和堆三者之间的关系</h2><p>以下面代码为例</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="type">Student</span> <span class="variable">student</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Student</span>();</span><br></pre></td></tr></table></figure>
+<ol>
+<li><code>Student</code> 这个 <code>class</code> 运行时会存储到方法区</li>
+<li><code>student</code> 引用变量会存储在栈区</li>
+<li><code>new Student()</code> 对象是存放在堆区</li>
+</ol>
+<h2 id="jdk-中方法区的变化"><a href="#jdk-中方法区的变化" class="headerlink" title="jdk 中方法区的变化"></a>jdk 中方法区的变化</h2><ol>
+<li>在 <code>jdk7</code> 之前，将方法区称为永久代，在 <code>jdk8</code> 中，方法区变成了 <strong>元空间</strong></li>
+<li>永久代在逻辑上属于堆的一部分，但是物理存储上不是在堆中，所以永久代也叫做 <strong>非堆</strong><ol>
+<li>通过<code>-XX:PermSize</code>参数设置永久代初始分配空间</li>
+<li>通过<code>-XX:MaxPermSize</code>参数设置永久代最大可分配空间。32位机器默认是64MB,64位机器模式是82MB</li>
+<li>当空间不足时会出现 <code>java.lang.OutOfMemoryError:PermGen space</code></li>
+</ol>
+</li>
+<li>元空间是使用本地内存实现，只要物理内存还有容量，就不会有内存溢出的问题<ol>
+<li>元空间大小可以使用参数<code>-XX:MetaspaceSize</code>和<code>-XX:MaxMetaspaceSize</code>指定，替代<code>JDK7</code>中的永久代的初始值和最大值</li>
+<li>当空间不足时会出现 <code>java.lang.OutOfMemoryError:Metaspace</code></li>
+</ol>
+</li>
+</ol>
+<h2 id="方法区中存储的内容"><a href="#方法区中存储的内容" class="headerlink" title="方法区中存储的内容"></a>方法区中存储的内容</h2><ol>
+<li><code>java</code> 源代码编译之后会生成 <code>class</code> 文件，经过类加载器把 <code>class</code> 文件中内容加载到 <code>jvm</code> 运行时数据区</li>
+<li><code>class</code> 文件中的一部分信息会加载到方法区，主要包含的内容如下图</li>
+</ol>
+<pre class="mermaid">flowchart TB
+  subgraph A[方法区存储的内容]
+    A1[类型信息]
+    A11["类class，接口interface,枚举enmu，annotaion"]
+    A1-->A11
+
+    A2[运行时常量池]
+    A21["class文件中有个constant pool,\n当class文件被加载到内存之后，方法区也\n会存放class文件的常量池相关信息，\n此时class文件的常量池就变成了方法区的运行时常量池"]
+    A22["运行时常量池相对于class文件常量池的\n另外一个重要特征是具备动态性,\n运行期间也可以将新的常量使用intern()放入池中"]
+    A2-->A21 & A22
+
+    A3[静态变量]
+    A31["jdk7之前类变量也是方法区的一部分"]
+    A32["jdk7及以后类变量放在了堆空间"]
+    A3-->A31 & A32
+
+    A4[JIT代码缓存]
+
+    A5[域信息]
+    A51["域相关信息包含域名称，类型，\n域修饰符(public，private，proteced,static,final,volatile)"]
+    A5-->A51
+
+    A6["方法信息,包含以下内容"]
+    A61["方法的返回类型（或void）"]
+    A62["方法参数的数量和类型"]
+    A63["方法的修饰符(public，private等)"]
+    A64["方法的字节码，操作数栈深度，局部变量表大小"]
+    A65["异常表"]
+    A6-->A61 & A62 & A63 & A64 & A65
+  end</pre>
+<h2 id="不同版本jdk方法区的内容"><a href="#不同版本jdk方法区的内容" class="headerlink" title="不同版本jdk方法区的内容"></a>不同版本jdk方法区的内容</h2><div class="tabs" id="方法区内容"><ul class="nav-tabs"><button type="button" class="tab  active" data-href="方法区内容-1">jdk6</button><button type="button" class="tab " data-href="方法区内容-2">jdk7</button><button type="button" class="tab " data-href="方法区内容-3">jdk8</button></ul><div class="tab-contents"><div class="tab-item-content active" id="方法区内容-1"><pre class="mermaid">flowchart LR
+    subgraph A[方法区和堆]
+        subgraph A1["方法区(永久代PermGen实现)"]
+            subgraph A11["运行时常量池"]
+                A111["字符串常量池"]
+            end
+            A12["类型信息"]
+            A13["域信息"]
+            A14["方法信息"]
+            A15["JIT代码缓存"]
+            A16["静态变量"]
+            A11~~~A12~~~A13~~~A14~~~A15~~~A16
+        end
+        A2["\n\n\n &nbsp;&nbsp; 堆 &nbsp;&nbsp; \n\n\n"]
+    end</pre></div><div class="tab-item-content" id="方法区内容-2"><pre class="mermaid">flowchart LR
+    subgraph A[方法区和堆]
+        subgraph A1["方法区(永久代PermGen实现)"]
+            A11["运行时常量池"]
+            A12["类型信息"]
+            A13["域信息"]
+            A14["方法信息"]
+            A15["JIT代码缓存"]
+            A11~~~A12~~~A13~~~A14~~~A15
+        end
+        subgraph A2["堆"]
+            A21["字符串常量池"]
+            A22["静态变量"]
+            A21~~~A22
+        end
+    end</pre></div><div class="tab-item-content" id="方法区内容-3"><pre class="mermaid">flowchart LR
+    subgraph A[方法区和堆]
+        subgraph A1["方法区(元空间Metaspace实现)"]
+            A11["运行时常量池"]
+            A12["类型信息"]
+            A13["域信息"]
+            A14["方法信息"]
+            A15["JIT代码缓存"]
+            A11~~~A12~~~A13~~~A14~~~A15
+        end
+        subgraph A2[堆]
+            A21["方法区(逻辑上\n是堆的一部分，\n实际不在堆里面)"]
+            subgraph A22[实际堆]
+                A221["静态变量"]
+                A222["字符串常量池"]
+            end
+            A21~~~A22
+        end
+        A21-->A1
+    end</pre></div></div><div class="tab-to-top"><button type="button" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div></div>
+
+<h2 id="方法区中为什么使用元空间替代永久代"><a href="#方法区中为什么使用元空间替代永久代" class="headerlink" title="方法区中为什么使用元空间替代永久代"></a>方法区中为什么使用元空间替代永久代</h2><ol>
+<li><code>JRockit</code> 虚拟机和<code>HotSpot</code>虚拟机j进行融合，而<code>JRockit</code>不需要配置永久代</li>
+<li>为永久代设置空间大小是很难确定的,如果动态加载类过多，容易产生永久代的<code>OOM</code></li>
+<li>元空间和永久代之间最大的区别在于：元空间并不在虚拟机中，而是使用本地内存。因此，默认情况下，元空间的大小仅受本地内存限制</li>
+<li><code>JDK7</code>之前的版本中，<code>HotSpot</code>虚拟机将类型信息、内部字符串和类静态变量存储在永久代中，垃圾收集器也会对该区域进行垃圾回收。<code>JDK7</code>将<code>HotSpot</code>虚拟机中永久代内部字符串和类静态变量数据移动到<code>Java</code>堆中，但是依然存在永久代,将元数据从永久代剥离出来放到元空间中，不仅实现了对元数据的无缝管理，而且因为元空间大小仅受本地内存限制，也简化了<code>Full GC</code>，并且可以在<code>GC</code>不暂停的情况下并发地释放元数据</li>
+</ol>
+<h2 id="方法区的垃圾回收"><a href="#方法区的垃圾回收" class="headerlink" title="方法区的垃圾回收"></a>方法区的垃圾回收</h2><p>方法区主要回收两部分内容</p>
+<ol>
+<li>常量池中废弃的常量<ol>
+<li>常量池中的字面量：比如文本字符串，被声明为 <code>final</code>的常量值等</li>
+<li>符号引用：类和接口的全限定名，字段的名称和描述符，方法的名称和描述符</li>
+</ol>
+</li>
+<li>不再使用的类型信息</li>
+</ol>
+<p>常量池中判断字面量是否不再使用简单一些，但是判断一个类型是否属于不再被使用的类，则需要满足下面的条件</p>
+<ol>
+<li>该类的所有示例都已经被回收</li>
+<li>加载该类的类加载器已经被回收</li>
+<li>该类的 <code>java.lang.Class</code> 对象没有在任何地方被引用</li>
+</ol>
+<p><strong>满足了上面的条件只是代表可以会回收，并不是一定会被回收</strong></p>
 ]]></content>
       <categories>
         <category>java</category>
@@ -825,6 +995,33 @@
       <tags>
         <tag>java</tag>
         <tag>jvm</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>SpringBoot编写测试类</title>
+    <url>/2023/71c38fa0a58b/</url>
+    <content><![CDATA[<p>版本说明：</p>
+<ol>
+<li>SpringBoot3.x</li>
+</ol>
+<h1 id="引入依赖"><a href="#引入依赖" class="headerlink" title="引入依赖"></a>引入依赖</h1><figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-test<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h1 id="编写测试类"><a href="#编写测试类" class="headerlink" title="编写测试类"></a>编写测试类</h1><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@SpringBootTest</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">TestRedis</span> &#123;</span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">testOne</span><span class="params">()</span> &#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;测试类&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="注意点"><a href="#注意点" class="headerlink" title="注意点"></a>注意点</h2><ol>
+<li><code>SpringBoot2.5</code> 之后测试类中已经不需要添加 <code>RunWith</code> 注解，只需要一个 <code>SpringBootTest</code></li>
+<li>需要保证测试类所在的包和项目主配置类包一致（项目 <code>main</code> 方法所在的包），如果不一致，则可以按照下面方式配置</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@SpringBootTest(classes = TestApplication.class)</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">TestRedis</span> &#123;</span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">testOne</span><span class="params">()</span> &#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;测试类&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+]]></content>
+      <categories>
+        <category>java</category>
+        <category>SpringBoot</category>
+      </categories>
+      <tags>
+        <tag>java</tag>
+        <tag>SpringBoot</tag>
       </tags>
   </entry>
   <entry>
@@ -971,33 +1168,6 @@
       <tags>
         <tag>java</tag>
         <tag>多线程</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>SpringBoot编写测试类</title>
-    <url>/2023/71c38fa0a58b/</url>
-    <content><![CDATA[<p>版本说明：</p>
-<ol>
-<li>SpringBoot3.x</li>
-</ol>
-<h1 id="引入依赖"><a href="#引入依赖" class="headerlink" title="引入依赖"></a>引入依赖</h1><figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-test<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<h1 id="编写测试类"><a href="#编写测试类" class="headerlink" title="编写测试类"></a>编写测试类</h1><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@SpringBootTest</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">TestRedis</span> &#123;</span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">testOne</span><span class="params">()</span> &#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;测试类&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="注意点"><a href="#注意点" class="headerlink" title="注意点"></a>注意点</h2><ol>
-<li><code>SpringBoot2.5</code> 之后测试类中已经不需要添加 <code>RunWith</code> 注解，只需要一个 <code>SpringBootTest</code></li>
-<li>需要保证测试类所在的包和项目主配置类包一致（项目 <code>main</code> 方法所在的包），如果不一致，则可以按照下面方式配置</li>
-</ol>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@SpringBootTest(classes = TestApplication.class)</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">TestRedis</span> &#123;</span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">testOne</span><span class="params">()</span> &#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;测试类&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-]]></content>
-      <categories>
-        <category>java</category>
-        <category>SpringBoot</category>
-      </categories>
-      <tags>
-        <tag>java</tag>
-        <tag>SpringBoot</tag>
       </tags>
   </entry>
   <entry>
@@ -1305,30 +1475,46 @@
       </tags>
   </entry>
   <entry>
-    <title>redis分布式锁</title>
-    <url>/2023/c21b41047d75/</url>
-    <content><![CDATA[<h1 id="redis-分布式锁要做到的事情"><a href="#redis-分布式锁要做到的事情" class="headerlink" title="redis 分布式锁要做到的事情"></a>redis 分布式锁要做到的事情</h1><ol>
-<li>独占性： 任何时刻只能有一个线程持有</li>
-<li>高可用： 若在 <code>redis</code> 集群环境下，不能因为某一个节点挂了而出现获取锁和释放锁失败的情况</li>
-<li>防止死锁： 要有超时控制机制或者撤销操作</li>
-<li>正确性： 不能 <code>unlock</code> 别人的锁，自己的锁只能自己释放</li>
-<li>可重入</li>
+    <title>SpringBoot中使用Redis</title>
+    <url>/2023/5ef02c37afab/</url>
+    <content><![CDATA[<p>版本说明：</p>
+<ol>
+<li>SpringBoot 3.x</li>
 </ol>
-<h1 id="分布式锁的实现"><a href="#分布式锁的实现" class="headerlink" title="分布式锁的实现"></a>分布式锁的实现</h1><p>TODO</p>
-]]></content>
+<h1 id="引入依赖"><a href="#引入依赖" class="headerlink" title="引入依赖"></a>引入依赖</h1><figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="comment">&lt;!-- springboot 版本 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">parent</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-parent<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>3.0.4<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">relativePath</span>/&gt;</span> <span class="comment">&lt;!-- lookup parent from repository --&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">parent</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- 引入redis依赖 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-data-redis<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.apache.commons<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>commons-pool2<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h1 id="redis-配置"><a href="#redis-配置" class="headerlink" title="redis 配置"></a>redis 配置</h1><ol>
+<li>下面 <code>redis</code> 配置的前缀都是 <code>spring.data.redis</code>, 如果使用的是 <code>SpringBoot2.x</code> 版本，前缀是 <code>spring.redis</code><figure class="highlight properties"><table><tr><td class="code"><pre><span class="line"><span class="comment">#默认是0号库</span></span><br><span class="line"><span class="attr">spring.data.redis.database</span>=<span class="string">3</span></span><br><span class="line"><span class="comment"># Redis服务器地址</span></span><br><span class="line"><span class="attr">spring.data.redis.host</span>=<span class="string">192.168.0.236</span></span><br><span class="line"><span class="comment"># Redis服务器连接端口</span></span><br><span class="line"><span class="attr">spring.data.redis.port</span>=<span class="string">6379</span></span><br><span class="line"><span class="attr">spring.data.redis.username</span>=<span class="string">default</span></span><br><span class="line"><span class="comment"># Redis服务器连接密码,默认为空</span></span><br><span class="line"><span class="attr">spring.data.redis.password</span>=<span class="string">123456</span></span><br><span class="line"><span class="comment"># 连接池最大连接数</span></span><br><span class="line"><span class="attr">spring.data.redis.lettuce.pool.max-active</span>=<span class="string">10</span></span><br><span class="line"><span class="comment"># 连接池最大阻塞等待时间,默认-1表示没有限制</span></span><br><span class="line"><span class="attr">spring.data.redis.lettuce.pool.max-wait</span>=<span class="string">-1</span></span><br><span class="line"><span class="comment"># 连接池中的最大空闲连接</span></span><br><span class="line"><span class="attr">spring.data.redis.lettuce.pool.max-idle</span>=<span class="string">10</span></span><br><span class="line"><span class="comment"># 连接池中的最小空闲连接,默认是0</span></span><br><span class="line"><span class="attr">spring.data.redis.lettuce.pool.min-idle</span>=<span class="string">0</span></span><br></pre></td></tr></table></figure></li>
+</ol>
+<h1 id="编写测试类"><a href="#编写测试类" class="headerlink" title="编写测试类"></a>编写测试类</h1><ol><li><a href="/2023/71c38fa0a58b/" title="SpringBoot编写测试类">SpringBoot编写测试类</a></li></ol>
+
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@SpringBootTest(classes = TestApplication.class)</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">TestRedis</span> &#123;</span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> RedisTemplate redisTemplate;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">testRedis</span><span class="params">()</span>&#123;</span><br><span class="line">        redisTemplate.opsForValue().set(<span class="string">&quot;key1&quot;</span>, <span class="string">&quot;value1&quot;</span>);</span><br><span class="line">        <span class="type">Object</span> <span class="variable">o</span> <span class="operator">=</span> redisTemplate.opsForValue().get(<span class="string">&quot;key1&quot;</span>);</span><br><span class="line">        System.out.println(<span class="string">&quot;获取redis key1 的结果:&quot;</span> + o);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>使用 <code>redis</code> 客户端看一下这个 <code>key</code> 和 <code>value</code></p>
+<figure class="highlight wren"><table><tr><td class="code"><pre><span class="line">[<span class="variable">db3</span>] <span class="operator">&gt;</span> <span class="variable">get</span> <span class="title function_">key1</span></span><br><span class="line">(<span class="variable">nil</span>)</span><br><span class="line"></span><br><span class="line">[<span class="variable">db3</span>] <span class="operator">&gt;</span> <span class="variable">keys</span> <span class="operator">*</span><span class="variable">key1</span><span class="operator">*</span></span><br><span class="line"><span class="number">1</span>) <span class="string">&quot;\xac\xed<span class="char escape_">\x00</span><span class="char escape_">\x05</span>t<span class="char escape_">\x00</span><span class="char escape_">\x04</span>key1&quot;</span></span><br><span class="line"></span><br><span class="line">[<span class="variable">db3</span>] <span class="operator">&gt;</span> <span class="variable">keys</span> <span class="operator">*</span><span class="variable">key1</span><span class="operator">*</span></span><br><span class="line"><span class="number">1</span>) <span class="string">&quot;\xac\xed<span class="char escape_">\x00</span><span class="char escape_">\x05</span>t<span class="char escape_">\x00</span><span class="char escape_">\x04</span>key1&quot;</span></span><br></pre></td></tr></table></figure>
+<p>可以看到直接使用 <code>key1</code> 竟然获取不到数据，使用模拟匹配后能看到，发现都是进行了编码，这是因为 <code>RedisTemplate</code> 默认使用 <code>jdk</code> 的序列化方式，可以通过自定义 <code>RedisTemplate</code> 方式来修改序列化方式</p>
+<h1 id="自定义-RedisTemplate"><a href="#自定义-RedisTemplate" class="headerlink" title="自定义 RedisTemplate"></a>自定义 RedisTemplate</h1><p>下面代码将 <code>RedisTemplate</code> 修改成使用 <code>json</code> 方式进行序列化</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">CusConfig</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="meta">@SuppressWarnings(&quot;all&quot;)</span></span><br><span class="line">    <span class="keyword">public</span> RedisTemplate&lt;String, Object&gt; <span class="title function_">redisTemplate</span><span class="params">(RedisConnectionFactory factory)</span> &#123;</span><br><span class="line">        RedisTemplate&lt;String, Object&gt; template = <span class="keyword">new</span> <span class="title class_">RedisTemplate</span>&lt;&gt;();</span><br><span class="line">        template.setConnectionFactory(factory);</span><br><span class="line">        <span class="type">Jackson2JsonRedisSerializer</span> <span class="variable">jackson2JsonRedisSerializer</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Jackson2JsonRedisSerializer</span>(Object.class);</span><br><span class="line">        <span class="type">ObjectMapper</span> <span class="variable">om</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">ObjectMapper</span>();</span><br><span class="line">        om.setVisibility(PropertyAccessor.ALL, JsonAutoDetect.Visibility.ANY);</span><br><span class="line">        om.activateDefaultTyping(LaissezFaireSubTypeValidator.instance , ObjectMapper.DefaultTyping.NON_FINAL);</span><br><span class="line">        om.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, <span class="literal">false</span>);</span><br><span class="line">        jackson2JsonRedisSerializer.setObjectMapper(om);</span><br><span class="line">        <span class="type">StringRedisSerializer</span> <span class="variable">stringRedisSerializer</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">StringRedisSerializer</span>();</span><br><span class="line">        <span class="comment">// key采用String的序列化方式</span></span><br><span class="line">        template.setKeySerializer(stringRedisSerializer);</span><br><span class="line">        <span class="comment">// hash的key也采用String的序列化方式</span></span><br><span class="line">        template.setHashKeySerializer(stringRedisSerializer);</span><br><span class="line">        <span class="comment">// value序列化方式采用jackson</span></span><br><span class="line">        template.setValueSerializer(jackson2JsonRedisSerializer);</span><br><span class="line">        <span class="comment">// hash的value序列化方式采用jackson</span></span><br><span class="line">        template.setHashValueSerializer(jackson2JsonRedisSerializer);</span><br><span class="line">        template.afterPropertiesSet();</span><br><span class="line">        <span class="keyword">return</span> template;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>执行测试代码后再次查看结果</p>
+<figure class="highlight swift"><table><tr><td class="code"><pre><span class="line">[db3] <span class="operator">&gt;</span> <span class="keyword">get</span> key1</span><br><span class="line"><span class="string">&quot;<span class="subst">\&quot;</span>value1<span class="subst">\&quot;</span>&quot;</span></span><br></pre></td></tr></table></figure>]]></content>
       <categories>
-        <category>中间件</category>
-        <category>redis</category>
+        <category>存储</category>
+        <category>Redis</category>
       </categories>
       <tags>
-        <tag>java</tag>
-        <tag>redis</tag>
+        <tag>Redis</tag>
       </tags>
   </entry>
   <entry>
     <title>redis底层数据结构</title>
     <url>/2023/19e21a188fd0/</url>
-    <content><![CDATA[<h1 id="redis-对象"><a href="#redis-对象" class="headerlink" title="redis 对象"></a>redis 对象</h1><p><code>redis</code> 中所有数据类型都是使用 <code>RedisObject</code> 对象形式来表示，<code>RedisObject</code> 主要包含三个字段</p>
+    <content><![CDATA[<span class="hide_first_mermaid">
+<div class="mermaid-wrap"><pre class="mermaid-src" hidden>
+  flowchart LR
+    A
+  </pre></div>
+</span>
+
+<h1 id="redis-对象"><a href="#redis-对象" class="headerlink" title="redis 对象"></a>redis 对象</h1><p><code>redis</code> 中所有数据类型都是使用 <code>RedisObject</code> 对象形式来表示，<code>RedisObject</code> 主要包含三个字段</p>
 <span id="more"></span>
 
 <pre class="mermaid">graph LR
@@ -1405,41 +1591,11 @@
 </ol>
 ]]></content>
       <categories>
-        <category>中间件</category>
-        <category>redis</category>
+        <category>存储</category>
+        <category>Redis</category>
       </categories>
       <tags>
-        <tag>redis</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>SpringBoot中使用Redis</title>
-    <url>/2023/5ef02c37afab/</url>
-    <content><![CDATA[<p>版本说明：</p>
-<ol>
-<li>SpringBoot 3.x</li>
-</ol>
-<h1 id="引入依赖"><a href="#引入依赖" class="headerlink" title="引入依赖"></a>引入依赖</h1><figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="comment">&lt;!-- springboot 版本 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">parent</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-parent<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>3.0.4<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">relativePath</span>/&gt;</span> <span class="comment">&lt;!-- lookup parent from repository --&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">parent</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- 引入redis依赖 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-data-redis<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.apache.commons<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>commons-pool2<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<h1 id="redis-配置"><a href="#redis-配置" class="headerlink" title="redis 配置"></a>redis 配置</h1><ol>
-<li>下面 <code>redis</code> 配置的前缀都是 <code>spring.data.redis</code>, 如果使用的是 <code>SpringBoot2.x</code> 版本，前缀是 <code>spring.redis</code><figure class="highlight properties"><table><tr><td class="code"><pre><span class="line"><span class="comment">#默认是0号库</span></span><br><span class="line"><span class="attr">spring.data.redis.database</span>=<span class="string">3</span></span><br><span class="line"><span class="comment"># Redis服务器地址</span></span><br><span class="line"><span class="attr">spring.data.redis.host</span>=<span class="string">192.168.0.236</span></span><br><span class="line"><span class="comment"># Redis服务器连接端口</span></span><br><span class="line"><span class="attr">spring.data.redis.port</span>=<span class="string">6379</span></span><br><span class="line"><span class="attr">spring.data.redis.username</span>=<span class="string">default</span></span><br><span class="line"><span class="comment"># Redis服务器连接密码,默认为空</span></span><br><span class="line"><span class="attr">spring.data.redis.password</span>=<span class="string">123456</span></span><br><span class="line"><span class="comment"># 连接池最大连接数</span></span><br><span class="line"><span class="attr">spring.data.redis.lettuce.pool.max-active</span>=<span class="string">10</span></span><br><span class="line"><span class="comment"># 连接池最大阻塞等待时间,默认-1表示没有限制</span></span><br><span class="line"><span class="attr">spring.data.redis.lettuce.pool.max-wait</span>=<span class="string">-1</span></span><br><span class="line"><span class="comment"># 连接池中的最大空闲连接</span></span><br><span class="line"><span class="attr">spring.data.redis.lettuce.pool.max-idle</span>=<span class="string">10</span></span><br><span class="line"><span class="comment"># 连接池中的最小空闲连接,默认是0</span></span><br><span class="line"><span class="attr">spring.data.redis.lettuce.pool.min-idle</span>=<span class="string">0</span></span><br></pre></td></tr></table></figure></li>
-</ol>
-<h1 id="编写测试类"><a href="#编写测试类" class="headerlink" title="编写测试类"></a>编写测试类</h1><ol><li><a href="/2023/71c38fa0a58b/" title="SpringBoot编写测试类">SpringBoot编写测试类</a></li></ol>
-
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@SpringBootTest(classes = TestApplication.class)</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">TestRedis</span> &#123;</span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> RedisTemplate redisTemplate;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">testRedis</span><span class="params">()</span>&#123;</span><br><span class="line">        redisTemplate.opsForValue().set(<span class="string">&quot;key1&quot;</span>, <span class="string">&quot;value1&quot;</span>);</span><br><span class="line">        <span class="type">Object</span> <span class="variable">o</span> <span class="operator">=</span> redisTemplate.opsForValue().get(<span class="string">&quot;key1&quot;</span>);</span><br><span class="line">        System.out.println(<span class="string">&quot;获取redis key1 的结果:&quot;</span> + o);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>使用 <code>redis</code> 客户端看一下这个 <code>key</code> 和 <code>value</code></p>
-<figure class="highlight wren"><table><tr><td class="code"><pre><span class="line">[<span class="variable">db3</span>] <span class="operator">&gt;</span> <span class="variable">get</span> <span class="title function_">key1</span></span><br><span class="line">(<span class="variable">nil</span>)</span><br><span class="line"></span><br><span class="line">[<span class="variable">db3</span>] <span class="operator">&gt;</span> <span class="variable">keys</span> <span class="operator">*</span><span class="variable">key1</span><span class="operator">*</span></span><br><span class="line"><span class="number">1</span>) <span class="string">&quot;\xac\xed<span class="char escape_">\x00</span><span class="char escape_">\x05</span>t<span class="char escape_">\x00</span><span class="char escape_">\x04</span>key1&quot;</span></span><br><span class="line"></span><br><span class="line">[<span class="variable">db3</span>] <span class="operator">&gt;</span> <span class="variable">keys</span> <span class="operator">*</span><span class="variable">key1</span><span class="operator">*</span></span><br><span class="line"><span class="number">1</span>) <span class="string">&quot;\xac\xed<span class="char escape_">\x00</span><span class="char escape_">\x05</span>t<span class="char escape_">\x00</span><span class="char escape_">\x04</span>key1&quot;</span></span><br></pre></td></tr></table></figure>
-<p>可以看到直接使用 <code>key1</code> 竟然获取不到数据，使用模拟匹配后能看到，发现都是进行了编码，这是因为 <code>RedisTemplate</code> 默认使用 <code>jdk</code> 的序列化方式，可以通过自定义 <code>RedisTemplate</code> 方式来修改序列化方式</p>
-<h1 id="自定义-RedisTemplate"><a href="#自定义-RedisTemplate" class="headerlink" title="自定义 RedisTemplate"></a>自定义 RedisTemplate</h1><p>下面代码将 <code>RedisTemplate</code> 修改成使用 <code>json</code> 方式进行序列化</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">CusConfig</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="meta">@SuppressWarnings(&quot;all&quot;)</span></span><br><span class="line">    <span class="keyword">public</span> RedisTemplate&lt;String, Object&gt; <span class="title function_">redisTemplate</span><span class="params">(RedisConnectionFactory factory)</span> &#123;</span><br><span class="line">        RedisTemplate&lt;String, Object&gt; template = <span class="keyword">new</span> <span class="title class_">RedisTemplate</span>&lt;&gt;();</span><br><span class="line">        template.setConnectionFactory(factory);</span><br><span class="line">        <span class="type">Jackson2JsonRedisSerializer</span> <span class="variable">jackson2JsonRedisSerializer</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Jackson2JsonRedisSerializer</span>(Object.class);</span><br><span class="line">        <span class="type">ObjectMapper</span> <span class="variable">om</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">ObjectMapper</span>();</span><br><span class="line">        om.setVisibility(PropertyAccessor.ALL, JsonAutoDetect.Visibility.ANY);</span><br><span class="line">        om.activateDefaultTyping(LaissezFaireSubTypeValidator.instance , ObjectMapper.DefaultTyping.NON_FINAL);</span><br><span class="line">        om.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, <span class="literal">false</span>);</span><br><span class="line">        jackson2JsonRedisSerializer.setObjectMapper(om);</span><br><span class="line">        <span class="type">StringRedisSerializer</span> <span class="variable">stringRedisSerializer</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">StringRedisSerializer</span>();</span><br><span class="line">        <span class="comment">// key采用String的序列化方式</span></span><br><span class="line">        template.setKeySerializer(stringRedisSerializer);</span><br><span class="line">        <span class="comment">// hash的key也采用String的序列化方式</span></span><br><span class="line">        template.setHashKeySerializer(stringRedisSerializer);</span><br><span class="line">        <span class="comment">// value序列化方式采用jackson</span></span><br><span class="line">        template.setValueSerializer(jackson2JsonRedisSerializer);</span><br><span class="line">        <span class="comment">// hash的value序列化方式采用jackson</span></span><br><span class="line">        template.setHashValueSerializer(jackson2JsonRedisSerializer);</span><br><span class="line">        template.afterPropertiesSet();</span><br><span class="line">        <span class="keyword">return</span> template;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>执行测试代码后再次查看结果</p>
-<figure class="highlight swift"><table><tr><td class="code"><pre><span class="line">[db3] <span class="operator">&gt;</span> <span class="keyword">get</span> key1</span><br><span class="line"><span class="string">&quot;<span class="subst">\&quot;</span>value1<span class="subst">\&quot;</span>&quot;</span></span><br></pre></td></tr></table></figure>]]></content>
-      <categories>
-        <category>中间件</category>
-        <category>redis</category>
-      </categories>
-      <tags>
-        <tag>redis</tag>
+        <tag>Redis</tag>
       </tags>
   </entry>
   <entry>
@@ -1477,11 +1633,143 @@
 <p>TODO</p>
 ]]></content>
       <categories>
-        <category>中间件</category>
-        <category>redis</category>
+        <category>存储</category>
+        <category>Redis</category>
       </categories>
       <tags>
-        <tag>redis</tag>
+        <tag>Redis</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>redis分布式锁</title>
+    <url>/2023/c21b41047d75/</url>
+    <content><![CDATA[<h1 id="redis-分布式锁要做到的事情"><a href="#redis-分布式锁要做到的事情" class="headerlink" title="redis 分布式锁要做到的事情"></a>redis 分布式锁要做到的事情</h1><ol>
+<li>独占性： 任何时刻只能有一个线程持有</li>
+<li>高可用： 若在 <code>redis</code> 集群环境下，不能因为某一个节点挂了而出现获取锁和释放锁失败的情况</li>
+<li>防止死锁： 要有超时控制机制或者撤销操作</li>
+<li>正确性： 不能 <code>unlock</code> 别人的锁，自己的锁只能自己释放</li>
+<li>可重入</li>
+</ol>
+<h1 id="分布式锁的实现"><a href="#分布式锁的实现" class="headerlink" title="分布式锁的实现"></a>分布式锁的实现</h1><p>TODO</p>
+]]></content>
+      <categories>
+        <category>存储</category>
+        <category>Redis</category>
+      </categories>
+      <tags>
+        <tag>Redis</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>InnoDB存储引擎</title>
+    <url>/2023/a421bfc0bf81/</url>
+    <content><![CDATA[<span class="hide_first_mermaid">
+<div class="mermaid-wrap"><pre class="mermaid-src" hidden>
+  flowchart LR
+    A
+  </pre></div>
+</span>
+
+<h1 id="InnoDB-存储引擎体系"><a href="#InnoDB-存储引擎体系" class="headerlink" title="InnoDB 存储引擎体系"></a>InnoDB 存储引擎体系</h1><pre class="mermaid">flowchart LR
+  subgraph A[InnoDB存储引擎]
+    subgraph A1[后台线程]
+      A11["Master Thread"]
+      A12["IO Thread"]
+    end
+    subgraph A2[内存池]
+    end
+  end</pre>
+
+<h1 id="后台线程"><a href="#后台线程" class="headerlink" title="后台线程"></a>后台线程</h1><p>InnoDB 存储引擎是多线程模型，后台有多种不同类型的线程，负责处理不同的任务</p>
+<h2 id="Master-Thread"><a href="#Master-Thread" class="headerlink" title="Master Thread"></a>Master Thread</h2><ol>
+<li>主要负责将 <strong>缓冲池</strong> 中的数据异步双薪到磁盘，保证数据的一致性，包含脏页刷新，合并插入缓冲，<code>UNDO</code> 页的回收等</li>
+</ol>
+]]></content>
+      <categories>
+        <category>存储</category>
+        <category>Mysql</category>
+      </categories>
+      <tags>
+        <tag>Mysql</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Mysql整体架构</title>
+    <url>/2023/fd974035a1b5/</url>
+    <content><![CDATA[<span class="hide_first_mermaid">
+<div class="mermaid-wrap"><pre class="mermaid-src" hidden>
+  flowchart LR
+    A
+  </pre></div>
+</span>
+
+<pre class="mermaid">flowchart LR
+    K1["客户端连接"]
+    K2["客户端连接"]
+    K1 & K2--1--->A
+    subgraph A["Mysql服务器"]
+        direction LR
+        subgraph A1["连接池"]
+            direction TB
+            A11[连接]
+            A12[连接]
+            A13[连接]
+            A11~~~A12~~~A13
+        end
+        subgraph A3["线程"]
+        end
+        
+        A1--"2(获取sql语句)"-->A3
+
+        subgraph A2["sql相关处理"]
+            direction TB
+            A23["3(sql接口)"]
+            A24["4(sql解析器)"]
+            A25["5(查询优化器)"]
+            A26["6(执行器)"]
+            A23-->A24-->A25-->A26
+        end
+
+        A3-->A2
+        subgraph A4["7(存储引擎)"]
+        end
+        A2-->A4
+    end</pre>
+<p>下面按照上图中标的数字的顺序进行梳理</p>
+<h1 id="1-连接池"><a href="#1-连接池" class="headerlink" title="1 连接池"></a>1 连接池</h1><ol>
+<li>我们平时所说的连接池一般都是指应用端的连接池，比如一个 <code>Java</code> 应用连接数据库时，<code>Java</code> 应用会有一个连接池去连接数据库</li>
+<li><code>Mysql</code> 服务器自身也是有一个连接池来和客户端进行连接，这个连接池管理了各种系统跟这台数据库服务器建立的所有连接</li>
+</ol>
+<h1 id="2-线程处理连接"><a href="#2-线程处理连接" class="headerlink" title="2 线程处理连接"></a>2 线程处理连接</h1><p>对于网络连接一般都是需要单独的线程进行处理，这个线程来监听请求以及获取请求数据</p>
+<h1 id="3-sql接口"><a href="#3-sql接口" class="headerlink" title="3 sql接口"></a>3 sql接口</h1><ol>
+<li><code>MySQL</code> 的工作线程接收到<code>SQL</code>语句之后，就会转交给<code>SQL</code>接口去执行</li>
+<li>这种设计和 <code>java</code> 类似，也是面向接口编程，外部使用只需要和接口打交道，屏蔽了内部复杂的实现逻辑</li>
+</ol>
+<h1 id="4-sql解析器"><a href="#4-sql解析器" class="headerlink" title="4 sql解析器"></a>4 sql解析器</h1><ol>
+<li>查询解析器<code>(Parser)</code>就是负责对<code>SQL</code>语句进行解析, 这里的解析的含义其实就是按照 <code>SQL</code> 语法对 <code>SQL</code> 进行拆解， 比如下面的一个 <code>SQL</code></li>
+</ol>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> <span class="keyword">user</span> <span class="keyword">where</span> id <span class="operator">=</span> <span class="number">1</span>;</span><br></pre></td></tr></table></figure>
+<p>上面这个 <code>SQL</code> 语句只是一个字符串而已，但是通过 <strong>查询解析器</strong> 后，就可以知道 <code>user</code> 对应的是表，<code>id</code> 对应的是表里面的一个字段</p>
+<h1 id="5-查询优化器"><a href="#5-查询优化器" class="headerlink" title="5 查询优化器"></a>5 查询优化器</h1><ol>
+<li>查询优化器的作用是 <strong>选择最优的查询路径</strong></li>
+<li>一条 <code>SQL</code> 语句可以有多个方式达到最终的效果，还是已 <code>select * from user where id = 1;</code> 这个 <code>SQL</code> 语句举例<ol>
+<li>第一种方式是可以先获取到所有数据，然后根据 <code>id=1</code> 这个条件去过滤，再将结果返回</li>
+<li>第二种方式也可以是先拿到 <code>id=1</code> 这个条件，然后直接定位 <code>id=1</code> 的数据，再将结果返回</li>
+</ol>
+</li>
+</ol>
+<h1 id="6-执行器"><a href="#6-执行器" class="headerlink" title="6 执行器"></a>6 执行器</h1><ol>
+<li>执行器是根据执行计划调用存储引擎的接口</li>
+<li>执行器会根据优化器选择的执行方案，按照一定的顺序去调用存储引擎的接口，把<code>SQL</code>语句的逻辑给执行</li>
+</ol>
+<h1 id="7-存储引擎"><a href="#7-存储引擎" class="headerlink" title="7 存储引擎"></a>7 存储引擎</h1><p>存储引擎其实就是真正执行<code>SQL</code>语句的，他会按照一定的步骤去查询内存缓存数据，更新磁盘数据，查询磁盘数据等操作</p>
+]]></content>
+      <categories>
+        <category>存储</category>
+        <category>Mysql</category>
+      </categories>
+      <tags>
+        <tag>Mysql</tag>
       </tags>
   </entry>
   <entry>
@@ -1499,6 +1787,51 @@
       </categories>
       <tags>
         <tag>tools</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>vscode设置markdown图片默认路径</title>
+    <url>/2023/5b4d784e18c2/</url>
+    <content><![CDATA[<p><code>vscode</code> 在 <code>markdown</code> 文档中直接复制图片时是放在当前目录，如果需要修改可以按照下面方式设置</p>
+<span id="more"></span>
+<ol>
+<li>输入快捷键 <code>ctrl+,</code> 可以快速打开设置</li>
+<li>搜索 <code>markdown.copy: Destination</code></li>
+</ol>
+<p><img src="/2023/5b4d784e18c2/1700033681108.png" alt="Alt text"></p>
+]]></content>
+      <categories>
+        <category>tools</category>
+        <category>vscode</category>
+      </categories>
+      <tags>
+        <tag>tools</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>utools自动化脚本插件</title>
+    <url>/2023/d899f5ff1973/</url>
+    <content><![CDATA[<h1 id="utools-使用自动化脚本打开本地程序"><a href="#utools-使用自动化脚本打开本地程序" class="headerlink" title="utools 使用自动化脚本打开本地程序"></a>utools 使用自动化脚本打开本地程序</h1><ol>
+<li>比如 typora 可以打开之前的文件和目录，但是目录只能到文件的上一个层级，如果源目录包含很多子目录，重新打开时可能不是我们想要的结果，那可以在命令行执行 <code>typora folder</code>, eg: <code>typora E:\\blog</code> <span id="more"></span></li>
+</ol>
+<blockquote>
+<p>在命令行执行 typora 命令需要先配置 typora 的环境变量</p>
+</blockquote>
+<ol>
+<li>更简便的方式是直接使用 utools 的自动化脚本这个插件，新增一个自己的插件脚本，内容如下</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> &#123; execFile &#125; = <span class="built_in">require</span>(<span class="string">&quot;child_process&quot;</span>)</span><br><span class="line"></span><br><span class="line"> <span class="comment">// 以下是关键代码，调用 typora 来执行目标文件</span></span><br><span class="line"><span class="title function_">execFile</span>(<span class="string">&#x27;typora&#x27;</span>, [<span class="string">&#x27;E:/code/learnerguo&#x27;</span>], <span class="function">(<span class="params">error, stdout, stderr</span>) =&gt;</span> &#123;</span><br><span class="line">    process.<span class="title function_">exit</span>()</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<p>然后自定义关键字，后续当打开 utools 输入对应关键字就可以打开 typora 的目录</p>
+<h1 id="使用自动化脚本获取当天起始时间"><a href="#使用自动化脚本获取当天起始时间" class="headerlink" title="使用自动化脚本获取当天起始时间"></a>使用自动化脚本获取当天起始时间</h1><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> now = <span class="keyword">new</span> <span class="title class_">Date</span>();</span><br><span class="line"><span class="comment">// 设置当前时间的小时、分钟、秒和毫秒为0，即将时间设置为当天的开始时间</span></span><br><span class="line">now.<span class="title function_">setHours</span>(<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>);</span><br><span class="line"><span class="comment">// 获取当天开始时间点的毫秒数</span></span><br><span class="line"><span class="keyword">const</span> startTime = now.<span class="title function_">getTime</span>();</span><br><span class="line">utools.<span class="title function_">copyText</span>(<span class="string">&quot;&quot;</span>+startTime);</span><br><span class="line"><span class="title function_">print</span>(<span class="string">&#x27;开始时间已复制&#x27;</span> + startTime);</span><br><span class="line">utools.<span class="title function_">hideMainWindow</span>();</span><br><span class="line">process.<span class="title function_">exit</span>()</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>tools</category>
+        <category>utools</category>
+      </categories>
+      <tags>
+        <tag>tools</tag>
+        <tag>utools</tag>
       </tags>
   </entry>
   <entry>
@@ -1529,51 +1862,6 @@
       <tags>
         <tag>tools</tag>
         <tag>vscode</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>utools自动化脚本插件</title>
-    <url>/2023/d899f5ff1973/</url>
-    <content><![CDATA[<h1 id="utools-使用自动化脚本打开本地程序"><a href="#utools-使用自动化脚本打开本地程序" class="headerlink" title="utools 使用自动化脚本打开本地程序"></a>utools 使用自动化脚本打开本地程序</h1><ol>
-<li>比如 typora 可以打开之前的文件和目录，但是目录只能到文件的上一个层级，如果源目录包含很多子目录，重新打开时可能不是我们想要的结果，那可以在命令行执行 <code>typora folder</code>, eg: <code>typora E:\\blog</code> <span id="more"></span></li>
-</ol>
-<blockquote>
-<p>在命令行执行 typora 命令需要先配置 typora 的环境变量</p>
-</blockquote>
-<ol>
-<li>更简便的方式是直接使用 utools 的自动化脚本这个插件，新增一个自己的插件脚本，内容如下</li>
-</ol>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> &#123; execFile &#125; = <span class="built_in">require</span>(<span class="string">&quot;child_process&quot;</span>)</span><br><span class="line"></span><br><span class="line"> <span class="comment">// 以下是关键代码，调用 typora 来执行目标文件</span></span><br><span class="line"><span class="title function_">execFile</span>(<span class="string">&#x27;typora&#x27;</span>, [<span class="string">&#x27;E:/code/learnerguo&#x27;</span>], <span class="function">(<span class="params">error, stdout, stderr</span>) =&gt;</span> &#123;</span><br><span class="line">    process.<span class="title function_">exit</span>()</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-
-<p>然后自定义关键字，后续当打开 utools 输入对应关键字就可以打开 typora 的目录</p>
-<h1 id="使用自动化脚本获取当天起始时间"><a href="#使用自动化脚本获取当天起始时间" class="headerlink" title="使用自动化脚本获取当天起始时间"></a>使用自动化脚本获取当天起始时间</h1><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> now = <span class="keyword">new</span> <span class="title class_">Date</span>();</span><br><span class="line"><span class="comment">// 设置当前时间的小时、分钟、秒和毫秒为0，即将时间设置为当天的开始时间</span></span><br><span class="line">now.<span class="title function_">setHours</span>(<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>);</span><br><span class="line"><span class="comment">// 获取当天开始时间点的毫秒数</span></span><br><span class="line"><span class="keyword">const</span> startTime = now.<span class="title function_">getTime</span>();</span><br><span class="line">utools.<span class="title function_">copyText</span>(<span class="string">&quot;&quot;</span>+startTime);</span><br><span class="line"><span class="title function_">print</span>(<span class="string">&#x27;开始时间已复制&#x27;</span> + startTime);</span><br><span class="line">utools.<span class="title function_">hideMainWindow</span>();</span><br><span class="line">process.<span class="title function_">exit</span>()</span><br></pre></td></tr></table></figure>
-]]></content>
-      <categories>
-        <category>tools</category>
-        <category>utools</category>
-      </categories>
-      <tags>
-        <tag>tools</tag>
-        <tag>utools</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>vscode设置markdown图片默认路径</title>
-    <url>/2023/5b4d784e18c2/</url>
-    <content><![CDATA[<p><code>vscode</code> 在 <code>markdown</code> 文档中直接复制图片时是放在当前目录，如果需要修改可以按照下面方式设置</p>
-<span id="more"></span>
-<ol>
-<li>输入快捷键 <code>ctrl+,</code> 可以快速打开设置</li>
-<li>搜索 <code>markdown.copy: Destination</code></li>
-</ol>
-<p><img src="/2023/5b4d784e18c2/1700033681108.png" alt="Alt text"></p>
-]]></content>
-      <categories>
-        <category>tools</category>
-        <category>vscode</category>
-      </categories>
-      <tags>
-        <tag>tools</tag>
       </tags>
   </entry>
 </search>
