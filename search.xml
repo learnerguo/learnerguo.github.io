@@ -32,26 +32,6 @@
       </tags>
   </entry>
   <entry>
-    <title>Next8版本主题优化修改的文件</title>
-    <url>/2023/44b973fe011c/index.html</url>
-    <content><![CDATA[<p><a href="https://zhuanlan.zhihu.com/p/252983030">参考文章</a></p>
-<span id="more"></span>
-
-<p>首页每篇文章变成圆角，只需要在 <code>styles.styl</code> 中添加如下内容</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">// 添加首页每篇文章圆角独立 start ------------</span><br><span class="line">.post-block&#123;</span><br><span class="line">        background-color: rgba(255, 255, 255, 1);</span><br><span class="line">        //margin-top: 24px;</span><br><span class="line">        margin-bottom: 24px;</span><br><span class="line">        padding: 20px;</span><br><span class="line">        border-radius: 30px 50px 30px 50px;</span><br><span class="line">        box-shadow: 8px 7px 2px 0 rgba(0,0,0,0.12), 7px 4px 1px -2px rgba(0,0,0,0.06), 0 1px 5px 0 rgba(0,0,0,0.12);</span><br><span class="line">&#125;</span><br><span class="line">// 添加首页每篇文章圆角独立 end ------------</span><br></pre></td></tr></table></figure>
-<p><code>styles.styl</code> 在博客根目录下的，<code>source/_data</code> 下，若没有则需要自己创建并且在 <code>next</code> 主题的 <code>_config.yml</code> 中打开下面的注释</p>
-<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">custom_file_path:</span></span><br><span class="line">  <span class="comment">#head: source/_data/head.njk</span></span><br><span class="line">  <span class="comment">#header: source/_data/header.njk</span></span><br><span class="line">  <span class="attr">style:</span> <span class="string">source/_data/styles.styl</span></span><br></pre></td></tr></table></figure>
-]]></content>
-      <categories>
-        <category>tools</category>
-        <category>hexo</category>
-      </categories>
-      <tags>
-        <tag>tools</tag>
-        <tag>hexo</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>butterfly主题多级分类折叠与展开</title>
     <url>/2023/acbd53e5de56/index.html</url>
     <content><![CDATA[<ol>
@@ -65,6 +45,26 @@
 </ol>
 <figure class="highlight js"><table><tr><td class="code"><pre><span class="line">$(<span class="variable language_">document</span>).<span class="title function_">ready</span>(<span class="keyword">function</span>(<span class="params"></span>) &#123;</span><br><span class="line">	<span class="title function_">categoryUnfold</span>();</span><br><span class="line">	<span class="keyword">function</span> <span class="title function_">categoryUnfold</span>(<span class="params"></span>) &#123;</span><br><span class="line">		$(<span class="string">&quot;.category-list-link&quot;</span>).<span class="title function_">filter</span>(<span class="keyword">function</span>(<span class="params"></span>) &#123;</span><br><span class="line">			<span class="keyword">if</span>($(<span class="variable language_">this</span>).<span class="title function_">siblings</span>(<span class="string">&quot;.category-list-child&quot;</span>).<span class="property">length</span> &gt; <span class="number">0</span>)</span><br><span class="line">                <span class="comment">// 这里引入了向下展开的图标，可以直接从本站下载放入对应目录即可</span></span><br><span class="line">				$(<span class="variable language_">this</span>).<span class="title function_">parent</span>().<span class="title function_">css</span>(<span class="string">&quot;list-style-image&quot;</span>,<span class="string">&quot;url(&#x27;/cusconfig/img/category-unfold-16x16.png&#x27;&quot;</span>);</span><br><span class="line">		&#125;);</span><br><span class="line">		</span><br><span class="line">		<span class="comment">//点击含有子标签category-list-child的category-list-link标签时，不进行跳转</span></span><br><span class="line">		$(<span class="string">&quot;.category-list-link&quot;</span>).<span class="title function_">filter</span>(<span class="keyword">function</span>(<span class="params"></span>) &#123;</span><br><span class="line">			<span class="keyword">return</span> $(<span class="variable language_">this</span>).<span class="title function_">siblings</span>(<span class="string">&quot;.category-list-child&quot;</span>).<span class="property">length</span> &gt; <span class="number">0</span></span><br><span class="line">		&#125;).<span class="title function_">attr</span>(<span class="string">&quot;href&quot;</span>, <span class="string">&quot;javascript:void(0)&quot;</span>);</span><br><span class="line">		</span><br><span class="line">		<span class="comment">//含有子标签category-list-child的category-list-link标签将自动隐藏子标签</span></span><br><span class="line">		$(<span class="string">&quot;.category-list-link&quot;</span>).<span class="title function_">filter</span>(<span class="keyword">function</span>(<span class="params"></span>) &#123;</span><br><span class="line">			<span class="keyword">if</span>($(<span class="variable language_">this</span>).<span class="title function_">siblings</span>(<span class="string">&quot;.category-list-child&quot;</span>).<span class="property">length</span> &gt; <span class="number">0</span>)</span><br><span class="line">				$(<span class="variable language_">this</span>).<span class="title function_">siblings</span>(<span class="string">&quot;.category-list-child&quot;</span>).<span class="title function_">hide</span>();</span><br><span class="line">		&#125;);	</span><br><span class="line">		</span><br><span class="line">		<span class="comment">//点击含有子标签category-list-child的category-list-link标签时，将隐藏子标签展开</span></span><br><span class="line">		$(<span class="string">&quot;.category-list-link&quot;</span>).<span class="title function_">click</span>(<span class="keyword">function</span>(<span class="params"></span>) &#123;</span><br><span class="line">			$(<span class="variable language_">this</span>).<span class="title function_">siblings</span>(<span class="string">&quot;.category-list-child&quot;</span>).<span class="title function_">slideToggle</span>();</span><br><span class="line">		&#125;);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
 
+]]></content>
+      <categories>
+        <category>tools</category>
+        <category>hexo</category>
+      </categories>
+      <tags>
+        <tag>tools</tag>
+        <tag>hexo</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Next8版本主题优化修改的文件</title>
+    <url>/2023/44b973fe011c/index.html</url>
+    <content><![CDATA[<p><a href="https://zhuanlan.zhihu.com/p/252983030">参考文章</a></p>
+<span id="more"></span>
+
+<p>首页每篇文章变成圆角，只需要在 <code>styles.styl</code> 中添加如下内容</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">// 添加首页每篇文章圆角独立 start ------------</span><br><span class="line">.post-block&#123;</span><br><span class="line">        background-color: rgba(255, 255, 255, 1);</span><br><span class="line">        //margin-top: 24px;</span><br><span class="line">        margin-bottom: 24px;</span><br><span class="line">        padding: 20px;</span><br><span class="line">        border-radius: 30px 50px 30px 50px;</span><br><span class="line">        box-shadow: 8px 7px 2px 0 rgba(0,0,0,0.12), 7px 4px 1px -2px rgba(0,0,0,0.06), 0 1px 5px 0 rgba(0,0,0,0.12);</span><br><span class="line">&#125;</span><br><span class="line">// 添加首页每篇文章圆角独立 end ------------</span><br></pre></td></tr></table></figure>
+<p><code>styles.styl</code> 在博客根目录下的，<code>source/_data</code> 下，若没有则需要自己创建并且在 <code>next</code> 主题的 <code>_config.yml</code> 中打开下面的注释</p>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">custom_file_path:</span></span><br><span class="line">  <span class="comment">#head: source/_data/head.njk</span></span><br><span class="line">  <span class="comment">#header: source/_data/header.njk</span></span><br><span class="line">  <span class="attr">style:</span> <span class="string">source/_data/styles.styl</span></span><br></pre></td></tr></table></figure>
 ]]></content>
       <categories>
         <category>tools</category>
@@ -715,6 +715,75 @@
       </tags>
   </entry>
   <entry>
+    <title>jvm执行引擎</title>
+    <url>/2023/a18206d79e08/index.html</url>
+    <content><![CDATA[<span class="hide_first_mermaid">
+<div class="mermaid-wrap"><pre class="mermaid-src" hidden>
+  flowchart LR
+    A
+  </pre></div>
+</span>
+
+<h2 id="执行引擎的作用"><a href="#执行引擎的作用" class="headerlink" title="执行引擎的作用"></a>执行引擎的作用</h2><pre class="mermaid">flowchart TB
+    A["java源代码(.java文件)"]
+    B["class字节码文件"]
+    C["内存(放入jvm方法区)"]
+        subgraph D["执行引擎"]
+            subgraph D1["编译器"]
+                D11["Client Compiler"]
+                D12["Server Compiler"]
+            end
+        end
+    E["机器码"]
+
+    A--"javac编译器"-->B
+    B--"类加载器"-->C
+    C-->D
+    D--解释执行-->E
+    D--"编译执行(JIT)"-->E</pre>
+<h3 id="字节码"><a href="#字节码" class="headerlink" title="字节码"></a>字节码</h3><ol>
+<li><code>Java</code>程序可以通过编译器将源码编译成<code>Java</code>字节码，特定平台上的虚拟机将字节码转译为可以直接执行的机器码，也就实现了跨平台性</li>
+<li>字节码主要为了实现特定软件运行和软件环境，与硬件环境无关</li>
+</ol>
+<h2 id="即时编译器-JIT-的作用"><a href="#即时编译器-JIT-的作用" class="headerlink" title="即时编译器(JIT)的作用"></a>即时编译器(JIT)的作用</h2><ol>
+<li>即时编译器在最初的 <code>jvm</code> 中是没有的，没有的原因就是 <code>jvm</code> 设计的初衷是为了满足 <code>Java</code> 程序实现跨平台的特性，所以避免采用静态编译的方式直接生成机器码，所以采用了解释器在运行时逐行解释字节码执行程序</li>
+<li><code>JIT</code>编译器的作用就是虚拟机将字节码直接编译成机器码</li>
+<li><strong>无论是采用解释器进行解释执行，还是采用即时编译器进行编译执行，最终字节码都是需要被转换成对应平台的机器码</strong></li>
+</ol>
+<h2 id="为何HotSpot虚拟机要使用解释器与编译器并存的架构"><a href="#为何HotSpot虚拟机要使用解释器与编译器并存的架构" class="headerlink" title="为何HotSpot虚拟机要使用解释器与编译器并存的架构"></a>为何HotSpot虚拟机要使用解释器与编译器并存的架构</h2><p>因为解释器和编译器各有优势</p>
+<ol>
+<li>程序启动后，解释器可以立即发挥作用，省去编译的时间，立即执行。编译器想要发挥作用，将代码编译成机器码，需要一定的执行时间，但是编译为机器码之后，执行效率更高</li>
+<li>当程序的运行环境中内存资源较大(比如嵌入式系统)时，解释执行可以更节约内存</li>
+</ol>
+<h2 id="为何HotSpot虚拟机要实现两个不同的即时编译器"><a href="#为何HotSpot虚拟机要实现两个不同的即时编译器" class="headerlink" title="为何HotSpot虚拟机要实现两个不同的即时编译器"></a>为何HotSpot虚拟机要实现两个不同的即时编译器</h2><p><code>HotSpot</code> 虚拟机包含两个即时编译器</p>
+<ol>
+<li><code>Client Compile</code>， 也叫做 <code>c1</code> 编译器</li>
+<li><code>Server Compile</code>，也叫做 <code>c2</code> 编译器</li>
+</ol>
+<p><code>HotSpot</code> 虚拟机默认采用解释器和其中一个编译器配合的方式工作，程序使用哪个编译器，取决于虚拟机运行的模式</p>
+<p>通过 <code>-client</code> 参数可以指定 <code>jvm</code> 运行在 <code>Client</code> 模式下，并使用 <code>c1</code> 编译器，<code>c1</code> 编译器会对字节码进行简单和可靠的优化，耗时短，达到更快的编译速度</p>
+<p>通过 <code>-server</code> 参数可以指定 <code>jvm</code> 运行在 <code>Server</code> 模式下，并使用 <code>c2</code> 编译器，<code>c2</code> 会进行耗时较长的优化，以及激进优化，但优化的代码执行效率更高</p>
+<p>实施分层编译后，<code>Client Compiler</code>和<code>Server Compiler</code>将会同时工作，许多代码都可能会被多次编译，用<code>Client Compiler</code>获取更高的编译速度，用<code>Server Compiler</code>来获取更好的编译质量，在解释执行的时候也无须再承担收集性能监控信息的任务</p>
+<h2 id="程序何时使用解释器执行？何时使用编译器执行？"><a href="#程序何时使用解释器执行？何时使用编译器执行？" class="headerlink" title="程序何时使用解释器执行？何时使用编译器执行？"></a>程序何时使用解释器执行？何时使用编译器执行？</h2><p>在运行过程中会被即时编译器编译的 <strong>热点代码</strong>包含两类</p>
+<ol>
+<li>被<strong>多次</strong>调用的方法</li>
+<li>被<strong>多次</strong>执行的循环体</li>
+</ol>
+<h3 id="热点探测"><a href="#热点探测" class="headerlink" title="热点探测"></a>热点探测</h3><p>无论是基于多次调用的方法还是多次执行的循环体，都强调多次，具体多少次算多次呢？ 在 <code>HotSpot</code> 中是使用 <strong>基于计数器的热点探测</strong> 方式来判断执行的次数的，在 <code>HotSpot</code> 虚拟机中为每个方法准备了两类计数器，这两类计数器都有确定的阈值，当技术器超过阈值了，就会触发 <code>JIT</code> 编译</p>
+<ol>
+<li>方法调用计数器： 用来统计方法调用的次数，可以通过参数 <code>-XX:CompileThreshold</code> 来认为设置阈值</li>
+<li>回边计数器： 用来统计一个方法中循环体代码执行的次数，在字节码中遇到控制流向后跳转的指令称为 <strong>回边</strong></li>
+</ol>
+]]></content>
+      <categories>
+        <category>java</category>
+        <category>jvm</category>
+      </categories>
+      <tags>
+        <tag>jvm</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>jvm垃圾回收</title>
     <url>/2023/63d242ce6cb3/index.html</url>
     <content><![CDATA[<span class="hide_first_mermaid">
@@ -948,75 +1017,6 @@
       </categories>
       <tags>
         <tag>java</tag>
-        <tag>jvm</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>jvm执行引擎</title>
-    <url>/2023/a18206d79e08/index.html</url>
-    <content><![CDATA[<span class="hide_first_mermaid">
-<div class="mermaid-wrap"><pre class="mermaid-src" hidden>
-  flowchart LR
-    A
-  </pre></div>
-</span>
-
-<h2 id="执行引擎的作用"><a href="#执行引擎的作用" class="headerlink" title="执行引擎的作用"></a>执行引擎的作用</h2><pre class="mermaid">flowchart TB
-    A["java源代码(.java文件)"]
-    B["class字节码文件"]
-    C["内存(放入jvm方法区)"]
-        subgraph D["执行引擎"]
-            subgraph D1["编译器"]
-                D11["Client Compiler"]
-                D12["Server Compiler"]
-            end
-        end
-    E["机器码"]
-
-    A--"javac编译器"-->B
-    B--"类加载器"-->C
-    C-->D
-    D--解释执行-->E
-    D--"编译执行(JIT)"-->E</pre>
-<h3 id="字节码"><a href="#字节码" class="headerlink" title="字节码"></a>字节码</h3><ol>
-<li><code>Java</code>程序可以通过编译器将源码编译成<code>Java</code>字节码，特定平台上的虚拟机将字节码转译为可以直接执行的机器码，也就实现了跨平台性</li>
-<li>字节码主要为了实现特定软件运行和软件环境，与硬件环境无关</li>
-</ol>
-<h2 id="即时编译器-JIT-的作用"><a href="#即时编译器-JIT-的作用" class="headerlink" title="即时编译器(JIT)的作用"></a>即时编译器(JIT)的作用</h2><ol>
-<li>即时编译器在最初的 <code>jvm</code> 中是没有的，没有的原因就是 <code>jvm</code> 设计的初衷是为了满足 <code>Java</code> 程序实现跨平台的特性，所以避免采用静态编译的方式直接生成机器码，所以采用了解释器在运行时逐行解释字节码执行程序</li>
-<li><code>JIT</code>编译器的作用就是虚拟机将字节码直接编译成机器码</li>
-<li><strong>无论是采用解释器进行解释执行，还是采用即时编译器进行编译执行，最终字节码都是需要被转换成对应平台的机器码</strong></li>
-</ol>
-<h2 id="为何HotSpot虚拟机要使用解释器与编译器并存的架构"><a href="#为何HotSpot虚拟机要使用解释器与编译器并存的架构" class="headerlink" title="为何HotSpot虚拟机要使用解释器与编译器并存的架构"></a>为何HotSpot虚拟机要使用解释器与编译器并存的架构</h2><p>因为解释器和编译器各有优势</p>
-<ol>
-<li>程序启动后，解释器可以立即发挥作用，省去编译的时间，立即执行。编译器想要发挥作用，将代码编译成机器码，需要一定的执行时间，但是编译为机器码之后，执行效率更高</li>
-<li>当程序的运行环境中内存资源较大(比如嵌入式系统)时，解释执行可以更节约内存</li>
-</ol>
-<h2 id="为何HotSpot虚拟机要实现两个不同的即时编译器"><a href="#为何HotSpot虚拟机要实现两个不同的即时编译器" class="headerlink" title="为何HotSpot虚拟机要实现两个不同的即时编译器"></a>为何HotSpot虚拟机要实现两个不同的即时编译器</h2><p><code>HotSpot</code> 虚拟机包含两个即时编译器</p>
-<ol>
-<li><code>Client Compile</code>， 也叫做 <code>c1</code> 编译器</li>
-<li><code>Server Compile</code>，也叫做 <code>c2</code> 编译器</li>
-</ol>
-<p><code>HotSpot</code> 虚拟机默认采用解释器和其中一个编译器配合的方式工作，程序使用哪个编译器，取决于虚拟机运行的模式</p>
-<p>通过 <code>-client</code> 参数可以指定 <code>jvm</code> 运行在 <code>Client</code> 模式下，并使用 <code>c1</code> 编译器，<code>c1</code> 编译器会对字节码进行简单和可靠的优化，耗时短，达到更快的编译速度</p>
-<p>通过 <code>-server</code> 参数可以指定 <code>jvm</code> 运行在 <code>Server</code> 模式下，并使用 <code>c2</code> 编译器，<code>c2</code> 会进行耗时较长的优化，以及激进优化，但优化的代码执行效率更高</p>
-<p>实施分层编译后，<code>Client Compiler</code>和<code>Server Compiler</code>将会同时工作，许多代码都可能会被多次编译，用<code>Client Compiler</code>获取更高的编译速度，用<code>Server Compiler</code>来获取更好的编译质量，在解释执行的时候也无须再承担收集性能监控信息的任务</p>
-<h2 id="程序何时使用解释器执行？何时使用编译器执行？"><a href="#程序何时使用解释器执行？何时使用编译器执行？" class="headerlink" title="程序何时使用解释器执行？何时使用编译器执行？"></a>程序何时使用解释器执行？何时使用编译器执行？</h2><p>在运行过程中会被即时编译器编译的 <strong>热点代码</strong>包含两类</p>
-<ol>
-<li>被<strong>多次</strong>调用的方法</li>
-<li>被<strong>多次</strong>执行的循环体</li>
-</ol>
-<h3 id="热点探测"><a href="#热点探测" class="headerlink" title="热点探测"></a>热点探测</h3><p>无论是基于多次调用的方法还是多次执行的循环体，都强调多次，具体多少次算多次呢？ 在 <code>HotSpot</code> 中是使用 <strong>基于计数器的热点探测</strong> 方式来判断执行的次数的，在 <code>HotSpot</code> 虚拟机中为每个方法准备了两类计数器，这两类计数器都有确定的阈值，当技术器超过阈值了，就会触发 <code>JIT</code> 编译</p>
-<ol>
-<li>方法调用计数器： 用来统计方法调用的次数，可以通过参数 <code>-XX:CompileThreshold</code> 来认为设置阈值</li>
-<li>回边计数器： 用来统计一个方法中循环体代码执行的次数，在字节码中遇到控制流向后跳转的指令称为 <strong>回边</strong></li>
-</ol>
-]]></content>
-      <categories>
-        <category>java</category>
-        <category>jvm</category>
-      </categories>
-      <tags>
         <tag>jvm</tag>
       </tags>
   </entry>
@@ -1757,6 +1757,26 @@
       </tags>
   </entry>
   <entry>
+    <title>redis分布式锁</title>
+    <url>/2023/c21b41047d75/index.html</url>
+    <content><![CDATA[<h2 id="redis-分布式锁要做到的事情"><a href="#redis-分布式锁要做到的事情" class="headerlink" title="redis 分布式锁要做到的事情"></a>redis 分布式锁要做到的事情</h2><ol>
+<li>独占性： 任何时刻只能有一个线程持有</li>
+<li>高可用： 若在 <code>redis</code> 集群环境下，不能因为某一个节点挂了而出现获取锁和释放锁失败的情况</li>
+<li>防止死锁： 要有超时控制机制或者撤销操作</li>
+<li>正确性： 不能 <code>unlock</code> 别人的锁，自己的锁只能自己释放</li>
+<li>可重入</li>
+</ol>
+<h2 id="分布式锁的实现"><a href="#分布式锁的实现" class="headerlink" title="分布式锁的实现"></a>分布式锁的实现</h2><p>TODO</p>
+]]></content>
+      <categories>
+        <category>存储</category>
+        <category>Redis</category>
+      </categories>
+      <tags>
+        <tag>Redis</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>SpringBoot中使用Redis</title>
     <url>/2023/5ef02c37afab/index.html</url>
     <content><![CDATA[<p>版本说明：</p>
@@ -1778,26 +1798,6 @@
 <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">CusConfig</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="meta">@SuppressWarnings(&quot;all&quot;)</span></span><br><span class="line">    <span class="keyword">public</span> RedisTemplate&lt;String, Object&gt; <span class="title function_">redisTemplate</span><span class="params">(RedisConnectionFactory factory)</span> &#123;</span><br><span class="line">        RedisTemplate&lt;String, Object&gt; template = <span class="keyword">new</span> <span class="title class_">RedisTemplate</span>&lt;&gt;();</span><br><span class="line">        template.setConnectionFactory(factory);</span><br><span class="line">        <span class="type">Jackson2JsonRedisSerializer</span> <span class="variable">jackson2JsonRedisSerializer</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Jackson2JsonRedisSerializer</span>(Object.class);</span><br><span class="line">        <span class="type">ObjectMapper</span> <span class="variable">om</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">ObjectMapper</span>();</span><br><span class="line">        om.setVisibility(PropertyAccessor.ALL, JsonAutoDetect.Visibility.ANY);</span><br><span class="line">        om.activateDefaultTyping(LaissezFaireSubTypeValidator.instance , ObjectMapper.DefaultTyping.NON_FINAL);</span><br><span class="line">        om.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, <span class="literal">false</span>);</span><br><span class="line">        jackson2JsonRedisSerializer.setObjectMapper(om);</span><br><span class="line">        <span class="type">StringRedisSerializer</span> <span class="variable">stringRedisSerializer</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">StringRedisSerializer</span>();</span><br><span class="line">        <span class="comment">// key采用String的序列化方式</span></span><br><span class="line">        template.setKeySerializer(stringRedisSerializer);</span><br><span class="line">        <span class="comment">// hash的key也采用String的序列化方式</span></span><br><span class="line">        template.setHashKeySerializer(stringRedisSerializer);</span><br><span class="line">        <span class="comment">// value序列化方式采用jackson</span></span><br><span class="line">        template.setValueSerializer(jackson2JsonRedisSerializer);</span><br><span class="line">        <span class="comment">// hash的value序列化方式采用jackson</span></span><br><span class="line">        template.setHashValueSerializer(jackson2JsonRedisSerializer);</span><br><span class="line">        template.afterPropertiesSet();</span><br><span class="line">        <span class="keyword">return</span> template;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>执行测试代码后再次查看结果</p>
 <figure class="highlight swift"><table><tr><td class="code"><pre><span class="line">[db3] <span class="operator">&gt;</span> <span class="keyword">get</span> key1</span><br><span class="line"><span class="string">&quot;<span class="subst">\&quot;</span>value1<span class="subst">\&quot;</span>&quot;</span></span><br></pre></td></tr></table></figure>]]></content>
-      <categories>
-        <category>存储</category>
-        <category>Redis</category>
-      </categories>
-      <tags>
-        <tag>Redis</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>redis分布式锁</title>
-    <url>/2023/c21b41047d75/index.html</url>
-    <content><![CDATA[<h2 id="redis-分布式锁要做到的事情"><a href="#redis-分布式锁要做到的事情" class="headerlink" title="redis 分布式锁要做到的事情"></a>redis 分布式锁要做到的事情</h2><ol>
-<li>独占性： 任何时刻只能有一个线程持有</li>
-<li>高可用： 若在 <code>redis</code> 集群环境下，不能因为某一个节点挂了而出现获取锁和释放锁失败的情况</li>
-<li>防止死锁： 要有超时控制机制或者撤销操作</li>
-<li>正确性： 不能 <code>unlock</code> 别人的锁，自己的锁只能自己释放</li>
-<li>可重入</li>
-</ol>
-<h2 id="分布式锁的实现"><a href="#分布式锁的实现" class="headerlink" title="分布式锁的实现"></a>分布式锁的实现</h2><p>TODO</p>
-]]></content>
       <categories>
         <category>存储</category>
         <category>Redis</category>
@@ -1903,8 +1903,14 @@
   <entry>
     <title>redis线程模型</title>
     <url>/2023/e4db3f95ceb5/index.html</url>
-    <content><![CDATA[<p>总结：<code>redis</code> 整体是多线程的，至于平时所说的 <code>redis</code> 单线程是指 <strong>redis的网络io 和 键值对读写</strong> 是在同一个线程中完成</p>
-<span id="more"></span>
+    <content><![CDATA[<span class="hide_first_mermaid">
+<div class="mermaid-wrap"><pre class="mermaid-src" hidden>
+  flowchart LR
+    A
+  </pre></div>
+</span>
+
+<p>总结：<code>redis</code> 整体是多线程的，至于平时所说的 <code>redis</code> 单线程是指 <strong>redis的网络io 和 键值对读写</strong> 是在同一个线程中完成</p>
 <h2 id="一次-redis-请求过程"><a href="#一次-redis-请求过程" class="headerlink" title="一次 redis 请求过程"></a>一次 redis 请求过程</h2><ol>
 <li>监听客户端请求（<code>bind/listen</code>）</li>
 <li>等待客户端的连接（<code>accept</code>）</li>
@@ -1943,8 +1949,9 @@
 <li>细粒度的权限控制</li>
 </ol>
 <p>本节主要讲解 <code>redis6</code> 中的多线程模型，在 <code>redis6</code> 之前，<strong>从网络io处理到键值对读写都是在同一个线程中完成的</strong>， 随着网络硬件的性能提升，<code>redis</code> 的性能瓶颈有时会出现在网络<code>io</code>的处理上，即 <strong>单个主线程处理网络请求的速度跟不上底层网络硬件的速度</strong>，所以在 <code>redis6</code> 中使用多个网络<code>io</code>线程来处理网络请求，提高网络请求处理并行的能力, 需要注意的是 <strong>redis6的多线程模型只是针对网络io部分，redis的数据读写依然是在一个线程中完成的</strong></p>
-<h3 id="redis6中主线程和io线程协作流程"><a href="#redis6中主线程和io线程协作流程" class="headerlink" title="redis6中主线程和io线程协作流程"></a>redis6中主线程和io线程协作流程</h3><pre class="mermaid">graph LR
+<h3 id="redis6中主线程和io线程协作流程"><a href="#redis6中主线程和io线程协作流程" class="headerlink" title="redis6中主线程和io线程协作流程"></a>redis6中主线程和io线程协作流程</h3><pre class="mermaid">graph TB
     subgraph A["redis主线程(接收请求)"]
+        direction TB
         style A fill:#f9f
         A1["接收建立连接请求，获取socket"]
         A2["将socket放入全局等待队列"]
@@ -1952,12 +1959,14 @@
         A1-->A2-->A3
     end
     subgraph B["redis网络IO线程(解析请求)"]
+        direction TB
         B1["将socket和线程绑定"]
         B2["读取socket中的请求并解析"]
         B3["请求解析完成"]
         B1-->B2-->B3
     end
     subgraph BB["redis网络IO线程(解析请求)"]
+        direction TB
         BB1["将socket和线程绑定"]
         BB2["读取socket中的请求并解析"]
         BB3["请求解析完成"]
@@ -1965,6 +1974,7 @@
     end
     A--"io线程开始执行"-->B & BB
     subgraph C["redis主线程(命令读写)"]
+        direction TB
         style C fill:#f9f
         C1["执行请求的命令操作"]
         C2["请求的命令操作执行完成"]
@@ -1975,11 +1985,13 @@
     B-->C
     BB-->C
     subgraph D["redis网络IO线程(结果响应)"]
+        direction TB
         D1["将结果数据回写socket(这一步是并行处理)"]
         D2["socket回写完成"]
         D1-->D2
     end
     subgraph DD["redis网络IO线程(结果响应)"]
+        direction TB
         DD1["将结果数据回写socket(这一步是并行处理)"]
         DD2["socket回写完成"]
         DD1-->DD2
