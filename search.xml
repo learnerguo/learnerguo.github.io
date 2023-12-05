@@ -299,6 +299,26 @@
       </tags>
   </entry>
   <entry>
+    <title>比较</title>
+    <url>/2023/2084759b2332/index.html</url>
+    <content><![CDATA[<blockquote>
+<p>人感到不幸福大多来源于比较，感到满足也源于比较</p>
+</blockquote>
+<span id="more"></span>
+<p>在微信读书看到一位书友写到，作为农村出来的孩子，应该如何改变自己的命运，因为周围的一切在告诉我们，就算你努力了二十几年，才勉强达到了别人的起跑线，但是我们的出身是自己无法决定的，那我们应该如何更进一步呢？</p>
+<p>看到另外一位书友的回答很有感触，且记录在此，和有缘人共勉</p>
+<blockquote>
+<p>回头看，轻舟已过万重山<br>向前看，长路漫漫亦灿灿<br>平常看，人间烟火甚灿烂<br>低头看，万里黄山皆脚下  </p>
+</blockquote>
+]]></content>
+      <categories>
+        <category>record</category>
+      </categories>
+      <tags>
+        <tag>record</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>hexo的butterfly主题更换waline系统cdn地址</title>
     <url>/2023/0fd7aa9951f7/index.html</url>
     <content><![CDATA[<ol>
@@ -317,26 +337,6 @@
       </categories>
       <tags>
         <tag>hexo</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>比较</title>
-    <url>/2023/2084759b2332/index.html</url>
-    <content><![CDATA[<blockquote>
-<p>人感到不幸福大多来源于比较，感到满足也源于比较</p>
-</blockquote>
-<span id="more"></span>
-<p>在微信读书看到一位书友写到，作为农村出来的孩子，应该如何改变自己的命运，因为周围的一切在告诉我们，就算你努力了二十几年，才勉强达到了别人的起跑线，但是我们的出身是自己无法决定的，那我们应该如何更进一步呢？</p>
-<p>看到另外一位书友的回答很有感触，且记录在此，和有缘人共勉</p>
-<blockquote>
-<p>回头看，轻舟已过万重山<br>向前看，长路漫漫亦灿灿<br>平常看，人间烟火甚灿烂<br>低头看，万里黄山皆脚下  </p>
-</blockquote>
-]]></content>
-      <categories>
-        <category>record</category>
-      </categories>
-      <tags>
-        <tag>record</tag>
       </tags>
   </entry>
   <entry>
@@ -543,6 +543,32 @@
 
 
 ]]></content>
+      <categories>
+        <category>java</category>
+        <category>java基础</category>
+      </categories>
+      <tags>
+        <tag>java</tag>
+        <tag>java基础</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>java输出运行过程中的代理类</title>
+    <url>/2023/d513f5c497bd/index.html</url>
+    <content><![CDATA[<h2 id="输出-jdk-动态代理类到文件"><a href="#输出-jdk-动态代理类到文件" class="headerlink" title="输出 jdk 动态代理类到文件"></a>输出 jdk 动态代理类到文件</h2><p>在测试代码的第一行增加下面这段代码</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">System.getProperties().put(<span class="string">&quot;jdk.proxy.ProxyGenerator.saveGeneratedFiles&quot;</span>, <span class="string">&quot;true&quot;</span>);</span><br></pre></td></tr></table></figure>
+<p>不同 <code>jdk</code> 版本的使用 <code>key</code> 可能不同，具体的 <code>key</code> 是什么可以查看 <code>ProxyGenerator</code> 类的 <code>saveGeneratedFiles</code> 属性， 比如 <code>jdk17</code> 版本 <code>ProxyGenerator</code> 类的内容如下：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">final</span> <span class="keyword">class</span> <span class="title class_">ProxyGenerator</span> <span class="keyword">extends</span> <span class="title class_">ClassWriter</span> &#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">boolean</span> <span class="variable">saveGeneratedFiles</span> <span class="operator">=</span></span><br><span class="line">            java.security.AccessController.doPrivileged(</span><br><span class="line">                    <span class="keyword">new</span> <span class="title class_">GetBooleanAction</span>(</span><br><span class="line">                            <span class="string">&quot;jdk.proxy.ProxyGenerator.saveGeneratedFiles&quot;</span>));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>执行完代码后在项目的根目录会输出动态代理类</p>
+<p><a href="https://arthas.aliyun.com/doc/">arthas官方文档</a></p>
+<h2 id="使用-arthas-输出-javaassist-生成的代理类"><a href="#使用-arthas-输出-javaassist-生成的代理类" class="headerlink" title="使用 arthas 输出 javaassist 生成的代理类"></a>使用 arthas 输出 javaassist 生成的代理类</h2><ol>
+<li>先打端点，确定代理类的名称，比如有一个代理类名称是 <code>Hello$Adaptive</code></li>
+<li>打开 <code>arthas</code> 选择对应的进程进入后，使用下面命令输出代理类</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 下面命令找到对应代理类的全路径， 比如输出结果是 com.example.dubbodemo.spi.Hello$Adaptive</span></span><br><span class="line">sc *Hello$Adaptive*</span><br><span class="line"><span class="comment">// 根据上面找到的代理类的全路径，解析出源代码兵输出到特定的文件</span></span><br><span class="line">jad com.example.dubbodemo.spi.Hello$Adaptive &gt; D:\\Hello$Adaptive.java</span><br></pre></td></tr></table></figure>
+
+<h2 id="输出-cglib-代理类到文件"><a href="#输出-cglib-代理类到文件" class="headerlink" title="输出 cglib 代理类到文件"></a>输出 cglib 代理类到文件</h2><p>在测试方法的第一行加上如下代码, 第二个参数就是指定输出的文件夹</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">System.setProperty(DebuggingClassWriter.DEBUG_LOCATION_PROPERTY, <span class="string">&quot;D:\\temp\\cglib&quot;</span>);</span><br></pre></td></tr></table></figure>]]></content>
       <categories>
         <category>java</category>
         <category>java基础</category>
@@ -1629,6 +1655,67 @@
       </tags>
   </entry>
   <entry>
+    <title>ThreadLocal的使用和原理</title>
+    <url>/2023/15c7fbcaf228/index.html</url>
+    <content><![CDATA[<span class="hide_first_mermaid">
+<div class="mermaid-wrap"><pre class="mermaid-src" hidden>
+  flowchart LR
+    A
+  </pre></div>
+</span>
+
+<h2 id="ThreadLocal的使用场景"><a href="#ThreadLocal的使用场景" class="headerlink" title="ThreadLocal的使用场景"></a>ThreadLocal的使用场景</h2><ul>
+<li>解决线程安全问题，因为 <code>ThreadLocal</code> 内部维护了一个 <code>ThreadLocalMap</code>，每个线程都可以将自己的变量存储到 <code>ThreadLocalMap</code> 中，从而实现了线程间的变量共享。</li>
+<li>解决资源共享问题</li>
+<li>解决线程间数据传递问题</li>
+</ul>
+<h2 id="2-ThreadLocal的使用"><a href="#2-ThreadLocal的使用" class="headerlink" title="2. ThreadLocal的使用"></a>2. ThreadLocal的使用</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">ThreadLocalDemo</span> &#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> ThreadLocal&lt;Integer&gt; threadLocal = <span class="keyword">new</span> <span class="title class_">ThreadLocal</span>&lt;&gt;();</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="keyword">new</span> <span class="title class_">Thread</span>(() -&gt; &#123;</span><br><span class="line">            threadLocal.set(<span class="number">100</span>);</span><br><span class="line">            System.out.println(threadLocal.get());</span><br><span class="line">        &#125;).start();</span><br><span class="line"></span><br><span class="line">        <span class="keyword">new</span> <span class="title class_">Thread</span>(() -&gt; &#123;</span><br><span class="line">            threadLocal.set(<span class="number">200</span>);</span><br><span class="line">            System.out.println(threadLocal.get());</span><br><span class="line">        &#125;).start();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>上述代码中定义的 <code>threadLocal</code> 是一个静态变量，并且两个线程都使用了，但是不同线程中使用的 <code>threadLocal</code> 进行 <code>set</code> 和 <code>get</code> 的都是对应线程的值，其他线程操作 <code>threadLocal</code> 不会影响到当前线程的值。</p>
+<h2 id="ThreadLocal-相关对象的关联关系"><a href="#ThreadLocal-相关对象的关联关系" class="headerlink" title="ThreadLocal 相关对象的关联关系"></a>ThreadLocal 相关对象的关联关系</h2><pre class="mermaid">graph LR
+    subgraph A[" Thread 对象"]
+        subgraph B1["ThreadLocalMap 成员变量"]
+            subgraph C["Entry 对象"]
+                C1["key 引用"]
+                C2["value 引用"]
+            end
+        end
+    end
+    B["ThreadLocal 对象"]
+    C1-. "虚引用" .->B
+    C2--"强引用"-->D
+    D["value 值"]</pre>
+
+<p>根据上述对象关联图我们再来看看 <code>ThreadLocal</code> 源码</p>
+<h2 id="ThreadLocal-源码"><a href="#ThreadLocal-源码" class="headerlink" title="ThreadLocal 源码"></a>ThreadLocal 源码</h2><p>从上面 ThreadLocal 的使用示例中可以看到，涉及的几个重要的方法如下</p>
+<ol>
+<li>new ThreadLocal()</li>
+<li>ThreadLocal.set()</li>
+<li>ThreadLocal.get()</li>
+<li>ThreadLocal.remove()</li>
+</ol>
+<p>先看创建 set 方法</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">ThreadLocal</span>&lt;T&gt; &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">set</span><span class="params">(T value)</span> &#123;</span><br><span class="line">        <span class="type">Thread</span> <span class="variable">t</span> <span class="operator">=</span> Thread.currentThread();</span><br><span class="line">        <span class="type">ThreadLocalMap</span> <span class="variable">map</span> <span class="operator">=</span> getMap(t);</span><br><span class="line">        <span class="keyword">if</span> (map != <span class="literal">null</span>) &#123;</span><br><span class="line">            map.set(<span class="built_in">this</span>, value);</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="comment">// 第一次使用是走这个分支，创建 ThreadLocalMap 对象</span></span><br><span class="line">            createMap(t, value);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//  第一个参数就是 Thread 对象，这里是将 创建的 ThreadLocalMap 对象赋值给 Thread 对象中的 threadLocals 属性</span></span><br><span class="line">    <span class="keyword">void</span> <span class="title function_">createMap</span><span class="params">(Thread t, T firstValue)</span> &#123;</span><br><span class="line">        t.threadLocals = <span class="keyword">new</span> <span class="title class_">ThreadLocalMap</span>(<span class="built_in">this</span>, firstValue);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>接下来再看看创建 ThreadLocalMap 方法, 从上面对象关联图可知，ThreadLocalMap 类是 ThreadLocal 的一个内部类，Entry 又是一个 ThreadLocalMap 的一个内部类</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">ThreadLocal</span>&lt;T&gt; &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">class</span> <span class="title class_">ThreadLocalMap</span> &#123;</span><br><span class="line">        <span class="keyword">private</span> Entry[] table;</span><br><span class="line"></span><br><span class="line">        <span class="comment">/*</span></span><br><span class="line"><span class="comment">         Entry 有两个属性，一个用来存储 key, 一个用来存储 value,这个key就是 ThreadLocal 对象，</span></span><br><span class="line"><span class="comment">         value 就是 ThreadLocal 对象中存储的值, 从下面看 Entry 中只有一个 value 属性，</span></span><br><span class="line"><span class="comment">         是因为 Entry 继承了 WeakReference， 所以在父类中最终还有一个 private T referent;  属性，key 就是存在这个属性中</span></span><br><span class="line"><span class="comment">        */</span></span><br><span class="line">        <span class="keyword">static</span> <span class="keyword">class</span> <span class="title class_">Entry</span> <span class="keyword">extends</span> <span class="title class_">WeakReference</span>&lt;ThreadLocal&lt;?&gt;&gt; &#123;</span><br><span class="line">            Object value;</span><br><span class="line"></span><br><span class="line">            Entry(ThreadLocal&lt;?&gt; k, Object v) &#123;</span><br><span class="line">                <span class="built_in">super</span>(k);</span><br><span class="line">                value = v;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        <span class="comment">/* 创建 ThreadLocalMap 相关的逻辑， 其实就是将 key 和 value 组合起来变成一个 Entry 对象,</span></span><br><span class="line"><span class="comment">         然后将这个 Entry 对象放到一个 ThreadLocalMap 的数组中</span></span><br><span class="line"><span class="comment">        */</span></span><br><span class="line">        ThreadLocalMap(ThreadLocal&lt;?&gt; firstKey, Object firstValue) &#123;</span><br><span class="line">            table = <span class="keyword">new</span> <span class="title class_">Entry</span>[INITIAL_CAPACITY];</span><br><span class="line">            <span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> firstKey.threadLocalHashCode &amp; (INITIAL_CAPACITY - <span class="number">1</span>);</span><br><span class="line">            table[i] = <span class="keyword">new</span> <span class="title class_">Entry</span>(firstKey, firstValue);</span><br><span class="line">            size = <span class="number">1</span>;</span><br><span class="line">            setThreshold(INITIAL_CAPACITY);</span><br><span class="line">        &#125;</span><br><span class="line">    </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="ThreadLocal-的内存泄露问题"><a href="#ThreadLocal-的内存泄露问题" class="headerlink" title="ThreadLocal 的内存泄露问题"></a>ThreadLocal 的内存泄露问题</h2><p>执行完下面的代码之后有堆中的 ThreadLocal 有几个引用呢？</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">private</span> ThreadLocal&lt;Integer&gt; tl = <span class="keyword">new</span> <span class="title class_">ThreadLocal</span>&lt;&gt;();</span><br><span class="line">tl.set(<span class="number">1</span>);</span><br></pre></td></tr></table></figure>
+<p>表面看只有栈中的 <code>tl</code>变量指向了 <code>ThreadLocal</code> 实例，其实不是的，从上面对象关联图中我们知道，<code>Entry</code> 对象的 <code>key</code> 就是一个 <code>ThreadLocal</code> 实例的引用，所以即使栈中的引用断开了，但是 <code>Entry</code> 中的引用还在，这也是为什么 <code>Entry</code> 中的 <code>key</code> 要使用弱引用的原因。</p>
+<p>即使 <code>Entry</code> 中的 <code>key</code> 使用了弱引用，可以让 <code>Key</code> 被回收，但是 <code>Entry</code> 中的 <code>value</code> 是一个强引用，依然不会被回收，这个应该如何解决呢？</p>
+<p>在 <code>ThreadLocal</code> 中提供了 <code>remove()</code> 方法，所以需要我们在使用完 <code>ThreadLocal</code> 之后调用 <code>remove()</code> 方法</p>
+<h2 id="线程池使用-ThreadLocal-的坑"><a href="#线程池使用-ThreadLocal-的坑" class="headerlink" title="线程池使用 ThreadLocal 的坑"></a>线程池使用 ThreadLocal 的坑</h2><p>如果在线程中使用了 <code>ThreadLocal</code> 那么一定要在使用完之后（也就是在此次处理不再需要从 <code>ThreadLocal</code> 中调用 <code>get()</code> 方法获取值了）调用 <code>remove()</code> 方法， 因为线程池中线程是复用的，如果没有调用 <code>remove()</code> 方法当下次复用到之前的线程时从 <code>ThreadLocal</code> 中获取的就可能是之前设置的值</p>
+]]></content>
+      <categories>
+        <category>java</category>
+        <category>多线程</category>
+      </categories>
+      <tags>
+        <tag>java</tag>
+        <tag>多线程</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>synchronized的作用和实现原理</title>
     <url>/2023/138a9fb1d57d/index.html</url>
     <content><![CDATA[<p>参考 《Java并发编程深度解析与实战》</p>
@@ -1734,10 +1821,10 @@
 <p>上述优化都是为了提升 <code>cpu</code> 利用率，但是这些优化也会导致可见性问题</p>
 <h2 id="cpu-缓存"><a href="#cpu-缓存" class="headerlink" title="cpu 缓存"></a>cpu 缓存</h2><h3 id="cpu-缓存伪共享问题"><a href="#cpu-缓存伪共享问题" class="headerlink" title="cpu 缓存伪共享问题"></a>cpu 缓存伪共享问题</h3><ol>
 <li><code>cpu</code> 的缓存是以缓存行为单位进行缓存的，在 32 位和 64 位架构中 <code>cpu</code> 缓存行的大小都是 64 字节</li>
-<li>假设有两个 字段 <code>int x = 0, int y =0</code> 现在有两个线程分别修改 <code>x</code> 和 修改 <code>y</code>，假设这两个线程是在不同的 <code>cpu</code> 执行，那么每个 <code>cpu</code> 都会加载对应的变量到自己的 <code>cpu</code> 缓存中，但是 <code>x</code> 和 <code>y</code> 加起来才 8 个字节，所以这两个变量一点是在同一个缓存行中， 当线程1（修改x的线程）修改了x 后，因为缓存一致性原理，导致第二个 <code>cpu</code> 中的x 需要失效，间接导致 第二个 <code>cpu</code> 中的 <code>y</code> 的缓存也失效了，这就是缓存伪共享问题</li>
+<li>假设有两个 字段 <code>int x = 0, int y =0</code> 现在有两个线程分别修改 <code>x</code> 和 修改 <code>y</code>，假设这两个线程是在不同的 <code>cpu</code> 执行，那么每个 <code>cpu</code> 都会加载对应的变量到自己的 <code>cpu</code> 缓存中，但是 <code>x</code> 和 <code>y</code> 加起来才 8 个字节，所以这两个变量一定是在同一个缓存行中， 当线程1（修改 <code>x</code> 的线程）修改了<code>x</code> 后，因为缓存一致性原理，导致第二个 <code>cpu</code> 中的 <code>x</code> 需要失效，间接导致 第二个 <code>cpu</code> 中的 <code>y</code> 的缓存也失效了，这就是缓存伪共享问题</li>
 <li>在 <code>java</code> 中可以对字段或类添加 <code>@Contented</code> 注解让每个字段独自占用一个缓存行</li>
 </ol>
-<h3 id="cpu-高速缓存"><a href="#cpu-高速缓存" class="headerlink" title="cpu 高速缓存"></a>cpu 高速缓存</h3><p>TODO 配图</p>
+<h3 id="cpu-高速缓存"><a href="#cpu-高速缓存" class="headerlink" title="cpu 高速缓存"></a>cpu 高速缓存</h3><p>现代 <code>cpu</code> 一般都有三级缓存</p>
 <ol>
 <li>1，2 级缓存是在 <code>cpu</code> 内部</li>
 <li>三级缓存是所有 <code>cpu</code> 共享</li>
@@ -1748,13 +1835,16 @@
 <li>为了解决缓存一致性问题 在 <code>cpu</code> 层面引入了 <strong>总线锁</strong> 和 <strong>缓存锁机制</strong></li>
 </ol>
 <blockquote>
-<p>为了解决缓存一致性问题，开发者在CPU层面引入了总线锁和缓存锁机制。</p>
-<p>在了解锁之前，我们先介绍一下总线。所谓的总线，就是CPU与内存、输入&#x2F;输出设备传专递信息的公共通道（也叫前端总线），当CPU访问内存进行数据交互时，必须经过总线来传输，那么什么是总线锁呢？</p>
-<p>简单来说，总线锁就是在总线上声明一个L0ck#信号，这个信号能够确保共享内存只有当前CPU可以访问，其他的处理器请求会被阻塞，这就使得同一时刻只有一个处理能够访问共享内存，从而解决了缓存不一致的问题。但是这种做法产生的代价是，CPU的利用率直线下降，很显然这是无法让人接受的，于是从P6系列的处理器开始增加了缓存锁的机制。</p>
-<p>缓存锁指的是，如果当前CPU访问的数据已经缓存在其他CPU的高速缓存中，那么CPU不会在总线上声Lock#信号，而是采用<strong>缓存一致性协议</strong>来保证多个CPU的缓存一致性。</p>
-<p>CPU最终用哪种锁来解决缓存一致性问题，取决于当前CPU是否支持缓存锁，如果不支持，就会采用总线锁。还有一种情况是，当前操作的数据不能被缓存在处理器内部，或者操作的数据跨多个缀存行时，也会使用总线锁。</p>
+<p>为了解决缓存一致性问题，开发者在 CPU 层面引入了总线锁和缓存锁机制。</p>
+<p>在了解锁之前，我们先介绍一下总线。所谓的总线，就是 CPU 与内存、输入&#x2F;输出设备传专递信息的公共通道（也叫前端总线），当CPU访问内存进行数据交互时，必须经过总线来传输，那么什么是总线锁呢？</p>
+<p>简单来说，总线锁就是在总线上声明一个 L0ck# 信号，这个信号能够确保共享内存只有当前 CPU 可以访问，其他的处理器请求会被阻塞，这就使得同一时刻只有一个处理能够访问共享内存，从而解决了缓存不一致的问题。但是这种做法产生的代价是，CPU 的利用率直线下降，很显然这是无法让人接受的，于是从 P6 系列的处理器开始增加了缓存锁的机制。</p>
+<p>缓存锁指的是，如果当前 CPU 访问的数据已经缓存在其他 CPU 的高速缓存中，那么 CPU 不会在总线上发出 Lock# 信号，而是采用<strong>缓存一致性协议</strong>来保证多个 CPU 的缓存一致性。</p>
+<p>CPU 最终用哪种锁来解决缓存一致性问题，取决于当前 CPU 是否支持缓存锁，如果不支持，就会采用总线锁。还有一种情况是，当前操作的数据不能被缓存在处理器内部，或者操作的数据跨多个缓存行时，也会使用总线锁。</p>
 </blockquote>
-<h3 id="缓存一致性协议"><a href="#缓存一致性协议" class="headerlink" title="缓存一致性协议"></a>缓存一致性协议</h3><p>1.缓存锁通过缓存一致性协议来保证缓存的一致性，那么什么是缓存一致性协议呢<br>2.缓存锁通过缓存一致性协议来保证缓存的一致性，不同的 <code>CPU</code> 类型支持的缓存一致性协议也有区别，比如<code>MSI、MESI、MOSI、MESIF</code>协议等，比较常见的是MESI（<code>Modified Exclusive Shared Or Invalid</code>）协议</p>
+<h3 id="缓存一致性协议"><a href="#缓存一致性协议" class="headerlink" title="缓存一致性协议"></a>缓存一致性协议</h3><ol>
+<li>缓存锁通过缓存一致性协议来保证缓存的一致性，那么什么是缓存一致性协议呢</li>
+<li>不同的 <code>CPU</code> 类型支持的缓存一致性协议也有区别，比如<code>MSI、MESI、MOSI、MESIF</code>协议等，比较常见的是MESI（<code>Modified Exclusive Shared Or Invalid</code>）协议</li>
+</ol>
 <h4 id="MESI-缓存一致性协议定义的-cpu-缓存行的四种状态"><a href="#MESI-缓存一致性协议定义的-cpu-缓存行的四种状态" class="headerlink" title="MESI 缓存一致性协议定义的 cpu 缓存行的四种状态"></a>MESI 缓存一致性协议定义的 cpu 缓存行的四种状态</h4><ol>
 <li><code>M (Modified)</code>: 只有当前 <code>cpu</code> 含有数据的缓存，并且缓存数据已经被修改了，和主内存数据不一致 </li>
 <li><code>E (Exclusive)</code>: 只有当前 <code>cpu</code> 含有数据的缓存, 缓存还没有被修改，和主内存数据一致</li>
@@ -1763,7 +1853,7 @@
 </ol>
 <h4 id="MESI-协议针对缓存行的事件监听"><a href="#MESI-协议针对缓存行的事件监听" class="headerlink" title="MESI 协议针对缓存行的事件监听"></a>MESI 协议针对缓存行的事件监听</h4><p>随着 <code>cpu</code> 对缓存行的操作，缓存行会发生状态转移，也就是从一种状态到另外一种状态，所以 <code>MESI</code> 协议对缓存行的不同状态有不同的事件监听</p>
 <ol>
-<li><code>M</code> 状态的监听： 如果一个缓存行处于M状态，则必须监听所有试图读取该缓存行对应的主内存地址的操作，如果监听到有这类操作的发生，则必须在该操作执行之前把缓存行中的数据写回主内存</li>
+<li><code>M</code> 状态的监听： 如果一个缓存行处于 <code>M</code> 状态，则必须监听所有试图读取该缓存行对应的主内存地址的操作，如果监听到有这类操作的发生，则必须在该操作执行之前把缓存行中的数据写回主内存</li>
 <li><code>S</code> 状态的监听： 如果一个缓存行处于 <code>S</code> 状态，那么它必须要监听使该缓存行状态设置为 <code>Invalid</code> 或者对缓存行执行 <code>Exclusive</code> 操作的请求，如果存在，则必须要把当前缓存行状态设置为 <code>Invalid</code></li>
 <li><code>E</code> 状态的监听： 如果一个缓存行处于 <code>E</code> 状态，那么它必须要监听其他试图读取该缓存行对应的主内存地址的操作，一旦有这种操作，那么该缓存行需要设置为 <code>Shared</code></li>
 </ol>
@@ -1777,7 +1867,7 @@
 <li>总线锁和缓存锁通过 <code>Lock#</code> 信号触发，如果当前<code>CPU</code>支持缓存锁，则不会在总线上声明<code>Lock#</code>信号，而是基于缓存一致性协议来保证缓存的一致性。如果<code>CPU</code>不支持缓存锁，则会在总线上声明<code>Lock#</code>信号锁定总线，从而保证同一时刻只允许一个<code>CPU</code>对共享内存的读写操作</li>
 </ol>
 <h2 id="内存屏障-解决cpu层面的指令重排"><a href="#内存屏障-解决cpu层面的指令重排" class="headerlink" title="内存屏障-解决cpu层面的指令重排"></a>内存屏障-解决cpu层面的指令重排</h2><blockquote>
-<p>CPU本身只是一个工具，它主要用于接收和执行指令，并不清楚什么时候应该优化，什么时候不应该优化，因此CPU设计者们提供了一个内存屏障指令，开发者可以在合适的位置插入内存屏障指令，相当于告诉CPU指令之间的关系，避免CPU内存系统重排序问题的发生。</p>
+<p>CPU 本身只是一个工具，它主要用于接收和执行指令，并不清楚什么时候应该优化，什么时候不应该优化，因此 CPU 设计者们提供了一个内存屏障指令，开发者可以在合适的位置插入内存屏障指令，相当于告诉 CPU指令之间的关系，避免 CPU 内存系统重排序问题的发生。</p>
 </blockquote>
 <h3 id="什么是指令重排"><a href="#什么是指令重排" class="headerlink" title="什么是指令重排"></a>什么是指令重排</h3><p>指令重排序是指编译器或<code>CPU</code>为了优化程序的执行性能而对指令进行重新排序的一种手段，重排序会带来可见性问题，所以在多线程开发中必须要关注并规避重排序，<code>java</code> 从源代码到运行会经过两个阶段的重排</p>
 <ol>
@@ -1786,9 +1876,61 @@
 <li>并行指令集重排序，这是处理器优化的一种，处理器可以改变指令的执行顺序</li>
 <li>内存系统重排序，这是处理器引入<code>Store Buffer</code>缓冲区延时写入产生的指令执行顺序不一致的问题</li>
 </ol>
-<h3 id="as-if-serial语义"><a href="#as-if-serial语义" class="headerlink" title="as-if-serial语义"></a>as-if-serial语义</h3><p><code>as-if-serial</code> 表示所有的程序指令都可以因为优化而被重排序，但是在优化的过程中必须要保证是在单线程环境下，重排序之后的运行结果和程序代码本身预期的执行结果一致，Java编译器、CPU指令重排序都需要保证在单线程环境下的as-if-serial语义是正确的</p>
-<p><code>as-if-serial</code>语义允许重排序，CPU层面的指令优化依然存在。在单线程中，这些优化并不会影响整体的执行结果，在多线程中，重排序会带来可见性问题</p>
-<h3 id="内存屏障类型"><a href="#内存屏障类型" class="headerlink" title="内存屏障类型"></a>内存屏障类型</h3><p>TODO</p>
+<h3 id="指令重排需要遵循-as-if-serial语义"><a href="#指令重排需要遵循-as-if-serial语义" class="headerlink" title="指令重排需要遵循 as-if-serial语义"></a>指令重排需要遵循 as-if-serial语义</h3><p><code>as-if-serial</code> 表示所有的程序指令都可以因为优化而被重排序，但是在优化的过程中必须要保证是在单线程环境下，重排序之后的运行结果和程序代码本身预期的执行结果一致，<code>Java</code> 编译器、<code>CPU</code> 指令重排序都需要保证在单线程环境下的 <code>as-if-serial</code> 语义是正确的</p>
+<p><code>as-if-serial</code>语义允许重排序，<code>CPU</code>层面的指令优化依然存在。在单线程中，这些优化并不会影响整体的执行结果，在多线程中，重排序会带来可见性问题</p>
+<h3 id="重谈-MESI-过程"><a href="#重谈-MESI-过程" class="headerlink" title="重谈 MESI 过程"></a>重谈 MESI 过程</h3><p>假设存在一个 <code>S</code> 状态的缓存行（就是说 <code>CPU0</code> 和 <code>CPU1</code> 共享同一个缓存行），如果 <code>CPU0</code> 对这个缓存进行修改，那么 <code>CPU0</code> 需要发送一个 <code>Invalidate</code> 消息到 <code>CPU1</code>，在等待 <code>CPU1</code> 返回<code>Acknowledgement</code> 消息之前，<code>CPU0</code> 一直处于空闲状态</p>
+<pre class="mermaid">sequenceDiagram
+    participant A as CPU0
+    participant B as CPU1
+    A->>A: "加载变量, 缓存行状态S"
+    B->>B: "加载变量，缓存行状态S"
+    A->>A: "修改共享s变量"
+    A->>B: "Invalidate"
+    A->>A: "空闲等待"
+    B->>A: "Acknowledgement"</pre>
+
+<h4 id="Store-Buffers"><a href="#Store-Buffers" class="headerlink" title="Store Buffers"></a>Store Buffers</h4><ol>
+<li><p>从上图可以看到，当一个 <code>cpu</code> 从发出 <code>Invalidate</code> 指令到收到 <code>Acknowledgement</code> 指令之间，这个 <code>cpu</code> 是需要阻塞的</p>
+</li>
+<li><p><code>Store Buffer</code> 是一个存储器，它存储着那些被修改过的缓存行。当一个 <code>cpu</code> 要修改一个缓存行，它会将这个缓存行的副本放到 <code>Store Buffer</code> 中，然后发出一个 <code>Invalidate</code> 指令，让其他 <code>cpu</code> 知道这个缓存行</p>
+</li>
+</ol>
+<p><img src="https://blog-1308475102.cos.ap-guangzhou.myqcloud.com/picture/202311292320073.webp" alt="Store Buffers"></p>
+<p>在 <code>CPU</code> 中引入<code>Store Buffers</code>的设计后，<code>CPU0</code>会先发送一个<code>Invalidate</code>消息给其他包含该缓存行的<code>CPU1</code>，并把当前修改的数据写入<code>Store Buffers</code>中，然后继续执行后续的指令。等收到<code>CPU1</code>的<code>Acknowledgement</code>消息后，<code>CPU0</code>再把<code>Store Buffers</code>移到缓存行中, 因为加入了 <code>Store Buffers</code>，就会导致内存可见性问题</p>
+<h4 id="使用-Store-Forwarding-优化-Store-Buffers-问题"><a href="#使用-Store-Forwarding-优化-Store-Buffers-问题" class="headerlink" title="使用 Store Forwarding 优化 Store Buffers 问题"></a>使用 Store Forwarding 优化 Store Buffers 问题</h4><ol>
+<li><p><code>Store Buffers</code> 之所以存在问题是因为，在 其他 <code>cpu</code> 返回 <code>Acknowledgement</code> 之前，数据是存放在 <code>Store Buffer</code> 中的，<code>cpu</code> 缓存行中并没有最新的数据，<code>cpu</code> 执行指令时就会用到缓存行中的旧数据</p>
+</li>
+<li><p><code>Store Forwarding</code> 是指每个 <code>CPU</code> 在加载数据之前，会先引用当前 <code>CPU</code> 的 <code>Store Buffers</code>，也就是说支持将 <code>CPU</code> 存入<code>Store Buffers</code> 的数据传递给后续的加载操作，而不需要经过 <code>Cache</code></p>
+</li>
+</ol>
+<p><img src="https://blog-1308475102.cos.ap-guangzhou.myqcloud.com/picture/202311292327246.webp" alt="Store Forwarding"></p>
+<h4 id="使用-Invalidate-Queues-优化-Store-Buffers-问题"><a href="#使用-Invalidate-Queues-优化-Store-Buffers-问题" class="headerlink" title="使用 Invalidate Queues 优化 Store Buffers 问题"></a>使用 Invalidate Queues 优化 Store Buffers 问题</h4><ol>
+<li><p>前面讲到的 <code>Store Forwarding</code> 针对的时发出 <code>Invalidate</code> 指令的 <code>cpu</code>，而接下来要讲解的 <code>Invalidate Queues</code> 则是针对接收到 <code>Invalidate</code> 指令并且要响应 <code>Acknowledgement</code> 指令的 <code>cpu</code>， 具体原因如下</p>
+</li>
+<li><p><code>Store Buffers</code>本身的存储容量是有限的，在当前<code>CPU</code>的所有写入操作都存在缓存未命中的情况时，就会导致<code>Store Buffers</code>很容易被填充满。被填满之后，必须要等到<code>CPU</code>返回<code>Invalidate Acknowledge</code>消息，<code>Store Buffers</code>中对应的指令才能被清理，而这个过程<code>CPU</code>必须要等待，无论该<code>CPU</code>中后续指令是否存在缓存未命中的情况</p>
+</li>
+<li><p>如果收到<code>Invalidate</code>消息的<code>CPU</code>此时处于繁忙状态，那么会导致<code>Invalidate Acknowledge</code>消息返回延迟</p>
+</li>
+<li><p>增加一个<code>Invalidate Queues</code>，用于存储让缓存行失效的消息。也就是说，<code>CPU</code>收到<code>Invalidate</code>消息时，把让该缓存行失效的消息放入<code>Invalidate Queues</code>，然后同步返回一个<code>Invalidate Acknowledge</code>消息。这样就大大缩短了响应的时间</p>
+</li>
+</ol>
+<p><img src="https://blog-1308475102.cos.ap-guangzhou.myqcloud.com/picture/202311292336827.webp" alt="Invalidate Queues"></p>
+<h3 id="内存屏障指令"><a href="#内存屏障指令" class="headerlink" title="内存屏障指令"></a>内存屏障指令</h3><ol>
+<li>读屏障指令(Ifence)</li>
+<li>将 <code>Invalidate Queues</code>中的指令立即处理，并且强制读取<code>CPU</code>的缓存行, 执行<code>lfence</code>指令之后的读操作不会被重排序到执行<code>lfence</code>指令之前，这意味着其他<code>CPU</code>暴露出来的缓存行状态对当前<code>CPU</code>可见</li>
+<li>写屏障指令(sfence)</li>
+<li>它会把<code>Store Buffers</code>中的修改刷新到本地缓存中，使得其他<code>CPU</code>能够看到这些修改，而且在执行<code>sfence</code>指令之后的写操作不会被重排序到执行<code>sfence</code>指令之前，这意味着执行<code>sfence</code>指令之前的写操作一定要全局可见（内存可见性及禁止重排序）</li>
+<li>读写屏障指令(mfence）</li>
+<li>相当于<code>lfence</code>和<code>sfence</code>的混合体，保证<code>mfence</code>指令执行前后的读写操作的顺序，同时要求执行<code>mfence</code>指令之后的写操作的结果全局可见，执行<code>mfence</code>指令之前的写操作结果全局可见</li>
+</ol>
+<h3 id="JVM-内存屏障指令"><a href="#JVM-内存屏障指令" class="headerlink" title="JVM 内存屏障指令"></a>JVM 内存屏障指令</h3><p>前面讲到的内存屏障指令是 <code>cpu</code> 可以执行的指令，但是这些指令是需要应用来调用的，同样的应用也需要提供相应的指令给开发者调用，对应到 <code>JVM</code> 中，提供了如下几种指令</p>
+<ol>
+<li>loadload</li>
+<li>storestore</li>
+<li>loadstore</li>
+<li>storeload</li>
+</ol>
+<p><img src="https://blog-1308475102.cos.ap-guangzhou.myqcloud.com/picture/202311292348303.webp" alt="内存屏障"></p>
 ]]></content>
       <categories>
         <category>java</category>
@@ -1984,6 +2126,200 @@
       <tags>
         <tag>java</tag>
         <tag>多线程</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>dubbo的spi机制使用案例</title>
+    <url>/2023/30c57ac8b6c7/index.html</url>
+    <content><![CDATA[<h2 id="dubbo为什么需要spi机制"><a href="#dubbo为什么需要spi机制" class="headerlink" title="dubbo为什么需要spi机制"></a>dubbo为什么需要spi机制</h2><p>一个好的程序是要遵循一定的设计规范比如设计模式中的开闭原则</p>
+<ol>
+<li><strong>对扩展开放</strong>：指的是我们系统中的模块、类、方法对它们的提供者（开发者）应该是开放的，提供者可以对系统进行扩展（新增）新的功能。</li>
+<li><strong>对修改关闭</strong>：指的是系统中的模块、类、方法对它们的使用者（调用者）应该是• 关闭的。使用者使用这些功能时，不会因为提供方新增了功能而导致使用者也进行相应修改<blockquote>
+<p>Apache Dubbo 是一款微服务开发框架，它提供了 RPC 通信与微服务治理两大关键能力。这意味着，使用 Dubbo 开发的微服务，将具备相互之间的远程发现与通信能力，同时利用 Dubbo 提供的丰富服务治理能力，可以实现诸如服务发现、负载均衡、流量调度等服务治理诉求。同时 Dubbo 是高度可扩展的，用户几乎可以在任意功能点去定制自己的实现，以改变框架的默认行为来满足自己的业务需求</p>
+<p>对于 Apache Dubbo 来说不变的是 RPC 调用流程，微服务治理相关的概念和流程，但是在流程中每个环节的具体实现方式可以是动态改变的，Dubbo 使用微内核的架构，将具体的实现开放出来，让使用者可以根据自己的需求来选择</p>
+</blockquote>
+</li>
+</ol>
+<h3 id="微内核架构"><a href="#微内核架构" class="headerlink" title="微内核架构"></a>微内核架构</h3><p>微内核架构由两大架构模块组成：核心系统与插件模块</p>
+<ol>
+<li><strong>核心系统</strong>： 负责和具体业务功能无关的通用功能，例如模块加载、模块间通信等，Dubbo 内核的工作原理由四部分组成<ol>
+<li>服务发现机制 <code>spi</code></li>
+<li>自适应机制 <code>Adaptive</code></li>
+<li>包装机制 <code>Wrapper</code></li>
+<li>激活机制 <code>Activate</code><br><code>Dubbo</code> 通过上面四种机制实现了对插件的 <code>IOC</code>, <code>AOP</code> 实现了对自动生成类的动态编译 <code>Compile</code></li>
+</ol>
+</li>
+<li><strong>插件模块</strong>： 负责实现具体的业务逻辑，在 <code>Dubbo</code> 中就是 <code>Dubbo SPI</code> 接口与实现</li>
+</ol>
+<h2 id="Dubbo-中的-spi-规范"><a href="#Dubbo-中的-spi-规范" class="headerlink" title="Dubbo 中的 spi 规范"></a>Dubbo 中的 spi 规范</h2><ol>
+<li>接口名： 可以随意定义，但是需要被 <code>@SPI</code> 注解修饰</li>
+<li>实现类名: 在接口名前面添加一个用于表示自身功能的 “标识前缀” 字符串</li>
+<li>提供者配置文件路径，依次查找目录为<ol>
+<li><code>META-INF/dubbo/internal</code></li>
+<li><code>META-INF/dubbo</code></li>
+<li><code>META-INF/services</code></li>
+</ol>
+</li>
+<li>提供者配置文件名称：接口的全限定性类名</li>
+<li>提供者配置文件内容：文件的内容为 <code>key=value</code> 形式，<code>value</code> 为该接口的实现类的全限类性类名，<code>key</code> 可以随意，但一般为该实现类的“标识前辍”（首字母小写）。一个类名占一行</li>
+<li><code>提供者加载：ExtensionLoader</code> 类相当于 <code>JDK SP</code>I 中 <code>ServiceLoader</code> 类，用于加载提供者配置文件中所有的实现类，并创建相应的实例</li>
+</ol>
+<p>dubbo spi 机制都是生成代理类，一般使用 <code>javaassist</code> 方法生成，可以参考</p>
+<ol><li><a href="/2023/d513f5c497bd/index.html" title="java输出运行过程中的代理类">java输出运行过程中的代理类</a></li></ol> 来获取代理类
+
+<h2 id="dubbo-spi-使用案例"><a href="#dubbo-spi-使用案例" class="headerlink" title="dubbo spi 使用案例"></a>dubbo spi 使用案例</h2><figure class="highlight java"><figcaption><span>接口和对应实现类</span></figcaption><table><tr><td class="code"><pre><span class="line"><span class="meta">@SPI</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">interface</span> <span class="title class_">Hello</span> &#123;</span><br><span class="line">    String <span class="title function_">sayHello</span><span class="params">()</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//  第一个实现类</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">FirstHello</span> <span class="keyword">implements</span> <span class="title class_">Hello</span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">sayHello</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;first&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 第二个实现类</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">SecondHello</span> <span class="keyword">implements</span> <span class="title class_">Hello</span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">sayHello</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;second&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>添加配置文件，在 <code>resource</code> 下创建目录 <code>META-INF/services</code>, 然后创建文件</p>
+<p>文件名为接口全限定性类名 ： <code>com.example.dubbodemo.spi.Hello</code> </p>
+<p>文件内容如下：</p>
+<figure class="highlight stylus"><table><tr><td class="code"><pre><span class="line">first=com<span class="selector-class">.example</span><span class="selector-class">.dubbodemo</span><span class="selector-class">.spi</span><span class="selector-class">.FirstHello</span></span><br><span class="line">second=com<span class="selector-class">.example</span><span class="selector-class">.dubbodemo</span><span class="selector-class">.spi</span>.SecondHello</span><br></pre></td></tr></table></figure>
+
+
+
+<figure class="highlight java"><figcaption><span>代码测试</span></figcaption><table><tr><td class="code"><pre><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">testSpi</span><span class="params">()</span> &#123;</span><br><span class="line">    ExtensionLoader&lt;Hello&gt; loader = ExtensionLoader.getExtensionLoader(Hello.class);</span><br><span class="line">    <span class="type">Hello</span> <span class="variable">firstHello</span> <span class="operator">=</span> loader.getExtension(<span class="string">&quot;first&quot;</span>);</span><br><span class="line">    System.out.println(firstHello.sayHello()); <span class="comment">// first</span></span><br><span class="line">    <span class="type">Hello</span> <span class="variable">secondHello</span> <span class="operator">=</span> loader.getExtension(<span class="string">&quot;second&quot;</span>);</span><br><span class="line">    System.out.println(secondHello.sayHello()); <span class="comment">// second</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="dubbo-Adaptive-机制"><a href="#dubbo-Adaptive-机制" class="headerlink" title="dubbo Adaptive 机制"></a>dubbo Adaptive 机制</h2><ol>
+<li>从上面 <code>spi</code> 代码示例中可以看到当有多个实现类的时候，我们可以手动根据 <code>key</code> 来选择具体是使用哪个实现类</li>
+<li><code>dubbo</code> 中是以 <code>url</code> 来贯穿整个调用路径的，所谓的 <code>adaptive</code> 机制就是根据 <code>url</code> 中的参数来自动帮我们判断应该使用哪个实现类，而不是手动指定 <code>key</code></li>
+<li><code>@Adaptive</code> 可以用来修饰类和修饰方法， 如果是修饰方法，那么 <code>@Adaptive</code> 修饰的方法就必须包含 <code>url</code> 参数，如果是修饰方法，则没有要求接口中的方法必须有 <code>url</code> 参数</li>
+</ol>
+<p>下面示例中包含一个 打招呼的接口 <code>Hello</code>， 然后还有两种打招呼的实现，分别是 <code>FirstHello</code> 和 <code>SecondHello</code></p>
+<div class="tabs" id="dubbo的adaptive机制示例"><ul class="nav-tabs"><button type="button" class="tab  active" data-href="dubbo的adaptive机制示例-1">修饰方法示例</button><button type="button" class="tab " data-href="dubbo的adaptive机制示例-2">adaptive修饰类示例</button></ul><div class="tab-contents"><div class="tab-item-content active" id="dubbo的adaptive机制示例-1"><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">//  接口定义</span></span><br><span class="line"><span class="meta">@SPI</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">interface</span> <span class="title class_">Hello</span> &#123;</span><br><span class="line">    String <span class="title function_">sayHello</span><span class="params">()</span>;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Adaptive</span></span><br><span class="line">    String <span class="title function_">adaptiveHello</span><span class="params">(URL url)</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//  第一个实现类</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">FirstHello</span> <span class="keyword">implements</span> <span class="title class_">Hello</span> &#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">sayHello</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;first normal&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">adaptiveHello</span><span class="params">(URL url)</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;first adaptive&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 第二个实现类</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">SecondHello</span> <span class="keyword">implements</span> <span class="title class_">Hello</span> &#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">sayHello</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;second normal&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">adaptiveHello</span><span class="params">(URL url)</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;second adaptive&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>添加配置文件，在 <code>resource</code> 下创建目录 <code>META-INF/services</code>, 然后创建文件</p>
+<p>文件名为接口全限定性类名 ： <code>com.example.dubbodemo.spi.Hello</code> </p>
+<p>文件内容如下：</p>
+<figure class="highlight stylus"><table><tr><td class="code"><pre><span class="line">first=com<span class="selector-class">.example</span><span class="selector-class">.dubbodemo</span><span class="selector-class">.spi</span><span class="selector-class">.FirstHello</span></span><br><span class="line">second=com<span class="selector-class">.example</span><span class="selector-class">.dubbodemo</span><span class="selector-class">.spi</span>.SecondHello</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">//  测试类</span></span><br><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">testAdaptive</span><span class="params">()</span> &#123;</span><br><span class="line">    ExtensionLoader&lt;Hello&gt; loader = ExtensionLoader.getExtensionLoader(Hello.class);</span><br><span class="line">    <span class="type">Hello</span> <span class="variable">iHello</span> <span class="operator">=</span> loader.getAdaptiveExtension();</span><br><span class="line">    <span class="comment">// 这个相当于在url中设置了 key=hello(也就是接口名称)， value=second, 这里的second是和配置文件中的key对应的，表示</span></span><br><span class="line">    <span class="comment">// 具体选择的是哪个实现类</span></span><br><span class="line">    <span class="type">URL</span> <span class="variable">url</span> <span class="operator">=</span> URL.valueOf(<span class="string">&quot;http://localhost?hello=second&quot;</span>);</span><br><span class="line">    <span class="type">String</span> <span class="variable">s</span> <span class="operator">=</span> iHello.adaptiveHello(url);</span><br><span class="line">    System.out.println(s); <span class="comment">// 会打印 second adaptive</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">testAdaptive2</span><span class="params">()</span> &#123;</span><br><span class="line">    ExtensionLoader&lt;Hello&gt; loader = ExtensionLoader.getExtensionLoader(Hello.class);</span><br><span class="line">    <span class="type">Hello</span> <span class="variable">iHello</span> <span class="operator">=</span> loader.getAdaptiveExtension();</span><br><span class="line">    <span class="type">String</span> <span class="variable">s</span> <span class="operator">=</span> iHello.sayHello(); <span class="comment">// 这里会报错，因为这个方法并没有使用 @Adaptive 注解，所以无法使用 adaptive 方法来进行调用</span></span><br><span class="line">    System.out.println(s);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div><div class="tab-item-content" id="dubbo的adaptive机制示例-2"><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">//  接口定义, 其中有默认值</span></span><br><span class="line"><span class="meta">@SPI(&quot;first&quot;)</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">interface</span> <span class="title class_">Hello</span> &#123;</span><br><span class="line">    String <span class="title function_">sayHello</span><span class="params">()</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 第一个实现类</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">FirstHello</span> <span class="keyword">implements</span> <span class="title class_">Hello</span> &#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">sayHello</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;first hello&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 第二个实现类</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">SecondHello</span> <span class="keyword">implements</span> <span class="title class_">Hello</span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">sayHello</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;second hello&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 自适应类，这个类需要使用 @Adaptive 注解修饰</span></span><br><span class="line"><span class="meta">@Adaptive</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">AdaptiveHello</span> <span class="keyword">implements</span> <span class="title class_">Hello</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> String type;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">setType</span><span class="params">(String type)</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>.type = type;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">sayHello</span><span class="params">()</span> &#123;</span><br><span class="line">        ExtensionLoader&lt;Hello&gt; loader = ExtensionLoader.getExtensionLoader(Hello.class);</span><br><span class="line">        Hello hello;</span><br><span class="line">        <span class="keyword">if</span> (StringUtils.hasText(type)) &#123;</span><br><span class="line">            hello = loader.getExtension(type);</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="comment">// 没有指定的类型，则使用默认的类型，就是接口上 @SPI 注解中的值</span></span><br><span class="line">            hello = loader.getDefaultExtension();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> hello.sayHello();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>添加配置文件，在 <code>resource</code> 下创建目录 <code>META-INF/services</code>, 然后创建文件</p>
+<p>文件名为接口全限定性类名 ： <code>com.example.dubbodemo.spi.Hello</code> </p>
+<p>文件内容如下：</p>
+<figure class="highlight stylus"><table><tr><td class="code"><pre><span class="line">first=com<span class="selector-class">.example</span><span class="selector-class">.dubbodemo</span><span class="selector-class">.spi</span><span class="selector-class">.FirstHello</span></span><br><span class="line">second=com<span class="selector-class">.example</span><span class="selector-class">.dubbodemo</span><span class="selector-class">.spi</span><span class="selector-class">.SecondHello</span></span><br><span class="line">adaptive=com<span class="selector-class">.example</span><span class="selector-class">.dubbodemo</span><span class="selector-class">.spi</span>.AdaptiveHello</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 测试类</span></span><br><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">testAdaptiveClass</span><span class="params">()</span> &#123;</span><br><span class="line">    <span class="type">Hello</span> <span class="variable">hello</span> <span class="operator">=</span> ExtensionLoader.getExtensionLoader(Hello.class).getAdaptiveExtension();</span><br><span class="line">    System.out.println(hello.sayHello());<span class="comment">// 输出 first hello, 默认值就是 接口上的 @SPI 注解中的值</span></span><br><span class="line"></span><br><span class="line">    ((AdaptiveHello)hello).setType(<span class="string">&quot;second&quot;</span>);</span><br><span class="line">    System.out.println(hello.sayHello());  <span class="comment">// 输出 second hello, 因为通过 type 设置了想要的类型</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div></div><div class="tab-to-top"><button type="button" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div></div>
+
+<h2 id="dubbo-中-wrapper-机制案例"><a href="#dubbo-中-wrapper-机制案例" class="headerlink" title="dubbo 中 wrapper 机制案例"></a>dubbo 中 wrapper 机制案例</h2><h3 id="wrapper-是什么"><a href="#wrapper-是什么" class="headerlink" title="wrapper 是什么"></a>wrapper 是什么</h3><ol>
+<li>作用上 <code>wrapper</code> 和 <code>aop</code> 是类似的，也是对一个类的功能进行增强，但是 <code>wrapper</code> 不是通过 <code>aop</code> 的形式实现的，而是通过一系列规范来定义一个 <code>wrapper</code> 类</li>
+<li>第一点说的是 <code>wrapper</code> 类可以增强，但是没说增强的是什么？ 其实 <code>wrapper</code> 类增强的就是 <code>spi</code> 接口的实现类</li>
+</ol>
+<h3 id="wrapper-类规范"><a href="#wrapper-类规范" class="headerlink" title="wrapper 类规范"></a>wrapper 类规范</h3><ol>
+<li>定义的 <code>wrapper</code> 类要实现 <code>spi</code> 接口</li>
+<li>定义的 <code>wrapper</code> 类必须要包含 <code>spi</code> 接口的引用</li>
+<li><code>wrapper</code> 类中 <code>spi</code> 接口的实现是通过仅包含一个 <code>spi</code> 接口参数的带参构造器传入的</li>
+<li>在接口实现方法中所需要调用 <code>spi</code> 接口引用对象的相应方法</li>
+<li><code>wrapper</code> 类名称需要以 <code>Wrapper</code> 结尾</li>
+</ol>
+<h3 id="wrapper-类示例"><a href="#wrapper-类示例" class="headerlink" title="wrapper 类示例"></a>wrapper 类示例</h3><p>下面是 <code>wrapper</code> 案例代码，依然使用的是前面的 <code>Hello</code> 接口和两个实现类以及对这两个实现类进行增强的两个 <code>wrapper</code> 类</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// SPI 接口定义，默认实现类是 FirstHello</span></span><br><span class="line"><span class="meta">@SPI(&quot;first&quot;)</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">interface</span> <span class="title class_">Hello</span> &#123;</span><br><span class="line">    String <span class="title function_">sayHello</span><span class="params">()</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 第一个实现类</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">FirstHello</span> <span class="keyword">implements</span> <span class="title class_">Hello</span> &#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">sayHello</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;first hello&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 第二个实现类</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">SecondHello</span> <span class="keyword">implements</span> <span class="title class_">Hello</span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">sayHello</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;second hello&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 第一个增强类</span></span><br><span class="line"><span class="comment">// 1. 满足第一点要求，Wrapper 类需要实现 SPI 接口</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">HelloWrapper</span> <span class="keyword">implements</span> <span class="title class_">Hello</span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 2. 满足第二点 定义的 `wrapper` 类必须要包含 `spi` 接口的引用</span></span><br><span class="line">    <span class="keyword">private</span> Hello hello;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 3. 满足第三点 `wrapper` 类中 `spi` 接口的实现是通过仅包含一个 `spi` 接口参数的带参构造器传入的</span></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">HelloWrapper</span><span class="params">(Hello hello)</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>.hello = hello;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">sayHello</span><span class="params">()</span> &#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;wrapper1的方法增强开始&quot;</span>);</span><br><span class="line">        <span class="type">String</span> <span class="variable">result</span> <span class="operator">=</span> hello.sayHello();</span><br><span class="line">        System.out.println(<span class="string">&quot;Wrapper1的方法增强结束&quot;</span>);</span><br><span class="line">        <span class="keyword">return</span> result;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">// 第二个增强类</span></span><br><span class="line"><span class="comment">// 1. 满足第一点要求，Wrapper 类需要实现 SPI 接口</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">HelloWrapper2</span> <span class="keyword">implements</span> <span class="title class_">Hello</span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 2. 满足第二点 定义的 `wrapper` 类必须要包含 `spi` 接口的引用</span></span><br><span class="line">    <span class="keyword">private</span> Hello hello;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 3. 满足第三点 `wrapper` 类中 `spi` 接口的实现是通过仅包含一个 `spi` 接口参数的带参构造器传入的</span></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">HelloWrapper2</span><span class="params">(Hello hello)</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>.hello = hello;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">sayHello</span><span class="params">()</span> &#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;wrapper2的方法增强开始&quot;</span>);</span><br><span class="line">        <span class="type">String</span> <span class="variable">result</span> <span class="operator">=</span> hello.sayHello();</span><br><span class="line">        System.out.println(<span class="string">&quot;Wrapper2的方法增强结束&quot;</span>);</span><br><span class="line">        <span class="keyword">return</span> result;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><code>com.example.dubbodemo.spi.Hello</code> 配置文件内容</p>
+<figure class="highlight stylus"><table><tr><td class="code"><pre><span class="line">first=com<span class="selector-class">.example</span><span class="selector-class">.dubbodemo</span><span class="selector-class">.spi</span><span class="selector-class">.FirstHello</span></span><br><span class="line">second=com<span class="selector-class">.example</span><span class="selector-class">.dubbodemo</span><span class="selector-class">.spi</span><span class="selector-class">.SecondHello</span></span><br><span class="line">wrapper=com<span class="selector-class">.example</span><span class="selector-class">.dubbodemo</span><span class="selector-class">.spi</span><span class="selector-class">.HelloWrapper</span></span><br><span class="line">wrapper2=com<span class="selector-class">.example</span><span class="selector-class">.dubbodemo</span><span class="selector-class">.spi</span>.HelloWrapper2</span><br></pre></td></tr></table></figure>
+
+<p>测试类</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">testWrapper</span><span class="params">()</span> &#123;</span><br><span class="line">    ExtensionLoader&lt;Hello&gt; loader = ExtensionLoader.getExtensionLoader(Hello.class);</span><br><span class="line">    <span class="type">Hello</span> <span class="variable">firstHello</span> <span class="operator">=</span> loader.getExtension(<span class="string">&quot;first&quot;</span>);</span><br><span class="line">    System.out.println(firstHello.sayHello());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>执行结果</p>
+<figure class="highlight applescript"><table><tr><td class="code"><pre><span class="line">wrapper2的方法增强开始</span><br><span class="line">wrapper1的方法增强开始</span><br><span class="line">Wrapper1的方法增强结束</span><br><span class="line">Wrapper2的方法增强结束</span><br><span class="line"><span class="keyword">first</span> hello</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>中间件</category>
+        <category>dubbo</category>
+      </categories>
+      <tags>
+        <tag>dubbo</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>WindTerm功能设置</title>
+    <url>/2023/0ff9c6825506/index.html</url>
+    <content><![CDATA[<h2 id="自定义快捷键"><a href="#自定义快捷键" class="headerlink" title="自定义快捷键"></a>自定义快捷键</h2><p><a href="https://github.com/kingToolbox/WindTerm/issues/267">参考github</a></p>
+<h2 id="去除锁屏"><a href="#去除锁屏" class="headerlink" title="去除锁屏"></a>去除锁屏</h2><ol>
+<li>找到配置文件，可以在 <strong>会话-&gt;首选项-&gt;配置文件</strong> 中查看配置文件的位置</li>
+<li>找到 <code>application.lockScreenTimeout</code>， 将值改成 0</li>
+</ol>
+]]></content>
+      <categories>
+        <category>tools</category>
+        <category>other</category>
+      </categories>
+      <tags>
+        <tag>tools</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>utools自动化脚本插件</title>
+    <url>/2023/d899f5ff1973/index.html</url>
+    <content><![CDATA[<h2 id="utools-使用自动化脚本打开本地程序"><a href="#utools-使用自动化脚本打开本地程序" class="headerlink" title="utools 使用自动化脚本打开本地程序"></a>utools 使用自动化脚本打开本地程序</h2><ol>
+<li>比如 typora 可以打开之前的文件和目录，但是目录只能到文件的上一个层级，如果源目录包含很多子目录，重新打开时可能不是我们想要的结果，那可以在命令行执行 <code>typora folder</code>, eg: <code>typora E:\\blog</code> <span id="more"></span></li>
+</ol>
+<blockquote>
+<p>在命令行执行 typora 命令需要先配置 typora 的环境变量</p>
+</blockquote>
+<ol>
+<li>更简便的方式是直接使用 utools 的自动化脚本这个插件，新增一个自己的插件脚本，内容如下</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> &#123; execFile &#125; = <span class="built_in">require</span>(<span class="string">&quot;child_process&quot;</span>)</span><br><span class="line"></span><br><span class="line"> <span class="comment">// 以下是关键代码，调用 typora 来执行目标文件</span></span><br><span class="line"><span class="title function_">execFile</span>(<span class="string">&#x27;typora&#x27;</span>, [<span class="string">&#x27;E:/code/learnerguo&#x27;</span>], <span class="function">(<span class="params">error, stdout, stderr</span>) =&gt;</span> &#123;</span><br><span class="line">    process.<span class="title function_">exit</span>()</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<p>然后自定义关键字，后续当打开 utools 输入对应关键字就可以打开 typora 的目录</p>
+<h2 id="使用自动化脚本获取当天起始时间"><a href="#使用自动化脚本获取当天起始时间" class="headerlink" title="使用自动化脚本获取当天起始时间"></a>使用自动化脚本获取当天起始时间</h2><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> now = <span class="keyword">new</span> <span class="title class_">Date</span>();</span><br><span class="line"><span class="comment">// 设置当前时间的小时、分钟、秒和毫秒为0，即将时间设置为当天的开始时间</span></span><br><span class="line">now.<span class="title function_">setHours</span>(<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>);</span><br><span class="line"><span class="comment">// 获取当天开始时间点的毫秒数</span></span><br><span class="line"><span class="keyword">const</span> startTime = now.<span class="title function_">getTime</span>();</span><br><span class="line">utools.<span class="title function_">copyText</span>(<span class="string">&quot;&quot;</span>+startTime);</span><br><span class="line"><span class="title function_">print</span>(<span class="string">&#x27;开始时间已复制&#x27;</span> + startTime);</span><br><span class="line">utools.<span class="title function_">hideMainWindow</span>();</span><br><span class="line">process.<span class="title function_">exit</span>()</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>tools</category>
+        <category>utools</category>
+      </categories>
+      <tags>
+        <tag>tools</tag>
+        <tag>utools</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>vscode相关设置</title>
+    <url>/2023/6b613d963af3/index.html</url>
+    <content><![CDATA[<h2 id="vscode-中-markdown-的-snippets-的设置"><a href="#vscode-中-markdown-的-snippets-的设置" class="headerlink" title="vscode 中 markdown 的 snippets 的设置"></a>vscode 中 markdown 的 snippets 的设置</h2><h3 id="snippets-的设置"><a href="#snippets-的设置" class="headerlink" title="snippets 的设置"></a>snippets 的设置</h3><ol>
+<li>打开 ctrl+shift+p , 搜索 <code>configure user snippets</code> </li>
+<li>选择 markdown.json, 会出现如下内容</li>
+</ol>
+<span id="more"></span>
+<figure class="highlight json"><table><tr><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">	<span class="comment">// Place your snippets for markdown here. Each snippet is defined under a snippet name and has a prefix, body and </span></span><br><span class="line">	<span class="comment">// description. The prefix is what is used to trigger the snippet and the body will be expanded and inserted. Possible variables are:</span></span><br><span class="line">	<span class="comment">// $1, $2 for tab stops, $0 for the final cursor position, and $&#123;1:label&#125;, $&#123;2:another&#125; for placeholders. Placeholders with the </span></span><br><span class="line">	<span class="comment">// same ids are connected.</span></span><br><span class="line">	<span class="comment">// Example:</span></span><br><span class="line">	<span class="comment">// &quot;Print to console&quot;: &#123;</span></span><br><span class="line">	<span class="comment">// 	&quot;prefix&quot;: &quot;log&quot;,</span></span><br><span class="line">	<span class="comment">// 	&quot;body&quot;: [</span></span><br><span class="line">	<span class="comment">// 		&quot;console.log(&#x27;$1&#x27;);&quot;,</span></span><br><span class="line">	<span class="comment">// 		&quot;$2&quot;</span></span><br><span class="line">	<span class="comment">// 	],</span></span><br><span class="line">	<span class="comment">// 	&quot;description&quot;: &quot;Log output to console&quot;</span></span><br><span class="line">	<span class="comment">// &#125;</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+
+<ol>
+<li>可以根据示例文件进行修改，如下图所示：<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="string">&quot;markdown code graph&quot;</span>: &#123;</span><br><span class="line">	<span class="string">&quot;prefix&quot;</span>: <span class="string">&quot;codeblock&quot;</span>,</span><br><span class="line">	<span class="string">&quot;body&quot;</span>: [</span><br><span class="line">		<span class="string">&quot;&lt;pre class=&quot;</span>mermaid<span class="string">&quot;&gt;<span class="variable">$0</span>&quot;</span>,</span><br><span class="line">		<span class="string">&quot;```&quot;</span></span><br><span class="line">	],</span><br><span class="line">	<span class="string">&quot;description&quot;</span>: <span class="string">&quot;insert markdown code graph&quot;</span></span><br><span class="line">&#125;&lt;/pre&gt;</span><br><span class="line"></span><br><span class="line">上面示例的意思是 当输入 codeblock 时就会出现 mermaid 代码块， <span class="variable">$0</span> 是光标出现的地方</span><br><span class="line"></span><br><span class="line"><span class="comment">### markdown snippets 不生效的解决方式</span></span><br><span class="line">使用上面的步骤设置完 snippets 之后，在 markdown 文档中编写关键字，但是并没有生效，还需要在  settings.json 中（可以输入 ctrl+<span class="built_in">shift</span>+p, 搜索 settings， 选择 Open User Settings(JSON)）, 然后填写下面的内容</span><br><span class="line"></span><br><span class="line">```java</span><br><span class="line"><span class="string">&quot;[markdown]&quot;</span>:&#123;</span><br><span class="line">	<span class="string">&quot;editor.formatOnSave&quot;</span>: <span class="literal">true</span>,</span><br><span class="line">	<span class="string">&quot;editor.renderWhitespace&quot;</span>: <span class="string">&quot;all&quot;</span>,</span><br><span class="line">	<span class="string">&quot;editor.quickSuggestions&quot;</span>: &#123;</span><br><span class="line">		<span class="string">&quot;other&quot;</span>: <span class="string">&quot;on&quot;</span>,</span><br><span class="line">		<span class="string">&quot;comments&quot;</span>: <span class="string">&quot;on&quot;</span>,</span><br><span class="line">		<span class="string">&quot;strings&quot;</span>: <span class="string">&quot;on&quot;</span></span><br><span class="line">	&#125;,</span><br><span class="line">	<span class="string">&quot;editor.acceptSuggestionOnEnter&quot;</span>: <span class="string">&quot;on&quot;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ol>
+<p>添加上述内容后就可以生效了</p>
+<h2 id="vscode-设置白天黑夜自动切换主题"><a href="#vscode-设置白天黑夜自动切换主题" class="headerlink" title="vscode 设置白天黑夜自动切换主题"></a>vscode 设置白天黑夜自动切换主题</h2><ol>
+<li>vscode 可以根据系统设置的 <code>light</code> 或 <code>dark</code> 主题来进行切换</li>
+<li>系统自动切换主题软件可以在 <code>store</code> 中安装 <code>Auto Dark Mode</code> 这个软件并进行设置</li>
+<li><code>window</code> 系统设置完成之后可以在 <code>vscode</code> 的 <code>user setting</code> 中添加如下内容, 第一个配置是开启自动切换，后面的配置是设置的 <code>light</code> 和 <code>dark</code> 主题的名称</li>
+</ol>
+<figure class="highlight json"><table><tr><td class="code"><pre><span class="line"><span class="attr">&quot;window.autoDetectColorScheme&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">true</span></span><span class="punctuation">,</span></span><br><span class="line"><span class="attr">&quot;workbench.preferredLightColorTheme&quot;</span><span class="punctuation">:</span> <span class="string">&quot;Atom One Light&quot;</span><span class="punctuation">,</span></span><br><span class="line"><span class="attr">&quot;workbench.preferredDarkColorTheme&quot;</span><span class="punctuation">:</span> <span class="string">&quot;Default Dark Modern&quot;</span></span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>tools</category>
+        <category>vscode</category>
+      </categories>
+      <tags>
+        <tag>tools</tag>
+        <tag>vscode</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>vscode设置markdown图片默认路径</title>
+    <url>/2023/5b4d784e18c2/index.html</url>
+    <content><![CDATA[<p><code>vscode</code> 在 <code>markdown</code> 文档中直接复制图片时是放在当前目录，如果需要修改可以按照下面方式设置</p>
+<span id="more"></span>
+<ol>
+<li>输入快捷键 <code>ctrl+,</code> 可以快速打开设置</li>
+<li>搜索 <code>markdown.copy: Destination</code></li>
+</ol>
+<p><img src="/2023/5b4d784e18c2/index/1700033681108.png" alt="Alt text"></p>
+]]></content>
+      <categories>
+        <category>tools</category>
+        <category>vscode</category>
+      </categories>
+      <tags>
+        <tag>tools</tag>
       </tags>
   </entry>
   <entry>
@@ -2395,7 +2731,7 @@
       </tags>
   </entry>
   <entry>
-    <title>InnoDB存储引擎</title>
+    <title>InnoDB存储引擎详解</title>
     <url>/2023/a421bfc0bf81/index.html</url>
     <content><![CDATA[<span class="hide_first_mermaid">
 <div class="mermaid-wrap"><pre class="mermaid-src" hidden>
@@ -2404,20 +2740,135 @@
   </pre></div>
 </span>
 
-<h2 id="InnoDB-存储引擎体系"><a href="#InnoDB-存储引擎体系" class="headerlink" title="InnoDB 存储引擎体系"></a>InnoDB 存储引擎体系</h2><pre class="mermaid">flowchart LR
-  subgraph A[InnoDB存储引擎]
-    subgraph A1[后台线程]
-      A11["Master Thread"]
-      A12["IO Thread"]
+<h2 id="InnoDB-存储引擎数据操作过程"><a href="#InnoDB-存储引擎数据操作过程" class="headerlink" title="InnoDB 存储引擎数据操作过程"></a>InnoDB 存储引擎数据操作过程</h2><ol>
+<li><code>InnoDB</code> 存储引擎是基于磁盘存储的，并将其中的记录按照页的方式进行管理, 页大小默认时 <code>16KB</code></li>
+<li>从数据库中读取数据，是会先从磁盘读取到也放入缓冲池中，该过程称为将页 <code>Fix</code> 在缓冲池中</li>
+<li>对于数据库中页的修改操作，是先修改缓冲区中的页(如果没有则使用步骤2进行加载)，然后使用一定的频率刷新到磁盘中，刷新数据到磁盘是通过 <code>Checkpoint</code> 机制实现</li>
+</ol>
+<h2 id="缓冲池内存数据对象"><a href="#缓冲池内存数据对象" class="headerlink" title="缓冲池内存数据对象"></a>缓冲池内存数据对象</h2><pre class="mermaid">flowchart TB
+  subgraph A["InnoDB内存结构"]
+    B["重做日志缓冲 \n(redo log buffer)"]
+    C["额外内存"]
+    subgraph D["缓冲池(innodb_buffer_pool)"]
+      style D fill:green
+      D1["数据页"]
+      D2["索引页"]
+      D3["插入缓冲"]
+      D4["锁信息"]
+      D5["自适应hash索引"]
+      D6["数据字典信息"]
     end
-    subgraph A2[内存池]
+    subgraph E["缓冲池(innodb_buffer_pool)"]
+      style E fill:green
+      E1["数据页"]
+      E2["索引页"]
+      E3["插入缓冲"]
+      E4["锁信息"]
+      E5["自适应hash索引"]
+      E6["数据字典信息"]
     end
   end</pre>
-
-<h2 id="后台线程"><a href="#后台线程" class="headerlink" title="后台线程"></a>后台线程</h2><p>InnoDB 存储引擎是多线程模型，后台有多种不同类型的线程，负责处理不同的任务</p>
-<h3 id="Master-Thread"><a href="#Master-Thread" class="headerlink" title="Master Thread"></a>Master Thread</h3><ol>
-<li>主要负责将 <strong>缓冲池</strong> 中的数据异步双薪到磁盘，保证数据的一致性，包含脏页刷新，合并插入缓冲，<code>UNDO</code> 页的回收等</li>
+<ol>
+<li><code>InnoDB</code> 引擎允许有多个 <code>Buffer Pool</code> 对象， 每个页可以根据哈希值平均分配到不算的缓冲池中，这样可以检测数据库内部的资源竞争，增加数据库的并发能力， 可以通过 <code>innodb_buffer_pool_instances</code> 来进行设置，默认是1</li>
 </ol>
+<h2 id="LRU-List，Free-List-和-Flush-List"><a href="#LRU-List，Free-List-和-Flush-List" class="headerlink" title="LRU List，Free List 和 Flush List"></a>LRU List，Free List 和 Flush List</h2><h3 id="Free-List-空闲链表"><a href="#Free-List-空闲链表" class="headerlink" title="Free List 空闲链表"></a>Free List 空闲链表</h3><ol>
+<li><code>Free List</code> 是 <code>InnoDB</code> 存储引擎中一个重要的数据结构，它用于管理 <code>Buffer Pool</code> 中的空闲页，当需要使用一个新的页的时候，会从空闲链表中获取一个页，在数据库刚运行时，所有的页都是空闲页</li>
+</ol>
+<h3 id="LRU-List-Latest-Recent-Used-最近最少使用"><a href="#LRU-List-Latest-Recent-Used-最近最少使用" class="headerlink" title="LRU List(Latest Recent Used) 最近最少使用"></a>LRU List(Latest Recent Used) 最近最少使用</h3><ol>
+<li>数据库中的缓冲池是通过<code>LRU</code>（<code>Latest Recent Used</code>，最近最少使用）算法来管理缓存页的。即最频繁使用的页在 <code>LRU</code> 列表的前端，而最少使用的页在 <code>LRU</code> 列表的尾端</li>
+<li>对于 <code>InnoDB</code> 而言，数据放在磁盘中就是数据页，当数据页加载到缓冲区中后就变成了缓存页，二者大小是相同的</li>
+<li><code>InnoDB</code> 中根据 <strong>数据冷热分离思想</strong> 对 <code>LRU</code> 链表进行了优化，从磁盘中加载的数据页默认先放在 <code>LRU</code> 的冷数据区域，满足一定条件后才会将移动到热取数据区域（冷数据区域默认占 3&#x2F;8），可以通过 <code>innodb_old_blocks_pct</code> 参数修改</li>
+<li><code>Mysql</code> 的预读机制可能会加载实际不会使用到的数据到缓冲池中，会占用缓冲池的空间</li>
+<li>遇到类似 <code>select * from table</code> 这种全表扫描的语句，会加载大量的磁盘中的数据页到缓冲区中，但是这些数据可能只用一次就不用了，如果直接放在 <code>LRU</code> 链表头部可能会将其他常用的数据挤出缓冲区</li>
+</ol>
+<h3 id="Flush-列表"><a href="#Flush-列表" class="headerlink" title="Flush 列表"></a>Flush 列表</h3><ol>
+<li><code>LRU</code> 链表中管理的缓存页被修改之后就会变成 <strong>脏页</strong>， 这些脏页最终是需要将其刷新到磁盘中的，所以需要将所有的脏页放在一起进行管理，于是 <code>Flush List</code> 就诞生了</li>
+<li><code>LRU</code> 列表用来管理缓冲池中页的可用性，<code>Flush</code>列表用来管理将页刷新回磁盘，二者互不影响</li>
+</ol>
+<h2 id="重做日志缓冲"><a href="#重做日志缓冲" class="headerlink" title="重做日志缓冲"></a>重做日志缓冲</h2><blockquote>
+<p>InnoDB 存储引擎的内存区域除了有缓冲池外，还有重做日志缓冲（redo log buffer）。InnoDB存储引擎首先将重做日志信息先放入到这个缓冲区，然后按一定频率将其刷新到重做日志文件。重做日志缓冲一般不需要设置得很大，因为一般情况下每一秒钟会将重做日志缓冲刷新到日志文件，因此用户只需要保证每秒产生的事务量在这个缓冲大小之内即可。该值可由配置参数innodb_log_buffer_size控制，默认为8MB</p>
+</blockquote>
+<h3 id="重做日志缓冲刷盘时机"><a href="#重做日志缓冲刷盘时机" class="headerlink" title="重做日志缓冲刷盘时机"></a>重做日志缓冲刷盘时机</h3><ol>
+<li><code>Master Thread</code> 每一秒将重做日志缓冲刷新到重做日志文件；</li>
+<li>每个事务提交时会将重做日志缓冲刷新到重做日志文件；</li>
+<li>当重做日志缓冲池剩余空间小于1&#x2F;2时，重做日志缓冲刷新到重做日志文件。</li>
+</ol>
+<h2 id="Checkpoint-技术"><a href="#Checkpoint-技术" class="headerlink" title="Checkpoint 技术"></a>Checkpoint 技术</h2><h3 id="redo-产生背景"><a href="#redo-产生背景" class="headerlink" title="redo 产生背景"></a>redo 产生背景</h3><ol>
+<li>数据页加载到缓冲区变成缓存页，缓存页被修改后就变成脏页，脏页最终是要刷回磁盘，如果缓存页有变化就刷盘那么性能很差（磁盘随机读写），如果很久都不刷盘，可能会有数据丢失的情况</li>
+<li>为了避免数据丢失，很多系统普遍 <code>Write Ahead Log</code> 策略，即当事务提交时，先写重做日志，再修改页。当由于发生宕机而导致数据丢失时，通过重做日志来完成数据的恢复（日志是磁盘顺序写）</li>
+</ol>
+<h3 id="checkpoint-作用"><a href="#checkpoint-作用" class="headerlink" title="checkpoint 作用"></a>checkpoint 作用</h3><p>从上面两点可以知道 <code>redo</code> 日志的作用，但是 <code>redo</code> 日志文件也不可能无限大，即使可以无限大，最终数据恢复时间也很漫长，所以才引入 <code>checkpoint</code> 技术，主要解决以下几个问题</p>
+<ol>
+<li>缩短数据库的恢复时间</li>
+<li>缓冲区不够用时，将脏页刷新到磁盘</li>
+<li>重做日志不可用时，刷新脏页</li>
+<li>因为重做日志不是无限大，而是循环使用，所以当设置的大小都被占用了，就需要将脏页数据刷盘</li>
+</ol>
+<p>可以认为 <code>checkpoint</code> 就是一个临界点，在 <code>checkpoint</code> 之前的数据都已经存在磁盘上了，在 <code>checkpoint</code> 之后的数据存在 <code>redo</code> 日志和缓存页中</p>
+<h3 id="checkpoint-实现"><a href="#checkpoint-实现" class="headerlink" title="checkpoint 实现"></a>checkpoint 实现</h3><ol>
+<li>对于 <code>InnoDB</code> 存储引擎而言，其是通过<code>LSN（Log Sequence Number）</code>来标记版本的， <code>LSN</code> 是8字节的数字， 每个数据页都有 <code>LSN</code></li>
+<li>重做日志和 <code>Checkpoint</code> 都会 <code>LSN</code>, 可以通过命令 <code>show engine innodb status\G</code> 查看 <code>innodb</code> 引擎信息，其中就包含 <code>LSN</code>， 比如如下所示<figure class="highlight pgsql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">Log</span> <span class="keyword">sequence</span> number <span class="number">92561351052</span> </span><br><span class="line"><span class="keyword">Log</span> flushed up <span class="keyword">to</span> <span class="number">92561351052</span> </span><br><span class="line">Last <span class="keyword">checkpoint</span> at <span class="number">92561351052</span></span><br></pre></td></tr></table></figure></li>
+<li>在 <code>InnoDB</code> 存储引擎内部，有两种 <code>Checkpoint</code></li>
+<li><strong>Sharp Checkpoint</strong>: 发生在数据库关闭时，需要将所有的脏页都刷新会磁盘，对应的是 <code>innodb_fast_shutdown=1</code>, 也是默认的行为</li>
+<li><strong>Fuzzy Checkpoint</strong>： <code>InnoDB</code> 存储引擎内部使用 <code>Fuzzy Checkpoint</code>进行页的刷新，即只刷新一部分脏页，而不是刷新所有的脏页回磁盘</li>
+</ol>
+<h4 id="Fuzzy-Checkpoint-刷盘时机"><a href="#Fuzzy-Checkpoint-刷盘时机" class="headerlink" title="Fuzzy Checkpoint 刷盘时机"></a>Fuzzy Checkpoint 刷盘时机</h4><ol>
+<li>Master Thread Checkpoint</li>
+<li>差不多以每秒或每十秒的速度从缓冲池的脏页列表中刷新一定比例的页回磁盘。这个过程是异步的</li>
+<li>FLUSH_LRU_LIST Checkpoint</li>
+<li><code>InnoDB</code> 存储引擎需要保证 <code>LRU</code> 列表中需要有差不多100个空闲页可供使用, 具体多少个可以通过参数 <code>innodb_lru_scan_depth</code> 控制</li>
+<li>当发现 <code>LRU</code> 列表中没有那么多空闲页时，就需要将 <code>LRU</code> 尾端的页移除，如果这些页有脏页，就需要进行 <code>checkpoint</code></li>
+<li>Async&#x2F;Sync Flush Checkpoint</li>
+<li>当重做日志不可用时，需要从脏页中强制将一些页进行刷盘</li>
+<li>Dirty Page too much Checkpoint</li>
+<li>当脏页的数量太多时，为了保证缓冲区仍有空间可用，也会强制将一些脏页刷盘， 可以通过参数 <code>innodb_max_dirty_pages_pct</code> 控制脏页占比，默认是 <code>75%</code>， 即当缓冲池中脏页数量占到了 <code>75%</code> 会强制 <code>checkpoint</code></li>
+</ol>
+<h2 id="Master-线程"><a href="#Master-线程" class="headerlink" title="Master 线程"></a>Master 线程</h2><ol>
+<li><p><code>Master Thread</code> 具有最高的线程优先级别。内部由多个循环（<code>loop</code>）组成</p>
+</li>
+<li><p><code>Master Thread</code> 会根据数据库运行的状态在 <code>loop</code>、<code>background loop</code>、<code>flush loop</code>和<code>suspend loop</code>中进行切换</p>
+</li>
+</ol>
+<p><strong>主循环（loop）</strong></p>
+<ul>
+<li>每 <code>1s</code> 的操作<ol>
+<li>日志缓冲刷新到磁盘，即使这个事务还没有提（总是）</li>
+<li>合并插入缓冲（可能）</li>
+<li>至多刷新100个 <code>InnoDB</code> 的缓冲池中的脏页磁盘（可能）</li>
+<li>如果当前没有用户活动，则切换到<code>background loop</code>（可能）</li>
+</ol>
+</li>
+<li>每 <code>10s</code> 的操作<ol>
+<li>刷新100个脏页到磁盘（可能）</li>
+<li>合并至多5个插入缓冲（总是）</li>
+<li>将日志缓冲刷新到磁盘（总是）</li>
+<li>删除无用的 <code>Undo</code> 页（总是）</li>
+</ol>
+</li>
+</ul>
+<p><strong>后台循环（backgroup loop）</strong></p>
+<p>若当前没有用户活动（数据库空闲时）或者数据库关闭（<code>shutdown</code>），就会切换到这个循环, 会存在以下操作</p>
+<ul>
+<li>删除无用的 <code>Undo</code> 页（总是）</li>
+<li>合并20个插入缓冲（总是）</li>
+<li>跳回到主循环（总是）</li>
+<li>不断刷新100个页直到符合条件（可能，跳转到<code>flush loop</code>中完成）</li>
+</ul>
+<p><strong>刷新循环（flush loop）</strong> </p>
+<p>主要是将缓冲区脏页数据刷新到磁盘</p>
+<p><strong>暂停循环（suspend loop）</strong><br>若 <code>flush loop</code> 中也没有什么事情可以做了，<code>InnoDB</code>存储引擎会切换到<code>suspend loop</code>，将<code>Master Thread</code>挂起，等待事件的发生</p>
+<p>在 <code>InnoDB1.2.x</code>版本中从 <code>Master Thread</code> 线程分离到一个单独的<code> Page Cleaner Thread</code>，从而减轻了<code>Master Thread</code>的工作，同时进一步提高了系统的并发性</p>
+<h2 id="插入缓冲-Insert-Buffer"><a href="#插入缓冲-Insert-Buffer" class="headerlink" title="插入缓冲 Insert Buffer"></a>插入缓冲 Insert Buffer</h2><h3 id="Insert-Buffer-在哪里"><a href="#Insert-Buffer-在哪里" class="headerlink" title="Insert Buffer 在哪里"></a>Insert Buffer 在哪里</h3><p><code>Insert Buffer</code>和数据页一样，也是物理页的一个组成部分（缓冲区中也有 <code>Insert Buffer</code>, 含义不同）</p>
+<h3 id="为什么要有-Insert-Buffer"><a href="#为什么要有-Insert-Buffer" class="headerlink" title="为什么要有 Insert Buffer"></a>为什么要有 Insert Buffer</h3><ol>
+<li>每个表都有一个主键，如果是自增的那么数据是按照主键顺序存储的，这种情况下数据新增是很快的，因为是有顺序的</li>
+<li>如果主键不是自增的，或者其他非聚集索引（先理解成非主键索引）都可能不是自增的，在这种情况下，数据页的存放还是按主键进行顺序存放的，但是对于非聚集索引叶子节点的插入不再是顺序的了，这时就需要离散地访问非聚集索引页，由于随机读取的存在而导致了插入操作性能下降</li>
+<li><code>Insert Buffer</code> 的作用就是对于非聚集索引的插入或更新操作，不是每一次直接插入到索引页中，而是先判断插入的非聚集索引页是否在缓冲池中，若在，则直接插入；若不在，则先放入到一个<code>Insert Buffer</code>对象中， 然后再以一定的频率和情况进行<code>Insert Buffer</code>和辅助索引页子节点的<code>merge</code>（合并）操作，这时通常能将多个插入合并到一个操作中（因为在一个索引页中），这就大大提高了对于非聚集索引插入的性能</li>
+</ol>
+<h3 id="使用-Insert-Buffer-需要满足的条件"><a href="#使用-Insert-Buffer-需要满足的条件" class="headerlink" title="使用 Insert Buffer 需要满足的条件"></a>使用 Insert Buffer 需要满足的条件</h3><ol>
+<li>索引是辅助索引</li>
+<li>索引不是唯一的： 如果索引唯一，就还需要查找判断操作，此时使用 <code>Insert Buffer</code> 就不能提升性能了</li>
+</ol>
+<p>所以 <code>Insert Buffer</code> 主要是为了提高索引页数据插入的性能</p>
 ]]></content>
       <categories>
         <category>存储</category>
@@ -2507,95 +2958,48 @@
       </tags>
   </entry>
   <entry>
-    <title>WindTerm功能设置</title>
-    <url>/2023/0ff9c6825506/index.html</url>
-    <content><![CDATA[<h2 id="自定义快捷键"><a href="#自定义快捷键" class="headerlink" title="自定义快捷键"></a>自定义快捷键</h2><p><a href="https://github.com/kingToolbox/WindTerm/issues/267">参考github</a></p>
-<h2 id="去除锁屏"><a href="#去除锁屏" class="headerlink" title="去除锁屏"></a>去除锁屏</h2><ol>
-<li>找到配置文件，可以在 <strong>会话-&gt;首选项-&gt;配置文件</strong> 中查看配置文件的位置</li>
-<li>找到 <code>application.lockScreenTimeout</code>， 将值改成 0</li>
-</ol>
-]]></content>
-      <categories>
-        <category>tools</category>
-        <category>other</category>
-      </categories>
-      <tags>
-        <tag>tools</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>utools自动化脚本插件</title>
-    <url>/2023/d899f5ff1973/index.html</url>
-    <content><![CDATA[<h2 id="utools-使用自动化脚本打开本地程序"><a href="#utools-使用自动化脚本打开本地程序" class="headerlink" title="utools 使用自动化脚本打开本地程序"></a>utools 使用自动化脚本打开本地程序</h2><ol>
-<li>比如 typora 可以打开之前的文件和目录，但是目录只能到文件的上一个层级，如果源目录包含很多子目录，重新打开时可能不是我们想要的结果，那可以在命令行执行 <code>typora folder</code>, eg: <code>typora E:\\blog</code> <span id="more"></span></li>
-</ol>
-<blockquote>
-<p>在命令行执行 typora 命令需要先配置 typora 的环境变量</p>
-</blockquote>
-<ol>
-<li>更简便的方式是直接使用 utools 的自动化脚本这个插件，新增一个自己的插件脚本，内容如下</li>
-</ol>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> &#123; execFile &#125; = <span class="built_in">require</span>(<span class="string">&quot;child_process&quot;</span>)</span><br><span class="line"></span><br><span class="line"> <span class="comment">// 以下是关键代码，调用 typora 来执行目标文件</span></span><br><span class="line"><span class="title function_">execFile</span>(<span class="string">&#x27;typora&#x27;</span>, [<span class="string">&#x27;E:/code/learnerguo&#x27;</span>], <span class="function">(<span class="params">error, stdout, stderr</span>) =&gt;</span> &#123;</span><br><span class="line">    process.<span class="title function_">exit</span>()</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+    <title>postgres将毫秒值转换成字符串</title>
+    <url>/2023/3a8e444a3e04/index.html</url>
+    <content><![CDATA[<h2 id="基本信息"><a href="#基本信息" class="headerlink" title="基本信息"></a>基本信息</h2><p>毫秒值类型:  <code>numeric(13)</code></p>
+<p>字段名称: <code>check_time</code></p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> to_char(to_timestamp(check_time <span class="operator">/</span> <span class="number">1000</span>) <span class="keyword">AT</span> <span class="type">TIME</span> ZONE <span class="string">&#x27;Asia/Shanghai&#x27;</span>, <span class="string">&#x27;YYYY-MM-DD HH24:MI:SS.MS&#x27;</span>) <span class="keyword">AS</span> check_time <span class="keyword">from</span> table_neme;</span><br></pre></td></tr></table></figure>
 
-<p>然后自定义关键字，后续当打开 utools 输入对应关键字就可以打开 typora 的目录</p>
-<h2 id="使用自动化脚本获取当天起始时间"><a href="#使用自动化脚本获取当天起始时间" class="headerlink" title="使用自动化脚本获取当天起始时间"></a>使用自动化脚本获取当天起始时间</h2><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> now = <span class="keyword">new</span> <span class="title class_">Date</span>();</span><br><span class="line"><span class="comment">// 设置当前时间的小时、分钟、秒和毫秒为0，即将时间设置为当天的开始时间</span></span><br><span class="line">now.<span class="title function_">setHours</span>(<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>);</span><br><span class="line"><span class="comment">// 获取当天开始时间点的毫秒数</span></span><br><span class="line"><span class="keyword">const</span> startTime = now.<span class="title function_">getTime</span>();</span><br><span class="line">utools.<span class="title function_">copyText</span>(<span class="string">&quot;&quot;</span>+startTime);</span><br><span class="line"><span class="title function_">print</span>(<span class="string">&#x27;开始时间已复制&#x27;</span> + startTime);</span><br><span class="line">utools.<span class="title function_">hideMainWindow</span>();</span><br><span class="line">process.<span class="title function_">exit</span>()</span><br></pre></td></tr></table></figure>
+<h2 id="使用到的函数"><a href="#使用到的函数" class="headerlink" title="使用到的函数"></a>使用到的函数</h2><p><a href="http://www.postgres.cn/docs/12/functions-formatting.html">postgres12版本的日期函数参考</a></p>
+<ol>
+<li><code>to_timestamp</code>： 将 <strong>秒</strong> 值转换成 <code>timestamp</code> 类型， 所以如果是毫秒值的话还需要 <code>毫秒值/1000</code><ol>
+<li><code>AT TIME ZONE &#39;Asia/Shanghai</code> 代表将返回的时间戳指定时区</li>
+</ol>
+</li>
+<li><code>to_char</code> 将 <code>timestamp</code> 类型转换成字符串， 其中 <code>YYYY-MM-DD HH24:MI:SS.MS</code> 代表格式化的字符串<ol>
+<li><code>HH24</code> 代表 24 小时制</li>
+<li><code>MI</code> 表示分钟</li>
+</ol>
+</li>
+</ol>
 ]]></content>
       <categories>
-        <category>tools</category>
-        <category>utools</category>
+        <category>存储</category>
+        <category>PostgreSQL</category>
       </categories>
       <tags>
-        <tag>tools</tag>
-        <tag>utools</tag>
+        <tag>PostgreSQL</tag>
       </tags>
   </entry>
   <entry>
-    <title>vscode相关设置</title>
-    <url>/2023/6b613d963af3/index.html</url>
-    <content><![CDATA[<h2 id="vscode-中-markdown-的-snippets-的设置"><a href="#vscode-中-markdown-的-snippets-的设置" class="headerlink" title="vscode 中 markdown 的 snippets 的设置"></a>vscode 中 markdown 的 snippets 的设置</h2><h3 id="snippets-的设置"><a href="#snippets-的设置" class="headerlink" title="snippets 的设置"></a>snippets 的设置</h3><ol>
-<li>打开 ctrl+shift+p , 搜索 <code>configure user snippets</code> </li>
-<li>选择 markdown.json, 会出现如下内容</li>
-</ol>
-<span id="more"></span>
-<figure class="highlight json"><table><tr><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">	<span class="comment">// Place your snippets for markdown here. Each snippet is defined under a snippet name and has a prefix, body and </span></span><br><span class="line">	<span class="comment">// description. The prefix is what is used to trigger the snippet and the body will be expanded and inserted. Possible variables are:</span></span><br><span class="line">	<span class="comment">// $1, $2 for tab stops, $0 for the final cursor position, and $&#123;1:label&#125;, $&#123;2:another&#125; for placeholders. Placeholders with the </span></span><br><span class="line">	<span class="comment">// same ids are connected.</span></span><br><span class="line">	<span class="comment">// Example:</span></span><br><span class="line">	<span class="comment">// &quot;Print to console&quot;: &#123;</span></span><br><span class="line">	<span class="comment">// 	&quot;prefix&quot;: &quot;log&quot;,</span></span><br><span class="line">	<span class="comment">// 	&quot;body&quot;: [</span></span><br><span class="line">	<span class="comment">// 		&quot;console.log(&#x27;$1&#x27;);&quot;,</span></span><br><span class="line">	<span class="comment">// 		&quot;$2&quot;</span></span><br><span class="line">	<span class="comment">// 	],</span></span><br><span class="line">	<span class="comment">// 	&quot;description&quot;: &quot;Log output to console&quot;</span></span><br><span class="line">	<span class="comment">// &#125;</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+    <title>docker中运行nacos</title>
+    <url>/2023/f67204379054/index.html</url>
+    <content><![CDATA[<p>使用的系统为 <code>ubuntu22.04</code></p>
+<ol><li><a href="/2023/71e6b223e45b/index.html" title="ubuntu22.04安装docker-compose">ubuntu22.04安装docker-compose</a></li></ol>
 
-<ol>
-<li>可以根据示例文件进行修改，如下图所示：<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="string">&quot;markdown code graph&quot;</span>: &#123;</span><br><span class="line">	<span class="string">&quot;prefix&quot;</span>: <span class="string">&quot;codeblock&quot;</span>,</span><br><span class="line">	<span class="string">&quot;body&quot;</span>: [</span><br><span class="line">		<span class="string">&quot;&lt;pre class=&quot;</span>mermaid<span class="string">&quot;&gt;<span class="variable">$0</span>&quot;</span>,</span><br><span class="line">		<span class="string">&quot;```&quot;</span></span><br><span class="line">	],</span><br><span class="line">	<span class="string">&quot;description&quot;</span>: <span class="string">&quot;insert markdown code graph&quot;</span></span><br><span class="line">&#125;&lt;/pre&gt;</span><br><span class="line"></span><br><span class="line">上面示例的意思是 当输入 codeblock 时就会出现 mermaid 代码块， <span class="variable">$0</span> 是光标出现的地方</span><br><span class="line"></span><br><span class="line"><span class="comment">### markdown snippets 不生效的解决方式</span></span><br><span class="line">使用上面的步骤设置完 snippets 之后，在 markdown 文档中编写关键字，但是并没有生效，还需要在  settings.json 中（可以输入 ctrl+<span class="built_in">shift</span>+p, 搜索 settings， 选择 Open User Settings(JSON)）, 然后填写下面的内容</span><br><span class="line"></span><br><span class="line">```java</span><br><span class="line"><span class="string">&quot;[markdown]&quot;</span>:&#123;</span><br><span class="line">	<span class="string">&quot;editor.formatOnSave&quot;</span>: <span class="literal">true</span>,</span><br><span class="line">	<span class="string">&quot;editor.renderWhitespace&quot;</span>: <span class="string">&quot;all&quot;</span>,</span><br><span class="line">	<span class="string">&quot;editor.quickSuggestions&quot;</span>: &#123;</span><br><span class="line">		<span class="string">&quot;other&quot;</span>: <span class="string">&quot;on&quot;</span>,</span><br><span class="line">		<span class="string">&quot;comments&quot;</span>: <span class="string">&quot;on&quot;</span>,</span><br><span class="line">		<span class="string">&quot;strings&quot;</span>: <span class="string">&quot;on&quot;</span></span><br><span class="line">	&#125;,</span><br><span class="line">	<span class="string">&quot;editor.acceptSuggestionOnEnter&quot;</span>: <span class="string">&quot;on&quot;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
-</ol>
-<p>添加上述内容后就可以生效了</p>
-<h2 id="vscode-设置白天黑夜自动切换主题"><a href="#vscode-设置白天黑夜自动切换主题" class="headerlink" title="vscode 设置白天黑夜自动切换主题"></a>vscode 设置白天黑夜自动切换主题</h2><ol>
-<li>vscode 可以根据系统设置的 <code>light</code> 或 <code>dark</code> 主题来进行切换</li>
-<li>系统自动切换主题软件可以在 <code>store</code> 中安装 <code>Auto Dark Mode</code> 这个软件并进行设置</li>
-<li><code>window</code> 系统设置完成之后可以在 <code>vscode</code> 的 <code>user setting</code> 中添加如下内容, 第一个配置是开启自动切换，后面的配置是设置的 <code>light</code> 和 <code>dark</code> 主题的名称</li>
-</ol>
-<figure class="highlight json"><table><tr><td class="code"><pre><span class="line"><span class="attr">&quot;window.autoDetectColorScheme&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">true</span></span><span class="punctuation">,</span></span><br><span class="line"><span class="attr">&quot;workbench.preferredLightColorTheme&quot;</span><span class="punctuation">:</span> <span class="string">&quot;Atom One Light&quot;</span><span class="punctuation">,</span></span><br><span class="line"><span class="attr">&quot;workbench.preferredDarkColorTheme&quot;</span><span class="punctuation">:</span> <span class="string">&quot;Default Dark Modern&quot;</span></span><br></pre></td></tr></table></figure>
-]]></content>
+<p>参考 <a href="https://nacos.io/zh-cn/docs/quick-start-docker.html">nacos官方文档之使用docker启动</a></p>
+<p>这里使用的是 <code>mysql8</code> 单机版启动</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="comment">&lt;!-- 克隆项目 --&gt;</span></span><br><span class="line">git clone https://github.com/nacos-group/nacos-docker.git</span><br><span class="line">cd nacos-docker</span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!-- 以后台模式启动 nacos 服务 --&gt;</span></span><br><span class="line">docker-compose -f example/standalone-mysql-8.yaml up -d</span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!-- 查看启动的docker服务 --&gt;</span></span><br><span class="line">docker container ps</span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!-- 关闭服务 --&gt;</span></span><br><span class="line">docker-compose -f example/standalone-mysql-8.yaml down</span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!-- 启动后，访问 nacos  --&gt;</span></span><br><span class="line">http://localhost:8848/nacos/index.html</span><br></pre></td></tr></table></figure>]]></content>
       <categories>
-        <category>tools</category>
-        <category>vscode</category>
+        <category>云原生</category>
+        <category>docker</category>
       </categories>
       <tags>
-        <tag>tools</tag>
-        <tag>vscode</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>vscode设置markdown图片默认路径</title>
-    <url>/2023/5b4d784e18c2/index.html</url>
-    <content><![CDATA[<p><code>vscode</code> 在 <code>markdown</code> 文档中直接复制图片时是放在当前目录，如果需要修改可以按照下面方式设置</p>
-<span id="more"></span>
-<ol>
-<li>输入快捷键 <code>ctrl+,</code> 可以快速打开设置</li>
-<li>搜索 <code>markdown.copy: Destination</code></li>
-</ol>
-<p><img src="/2023/5b4d784e18c2/index/1700033681108.png" alt="Alt text"></p>
-]]></content>
-      <categories>
-        <category>tools</category>
-        <category>vscode</category>
-      </categories>
-      <tags>
-        <tag>tools</tag>
+        <tag>docker</tag>
       </tags>
   </entry>
   <entry>
