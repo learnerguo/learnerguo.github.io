@@ -299,26 +299,6 @@
       </tags>
   </entry>
   <entry>
-    <title>比较</title>
-    <url>/2023/2084759b2332/index.html</url>
-    <content><![CDATA[<blockquote>
-<p>人感到不幸福大多来源于比较，感到满足也源于比较</p>
-</blockquote>
-<span id="more"></span>
-<p>在微信读书看到一位书友写到，作为农村出来的孩子，应该如何改变自己的命运，因为周围的一切在告诉我们，就算你努力了二十几年，才勉强达到了别人的起跑线，但是我们的出身是自己无法决定的，那我们应该如何更进一步呢？</p>
-<p>看到另外一位书友的回答很有感触，且记录在此，和有缘人共勉</p>
-<blockquote>
-<p>回头看，轻舟已过万重山<br>向前看，长路漫漫亦灿灿<br>平常看，人间烟火甚灿烂<br>低头看，万里黄山皆脚下  </p>
-</blockquote>
-]]></content>
-      <categories>
-        <category>record</category>
-      </categories>
-      <tags>
-        <tag>record</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>hexo的butterfly主题更换waline系统cdn地址</title>
     <url>/2023/0fd7aa9951f7/index.html</url>
     <content><![CDATA[<ol>
@@ -337,6 +317,26 @@
       </categories>
       <tags>
         <tag>hexo</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>比较</title>
+    <url>/2023/2084759b2332/index.html</url>
+    <content><![CDATA[<blockquote>
+<p>人感到不幸福大多来源于比较，感到满足也源于比较</p>
+</blockquote>
+<span id="more"></span>
+<p>在微信读书看到一位书友写到，作为农村出来的孩子，应该如何改变自己的命运，因为周围的一切在告诉我们，就算你努力了二十几年，才勉强达到了别人的起跑线，但是我们的出身是自己无法决定的，那我们应该如何更进一步呢？</p>
+<p>看到另外一位书友的回答很有感触，且记录在此，和有缘人共勉</p>
+<blockquote>
+<p>回头看，轻舟已过万重山<br>向前看，长路漫漫亦灿灿<br>平常看，人间烟火甚灿烂<br>低头看，万里黄山皆脚下  </p>
+</blockquote>
+]]></content>
+      <categories>
+        <category>record</category>
+      </categories>
+      <tags>
+        <tag>record</tag>
       </tags>
   </entry>
   <entry>
@@ -1306,8 +1306,181 @@
       </tags>
   </entry>
   <entry>
+    <title>BeanFacotry的后置处理器详解</title>
+    <url>/2023/e7d5d1305e5d/index.html</url>
+    <content><![CDATA[<span class="hide_first_mermaid">
+<div class="mermaid-wrap"><pre class="mermaid-src" hidden>
+  flowchart LR
+    A
+  </pre></div>
+</span>
+
+<p><strong>Spring 版本： 6.0.6</strong></p>
+<h2 id="BeanFactory-的后置处理器的作用"><a href="#BeanFactory-的后置处理器的作用" class="headerlink" title="BeanFactory 的后置处理器的作用"></a>BeanFactory 的后置处理器的作用</h2><p><code>BeanFactory</code> 的后置处理器（<code>PostProcessor</code>）是用于在 <code>BeanFactory</code> 加载和创建 <code>bean</code> 过程中对 <code>bean</code> 进行进一步处理的接口。它提供了一种机制，可以在 <code>Spring</code> 容器实例化 <code>bean</code> 之前对 <code>bean</code> 进行定制、修改或扩展</p>
+<h2 id="两种-BeanFactory-的接口类型"><a href="#两种-BeanFactory-的接口类型" class="headerlink" title="两种 BeanFactory 的接口类型"></a>两种 BeanFactory 的接口类型</h2><h3 id="BeanFactoryPostProcessor"><a href="#BeanFactoryPostProcessor" class="headerlink" title="BeanFactoryPostProcessor"></a>BeanFactoryPostProcessor</h3><p>可以通过 <code>ConfigurableListableBeanFactory</code> 对 <code>BeanDefinition</code> 进行修改，这样就会改变 <code>bean</code> 的定义</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@FunctionalInterface</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">interface</span> <span class="title class_">BeanFactoryPostProcessor</span> &#123;</span><br><span class="line">	<span class="keyword">void</span> <span class="title function_">postProcessBeanFactory</span><span class="params">(ConfigurableListableBeanFactory beanFactory)</span> <span class="keyword">throws</span> BeansException;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="BeanDefinitionRegistryPostProcessor"><a href="#BeanDefinitionRegistryPostProcessor" class="headerlink" title="BeanDefinitionRegistryPostProcessor"></a>BeanDefinitionRegistryPostProcessor</h3><p><code>BeanDefinitionRegistryPostProcessor</code> 继承了 <code>BeanFactoryPostProcessor</code> 接口，同时增加了一个接口，该接口提供了 <code>BeanDefinitionRegistry</code> 参数，也就是可以动态注入一些 <code>BeanDefinition</code>， 在 <code>Spring</code> 中典型的应用是 <code>ConfigurationClassPostProcessor</code>，后面会分析这个类</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">interface</span> <span class="title class_">BeanDefinitionRegistryPostProcessor</span> <span class="keyword">extends</span> <span class="title class_">BeanFactoryPostProcessor</span> &#123;</span><br><span class="line">	<span class="keyword">void</span> <span class="title function_">postProcessBeanDefinitionRegistry</span><span class="params">(BeanDefinitionRegistry registry)</span> <span class="keyword">throws</span> BeansException;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="BeanFactory-后置处理器的使用示例"><a href="#BeanFactory-后置处理器的使用示例" class="headerlink" title="BeanFactory 后置处理器的使用示例"></a>BeanFactory 后置处理器的使用示例</h2><h3 id="使用示例类说明"><a href="#使用示例类说明" class="headerlink" title="使用示例类说明"></a>使用示例类说明</h3><ol>
+<li><code>CusBeanFactoryPostProcessor</code> 该类实现了 <code>BeanFactoryPostProcessor</code> 接口并且标有 <code>@Component</code> 注解</li>
+<li><code>CusBeanDefinitionRegistryPostProcessor</code> 该类实现了 <code>BeanDefinitionRegistryPostProcessor</code> 接口并且标有 <code>@Component</code> 注解</li>
+<li><code>RegisterComponent</code> 普通类，会通过 <code>CusBeanDefinitionRegistryPostProcessor</code> 注入到 <code>Spring</code> 容器</li>
+<li><code>ScanComponent</code> 标有 <code>@Component</code> 和 <code>@Scope(&quot;prototype&quot;)</code>, 会通过 <code>CusBeanFactoryPostProcessor</code> 将 <code>scope</code> 从 <code>prototype</code> 改为 <code>singleton</code></li>
+<li><code>BeanFactoryPostProcessMain</code> 主类，标有 <code>@Configuration</code> 和 <code>@ComponentScan</code></li>
+</ol>
+<p>上述所有类都放在同一个包中</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">//  普通类，并没有增加spring注解，会通过 CusBeanDefinitionRegistryPostProcessor 注入到 Spring 容器</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">RegisterComponent</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">sayHello</span><span class="params">()</span> &#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;RegisterComponent.sayHello&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 实现了BeanDefinitionRegistryPostProcessor接口，会被spring扫描，并且注入了普通类 RegisterComponent</span></span><br><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">CusBeanDefinitionRegistryPostProcessor</span> <span class="keyword">implements</span> <span class="title class_">BeanDefinitionRegistryPostProcessor</span> &#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">postProcessBeanDefinitionRegistry</span><span class="params">(BeanDefinitionRegistry registry)</span> <span class="keyword">throws</span> BeansException &#123;</span><br><span class="line">        <span class="type">AbstractBeanDefinition</span> <span class="variable">beanDefinition</span> <span class="operator">=</span> BeanDefinitionBuilder.genericBeanDefinition(RegisterComponent.class).getBeanDefinition();</span><br><span class="line">        registry.registerBeanDefinition(<span class="string">&quot;registerComponent&quot;</span>, beanDefinition);</span><br><span class="line">        System.out.println(<span class="string">&quot;CusBeanDefinitionRegistryPostProcessor postProcessBeanDefinitionRegistry&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">postProcessBeanFactory</span><span class="params">(ConfigurableListableBeanFactory beanFactory)</span> <span class="keyword">throws</span> BeansException &#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;CusBeanDefinitionRegistryPostProcessor postProcessBeanFactory&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//  被spring管理的类，如果没有任何处理会是 prototype 作用域， 这里会通过 CusBeanFactoryPostProcessor 将 scope 改为 singleton</span></span><br><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="meta">@Scope(&quot;prototype&quot;)</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">ScanComponent</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">sayHello</span><span class="params">()</span> &#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;BeanFactoryDemo1 sayHello&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 实现了BeanFactoryPostProcessor接口，会将scanComponent类的scope从prototype改为singleton</span></span><br><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">CusBeanFactoryPostProcessor</span> <span class="keyword">implements</span> <span class="title class_">BeanFactoryPostProcessor</span> &#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">postProcessBeanFactory</span><span class="params">(ConfigurableListableBeanFactory beanFactory)</span> <span class="keyword">throws</span> BeansException &#123;</span><br><span class="line">        <span class="type">BeanDefinition</span> <span class="variable">scanComponent</span> <span class="operator">=</span> beanFactory.getBeanDefinition(<span class="string">&quot;scanComponent&quot;</span>);</span><br><span class="line">        scanComponent.setScope(<span class="string">&quot;singleton&quot;</span>);</span><br><span class="line">        System.out.println(<span class="string">&quot;CusBeanFactoryPostProcessor postProcessBeanFactory&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 配置主类</span></span><br><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="meta">@ComponentScan</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">BeanFactoryPostProcessMain</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="type">ApplicationContext</span> <span class="variable">context</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">AnnotationConfigApplicationContext</span>(BeanFactoryPostProcessMain.class);</span><br><span class="line">        <span class="comment">// BeanFactoryPostProcessor 的测试（修改了 ScanComponent 类的 scope 属性）</span></span><br><span class="line">        <span class="type">ScanComponent</span> <span class="variable">bean</span> <span class="operator">=</span> context.getBean(ScanComponent.class);</span><br><span class="line">        System.out.println(bean);</span><br><span class="line">        <span class="type">ScanComponent</span> <span class="variable">bean2</span> <span class="operator">=</span> context.getBean(ScanComponent.class);</span><br><span class="line">        System.out.println(bean2);</span><br><span class="line"></span><br><span class="line">        <span class="type">RegisterComponent</span> <span class="variable">registerComponent</span> <span class="operator">=</span> context.getBean(RegisterComponent.class);</span><br><span class="line">        registerComponent.sayHello(); <span class="comment">// 会打印 &quot;RegisterComponent.sayHello&quot;</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>执行结果</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">CusBeanDefinitionRegistryPostProcessor postProcessBeanDefinitionRegistry</span><br><span class="line">CusBeanDefinitionRegistryPostProcessor postProcessBeanFactory</span><br><span class="line">CusBeanFactoryPostProcessor postProcessBeanFactory</span><br><span class="line">org.example.beanfactorypost.ScanComponent@5e1fa5b1</span><br><span class="line">org.example.beanfactorypost.ScanComponent@5e1fa5b1</span><br><span class="line">RegisterComponent.sayHello</span><br></pre></td></tr></table></figure>
+
+<p>从上面执行结果可以得出如下几个结论：</p>
+<ol>
+<li>先执行实现了 <code>BeanDefinitionRegistryPostProcessor</code> 接口的类，然后才是执行的 <code>BeanFactoryPostProcessor</code> 接口实现类</li>
+<li><code>BeanDefinitionRegistryPostProcessor</code> 实现类确实可以注册普通对象成为 <code>bean</code>, 比如上面注册了普通对象 <code>RegisterComponent</code></li>
+<li><code>CusBeanFactoryPostProcessor</code> 类已经将 <code>ScanComponent</code> 的 <code>scope</code> 属性改成 <code>singleton</code>, 因为两次 <code>getBean</code> 获取的是同一个对象</li>
+</ol>
+<h2 id="BeanFactory-后置处理器的执行时机"><a href="#BeanFactory-后置处理器的执行时机" class="headerlink" title="BeanFactory 后置处理器的执行时机"></a>BeanFactory 后置处理器的执行时机</h2><p>参考 <ol><li><a href="/2023/b93a520f6ddc/index.html" title="Spring上下文refresh方法解析">Spring上下文refresh方法解析</a></li></ol> 中写到的 <code>refresh()</code> 方法的第五步，就是执行后置处理器</p>
+<p>执行流程如下</p>
+<pre class="mermaid">sequenceDiagram
+    participant A as AnnotationConfigApplicationContext
+    participant B as AbstractApplicationContext
+    participant C as PostProcessorRegistrationDelegate
+    A->>A: new AnnotationConfigApplicationContext(classes)
+    A->>B: refresh()
+    B->>C: invokeBeanFactoryPostProcessors()
+    C->>C: invokeBeanFactoryPostProcessors()</pre>
+
+<p>所以最终是执行到 <code>public PostProcessorRegistrationDelegate#invokeBeanFactoryPostProcessors()</code> 方法 ， 代码这里就不贴了，这里总结一下</p>
+<ol>
+<li>执行实现了 <code>BeanDefinitionRegistryPostProcessors</code> 和 <code>PriorityOrdered</code> 的类的<code>postProcessBeanDefinitionRegistry()</code> 方法</li>
+<li>执行实现了 <code>BeanDefinitionRegistryPostProcessors</code> 和 <code>Ordered</code> 的类的<code>postProcessBeanDefinitionRegistry()</code> 方法</li>
+<li>执行实现了 <code>BeanDefinitionRegistryPostProcessors</code> 并且在 <strong>前面两步中没有执行过的类</strong></li>
+<li>对于实现了 <code>BeanFactoryPostProcessor</code> 的类，调用流程也是类似，执行实现了 <code>PriorityOrdered</code> 的类 -&gt; 执行实现了 <code>Ordered</code> 的类 -&gt; 执行剩下的类</li>
+</ol>
+<h2 id="BeanDefinitionRegistryPostProcessor-典型实现类-ConfigurationClassPostProcessor"><a href="#BeanDefinitionRegistryPostProcessor-典型实现类-ConfigurationClassPostProcessor" class="headerlink" title="BeanDefinitionRegistryPostProcessor 典型实现类 ConfigurationClassPostProcessor"></a>BeanDefinitionRegistryPostProcessor 典型实现类 ConfigurationClassPostProcessor</h2><p>在 <code>Spring</code> 内部也是有很多实现了 <code>BeanDefinitionRegistryPostProcessor</code> 接口的类，比如 <code>ConfigurationClassPostProcessor</code> 类，下面就来看看这个类</p>
+<ol>
+<li>先说明一下 <code>ConfigurationClassPostProcessor</code> 这个类做的事情，在 <code>Spring</code> 中 <code>@ComponentScan</code> 注解可以批量扫描类被 <code>Spring</code> 管理，但是注解只是起到一个标记的作用，需要有地方来解析这个注解才行，而这个解析的源头就是 <code>ConfigurationClassPostProcessor</code>，真正解析是在 <code>ConfigurationClassParser</code> 中</li>
+<li>前面有说过 <code>BeanDefinitionRegistryPostProcessors</code> 接口的实现类可以批量注册 <code>BeanDefinition</code> 被 <code>Spring</code> 管理，在 <code>ConfigurationClassParser</code> 中将 <code>@ComponentScan</code> 涉及到的类都解析出来之后，刚好就可以注册到 <code>Spring</code> 容器中</li>
+</ol>
+<p>代码执行流程如下</p>
+<figure class="highlight axapta"><table><tr><td class="code"><pre><span class="line">AbstractApplicationContext<span class="meta">#refresh</span></span><br><span class="line">    AbstractApplicationContext<span class="meta">#invokeBeanFactoryPostProcessors</span></span><br><span class="line">        <span class="keyword">public</span> PostProcessorRegistrationDelegate<span class="meta">#invokeBeanFactoryPostProcessors</span></span><br><span class="line">            <span class="keyword">private</span> PostProcessorRegistrationDelegate<span class="meta">#invokeBeanDefinitionRegistryPostProcessors</span></span><br><span class="line">                ConfigurationClassPostProcessor<span class="meta">#postProcessBeanDefinitionRegistry</span></span><br><span class="line">                    ConfigurationClassPostProcessor<span class="meta">#processConfigBeanDefinitions</span></span><br><span class="line">                        ConfigurationClassParser<span class="meta">#parse</span></span><br><span class="line">                            ComponentScanAnnotationParser<span class="meta">#parse</span></span><br></pre></td></tr></table></figure>
+
+<p>上面是代码的整体执行流程， 最终是通过 <code>ComponentScanAnnotationParser</code> 来进行解析 <code>@ComponentScan</code> 注解的</p>
+<h3 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h3><p>上面代码执行流程中，在 <code>PostProcessorRegistrationDelegate#invokeBeanDefinitionRegistryPostProcessors</code> 中可以得到 <code>ConfigurationClassPostProcessor</code> 类，但是这个类我们并没有手动进行注册。</p>
+<p>在 <code>AbstractApplicationContext</code> 中有 <code>addBeanFactoryPostProcessor()</code> 可以手动注册</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">class</span> <span class="title class_">AbstractApplicationContext</span> <span class="keyword">extends</span> <span class="title class_">DefaultResourceLoader</span></span><br><span class="line">		<span class="keyword">implements</span> <span class="title class_">ConfigurableApplicationContext</span> &#123;</span><br><span class="line">     <span class="meta">@Override</span></span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">addBeanFactoryPostProcessor</span><span class="params">(BeanFactoryPostProcessor postProcessor)</span> &#123;</span><br><span class="line">		Assert.notNull(postProcessor, <span class="string">&quot;BeanFactoryPostProcessor must not be null&quot;</span>);</span><br><span class="line">		<span class="built_in">this</span>.beanFactoryPostProcessors.add(postProcessor);</span><br><span class="line">	&#125;   </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>所以肯定是 <code>Spring</code> 在哪个步骤中自己注册了，要想找到在哪里注册的也不难，那就是在 <code>ConfigurationClassPostProcessor</code> 类的 <code>postProcessBeanDefinitionRegistry()</code> 方法中打断点，然后看调用栈，就可以知道 <code>ConfigurationClassPostProcessor</code> 对象是从哪里获取的，不同的上下文设置的方式可能不同，在给出结论之前再看一下我们的主类测试代码</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="meta">@ComponentScan</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">BeanFactoryPostProcessMain</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="type">AnnotationConfigApplicationContext</span> <span class="variable">context</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">AnnotationConfigApplicationContext</span>(BeanFactoryPostProcessMain.class);</span><br><span class="line">        <span class="comment">// BeanFactoryPostProcessor 的测试（修改了 ScanComponent 类的 scope 属性）</span></span><br><span class="line">        <span class="type">ScanComponent</span> <span class="variable">bean</span> <span class="operator">=</span> context.getBean(ScanComponent.class);</span><br><span class="line">        System.out.println(bean);</span><br><span class="line">        <span class="type">ScanComponent</span> <span class="variable">bean2</span> <span class="operator">=</span> context.getBean(ScanComponent.class);</span><br><span class="line">        System.out.println(bean2);</span><br><span class="line"></span><br><span class="line">        <span class="type">RegisterComponent</span> <span class="variable">registerComponent</span> <span class="operator">=</span> context.getBean(RegisterComponent.class);</span><br><span class="line">        registerComponent.sayHello(); <span class="comment">// 会打印 &quot;RegisterComponent.sayHello&quot;</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>从测试代码中看到上下文对象是 <code>AnnotationConfigApplicationContext</code>, 所以下面给出的结论也是基于这个上下文对象, 下面代码执行流程使用序号进行标记</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// new AnnotationConfigApplicationContext(classes) </span></span><br><span class="line"><span class="keyword">public</span> <span class="title function_">AnnotationConfigApplicationContext</span><span class="params">(Class&lt;?&gt;... componentClasses)</span> &#123;</span><br><span class="line">    <span class="built_in">this</span>();  <span class="comment">// 1</span></span><br><span class="line">    register(componentClasses);</span><br><span class="line">    refresh();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// AnnotationConfigApplicationContext 类</span></span><br><span class="line"><span class="keyword">public</span> <span class="title function_">AnnotationConfigApplicationContext</span><span class="params">()</span> &#123;</span><br><span class="line">    <span class="type">StartupStep</span> <span class="variable">createAnnotatedBeanDefReader</span> <span class="operator">=</span> <span class="built_in">this</span>.getApplicationStartup().start(<span class="string">&quot;spring.context.annotated-bean-reader.create&quot;</span>);</span><br><span class="line">    <span class="built_in">this</span>.reader = <span class="keyword">new</span> <span class="title class_">AnnotatedBeanDefinitionReader</span>(<span class="built_in">this</span>); <span class="comment">// 2</span></span><br><span class="line">    createAnnotatedBeanDefReader.end();</span><br><span class="line">    <span class="built_in">this</span>.scanner = <span class="keyword">new</span> <span class="title class_">ClassPathBeanDefinitionScanner</span>(<span class="built_in">this</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// AnnotatedBeanDefinitionReader 类</span></span><br><span class="line"><span class="keyword">public</span> <span class="title function_">AnnotatedBeanDefinitionReader</span><span class="params">(BeanDefinitionRegistry registry)</span> &#123;</span><br><span class="line">    <span class="built_in">this</span>(registry, getOrCreateEnvironment(registry)); <span class="comment">// 3</span></span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line"><span class="comment">// AnnotatedBeanDefinitionReader 类</span></span><br><span class="line"><span class="keyword">public</span> <span class="title function_">AnnotatedBeanDefinitionReader</span><span class="params">(BeanDefinitionRegistry registry, Environment environment)</span> &#123;</span><br><span class="line">    Assert.notNull(registry, <span class="string">&quot;BeanDefinitionRegistry must not be null&quot;</span>);</span><br><span class="line">    Assert.notNull(environment, <span class="string">&quot;Environment must not be null&quot;</span>);</span><br><span class="line">    <span class="built_in">this</span>.registry = registry;</span><br><span class="line">    <span class="built_in">this</span>.conditionEvaluator = <span class="keyword">new</span> <span class="title class_">ConditionEvaluator</span>(registry, environment, <span class="literal">null</span>);</span><br><span class="line">    AnnotationConfigUtils.registerAnnotationConfigProcessors(<span class="built_in">this</span>.registry); <span class="comment">// 4</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// AnnotationConfigUtils 类</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">registerAnnotationConfigProcessors</span><span class="params">(BeanDefinitionRegistry registry)</span> &#123;</span><br><span class="line">    registerAnnotationConfigProcessors(registry, <span class="literal">null</span>); <span class="comment">// 5</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// AnnotationConfigUtils 类</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> Set&lt;BeanDefinitionHolder&gt; <span class="title function_">registerAnnotationConfigProcessors</span><span class="params">(</span></span><br><span class="line"><span class="params">			BeanDefinitionRegistry registry, <span class="meta">@Nullable</span> Object source)</span> &#123;</span><br><span class="line">    <span class="comment">// public static final String CONFIGURATION_ANNOTATION_PROCESSOR_BEAN_NAME = &quot;org.springframework.context.annotation.internalConfigurationAnnotationProcessor&quot;;</span></span><br><span class="line">    <span class="comment">// 省略</span></span><br><span class="line">    <span class="keyword">if</span> (!registry.containsBeanDefinition(CONFIGURATION_ANNOTATION_PROCESSOR_BEAN_NAME)) &#123;</span><br><span class="line">        <span class="type">RootBeanDefinition</span> <span class="variable">def</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">RootBeanDefinition</span>(ConfigurationClassPostProcessor.class);</span><br><span class="line">        def.setSource(source);</span><br><span class="line">        beanDefs.add(registerPostProcessor(registry, def, CONFIGURATION_ANNOTATION_PROCESSOR_BEAN_NAME)); <span class="comment">// 6</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 省略</span></span><br><span class="line">    <span class="keyword">return</span> beanDefs;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// AnnotationConfigUtils 类</span></span><br><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> BeanDefinitionHolder <span class="title function_">registerPostProcessor</span><span class="params">(</span></span><br><span class="line"><span class="params">			BeanDefinitionRegistry registry, RootBeanDefinition definition, String beanName)</span> &#123;</span><br><span class="line">    definition.setRole(BeanDefinition.ROLE_INFRASTRUCTURE);</span><br><span class="line">    registry.registerBeanDefinition(beanName, definition); <span class="comment">// 7</span></span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">BeanDefinitionHolder</span>(definition, beanName);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// GenericApplicationContext 类</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">registerBeanDefinition</span><span class="params">(String beanName, BeanDefinition beanDefinition)</span></span><br><span class="line">        <span class="keyword">throws</span> BeanDefinitionStoreException &#123;</span><br><span class="line">    <span class="built_in">this</span>.beanFactory.registerBeanDefinition(beanName, beanDefinition); <span class="comment">// 8</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">// DefaultListableBeanFactory 类</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">registerBeanDefinition</span><span class="params">(String beanName, BeanDefinition beanDefinition)</span></span><br><span class="line">			<span class="keyword">throws</span> BeanDefinitionStoreException &#123;</span><br><span class="line">    <span class="comment">// 省略</span></span><br><span class="line">    <span class="built_in">this</span>.beanDefinitionNames.add(beanName); <span class="comment">// 9 </span></span><br><span class="line">    <span class="comment">// 省略</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>至此已经知道 <code>ConfigurationClassPostProcessor</code> 是在何处添加的，而且 <code>ConfigurationClassPostProcessor</code> 类对应的 <code>beanName</code> 是 <code>org.springframework.context.annotation.internalConfigurationAnnotationProcessor</code></p>
+]]></content>
+      <categories>
+        <category>java</category>
+        <category>Spring</category>
+      </categories>
+      <tags>
+        <tag>java</tag>
+        <tag>Spring</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Spring上下文refresh方法解析</title>
+    <url>/2023/b93a520f6ddc/index.html</url>
+    <content><![CDATA[<p>本文主要记录 <code>AbstractApplicationContext#refresh()</code> 方法中每个步骤的作用</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">refresh</span><span class="params">()</span> <span class="keyword">throws</span> BeansException, IllegalStateException &#123;</span><br><span class="line">    <span class="keyword">synchronized</span> (<span class="built_in">this</span>.startupShutdownMonitor) &#123;</span><br><span class="line">        <span class="type">StartupStep</span> <span class="variable">contextRefresh</span> <span class="operator">=</span> <span class="built_in">this</span>.applicationStartup.start(<span class="string">&quot;spring.context.refresh&quot;</span>);</span><br><span class="line"></span><br><span class="line">        <span class="comment">/** </span></span><br><span class="line"><span class="comment">         * 1. 准备刷新上下文方法,用于设置准备刷新前的一些参数:</span></span><br><span class="line"><span class="comment">		 * 程序启动标志位/上下文拓展资源加载/上下文环境准备情况验证/监听器监听事件容器初始化准备</span></span><br><span class="line"><span class="comment">         */</span></span><br><span class="line">        prepareRefresh();</span><br><span class="line"></span><br><span class="line">        <span class="comment">/**</span></span><br><span class="line"><span class="comment">         * 2. 构建 BeanFactory 容器, 默认使用的 DefaultListableBeanFactory</span></span><br><span class="line"><span class="comment">         */</span></span><br><span class="line">        <span class="type">ConfigurableListableBeanFactory</span> <span class="variable">beanFactory</span> <span class="operator">=</span> obtainFreshBeanFactory();</span><br><span class="line"></span><br><span class="line">        <span class="comment">/**</span></span><br><span class="line"><span class="comment">         * 3. 准备 BeanFactory 容器, 主要是对 BeanFactory 进行一些初始化操作</span></span><br><span class="line"><span class="comment">         */</span></span><br><span class="line">        prepareBeanFactory(beanFactory);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="comment">/**</span></span><br><span class="line"><span class="comment">             * 4. 后处理 BeanFactory 容器, 主要是对 BeanFactory 进行一些后处理操作</span></span><br><span class="line"><span class="comment">             */</span></span><br><span class="line">            postProcessBeanFactory(beanFactory);</span><br><span class="line"></span><br><span class="line">            <span class="type">StartupStep</span> <span class="variable">beanPostProcess</span> <span class="operator">=</span> <span class="built_in">this</span>.applicationStartup.start(<span class="string">&quot;spring.context.beans.post-process&quot;</span>);</span><br><span class="line">            </span><br><span class="line">            <span class="comment">/**</span></span><br><span class="line"><span class="comment">             * 5. 执行BeanFactory后置处理. <span class="doctag">@ComponentScan</span> 的解析就是通过后置处理器 ConfigurationClassPostProcessor 完成</span></span><br><span class="line"><span class="comment">             */</span></span><br><span class="line">            invokeBeanFactoryPostProcessors(beanFactory);</span><br><span class="line"></span><br><span class="line">            <span class="comment">/**</span></span><br><span class="line"><span class="comment">             * 6. 注册 BeanPostProcessor 到 bean 工厂中</span></span><br><span class="line"><span class="comment">             */</span></span><br><span class="line">            registerBeanPostProcessors(beanFactory);</span><br><span class="line">            beanPostProcess.end();</span><br><span class="line"></span><br><span class="line">        </span><br><span class="line">            <span class="comment">/**</span></span><br><span class="line"><span class="comment">             * 7. 初始化 MessageSource 资源，国际化相关的处理</span></span><br><span class="line"><span class="comment">             */</span></span><br><span class="line">            initMessageSource();</span><br><span class="line"></span><br><span class="line">            <span class="comment">/**</span></span><br><span class="line"><span class="comment">             * </span></span><br><span class="line"><span class="comment">             * 8. 初始化 ApplicationEventMulticaster 事件广播器</span></span><br><span class="line"><span class="comment">             */</span></span><br><span class="line">            initApplicationEventMulticaster();</span><br><span class="line"></span><br><span class="line">            <span class="comment">/**</span></span><br><span class="line"><span class="comment">             * 9. 子类实现,springbootstarterweb在此创建web容器,并提前生成容器所需的Bean及其对应生命周期</span></span><br><span class="line"><span class="comment">             */</span></span><br><span class="line">            onRefresh();</span><br><span class="line"></span><br><span class="line">            <span class="comment">/**</span></span><br><span class="line"><span class="comment">             * 10. 给广播器中注册监听器,执行初期事件</span></span><br><span class="line"><span class="comment">             */</span></span><br><span class="line">            registerListeners();</span><br><span class="line"></span><br><span class="line">            <span class="comment">/**</span></span><br><span class="line"><span class="comment">             * 11. 初始化所有非懒加载单例Bean</span></span><br><span class="line"><span class="comment">             */</span></span><br><span class="line">            finishBeanFactoryInitialization(beanFactory);</span><br><span class="line"></span><br><span class="line">            <span class="comment">/**</span></span><br><span class="line"><span class="comment">             * 12. 完成刷新,发布上下文刷新完毕事件</span></span><br><span class="line"><span class="comment">             */</span></span><br><span class="line">            finishRefresh();</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">catch</span> (BeansException ex) &#123;</span><br><span class="line">            <span class="comment">// 省略</span></span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">finally</span> &#123;</span><br><span class="line">            resetCommonCaches();</span><br><span class="line">            contextRefresh.end();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>java</category>
+        <category>Spring</category>
+      </categories>
+      <tags>
+        <tag>java</tag>
+        <tag>springframework</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Spring中Import注解源码解析</title>
+    <url>/2023/73d35f59945c/index.html</url>
+    <content><![CDATA[<span class="hide_first_mermaid">
+<div class="mermaid-wrap"><pre class="mermaid-src" hidden>
+  flowchart LR
+    A
+  </pre></div>
+</span>
+
+<h2 id="结论"><a href="#结论" class="headerlink" title="结论"></a>结论</h2><p><code>@Import</code> 注解可以导入三种类型的类</p>
+<ol>
+<li>导入普通类，此时直接将普通类交给 <code>Spring</code> 管理</li>
+<li>导入 <code>ImportSelector</code> 实现类中 <code>String[] selectImports(AnnotationMetadata importingClassMetadata);</code> 方法返回的类</li>
+<li>导入 <code>ImportBeanDefinitionRegistrar</code> 实现类中 <code>registerBeanDefinitions</code> 方法注入的类</li>
+</ol>
+<h2 id="代码示例"><a href="#代码示例" class="headerlink" title="代码示例"></a>代码示例</h2><p>以下代码每种方式使用的类都在同一个包下( <code>@Configuration</code> 默认会扫描当前包和子包 )。</p>
+<div class="tabs" id="import的三种使用方式"><ul class="nav-tabs"><button type="button" class="tab  active" data-href="import的三种使用方式-1">引入普通类</button><button type="button" class="tab " data-href="import的三种使用方式-2">结合 ImportSelector</button><button type="button" class="tab " data-href="import的三种使用方式-3">结合 ImportBeanDefinitionRegistrar</button></ul><div class="tab-contents"><div class="tab-item-content active" id="import的三种使用方式-1"><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 普通类</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Student</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">sayHello</span><span class="params">()</span> &#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;test hello&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//  配置类</span></span><br><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="meta">@Import(Student.class)</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">ImportConfig</span> &#123;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//  主类</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">ImportMain</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="type">AnnotationConfigApplicationContext</span> <span class="variable">context</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">AnnotationConfigApplicationContext</span>(ImportConfig.class);</span><br><span class="line">        <span class="type">Student</span> <span class="variable">student</span> <span class="operator">=</span> context.getBean(Student.class);</span><br><span class="line">        student.sayHello();  <span class="comment">// 会打印 &quot;test hello&quot;</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div><div class="tab-item-content" id="import的三种使用方式-2"><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 普通类</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Student</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">sayHello</span><span class="params">()</span> &#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;test hello&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//  配置类</span></span><br><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="meta">@Import(CusImportSelector.class)</span>  <span class="comment">// 这里导入的是实现了 ImportSelector 接口的类</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">ImportConfig</span> &#123;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 自定义实现 ImportSelector 接口的类</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">CusImportSelector</span> <span class="keyword">implements</span> <span class="title class_">ImportSelector</span> &#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> String[] selectImports(AnnotationMetadata importingClassMetadata) &#123;</span><br><span class="line">        <span class="comment">// 返回的数组就是需要导入的类全限定名</span></span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">String</span>[]&#123;<span class="string">&quot;org.example.imports.Student&quot;</span>&#125;;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//  主类</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">ImportMain</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="type">AnnotationConfigApplicationContext</span> <span class="variable">context</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">AnnotationConfigApplicationContext</span>(ImportConfig.class);</span><br><span class="line">        <span class="type">Student</span> <span class="variable">student</span> <span class="operator">=</span> context.getBean(Student.class);</span><br><span class="line">        student.sayHello();  <span class="comment">// 会打印 &quot;test hello&quot;</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div><div class="tab-item-content" id="import的三种使用方式-3"><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 普通类</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Student</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">sayHello</span><span class="params">()</span> &#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;test hello&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//  配置类</span></span><br><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="meta">@Import(CusImportBeanDefinitionRegistrar.class)</span>  <span class="comment">// 这里导入的是实现了 ImportSelector 接口的类</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">ImportConfig</span> &#123;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 自定义实现 ImportBeanDefinitionRegistrar 接口的类</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">CusImportBeanDefinitionRegistrar</span> <span class="keyword">implements</span> <span class="title class_">ImportBeanDefinitionRegistrar</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">registerBeanDefinitions</span><span class="params">(AnnotationMetadata importingClassMetadata, BeanDefinitionRegistry registry, BeanNameGenerator importBeanNameGenerator)</span> &#123;</span><br><span class="line">        <span class="type">BeanDefinitionBuilder</span> <span class="variable">beanDefinitionBuilder</span> <span class="operator">=</span> BeanDefinitionBuilder.genericBeanDefinition(Student.class);</span><br><span class="line">        <span class="type">AbstractBeanDefinition</span> <span class="variable">beanDefinition</span> <span class="operator">=</span> beanDefinitionBuilder.getBeanDefinition();</span><br><span class="line">        <span class="type">String</span> <span class="variable">beanName</span> <span class="operator">=</span> importBeanNameGenerator.generateBeanName(beanDefinition, registry);</span><br><span class="line">        registry.registerBeanDefinition(beanName, beanDefinition);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//  主类</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">ImportMain</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="type">AnnotationConfigApplicationContext</span> <span class="variable">context</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">AnnotationConfigApplicationContext</span>(ImportConfig.class);</span><br><span class="line">        <span class="type">Student</span> <span class="variable">student</span> <span class="operator">=</span> context.getBean(Student.class);</span><br><span class="line">        student.sayHello();  <span class="comment">// 会打印 &quot;test hello&quot;</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div></div><div class="tab-to-top"><button type="button" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div></div>
+
+<h2 id="源码流程解析"><a href="#源码流程解析" class="headerlink" title="源码流程解析"></a>源码流程解析</h2><p><code>@Import</code> 的解析实际是通过 <code>BeanFactoryPostProcessor</code> 实现的， 在 <ol><li><a href="/2023/e7d5d1305e5d/index.html" title="BeanFacotry的后置处理器详解">BeanFacotry的后置处理器详解</a></li></ol> 提到 <code>@ComponentScan</code> 是通过 <code>ConfigurationClassPostProcessor</code> 处理的，处理流程如下：</p>
+<figure class="highlight leaf"><table><tr><td class="code"><pre><span class="line">AbstractApplicationContext<span class="punctuation">#</span><span class="keyword">refresh</span></span><br><span class="line">    AbstractApplicationContext<span class="punctuation">#</span><span class="keyword">invokeBeanFactoryPostProcessors</span></span><br><span class="line">        PostProcessorRegistrationDelegate<span class="punctuation">#</span><span class="keyword">invokeBeanDefinitionRegistryPostProcessors</span></span><br><span class="line">            ConfigurationClassPostProcessor<span class="punctuation">#</span><span class="keyword">postProcessBeanDefinitionRegistry</span></span><br><span class="line">                ConfigurationClassParser<span class="punctuation">#</span><span class="keyword">parse</span><span class="params">(<span class="variable">Set</span><span class="operator">&lt;</span><span class="variable">BeanDefinitionHolder</span><span class="operator">&gt;</span>)</span></span><br><span class="line">                    ConfigurationClassParser<span class="punctuation">#</span><span class="keyword">doProcessConfigurationClass</span></span><br></pre></td></tr></table></figure>
+<p>最终是会调用到 <code>ConfigurationClassParser#doProcessConfigurationClass</code> 方法，接下来就看看这个方法</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">protected</span> <span class="keyword">final</span> SourceClass <span class="title function_">doProcessConfigurationClass</span><span class="params">(</span></span><br><span class="line"><span class="params">			ConfigurationClass configClass, SourceClass sourceClass, Predicate&lt;String&gt; filter)</span></span><br><span class="line">			<span class="keyword">throws</span> IOException &#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 省略</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// Process any @PropertySource annotations</span></span><br><span class="line">    <span class="keyword">for</span> (AnnotationAttributes propertySource : AnnotationConfigUtils.attributesForRepeatable(</span><br><span class="line">            sourceClass.getMetadata(), PropertySources.class,</span><br><span class="line">            org.springframework.context.annotation.PropertySource.class)) &#123;</span><br><span class="line">        <span class="keyword">if</span> (<span class="built_in">this</span>.propertySourceRegistry != <span class="literal">null</span>) &#123;</span><br><span class="line">            <span class="built_in">this</span>.propertySourceRegistry.processPropertySource(propertySource);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span> &#123;</span><br><span class="line">            logger.info(<span class="string">&quot;Ignoring @PropertySource annotation on [&quot;</span> + sourceClass.getMetadata().getClassName() +</span><br><span class="line">                    <span class="string">&quot;]. Reason: Environment must implement ConfigurableEnvironment&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//  这里是处理 @ComponentScan  Process any @ComponentScan annotations</span></span><br><span class="line">    Set&lt;AnnotationAttributes&gt; componentScans = AnnotationConfigUtils.attributesForRepeatable(</span><br><span class="line">            sourceClass.getMetadata(), ComponentScans.class, ComponentScan.class);</span><br><span class="line">    <span class="keyword">if</span> (!componentScans.isEmpty() &amp;&amp;</span><br><span class="line">            !<span class="built_in">this</span>.conditionEvaluator.shouldSkip(sourceClass.getMetadata(), ConfigurationPhase.REGISTER_BEAN)) &#123;</span><br><span class="line">        <span class="comment">// 省略</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 处理 @Import Process any @Import annotations</span></span><br><span class="line">    processImports(configClass, sourceClass, getImports(sourceClass), filter, <span class="literal">true</span>);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 省略  处理 @ImportResource 等  Process any @ImportResource annotations</span></span><br><span class="line">    <span class="keyword">return</span> <span class="literal">null</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><code>processImports</code> 方法</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// ConfigurationClassParser 类， 该方法只列出了重要方法</span></span><br><span class="line"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title function_">processImports</span><span class="params">(ConfigurationClass configClass, SourceClass currentSourceClass,</span></span><br><span class="line"><span class="params">			Collection&lt;SourceClass&gt; importCandidates, Predicate&lt;String&gt; exclusionFilter,</span></span><br><span class="line"><span class="params">			<span class="type">boolean</span> checkForCircularImports)</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> (SourceClass candidate : importCandidates) &#123;</span><br><span class="line">        <span class="comment">// 导入的是 ImportSelector 类型的处理流程</span></span><br><span class="line">        <span class="keyword">if</span> (candidate.isAssignable(ImportSelector.class)) &#123;</span><br><span class="line">            <span class="comment">// Candidate class is an ImportSelector -&gt; delegate to it to determine imports</span></span><br><span class="line">            Class&lt;?&gt; candidateClass = candidate.loadClass();</span><br><span class="line">            <span class="type">ImportSelector</span> <span class="variable">selector</span> <span class="operator">=</span> ParserStrategyUtils.instantiateClass(candidateClass, ImportSelector.class,</span><br><span class="line">                    <span class="built_in">this</span>.environment, <span class="built_in">this</span>.resourceLoader, <span class="built_in">this</span>.registry);</span><br><span class="line">            Predicate&lt;String&gt; selectorFilter = selector.getExclusionFilter();</span><br><span class="line">            <span class="keyword">if</span> (selectorFilter != <span class="literal">null</span>) &#123;</span><br><span class="line">                exclusionFilter = exclusionFilter.or(selectorFilter);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span> (selector <span class="keyword">instanceof</span> DeferredImportSelector deferredImportSelector) &#123;</span><br><span class="line">                <span class="built_in">this</span>.deferredImportSelectorHandler.handle(configClass, deferredImportSelector);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span> &#123;</span><br><span class="line">                String[] importClassNames = selector.selectImports(currentSourceClass.getMetadata());</span><br><span class="line">                Collection&lt;SourceClass&gt; importSourceClasses = asSourceClasses(importClassNames, exclusionFilter);</span><br><span class="line">                processImports(configClass, currentSourceClass, importSourceClasses, exclusionFilter, <span class="literal">false</span>);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 导入的是 ImportBeanDefinitionRegistrar 类型的处理流程</span></span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span> (candidate.isAssignable(ImportBeanDefinitionRegistrar.class)) &#123;</span><br><span class="line">            <span class="comment">// Candidate class is an ImportBeanDefinitionRegistrar -&gt;</span></span><br><span class="line">            <span class="comment">// delegate to it to register additional bean definitions</span></span><br><span class="line">            Class&lt;?&gt; candidateClass = candidate.loadClass();</span><br><span class="line">            <span class="type">ImportBeanDefinitionRegistrar</span> <span class="variable">registrar</span> <span class="operator">=</span></span><br><span class="line">                    ParserStrategyUtils.instantiateClass(candidateClass, ImportBeanDefinitionRegistrar.class,</span><br><span class="line">                            <span class="built_in">this</span>.environment, <span class="built_in">this</span>.resourceLoader, <span class="built_in">this</span>.registry);</span><br><span class="line">            configClass.addImportBeanDefinitionRegistrar(registrar, currentSourceClass.getMetadata());</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="comment">// 既不是 ImportSelector 也不是 ImportBeanDefinitionRegistrar 类型的处理流程，当作 普通的 @Configuration 类处理</span></span><br><span class="line">            <span class="built_in">this</span>.importStack.registerImport(</span><br><span class="line">                    currentSourceClass.getMetadata(), candidate.getMetadata().getClassName());</span><br><span class="line">            processConfigurationClass(candidate.asConfigClass(configClass), exclusionFilter);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>导入的是普通类是的处理流程</strong></p>
+<p>从上面源码可以看到，如果导入的是普通的类（不是 <code>ImportSelector</code> 也不是 <code>ImportBeanDefinitionRegistrar</code> 类型）则将这个普通类按照含有 <code>@Configuration</code> 注解的类一样进行处理, 如果是按照 <code>@Configuration</code> 注解的类进行处理，会将普通类变成 <code>ConfigurationClass</code> 类型</p>
+<p><strong>导入的是 <code>ImportSelector</code> 类型</strong></p>
+<p>对于导入的是 <code>ImportSelector</code> 类型处理代码如下</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">if</span> (candidate.isAssignable(ImportSelector.class)) &#123;</span><br><span class="line">    <span class="comment">// Candidate class is an ImportSelector -&gt; delegate to it to determine imports</span></span><br><span class="line">    Class&lt;?&gt; candidateClass = candidate.loadClass();</span><br><span class="line">    <span class="type">ImportSelector</span> <span class="variable">selector</span> <span class="operator">=</span> ParserStrategyUtils.instantiateClass(candidateClass, ImportSelector.class,</span><br><span class="line">            <span class="built_in">this</span>.environment, <span class="built_in">this</span>.resourceLoader, <span class="built_in">this</span>.registry);</span><br><span class="line">    Predicate&lt;String&gt; selectorFilter = selector.getExclusionFilter();</span><br><span class="line">    <span class="keyword">if</span> (selectorFilter != <span class="literal">null</span>) &#123;</span><br><span class="line">        exclusionFilter = exclusionFilter.or(selectorFilter);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (selector <span class="keyword">instanceof</span> DeferredImportSelector deferredImportSelector) &#123;</span><br><span class="line">        <span class="built_in">this</span>.deferredImportSelectorHandler.handle(configClass, deferredImportSelector);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span> &#123;</span><br><span class="line">        String[] importClassNames = selector.selectImports(currentSourceClass.getMetadata());</span><br><span class="line">        Collection&lt;SourceClass&gt; importSourceClasses = asSourceClasses(importClassNames, exclusionFilter);</span><br><span class="line">        processImports(configClass, currentSourceClass, importSourceClasses, exclusionFilter, <span class="literal">false</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ol>
+<li>先调用 <code>selectImports</code> 方法获取导入的类名数组</li>
+<li>调用 <code>asSourceClasses</code> 方法将类名数组转换为 <code>SourceClass</code> 集合</li>
+<li>调用 <code>processImports</code> 方法处理 <code>SourceClass</code> 数组， 这里就是递归调用了，递归的第一层是 <code>ImportSelector</code> 类型的类，递归的第二层就是 <code>selectImports</code> 方法中返回的普通的类了，这个就和 <code>Import</code> 导入的是普通类一样的处理流程，也就是最终是按照 <code>@Configuration</code> 注解的类处理</li>
+</ol>
+<p><strong>导入的是 <code>ImportBeanDefinitionRegistrar</code> 类型</strong></p>
+<p>对于导入的是 <code>ImportBeanDefinitionRegistrar</code> 类型处理代码如下</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">if</span> (candidate.isAssignable(ImportBeanDefinitionRegistrar.class)) &#123;</span><br><span class="line">    <span class="comment">// Candidate class is an ImportBeanDefinitionRegistrar -&gt;</span></span><br><span class="line">    <span class="comment">// delegate to it to register additional bean definitions</span></span><br><span class="line">    Class&lt;?&gt; candidateClass = candidate.loadClass();</span><br><span class="line">    <span class="type">ImportBeanDefinitionRegistrar</span> <span class="variable">registrar</span> <span class="operator">=</span></span><br><span class="line">            ParserStrategyUtils.instantiateClass(candidateClass, ImportBeanDefinitionRegistrar.class,</span><br><span class="line">                    <span class="built_in">this</span>.environment, <span class="built_in">this</span>.resourceLoader, <span class="built_in">this</span>.registry);</span><br><span class="line">    <span class="comment">// configClass 就是 ConfigurationClass</span></span><br><span class="line">    configClass.addImportBeanDefinitionRegistrar(registrar, currentSourceClass.getMetadata()); </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> *   ConfigurationClass 类</span></span><br><span class="line"><span class="comment"> * </span></span><br><span class="line"><span class="comment"> *  private final Map&lt;ImportBeanDefinitionRegistrar, AnnotationMetadata&gt; importBeanDefinitionRegistrars = new LinkedHashMap&lt;&gt;();</span></span><br><span class="line"><span class="comment"> * /</span></span><br><span class="line"><span class="comment">void addImportBeanDefinitionRegistrar(ImportBeanDefinitionRegistrar registrar, AnnotationMetadata importingClassMetadata) &#123;</span></span><br><span class="line"><span class="comment">    this.importBeanDefinitionRegistrars.put(registrar, importingClassMetadata);</span></span><br><span class="line"><span class="comment">&#125;</span></span><br></pre></td></tr></table></figure>
+<p>最终是将 <code>ImportBeanDefinitionRegistrar</code> 实现类放入了 <code>ConfigurationClass</code> 类中的 <code>importBeanDefinitionRegistrars</code> 属性中，那么最终是什么时候注册成 <code>BeanDefinition</code> 的呢？</p>
+<p>这个就得回到 <code>org.springframework.context.annotation.ConfigurationClassPostProcessor#processConfigBeanDefinitions</code> 方法中了， 这里通过流程图梳理一下解析和注册两个步骤的流程</p>
+<pre class="mermaid">sequenceDiagram
+    autonumber
+    participant A as ConfigurationClassPostProcessor
+    participant B as ConfigurationClassParser
+    participant C as ConfigurationClassBeanDefinitionReader
+    activate A
+    A->>A: processConfigBeanDefinitions()
+    A->>B: parse()
+    B->>B: doProcessConfigurationClass（）
+    A->>C: loadBeanDefinitions()
+    C->>C: loadBeanDefinitionsFromRegistrars()
+    deactivate  A</pre>
+
+<ol>
+<li>整体逻辑是在 <code>ConfigurationClassPostProcessor</code> 的 <code>processConfigBeanDefinitions()</code> 方法中执行的</li>
+<li>对于 <code>@ComponentScan</code>, <code>@Import</code> 等解析是在 <code>ConfiguraionClassParser</code> 的 <code>doProcessConfigurationClass()</code> 方法中解析的</li>
+<li>对于 <code>ImportBeanDefinitionRegistrar</code> 类型的类在第二步解析完成之后放入了 <code>ConfigurationClass</code> 类型（就是将 <code>ImportBeanDefinitionRegistrar</code> 类型的实现类转换成 <code>ConfigurationClass</code> 类型而已）中的 <code>importBeanDefinitionRegistrars</code> 属性中</li>
+<li>最后在 <code>ConfigurationClassBeanDefinitionReader</code> 类的 <code>loadBeanDefinitionsFromRegistrars()</code> 方法中会进行 <code>BeanDefinition</code> 的注册</li>
+</ol>
+<p>至此，解析和注册两个步骤的流程就解析完了</p>
+]]></content>
+      <categories>
+        <category>java</category>
+        <category>Spring</category>
+      </categories>
+      <tags>
+        <tag>java</tag>
+        <tag>Spring</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>SpringBoot编写测试类</title>
-    <url>/2023/71c38fa0a58b/index.html</url>
+    <url>/2023/9cd70dc15320/index.html</url>
     <content><![CDATA[<p>版本说明：</p>
 <ol>
 <li>SpringBoot3.x</li>
@@ -2221,6 +2394,21 @@
 
 <p>执行结果</p>
 <figure class="highlight applescript"><table><tr><td class="code"><pre><span class="line">wrapper2的方法增强开始</span><br><span class="line">wrapper1的方法增强开始</span><br><span class="line">Wrapper1的方法增强结束</span><br><span class="line">Wrapper2的方法增强结束</span><br><span class="line"><span class="keyword">first</span> hello</span><br></pre></td></tr></table></figure>
+
+<h2 id="dubbo-spi-机制源码解析"><a href="#dubbo-spi-机制源码解析" class="headerlink" title="dubbo spi 机制源码解析"></a>dubbo spi 机制源码解析</h2><p><a href="https://cn.dubbo.apache.org/zh-cn/overview/mannual/java-sdk/reference-manual/spi/description/dubbo-spi/">dubbo官网spi源码解析</a></p>
+<h2 id="dubbo3-模块领域模型"><a href="#dubbo3-模块领域模型" class="headerlink" title="dubbo3 模块领域模型"></a>dubbo3 模块领域模型</h2><p>前面在讲解加载 <code>spi</code> 扩展点时用到的是如下代码</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">ExtensionLoader&lt;Hello&gt; loader = ExtensionLoader.getExtensionLoader(Hello.class);</span><br></pre></td></tr></table></figure>
+<p>但是在 <code>dubbo3</code> 中已经将 <code>ExtensionLoader.getExtensionLoader</code> 标记为 <strong>弃用</strong>，这是因为在 <code>dubbo3</code> 中增加了模块领域模型，简单理解就是 <strong>每一个扩展点都是有范围的，而之前的方式相当于所有扩展点都在一个范围中</strong></p>
+<blockquote>
+<p>主要有如下原因 之前dubbo 都是只有一个作用域的，通过静态类 属性共享 增加域模型是为了:</p>
+<ol>
+<li>让Dubbo支持多应用的部署，这块一些大企业有诉求  </li>
+<li>从架构设计上，解决静态属性资源共享、清理的问题</li>
+<li>分层模型将应用的管理和服务的管理分开</li>
+</ol>
+<p>可能比较抽象，可以具体点来看。Dubbo3中在启动时候需要启动配置中心、元数据中心，这个配置中心和元数据中心可以归应用模型来管理。Dubbo作为RPC框架又需要启动服务和引用服务，服务级别的管理就交给了这个模块模型来管理。分层次的管理方便我们理解和处理逻辑，父子级别的模型又方便了数据传递。</p>
+</blockquote>
+<p><a href="https://cn.dubbo.apache.org/zh-cn/blog/2022/08/03/03-%E6%A1%86%E6%9E%B6%E5%BA%94%E7%94%A8%E7%A8%8B%E5%BA%8F%E6%A8%A1%E5%9D%97%E9%A2%86%E5%9F%9F%E6%A8%A1%E5%9E%8Bmodel%E5%AF%B9%E8%B1%A1%E7%9A%84%E5%88%9D%E5%A7%8B%E5%8C%96/">官网dubbo3模块领域模型</a></p>
 ]]></content>
       <categories>
         <category>中间件</category>
@@ -2228,98 +2416,6 @@
       </categories>
       <tags>
         <tag>dubbo</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>WindTerm功能设置</title>
-    <url>/2023/0ff9c6825506/index.html</url>
-    <content><![CDATA[<h2 id="自定义快捷键"><a href="#自定义快捷键" class="headerlink" title="自定义快捷键"></a>自定义快捷键</h2><p><a href="https://github.com/kingToolbox/WindTerm/issues/267">参考github</a></p>
-<h2 id="去除锁屏"><a href="#去除锁屏" class="headerlink" title="去除锁屏"></a>去除锁屏</h2><ol>
-<li>找到配置文件，可以在 <strong>会话-&gt;首选项-&gt;配置文件</strong> 中查看配置文件的位置</li>
-<li>找到 <code>application.lockScreenTimeout</code>， 将值改成 0</li>
-</ol>
-]]></content>
-      <categories>
-        <category>tools</category>
-        <category>other</category>
-      </categories>
-      <tags>
-        <tag>tools</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>utools自动化脚本插件</title>
-    <url>/2023/d899f5ff1973/index.html</url>
-    <content><![CDATA[<h2 id="utools-使用自动化脚本打开本地程序"><a href="#utools-使用自动化脚本打开本地程序" class="headerlink" title="utools 使用自动化脚本打开本地程序"></a>utools 使用自动化脚本打开本地程序</h2><ol>
-<li>比如 typora 可以打开之前的文件和目录，但是目录只能到文件的上一个层级，如果源目录包含很多子目录，重新打开时可能不是我们想要的结果，那可以在命令行执行 <code>typora folder</code>, eg: <code>typora E:\\blog</code> <span id="more"></span></li>
-</ol>
-<blockquote>
-<p>在命令行执行 typora 命令需要先配置 typora 的环境变量</p>
-</blockquote>
-<ol>
-<li>更简便的方式是直接使用 utools 的自动化脚本这个插件，新增一个自己的插件脚本，内容如下</li>
-</ol>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> &#123; execFile &#125; = <span class="built_in">require</span>(<span class="string">&quot;child_process&quot;</span>)</span><br><span class="line"></span><br><span class="line"> <span class="comment">// 以下是关键代码，调用 typora 来执行目标文件</span></span><br><span class="line"><span class="title function_">execFile</span>(<span class="string">&#x27;typora&#x27;</span>, [<span class="string">&#x27;E:/code/learnerguo&#x27;</span>], <span class="function">(<span class="params">error, stdout, stderr</span>) =&gt;</span> &#123;</span><br><span class="line">    process.<span class="title function_">exit</span>()</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-
-<p>然后自定义关键字，后续当打开 utools 输入对应关键字就可以打开 typora 的目录</p>
-<h2 id="使用自动化脚本获取当天起始时间"><a href="#使用自动化脚本获取当天起始时间" class="headerlink" title="使用自动化脚本获取当天起始时间"></a>使用自动化脚本获取当天起始时间</h2><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> now = <span class="keyword">new</span> <span class="title class_">Date</span>();</span><br><span class="line"><span class="comment">// 设置当前时间的小时、分钟、秒和毫秒为0，即将时间设置为当天的开始时间</span></span><br><span class="line">now.<span class="title function_">setHours</span>(<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>);</span><br><span class="line"><span class="comment">// 获取当天开始时间点的毫秒数</span></span><br><span class="line"><span class="keyword">const</span> startTime = now.<span class="title function_">getTime</span>();</span><br><span class="line">utools.<span class="title function_">copyText</span>(<span class="string">&quot;&quot;</span>+startTime);</span><br><span class="line"><span class="title function_">print</span>(<span class="string">&#x27;开始时间已复制&#x27;</span> + startTime);</span><br><span class="line">utools.<span class="title function_">hideMainWindow</span>();</span><br><span class="line">process.<span class="title function_">exit</span>()</span><br></pre></td></tr></table></figure>
-]]></content>
-      <categories>
-        <category>tools</category>
-        <category>utools</category>
-      </categories>
-      <tags>
-        <tag>tools</tag>
-        <tag>utools</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>vscode相关设置</title>
-    <url>/2023/6b613d963af3/index.html</url>
-    <content><![CDATA[<h2 id="vscode-中-markdown-的-snippets-的设置"><a href="#vscode-中-markdown-的-snippets-的设置" class="headerlink" title="vscode 中 markdown 的 snippets 的设置"></a>vscode 中 markdown 的 snippets 的设置</h2><h3 id="snippets-的设置"><a href="#snippets-的设置" class="headerlink" title="snippets 的设置"></a>snippets 的设置</h3><ol>
-<li>打开 ctrl+shift+p , 搜索 <code>configure user snippets</code> </li>
-<li>选择 markdown.json, 会出现如下内容</li>
-</ol>
-<span id="more"></span>
-<figure class="highlight json"><table><tr><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">	<span class="comment">// Place your snippets for markdown here. Each snippet is defined under a snippet name and has a prefix, body and </span></span><br><span class="line">	<span class="comment">// description. The prefix is what is used to trigger the snippet and the body will be expanded and inserted. Possible variables are:</span></span><br><span class="line">	<span class="comment">// $1, $2 for tab stops, $0 for the final cursor position, and $&#123;1:label&#125;, $&#123;2:another&#125; for placeholders. Placeholders with the </span></span><br><span class="line">	<span class="comment">// same ids are connected.</span></span><br><span class="line">	<span class="comment">// Example:</span></span><br><span class="line">	<span class="comment">// &quot;Print to console&quot;: &#123;</span></span><br><span class="line">	<span class="comment">// 	&quot;prefix&quot;: &quot;log&quot;,</span></span><br><span class="line">	<span class="comment">// 	&quot;body&quot;: [</span></span><br><span class="line">	<span class="comment">// 		&quot;console.log(&#x27;$1&#x27;);&quot;,</span></span><br><span class="line">	<span class="comment">// 		&quot;$2&quot;</span></span><br><span class="line">	<span class="comment">// 	],</span></span><br><span class="line">	<span class="comment">// 	&quot;description&quot;: &quot;Log output to console&quot;</span></span><br><span class="line">	<span class="comment">// &#125;</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
-
-<ol>
-<li>可以根据示例文件进行修改，如下图所示：<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="string">&quot;markdown code graph&quot;</span>: &#123;</span><br><span class="line">	<span class="string">&quot;prefix&quot;</span>: <span class="string">&quot;codeblock&quot;</span>,</span><br><span class="line">	<span class="string">&quot;body&quot;</span>: [</span><br><span class="line">		<span class="string">&quot;&lt;pre class=&quot;</span>mermaid<span class="string">&quot;&gt;<span class="variable">$0</span>&quot;</span>,</span><br><span class="line">		<span class="string">&quot;```&quot;</span></span><br><span class="line">	],</span><br><span class="line">	<span class="string">&quot;description&quot;</span>: <span class="string">&quot;insert markdown code graph&quot;</span></span><br><span class="line">&#125;&lt;/pre&gt;</span><br><span class="line"></span><br><span class="line">上面示例的意思是 当输入 codeblock 时就会出现 mermaid 代码块， <span class="variable">$0</span> 是光标出现的地方</span><br><span class="line"></span><br><span class="line"><span class="comment">### markdown snippets 不生效的解决方式</span></span><br><span class="line">使用上面的步骤设置完 snippets 之后，在 markdown 文档中编写关键字，但是并没有生效，还需要在  settings.json 中（可以输入 ctrl+<span class="built_in">shift</span>+p, 搜索 settings， 选择 Open User Settings(JSON)）, 然后填写下面的内容</span><br><span class="line"></span><br><span class="line">```java</span><br><span class="line"><span class="string">&quot;[markdown]&quot;</span>:&#123;</span><br><span class="line">	<span class="string">&quot;editor.formatOnSave&quot;</span>: <span class="literal">true</span>,</span><br><span class="line">	<span class="string">&quot;editor.renderWhitespace&quot;</span>: <span class="string">&quot;all&quot;</span>,</span><br><span class="line">	<span class="string">&quot;editor.quickSuggestions&quot;</span>: &#123;</span><br><span class="line">		<span class="string">&quot;other&quot;</span>: <span class="string">&quot;on&quot;</span>,</span><br><span class="line">		<span class="string">&quot;comments&quot;</span>: <span class="string">&quot;on&quot;</span>,</span><br><span class="line">		<span class="string">&quot;strings&quot;</span>: <span class="string">&quot;on&quot;</span></span><br><span class="line">	&#125;,</span><br><span class="line">	<span class="string">&quot;editor.acceptSuggestionOnEnter&quot;</span>: <span class="string">&quot;on&quot;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
-</ol>
-<p>添加上述内容后就可以生效了</p>
-<h2 id="vscode-设置白天黑夜自动切换主题"><a href="#vscode-设置白天黑夜自动切换主题" class="headerlink" title="vscode 设置白天黑夜自动切换主题"></a>vscode 设置白天黑夜自动切换主题</h2><ol>
-<li>vscode 可以根据系统设置的 <code>light</code> 或 <code>dark</code> 主题来进行切换</li>
-<li>系统自动切换主题软件可以在 <code>store</code> 中安装 <code>Auto Dark Mode</code> 这个软件并进行设置</li>
-<li><code>window</code> 系统设置完成之后可以在 <code>vscode</code> 的 <code>user setting</code> 中添加如下内容, 第一个配置是开启自动切换，后面的配置是设置的 <code>light</code> 和 <code>dark</code> 主题的名称</li>
-</ol>
-<figure class="highlight json"><table><tr><td class="code"><pre><span class="line"><span class="attr">&quot;window.autoDetectColorScheme&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">true</span></span><span class="punctuation">,</span></span><br><span class="line"><span class="attr">&quot;workbench.preferredLightColorTheme&quot;</span><span class="punctuation">:</span> <span class="string">&quot;Atom One Light&quot;</span><span class="punctuation">,</span></span><br><span class="line"><span class="attr">&quot;workbench.preferredDarkColorTheme&quot;</span><span class="punctuation">:</span> <span class="string">&quot;Default Dark Modern&quot;</span></span><br></pre></td></tr></table></figure>
-]]></content>
-      <categories>
-        <category>tools</category>
-        <category>vscode</category>
-      </categories>
-      <tags>
-        <tag>tools</tag>
-        <tag>vscode</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>vscode设置markdown图片默认路径</title>
-    <url>/2023/5b4d784e18c2/index.html</url>
-    <content><![CDATA[<p><code>vscode</code> 在 <code>markdown</code> 文档中直接复制图片时是放在当前目录，如果需要修改可以按照下面方式设置</p>
-<span id="more"></span>
-<ol>
-<li>输入快捷键 <code>ctrl+,</code> 可以快速打开设置</li>
-<li>搜索 <code>markdown.copy: Destination</code></li>
-</ol>
-<p><img src="/2023/5b4d784e18c2/index/1700033681108.png" alt="Alt text"></p>
-]]></content>
-      <categories>
-        <category>tools</category>
-        <category>vscode</category>
-      </categories>
-      <tags>
-        <tag>tools</tag>
       </tags>
   </entry>
   <entry>
@@ -2334,7 +2430,7 @@
 <h2 id="redis-配置"><a href="#redis-配置" class="headerlink" title="redis 配置"></a>redis 配置</h2><ol>
 <li>下面 <code>redis</code> 配置的前缀都是 <code>spring.data.redis</code>, 如果使用的是 <code>SpringBoot2.x</code> 版本，前缀是 <code>spring.redis</code><figure class="highlight properties"><table><tr><td class="code"><pre><span class="line"><span class="comment">#默认是0号库</span></span><br><span class="line"><span class="attr">spring.data.redis.database</span>=<span class="string">3</span></span><br><span class="line"><span class="comment"># Redis服务器地址</span></span><br><span class="line"><span class="attr">spring.data.redis.host</span>=<span class="string">192.168.0.236</span></span><br><span class="line"><span class="comment"># Redis服务器连接端口</span></span><br><span class="line"><span class="attr">spring.data.redis.port</span>=<span class="string">6379</span></span><br><span class="line"><span class="attr">spring.data.redis.username</span>=<span class="string">default</span></span><br><span class="line"><span class="comment"># Redis服务器连接密码,默认为空</span></span><br><span class="line"><span class="attr">spring.data.redis.password</span>=<span class="string">123456</span></span><br><span class="line"><span class="comment"># 连接池最大连接数</span></span><br><span class="line"><span class="attr">spring.data.redis.lettuce.pool.max-active</span>=<span class="string">10</span></span><br><span class="line"><span class="comment"># 连接池最大阻塞等待时间,默认-1表示没有限制</span></span><br><span class="line"><span class="attr">spring.data.redis.lettuce.pool.max-wait</span>=<span class="string">-1</span></span><br><span class="line"><span class="comment"># 连接池中的最大空闲连接</span></span><br><span class="line"><span class="attr">spring.data.redis.lettuce.pool.max-idle</span>=<span class="string">10</span></span><br><span class="line"><span class="comment"># 连接池中的最小空闲连接,默认是0</span></span><br><span class="line"><span class="attr">spring.data.redis.lettuce.pool.min-idle</span>=<span class="string">0</span></span><br></pre></td></tr></table></figure></li>
 </ol>
-<h2 id="编写测试类"><a href="#编写测试类" class="headerlink" title="编写测试类"></a>编写测试类</h2><ol><li><a href="/2023/71c38fa0a58b/index.html" title="SpringBoot编写测试类">SpringBoot编写测试类</a></li></ol>
+<h2 id="编写测试类"><a href="#编写测试类" class="headerlink" title="编写测试类"></a>编写测试类</h2><ol><li><a href="/2023/9cd70dc15320/index.html" title="SpringBoot编写测试类">SpringBoot编写测试类</a></li></ol>
 
 <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@SpringBootTest(classes = TestApplication.class)</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">TestRedis</span> &#123;</span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> RedisTemplate redisTemplate;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">testRedis</span><span class="params">()</span>&#123;</span><br><span class="line">        redisTemplate.opsForValue().set(<span class="string">&quot;key1&quot;</span>, <span class="string">&quot;value1&quot;</span>);</span><br><span class="line">        <span class="type">Object</span> <span class="variable">o</span> <span class="operator">=</span> redisTemplate.opsForValue().get(<span class="string">&quot;key1&quot;</span>);</span><br><span class="line">        System.out.println(<span class="string">&quot;获取redis key1 的结果:&quot;</span> + o);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>使用 <code>redis</code> 客户端看一下这个 <code>key</code> 和 <code>value</code></p>
@@ -2983,6 +3079,98 @@
       </categories>
       <tags>
         <tag>PostgreSQL</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>WindTerm功能设置</title>
+    <url>/2023/0ff9c6825506/index.html</url>
+    <content><![CDATA[<h2 id="自定义快捷键"><a href="#自定义快捷键" class="headerlink" title="自定义快捷键"></a>自定义快捷键</h2><p><a href="https://github.com/kingToolbox/WindTerm/issues/267">参考github</a></p>
+<h2 id="去除锁屏"><a href="#去除锁屏" class="headerlink" title="去除锁屏"></a>去除锁屏</h2><ol>
+<li>找到配置文件，可以在 <strong>会话-&gt;首选项-&gt;配置文件</strong> 中查看配置文件的位置</li>
+<li>找到 <code>application.lockScreenTimeout</code>， 将值改成 0</li>
+</ol>
+]]></content>
+      <categories>
+        <category>tools</category>
+        <category>other</category>
+      </categories>
+      <tags>
+        <tag>tools</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>utools自动化脚本插件</title>
+    <url>/2023/d899f5ff1973/index.html</url>
+    <content><![CDATA[<h2 id="utools-使用自动化脚本打开本地程序"><a href="#utools-使用自动化脚本打开本地程序" class="headerlink" title="utools 使用自动化脚本打开本地程序"></a>utools 使用自动化脚本打开本地程序</h2><ol>
+<li>比如 typora 可以打开之前的文件和目录，但是目录只能到文件的上一个层级，如果源目录包含很多子目录，重新打开时可能不是我们想要的结果，那可以在命令行执行 <code>typora folder</code>, eg: <code>typora E:\\blog</code> <span id="more"></span></li>
+</ol>
+<blockquote>
+<p>在命令行执行 typora 命令需要先配置 typora 的环境变量</p>
+</blockquote>
+<ol>
+<li>更简便的方式是直接使用 utools 的自动化脚本这个插件，新增一个自己的插件脚本，内容如下</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> &#123; execFile &#125; = <span class="built_in">require</span>(<span class="string">&quot;child_process&quot;</span>)</span><br><span class="line"></span><br><span class="line"> <span class="comment">// 以下是关键代码，调用 typora 来执行目标文件</span></span><br><span class="line"><span class="title function_">execFile</span>(<span class="string">&#x27;typora&#x27;</span>, [<span class="string">&#x27;E:/code/learnerguo&#x27;</span>], <span class="function">(<span class="params">error, stdout, stderr</span>) =&gt;</span> &#123;</span><br><span class="line">    process.<span class="title function_">exit</span>()</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<p>然后自定义关键字，后续当打开 utools 输入对应关键字就可以打开 typora 的目录</p>
+<h2 id="使用自动化脚本获取当天起始时间"><a href="#使用自动化脚本获取当天起始时间" class="headerlink" title="使用自动化脚本获取当天起始时间"></a>使用自动化脚本获取当天起始时间</h2><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> now = <span class="keyword">new</span> <span class="title class_">Date</span>();</span><br><span class="line"><span class="comment">// 设置当前时间的小时、分钟、秒和毫秒为0，即将时间设置为当天的开始时间</span></span><br><span class="line">now.<span class="title function_">setHours</span>(<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>);</span><br><span class="line"><span class="comment">// 获取当天开始时间点的毫秒数</span></span><br><span class="line"><span class="keyword">const</span> startTime = now.<span class="title function_">getTime</span>();</span><br><span class="line">utools.<span class="title function_">copyText</span>(<span class="string">&quot;&quot;</span>+startTime);</span><br><span class="line"><span class="title function_">print</span>(<span class="string">&#x27;开始时间已复制&#x27;</span> + startTime);</span><br><span class="line">utools.<span class="title function_">hideMainWindow</span>();</span><br><span class="line">process.<span class="title function_">exit</span>()</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>tools</category>
+        <category>utools</category>
+      </categories>
+      <tags>
+        <tag>tools</tag>
+        <tag>utools</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>vscode相关设置</title>
+    <url>/2023/6b613d963af3/index.html</url>
+    <content><![CDATA[<h2 id="vscode-中-markdown-的-snippets-的设置"><a href="#vscode-中-markdown-的-snippets-的设置" class="headerlink" title="vscode 中 markdown 的 snippets 的设置"></a>vscode 中 markdown 的 snippets 的设置</h2><h3 id="snippets-的设置"><a href="#snippets-的设置" class="headerlink" title="snippets 的设置"></a>snippets 的设置</h3><ol>
+<li>打开 ctrl+shift+p , 搜索 <code>configure user snippets</code> </li>
+<li>选择 markdown.json, 会出现如下内容</li>
+</ol>
+<span id="more"></span>
+<figure class="highlight json"><table><tr><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">	<span class="comment">// Place your snippets for markdown here. Each snippet is defined under a snippet name and has a prefix, body and </span></span><br><span class="line">	<span class="comment">// description. The prefix is what is used to trigger the snippet and the body will be expanded and inserted. Possible variables are:</span></span><br><span class="line">	<span class="comment">// $1, $2 for tab stops, $0 for the final cursor position, and $&#123;1:label&#125;, $&#123;2:another&#125; for placeholders. Placeholders with the </span></span><br><span class="line">	<span class="comment">// same ids are connected.</span></span><br><span class="line">	<span class="comment">// Example:</span></span><br><span class="line">	<span class="comment">// &quot;Print to console&quot;: &#123;</span></span><br><span class="line">	<span class="comment">// 	&quot;prefix&quot;: &quot;log&quot;,</span></span><br><span class="line">	<span class="comment">// 	&quot;body&quot;: [</span></span><br><span class="line">	<span class="comment">// 		&quot;console.log(&#x27;$1&#x27;);&quot;,</span></span><br><span class="line">	<span class="comment">// 		&quot;$2&quot;</span></span><br><span class="line">	<span class="comment">// 	],</span></span><br><span class="line">	<span class="comment">// 	&quot;description&quot;: &quot;Log output to console&quot;</span></span><br><span class="line">	<span class="comment">// &#125;</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+
+<ol>
+<li>可以根据示例文件进行修改，如下图所示：<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="string">&quot;markdown code graph&quot;</span>: &#123;</span><br><span class="line">	<span class="string">&quot;prefix&quot;</span>: <span class="string">&quot;codeblock&quot;</span>,</span><br><span class="line">	<span class="string">&quot;body&quot;</span>: [</span><br><span class="line">		<span class="string">&quot;&lt;pre class=&quot;</span>mermaid<span class="string">&quot;&gt;<span class="variable">$0</span>&quot;</span>,</span><br><span class="line">		<span class="string">&quot;```&quot;</span></span><br><span class="line">	],</span><br><span class="line">	<span class="string">&quot;description&quot;</span>: <span class="string">&quot;insert markdown code graph&quot;</span></span><br><span class="line">&#125;&lt;/pre&gt;</span><br><span class="line"></span><br><span class="line">上面示例的意思是 当输入 codeblock 时就会出现 mermaid 代码块， <span class="variable">$0</span> 是光标出现的地方</span><br><span class="line"></span><br><span class="line"><span class="comment">### markdown snippets 不生效的解决方式</span></span><br><span class="line">使用上面的步骤设置完 snippets 之后，在 markdown 文档中编写关键字，但是并没有生效，还需要在  settings.json 中（可以输入 ctrl+<span class="built_in">shift</span>+p, 搜索 settings， 选择 Open User Settings(JSON)）, 然后填写下面的内容</span><br><span class="line"></span><br><span class="line">```java</span><br><span class="line"><span class="string">&quot;[markdown]&quot;</span>:&#123;</span><br><span class="line">	<span class="string">&quot;editor.formatOnSave&quot;</span>: <span class="literal">true</span>,</span><br><span class="line">	<span class="string">&quot;editor.renderWhitespace&quot;</span>: <span class="string">&quot;all&quot;</span>,</span><br><span class="line">	<span class="string">&quot;editor.quickSuggestions&quot;</span>: &#123;</span><br><span class="line">		<span class="string">&quot;other&quot;</span>: <span class="string">&quot;on&quot;</span>,</span><br><span class="line">		<span class="string">&quot;comments&quot;</span>: <span class="string">&quot;on&quot;</span>,</span><br><span class="line">		<span class="string">&quot;strings&quot;</span>: <span class="string">&quot;on&quot;</span></span><br><span class="line">	&#125;,</span><br><span class="line">	<span class="string">&quot;editor.acceptSuggestionOnEnter&quot;</span>: <span class="string">&quot;on&quot;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ol>
+<p>添加上述内容后就可以生效了</p>
+<h2 id="vscode-设置白天黑夜自动切换主题"><a href="#vscode-设置白天黑夜自动切换主题" class="headerlink" title="vscode 设置白天黑夜自动切换主题"></a>vscode 设置白天黑夜自动切换主题</h2><ol>
+<li>vscode 可以根据系统设置的 <code>light</code> 或 <code>dark</code> 主题来进行切换</li>
+<li>系统自动切换主题软件可以在 <code>store</code> 中安装 <code>Auto Dark Mode</code> 这个软件并进行设置</li>
+<li><code>window</code> 系统设置完成之后可以在 <code>vscode</code> 的 <code>user setting</code> 中添加如下内容, 第一个配置是开启自动切换，后面的配置是设置的 <code>light</code> 和 <code>dark</code> 主题的名称</li>
+</ol>
+<figure class="highlight json"><table><tr><td class="code"><pre><span class="line"><span class="attr">&quot;window.autoDetectColorScheme&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">true</span></span><span class="punctuation">,</span></span><br><span class="line"><span class="attr">&quot;workbench.preferredLightColorTheme&quot;</span><span class="punctuation">:</span> <span class="string">&quot;Atom One Light&quot;</span><span class="punctuation">,</span></span><br><span class="line"><span class="attr">&quot;workbench.preferredDarkColorTheme&quot;</span><span class="punctuation">:</span> <span class="string">&quot;Default Dark Modern&quot;</span></span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>tools</category>
+        <category>vscode</category>
+      </categories>
+      <tags>
+        <tag>tools</tag>
+        <tag>vscode</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>vscode设置markdown图片默认路径</title>
+    <url>/2023/5b4d784e18c2/index.html</url>
+    <content><![CDATA[<p><code>vscode</code> 在 <code>markdown</code> 文档中直接复制图片时是放在当前目录，如果需要修改可以按照下面方式设置</p>
+<span id="more"></span>
+<ol>
+<li>输入快捷键 <code>ctrl+,</code> 可以快速打开设置</li>
+<li>搜索 <code>markdown.copy: Destination</code></li>
+</ol>
+<p><img src="/2023/5b4d784e18c2/index/1700033681108.png" alt="Alt text"></p>
+]]></content>
+      <categories>
+        <category>tools</category>
+        <category>vscode</category>
+      </categories>
+      <tags>
+        <tag>tools</tag>
       </tags>
   </entry>
   <entry>
