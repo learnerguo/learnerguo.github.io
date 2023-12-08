@@ -32,26 +32,6 @@
       </tags>
   </entry>
   <entry>
-    <title>Next8版本主题优化修改的文件</title>
-    <url>/2023/44b973fe011c/index.html</url>
-    <content><![CDATA[<p><a href="https://zhuanlan.zhihu.com/p/252983030">参考文章</a></p>
-<span id="more"></span>
-
-<p>首页每篇文章变成圆角，只需要在 <code>styles.styl</code> 中添加如下内容</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">// 添加首页每篇文章圆角独立 start ------------</span><br><span class="line">.post-block&#123;</span><br><span class="line">        background-color: rgba(255, 255, 255, 1);</span><br><span class="line">        //margin-top: 24px;</span><br><span class="line">        margin-bottom: 24px;</span><br><span class="line">        padding: 20px;</span><br><span class="line">        border-radius: 30px 50px 30px 50px;</span><br><span class="line">        box-shadow: 8px 7px 2px 0 rgba(0,0,0,0.12), 7px 4px 1px -2px rgba(0,0,0,0.06), 0 1px 5px 0 rgba(0,0,0,0.12);</span><br><span class="line">&#125;</span><br><span class="line">// 添加首页每篇文章圆角独立 end ------------</span><br></pre></td></tr></table></figure>
-<p><code>styles.styl</code> 在博客根目录下的，<code>source/_data</code> 下，若没有则需要自己创建并且在 <code>next</code> 主题的 <code>_config.yml</code> 中打开下面的注释</p>
-<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">custom_file_path:</span></span><br><span class="line">  <span class="comment">#head: source/_data/head.njk</span></span><br><span class="line">  <span class="comment">#header: source/_data/header.njk</span></span><br><span class="line">  <span class="attr">style:</span> <span class="string">source/_data/styles.styl</span></span><br></pre></td></tr></table></figure>
-]]></content>
-      <categories>
-        <category>tools</category>
-        <category>hexo</category>
-      </categories>
-      <tags>
-        <tag>tools</tag>
-        <tag>hexo</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>butterfly主题多级分类折叠与展开</title>
     <url>/2023/acbd53e5de56/index.html</url>
     <content><![CDATA[<ol>
@@ -65,6 +45,26 @@
 </ol>
 <figure class="highlight js"><table><tr><td class="code"><pre><span class="line">$(<span class="variable language_">document</span>).<span class="title function_">ready</span>(<span class="keyword">function</span>(<span class="params"></span>) &#123;</span><br><span class="line">	<span class="title function_">categoryUnfold</span>();</span><br><span class="line">	<span class="keyword">function</span> <span class="title function_">categoryUnfold</span>(<span class="params"></span>) &#123;</span><br><span class="line">		$(<span class="string">&quot;.category-list-link&quot;</span>).<span class="title function_">filter</span>(<span class="keyword">function</span>(<span class="params"></span>) &#123;</span><br><span class="line">			<span class="keyword">if</span>($(<span class="variable language_">this</span>).<span class="title function_">siblings</span>(<span class="string">&quot;.category-list-child&quot;</span>).<span class="property">length</span> &gt; <span class="number">0</span>)</span><br><span class="line">                <span class="comment">// 这里引入了向下展开的图标，可以直接从本站下载放入对应目录即可</span></span><br><span class="line">				$(<span class="variable language_">this</span>).<span class="title function_">parent</span>().<span class="title function_">css</span>(<span class="string">&quot;list-style-image&quot;</span>,<span class="string">&quot;url(&#x27;/cusconfig/img/category-unfold-16x16.png&#x27;&quot;</span>);</span><br><span class="line">		&#125;);</span><br><span class="line">		</span><br><span class="line">		<span class="comment">//点击含有子标签category-list-child的category-list-link标签时，不进行跳转</span></span><br><span class="line">		$(<span class="string">&quot;.category-list-link&quot;</span>).<span class="title function_">filter</span>(<span class="keyword">function</span>(<span class="params"></span>) &#123;</span><br><span class="line">			<span class="keyword">return</span> $(<span class="variable language_">this</span>).<span class="title function_">siblings</span>(<span class="string">&quot;.category-list-child&quot;</span>).<span class="property">length</span> &gt; <span class="number">0</span></span><br><span class="line">		&#125;).<span class="title function_">attr</span>(<span class="string">&quot;href&quot;</span>, <span class="string">&quot;javascript:void(0)&quot;</span>);</span><br><span class="line">		</span><br><span class="line">		<span class="comment">//含有子标签category-list-child的category-list-link标签将自动隐藏子标签</span></span><br><span class="line">		$(<span class="string">&quot;.category-list-link&quot;</span>).<span class="title function_">filter</span>(<span class="keyword">function</span>(<span class="params"></span>) &#123;</span><br><span class="line">			<span class="keyword">if</span>($(<span class="variable language_">this</span>).<span class="title function_">siblings</span>(<span class="string">&quot;.category-list-child&quot;</span>).<span class="property">length</span> &gt; <span class="number">0</span>)</span><br><span class="line">				$(<span class="variable language_">this</span>).<span class="title function_">siblings</span>(<span class="string">&quot;.category-list-child&quot;</span>).<span class="title function_">hide</span>();</span><br><span class="line">		&#125;);	</span><br><span class="line">		</span><br><span class="line">		<span class="comment">//点击含有子标签category-list-child的category-list-link标签时，将隐藏子标签展开</span></span><br><span class="line">		$(<span class="string">&quot;.category-list-link&quot;</span>).<span class="title function_">click</span>(<span class="keyword">function</span>(<span class="params"></span>) &#123;</span><br><span class="line">			$(<span class="variable language_">this</span>).<span class="title function_">siblings</span>(<span class="string">&quot;.category-list-child&quot;</span>).<span class="title function_">slideToggle</span>();</span><br><span class="line">		&#125;);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
 
+]]></content>
+      <categories>
+        <category>tools</category>
+        <category>hexo</category>
+      </categories>
+      <tags>
+        <tag>tools</tag>
+        <tag>hexo</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Next8版本主题优化修改的文件</title>
+    <url>/2023/44b973fe011c/index.html</url>
+    <content><![CDATA[<p><a href="https://zhuanlan.zhihu.com/p/252983030">参考文章</a></p>
+<span id="more"></span>
+
+<p>首页每篇文章变成圆角，只需要在 <code>styles.styl</code> 中添加如下内容</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">// 添加首页每篇文章圆角独立 start ------------</span><br><span class="line">.post-block&#123;</span><br><span class="line">        background-color: rgba(255, 255, 255, 1);</span><br><span class="line">        //margin-top: 24px;</span><br><span class="line">        margin-bottom: 24px;</span><br><span class="line">        padding: 20px;</span><br><span class="line">        border-radius: 30px 50px 30px 50px;</span><br><span class="line">        box-shadow: 8px 7px 2px 0 rgba(0,0,0,0.12), 7px 4px 1px -2px rgba(0,0,0,0.06), 0 1px 5px 0 rgba(0,0,0,0.12);</span><br><span class="line">&#125;</span><br><span class="line">// 添加首页每篇文章圆角独立 end ------------</span><br></pre></td></tr></table></figure>
+<p><code>styles.styl</code> 在博客根目录下的，<code>source/_data</code> 下，若没有则需要自己创建并且在 <code>next</code> 主题的 <code>_config.yml</code> 中打开下面的注释</p>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">custom_file_path:</span></span><br><span class="line">  <span class="comment">#head: source/_data/head.njk</span></span><br><span class="line">  <span class="comment">#header: source/_data/header.njk</span></span><br><span class="line">  <span class="attr">style:</span> <span class="string">source/_data/styles.styl</span></span><br></pre></td></tr></table></figure>
 ]]></content>
       <categories>
         <category>tools</category>
@@ -149,27 +149,6 @@
       </categories>
       <tags>
         <tag>tools</tag>
-        <tag>hexo</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>hexo的butterfly主题更换waline系统cdn地址</title>
-    <url>/2023/0fd7aa9951f7/index.html</url>
-    <content><![CDATA[<ol>
-<li><p>butterfly主题默认使用 cdn.jsdelivr.net，在国内使用很慢，有时候加载不出来，可以替换成国内源，比如下面这两个</p>
-<figure class="highlight dts"><table><tr><td class="code"><pre><span class="line"><span class="symbol">http:</span><span class="comment">//www.staticfile.org/</span></span><br><span class="line"><span class="symbol">https:</span><span class="comment">//cdn.onmicrosoft.cn/</span></span><br></pre></td></tr></table></figure>
-<p>这里我使用的是第一个，打开 <code>http://www.staticfile.org/</code> 后，会出现搜索框，搜索 <code>waline</code>， 然后选择对应的版本就好了，如果不知道自己的版本，可以在切换前先打开自己的 <code>wailne</code> 系统，在评论框下面会显示版本</p>
-</li>
-<li><p>找到对应的版本后复制出对应的 <code>css</code> 和 <code>js</code> 地址，添加到 <code>_config.butterfly.yml</code> 文件中,比如我使用的是3.0版本，则打开 <code>wailne_css</code> 和 <code>waline_js</code> 注释并添加如下内容</p>
-</li>
-</ol>
-<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">CDN:</span></span><br><span class="line">  <span class="attr">option:</span></span><br><span class="line">    <span class="attr">waline_css:</span> <span class="string">https://cdn.staticfile.org/waline/3.0.0-alpha.2/waline.min.css</span></span><br><span class="line">    <span class="attr">waline_js:</span> <span class="string">https://cdn.staticfile.org/waline/3.0.0-alpha.2/waline.min.js</span></span><br></pre></td></tr></table></figure>
-]]></content>
-      <categories>
-        <category>tools</category>
-        <category>hexo</category>
-      </categories>
-      <tags>
         <tag>hexo</tag>
       </tags>
   </entry>
@@ -311,6 +290,27 @@
 <li>在 next 的 <code>_config.yml</code> 文件中添加如下内容即可，配置为true时依然跳转到more</li>
 </ol>
 <figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">read_more_anchor:</span> <span class="literal">false</span></span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>tools</category>
+        <category>hexo</category>
+      </categories>
+      <tags>
+        <tag>hexo</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>hexo的butterfly主题更换waline系统cdn地址</title>
+    <url>/2023/0fd7aa9951f7/index.html</url>
+    <content><![CDATA[<ol>
+<li><p>butterfly主题默认使用 cdn.jsdelivr.net，在国内使用很慢，有时候加载不出来，可以替换成国内源，比如下面这两个</p>
+<figure class="highlight dts"><table><tr><td class="code"><pre><span class="line"><span class="symbol">http:</span><span class="comment">//www.staticfile.org/</span></span><br><span class="line"><span class="symbol">https:</span><span class="comment">//cdn.onmicrosoft.cn/</span></span><br></pre></td></tr></table></figure>
+<p>这里我使用的是第一个，打开 <code>http://www.staticfile.org/</code> 后，会出现搜索框，搜索 <code>waline</code>， 然后选择对应的版本就好了，如果不知道自己的版本，可以在切换前先打开自己的 <code>wailne</code> 系统，在评论框下面会显示版本</p>
+</li>
+<li><p>找到对应的版本后复制出对应的 <code>css</code> 和 <code>js</code> 地址，添加到 <code>_config.butterfly.yml</code> 文件中,比如我使用的是3.0版本，则打开 <code>wailne_css</code> 和 <code>waline_js</code> 注释并添加如下内容</p>
+</li>
+</ol>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">CDN:</span></span><br><span class="line">  <span class="attr">option:</span></span><br><span class="line">    <span class="attr">waline_css:</span> <span class="string">https://cdn.staticfile.org/waline/3.0.0-alpha.2/waline.min.css</span></span><br><span class="line">    <span class="attr">waline_js:</span> <span class="string">https://cdn.staticfile.org/waline/3.0.0-alpha.2/waline.min.js</span></span><br></pre></td></tr></table></figure>
+]]></content>
       <categories>
         <category>tools</category>
         <category>hexo</category>
@@ -741,75 +741,6 @@
       </tags>
   </entry>
   <entry>
-    <title>jvm执行引擎</title>
-    <url>/2023/a18206d79e08/index.html</url>
-    <content><![CDATA[<span class="hide_first_mermaid">
-<div class="mermaid-wrap"><pre class="mermaid-src" hidden>
-  flowchart LR
-    A
-  </pre></div>
-</span>
-
-<h2 id="执行引擎的作用"><a href="#执行引擎的作用" class="headerlink" title="执行引擎的作用"></a>执行引擎的作用</h2><pre class="mermaid">flowchart TB
-    A["java源代码(.java文件)"]
-    B["class字节码文件"]
-    C["内存(放入jvm方法区)"]
-        subgraph D["执行引擎"]
-            subgraph D1["编译器"]
-                D11["Client Compiler"]
-                D12["Server Compiler"]
-            end
-        end
-    E["机器码"]
-
-    A--"javac编译器"-->B
-    B--"类加载器"-->C
-    C-->D
-    D--解释执行-->E
-    D--"编译执行(JIT)"-->E</pre>
-<h3 id="字节码"><a href="#字节码" class="headerlink" title="字节码"></a>字节码</h3><ol>
-<li><code>Java</code>程序可以通过编译器将源码编译成<code>Java</code>字节码，特定平台上的虚拟机将字节码转译为可以直接执行的机器码，也就实现了跨平台性</li>
-<li>字节码主要为了实现特定软件运行和软件环境，与硬件环境无关</li>
-</ol>
-<h2 id="即时编译器-JIT-的作用"><a href="#即时编译器-JIT-的作用" class="headerlink" title="即时编译器(JIT)的作用"></a>即时编译器(JIT)的作用</h2><ol>
-<li>即时编译器在最初的 <code>jvm</code> 中是没有的，没有的原因就是 <code>jvm</code> 设计的初衷是为了满足 <code>Java</code> 程序实现跨平台的特性，所以避免采用静态编译的方式直接生成机器码，所以采用了解释器在运行时逐行解释字节码执行程序</li>
-<li><code>JIT</code>编译器的作用就是虚拟机将字节码直接编译成机器码</li>
-<li><strong>无论是采用解释器进行解释执行，还是采用即时编译器进行编译执行，最终字节码都是需要被转换成对应平台的机器码</strong></li>
-</ol>
-<h2 id="为何HotSpot虚拟机要使用解释器与编译器并存的架构"><a href="#为何HotSpot虚拟机要使用解释器与编译器并存的架构" class="headerlink" title="为何HotSpot虚拟机要使用解释器与编译器并存的架构"></a>为何HotSpot虚拟机要使用解释器与编译器并存的架构</h2><p>因为解释器和编译器各有优势</p>
-<ol>
-<li>程序启动后，解释器可以立即发挥作用，省去编译的时间，立即执行。编译器想要发挥作用，将代码编译成机器码，需要一定的执行时间，但是编译为机器码之后，执行效率更高</li>
-<li>当程序的运行环境中内存资源较大(比如嵌入式系统)时，解释执行可以更节约内存</li>
-</ol>
-<h2 id="为何HotSpot虚拟机要实现两个不同的即时编译器"><a href="#为何HotSpot虚拟机要实现两个不同的即时编译器" class="headerlink" title="为何HotSpot虚拟机要实现两个不同的即时编译器"></a>为何HotSpot虚拟机要实现两个不同的即时编译器</h2><p><code>HotSpot</code> 虚拟机包含两个即时编译器</p>
-<ol>
-<li><code>Client Compile</code>， 也叫做 <code>c1</code> 编译器</li>
-<li><code>Server Compile</code>，也叫做 <code>c2</code> 编译器</li>
-</ol>
-<p><code>HotSpot</code> 虚拟机默认采用解释器和其中一个编译器配合的方式工作，程序使用哪个编译器，取决于虚拟机运行的模式</p>
-<p>通过 <code>-client</code> 参数可以指定 <code>jvm</code> 运行在 <code>Client</code> 模式下，并使用 <code>c1</code> 编译器，<code>c1</code> 编译器会对字节码进行简单和可靠的优化，耗时短，达到更快的编译速度</p>
-<p>通过 <code>-server</code> 参数可以指定 <code>jvm</code> 运行在 <code>Server</code> 模式下，并使用 <code>c2</code> 编译器，<code>c2</code> 会进行耗时较长的优化，以及激进优化，但优化的代码执行效率更高</p>
-<p>实施分层编译后，<code>Client Compiler</code>和<code>Server Compiler</code>将会同时工作，许多代码都可能会被多次编译，用<code>Client Compiler</code>获取更高的编译速度，用<code>Server Compiler</code>来获取更好的编译质量，在解释执行的时候也无须再承担收集性能监控信息的任务</p>
-<h2 id="程序何时使用解释器执行？何时使用编译器执行？"><a href="#程序何时使用解释器执行？何时使用编译器执行？" class="headerlink" title="程序何时使用解释器执行？何时使用编译器执行？"></a>程序何时使用解释器执行？何时使用编译器执行？</h2><p>在运行过程中会被即时编译器编译的 <strong>热点代码</strong>包含两类</p>
-<ol>
-<li>被<strong>多次</strong>调用的方法</li>
-<li>被<strong>多次</strong>执行的循环体</li>
-</ol>
-<h3 id="热点探测"><a href="#热点探测" class="headerlink" title="热点探测"></a>热点探测</h3><p>无论是基于多次调用的方法还是多次执行的循环体，都强调多次，具体多少次算多次呢？ 在 <code>HotSpot</code> 中是使用 <strong>基于计数器的热点探测</strong> 方式来判断执行的次数的，在 <code>HotSpot</code> 虚拟机中为每个方法准备了两类计数器，这两类计数器都有确定的阈值，当技术器超过阈值了，就会触发 <code>JIT</code> 编译</p>
-<ol>
-<li>方法调用计数器： 用来统计方法调用的次数，可以通过参数 <code>-XX:CompileThreshold</code> 来认为设置阈值</li>
-<li>回边计数器： 用来统计一个方法中循环体代码执行的次数，在字节码中遇到控制流向后跳转的指令称为 <strong>回边</strong></li>
-</ol>
-]]></content>
-      <categories>
-        <category>java</category>
-        <category>jvm</category>
-      </categories>
-      <tags>
-        <tag>jvm</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>jvm垃圾回收</title>
     <url>/2023/63d242ce6cb3/index.html</url>
     <content><![CDATA[<span class="hide_first_mermaid">
@@ -1043,6 +974,75 @@
       </categories>
       <tags>
         <tag>java</tag>
+        <tag>jvm</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>jvm执行引擎</title>
+    <url>/2023/a18206d79e08/index.html</url>
+    <content><![CDATA[<span class="hide_first_mermaid">
+<div class="mermaid-wrap"><pre class="mermaid-src" hidden>
+  flowchart LR
+    A
+  </pre></div>
+</span>
+
+<h2 id="执行引擎的作用"><a href="#执行引擎的作用" class="headerlink" title="执行引擎的作用"></a>执行引擎的作用</h2><pre class="mermaid">flowchart TB
+    A["java源代码(.java文件)"]
+    B["class字节码文件"]
+    C["内存(放入jvm方法区)"]
+        subgraph D["执行引擎"]
+            subgraph D1["编译器"]
+                D11["Client Compiler"]
+                D12["Server Compiler"]
+            end
+        end
+    E["机器码"]
+
+    A--"javac编译器"-->B
+    B--"类加载器"-->C
+    C-->D
+    D--解释执行-->E
+    D--"编译执行(JIT)"-->E</pre>
+<h3 id="字节码"><a href="#字节码" class="headerlink" title="字节码"></a>字节码</h3><ol>
+<li><code>Java</code>程序可以通过编译器将源码编译成<code>Java</code>字节码，特定平台上的虚拟机将字节码转译为可以直接执行的机器码，也就实现了跨平台性</li>
+<li>字节码主要为了实现特定软件运行和软件环境，与硬件环境无关</li>
+</ol>
+<h2 id="即时编译器-JIT-的作用"><a href="#即时编译器-JIT-的作用" class="headerlink" title="即时编译器(JIT)的作用"></a>即时编译器(JIT)的作用</h2><ol>
+<li>即时编译器在最初的 <code>jvm</code> 中是没有的，没有的原因就是 <code>jvm</code> 设计的初衷是为了满足 <code>Java</code> 程序实现跨平台的特性，所以避免采用静态编译的方式直接生成机器码，所以采用了解释器在运行时逐行解释字节码执行程序</li>
+<li><code>JIT</code>编译器的作用就是虚拟机将字节码直接编译成机器码</li>
+<li><strong>无论是采用解释器进行解释执行，还是采用即时编译器进行编译执行，最终字节码都是需要被转换成对应平台的机器码</strong></li>
+</ol>
+<h2 id="为何HotSpot虚拟机要使用解释器与编译器并存的架构"><a href="#为何HotSpot虚拟机要使用解释器与编译器并存的架构" class="headerlink" title="为何HotSpot虚拟机要使用解释器与编译器并存的架构"></a>为何HotSpot虚拟机要使用解释器与编译器并存的架构</h2><p>因为解释器和编译器各有优势</p>
+<ol>
+<li>程序启动后，解释器可以立即发挥作用，省去编译的时间，立即执行。编译器想要发挥作用，将代码编译成机器码，需要一定的执行时间，但是编译为机器码之后，执行效率更高</li>
+<li>当程序的运行环境中内存资源较大(比如嵌入式系统)时，解释执行可以更节约内存</li>
+</ol>
+<h2 id="为何HotSpot虚拟机要实现两个不同的即时编译器"><a href="#为何HotSpot虚拟机要实现两个不同的即时编译器" class="headerlink" title="为何HotSpot虚拟机要实现两个不同的即时编译器"></a>为何HotSpot虚拟机要实现两个不同的即时编译器</h2><p><code>HotSpot</code> 虚拟机包含两个即时编译器</p>
+<ol>
+<li><code>Client Compile</code>， 也叫做 <code>c1</code> 编译器</li>
+<li><code>Server Compile</code>，也叫做 <code>c2</code> 编译器</li>
+</ol>
+<p><code>HotSpot</code> 虚拟机默认采用解释器和其中一个编译器配合的方式工作，程序使用哪个编译器，取决于虚拟机运行的模式</p>
+<p>通过 <code>-client</code> 参数可以指定 <code>jvm</code> 运行在 <code>Client</code> 模式下，并使用 <code>c1</code> 编译器，<code>c1</code> 编译器会对字节码进行简单和可靠的优化，耗时短，达到更快的编译速度</p>
+<p>通过 <code>-server</code> 参数可以指定 <code>jvm</code> 运行在 <code>Server</code> 模式下，并使用 <code>c2</code> 编译器，<code>c2</code> 会进行耗时较长的优化，以及激进优化，但优化的代码执行效率更高</p>
+<p>实施分层编译后，<code>Client Compiler</code>和<code>Server Compiler</code>将会同时工作，许多代码都可能会被多次编译，用<code>Client Compiler</code>获取更高的编译速度，用<code>Server Compiler</code>来获取更好的编译质量，在解释执行的时候也无须再承担收集性能监控信息的任务</p>
+<h2 id="程序何时使用解释器执行？何时使用编译器执行？"><a href="#程序何时使用解释器执行？何时使用编译器执行？" class="headerlink" title="程序何时使用解释器执行？何时使用编译器执行？"></a>程序何时使用解释器执行？何时使用编译器执行？</h2><p>在运行过程中会被即时编译器编译的 <strong>热点代码</strong>包含两类</p>
+<ol>
+<li>被<strong>多次</strong>调用的方法</li>
+<li>被<strong>多次</strong>执行的循环体</li>
+</ol>
+<h3 id="热点探测"><a href="#热点探测" class="headerlink" title="热点探测"></a>热点探测</h3><p>无论是基于多次调用的方法还是多次执行的循环体，都强调多次，具体多少次算多次呢？ 在 <code>HotSpot</code> 中是使用 <strong>基于计数器的热点探测</strong> 方式来判断执行的次数的，在 <code>HotSpot</code> 虚拟机中为每个方法准备了两类计数器，这两类计数器都有确定的阈值，当技术器超过阈值了，就会触发 <code>JIT</code> 编译</p>
+<ol>
+<li>方法调用计数器： 用来统计方法调用的次数，可以通过参数 <code>-XX:CompileThreshold</code> 来认为设置阈值</li>
+<li>回边计数器： 用来统计一个方法中循环体代码执行的次数，在字节码中遇到控制流向后跳转的指令称为 <strong>回边</strong></li>
+</ol>
+]]></content>
+      <categories>
+        <category>java</category>
+        <category>jvm</category>
+      </categories>
+      <tags>
         <tag>jvm</tag>
       </tags>
   </entry>
@@ -1405,6 +1405,97 @@
       </tags>
   </entry>
   <entry>
+    <title>Spring中Bean的生命周期详解</title>
+    <url>/2023/160e87d42e42/index.html</url>
+    <content><![CDATA[<span class="hide_first_mermaid">
+<div class="mermaid-wrap"><pre class="mermaid-src" hidden>
+  flowchart LR
+    A
+  </pre></div>
+</span>
+
+<p>spring版本 6.x</p>
+<h2 id="Spring-的-Bean-生命周期有哪几个阶段"><a href="#Spring-的-Bean-生命周期有哪几个阶段" class="headerlink" title="Spring 的 Bean 生命周期有哪几个阶段"></a>Spring 的 Bean 生命周期有哪几个阶段</h2><p>所谓的 Bean 的生命周期就是 Bean 在整个应用的生命周期中所经历的各种状态，从创建、初始化、使用、销毁等各个阶段。</p>
+<pre class="mermaid">flowchart LR
+    subgraph A["创建"]
+        style A fill:#f9f
+        direction LR
+        A1["实例化Bean[createBeanInstance()方法]"]
+        subgraph A2["初始化过程"]
+            style A2 fill:#8ff600
+            direction TB
+            A21["设置属性值 populateBean() 方法"]
+            A22["调用对应的 Aware 接口 "]
+            A23[" BeanPostProcessor 前置处理 "]
+            A24[" InitializingBean 的 afterPropertiesSet() 方法 "]
+            A25[" 自定义 init-method 方法 "]
+            A26[" BeanPostProcessor 后置处理 "]
+            A21-->A22-->A23-->A24-->A25-->A26
+        end
+        A3["注册 Destruction 回调"]
+        A1-->A2-->A3
+    end
+    B[" \n使用 \n\n"]
+    subgraph C["销毁"]
+        direction TB
+        C1["DisposableBean#destroy()"]
+        C2["自定义destroy-method"]
+        C1-->C2
+    end
+    A-->B-->C</pre>
+
+<h2 id="Bean-生命周期代码示例"><a href="#Bean-生命周期代码示例" class="headerlink" title="Bean 生命周期代码示例"></a>Bean 生命周期代码示例</h2><p>示例代码包含以下几个类</p>
+<ol>
+<li><code>LifeCycleBean</code> 主要是观察该类创建 Bean 的过程，该类实现了 <code>ApplicationContextAware</code>, <code>InitializingBean</code>, <code>DisposableBean</code> 接口</li>
+<li><code>CusBeanPostProcessor</code> 该类实现了 <code>BeanPostProcessor</code> 接口</li>
+<li><code>LifeCycleMain</code> 测试主类</li>
+</ol>
+<figure class="highlight java"><figcaption><span>LifeCycleBean类</span></figcaption><table><tr><td class="code"><pre><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">LifeCycleBean</span> <span class="keyword">implements</span> <span class="title class_">ApplicationContextAware</span>, InitializingBean, DisposableBean &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">LifeCycleBean</span><span class="params">()</span> &#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;执行构造方法 &quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@PostConstruct</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">init</span><span class="params">()</span> &#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;@PostConstruct init&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">destroy</span><span class="params">()</span> <span class="keyword">throws</span> Exception &#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;DisposableBean -- destroy &quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">afterPropertiesSet</span><span class="params">()</span> <span class="keyword">throws</span> Exception &#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;InitializingBean afterPropertiesSet &quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">setApplicationContext</span><span class="params">(ApplicationContext applicationContext)</span> <span class="keyword">throws</span> BeansException &#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;ApplicationContextAware setApplicationContext&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><figcaption><span>CusBeanPostProcessor类</span></figcaption><table><tr><td class="code"><pre><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">CusBeanPostProcessor</span> <span class="keyword">implements</span> <span class="title class_">BeanPostProcessor</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> Object <span class="title function_">postProcessBeforeInitialization</span><span class="params">(Object bean, String beanName)</span> <span class="keyword">throws</span> BeansException &#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;CusBeanPostProcessor before, current beanName:&quot;</span> + beanName);</span><br><span class="line">        <span class="keyword">return</span> BeanPostProcessor.<span class="built_in">super</span>.postProcessBeforeInitialization(bean, beanName);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> Object <span class="title function_">postProcessAfterInitialization</span><span class="params">(Object bean, String beanName)</span> <span class="keyword">throws</span> BeansException &#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;CusBeanPostProcessor after, current beanName:&quot;</span> + beanName);</span><br><span class="line">        <span class="keyword">return</span> BeanPostProcessor.<span class="built_in">super</span>.postProcessAfterInitialization(bean, beanName);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><figcaption><span>LifeCycleMain测试主类</span></figcaption><table><tr><td class="code"><pre><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="meta">@ComponentScan</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">LifeCycleMain</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="type">ApplicationContext</span> <span class="variable">context</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">AnnotationConfigApplicationContext</span>(LifeCycleMain.class);</span><br><span class="line">        <span class="type">LifeCycleBean</span> <span class="variable">bean</span> <span class="operator">=</span> context.getBean(LifeCycleBean.class);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>执行结果</p>
+<figure class="highlight pgsql"><table><tr><td class="code"><pre><span class="line">执行构造方法 </span><br><span class="line">ApplicationContextAware setApplicationContext</span><br><span class="line">CusBeanPostProcessor <span class="keyword">before</span>, <span class="keyword">current</span> beanName:lifeCycleBean</span><br><span class="line">@PostConstruct init</span><br><span class="line">InitializingBean afterPropertiesSet </span><br><span class="line">CusBeanPostProcessor <span class="keyword">after</span>, <span class="keyword">current</span> beanName:lifeCycleBean</span><br></pre></td></tr></table></figure>
+
+<p>从上述测试代码来看，在创建 <code>LifeCycleBean</code> 这个 Bean 过程中，执行顺序是</p>
+<ol>
+<li>执行对应类的构造方法</li>
+<li>执行对应 Aware 接口的方法</li>
+<li>执行 BeanPostProcessor 前置处理方法</li>
+<li>执行 <code>@PostConstruct</code> 注解定义的方法</li>
+<li>执行 InitializingBean 中的 afterPropertiesSet 方法</li>
+<li>执行 BeanPostProcessor 后置处理方法</li>
+</ol>
+<h2 id="Spring-Bean-生命周期执行流程"><a href="#Spring-Bean-生命周期执行流程" class="headerlink" title="Spring Bean 生命周期执行流程"></a>Spring Bean 生命周期执行流程</h2><figure class="highlight leaf"><table><tr><td class="code"><pre><span class="line">AbstractApplicationContext<span class="punctuation">#</span><span class="keyword">refresh</span></span><br><span class="line">    AbstractApplicationContext<span class="punctuation">#</span><span class="keyword">finishBeanFactoryInitialization</span></span><br><span class="line">        DefaultListableBeanFactory<span class="punctuation">#</span><span class="keyword">preInstantiateSingletons</span></span><br><span class="line">            AbstractBeanFactory<span class="punctuation">#</span><span class="keyword">getBean</span><span class="params">(<span class="variable">java</span>.<span class="variable">lang</span>.<span class="variable">String</span>)</span></span><br><span class="line">                AbstractBeanFactory<span class="punctuation">#</span><span class="keyword">doGetBean</span></span><br><span class="line">                    DefaultSingletonBeanRegistry<span class="punctuation">#</span><span class="keyword">getSingleton</span><span class="params">(<span class="variable">ObjectFactory</span><span class="operator">&lt;</span>?<span class="operator">&gt;</span>)</span></span><br><span class="line">                        AbstractAutowireCapableBeanFactory<span class="punctuation">#</span><span class="keyword">createBean</span><span class="params">(<span class="variable">String</span> <span class="variable">beanName</span>, <span class="variable">RootBeanDefinition</span>, <span class="variable">java</span>.<span class="variable">lang</span>.<span class="variable">Object</span>[])</span></span><br><span class="line">                            AbstractAutowireCapableBeanFactory<span class="punctuation">#</span><span class="keyword">doCreateBean</span></span><br></pre></td></tr></table></figure>
+
+<p>上述流程是创建 Bean 的调用过程，最终是在 <code>AbstractAutowireCapableBeanFactory</code> 中调用 <code>doCreateBean</code> 方法来创建，所以直接看下这部分代码（省略和此次流程无关代码）</p>
+<figure class="highlight java"><figcaption><span>AbstractAutowireCapableBeanFactory类</span></figcaption><table><tr><td class="code"><pre><span class="line"><span class="keyword">protected</span> Object <span class="title function_">doCreateBean</span><span class="params">(String beanName, RootBeanDefinition mbd, <span class="meta">@Nullable</span> Object[] args)</span></span><br><span class="line">        <span class="keyword">throws</span> BeanCreationException &#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Instantiate the bean.</span></span><br><span class="line">    <span class="type">BeanWrapper</span> <span class="variable">instanceWrapper</span> <span class="operator">=</span> <span class="literal">null</span>;</span><br><span class="line">    <span class="keyword">if</span> (instanceWrapper == <span class="literal">null</span>) &#123;</span><br><span class="line">        <span class="comment">// 步骤1： 实例化 Bean</span></span><br><span class="line">        instanceWrapper = createBeanInstance(beanName, mbd, args);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="type">Object</span> <span class="variable">bean</span> <span class="operator">=</span> instanceWrapper.getWrappedInstance();</span><br><span class="line">    Class&lt;?&gt; beanType = instanceWrapper.getWrappedClass();</span><br><span class="line">    <span class="keyword">if</span> (beanType != NullBean.class) &#123;</span><br><span class="line">        mbd.resolvedTargetType = beanType;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Initialize the bean instance.</span></span><br><span class="line">    <span class="type">Object</span> <span class="variable">exposedObject</span> <span class="operator">=</span> bean;</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        <span class="comment">// 步骤2： 设置属性</span></span><br><span class="line">        populateBean(beanName, mbd, instanceWrapper);</span><br><span class="line">        <span class="comment">// 步骤3： 调用 aware 接口 -》调用 BeanPostProcessor 前置方法</span></span><br><span class="line">        <span class="comment">// -》 调用  InitializingBean 的 afterPropertiesSet 方法</span></span><br><span class="line">        <span class="comment">// -》 调用  自定义的 init-method 方法</span></span><br><span class="line">        <span class="comment">// -》 调用  自定义的 init-method 方法</span></span><br><span class="line">        <span class="comment">// -》 调用 BeanPostProcessor 后置方法</span></span><br><span class="line">        exposedObject = initializeBean(beanName, exposedObject, mbd);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Register bean as disposable.</span></span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        <span class="comment">// 步骤4： 注册销毁方法</span></span><br><span class="line">        registerDisposableBeanIfNecessary(beanName, bean, mbd);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> exposedObject;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>实例化(<strong>步骤1</strong>)和设置属性值(<strong>步骤2</strong>) 就不看了，主要看一下 <strong>步骤3</strong>，这个步骤包含了 Bean 生命周期中整个初始化过程</p>
+<figure class="highlight java"><figcaption><span>AbstractAutowireCapableBeanFactory类</span></figcaption><table><tr><td class="code"><pre><span class="line"><span class="keyword">protected</span> Object <span class="title function_">initializeBean</span><span class="params">(String beanName, Object bean, <span class="meta">@Nullable</span> RootBeanDefinition mbd)</span> &#123;</span><br><span class="line">    <span class="comment">// 步骤3.1 调用对应的 Aware 接口</span></span><br><span class="line">    invokeAwareMethods(beanName, bean);</span><br><span class="line"></span><br><span class="line">    <span class="type">Object</span> <span class="variable">wrappedBean</span> <span class="operator">=</span> bean;</span><br><span class="line">    <span class="keyword">if</span> (mbd == <span class="literal">null</span> || !mbd.isSynthetic()) &#123;</span><br><span class="line">        <span class="comment">// 步骤3.2 调用 BeanPostProcessor 前置方法</span></span><br><span class="line">        wrappedBean = applyBeanPostProcessorsBeforeInitialization(wrappedBean, beanName);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        <span class="comment">// 步骤3.3 调用 InitializingBean 的 afterPropertiesSet 方法 和 自定义的 init-method 方法</span></span><br><span class="line">        invokeInitMethods(beanName, wrappedBean, mbd);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">catch</span> (Throwable ex) &#123;</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">BeanCreationException</span>(</span><br><span class="line">                (mbd != <span class="literal">null</span> ? mbd.getResourceDescription() : <span class="literal">null</span>), beanName, ex.getMessage(), ex);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (mbd == <span class="literal">null</span> || !mbd.isSynthetic()) &#123;</span><br><span class="line">        <span class="comment">// 步骤3.4 调用 BeanPostProcessor 后置方法</span></span><br><span class="line">        wrappedBean = applyBeanPostProcessorsAfterInitialization(wrappedBean, beanName);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> wrappedBean;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>步骤3.3</strong> 中是调用 <code>InitializingBean</code> 的 <code>afterPropertiesSet</code> 方法 和 自定义的 <code>init-method</code> 方法， 调用 <code>InitializingBean</code> 接口的方法还比较好说，那么什么是自定义的 <code>init-method</code> 方法呢？看如下示例代码</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">//  这是一个 普通 类</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">LifeCycleBean</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">initMethod</span><span class="params">()</span> &#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;LifeCycleBean initMethod&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">destroyMethod</span><span class="params">()</span> &#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;LifeCycleBean destroyMethod&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">sayHello</span><span class="params">()</span> &#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;LifeCycleBean sayHello&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="meta">@ComponentScan</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">LifeCycleMain</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 使用 @Bean 注入 LifeCycleBean 类，同时添加了 initMethod 和 destroyMethod 方法</span></span><br><span class="line">    <span class="meta">@Bean(initMethod = &quot;initMethod&quot;, destroyMethod=&quot;destroyMethod&quot;)</span></span><br><span class="line">    <span class="keyword">public</span> LifeCycleBean <span class="title function_">lifeCycleBean</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">LifeCycleBean</span>();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="type">ApplicationContext</span> <span class="variable">context</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">AnnotationConfigApplicationContext</span>(LifeCycleMain.class);</span><br><span class="line">        context.getBean(LifeCycleBean.class).sayHello();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>执行结果</p>
+<figure class="highlight ebnf"><table><tr><td class="code"><pre><span class="line"><span class="attribute">LifeCycleBean initMethod</span></span><br><span class="line"><span class="attribute">LifeCycleBean sayHello</span></span><br></pre></td></tr></table></figure>
+
+<p>重点执行流程导致就结束了</p>
+]]></content>
+      <categories>
+        <category>java</category>
+        <category>Spring</category>
+      </categories>
+      <tags>
+        <tag>java</tag>
+        <tag>Spring</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Spring中DeferredImportSelector源码解析</title>
     <url>/2023/55186be8f39b/index.html</url>
     <content><![CDATA[<span class="hide_first_mermaid">
@@ -1603,10 +1694,10 @@
 <h2 id="SpringBoot3-自动装配的流程"><a href="#SpringBoot3-自动装配的流程" class="headerlink" title="SpringBoot3 自动装配的流程"></a>SpringBoot3 自动装配的流程</h2><p><code>SpringBoot</code> 项目启动主类上只有一个 <code>SpringBootApplication</code> 注解，我们看一下这个注解的体系</p>
 <pre class="mermaid">flowchart LR
     A["@SpringBootApplication"]
-    style A fill:#141bf6
+    style A fill:#8ff600
     B["@ComponentScan"]
     C["@EnableAutoConfiguration"]
-    style C fill:#141bf6
+    style C fill:#8ff600
     D["@SpringBootConfiguration"]
 
     A--> B & C & D
@@ -1620,10 +1711,10 @@
     F-->G
 
     H["@Import(AutoConfigurationImportSelector.class)"]
-    style H fill:#141bf6
+    style H fill:#8ff600
     C-->H</pre>
 
-<p>涉及到自动注入的注解使用蓝色标记出来了，所以最终需要看的就是 <code>AutoConfigurationImportSelector</code>， 而这个类是一个 <code>DeferredImportSelector</code> 接口的实现类，具体参考 <ol><li><a href="/2023/55186be8f39b/index.html" title="Spring中DeferredImportSelector源码解析">Spring中DeferredImportSelector源码解析</a></li></ol>， 这里就直接给出 <code>DeferredImportSelector</code> 接口的执行流程</p>
+<p>涉及到自动注入的注解使用绿色标记出来了，所以最终需要看的就是 <code>AutoConfigurationImportSelector</code>， 而这个类是一个 <code>DeferredImportSelector</code> 接口的实现类，具体参考 <ol><li><a href="/2023/55186be8f39b/index.html" title="Spring中DeferredImportSelector源码解析">Spring中DeferredImportSelector源码解析</a></li></ol>， 这里就直接给出 <code>DeferredImportSelector</code> 接口的执行流程</p>
 <pre class="mermaid">flowchart TB
     A["Group实现类中的 process() 方法"]
     B["DeferredImportSelector实现类 
@@ -3501,33 +3592,6 @@
       </tags>
   </entry>
   <entry>
-    <title>普通用户执行docker命令</title>
-    <url>/2023/6987d518f2d5/index.html</url>
-    <content><![CDATA[<p>以下操作是在 <code>ubuntu22.04</code> 版本安装 <code>docker</code> 后，普通用户执行 <code>docker</code> 命令时不用添加 <code>sudo</code></p>
-<ol>
-<li>创建 <code>docker</code> 用户组</li>
-</ol>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo groupadd docker</span><br></pre></td></tr></table></figure>
-
-<ol start="2">
-<li>将当前用户加入到 <code>docker</code> 用户组</li>
-</ol>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo usermod -aG docker <span class="variable">$USER</span></span><br></pre></td></tr></table></figure>
-
-<ol start="3">
-<li>退出当前用户，重新登录，即可使用 <code>docker</code> 命令</li>
-</ol>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">exit</span></span><br></pre></td></tr></table></figure>
-]]></content>
-      <categories>
-        <category>云原生</category>
-        <category>docker</category>
-      </categories>
-      <tags>
-        <tag>docker</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>使用docker-compose安装mysql和redis基本环境</title>
     <url>/2023/3c61103fd97b/index.html</url>
     <content><![CDATA[<h2 id="创建自定义网络"><a href="#创建自定义网络" class="headerlink" title="创建自定义网络"></a>创建自定义网络</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">docker network create service_default</span><br></pre></td></tr></table></figure>
@@ -3554,6 +3618,33 @@
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">docker pull mysql:8.0</span><br><span class="line">docker pull redis:7-alpine3.18</span><br><span class="line">docker pull nginx:1.25.0</span><br></pre></td></tr></table></figure>
 
 
+]]></content>
+      <categories>
+        <category>云原生</category>
+        <category>docker</category>
+      </categories>
+      <tags>
+        <tag>docker</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>普通用户执行docker命令</title>
+    <url>/2023/6987d518f2d5/index.html</url>
+    <content><![CDATA[<p>以下操作是在 <code>ubuntu22.04</code> 版本安装 <code>docker</code> 后，普通用户执行 <code>docker</code> 命令时不用添加 <code>sudo</code></p>
+<ol>
+<li>创建 <code>docker</code> 用户组</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo groupadd docker</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>将当前用户加入到 <code>docker</code> 用户组</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo usermod -aG docker <span class="variable">$USER</span></span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li>退出当前用户，重新登录，即可使用 <code>docker</code> 命令</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">exit</span></span><br></pre></td></tr></table></figure>
 ]]></content>
       <categories>
         <category>云原生</category>
