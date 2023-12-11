@@ -1,81 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>Next7主题自定义分类</title>
-    <url>/2023/baf924a75393/index.html</url>
-    <content><![CDATA[<p><a href="https://enigmatisms.github.io/2022/02/18/Hexo-NexT%E4%B8%BB%E9%A2%98-%E6%9B%B4%E5%BC%BA%E7%9A%84%E8%87%AA%E5%AE%9A%E4%B9%89%E9%A1%B5%E9%9D%A2/">参考文章</a></p>
-<h2 id="添加依赖包"><a href="#添加依赖包" class="headerlink" title="添加依赖包"></a>添加依赖包</h2><figure class="highlight coffeescript"><table><tr><td class="code"><pre><span class="line"><span class="built_in">npm</span> uninstall hexo-generator-index</span><br><span class="line"><span class="built_in">npm</span> install hexo-generator-indexed</span><br><span class="line"><span class="built_in">npm</span> install hexo-pagination --save</span><br><span class="line"><span class="built_in">npm</span> install timsort --save</span><br></pre></td></tr></table></figure>
-<span id="more"></span>
-<h2 id="添加自定义文件"><a href="#添加自定义文件" class="headerlink" title="添加自定义文件"></a>添加自定义文件</h2><ol>
-<li>增加的分类是 阅读：book</li>
-</ol>
-<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">menu:</span></span><br><span class="line">  <span class="attr">home:</span> <span class="string">/</span> <span class="string">||</span> <span class="string">fa</span> <span class="string">fa-home</span></span><br><span class="line">  <span class="attr">about:</span> <span class="string">/about/</span> <span class="string">||</span> <span class="string">fa</span> <span class="string">fa-user</span></span><br><span class="line">  <span class="attr">tags:</span> <span class="string">/tags/</span> <span class="string">||</span> <span class="string">fa</span> <span class="string">fa-tags</span></span><br><span class="line">  <span class="attr">categories:</span> <span class="string">/categories/</span> <span class="string">||</span> <span class="string">fa</span> <span class="string">fa-th</span></span><br><span class="line">  <span class="attr">archives:</span> <span class="string">/archives/</span> <span class="string">||</span> <span class="string">fa</span> <span class="string">fa-archive</span></span><br><span class="line">  <span class="comment"># schedule: /schedule/ || fa fa-calendar</span></span><br><span class="line">  <span class="attr">book:</span> <span class="string">/book/</span> <span class="string">||</span> <span class="string">fa</span> <span class="string">fa-book</span> <span class="comment">#这里是新添加的菜单</span></span><br></pre></td></tr></table></figure>
-
-<ol start="2">
-<li>在博客根目录下创建 scripts 目录并创建 <code>customcategory.js</code> 文件，内容如下</li>
-</ol>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> pagination = <span class="built_in">require</span>(<span class="string">&#x27;hexo-pagination&#x27;</span>);</span><br><span class="line"><span class="keyword">const</span> &#123; sort &#125; = <span class="built_in">require</span>(<span class="string">&#x27;timsort&#x27;</span>);</span><br><span class="line"><span class="keyword">const</span> filteredCategory = <span class="string">&#x27;book&#x27;</span>;</span><br><span class="line"></span><br><span class="line">hexo.<span class="property">extend</span>.<span class="property">generator</span>.<span class="title function_">register</span>(<span class="string">&#x27;customcategory&#x27;</span>, <span class="keyword">function</span>(<span class="params">locals</span>)&#123;</span><br><span class="line">  <span class="keyword">var</span> posts = locals.<span class="property">posts</span>.<span class="title function_">filter</span>(<span class="keyword">function</span>(<span class="params">x</span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> x.<span class="property">categories</span>.<span class="property">data</span>[<span class="number">0</span>].<span class="property">name</span> == filteredCategory;</span><br><span class="line">  &#125;).<span class="title function_">sort</span>(<span class="string">&#x27;-date&#x27;</span>).<span class="title function_">slice</span>(<span class="number">0</span>);				<span class="comment">// 复制，而非原地操作</span></span><br><span class="line">  <span class="title function_">sort</span>(posts.<span class="property">data</span>, <span class="function">(<span class="params">a, b</span>) =&gt;</span> (b.<span class="property">sticky</span> || <span class="number">0</span>) - (a.<span class="property">sticky</span> || <span class="number">0</span>));</span><br><span class="line">  <span class="keyword">return</span> <span class="title function_">pagination</span>(<span class="string">&#x27;book&#x27;</span>, posts, &#123;</span><br><span class="line">    <span class="attr">perPage</span>: <span class="number">10</span>,</span><br><span class="line">    <span class="attr">layout</span>: [<span class="string">&#x27;customcategory&#x27;</span>],</span><br><span class="line">    <span class="attr">data</span>: &#123;</span><br><span class="line">      <span class="attr">__index</span>: <span class="literal">true</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
-<ol start="3">
-<li>在主题的 layout 目录下创建文件 <code>customcategory.njk</code> 文件内容如下</li>
-</ol>
-<figure class="highlight django"><table><tr><td class="code"><pre><span class="line"><span class="template-tag">&#123;% <span class="name"><span class="name">extends</span></span> &#x27;_layout.njk&#x27; %&#125;</span><span class="language-xml"></span></span><br><span class="line"><span class="language-xml"></span><span class="template-tag">&#123;% <span class="name">import</span> &#x27;_macro/post-collapse.njk&#x27; <span class="keyword">as</span> post_template with context %&#125;</span><span class="language-xml"></span></span><br><span class="line"><span class="language-xml"></span><span class="template-tag">&#123;% <span class="name">import</span> &#x27;_macro/sidebar.njk&#x27; <span class="keyword">as</span> sidebar_template with context %&#125;</span><span class="language-xml"></span></span><br><span class="line"><span class="language-xml"></span></span><br><span class="line"><span class="language-xml"></span><span class="template-tag">&#123;% <span class="name"><span class="name">block</span></span> title %&#125;</span><span class="template-variable">&#123;&#123; __(&#x27;title.category&#x27;) &#125;&#125;</span><span class="language-xml">: </span><span class="template-variable">&#123;&#123; page.category &#125;&#125;</span><span class="language-xml"> | </span><span class="template-variable">&#123;&#123; title &#125;&#125;</span><span class="template-tag">&#123;% <span class="name"><span class="name">endblock</span></span> %&#125;</span><span class="language-xml"></span></span><br><span class="line"><span class="language-xml"></span></span><br><span class="line"><span class="language-xml"></span><span class="template-tag">&#123;% <span class="name"><span class="name">block</span></span> class %&#125;</span><span class="language-xml">index posts-expand</span><span class="template-tag">&#123;% <span class="name"><span class="name">endblock</span></span> %&#125;</span><span class="language-xml"></span></span><br><span class="line"><span class="language-xml"></span></span><br><span class="line"><span class="language-xml"></span><span class="template-tag">&#123;% <span class="name"><span class="name">block</span></span> content %&#125;</span><span class="language-xml"></span></span><br><span class="line"><span class="language-xml"></span></span><br><span class="line"><span class="language-xml">  </span><span class="template-tag">&#123;%- <span class="name"><span class="name">for</span></span> post <span class="keyword">in</span> page.posts.toArray() %&#125;</span><span class="language-xml"></span></span><br><span class="line"><span class="language-xml">    </span><span class="template-variable">&#123;&#123; partial(&#x27;_macro/post.njk&#x27;, &#123;post: post, is_index: true&#125;) &#125;&#125;</span><span class="language-xml"></span></span><br><span class="line"><span class="language-xml">  </span><span class="template-tag">&#123;%- <span class="name"><span class="name">endfor</span></span> %&#125;</span><span class="language-xml"></span></span><br><span class="line"><span class="language-xml"></span></span><br><span class="line"><span class="language-xml">  </span><span class="template-tag">&#123;%- <span class="name"><span class="name">include</span></span> &#x27;_partials/pagination.njk&#x27; -%&#125;</span><span class="language-xml"></span></span><br><span class="line"><span class="language-xml"></span></span><br><span class="line"><span class="language-xml"></span><span class="template-tag">&#123;% <span class="name"><span class="name">endblock</span></span> %&#125;</span><span class="language-xml"></span></span><br><span class="line"><span class="language-xml"></span></span><br><span class="line"><span class="language-xml"></span><span class="template-tag">&#123;% <span class="name"><span class="name">block</span></span> sidebar %&#125;</span><span class="language-xml"></span></span><br><span class="line"><span class="language-xml">  </span><span class="template-variable">&#123;&#123; sidebar_template.render(false) &#125;&#125;</span><span class="language-xml"></span></span><br><span class="line"><span class="language-xml"></span><span class="template-tag">&#123;% <span class="name"><span class="name">endblock</span></span> %&#125;</span></span><br></pre></td></tr></table></figure>
-
-
-]]></content>
-      <categories>
-        <category>tools</category>
-        <category>hexo</category>
-      </categories>
-      <tags>
-        <tag>tools</tag>
-        <tag>hexo</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>butterfly主题多级分类折叠与展开</title>
-    <url>/2023/acbd53e5de56/index.html</url>
-    <content><![CDATA[<ol>
-<li>引入 <code>jquery</code> 和 自定义的 js 文件</li>
-</ol>
-<p>打开 <code>_config.butterfly.yml</code> 文件，添加如下内容</p>
-<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">inject:</span></span><br><span class="line">  <span class="attr">head:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">&lt;link</span> <span class="string">rel=&quot;stylesheet&quot;</span> <span class="string">href=&quot;/cusconfig/css/hidemermaid.css?1&quot;&gt;</span></span><br><span class="line">    <span class="comment"># 引入jquery</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">&lt;script</span> <span class="string">src=&quot;https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js&quot;&gt;&lt;/script&gt;</span></span><br><span class="line">    <span class="comment"># 引入自定义文件，自定义文件放在博客根目录的 /cusconfig/js 目录下，名称是 category.js</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">&lt;script</span> <span class="string">src=&quot;/cusconfig/js/category.js&quot;&gt;&lt;/script&gt;</span></span><br><span class="line">  <span class="attr">bottom:</span></span><br><span class="line">    <span class="comment"># - &lt;script src=&quot;xxxx&quot;&gt;&lt;/script&gt;</span></span><br><span class="line">    <span class="comment"># - &lt;script src=&quot;https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js&quot;&gt;&lt;/script&gt;</span></span><br></pre></td></tr></table></figure>
-
-<ol start="2">
-<li>category.js 文件内容</li>
-</ol>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">$(<span class="variable language_">document</span>).<span class="title function_">ready</span>(<span class="keyword">function</span>(<span class="params"></span>) &#123;</span><br><span class="line">	<span class="title function_">categoryUnfold</span>();</span><br><span class="line">	<span class="keyword">function</span> <span class="title function_">categoryUnfold</span>(<span class="params"></span>) &#123;</span><br><span class="line">		$(<span class="string">&quot;.category-list-link&quot;</span>).<span class="title function_">filter</span>(<span class="keyword">function</span>(<span class="params"></span>) &#123;</span><br><span class="line">			<span class="keyword">if</span>($(<span class="variable language_">this</span>).<span class="title function_">siblings</span>(<span class="string">&quot;.category-list-child&quot;</span>).<span class="property">length</span> &gt; <span class="number">0</span>)</span><br><span class="line">                <span class="comment">// 这里引入了向下展开的图标，可以直接从本站下载放入对应目录即可</span></span><br><span class="line">				$(<span class="variable language_">this</span>).<span class="title function_">parent</span>().<span class="title function_">css</span>(<span class="string">&quot;list-style-image&quot;</span>,<span class="string">&quot;url(&#x27;/cusconfig/img/category-unfold-16x16.png&#x27;&quot;</span>);</span><br><span class="line">		&#125;);</span><br><span class="line">		</span><br><span class="line">		<span class="comment">//点击含有子标签category-list-child的category-list-link标签时，不进行跳转</span></span><br><span class="line">		$(<span class="string">&quot;.category-list-link&quot;</span>).<span class="title function_">filter</span>(<span class="keyword">function</span>(<span class="params"></span>) &#123;</span><br><span class="line">			<span class="keyword">return</span> $(<span class="variable language_">this</span>).<span class="title function_">siblings</span>(<span class="string">&quot;.category-list-child&quot;</span>).<span class="property">length</span> &gt; <span class="number">0</span></span><br><span class="line">		&#125;).<span class="title function_">attr</span>(<span class="string">&quot;href&quot;</span>, <span class="string">&quot;javascript:void(0)&quot;</span>);</span><br><span class="line">		</span><br><span class="line">		<span class="comment">//含有子标签category-list-child的category-list-link标签将自动隐藏子标签</span></span><br><span class="line">		$(<span class="string">&quot;.category-list-link&quot;</span>).<span class="title function_">filter</span>(<span class="keyword">function</span>(<span class="params"></span>) &#123;</span><br><span class="line">			<span class="keyword">if</span>($(<span class="variable language_">this</span>).<span class="title function_">siblings</span>(<span class="string">&quot;.category-list-child&quot;</span>).<span class="property">length</span> &gt; <span class="number">0</span>)</span><br><span class="line">				$(<span class="variable language_">this</span>).<span class="title function_">siblings</span>(<span class="string">&quot;.category-list-child&quot;</span>).<span class="title function_">hide</span>();</span><br><span class="line">		&#125;);	</span><br><span class="line">		</span><br><span class="line">		<span class="comment">//点击含有子标签category-list-child的category-list-link标签时，将隐藏子标签展开</span></span><br><span class="line">		$(<span class="string">&quot;.category-list-link&quot;</span>).<span class="title function_">click</span>(<span class="keyword">function</span>(<span class="params"></span>) &#123;</span><br><span class="line">			$(<span class="variable language_">this</span>).<span class="title function_">siblings</span>(<span class="string">&quot;.category-list-child&quot;</span>).<span class="title function_">slideToggle</span>();</span><br><span class="line">		&#125;);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
-
-]]></content>
-      <categories>
-        <category>tools</category>
-        <category>hexo</category>
-      </categories>
-      <tags>
-        <tag>tools</tag>
-        <tag>hexo</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Next8版本主题优化修改的文件</title>
-    <url>/2023/44b973fe011c/index.html</url>
-    <content><![CDATA[<p><a href="https://zhuanlan.zhihu.com/p/252983030">参考文章</a></p>
-<span id="more"></span>
-
-<p>首页每篇文章变成圆角，只需要在 <code>styles.styl</code> 中添加如下内容</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">// 添加首页每篇文章圆角独立 start ------------</span><br><span class="line">.post-block&#123;</span><br><span class="line">        background-color: rgba(255, 255, 255, 1);</span><br><span class="line">        //margin-top: 24px;</span><br><span class="line">        margin-bottom: 24px;</span><br><span class="line">        padding: 20px;</span><br><span class="line">        border-radius: 30px 50px 30px 50px;</span><br><span class="line">        box-shadow: 8px 7px 2px 0 rgba(0,0,0,0.12), 7px 4px 1px -2px rgba(0,0,0,0.06), 0 1px 5px 0 rgba(0,0,0,0.12);</span><br><span class="line">&#125;</span><br><span class="line">// 添加首页每篇文章圆角独立 end ------------</span><br></pre></td></tr></table></figure>
-<p><code>styles.styl</code> 在博客根目录下的，<code>source/_data</code> 下，若没有则需要自己创建并且在 <code>next</code> 主题的 <code>_config.yml</code> 中打开下面的注释</p>
-<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">custom_file_path:</span></span><br><span class="line">  <span class="comment">#head: source/_data/head.njk</span></span><br><span class="line">  <span class="comment">#header: source/_data/header.njk</span></span><br><span class="line">  <span class="attr">style:</span> <span class="string">source/_data/styles.styl</span></span><br></pre></td></tr></table></figure>
-]]></content>
-      <categories>
-        <category>tools</category>
-        <category>hexo</category>
-      </categories>
-      <tags>
-        <tag>tools</tag>
-        <tag>hexo</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>butterfly主题归档分类页面展示成双栏</title>
     <url>/2023/e641424208d5/index.html</url>
     <content><![CDATA[<ol>
@@ -125,23 +50,50 @@
       </tags>
   </entry>
   <entry>
-    <title>hexo使用插入本地图片路径问题</title>
-    <url>/2023/563e23df91d3/index.html</url>
-    <content><![CDATA[<p>Hexo version: 7.0<br>Next version: 8.18</p>
-<span id="more"></span>
-<ol>
-<li>安装插件</li>
+    <title>butterfly主题多级分类折叠与展开</title>
+    <url>/2023/acbd53e5de56/index.html</url>
+    <content><![CDATA[<ol>
+<li>引入 <code>jquery</code> 和 自定义的 js 文件</li>
 </ol>
-<figure class="highlight ada"><table><tr><td class="code"><pre><span class="line">npm install hexo-renderer-marked <span class="comment">--save</span></span><br></pre></td></tr></table></figure>
-<ol start="2">
-<li>修改 hexo 配置文件 <code>_config.yml</code> (不是next 主题的配置文件)</li>
-</ol>
-<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 这样文章生成的路径会是年/月/日/hash值形式</span></span><br><span class="line"><span class="attr">permalink:</span> <span class="string">:year/:month/:day/:hash/</span></span><br><span class="line"><span class="comment"># 开启资源文件夹功能</span></span><br><span class="line"><span class="attr">post_asset_folder:</span> <span class="literal">true</span></span><br><span class="line"><span class="attr">marked:</span></span><br><span class="line">  <span class="comment"># 这两个值都配置为false，网上很多文章配置成true，可能是不同版本效果不同，在 Next8.18, hexo7 这个版本若配置成true，图片路径会多了日期导致显示失败 </span></span><br><span class="line">  <span class="attr">prependRoot:</span> <span class="literal">false</span></span><br><span class="line">  <span class="attr">postAsset:</span> <span class="literal">false</span></span><br></pre></td></tr></table></figure>
+<p>打开 <code>_config.butterfly.yml</code> 文件，添加如下内容</p>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">inject:</span></span><br><span class="line">  <span class="attr">head:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">&lt;link</span> <span class="string">rel=&quot;stylesheet&quot;</span> <span class="string">href=&quot;/cusconfig/css/hidemermaid.css?1&quot;&gt;</span></span><br><span class="line">    <span class="comment"># 引入jquery</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">&lt;script</span> <span class="string">src=&quot;https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js&quot;&gt;&lt;/script&gt;</span></span><br><span class="line">    <span class="comment"># 引入自定义文件，自定义文件放在博客根目录的 /cusconfig/js 目录下，名称是 category.js</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">&lt;script</span> <span class="string">src=&quot;/cusconfig/js/category.js&quot;&gt;&lt;/script&gt;</span></span><br><span class="line">  <span class="attr">bottom:</span></span><br><span class="line">    <span class="comment"># - &lt;script src=&quot;xxxx&quot;&gt;&lt;/script&gt;</span></span><br><span class="line">    <span class="comment"># - &lt;script src=&quot;https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js&quot;&gt;&lt;/script&gt;</span></span><br></pre></td></tr></table></figure>
 
-<ol start="3">
-<li>在 md 文章目录中创建同名的文件夹，比如当前这篇文章的名称是 <code>hexo插入本地图片路径问题</code>， 那就需要在这篇文章的同级目录中创建一个同名的文件夹，然后图片就放在这个文件夹中</li>
-<li>在使用 md 语法引入图片的时候，因为图片是放在目录中（和文章同名的那个目录），但是如果在本地 vscode 中将目录也加上，虽然本地可以访问，但是 hexo g 生成之后，访问博客地址是无法访问的，所以本地引入图片的时候只能写图片的文件名，不要路径，这样虽然本地无法预览，但是 hexo s 和 hexo d 之后的结果都可以正常查看</li>
+<ol start="2">
+<li>category.js 文件内容</li>
 </ol>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">$(<span class="variable language_">document</span>).<span class="title function_">ready</span>(<span class="keyword">function</span>(<span class="params"></span>) &#123;</span><br><span class="line">	<span class="title function_">categoryUnfold</span>();</span><br><span class="line">	<span class="keyword">function</span> <span class="title function_">categoryUnfold</span>(<span class="params"></span>) &#123;</span><br><span class="line">		$(<span class="string">&quot;.category-list-link&quot;</span>).<span class="title function_">filter</span>(<span class="keyword">function</span>(<span class="params"></span>) &#123;</span><br><span class="line">			<span class="keyword">if</span>($(<span class="variable language_">this</span>).<span class="title function_">siblings</span>(<span class="string">&quot;.category-list-child&quot;</span>).<span class="property">length</span> &gt; <span class="number">0</span>)</span><br><span class="line">                <span class="comment">// 这里引入了向下展开的图标，可以直接从本站下载放入对应目录即可</span></span><br><span class="line">				$(<span class="variable language_">this</span>).<span class="title function_">parent</span>().<span class="title function_">css</span>(<span class="string">&quot;list-style-image&quot;</span>,<span class="string">&quot;url(&#x27;/cusconfig/img/category-unfold-16x16.png&#x27;&quot;</span>);</span><br><span class="line">		&#125;);</span><br><span class="line">		</span><br><span class="line">		<span class="comment">//点击含有子标签category-list-child的category-list-link标签时，不进行跳转</span></span><br><span class="line">		$(<span class="string">&quot;.category-list-link&quot;</span>).<span class="title function_">filter</span>(<span class="keyword">function</span>(<span class="params"></span>) &#123;</span><br><span class="line">			<span class="keyword">return</span> $(<span class="variable language_">this</span>).<span class="title function_">siblings</span>(<span class="string">&quot;.category-list-child&quot;</span>).<span class="property">length</span> &gt; <span class="number">0</span></span><br><span class="line">		&#125;).<span class="title function_">attr</span>(<span class="string">&quot;href&quot;</span>, <span class="string">&quot;javascript:void(0)&quot;</span>);</span><br><span class="line">		</span><br><span class="line">		<span class="comment">//含有子标签category-list-child的category-list-link标签将自动隐藏子标签</span></span><br><span class="line">		$(<span class="string">&quot;.category-list-link&quot;</span>).<span class="title function_">filter</span>(<span class="keyword">function</span>(<span class="params"></span>) &#123;</span><br><span class="line">			<span class="keyword">if</span>($(<span class="variable language_">this</span>).<span class="title function_">siblings</span>(<span class="string">&quot;.category-list-child&quot;</span>).<span class="property">length</span> &gt; <span class="number">0</span>)</span><br><span class="line">				$(<span class="variable language_">this</span>).<span class="title function_">siblings</span>(<span class="string">&quot;.category-list-child&quot;</span>).<span class="title function_">hide</span>();</span><br><span class="line">		&#125;);	</span><br><span class="line">		</span><br><span class="line">		<span class="comment">//点击含有子标签category-list-child的category-list-link标签时，将隐藏子标签展开</span></span><br><span class="line">		$(<span class="string">&quot;.category-list-link&quot;</span>).<span class="title function_">click</span>(<span class="keyword">function</span>(<span class="params"></span>) &#123;</span><br><span class="line">			$(<span class="variable language_">this</span>).<span class="title function_">siblings</span>(<span class="string">&quot;.category-list-child&quot;</span>).<span class="title function_">slideToggle</span>();</span><br><span class="line">		&#125;);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+]]></content>
+      <categories>
+        <category>tools</category>
+        <category>hexo</category>
+      </categories>
+      <tags>
+        <tag>tools</tag>
+        <tag>hexo</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Next7主题自定义分类</title>
+    <url>/2023/baf924a75393/index.html</url>
+    <content><![CDATA[<p><a href="https://enigmatisms.github.io/2022/02/18/Hexo-NexT%E4%B8%BB%E9%A2%98-%E6%9B%B4%E5%BC%BA%E7%9A%84%E8%87%AA%E5%AE%9A%E4%B9%89%E9%A1%B5%E9%9D%A2/">参考文章</a></p>
+<h2 id="添加依赖包"><a href="#添加依赖包" class="headerlink" title="添加依赖包"></a>添加依赖包</h2><figure class="highlight coffeescript"><table><tr><td class="code"><pre><span class="line"><span class="built_in">npm</span> uninstall hexo-generator-index</span><br><span class="line"><span class="built_in">npm</span> install hexo-generator-indexed</span><br><span class="line"><span class="built_in">npm</span> install hexo-pagination --save</span><br><span class="line"><span class="built_in">npm</span> install timsort --save</span><br></pre></td></tr></table></figure>
+<span id="more"></span>
+<h2 id="添加自定义文件"><a href="#添加自定义文件" class="headerlink" title="添加自定义文件"></a>添加自定义文件</h2><ol>
+<li>增加的分类是 阅读：book</li>
+</ol>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">menu:</span></span><br><span class="line">  <span class="attr">home:</span> <span class="string">/</span> <span class="string">||</span> <span class="string">fa</span> <span class="string">fa-home</span></span><br><span class="line">  <span class="attr">about:</span> <span class="string">/about/</span> <span class="string">||</span> <span class="string">fa</span> <span class="string">fa-user</span></span><br><span class="line">  <span class="attr">tags:</span> <span class="string">/tags/</span> <span class="string">||</span> <span class="string">fa</span> <span class="string">fa-tags</span></span><br><span class="line">  <span class="attr">categories:</span> <span class="string">/categories/</span> <span class="string">||</span> <span class="string">fa</span> <span class="string">fa-th</span></span><br><span class="line">  <span class="attr">archives:</span> <span class="string">/archives/</span> <span class="string">||</span> <span class="string">fa</span> <span class="string">fa-archive</span></span><br><span class="line">  <span class="comment"># schedule: /schedule/ || fa fa-calendar</span></span><br><span class="line">  <span class="attr">book:</span> <span class="string">/book/</span> <span class="string">||</span> <span class="string">fa</span> <span class="string">fa-book</span> <span class="comment">#这里是新添加的菜单</span></span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>在博客根目录下创建 scripts 目录并创建 <code>customcategory.js</code> 文件，内容如下</li>
+</ol>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> pagination = <span class="built_in">require</span>(<span class="string">&#x27;hexo-pagination&#x27;</span>);</span><br><span class="line"><span class="keyword">const</span> &#123; sort &#125; = <span class="built_in">require</span>(<span class="string">&#x27;timsort&#x27;</span>);</span><br><span class="line"><span class="keyword">const</span> filteredCategory = <span class="string">&#x27;book&#x27;</span>;</span><br><span class="line"></span><br><span class="line">hexo.<span class="property">extend</span>.<span class="property">generator</span>.<span class="title function_">register</span>(<span class="string">&#x27;customcategory&#x27;</span>, <span class="keyword">function</span>(<span class="params">locals</span>)&#123;</span><br><span class="line">  <span class="keyword">var</span> posts = locals.<span class="property">posts</span>.<span class="title function_">filter</span>(<span class="keyword">function</span>(<span class="params">x</span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> x.<span class="property">categories</span>.<span class="property">data</span>[<span class="number">0</span>].<span class="property">name</span> == filteredCategory;</span><br><span class="line">  &#125;).<span class="title function_">sort</span>(<span class="string">&#x27;-date&#x27;</span>).<span class="title function_">slice</span>(<span class="number">0</span>);				<span class="comment">// 复制，而非原地操作</span></span><br><span class="line">  <span class="title function_">sort</span>(posts.<span class="property">data</span>, <span class="function">(<span class="params">a, b</span>) =&gt;</span> (b.<span class="property">sticky</span> || <span class="number">0</span>) - (a.<span class="property">sticky</span> || <span class="number">0</span>));</span><br><span class="line">  <span class="keyword">return</span> <span class="title function_">pagination</span>(<span class="string">&#x27;book&#x27;</span>, posts, &#123;</span><br><span class="line">    <span class="attr">perPage</span>: <span class="number">10</span>,</span><br><span class="line">    <span class="attr">layout</span>: [<span class="string">&#x27;customcategory&#x27;</span>],</span><br><span class="line">    <span class="attr">data</span>: &#123;</span><br><span class="line">      <span class="attr">__index</span>: <span class="literal">true</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<ol start="3">
+<li>在主题的 layout 目录下创建文件 <code>customcategory.njk</code> 文件内容如下</li>
+</ol>
+<figure class="highlight django"><table><tr><td class="code"><pre><span class="line"><span class="template-tag">&#123;% <span class="name"><span class="name">extends</span></span> &#x27;_layout.njk&#x27; %&#125;</span><span class="language-xml"></span></span><br><span class="line"><span class="language-xml"></span><span class="template-tag">&#123;% <span class="name">import</span> &#x27;_macro/post-collapse.njk&#x27; <span class="keyword">as</span> post_template with context %&#125;</span><span class="language-xml"></span></span><br><span class="line"><span class="language-xml"></span><span class="template-tag">&#123;% <span class="name">import</span> &#x27;_macro/sidebar.njk&#x27; <span class="keyword">as</span> sidebar_template with context %&#125;</span><span class="language-xml"></span></span><br><span class="line"><span class="language-xml"></span></span><br><span class="line"><span class="language-xml"></span><span class="template-tag">&#123;% <span class="name"><span class="name">block</span></span> title %&#125;</span><span class="template-variable">&#123;&#123; __(&#x27;title.category&#x27;) &#125;&#125;</span><span class="language-xml">: </span><span class="template-variable">&#123;&#123; page.category &#125;&#125;</span><span class="language-xml"> | </span><span class="template-variable">&#123;&#123; title &#125;&#125;</span><span class="template-tag">&#123;% <span class="name"><span class="name">endblock</span></span> %&#125;</span><span class="language-xml"></span></span><br><span class="line"><span class="language-xml"></span></span><br><span class="line"><span class="language-xml"></span><span class="template-tag">&#123;% <span class="name"><span class="name">block</span></span> class %&#125;</span><span class="language-xml">index posts-expand</span><span class="template-tag">&#123;% <span class="name"><span class="name">endblock</span></span> %&#125;</span><span class="language-xml"></span></span><br><span class="line"><span class="language-xml"></span></span><br><span class="line"><span class="language-xml"></span><span class="template-tag">&#123;% <span class="name"><span class="name">block</span></span> content %&#125;</span><span class="language-xml"></span></span><br><span class="line"><span class="language-xml"></span></span><br><span class="line"><span class="language-xml">  </span><span class="template-tag">&#123;%- <span class="name"><span class="name">for</span></span> post <span class="keyword">in</span> page.posts.toArray() %&#125;</span><span class="language-xml"></span></span><br><span class="line"><span class="language-xml">    </span><span class="template-variable">&#123;&#123; partial(&#x27;_macro/post.njk&#x27;, &#123;post: post, is_index: true&#125;) &#125;&#125;</span><span class="language-xml"></span></span><br><span class="line"><span class="language-xml">  </span><span class="template-tag">&#123;%- <span class="name"><span class="name">endfor</span></span> %&#125;</span><span class="language-xml"></span></span><br><span class="line"><span class="language-xml"></span></span><br><span class="line"><span class="language-xml">  </span><span class="template-tag">&#123;%- <span class="name"><span class="name">include</span></span> &#x27;_partials/pagination.njk&#x27; -%&#125;</span><span class="language-xml"></span></span><br><span class="line"><span class="language-xml"></span></span><br><span class="line"><span class="language-xml"></span><span class="template-tag">&#123;% <span class="name"><span class="name">endblock</span></span> %&#125;</span><span class="language-xml"></span></span><br><span class="line"><span class="language-xml"></span></span><br><span class="line"><span class="language-xml"></span><span class="template-tag">&#123;% <span class="name"><span class="name">block</span></span> sidebar %&#125;</span><span class="language-xml"></span></span><br><span class="line"><span class="language-xml">  </span><span class="template-variable">&#123;&#123; sidebar_template.render(false) &#125;&#125;</span><span class="language-xml"></span></span><br><span class="line"><span class="language-xml"></span><span class="template-tag">&#123;% <span class="name"><span class="name">endblock</span></span> %&#125;</span></span><br></pre></td></tr></table></figure>
+
+
 ]]></content>
       <categories>
         <category>tools</category>
@@ -299,6 +251,54 @@
       </tags>
   </entry>
   <entry>
+    <title>Next8版本主题优化修改的文件</title>
+    <url>/2023/44b973fe011c/index.html</url>
+    <content><![CDATA[<p><a href="https://zhuanlan.zhihu.com/p/252983030">参考文章</a></p>
+<span id="more"></span>
+
+<p>首页每篇文章变成圆角，只需要在 <code>styles.styl</code> 中添加如下内容</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">// 添加首页每篇文章圆角独立 start ------------</span><br><span class="line">.post-block&#123;</span><br><span class="line">        background-color: rgba(255, 255, 255, 1);</span><br><span class="line">        //margin-top: 24px;</span><br><span class="line">        margin-bottom: 24px;</span><br><span class="line">        padding: 20px;</span><br><span class="line">        border-radius: 30px 50px 30px 50px;</span><br><span class="line">        box-shadow: 8px 7px 2px 0 rgba(0,0,0,0.12), 7px 4px 1px -2px rgba(0,0,0,0.06), 0 1px 5px 0 rgba(0,0,0,0.12);</span><br><span class="line">&#125;</span><br><span class="line">// 添加首页每篇文章圆角独立 end ------------</span><br></pre></td></tr></table></figure>
+<p><code>styles.styl</code> 在博客根目录下的，<code>source/_data</code> 下，若没有则需要自己创建并且在 <code>next</code> 主题的 <code>_config.yml</code> 中打开下面的注释</p>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">custom_file_path:</span></span><br><span class="line">  <span class="comment">#head: source/_data/head.njk</span></span><br><span class="line">  <span class="comment">#header: source/_data/header.njk</span></span><br><span class="line">  <span class="attr">style:</span> <span class="string">source/_data/styles.styl</span></span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>tools</category>
+        <category>hexo</category>
+      </categories>
+      <tags>
+        <tag>tools</tag>
+        <tag>hexo</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>hexo使用插入本地图片路径问题</title>
+    <url>/2023/563e23df91d3/index.html</url>
+    <content><![CDATA[<p>Hexo version: 7.0<br>Next version: 8.18</p>
+<span id="more"></span>
+<ol>
+<li>安装插件</li>
+</ol>
+<figure class="highlight ada"><table><tr><td class="code"><pre><span class="line">npm install hexo-renderer-marked <span class="comment">--save</span></span><br></pre></td></tr></table></figure>
+<ol start="2">
+<li>修改 hexo 配置文件 <code>_config.yml</code> (不是next 主题的配置文件)</li>
+</ol>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 这样文章生成的路径会是年/月/日/hash值形式</span></span><br><span class="line"><span class="attr">permalink:</span> <span class="string">:year/:month/:day/:hash/</span></span><br><span class="line"><span class="comment"># 开启资源文件夹功能</span></span><br><span class="line"><span class="attr">post_asset_folder:</span> <span class="literal">true</span></span><br><span class="line"><span class="attr">marked:</span></span><br><span class="line">  <span class="comment"># 这两个值都配置为false，网上很多文章配置成true，可能是不同版本效果不同，在 Next8.18, hexo7 这个版本若配置成true，图片路径会多了日期导致显示失败 </span></span><br><span class="line">  <span class="attr">prependRoot:</span> <span class="literal">false</span></span><br><span class="line">  <span class="attr">postAsset:</span> <span class="literal">false</span></span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li>在 md 文章目录中创建同名的文件夹，比如当前这篇文章的名称是 <code>hexo插入本地图片路径问题</code>， 那就需要在这篇文章的同级目录中创建一个同名的文件夹，然后图片就放在这个文件夹中</li>
+<li>在使用 md 语法引入图片的时候，因为图片是放在目录中（和文章同名的那个目录），但是如果在本地 vscode 中将目录也加上，虽然本地可以访问，但是 hexo g 生成之后，访问博客地址是无法访问的，所以本地引入图片的时候只能写图片的文件名，不要路径，这样虽然本地无法预览，但是 hexo s 和 hexo d 之后的结果都可以正常查看</li>
+</ol>
+]]></content>
+      <categories>
+        <category>tools</category>
+        <category>hexo</category>
+      </categories>
+      <tags>
+        <tag>tools</tag>
+        <tag>hexo</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>hexo的butterfly主题更换waline系统cdn地址</title>
     <url>/2023/0fd7aa9951f7/index.html</url>
     <content><![CDATA[<ol>
@@ -413,44 +413,6 @@
       </categories>
       <tags>
         <tag>book</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>HashMap详解</title>
-    <url>/2023/834224a16039/index.html</url>
-    <content><![CDATA[<h2 id="HashMap的底层数据结构是什么？"><a href="#HashMap的底层数据结构是什么？" class="headerlink" title="HashMap的底层数据结构是什么？"></a>HashMap的底层数据结构是什么？</h2><ol>
-<li>之前 <code>Jdk1.7</code> 的存储结构是数组+链表，到了 <code>Jdk1.8</code> 变成了数组+链表+红黑树。</li>
-</ol>
-<h2 id="HashMap-是如何定位索引下标的"><a href="#HashMap-是如何定位索引下标的" class="headerlink" title="HashMap 是如何定位索引下标的"></a>HashMap 是如何定位索引下标的</h2><p>定位 <code>index</code> 分成两步</p>
-<ol>
-<li><p>根据 hash 函数获取 hash 值</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">static</span> <span class="keyword">final</span> <span class="type">int</span> <span class="title function_">hash</span><span class="params">(Object key)</span> &#123;</span><br><span class="line">    <span class="type">int</span> h;</span><br><span class="line">    <span class="keyword">return</span> (key == <span class="literal">null</span>) ? <span class="number">0</span> : (h = key.hashCode()) ^ (h &gt;&gt;&gt; <span class="number">16</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p><strong>可以看到上面代码获取到 hashCode 之后还右移 16 位，具体原因在下面分析</strong></p>
-</li>
-<li><p>根据第一步计算的 <code>hash</code> 值获取数组位置（一般是对数组长度取模，<code>HashMap</code> 中是对长度 -1 进行 <code>&amp;</code> 运算）</p>
-</li>
-</ol>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">final</span> V <span class="title function_">putVal</span><span class="params">(<span class="type">int</span> hash, K key, V value, <span class="type">boolean</span> onlyIfAbsent,</span></span><br><span class="line"><span class="params">                   <span class="type">boolean</span> evict)</span> &#123;</span><br><span class="line">    Node&lt;K,V&gt;[] tab; Node&lt;K,V&gt; p; <span class="type">int</span> n, i;</span><br><span class="line">    <span class="keyword">if</span> ((tab = table) == <span class="literal">null</span> || (n = tab.length) == <span class="number">0</span>)</span><br><span class="line">        n = (tab = resize()).length;</span><br><span class="line">        <span class="comment">// 获取下标的操作是  i = (n-1) &amp; hash</span></span><br><span class="line">    <span class="keyword">if</span> ((p = tab[i = (n - <span class="number">1</span>) &amp; hash]) == <span class="literal">null</span>)</span><br><span class="line">        tab[i] = newNode(hash, key, value, <span class="literal">null</span>);</span><br><span class="line">    <span class="keyword">else</span> &#123;</span><br><span class="line">       ...</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p><strong>获取下标为什么是对 n-1 进行与操作而不是取模？具体原因下面分析</strong></p>
-<h2 id="为什么需要对key的-hash-值右移-16位"><a href="#为什么需要对key的-hash-值右移-16位" class="headerlink" title="为什么需要对key的 hash 值右移 16位"></a>为什么需要对key的 hash 值右移 16位</h2><figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="string">HashMap</span> <span class="string">中使用的</span> <span class="string">hash</span> <span class="string">函数是</span> <span class="string">key.hash</span> <span class="string">^</span> <span class="string">(key.hash</span> <span class="string">&gt;&gt;</span> <span class="number">16</span><span class="string">)</span>  <span class="string">而不是直接使用</span> <span class="string">key.hash,</span> <span class="string">这么做的原因是增加了扰动计算，使得</span> <span class="string">hash</span> <span class="string">分布的尽可能的均匀，</span> <span class="string">让元素的高16</span> <span class="string">位和低16</span> <span class="string">位都参与运算</span></span><br><span class="line"><span class="string">示例：</span></span><br><span class="line"><span class="string">比如有一个元素1换成二进制如下</span></span><br><span class="line"><span class="number">1111 </span><span class="number">1111 </span><span class="number">1111 </span><span class="number">1111 </span><span class="number">1010 </span><span class="number">1010 </span><span class="number">1010 </span><span class="number">1010</span> <span class="string">（没有右移16位的二进制）</span></span><br><span class="line"><span class="number">0000 </span><span class="number">0000 </span><span class="number">0000 </span><span class="number">0000 </span><span class="number">1111 </span><span class="number">1111 </span><span class="number">1111 </span><span class="number">1111</span>  <span class="string">（右移16位的二进制）</span></span><br><span class="line"></span><br><span class="line"><span class="string">另外一个元素2换成二进制如下</span></span><br><span class="line"><span class="number">1111 </span><span class="number">1111 </span><span class="number">1111 </span><span class="number">1110 </span><span class="number">1010 </span><span class="number">1010 </span><span class="number">1010 </span><span class="number">1010</span> <span class="string">（没有右移16位的二进制）</span></span><br><span class="line"><span class="number">0000 </span><span class="number">0000 </span><span class="number">0000 </span><span class="number">0000 </span><span class="number">1111 </span><span class="number">1111 </span><span class="number">1111 </span><span class="number">1110</span>  <span class="string">（右移16位的二进制）</span></span><br><span class="line"></span><br><span class="line"><span class="string">在计算数组位置的时候使用的是</span> <span class="string">hash</span> <span class="string">&amp;</span> <span class="string">(n</span> <span class="number">-1</span><span class="string">),</span>  <span class="string">要知道</span> <span class="string">n-1</span> <span class="string">肯定是一个相对来说比较小的数字（32个bit</span> <span class="string">只会使用比较少的低位），</span> <span class="string">比如长度是</span> <span class="number">32</span><span class="string">，</span> <span class="string">对应的二进制是</span> <span class="number">0000 </span><span class="number">0000 </span><span class="number">0000 </span><span class="number">0000 </span><span class="number">0000 </span><span class="number">0000 </span><span class="number">0001 </span><span class="number">1111</span></span><br><span class="line"></span><br><span class="line"><span class="string">使用没有右移的元素1和</span> <span class="string">（32</span> <span class="number">-1</span><span class="string">）</span> <span class="string">进行与操作（与操作是都为1才为1，否则为0）</span></span><br><span class="line"><span class="number">1111 </span><span class="number">1111 </span><span class="number">1111 </span><span class="number">1111     </span><span class="number">1010 </span><span class="number">1010 </span><span class="number">1010 </span><span class="number">1010</span> <span class="string">（没有右移16位的二进制）</span></span><br><span class="line"><span class="number">0000 </span><span class="number">0000 </span><span class="number">0000 </span><span class="number">0000      </span><span class="number">0000 </span><span class="number">0000 </span><span class="number">0001 </span><span class="number">1111</span></span><br><span class="line"><span class="number">0000 </span><span class="number">0000 </span><span class="number">0000 </span><span class="number">0000      </span><span class="number">0000 </span><span class="number">0000 </span><span class="number">0000 </span><span class="number">1010</span></span><br><span class="line"></span><br><span class="line"><span class="string">使用没有右移的元素2和</span> <span class="string">（32</span> <span class="number">-1</span><span class="string">）</span> <span class="string">进行与操作（与操作是都为1才为1，否则为0）</span></span><br><span class="line"><span class="number">1111 </span><span class="number">1111 </span><span class="number">1111 </span><span class="number">1100     </span><span class="number">1010 </span><span class="number">1010 </span><span class="number">1010 </span><span class="number">1010</span> <span class="string">（没有右移16位的二进制）</span></span><br><span class="line"><span class="number">0000 </span><span class="number">0000 </span><span class="number">0000 </span><span class="number">0000      </span><span class="number">0000 </span><span class="number">0000 </span><span class="number">0001 </span><span class="number">1111</span></span><br><span class="line"><span class="number">0000 </span><span class="number">0000 </span><span class="number">0000 </span><span class="number">0000      </span><span class="number">0000 </span><span class="number">0000 </span><span class="number">0000 </span><span class="number">1010</span></span><br><span class="line"><span class="string">可以看到元素1和元素2计算出来下标是相同的，这个不同是因为元素1和元素2的低16位是完全相同的，不同之处只在于高16位，但是当我们对</span> <span class="string">（n-1）进行与操作的时候，由于</span> <span class="string">n-1</span> <span class="string">的值比较小，绝大部分情况下，只有低16位会进行运算的</span></span><br><span class="line"></span><br><span class="line"><span class="string">接下来再看一下如果使用右移的hash进行计算会有什么不同</span></span><br><span class="line"><span class="string">使用右移的元素1和</span> <span class="string">（32</span> <span class="number">-1</span><span class="string">）</span> <span class="string">进行与操作（与操作是都为1才为1，否则为0）</span></span><br><span class="line"><span class="number">0000 </span><span class="number">0000 </span><span class="number">0000 </span><span class="number">0000      </span><span class="number">1111 </span><span class="number">1111 </span><span class="number">1111 </span><span class="number">1111</span> <span class="string">（没有右移16位的二进制）</span></span><br><span class="line"><span class="number">0000 </span><span class="number">0000 </span><span class="number">0000 </span><span class="number">0000      </span><span class="number">0000 </span><span class="number">0000 </span><span class="number">0001 </span><span class="number">1111</span></span><br><span class="line"><span class="number">0000 </span><span class="number">0000 </span><span class="number">0000 </span><span class="number">0000      </span><span class="number">0000 </span><span class="number">0000 </span><span class="number">0000  </span><span class="number">1111</span></span><br><span class="line"></span><br><span class="line"><span class="string">用右移的元素2和</span> <span class="string">（32</span> <span class="number">-1</span><span class="string">）</span> <span class="string">进行与操作（与操作是都为1才为1，否则为0）</span></span><br><span class="line"><span class="number">0000 </span><span class="number">0000 </span><span class="number">0000 </span><span class="number">0000      </span><span class="number">1111 </span><span class="number">1111 </span><span class="number">1111 </span><span class="number">1110</span> <span class="string">（没有右移16位的二进制）</span></span><br><span class="line"><span class="number">0000 </span><span class="number">0000 </span><span class="number">0000 </span><span class="number">0000      </span><span class="number">0000 </span><span class="number">0000 </span><span class="number">0001 </span><span class="number">1111</span></span><br><span class="line"><span class="number">0000 </span><span class="number">0000 </span><span class="number">0000 </span><span class="number">0000      </span><span class="number">0000 </span><span class="number">0000 </span><span class="number">0000  </span><span class="number">1110</span></span><br><span class="line"><span class="string">可以看到计算出来的</span> <span class="string">index</span> <span class="string">值是不同的，这就是右移带来的让高16位有参与运算的效果</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="为什么不对长度取模而是使用与运算"><a href="#为什么不对长度取模而是使用与运算" class="headerlink" title="为什么不对长度取模而是使用与运算"></a>为什么不对长度取模而是使用与运算</h2><ol>
-<li><code>X % 2^n = X &amp; (2^n – 1)</code>  这两种运算等价，所以这也是 <code>HashMap</code> 长度取 <code>2^n</code> 的原因<br>也可以从数据角度记住，当 <code>n</code> 是 2 的倍数时， <code>X % 2^n = X &amp; (2^n – 1)</code>  等价</li>
-</ol>
-<p><a href="https://www.cnblogs.com/ysocean/p/9054804.html">公式计算参考链接</a></p>
-<h2 id="HashMap是如何实现扩容的"><a href="#HashMap是如何实现扩容的" class="headerlink" title="HashMap是如何实现扩容的"></a>HashMap是如何实现扩容的</h2><p>扩容后索引其实也是使用 <code>hash &amp; （newLength -1）</code>, 这样计算出来的位置要是和原来的元素在相同的位置，要么是 原来的位置+旧数组长度&#x3D;新索引位置</p>
-<h2 id="HashMap是如何解决hash冲突的"><a href="#HashMap是如何解决hash冲突的" class="headerlink" title="HashMap是如何解决hash冲突的"></a>HashMap是如何解决hash冲突的</h2><ol>
-<li>对 <code>hash</code> 的计算进行优化，不是直接使用 <code>hashcode</code>,  而是右移16位，让高16位也参与运算，减少<code>hash</code> 冲突</li>
-<li>如果遇到冲突，使用拉链法解决</li>
-</ol>
-]]></content>
-      <categories>
-        <category>java</category>
-        <category>java基础</category>
-      </categories>
-      <tags>
-        <tag>java</tag>
-        <tag>java基础</tag>
       </tags>
   </entry>
   <entry>
@@ -738,6 +700,44 @@
       <tags>
         <tag>java</tag>
         <tag>jvm</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>HashMap详解</title>
+    <url>/2023/834224a16039/index.html</url>
+    <content><![CDATA[<h2 id="HashMap的底层数据结构是什么？"><a href="#HashMap的底层数据结构是什么？" class="headerlink" title="HashMap的底层数据结构是什么？"></a>HashMap的底层数据结构是什么？</h2><ol>
+<li>之前 <code>Jdk1.7</code> 的存储结构是数组+链表，到了 <code>Jdk1.8</code> 变成了数组+链表+红黑树。</li>
+</ol>
+<h2 id="HashMap-是如何定位索引下标的"><a href="#HashMap-是如何定位索引下标的" class="headerlink" title="HashMap 是如何定位索引下标的"></a>HashMap 是如何定位索引下标的</h2><p>定位 <code>index</code> 分成两步</p>
+<ol>
+<li><p>根据 hash 函数获取 hash 值</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">static</span> <span class="keyword">final</span> <span class="type">int</span> <span class="title function_">hash</span><span class="params">(Object key)</span> &#123;</span><br><span class="line">    <span class="type">int</span> h;</span><br><span class="line">    <span class="keyword">return</span> (key == <span class="literal">null</span>) ? <span class="number">0</span> : (h = key.hashCode()) ^ (h &gt;&gt;&gt; <span class="number">16</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>可以看到上面代码获取到 hashCode 之后还右移 16 位，具体原因在下面分析</strong></p>
+</li>
+<li><p>根据第一步计算的 <code>hash</code> 值获取数组位置（一般是对数组长度取模，<code>HashMap</code> 中是对长度 -1 进行 <code>&amp;</code> 运算）</p>
+</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">final</span> V <span class="title function_">putVal</span><span class="params">(<span class="type">int</span> hash, K key, V value, <span class="type">boolean</span> onlyIfAbsent,</span></span><br><span class="line"><span class="params">                   <span class="type">boolean</span> evict)</span> &#123;</span><br><span class="line">    Node&lt;K,V&gt;[] tab; Node&lt;K,V&gt; p; <span class="type">int</span> n, i;</span><br><span class="line">    <span class="keyword">if</span> ((tab = table) == <span class="literal">null</span> || (n = tab.length) == <span class="number">0</span>)</span><br><span class="line">        n = (tab = resize()).length;</span><br><span class="line">        <span class="comment">// 获取下标的操作是  i = (n-1) &amp; hash</span></span><br><span class="line">    <span class="keyword">if</span> ((p = tab[i = (n - <span class="number">1</span>) &amp; hash]) == <span class="literal">null</span>)</span><br><span class="line">        tab[i] = newNode(hash, key, value, <span class="literal">null</span>);</span><br><span class="line">    <span class="keyword">else</span> &#123;</span><br><span class="line">       ...</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>获取下标为什么是对 n-1 进行与操作而不是取模？具体原因下面分析</strong></p>
+<h2 id="为什么需要对key的-hash-值右移-16位"><a href="#为什么需要对key的-hash-值右移-16位" class="headerlink" title="为什么需要对key的 hash 值右移 16位"></a>为什么需要对key的 hash 值右移 16位</h2><figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="string">HashMap</span> <span class="string">中使用的</span> <span class="string">hash</span> <span class="string">函数是</span> <span class="string">key.hash</span> <span class="string">^</span> <span class="string">(key.hash</span> <span class="string">&gt;&gt;</span> <span class="number">16</span><span class="string">)</span>  <span class="string">而不是直接使用</span> <span class="string">key.hash,</span> <span class="string">这么做的原因是增加了扰动计算，使得</span> <span class="string">hash</span> <span class="string">分布的尽可能的均匀，</span> <span class="string">让元素的高16</span> <span class="string">位和低16</span> <span class="string">位都参与运算</span></span><br><span class="line"><span class="string">示例：</span></span><br><span class="line"><span class="string">比如有一个元素1换成二进制如下</span></span><br><span class="line"><span class="number">1111 </span><span class="number">1111 </span><span class="number">1111 </span><span class="number">1111 </span><span class="number">1010 </span><span class="number">1010 </span><span class="number">1010 </span><span class="number">1010</span> <span class="string">（没有右移16位的二进制）</span></span><br><span class="line"><span class="number">0000 </span><span class="number">0000 </span><span class="number">0000 </span><span class="number">0000 </span><span class="number">1111 </span><span class="number">1111 </span><span class="number">1111 </span><span class="number">1111</span>  <span class="string">（右移16位的二进制）</span></span><br><span class="line"></span><br><span class="line"><span class="string">另外一个元素2换成二进制如下</span></span><br><span class="line"><span class="number">1111 </span><span class="number">1111 </span><span class="number">1111 </span><span class="number">1110 </span><span class="number">1010 </span><span class="number">1010 </span><span class="number">1010 </span><span class="number">1010</span> <span class="string">（没有右移16位的二进制）</span></span><br><span class="line"><span class="number">0000 </span><span class="number">0000 </span><span class="number">0000 </span><span class="number">0000 </span><span class="number">1111 </span><span class="number">1111 </span><span class="number">1111 </span><span class="number">1110</span>  <span class="string">（右移16位的二进制）</span></span><br><span class="line"></span><br><span class="line"><span class="string">在计算数组位置的时候使用的是</span> <span class="string">hash</span> <span class="string">&amp;</span> <span class="string">(n</span> <span class="number">-1</span><span class="string">),</span>  <span class="string">要知道</span> <span class="string">n-1</span> <span class="string">肯定是一个相对来说比较小的数字（32个bit</span> <span class="string">只会使用比较少的低位），</span> <span class="string">比如长度是</span> <span class="number">32</span><span class="string">，</span> <span class="string">对应的二进制是</span> <span class="number">0000 </span><span class="number">0000 </span><span class="number">0000 </span><span class="number">0000 </span><span class="number">0000 </span><span class="number">0000 </span><span class="number">0001 </span><span class="number">1111</span></span><br><span class="line"></span><br><span class="line"><span class="string">使用没有右移的元素1和</span> <span class="string">（32</span> <span class="number">-1</span><span class="string">）</span> <span class="string">进行与操作（与操作是都为1才为1，否则为0）</span></span><br><span class="line"><span class="number">1111 </span><span class="number">1111 </span><span class="number">1111 </span><span class="number">1111     </span><span class="number">1010 </span><span class="number">1010 </span><span class="number">1010 </span><span class="number">1010</span> <span class="string">（没有右移16位的二进制）</span></span><br><span class="line"><span class="number">0000 </span><span class="number">0000 </span><span class="number">0000 </span><span class="number">0000      </span><span class="number">0000 </span><span class="number">0000 </span><span class="number">0001 </span><span class="number">1111</span></span><br><span class="line"><span class="number">0000 </span><span class="number">0000 </span><span class="number">0000 </span><span class="number">0000      </span><span class="number">0000 </span><span class="number">0000 </span><span class="number">0000 </span><span class="number">1010</span></span><br><span class="line"></span><br><span class="line"><span class="string">使用没有右移的元素2和</span> <span class="string">（32</span> <span class="number">-1</span><span class="string">）</span> <span class="string">进行与操作（与操作是都为1才为1，否则为0）</span></span><br><span class="line"><span class="number">1111 </span><span class="number">1111 </span><span class="number">1111 </span><span class="number">1100     </span><span class="number">1010 </span><span class="number">1010 </span><span class="number">1010 </span><span class="number">1010</span> <span class="string">（没有右移16位的二进制）</span></span><br><span class="line"><span class="number">0000 </span><span class="number">0000 </span><span class="number">0000 </span><span class="number">0000      </span><span class="number">0000 </span><span class="number">0000 </span><span class="number">0001 </span><span class="number">1111</span></span><br><span class="line"><span class="number">0000 </span><span class="number">0000 </span><span class="number">0000 </span><span class="number">0000      </span><span class="number">0000 </span><span class="number">0000 </span><span class="number">0000 </span><span class="number">1010</span></span><br><span class="line"><span class="string">可以看到元素1和元素2计算出来下标是相同的，这个不同是因为元素1和元素2的低16位是完全相同的，不同之处只在于高16位，但是当我们对</span> <span class="string">（n-1）进行与操作的时候，由于</span> <span class="string">n-1</span> <span class="string">的值比较小，绝大部分情况下，只有低16位会进行运算的</span></span><br><span class="line"></span><br><span class="line"><span class="string">接下来再看一下如果使用右移的hash进行计算会有什么不同</span></span><br><span class="line"><span class="string">使用右移的元素1和</span> <span class="string">（32</span> <span class="number">-1</span><span class="string">）</span> <span class="string">进行与操作（与操作是都为1才为1，否则为0）</span></span><br><span class="line"><span class="number">0000 </span><span class="number">0000 </span><span class="number">0000 </span><span class="number">0000      </span><span class="number">1111 </span><span class="number">1111 </span><span class="number">1111 </span><span class="number">1111</span> <span class="string">（没有右移16位的二进制）</span></span><br><span class="line"><span class="number">0000 </span><span class="number">0000 </span><span class="number">0000 </span><span class="number">0000      </span><span class="number">0000 </span><span class="number">0000 </span><span class="number">0001 </span><span class="number">1111</span></span><br><span class="line"><span class="number">0000 </span><span class="number">0000 </span><span class="number">0000 </span><span class="number">0000      </span><span class="number">0000 </span><span class="number">0000 </span><span class="number">0000  </span><span class="number">1111</span></span><br><span class="line"></span><br><span class="line"><span class="string">用右移的元素2和</span> <span class="string">（32</span> <span class="number">-1</span><span class="string">）</span> <span class="string">进行与操作（与操作是都为1才为1，否则为0）</span></span><br><span class="line"><span class="number">0000 </span><span class="number">0000 </span><span class="number">0000 </span><span class="number">0000      </span><span class="number">1111 </span><span class="number">1111 </span><span class="number">1111 </span><span class="number">1110</span> <span class="string">（没有右移16位的二进制）</span></span><br><span class="line"><span class="number">0000 </span><span class="number">0000 </span><span class="number">0000 </span><span class="number">0000      </span><span class="number">0000 </span><span class="number">0000 </span><span class="number">0001 </span><span class="number">1111</span></span><br><span class="line"><span class="number">0000 </span><span class="number">0000 </span><span class="number">0000 </span><span class="number">0000      </span><span class="number">0000 </span><span class="number">0000 </span><span class="number">0000  </span><span class="number">1110</span></span><br><span class="line"><span class="string">可以看到计算出来的</span> <span class="string">index</span> <span class="string">值是不同的，这就是右移带来的让高16位有参与运算的效果</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="为什么不对长度取模而是使用与运算"><a href="#为什么不对长度取模而是使用与运算" class="headerlink" title="为什么不对长度取模而是使用与运算"></a>为什么不对长度取模而是使用与运算</h2><ol>
+<li><code>X % 2^n = X &amp; (2^n – 1)</code>  这两种运算等价，所以这也是 <code>HashMap</code> 长度取 <code>2^n</code> 的原因<br>也可以从数据角度记住，当 <code>n</code> 是 2 的倍数时， <code>X % 2^n = X &amp; (2^n – 1)</code>  等价</li>
+</ol>
+<p><a href="https://www.cnblogs.com/ysocean/p/9054804.html">公式计算参考链接</a></p>
+<h2 id="HashMap是如何实现扩容的"><a href="#HashMap是如何实现扩容的" class="headerlink" title="HashMap是如何实现扩容的"></a>HashMap是如何实现扩容的</h2><p>扩容后索引其实也是使用 <code>hash &amp; （newLength -1）</code>, 这样计算出来的位置要是和原来的元素在相同的位置，要么是 原来的位置+旧数组长度&#x3D;新索引位置</p>
+<h2 id="HashMap是如何解决hash冲突的"><a href="#HashMap是如何解决hash冲突的" class="headerlink" title="HashMap是如何解决hash冲突的"></a>HashMap是如何解决hash冲突的</h2><ol>
+<li>对 <code>hash</code> 的计算进行优化，不是直接使用 <code>hashcode</code>,  而是右移16位，让高16位也参与运算，减少<code>hash</code> 冲突</li>
+<li>如果遇到冲突，使用拉链法解决</li>
+</ol>
+]]></content>
+      <categories>
+        <category>java</category>
+        <category>java基础</category>
+      </categories>
+      <tags>
+        <tag>java</tag>
+        <tag>java基础</tag>
       </tags>
   </entry>
   <entry>
@@ -2636,18 +2636,6 @@
       </tags>
   </entry>
   <entry>
-    <title>解决vscode找不到Python自定义模块报错no module named</title>
-    <url>/2023/05b28e23ee5b/index.html</url>
-    <content><![CDATA[<p>在 <code>.vscode</code> 目录下（若没有则新建）的 <code>launch.json</code> 中添加 <code>env</code> 相关内容：</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="string">&quot;version&quot;</span>: <span class="string">&quot;0.2.0&quot;</span>,</span><br><span class="line">    <span class="string">&quot;configurations&quot;</span>: [</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="string">&quot;name&quot;</span>: <span class="string">&quot;update_package&quot;</span>,</span><br><span class="line">            <span class="string">&quot;type&quot;</span>: <span class="string">&quot;python&quot;</span>,</span><br><span class="line">            <span class="string">&quot;request&quot;</span>: <span class="string">&quot;launch&quot;</span>,</span><br><span class="line">            <span class="string">&quot;program&quot;</span>: <span class="string">&quot;timeline\\ssh\\win_command.py&quot;</span>,</span><br><span class="line">            <span class="string">&quot;console&quot;</span>: <span class="string">&quot;integratedTerminal&quot;</span>,</span><br><span class="line">            <span class="string">&quot;justMyCode&quot;</span>: true,</span><br><span class="line">            <span class="comment"># 下面这部分是新增的内容</span></span><br><span class="line">            <span class="string">&quot;env&quot;</span>: &#123;</span><br><span class="line">                <span class="string">&quot;PYTHONPATH&quot;</span>: <span class="string">&quot;$&#123;workspaceRoot&#125;&quot;</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
-      <categories>
-        <category>python</category>
-      </categories>
-      <tags>
-        <tag>python</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>dubbo的spi机制使用案例</title>
     <url>/2023/30c57ac8b6c7/index.html</url>
     <content><![CDATA[<h2 id="dubbo为什么需要spi机制"><a href="#dubbo为什么需要spi机制" class="headerlink" title="dubbo为什么需要spi机制"></a>dubbo为什么需要spi机制</h2><p>一个好的程序是要遵循一定的设计规范比如设计模式中的开闭原则</p>
@@ -2762,6 +2750,116 @@
       </categories>
       <tags>
         <tag>dubbo</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>解决vscode找不到Python自定义模块报错no module named</title>
+    <url>/2023/05b28e23ee5b/index.html</url>
+    <content><![CDATA[<p>在 <code>.vscode</code> 目录下（若没有则新建）的 <code>launch.json</code> 中添加 <code>env</code> 相关内容：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="string">&quot;version&quot;</span>: <span class="string">&quot;0.2.0&quot;</span>,</span><br><span class="line">    <span class="string">&quot;configurations&quot;</span>: [</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="string">&quot;name&quot;</span>: <span class="string">&quot;update_package&quot;</span>,</span><br><span class="line">            <span class="string">&quot;type&quot;</span>: <span class="string">&quot;python&quot;</span>,</span><br><span class="line">            <span class="string">&quot;request&quot;</span>: <span class="string">&quot;launch&quot;</span>,</span><br><span class="line">            <span class="string">&quot;program&quot;</span>: <span class="string">&quot;timeline\\ssh\\win_command.py&quot;</span>,</span><br><span class="line">            <span class="string">&quot;console&quot;</span>: <span class="string">&quot;integratedTerminal&quot;</span>,</span><br><span class="line">            <span class="string">&quot;justMyCode&quot;</span>: true,</span><br><span class="line">            <span class="comment"># 下面这部分是新增的内容</span></span><br><span class="line">            <span class="string">&quot;env&quot;</span>: &#123;</span><br><span class="line">                <span class="string">&quot;PYTHONPATH&quot;</span>: <span class="string">&quot;$&#123;workspaceRoot&#125;&quot;</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>python</category>
+      </categories>
+      <tags>
+        <tag>python</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>nacos2.2.3通过插件机制支持postgres</title>
+    <url>/2023/4c25a01a2388/index.html</url>
+    <content><![CDATA[<h2 id="使用-nacos2-2-3-版本"><a href="#使用-nacos2-2-3-版本" class="headerlink" title="使用 nacos2.2.3 版本"></a>使用 nacos2.2.3 版本</h2><ol>
+<li>从 <a href="https://github.com/alibaba/nacos/releases">github下载nacos源码</a></li>
+<li>切换到 2.2.3 版本<ol>
+<li><code>git checkout -b 2.2.3 2.2.3</code>， <code>nacos</code> 源码中 2.2.3 是 <code>tag</code>, 该命令是从对应 <code>tag</code> 创建分支</li>
+</ol>
+</li>
+</ol>
+<h2 id="添加-postgres-依赖"><a href="#添加-postgres-依赖" class="headerlink" title="添加 postgres 依赖"></a>添加 postgres 依赖</h2><p>在 <code>nacos</code> 的根目录下的 <code>pom.xml</code> 中添加如下内容</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">properties</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- 添加 postgres 版本约束 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">postgresql-version</span>&gt;</span>42.3.8<span class="tag">&lt;/<span class="name">postgresql-version</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- 默认是1.8，目前使用 jdk11 编译 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">java.version</span>&gt;</span>11<span class="tag">&lt;/<span class="name">java.version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">properties</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>在 <code>config</code> 模块下的 <code>pom.xml</code> 中添加如下内容</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependencies</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- 添加 postgresql 依赖 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.postgresql<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>postgresql<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">version</span>&gt;</span>$&#123;postgresql-version&#125;<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependencies</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="通过-spi-机制添加-postgres-相关支持"><a href="#通过-spi-机制添加-postgres-相关支持" class="headerlink" title="通过 spi 机制添加 postgres 相关支持"></a>通过 spi 机制添加 postgres 相关支持</h2><p>找到 <code>plugin</code> 模块，里面还包含一个 <code>datasource</code> 模块，目录结构如下<br>【datasource】模块的目录路径为： <code>nacos源码所在的目录位置\nacos\plugin\datasource</code></p>
+<figure class="highlight stata"><table><tr><td class="code"><pre><span class="line">├─datasource</span><br><span class="line">│  ├─src</span><br><span class="line">│  │  ├─main</span><br><span class="line">│  │  │  ├─java</span><br><span class="line">│  │  │  │  └─com</span><br><span class="line">│  │  │  │      └─alibaba</span><br><span class="line">│  │  │  │          └─nacos</span><br><span class="line">│  │  │  │              └─<span class="keyword">plugin</span></span><br><span class="line">│  │  │  │                  └─datasource</span><br><span class="line">│  │  │  │                      ├─constants</span><br><span class="line">│  │  │  │                      ├─impl</span><br><span class="line">│  │  │  │                      │  ├─derby</span><br><span class="line">│  │  │  │                      │  ├─mysql</span><br><span class="line">│  │  │  │                      │  └─postgresql【这个目录是新增的】</span><br><span class="line">│  │  │  │                      ├─mapper</span><br><span class="line">│  │  │  │                      └─proxy</span><br><span class="line">│  │  │  └─resources</span><br><span class="line">│  │  │      └─<span class="keyword">META</span>-<span class="keyword">INF</span></span><br><span class="line">│  │  │          └─services</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>在 <code>com.alibaba.nacos.plugin.datasource.impl</code> 包下已经有的两个实现包是 <code>mysql</code> 和 <code>derby</code>, 可以拷贝一下 <code>mysql</code> 整个包复制到 <code>mysql</code> 同级目录下并且改名为 <code>postgres</code>, 包里面的每个类的后缀改为 <code>Postgres</code>, 改完后 <code>postgres</code> 目录下的类有如下 9 个</p>
+<figure class="highlight ebnf"><table><tr><td class="code"><pre><span class="line"><span class="attribute">ConfigInfoAggrMapperByPostgreSql</span></span><br><span class="line"><span class="attribute">ConfigInfoBetaMapperByPostgreSql</span></span><br><span class="line"><span class="attribute">ConfigInfoMapperByPostgreSql</span></span><br><span class="line"><span class="attribute">ConfigInfoTagMapperByPostgreSql</span></span><br><span class="line"><span class="attribute">ConfigTagsRelationMapperByPostgreSql</span></span><br><span class="line"><span class="attribute">GroupCapacityMapperByPostgreSql</span></span><br><span class="line"><span class="attribute">HistoryConfigInfoMapperByPostgreSql</span></span><br><span class="line"><span class="attribute">TenantCapacityMapperByPostgreSql</span></span><br><span class="line"><span class="attribute">TenantInfoMapperByPostgreSql</span></span><br></pre></td></tr></table></figure>
+
+<p>进行上述操作后只是将 <code>mysql</code> 目录整个拷贝了一份修改目录名和类名，但是里面的内容其实没有变化，我们以 <code>ConfigInfoMapperByPostgreSql</code>（mysql 目录下） 为例，看看需要修改什么内容</p>
+<figure class="highlight java"><figcaption><span>ConfigInfoMapperByPostgreSql类</span></figcaption><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">ConfigInfoAggrMapperByMySql</span> <span class="keyword">extends</span> <span class="title class_">AbstractMapper</span> <span class="keyword">implements</span> <span class="title class_">ConfigInfoAggrMapper</span> &#123;</span><br><span class="line">    </span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">findConfigInfoAggrByPageFetchRows</span><span class="params">(<span class="type">int</span> startRow, <span class="type">int</span> pageSize)</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;SELECT data_id,group_id,tenant_id,datum_id,app_name,content FROM config_info_aggr WHERE data_id= ? AND &quot;</span></span><br><span class="line">                + <span class="string">&quot;group_id= ? AND tenant_id= ? ORDER BY datum_id LIMIT &quot;</span> + startRow + <span class="string">&quot;,&quot;</span> + pageSize;  <span class="comment">// 修改点1</span></span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">getDataSource</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> DataSourceConstant.MYSQL;  <span class="comment">// 修改点2</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>修改点1</strong><br>这里的修改是因为 <code>mysql</code> 和 <code>postgres</code> 的分页语法不同<br><code>mysql</code> 分页：<code>LIMIT startRow,pageSize</code><br><code>postgres</code> 分页：<code>LIMIT pageSize OFFSET startRow</code></p>
+<p><strong>修改点2</strong><br><code>getDataSource()</code> 方法返回的是数据源类型，<code>mysql</code> 中返回的是 <code>DataSourceConstant.MYSQL</code>，看一下 <code>DataSourceConstant</code>类代码</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">DataSourceConstant</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">String</span> <span class="variable">MYSQL</span> <span class="operator">=</span> <span class="string">&quot;mysql&quot;</span>;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">String</span> <span class="variable">DERBY</span> <span class="operator">=</span> <span class="string">&quot;derby&quot;</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>默认只有两个，现在新增一个 <code>postgres</code> 类型，变成</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">DataSourceConstant</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">String</span> <span class="variable">MYSQL</span> <span class="operator">=</span> <span class="string">&quot;mysql&quot;</span>;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">String</span> <span class="variable">DERBY</span> <span class="operator">=</span> <span class="string">&quot;derby&quot;</span>;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">String</span> <span class="variable">POSTGRESQL</span>  <span class="operator">=</span> <span class="string">&quot;postgresql&quot;</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>两处都修改完成之后，<code>postgres</code> 目录下对应的 <code>ConfigInfoAggrMapperByPostgreSql</code> 类经过修改后变成如下形式</p>
+<figure class="highlight java"><figcaption><span>ConfigInfoAggrMapperByPostgreSql类</span></figcaption><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">ConfigInfoAggrMapperByPostgreSql</span> <span class="keyword">extends</span> <span class="title class_">AbstractMapper</span> <span class="keyword">implements</span> <span class="title class_">ConfigInfoAggrMapper</span> &#123;</span><br><span class="line">    </span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">findConfigInfoAggrByPageFetchRows</span><span class="params">(<span class="type">int</span> startRow, <span class="type">int</span> pageSize)</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;SELECT data_id,group_id,tenant_id,datum_id,app_name,content FROM config_info_aggr WHERE data_id= ? AND &quot;</span></span><br><span class="line">                + <span class="string">&quot;group_id= ? AND tenant_id= ? ORDER BY datum_id LIMIT &quot;</span> + pageSize + <span class="string">&quot; offset &quot;</span> + startRow;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">getDataSource</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> DataSourceConstant.POSTGRESQL;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="postgres-目录下所有类"><a href="#postgres-目录下所有类" class="headerlink" title="postgres 目录下所有类"></a>postgres 目录下所有类</h3><p>下面已经说明了每个类需要修改的点，下面就给出修改后所有 <code>postgres</code> 目录下所有类的内容<br>ConfigInfoAggrMapperByPostgreSql类</p>
+<figure class="highlight java"><figcaption><span>ConfigInfoAggrMapperByPostgreSql类</span></figcaption><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">ConfigInfoAggrMapperByPostgreSql</span> <span class="keyword">extends</span> <span class="title class_">AbstractMapper</span> <span class="keyword">implements</span> <span class="title class_">ConfigInfoAggrMapper</span> &#123;</span><br><span class="line">    </span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">findConfigInfoAggrByPageFetchRows</span><span class="params">(<span class="type">int</span> startRow, <span class="type">int</span> pageSize)</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;SELECT data_id,group_id,tenant_id,datum_id,app_name,content FROM config_info_aggr WHERE data_id= ? AND &quot;</span></span><br><span class="line">                + <span class="string">&quot;group_id= ? AND tenant_id= ? ORDER BY datum_id LIMIT &quot;</span> + pageSize + <span class="string">&quot; offset &quot;</span> + startRow;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">getDataSource</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> DataSourceConstant.POSTGRESQL;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>ConfigInfoBetaMapperByPostgreSql类</p>
+<figure class="highlight java"><figcaption><span>ConfigInfoBetaMapperByPostgreSql类</span></figcaption><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">ConfigInfoBetaMapperByPostgreSql</span> <span class="keyword">extends</span> <span class="title class_">AbstractMapper</span> <span class="keyword">implements</span> <span class="title class_">ConfigInfoBetaMapper</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">findAllConfigInfoBetaForDumpAllFetchRows</span><span class="params">(<span class="type">int</span> startRow, <span class="type">int</span> pageSize)</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot; SELECT t.id,data_id,group_id,tenant_id,app_name,content,md5,gmt_modified,beta_ips,encrypted_data_key &quot;</span></span><br><span class="line">                + <span class="string">&quot; FROM ( SELECT id FROM config_info_beta  ORDER BY id LIMIT &quot;</span> + pageSize + <span class="string">&quot; offset &quot;</span> + startRow + <span class="string">&quot; )&quot;</span></span><br><span class="line">                + <span class="string">&quot;  g, config_info_beta t WHERE g.id = t.id &quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">getDataSource</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> DataSourceConstant.POSTGRESQL;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>ConfigInfoMapperByPostgreSql类</p>
+<figure class="highlight java"><figcaption><span>ConfigInfoMapperByPostgreSql类</span></figcaption><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">ConfigInfoMapperByPostgreSql</span> <span class="keyword">extends</span> <span class="title class_">AbstractMapper</span> <span class="keyword">implements</span> <span class="title class_">ConfigInfoMapper</span> &#123;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">String</span> <span class="variable">DATA_ID</span> <span class="operator">=</span> <span class="string">&quot;dataId&quot;</span>;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">String</span> <span class="variable">GROUP</span> <span class="operator">=</span> <span class="string">&quot;group&quot;</span>;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">String</span> <span class="variable">APP_NAME</span> <span class="operator">=</span> <span class="string">&quot;appName&quot;</span>;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">String</span> <span class="variable">CONTENT</span> <span class="operator">=</span> <span class="string">&quot;content&quot;</span>;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">String</span> <span class="variable">TENANT</span> <span class="operator">=</span> <span class="string">&quot;tenant&quot;</span>;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">findConfigInfoByAppFetchRows</span><span class="params">(<span class="type">int</span> startRow, <span class="type">int</span> pageSize)</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;SELECT id,data_id,group_id,tenant_id,app_name,content FROM config_info&quot;</span></span><br><span class="line">                + <span class="string">&quot; WHERE tenant_id LIKE ? AND app_name= ?&quot;</span> + <span class="string">&quot; LIMIT &quot;</span> + pageSize + <span class="string">&quot; offset &quot;</span> + startRow;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">getTenantIdList</span><span class="params">(<span class="type">int</span> startRow, <span class="type">int</span> pageSize)</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;SELECT tenant_id FROM config_info WHERE tenant_id != &#x27;&quot;</span> + NamespaceUtil.getNamespaceDefaultId()</span><br><span class="line">                + <span class="string">&quot;&#x27; GROUP BY tenant_id LIMIT &quot;</span> + pageSize + <span class="string">&quot; offset &quot;</span> + startRow;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">getGroupIdList</span><span class="params">(<span class="type">int</span> startRow, <span class="type">int</span> pageSize)</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;SELECT group_id FROM config_info WHERE tenant_id =&#x27;&quot;</span> + NamespaceUtil.getNamespaceDefaultId()</span><br><span class="line">                + <span class="string">&quot;&#x27; GROUP BY group_id LIMIT &quot;</span> + pageSize + <span class="string">&quot; offset &quot;</span> + startRow;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">findAllConfigKey</span><span class="params">(<span class="type">int</span> startRow, <span class="type">int</span> pageSize)</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot; SELECT data_id,group_id,app_name  FROM ( &quot;</span></span><br><span class="line">                + <span class="string">&quot; SELECT id FROM config_info WHERE tenant_id LIKE ? ORDER BY id LIMIT &quot;</span> + pageSize + <span class="string">&quot; offset &quot;</span> + startRow</span><br><span class="line">                + <span class="string">&quot; )&quot;</span> + <span class="string">&quot; g, config_info t WHERE g.id = t.id  &quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">findAllConfigInfoBaseFetchRows</span><span class="params">(<span class="type">int</span> startRow, <span class="type">int</span> pageSize)</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;SELECT t.id,data_id,group_id,content,md5&quot;</span></span><br><span class="line">                + <span class="string">&quot; FROM ( SELECT id FROM config_info ORDER BY id LIMIT &quot;</span> + pageSize + <span class="string">&quot; offset &quot;</span> + startRow + <span class="string">&quot;  ) &quot;</span></span><br><span class="line">                + <span class="string">&quot; g, config_info t  WHERE g.id = t.id &quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">findAllConfigInfoFragment</span><span class="params">(<span class="type">int</span> startRow, <span class="type">int</span> pageSize)</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;SELECT id,data_id,group_id,tenant_id,app_name,content,md5,gmt_modified,type,encrypted_data_key &quot;</span></span><br><span class="line">                + <span class="string">&quot;FROM config_info WHERE id &gt; ? ORDER BY id ASC LIMIT &quot;</span> + pageSize + <span class="string">&quot; offset &quot;</span> + startRow;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">findChangeConfigFetchRows</span><span class="params">(Map&lt;String, String&gt; params, <span class="keyword">final</span> Timestamp startTime,</span></span><br><span class="line"><span class="params">            <span class="keyword">final</span> Timestamp endTime, <span class="type">int</span> startRow, <span class="type">int</span> pageSize, <span class="type">long</span> lastMaxId)</span> &#123;</span><br><span class="line">        <span class="keyword">final</span> <span class="type">String</span> <span class="variable">tenant</span> <span class="operator">=</span> params.get(TENANT);</span><br><span class="line">        <span class="keyword">final</span> <span class="type">String</span> <span class="variable">dataId</span> <span class="operator">=</span> params.get(DATA_ID);</span><br><span class="line">        <span class="keyword">final</span> <span class="type">String</span> <span class="variable">group</span> <span class="operator">=</span> params.get(GROUP);</span><br><span class="line">        <span class="keyword">final</span> <span class="type">String</span> <span class="variable">appName</span> <span class="operator">=</span> params.get(APP_NAME);</span><br><span class="line">        <span class="keyword">final</span> <span class="type">String</span> <span class="variable">tenantTmp</span> <span class="operator">=</span> StringUtils.isBlank(tenant) ? StringUtils.EMPTY : tenant;</span><br><span class="line">        <span class="keyword">final</span> <span class="type">String</span> <span class="variable">sqlFetchRows</span> <span class="operator">=</span> <span class="string">&quot;SELECT id,data_id,group_id,tenant_id,app_name,content,type,md5,gmt_modified FROM config_info WHERE &quot;</span>;</span><br><span class="line">        <span class="type">String</span> <span class="variable">where</span> <span class="operator">=</span> <span class="string">&quot; 1=1 &quot;</span>;</span><br><span class="line">        <span class="keyword">if</span> (!StringUtils.isBlank(dataId)) &#123;</span><br><span class="line">            where += <span class="string">&quot; AND data_id LIKE ? &quot;</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (!StringUtils.isBlank(group)) &#123;</span><br><span class="line">            where += <span class="string">&quot; AND group_id LIKE ? &quot;</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">if</span> (!StringUtils.isBlank(tenantTmp)) &#123;</span><br><span class="line">            where += <span class="string">&quot; AND tenant_id = ? &quot;</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">if</span> (!StringUtils.isBlank(appName)) &#123;</span><br><span class="line">            where += <span class="string">&quot; AND app_name = ? &quot;</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (startTime != <span class="literal">null</span>) &#123;</span><br><span class="line">            where += <span class="string">&quot; AND gmt_modified &gt;=? &quot;</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (endTime != <span class="literal">null</span>) &#123;</span><br><span class="line">            where += <span class="string">&quot; AND gmt_modified &lt;=? &quot;</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> sqlFetchRows + where + <span class="string">&quot; AND id &gt; &quot;</span> + lastMaxId + <span class="string">&quot; ORDER BY id ASC&quot;</span> + <span class="string">&quot; LIMIT &quot;</span> + pageSize + <span class="string">&quot; offset 0 &quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">listGroupKeyMd5ByPageFetchRows</span><span class="params">(<span class="type">int</span> startRow, <span class="type">int</span> pageSize)</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;SELECT t.id,data_id,group_id,tenant_id,app_name,md5,type,gmt_modified,encrypted_data_key FROM &quot;</span></span><br><span class="line">                + <span class="string">&quot;( SELECT id FROM config_info ORDER BY id LIMIT &quot;</span> + pageSize + <span class="string">&quot; offset &quot;</span> + startRow</span><br><span class="line">                + <span class="string">&quot; ) g, config_info t WHERE g.id = t.id&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">findConfigInfoBaseLikeFetchRows</span><span class="params">(Map&lt;String, String&gt; params, <span class="type">int</span> startRow, <span class="type">int</span> pageSize)</span> &#123;</span><br><span class="line">        <span class="keyword">final</span> <span class="type">String</span> <span class="variable">sqlFetchRows</span> <span class="operator">=</span> <span class="string">&quot;SELECT id,data_id,group_id,tenant_id,content FROM config_info WHERE &quot;</span>;</span><br><span class="line">        <span class="type">String</span> <span class="variable">where</span> <span class="operator">=</span> <span class="string">&quot; 1=1 AND tenant_id=&#x27;&quot;</span> + NamespaceUtil.getNamespaceDefaultId() + <span class="string">&quot;&#x27; &quot;</span>;</span><br><span class="line">        <span class="keyword">if</span> (!StringUtils.isBlank(params.get(DATA_ID))) &#123;</span><br><span class="line">            where += <span class="string">&quot; AND data_id LIKE ? &quot;</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (!StringUtils.isBlank(params.get(GROUP))) &#123;</span><br><span class="line">            where += <span class="string">&quot; AND group_id LIKE &quot;</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (!StringUtils.isBlank(params.get(CONTENT))) &#123;</span><br><span class="line">            where += <span class="string">&quot; AND content LIKE ? &quot;</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> sqlFetchRows + where + <span class="string">&quot; LIMIT &quot;</span> + pageSize + <span class="string">&quot; offset &quot;</span> + startRow;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">findConfigInfo4PageFetchRows</span><span class="params">(Map&lt;String, String&gt; params, <span class="type">int</span> startRow, <span class="type">int</span> pageSize)</span> &#123;</span><br><span class="line">        <span class="keyword">final</span> <span class="type">String</span> <span class="variable">appName</span> <span class="operator">=</span> params.get(APP_NAME);</span><br><span class="line">        <span class="keyword">final</span> <span class="type">String</span> <span class="variable">dataId</span> <span class="operator">=</span> params.get(DATA_ID);</span><br><span class="line">        <span class="keyword">final</span> <span class="type">String</span> <span class="variable">group</span> <span class="operator">=</span> params.get(GROUP);</span><br><span class="line">        <span class="keyword">final</span> <span class="type">String</span> <span class="variable">content</span> <span class="operator">=</span> params.get(CONTENT);</span><br><span class="line">        <span class="keyword">final</span> <span class="type">String</span> <span class="variable">sql</span> <span class="operator">=</span> <span class="string">&quot;SELECT id,data_id,group_id,tenant_id,app_name,content,type,encrypted_data_key FROM config_info&quot;</span>;</span><br><span class="line">        <span class="type">StringBuilder</span> <span class="variable">where</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">StringBuilder</span>(<span class="string">&quot; WHERE &quot;</span>);</span><br><span class="line">        where.append(<span class="string">&quot; tenant_id=? &quot;</span>);</span><br><span class="line">        <span class="keyword">if</span> (StringUtils.isNotBlank(dataId)) &#123;</span><br><span class="line">            where.append(<span class="string">&quot; AND data_id=? &quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (StringUtils.isNotBlank(group)) &#123;</span><br><span class="line">            where.append(<span class="string">&quot; AND group_id=? &quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (StringUtils.isNotBlank(appName)) &#123;</span><br><span class="line">            where.append(<span class="string">&quot; AND app_name=? &quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (!StringUtils.isBlank(content)) &#123;</span><br><span class="line">            where.append(<span class="string">&quot; AND content LIKE ? &quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> sql + where + <span class="string">&quot; LIMIT &quot;</span> + pageSize + <span class="string">&quot; offset &quot;</span> + startRow;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">findConfigInfoBaseByGroupFetchRows</span><span class="params">(<span class="type">int</span> startRow, <span class="type">int</span> pageSize)</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;SELECT id,data_id,group_id,content FROM config_info WHERE group_id=? AND tenant_id=?&quot;</span> + <span class="string">&quot; LIMIT &quot;</span></span><br><span class="line">                + pageSize + <span class="string">&quot; offset &quot;</span> + startRow;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">findConfigInfoLike4PageFetchRows</span><span class="params">(Map&lt;String, String&gt; params, <span class="type">int</span> startRow, <span class="type">int</span> pageSize)</span> &#123;</span><br><span class="line">        <span class="type">String</span> <span class="variable">dataId</span> <span class="operator">=</span> params.get(DATA_ID);</span><br><span class="line">        <span class="type">String</span> <span class="variable">group</span> <span class="operator">=</span> params.get(GROUP);</span><br><span class="line">        <span class="keyword">final</span> <span class="type">String</span> <span class="variable">appName</span> <span class="operator">=</span> params.get(APP_NAME);</span><br><span class="line">        <span class="keyword">final</span> <span class="type">String</span> <span class="variable">content</span> <span class="operator">=</span> params.get(CONTENT);</span><br><span class="line">        <span class="keyword">final</span> <span class="type">String</span> <span class="variable">sqlFetchRows</span> <span class="operator">=</span> <span class="string">&quot;SELECT id,data_id,group_id,tenant_id,app_name,content,encrypted_data_key FROM config_info&quot;</span>;</span><br><span class="line">        <span class="type">StringBuilder</span> <span class="variable">where</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">StringBuilder</span>(<span class="string">&quot; WHERE &quot;</span>);</span><br><span class="line">        where.append(<span class="string">&quot; tenant_id LIKE ? &quot;</span>);</span><br><span class="line">        <span class="keyword">if</span> (!StringUtils.isBlank(dataId)) &#123;</span><br><span class="line">            where.append(<span class="string">&quot; AND data_id LIKE ? &quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (!StringUtils.isBlank(group)) &#123;</span><br><span class="line">            where.append(<span class="string">&quot; AND group_id LIKE ? &quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (!StringUtils.isBlank(appName)) &#123;</span><br><span class="line">            where.append(<span class="string">&quot; AND app_name = ? &quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (!StringUtils.isBlank(content)) &#123;</span><br><span class="line">            where.append(<span class="string">&quot; AND content LIKE ? &quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> sqlFetchRows + where + <span class="string">&quot; LIMIT &quot;</span> + pageSize + <span class="string">&quot; offset &quot;</span> + startRow;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">findAllConfigInfoFetchRows</span><span class="params">(<span class="type">int</span> startRow, <span class="type">int</span> pageSize)</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;SELECT t.id,data_id,group_id,tenant_id,app_name,content,md5 &quot;</span></span><br><span class="line">                + <span class="string">&quot; FROM (  SELECT id FROM config_info WHERE tenant_id LIKE ? ORDER BY id LIMIT &quot;</span> + pageSize + <span class="string">&quot; offset &quot;</span> + startRow + <span class="string">&quot; )&quot;</span></span><br><span class="line">                + <span class="string">&quot; g, config_info t  WHERE g.id = t.id &quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">getDataSource</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> DataSourceConstant.POSTGRESQL;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>ConfigInfoTagMapperByPostgreSql类</p>
+<figure class="highlight java"><figcaption><span>ConfigInfoTagMapperByPostgreSql类</span></figcaption><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">ConfigInfoTagMapperByPostgreSql</span> <span class="keyword">extends</span> <span class="title class_">AbstractMapper</span> <span class="keyword">implements</span> <span class="title class_">ConfigInfoTagMapper</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">findAllConfigInfoTagForDumpAllFetchRows</span><span class="params">(<span class="type">int</span> startRow, <span class="type">int</span> pageSize)</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot; SELECT t.id,data_id,group_id,tenant_id,tag_id,app_name,content,md5,gmt_modified &quot;</span></span><br><span class="line">                + <span class="string">&quot; FROM (  SELECT id FROM config_info_tag  ORDER BY id LIMIT &quot;</span> + pageSize + <span class="string">&quot; offset &quot;</span> + startRow + <span class="string">&quot; ) &quot;</span></span><br><span class="line">                + <span class="string">&quot;g, config_info_tag t  WHERE g.id = t.id  &quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">getDataSource</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> DataSourceConstant.POSTGRESQL;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>ConfigTagsRelationMapperByPostgreSql类</p>
+<figure class="highlight java"><figcaption><span>ConfigTagsRelationMapperByPostgreSql类</span></figcaption><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">ConfigTagsRelationMapperByPostgreSql</span> <span class="keyword">extends</span> <span class="title class_">AbstractMapper</span> <span class="keyword">implements</span> <span class="title class_">ConfigTagsRelationMapper</span> &#123;</span><br><span class="line">    </span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">findConfigInfo4PageFetchRows</span><span class="params">(Map&lt;String, String&gt; params, <span class="type">int</span> tagSize, <span class="type">int</span> startRow, <span class="type">int</span> pageSize)</span> &#123;</span><br><span class="line">        <span class="keyword">final</span> <span class="type">String</span> <span class="variable">appName</span> <span class="operator">=</span> params.get(<span class="string">&quot;appName&quot;</span>);</span><br><span class="line">        <span class="keyword">final</span> <span class="type">String</span> <span class="variable">dataId</span> <span class="operator">=</span> params.get(<span class="string">&quot;dataId&quot;</span>);</span><br><span class="line">        <span class="keyword">final</span> <span class="type">String</span> <span class="variable">group</span> <span class="operator">=</span> params.get(<span class="string">&quot;group&quot;</span>);</span><br><span class="line">        <span class="keyword">final</span> <span class="type">String</span> <span class="variable">content</span> <span class="operator">=</span> params.get(<span class="string">&quot;content&quot;</span>);</span><br><span class="line">        <span class="type">StringBuilder</span> <span class="variable">where</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">StringBuilder</span>(<span class="string">&quot; WHERE &quot;</span>);</span><br><span class="line">        <span class="keyword">final</span> <span class="type">String</span> <span class="variable">sql</span> <span class="operator">=</span></span><br><span class="line">                <span class="string">&quot;SELECT a.id,a.data_id,a.group_id,a.tenant_id,a.app_name,a.content FROM config_info  a LEFT JOIN &quot;</span></span><br><span class="line">                        + <span class="string">&quot;config_tags_relation b ON a.id=b.id&quot;</span>;</span><br><span class="line">        </span><br><span class="line">        where.append(<span class="string">&quot; a.tenant_id=? &quot;</span>);</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">if</span> (StringUtils.isNotBlank(dataId)) &#123;</span><br><span class="line">            where.append(<span class="string">&quot; AND a.data_id=? &quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (StringUtils.isNotBlank(group)) &#123;</span><br><span class="line">            where.append(<span class="string">&quot; AND a.group_id=? &quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (StringUtils.isNotBlank(appName)) &#123;</span><br><span class="line">            where.append(<span class="string">&quot; AND a.app_name=? &quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (!StringUtils.isBlank(content)) &#123;</span><br><span class="line">            where.append(<span class="string">&quot; AND a.content LIKE ? &quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        where.append(<span class="string">&quot; AND b.tag_name IN (&quot;</span>);</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; tagSize; i++) &#123;</span><br><span class="line">            <span class="keyword">if</span> (i != <span class="number">0</span>) &#123;</span><br><span class="line">                where.append(<span class="string">&quot;, &quot;</span>);</span><br><span class="line">            &#125;</span><br><span class="line">            where.append(<span class="string">&#x27;?&#x27;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        where.append(<span class="string">&quot;) &quot;</span>);</span><br><span class="line">        <span class="keyword">return</span> sql + where + <span class="string">&quot; LIMIT &quot;</span> + pageSize + <span class="string">&quot; offset &quot;</span> + startRow;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">findConfigInfoLike4PageFetchRows</span><span class="params">(<span class="keyword">final</span> Map&lt;String, String&gt; params, <span class="type">int</span> tagSize, <span class="type">int</span> startRow,</span></span><br><span class="line"><span class="params">            <span class="type">int</span> pageSize)</span> &#123;</span><br><span class="line">        <span class="keyword">final</span> <span class="type">String</span> <span class="variable">appName</span> <span class="operator">=</span> params.get(<span class="string">&quot;appName&quot;</span>);</span><br><span class="line">        <span class="keyword">final</span> <span class="type">String</span> <span class="variable">content</span> <span class="operator">=</span> params.get(<span class="string">&quot;content&quot;</span>);</span><br><span class="line">        <span class="keyword">final</span> <span class="type">String</span> <span class="variable">dataId</span> <span class="operator">=</span> params.get(<span class="string">&quot;dataId&quot;</span>);</span><br><span class="line">        <span class="keyword">final</span> <span class="type">String</span> <span class="variable">group</span> <span class="operator">=</span> params.get(<span class="string">&quot;group&quot;</span>);</span><br><span class="line">        <span class="type">StringBuilder</span> <span class="variable">where</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">StringBuilder</span>(<span class="string">&quot; WHERE &quot;</span>);</span><br><span class="line">        <span class="keyword">final</span> <span class="type">String</span> <span class="variable">sqlFetchRows</span> <span class="operator">=</span> <span class="string">&quot;SELECT a.id,a.data_id,a.group_id,a.tenant_id,a.app_name,a.content &quot;</span></span><br><span class="line">                + <span class="string">&quot;FROM config_info a LEFT JOIN config_tags_relation b ON a.id=b.id &quot;</span>;</span><br><span class="line">        </span><br><span class="line">        where.append(<span class="string">&quot; a.tenant_id LIKE ? &quot;</span>);</span><br><span class="line">        <span class="keyword">if</span> (!StringUtils.isBlank(dataId)) &#123;</span><br><span class="line">            where.append(<span class="string">&quot; AND a.data_id LIKE ? &quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (!StringUtils.isBlank(group)) &#123;</span><br><span class="line">            where.append(<span class="string">&quot; AND a.group_id LIKE ? &quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (!StringUtils.isBlank(appName)) &#123;</span><br><span class="line">            where.append(<span class="string">&quot; AND a.app_name = ? &quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (!StringUtils.isBlank(content)) &#123;</span><br><span class="line">            where.append(<span class="string">&quot; AND a.content LIKE ? &quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        where.append(<span class="string">&quot; AND b.tag_name IN (&quot;</span>);</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; tagSize; i++) &#123;</span><br><span class="line">            <span class="keyword">if</span> (i != <span class="number">0</span>) &#123;</span><br><span class="line">                where.append(<span class="string">&quot;, &quot;</span>);</span><br><span class="line">            &#125;</span><br><span class="line">            where.append(<span class="string">&#x27;?&#x27;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        where.append(<span class="string">&quot;) &quot;</span>);</span><br><span class="line">        <span class="keyword">return</span> sqlFetchRows + where + <span class="string">&quot; LIMIT &quot;</span> + pageSize + <span class="string">&quot; offset &quot;</span> + startRow;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">getDataSource</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> DataSourceConstant.POSTGRESQL;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>GroupCapacityMapperByPostgreSql类</p>
+<figure class="highlight java"><figcaption><span>GroupCapacityMapperByPostgreSql类</span></figcaption><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">GroupCapacityMapperByPostgreSql</span> <span class="keyword">extends</span> <span class="title class_">AbstractMapper</span> <span class="keyword">implements</span> <span class="title class_">GroupCapacityMapper</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">getDataSource</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> DataSourceConstant.POSTGRESQL;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">selectGroupInfoBySize</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;SELECT id, group_id FROM group_capacity WHERE id &gt; ? LIMIT ?&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>HistoryConfigInfoMapperByPostgreSql类</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">HistoryConfigInfoMapperByPostgreSql</span> <span class="keyword">extends</span> <span class="title class_">AbstractMapper</span> <span class="keyword">implements</span> <span class="title class_">HistoryConfigInfoMapper</span> &#123;</span><br><span class="line">    </span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">removeConfigHistory</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;DELETE FROM his_config_info WHERE gmt_modified &lt; ? LIMIT ?&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">pageFindConfigHistoryFetchRows</span><span class="params">(<span class="type">int</span> pageNo, <span class="type">int</span> pageSize)</span> &#123;</span><br><span class="line">        <span class="keyword">final</span> <span class="type">int</span> <span class="variable">offset</span> <span class="operator">=</span> (pageNo - <span class="number">1</span>) * pageSize;</span><br><span class="line">        <span class="keyword">final</span> <span class="type">int</span> <span class="variable">limit</span> <span class="operator">=</span> pageSize;</span><br><span class="line">        <span class="keyword">return</span>  <span class="string">&quot;SELECT nid,data_id,group_id,tenant_id,app_name,src_ip,src_user,op_type,gmt_create,gmt_modified FROM his_config_info &quot;</span></span><br><span class="line">                + <span class="string">&quot;WHERE data_id = ? AND group_id = ? AND tenant_id = ? ORDER BY nid DESC  LIMIT &quot;</span> + limit + <span class="string">&quot; offset &quot;</span> + offset;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">getDataSource</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> DataSourceConstant.POSTGRESQL;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>TenantCapacityMapperByPostgreSql类</p>
+<figure class="highlight java"><figcaption><span>TenantCapacityMapperByPostgreSql类</span></figcaption><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">TenantCapacityMapperByPostgreSql</span> <span class="keyword">extends</span> <span class="title class_">AbstractMapper</span> <span class="keyword">implements</span> <span class="title class_">TenantCapacityMapper</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">getDataSource</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> DataSourceConstant.POSTGRESQL;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">getCapacityList4CorrectUsage</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;SELECT id, tenant_id FROM tenant_capacity WHERE id&gt;? LIMIT ?&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>TenantInfoMapperByPostgreSql类</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">TenantInfoMapperByPostgreSql</span> <span class="keyword">extends</span> <span class="title class_">AbstractMapper</span> <span class="keyword">implements</span> <span class="title class_">TenantInfoMapper</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">getDataSource</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> DataSourceConstant.POSTGRESQL;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>中间件</category>
+        <category>nacos</category>
+      </categories>
+      <tags>
+        <tag>nacos</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>使用maven编译nacos2.2.3源码</title>
+    <url>/2023/235410d42872/index.html</url>
+    <content><![CDATA[<p>使用 <code>maven</code> 命令进入 <code>nacos</code> 根目录编译</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">mvn clean install -DskipTests</span><br></pre></td></tr></table></figure>
+
+<p>出现</p>
+<figure class="highlight stylus"><table><tr><td class="code"><pre><span class="line">Execution pmd of goal org<span class="selector-class">.apache</span><span class="selector-class">.maven</span><span class="selector-class">.plugins</span>:maven-pmd-plugin:<span class="number">3.8</span>:pmd failed: org<span class="selector-class">.apache</span><span class="selector-class">.maven</span><span class="selector-class">.reporting</span><span class="selector-class">.MavenReportException</span>:</span><br><span class="line"> Unsupported targetJdk value <span class="string">&#x27;11&#x27;</span>. </span><br></pre></td></tr></table></figure>
+<p>错误，这是因为增加了 <code>pmd</code> 校验，可以使用下面命令跳过校验</p>
+<figure class="highlight ada"><table><tr><td class="code"><pre><span class="line">mvn clean install &#x27;-DskipTests<span class="string">&#x27; &#x27;</span>-Dpmd.skip=<span class="literal">true</span><span class="string">&#x27; &#x27;</span>-Dcheckstyle.skip=<span class="literal">true</span>&#x27;</span><br></pre></td></tr></table></figure>
+
+<p>出现 </p>
+<figure class="highlight smali"><table><tr><td class="code"><pre><span class="line">[ERROR] Failed to<span class="built_in"> execute </span>goal org.apache.maven.plugins:maven-compiler-plugin:3.5.1:testCompile (default-testCompile) on project nacos-config: Compilation failure</span><br><span class="line">[ERROR] /D:/code/nacos/config/src/test/java/com/alibaba/nacos/config/server/utils/ResponseUtilTest.java:[28,29] 程序包 sun.security.action 不可见</span><br><span class="line">[ERROR]   (程序包 sun.security.action 已在模块 java.base 中声明, 但该模块未将它导出到未命名模块)</span><br></pre></td></tr></table></figure>
+<p>错误，解决方式是在 <code>maven-compiler-plugin</code> 配置中添加 <code>--add-exports=java.base/sun.security.action=ALL-UNNAMED</code> 参数，具体配置为在根目录下的 <code>pom.xml</code> 中添加下面代码</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"> <span class="tag">&lt;<span class="name">plugin</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>maven-compiler-plugin<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>$&#123;maven-compiler-plugin.version&#125;<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">configuration</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">source</span>&gt;</span>$&#123;maven.compiler.source&#125;<span class="tag">&lt;/<span class="name">source</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">target</span>&gt;</span>$&#123;maven.compiler.target&#125;<span class="tag">&lt;/<span class="name">target</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">compilerVersion</span>&gt;</span>$&#123;maven.compiler.source&#125;<span class="tag">&lt;/<span class="name">compilerVersion</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">showDeprecation</span>&gt;</span>true<span class="tag">&lt;/<span class="name">showDeprecation</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">showWarnings</span>&gt;</span>true<span class="tag">&lt;/<span class="name">showWarnings</span>&gt;</span></span><br><span class="line">        <span class="comment">&lt;!-- 下面这一段新添加的用于解决编译错误的关键 --&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">compilerArgs</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">arg</span>&gt;</span>--add-exports=java.base/sun.security.action=ALL-UNNAMED<span class="tag">&lt;/<span class="name">arg</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">compilerArgs</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">configuration</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">plugin</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>注意： 因为提示出现错误的包是 <code>sun.security.action</code>， 所以添加的时候才添加 <code>java.base/sun.security.action</code>， 如果提示的是其他包，则需要对应修改</p>
+<h2 id="最终打包命令"><a href="#最终打包命令" class="headerlink" title="最终打包命令"></a>最终打包命令</h2><p>最终打包需要选择 profile， 这个 profile 在 <code>nacos-console</code> 模块的 <code>pom.xml</code> 文件中已经写了是  <code>release-nacos</code>， 所以最终打包命令是</p>
+<figure class="highlight ada"><table><tr><td class="code"><pre><span class="line">mvn clean install &#x27;-DskipTests=<span class="literal">true</span><span class="string">&#x27; &#x27;</span>-Dpmd.skip=<span class="literal">true</span><span class="string">&#x27; &#x27;</span>-Dcheckstyle.skip=<span class="literal">true</span>&#x27; -Prelease-nacos</span><br></pre></td></tr></table></figure>
+
+
+]]></content>
+      <categories>
+        <category>中间件</category>
+        <category>nacos</category>
+      </categories>
+      <tags>
+        <tag>nacos</tag>
       </tags>
   </entry>
   <entry>
@@ -2885,36 +2983,6 @@
       </tags>
   </entry>
   <entry>
-    <title>redis和mysql双写一致性问题</title>
-    <url>/2023/68d7307921af/index.html</url>
-    <content><![CDATA[<p>当数据有更新时，是先更新缓存还是先更新数据库？或者是其他的操作？对于缓存和数据库的更新组合有以下几种方式</p>
-<h2 id="先更新缓存，再更新数据库"><a href="#先更新缓存，再更新数据库" class="headerlink" title="先更新缓存，再更新数据库"></a>先更新缓存，再更新数据库</h2><p>假设更新缓存成功，但是更新数据库失败，缓存中数据就是错误，而且 redis 是不支持事务回滚，所以这种方案有比较大的缺陷</p>
-<h2 id="先删除缓存，再更新数据库"><a href="#先删除缓存，再更新数据库" class="headerlink" title="先删除缓存，再更新数据库"></a>先删除缓存，再更新数据库</h2><ol>
-<li>使用这种方案，即使更新数据库失败了也不需要回滚缓存。这种做法虽然巧妙规避了失败回滚的问题，但是会有其他的问题</li>
-<li>假设线程A先删除缓存，再更新数据库。在线程A完成更新数据库之前，后执行的线程B反而超前完成了操作，读取Key发现没有数据后，将数据库中的旧值存放到了缓存中。线程A在线程B都完成后再更新数据库，这样就会出现缓存（旧值）与数据库的值（新值）不一致的问题</li>
-</ol>
-<h2 id="先更新数据库，再更新缓存"><a href="#先更新数据库，再更新缓存" class="headerlink" title="先更新数据库，再更新缓存"></a>先更新数据库，再更新缓存</h2><ol>
-<li>当更新数据库成功，更新缓存失败时，可以采取重试的策略，但重试机制如果存在延时还是会出现数据库与缓存不一致的情况，不好处理</li>
-<li>假设两个线程同时更新同一个数据，线程A先完成了第一步，线程B先完成了第二步怎么办？线程A把值更新成a，线程B把值更新成b，此时数据库中的最新值是b，因为线程A先完成了第一步，后完成第二步，所以缓存中的最新值是a，数据库与缓存的值还是不一致，这个逻辑还是有问题的</li>
-</ol>
-<h2 id="先更新数据库，再删除缓存"><a href="#先更新数据库，再删除缓存" class="headerlink" title="先更新数据库，再删除缓存"></a>先更新数据库，再删除缓存</h2><ol>
-<li>因为更新数据库之后是删除缓存，所以可以解决 <strong>先更新数据库，再更新缓存</strong> 带来的缓存不一致的问题</li>
-<li>假设线程A要更新数据，先完成第一步更新数据库，在线程A删除缓存之前，线程B要访问缓存，那么取得的就是旧数据， 不过这种情况出现的概率比较低</li>
-</ol>
-<h2 id="先删除缓存，更新数据库，再删除缓存"><a href="#先删除缓存，更新数据库，再删除缓存" class="headerlink" title="先删除缓存，更新数据库，再删除缓存"></a>先删除缓存，更新数据库，再删除缓存</h2><ol>
-<li>和 <strong>先更新数据库，再删除缓存</strong> 处理方式类似，所以还是会出现类似的问题，假设线程A要更新数据库，先删除了缓存，这一瞬间线程C要读缓存，先把数据迁移到缓存；然后线程A完成了更新数据库的操作，这一瞬间线程B也要访问缓存，此时它访问到的就是线程C放到缓存里面的旧数据， 不过这种情况出现的概率更低，这是需要三个线程配合才可能会出现的问题</li>
-</ol>
-<p>综上所述，每一种方案都是有一定的缺陷的，只是最后一种方式可以让缺陷发生的机率更低而已</p>
-]]></content>
-      <categories>
-        <category>存储</category>
-        <category>Redis</category>
-      </categories>
-      <tags>
-        <tag>redis</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>redis底层数据结构</title>
     <url>/2023/19e21a188fd0/index.html</url>
     <content><![CDATA[<span class="hide_first_mermaid">
@@ -3006,6 +3074,36 @@
       </categories>
       <tags>
         <tag>Redis</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>redis和mysql双写一致性问题</title>
+    <url>/2023/68d7307921af/index.html</url>
+    <content><![CDATA[<p>当数据有更新时，是先更新缓存还是先更新数据库？或者是其他的操作？对于缓存和数据库的更新组合有以下几种方式</p>
+<h2 id="先更新缓存，再更新数据库"><a href="#先更新缓存，再更新数据库" class="headerlink" title="先更新缓存，再更新数据库"></a>先更新缓存，再更新数据库</h2><p>假设更新缓存成功，但是更新数据库失败，缓存中数据就是错误，而且 redis 是不支持事务回滚，所以这种方案有比较大的缺陷</p>
+<h2 id="先删除缓存，再更新数据库"><a href="#先删除缓存，再更新数据库" class="headerlink" title="先删除缓存，再更新数据库"></a>先删除缓存，再更新数据库</h2><ol>
+<li>使用这种方案，即使更新数据库失败了也不需要回滚缓存。这种做法虽然巧妙规避了失败回滚的问题，但是会有其他的问题</li>
+<li>假设线程A先删除缓存，再更新数据库。在线程A完成更新数据库之前，后执行的线程B反而超前完成了操作，读取Key发现没有数据后，将数据库中的旧值存放到了缓存中。线程A在线程B都完成后再更新数据库，这样就会出现缓存（旧值）与数据库的值（新值）不一致的问题</li>
+</ol>
+<h2 id="先更新数据库，再更新缓存"><a href="#先更新数据库，再更新缓存" class="headerlink" title="先更新数据库，再更新缓存"></a>先更新数据库，再更新缓存</h2><ol>
+<li>当更新数据库成功，更新缓存失败时，可以采取重试的策略，但重试机制如果存在延时还是会出现数据库与缓存不一致的情况，不好处理</li>
+<li>假设两个线程同时更新同一个数据，线程A先完成了第一步，线程B先完成了第二步怎么办？线程A把值更新成a，线程B把值更新成b，此时数据库中的最新值是b，因为线程A先完成了第一步，后完成第二步，所以缓存中的最新值是a，数据库与缓存的值还是不一致，这个逻辑还是有问题的</li>
+</ol>
+<h2 id="先更新数据库，再删除缓存"><a href="#先更新数据库，再删除缓存" class="headerlink" title="先更新数据库，再删除缓存"></a>先更新数据库，再删除缓存</h2><ol>
+<li>因为更新数据库之后是删除缓存，所以可以解决 <strong>先更新数据库，再更新缓存</strong> 带来的缓存不一致的问题</li>
+<li>假设线程A要更新数据，先完成第一步更新数据库，在线程A删除缓存之前，线程B要访问缓存，那么取得的就是旧数据， 不过这种情况出现的概率比较低</li>
+</ol>
+<h2 id="先删除缓存，更新数据库，再删除缓存"><a href="#先删除缓存，更新数据库，再删除缓存" class="headerlink" title="先删除缓存，更新数据库，再删除缓存"></a>先删除缓存，更新数据库，再删除缓存</h2><ol>
+<li>和 <strong>先更新数据库，再删除缓存</strong> 处理方式类似，所以还是会出现类似的问题，假设线程A要更新数据库，先删除了缓存，这一瞬间线程C要读缓存，先把数据迁移到缓存；然后线程A完成了更新数据库的操作，这一瞬间线程B也要访问缓存，此时它访问到的就是线程C放到缓存里面的旧数据， 不过这种情况出现的概率更低，这是需要三个线程配合才可能会出现的问题</li>
+</ol>
+<p>综上所述，每一种方案都是有一定的缺陷的，只是最后一种方式可以让缺陷发生的机率更低而已</p>
+]]></content>
+      <categories>
+        <category>存储</category>
+        <category>Redis</category>
+      </categories>
+      <tags>
+        <tag>redis</tag>
       </tags>
   </entry>
   <entry>
@@ -3173,6 +3271,146 @@
       </tags>
   </entry>
   <entry>
+    <title>postgres将毫秒值转换成字符串</title>
+    <url>/2023/3a8e444a3e04/index.html</url>
+    <content><![CDATA[<h2 id="基本信息"><a href="#基本信息" class="headerlink" title="基本信息"></a>基本信息</h2><p>毫秒值类型:  <code>numeric(13)</code></p>
+<p>字段名称: <code>check_time</code></p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> to_char(to_timestamp(check_time <span class="operator">/</span> <span class="number">1000</span>) <span class="keyword">AT</span> <span class="type">TIME</span> ZONE <span class="string">&#x27;Asia/Shanghai&#x27;</span>, <span class="string">&#x27;YYYY-MM-DD HH24:MI:SS.MS&#x27;</span>) <span class="keyword">AS</span> check_time <span class="keyword">from</span> table_neme;</span><br></pre></td></tr></table></figure>
+
+<h2 id="使用到的函数"><a href="#使用到的函数" class="headerlink" title="使用到的函数"></a>使用到的函数</h2><p><a href="http://www.postgres.cn/docs/12/functions-formatting.html">postgres12版本的日期函数参考</a></p>
+<ol>
+<li><code>to_timestamp</code>： 将 <strong>秒</strong> 值转换成 <code>timestamp</code> 类型， 所以如果是毫秒值的话还需要 <code>毫秒值/1000</code><ol>
+<li><code>AT TIME ZONE &#39;Asia/Shanghai</code> 代表将返回的时间戳指定时区</li>
+</ol>
+</li>
+<li><code>to_char</code> 将 <code>timestamp</code> 类型转换成字符串， 其中 <code>YYYY-MM-DD HH24:MI:SS.MS</code> 代表格式化的字符串<ol>
+<li><code>HH24</code> 代表 24 小时制</li>
+<li><code>MI</code> 表示分钟</li>
+</ol>
+</li>
+</ol>
+]]></content>
+      <categories>
+        <category>存储</category>
+        <category>PostgreSQL</category>
+      </categories>
+      <tags>
+        <tag>PostgreSQL</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Mysql整体架构</title>
+    <url>/2023/fd974035a1b5/index.html</url>
+    <content><![CDATA[<span class="hide_first_mermaid">
+<div class="mermaid-wrap"><pre class="mermaid-src" hidden>
+  flowchart LR
+    A
+  </pre></div>
+</span>
+
+<pre class="mermaid">flowchart LR
+    K1["客户端连接"]
+    K2["客户端连接"]
+    K1 & K2--1--->A
+    subgraph A["Mysql服务器"]
+        direction LR
+        subgraph A1["连接池"]
+            direction TB
+            A11[连接]
+            A12[连接]
+            A13[连接]
+            A11~~~A12~~~A13
+        end
+        subgraph A3["线程"]
+        end
+        
+        A1--"2(获取sql语句)"-->A3
+
+        subgraph A2["sql相关处理"]
+            direction TB
+            A23["3(sql接口)"]
+            A24["4(sql解析器)"]
+            A25["5(查询优化器)"]
+            A26["6(执行器)"]
+            A23-->A24-->A25-->A26
+        end
+
+        A3-->A2
+        subgraph A4["7(存储引擎)"]
+        end
+        A2-->A4
+    end</pre>
+<p>下面按照上图中标的数字的顺序进行梳理</p>
+<h2 id="1-连接池"><a href="#1-连接池" class="headerlink" title="1 连接池"></a>1 连接池</h2><ol>
+<li>我们平时所说的连接池一般都是指应用端的连接池，比如一个 <code>Java</code> 应用连接数据库时，<code>Java</code> 应用会有一个连接池去连接数据库</li>
+<li><code>Mysql</code> 服务器自身也是有一个连接池来和客户端进行连接，这个连接池管理了各种系统跟这台数据库服务器建立的所有连接</li>
+</ol>
+<h2 id="2-线程处理连接"><a href="#2-线程处理连接" class="headerlink" title="2 线程处理连接"></a>2 线程处理连接</h2><p>对于网络连接一般都是需要单独的线程进行处理，这个线程来监听请求以及获取请求数据</p>
+<h2 id="3-sql接口"><a href="#3-sql接口" class="headerlink" title="3 sql接口"></a>3 sql接口</h2><ol>
+<li><code>MySQL</code> 的工作线程接收到<code>SQL</code>语句之后，就会转交给<code>SQL</code>接口去执行</li>
+<li>这种设计和 <code>java</code> 类似，也是面向接口编程，外部使用只需要和接口打交道，屏蔽了内部复杂的实现逻辑</li>
+</ol>
+<h2 id="4-sql解析器"><a href="#4-sql解析器" class="headerlink" title="4 sql解析器"></a>4 sql解析器</h2><ol>
+<li>查询解析器<code>(Parser)</code>就是负责对<code>SQL</code>语句进行解析, 这里的解析的含义其实就是按照 <code>SQL</code> 语法对 <code>SQL</code> 进行拆解， 比如下面的一个 <code>SQL</code></li>
+</ol>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> <span class="keyword">user</span> <span class="keyword">where</span> id <span class="operator">=</span> <span class="number">1</span>;</span><br></pre></td></tr></table></figure>
+<p>上面这个 <code>SQL</code> 语句只是一个字符串而已，但是通过 <strong>查询解析器</strong> 后，就可以知道 <code>user</code> 对应的是表，<code>id</code> 对应的是表里面的一个字段</p>
+<h2 id="5-查询优化器"><a href="#5-查询优化器" class="headerlink" title="5 查询优化器"></a>5 查询优化器</h2><ol>
+<li>查询优化器的作用是 <strong>选择最优的查询路径</strong></li>
+<li>一条 <code>SQL</code> 语句可以有多个方式达到最终的效果，还是已 <code>select * from user where id = 1;</code> 这个 <code>SQL</code> 语句举例<ol>
+<li>第一种方式是可以先获取到所有数据，然后根据 <code>id=1</code> 这个条件去过滤，再将结果返回</li>
+<li>第二种方式也可以是先拿到 <code>id=1</code> 这个条件，然后直接定位 <code>id=1</code> 的数据，再将结果返回</li>
+</ol>
+</li>
+</ol>
+<h2 id="6-执行器"><a href="#6-执行器" class="headerlink" title="6 执行器"></a>6 执行器</h2><ol>
+<li>执行器是根据执行计划调用存储引擎的接口</li>
+<li>执行器会根据优化器选择的执行方案，按照一定的顺序去调用存储引擎的接口，把<code>SQL</code>语句的逻辑给执行</li>
+</ol>
+<h2 id="7-存储引擎"><a href="#7-存储引擎" class="headerlink" title="7 存储引擎"></a>7 存储引擎</h2><p>存储引擎其实就是真正执行<code>SQL</code>语句的，他会按照一定的步骤去查询内存缓存数据，更新磁盘数据，查询磁盘数据等操作</p>
+]]></content>
+      <categories>
+        <category>存储</category>
+        <category>Mysql</category>
+      </categories>
+      <tags>
+        <tag>Mysql</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>maven编译跳过test</title>
+    <url>/2023/5614a2f5fdca/index.html</url>
+    <content><![CDATA[<h2 id="方式一"><a href="#方式一" class="headerlink" title="方式一"></a>方式一</h2><figure class="highlight armasm"><table><tr><td class="code"><pre><span class="line"><span class="keyword">mvn</span> clean install -DskipTests</span><br></pre></td></tr></table></figure>
+
+<h2 id="方式二"><a href="#方式二" class="headerlink" title="方式二"></a>方式二</h2><figure class="highlight cmake"><table><tr><td class="code"><pre><span class="line">mvn clean <span class="keyword">install</span> -Dmaven.<span class="keyword">test</span>.skip=<span class="keyword">true</span></span><br></pre></td></tr></table></figure>
+<p>如果在 <code>window</code> 中使用 <code>powershell</code> 或在 <code>idea</code> 的终端下使用这种方式可能会提示 <code>Unknown lifecycle phase &quot;.test.skip=true&quot;</code>，此时需要增加引号，比如</p>
+<figure class="highlight cmake"><table><tr><td class="code"><pre><span class="line">mvn clean <span class="keyword">install</span> &#x27;-Dmaven.<span class="keyword">test</span>.skip=<span class="keyword">true</span>&#x27;</span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>tools</category>
+        <category>maven</category>
+      </categories>
+      <tags>
+        <tag>maven</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>WindTerm功能设置</title>
+    <url>/2023/0ff9c6825506/index.html</url>
+    <content><![CDATA[<h2 id="自定义快捷键"><a href="#自定义快捷键" class="headerlink" title="自定义快捷键"></a>自定义快捷键</h2><p><a href="https://github.com/kingToolbox/WindTerm/issues/267">参考github</a></p>
+<h2 id="去除锁屏"><a href="#去除锁屏" class="headerlink" title="去除锁屏"></a>去除锁屏</h2><ol>
+<li>找到配置文件，可以在 <strong>会话-&gt;首选项-&gt;配置文件</strong> 中查看配置文件的位置</li>
+<li>找到 <code>application.lockScreenTimeout</code>， 将值改成 0</li>
+</ol>
+]]></content>
+      <categories>
+        <category>tools</category>
+        <category>other</category>
+      </categories>
+      <tags>
+        <tag>tools</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>InnoDB存储引擎详解</title>
     <url>/2023/a421bfc0bf81/index.html</url>
     <content><![CDATA[<span class="hide_first_mermaid">
@@ -3321,205 +3559,6 @@
       </tags>
   </entry>
   <entry>
-    <title>Mysql整体架构</title>
-    <url>/2023/fd974035a1b5/index.html</url>
-    <content><![CDATA[<span class="hide_first_mermaid">
-<div class="mermaid-wrap"><pre class="mermaid-src" hidden>
-  flowchart LR
-    A
-  </pre></div>
-</span>
-
-<pre class="mermaid">flowchart LR
-    K1["客户端连接"]
-    K2["客户端连接"]
-    K1 & K2--1--->A
-    subgraph A["Mysql服务器"]
-        direction LR
-        subgraph A1["连接池"]
-            direction TB
-            A11[连接]
-            A12[连接]
-            A13[连接]
-            A11~~~A12~~~A13
-        end
-        subgraph A3["线程"]
-        end
-        
-        A1--"2(获取sql语句)"-->A3
-
-        subgraph A2["sql相关处理"]
-            direction TB
-            A23["3(sql接口)"]
-            A24["4(sql解析器)"]
-            A25["5(查询优化器)"]
-            A26["6(执行器)"]
-            A23-->A24-->A25-->A26
-        end
-
-        A3-->A2
-        subgraph A4["7(存储引擎)"]
-        end
-        A2-->A4
-    end</pre>
-<p>下面按照上图中标的数字的顺序进行梳理</p>
-<h2 id="1-连接池"><a href="#1-连接池" class="headerlink" title="1 连接池"></a>1 连接池</h2><ol>
-<li>我们平时所说的连接池一般都是指应用端的连接池，比如一个 <code>Java</code> 应用连接数据库时，<code>Java</code> 应用会有一个连接池去连接数据库</li>
-<li><code>Mysql</code> 服务器自身也是有一个连接池来和客户端进行连接，这个连接池管理了各种系统跟这台数据库服务器建立的所有连接</li>
-</ol>
-<h2 id="2-线程处理连接"><a href="#2-线程处理连接" class="headerlink" title="2 线程处理连接"></a>2 线程处理连接</h2><p>对于网络连接一般都是需要单独的线程进行处理，这个线程来监听请求以及获取请求数据</p>
-<h2 id="3-sql接口"><a href="#3-sql接口" class="headerlink" title="3 sql接口"></a>3 sql接口</h2><ol>
-<li><code>MySQL</code> 的工作线程接收到<code>SQL</code>语句之后，就会转交给<code>SQL</code>接口去执行</li>
-<li>这种设计和 <code>java</code> 类似，也是面向接口编程，外部使用只需要和接口打交道，屏蔽了内部复杂的实现逻辑</li>
-</ol>
-<h2 id="4-sql解析器"><a href="#4-sql解析器" class="headerlink" title="4 sql解析器"></a>4 sql解析器</h2><ol>
-<li>查询解析器<code>(Parser)</code>就是负责对<code>SQL</code>语句进行解析, 这里的解析的含义其实就是按照 <code>SQL</code> 语法对 <code>SQL</code> 进行拆解， 比如下面的一个 <code>SQL</code></li>
-</ol>
-<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> <span class="keyword">user</span> <span class="keyword">where</span> id <span class="operator">=</span> <span class="number">1</span>;</span><br></pre></td></tr></table></figure>
-<p>上面这个 <code>SQL</code> 语句只是一个字符串而已，但是通过 <strong>查询解析器</strong> 后，就可以知道 <code>user</code> 对应的是表，<code>id</code> 对应的是表里面的一个字段</p>
-<h2 id="5-查询优化器"><a href="#5-查询优化器" class="headerlink" title="5 查询优化器"></a>5 查询优化器</h2><ol>
-<li>查询优化器的作用是 <strong>选择最优的查询路径</strong></li>
-<li>一条 <code>SQL</code> 语句可以有多个方式达到最终的效果，还是已 <code>select * from user where id = 1;</code> 这个 <code>SQL</code> 语句举例<ol>
-<li>第一种方式是可以先获取到所有数据，然后根据 <code>id=1</code> 这个条件去过滤，再将结果返回</li>
-<li>第二种方式也可以是先拿到 <code>id=1</code> 这个条件，然后直接定位 <code>id=1</code> 的数据，再将结果返回</li>
-</ol>
-</li>
-</ol>
-<h2 id="6-执行器"><a href="#6-执行器" class="headerlink" title="6 执行器"></a>6 执行器</h2><ol>
-<li>执行器是根据执行计划调用存储引擎的接口</li>
-<li>执行器会根据优化器选择的执行方案，按照一定的顺序去调用存储引擎的接口，把<code>SQL</code>语句的逻辑给执行</li>
-</ol>
-<h2 id="7-存储引擎"><a href="#7-存储引擎" class="headerlink" title="7 存储引擎"></a>7 存储引擎</h2><p>存储引擎其实就是真正执行<code>SQL</code>语句的，他会按照一定的步骤去查询内存缓存数据，更新磁盘数据，查询磁盘数据等操作</p>
-]]></content>
-      <categories>
-        <category>存储</category>
-        <category>Mysql</category>
-      </categories>
-      <tags>
-        <tag>Mysql</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>postgres将毫秒值转换成字符串</title>
-    <url>/2023/3a8e444a3e04/index.html</url>
-    <content><![CDATA[<h2 id="基本信息"><a href="#基本信息" class="headerlink" title="基本信息"></a>基本信息</h2><p>毫秒值类型:  <code>numeric(13)</code></p>
-<p>字段名称: <code>check_time</code></p>
-<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> to_char(to_timestamp(check_time <span class="operator">/</span> <span class="number">1000</span>) <span class="keyword">AT</span> <span class="type">TIME</span> ZONE <span class="string">&#x27;Asia/Shanghai&#x27;</span>, <span class="string">&#x27;YYYY-MM-DD HH24:MI:SS.MS&#x27;</span>) <span class="keyword">AS</span> check_time <span class="keyword">from</span> table_neme;</span><br></pre></td></tr></table></figure>
-
-<h2 id="使用到的函数"><a href="#使用到的函数" class="headerlink" title="使用到的函数"></a>使用到的函数</h2><p><a href="http://www.postgres.cn/docs/12/functions-formatting.html">postgres12版本的日期函数参考</a></p>
-<ol>
-<li><code>to_timestamp</code>： 将 <strong>秒</strong> 值转换成 <code>timestamp</code> 类型， 所以如果是毫秒值的话还需要 <code>毫秒值/1000</code><ol>
-<li><code>AT TIME ZONE &#39;Asia/Shanghai</code> 代表将返回的时间戳指定时区</li>
-</ol>
-</li>
-<li><code>to_char</code> 将 <code>timestamp</code> 类型转换成字符串， 其中 <code>YYYY-MM-DD HH24:MI:SS.MS</code> 代表格式化的字符串<ol>
-<li><code>HH24</code> 代表 24 小时制</li>
-<li><code>MI</code> 表示分钟</li>
-</ol>
-</li>
-</ol>
-]]></content>
-      <categories>
-        <category>存储</category>
-        <category>PostgreSQL</category>
-      </categories>
-      <tags>
-        <tag>PostgreSQL</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>WindTerm功能设置</title>
-    <url>/2023/0ff9c6825506/index.html</url>
-    <content><![CDATA[<h2 id="自定义快捷键"><a href="#自定义快捷键" class="headerlink" title="自定义快捷键"></a>自定义快捷键</h2><p><a href="https://github.com/kingToolbox/WindTerm/issues/267">参考github</a></p>
-<h2 id="去除锁屏"><a href="#去除锁屏" class="headerlink" title="去除锁屏"></a>去除锁屏</h2><ol>
-<li>找到配置文件，可以在 <strong>会话-&gt;首选项-&gt;配置文件</strong> 中查看配置文件的位置</li>
-<li>找到 <code>application.lockScreenTimeout</code>， 将值改成 0</li>
-</ol>
-]]></content>
-      <categories>
-        <category>tools</category>
-        <category>other</category>
-      </categories>
-      <tags>
-        <tag>tools</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>utools自动化脚本插件</title>
-    <url>/2023/d899f5ff1973/index.html</url>
-    <content><![CDATA[<h2 id="utools-使用自动化脚本打开本地程序"><a href="#utools-使用自动化脚本打开本地程序" class="headerlink" title="utools 使用自动化脚本打开本地程序"></a>utools 使用自动化脚本打开本地程序</h2><ol>
-<li>比如 typora 可以打开之前的文件和目录，但是目录只能到文件的上一个层级，如果源目录包含很多子目录，重新打开时可能不是我们想要的结果，那可以在命令行执行 <code>typora folder</code>, eg: <code>typora E:\\blog</code> <span id="more"></span></li>
-</ol>
-<blockquote>
-<p>在命令行执行 typora 命令需要先配置 typora 的环境变量</p>
-</blockquote>
-<ol>
-<li>更简便的方式是直接使用 utools 的自动化脚本这个插件，新增一个自己的插件脚本，内容如下</li>
-</ol>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> &#123; execFile &#125; = <span class="built_in">require</span>(<span class="string">&quot;child_process&quot;</span>)</span><br><span class="line"></span><br><span class="line"> <span class="comment">// 以下是关键代码，调用 typora 来执行目标文件</span></span><br><span class="line"><span class="title function_">execFile</span>(<span class="string">&#x27;typora&#x27;</span>, [<span class="string">&#x27;E:/code/learnerguo&#x27;</span>], <span class="function">(<span class="params">error, stdout, stderr</span>) =&gt;</span> &#123;</span><br><span class="line">    process.<span class="title function_">exit</span>()</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-
-<p>然后自定义关键字，后续当打开 utools 输入对应关键字就可以打开 typora 的目录</p>
-<h2 id="使用自动化脚本获取当天起始时间"><a href="#使用自动化脚本获取当天起始时间" class="headerlink" title="使用自动化脚本获取当天起始时间"></a>使用自动化脚本获取当天起始时间</h2><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> now = <span class="keyword">new</span> <span class="title class_">Date</span>();</span><br><span class="line"><span class="comment">// 设置当前时间的小时、分钟、秒和毫秒为0，即将时间设置为当天的开始时间</span></span><br><span class="line">now.<span class="title function_">setHours</span>(<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>);</span><br><span class="line"><span class="comment">// 获取当天开始时间点的毫秒数</span></span><br><span class="line"><span class="keyword">const</span> startTime = now.<span class="title function_">getTime</span>();</span><br><span class="line">utools.<span class="title function_">copyText</span>(<span class="string">&quot;&quot;</span>+startTime);</span><br><span class="line"><span class="title function_">print</span>(<span class="string">&#x27;开始时间已复制&#x27;</span> + startTime);</span><br><span class="line">utools.<span class="title function_">hideMainWindow</span>();</span><br><span class="line">process.<span class="title function_">exit</span>()</span><br></pre></td></tr></table></figure>
-]]></content>
-      <categories>
-        <category>tools</category>
-        <category>utools</category>
-      </categories>
-      <tags>
-        <tag>tools</tag>
-        <tag>utools</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>vscode相关设置</title>
-    <url>/2023/6b613d963af3/index.html</url>
-    <content><![CDATA[<h2 id="vscode-中-markdown-的-snippets-的设置"><a href="#vscode-中-markdown-的-snippets-的设置" class="headerlink" title="vscode 中 markdown 的 snippets 的设置"></a>vscode 中 markdown 的 snippets 的设置</h2><h3 id="snippets-的设置"><a href="#snippets-的设置" class="headerlink" title="snippets 的设置"></a>snippets 的设置</h3><ol>
-<li>打开 ctrl+shift+p , 搜索 <code>configure user snippets</code> </li>
-<li>选择 markdown.json, 会出现如下内容</li>
-</ol>
-<span id="more"></span>
-<figure class="highlight json"><table><tr><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">	<span class="comment">// Place your snippets for markdown here. Each snippet is defined under a snippet name and has a prefix, body and </span></span><br><span class="line">	<span class="comment">// description. The prefix is what is used to trigger the snippet and the body will be expanded and inserted. Possible variables are:</span></span><br><span class="line">	<span class="comment">// $1, $2 for tab stops, $0 for the final cursor position, and $&#123;1:label&#125;, $&#123;2:another&#125; for placeholders. Placeholders with the </span></span><br><span class="line">	<span class="comment">// same ids are connected.</span></span><br><span class="line">	<span class="comment">// Example:</span></span><br><span class="line">	<span class="comment">// &quot;Print to console&quot;: &#123;</span></span><br><span class="line">	<span class="comment">// 	&quot;prefix&quot;: &quot;log&quot;,</span></span><br><span class="line">	<span class="comment">// 	&quot;body&quot;: [</span></span><br><span class="line">	<span class="comment">// 		&quot;console.log(&#x27;$1&#x27;);&quot;,</span></span><br><span class="line">	<span class="comment">// 		&quot;$2&quot;</span></span><br><span class="line">	<span class="comment">// 	],</span></span><br><span class="line">	<span class="comment">// 	&quot;description&quot;: &quot;Log output to console&quot;</span></span><br><span class="line">	<span class="comment">// &#125;</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
-
-<ol>
-<li>可以根据示例文件进行修改，如下图所示：<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="string">&quot;markdown code graph&quot;</span>: &#123;</span><br><span class="line">	<span class="string">&quot;prefix&quot;</span>: <span class="string">&quot;codeblock&quot;</span>,</span><br><span class="line">	<span class="string">&quot;body&quot;</span>: [</span><br><span class="line">		<span class="string">&quot;&lt;pre class=&quot;</span>mermaid<span class="string">&quot;&gt;<span class="variable">$0</span>&quot;</span>,</span><br><span class="line">		<span class="string">&quot;```&quot;</span></span><br><span class="line">	],</span><br><span class="line">	<span class="string">&quot;description&quot;</span>: <span class="string">&quot;insert markdown code graph&quot;</span></span><br><span class="line">&#125;&lt;/pre&gt;</span><br><span class="line"></span><br><span class="line">上面示例的意思是 当输入 codeblock 时就会出现 mermaid 代码块， <span class="variable">$0</span> 是光标出现的地方</span><br><span class="line"></span><br><span class="line"><span class="comment">### markdown snippets 不生效的解决方式</span></span><br><span class="line">使用上面的步骤设置完 snippets 之后，在 markdown 文档中编写关键字，但是并没有生效，还需要在  settings.json 中（可以输入 ctrl+<span class="built_in">shift</span>+p, 搜索 settings， 选择 Open User Settings(JSON)）, 然后填写下面的内容</span><br><span class="line"></span><br><span class="line">```java</span><br><span class="line"><span class="string">&quot;[markdown]&quot;</span>:&#123;</span><br><span class="line">	<span class="string">&quot;editor.formatOnSave&quot;</span>: <span class="literal">true</span>,</span><br><span class="line">	<span class="string">&quot;editor.renderWhitespace&quot;</span>: <span class="string">&quot;all&quot;</span>,</span><br><span class="line">	<span class="string">&quot;editor.quickSuggestions&quot;</span>: &#123;</span><br><span class="line">		<span class="string">&quot;other&quot;</span>: <span class="string">&quot;on&quot;</span>,</span><br><span class="line">		<span class="string">&quot;comments&quot;</span>: <span class="string">&quot;on&quot;</span>,</span><br><span class="line">		<span class="string">&quot;strings&quot;</span>: <span class="string">&quot;on&quot;</span></span><br><span class="line">	&#125;,</span><br><span class="line">	<span class="string">&quot;editor.acceptSuggestionOnEnter&quot;</span>: <span class="string">&quot;on&quot;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
-</ol>
-<p>添加上述内容后就可以生效了</p>
-<h2 id="vscode-设置白天黑夜自动切换主题"><a href="#vscode-设置白天黑夜自动切换主题" class="headerlink" title="vscode 设置白天黑夜自动切换主题"></a>vscode 设置白天黑夜自动切换主题</h2><ol>
-<li>vscode 可以根据系统设置的 <code>light</code> 或 <code>dark</code> 主题来进行切换</li>
-<li>系统自动切换主题软件可以在 <code>store</code> 中安装 <code>Auto Dark Mode</code> 这个软件并进行设置</li>
-<li><code>window</code> 系统设置完成之后可以在 <code>vscode</code> 的 <code>user setting</code> 中添加如下内容, 第一个配置是开启自动切换，后面的配置是设置的 <code>light</code> 和 <code>dark</code> 主题的名称</li>
-</ol>
-<figure class="highlight json"><table><tr><td class="code"><pre><span class="line"><span class="attr">&quot;window.autoDetectColorScheme&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">true</span></span><span class="punctuation">,</span></span><br><span class="line"><span class="attr">&quot;workbench.preferredLightColorTheme&quot;</span><span class="punctuation">:</span> <span class="string">&quot;Atom One Light&quot;</span><span class="punctuation">,</span></span><br><span class="line"><span class="attr">&quot;workbench.preferredDarkColorTheme&quot;</span><span class="punctuation">:</span> <span class="string">&quot;Default Dark Modern&quot;</span></span><br></pre></td></tr></table></figure>
-]]></content>
-      <categories>
-        <category>tools</category>
-        <category>vscode</category>
-      </categories>
-      <tags>
-        <tag>tools</tag>
-        <tag>vscode</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>vscode设置markdown图片默认路径</title>
-    <url>/2023/5b4d784e18c2/index.html</url>
-    <content><![CDATA[<p><code>vscode</code> 在 <code>markdown</code> 文档中直接复制图片时是放在当前目录，如果需要修改可以按照下面方式设置</p>
-<span id="more"></span>
-<ol>
-<li>输入快捷键 <code>ctrl+,</code> 可以快速打开设置</li>
-<li>搜索 <code>markdown.copy: Destination</code></li>
-</ol>
-<p><img src="/2023/5b4d784e18c2/index/1700033681108.png" alt="Alt text"></p>
-]]></content>
-      <categories>
-        <category>tools</category>
-        <category>vscode</category>
-      </categories>
-      <tags>
-        <tag>tools</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>docker中运行nacos</title>
     <url>/2023/f67204379054/index.html</url>
     <content><![CDATA[<p>使用的系统为 <code>ubuntu22.04</code></p>
@@ -3592,6 +3631,55 @@
       </tags>
   </entry>
   <entry>
+    <title>vscode相关设置</title>
+    <url>/2023/6b613d963af3/index.html</url>
+    <content><![CDATA[<h2 id="vscode-中-markdown-的-snippets-的设置"><a href="#vscode-中-markdown-的-snippets-的设置" class="headerlink" title="vscode 中 markdown 的 snippets 的设置"></a>vscode 中 markdown 的 snippets 的设置</h2><h3 id="snippets-的设置"><a href="#snippets-的设置" class="headerlink" title="snippets 的设置"></a>snippets 的设置</h3><ol>
+<li>打开 ctrl+shift+p , 搜索 <code>configure user snippets</code> </li>
+<li>选择 markdown.json, 会出现如下内容</li>
+</ol>
+<span id="more"></span>
+<figure class="highlight json"><table><tr><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">	<span class="comment">// Place your snippets for markdown here. Each snippet is defined under a snippet name and has a prefix, body and </span></span><br><span class="line">	<span class="comment">// description. The prefix is what is used to trigger the snippet and the body will be expanded and inserted. Possible variables are:</span></span><br><span class="line">	<span class="comment">// $1, $2 for tab stops, $0 for the final cursor position, and $&#123;1:label&#125;, $&#123;2:another&#125; for placeholders. Placeholders with the </span></span><br><span class="line">	<span class="comment">// same ids are connected.</span></span><br><span class="line">	<span class="comment">// Example:</span></span><br><span class="line">	<span class="comment">// &quot;Print to console&quot;: &#123;</span></span><br><span class="line">	<span class="comment">// 	&quot;prefix&quot;: &quot;log&quot;,</span></span><br><span class="line">	<span class="comment">// 	&quot;body&quot;: [</span></span><br><span class="line">	<span class="comment">// 		&quot;console.log(&#x27;$1&#x27;);&quot;,</span></span><br><span class="line">	<span class="comment">// 		&quot;$2&quot;</span></span><br><span class="line">	<span class="comment">// 	],</span></span><br><span class="line">	<span class="comment">// 	&quot;description&quot;: &quot;Log output to console&quot;</span></span><br><span class="line">	<span class="comment">// &#125;</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+
+<ol>
+<li>可以根据示例文件进行修改，如下图所示：<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="string">&quot;markdown code graph&quot;</span>: &#123;</span><br><span class="line">	<span class="string">&quot;prefix&quot;</span>: <span class="string">&quot;codeblock&quot;</span>,</span><br><span class="line">	<span class="string">&quot;body&quot;</span>: [</span><br><span class="line">		<span class="string">&quot;&lt;pre class=&quot;</span>mermaid<span class="string">&quot;&gt;<span class="variable">$0</span>&quot;</span>,</span><br><span class="line">		<span class="string">&quot;```&quot;</span></span><br><span class="line">	],</span><br><span class="line">	<span class="string">&quot;description&quot;</span>: <span class="string">&quot;insert markdown code graph&quot;</span></span><br><span class="line">&#125;&lt;/pre&gt;</span><br><span class="line"></span><br><span class="line">上面示例的意思是 当输入 codeblock 时就会出现 mermaid 代码块， <span class="variable">$0</span> 是光标出现的地方</span><br><span class="line"></span><br><span class="line"><span class="comment">### markdown snippets 不生效的解决方式</span></span><br><span class="line">使用上面的步骤设置完 snippets 之后，在 markdown 文档中编写关键字，但是并没有生效，还需要在  settings.json 中（可以输入 ctrl+<span class="built_in">shift</span>+p, 搜索 settings， 选择 Open User Settings(JSON)）, 然后填写下面的内容</span><br><span class="line"></span><br><span class="line">```java</span><br><span class="line"><span class="string">&quot;[markdown]&quot;</span>:&#123;</span><br><span class="line">	<span class="string">&quot;editor.formatOnSave&quot;</span>: <span class="literal">true</span>,</span><br><span class="line">	<span class="string">&quot;editor.renderWhitespace&quot;</span>: <span class="string">&quot;all&quot;</span>,</span><br><span class="line">	<span class="string">&quot;editor.quickSuggestions&quot;</span>: &#123;</span><br><span class="line">		<span class="string">&quot;other&quot;</span>: <span class="string">&quot;on&quot;</span>,</span><br><span class="line">		<span class="string">&quot;comments&quot;</span>: <span class="string">&quot;on&quot;</span>,</span><br><span class="line">		<span class="string">&quot;strings&quot;</span>: <span class="string">&quot;on&quot;</span></span><br><span class="line">	&#125;,</span><br><span class="line">	<span class="string">&quot;editor.acceptSuggestionOnEnter&quot;</span>: <span class="string">&quot;on&quot;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ol>
+<p>添加上述内容后就可以生效了</p>
+<h2 id="vscode-设置白天黑夜自动切换主题"><a href="#vscode-设置白天黑夜自动切换主题" class="headerlink" title="vscode 设置白天黑夜自动切换主题"></a>vscode 设置白天黑夜自动切换主题</h2><ol>
+<li>vscode 可以根据系统设置的 <code>light</code> 或 <code>dark</code> 主题来进行切换</li>
+<li>系统自动切换主题软件可以在 <code>store</code> 中安装 <code>Auto Dark Mode</code> 这个软件并进行设置</li>
+<li><code>window</code> 系统设置完成之后可以在 <code>vscode</code> 的 <code>user setting</code> 中添加如下内容, 第一个配置是开启自动切换，后面的配置是设置的 <code>light</code> 和 <code>dark</code> 主题的名称</li>
+</ol>
+<figure class="highlight json"><table><tr><td class="code"><pre><span class="line"><span class="attr">&quot;window.autoDetectColorScheme&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">true</span></span><span class="punctuation">,</span></span><br><span class="line"><span class="attr">&quot;workbench.preferredLightColorTheme&quot;</span><span class="punctuation">:</span> <span class="string">&quot;Atom One Light&quot;</span><span class="punctuation">,</span></span><br><span class="line"><span class="attr">&quot;workbench.preferredDarkColorTheme&quot;</span><span class="punctuation">:</span> <span class="string">&quot;Default Dark Modern&quot;</span></span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>tools</category>
+        <category>vscode</category>
+      </categories>
+      <tags>
+        <tag>tools</tag>
+        <tag>vscode</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>vscode设置markdown图片默认路径</title>
+    <url>/2023/5b4d784e18c2/index.html</url>
+    <content><![CDATA[<p><code>vscode</code> 在 <code>markdown</code> 文档中直接复制图片时是放在当前目录，如果需要修改可以按照下面方式设置</p>
+<span id="more"></span>
+<ol>
+<li>输入快捷键 <code>ctrl+,</code> 可以快速打开设置</li>
+<li>搜索 <code>markdown.copy: Destination</code></li>
+</ol>
+<p><img src="/2023/5b4d784e18c2/index/1700033681108.png" alt="Alt text"></p>
+]]></content>
+      <categories>
+        <category>tools</category>
+        <category>vscode</category>
+      </categories>
+      <tags>
+        <tag>tools</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>使用docker-compose安装mysql和redis基本环境</title>
     <url>/2023/3c61103fd97b/index.html</url>
     <content><![CDATA[<h2 id="创建自定义网络"><a href="#创建自定义网络" class="headerlink" title="创建自定义网络"></a>创建自定义网络</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">docker network create service_default</span><br></pre></td></tr></table></figure>
@@ -3625,6 +3713,32 @@
       </categories>
       <tags>
         <tag>docker</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>utools自动化脚本插件</title>
+    <url>/2023/d899f5ff1973/index.html</url>
+    <content><![CDATA[<h2 id="utools-使用自动化脚本打开本地程序"><a href="#utools-使用自动化脚本打开本地程序" class="headerlink" title="utools 使用自动化脚本打开本地程序"></a>utools 使用自动化脚本打开本地程序</h2><ol>
+<li>比如 typora 可以打开之前的文件和目录，但是目录只能到文件的上一个层级，如果源目录包含很多子目录，重新打开时可能不是我们想要的结果，那可以在命令行执行 <code>typora folder</code>, eg: <code>typora E:\\blog</code> <span id="more"></span></li>
+</ol>
+<blockquote>
+<p>在命令行执行 typora 命令需要先配置 typora 的环境变量</p>
+</blockquote>
+<ol>
+<li>更简便的方式是直接使用 utools 的自动化脚本这个插件，新增一个自己的插件脚本，内容如下</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> &#123; execFile &#125; = <span class="built_in">require</span>(<span class="string">&quot;child_process&quot;</span>)</span><br><span class="line"></span><br><span class="line"> <span class="comment">// 以下是关键代码，调用 typora 来执行目标文件</span></span><br><span class="line"><span class="title function_">execFile</span>(<span class="string">&#x27;typora&#x27;</span>, [<span class="string">&#x27;E:/code/learnerguo&#x27;</span>], <span class="function">(<span class="params">error, stdout, stderr</span>) =&gt;</span> &#123;</span><br><span class="line">    process.<span class="title function_">exit</span>()</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<p>然后自定义关键字，后续当打开 utools 输入对应关键字就可以打开 typora 的目录</p>
+<h2 id="使用自动化脚本获取当天起始时间"><a href="#使用自动化脚本获取当天起始时间" class="headerlink" title="使用自动化脚本获取当天起始时间"></a>使用自动化脚本获取当天起始时间</h2><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> now = <span class="keyword">new</span> <span class="title class_">Date</span>();</span><br><span class="line"><span class="comment">// 设置当前时间的小时、分钟、秒和毫秒为0，即将时间设置为当天的开始时间</span></span><br><span class="line">now.<span class="title function_">setHours</span>(<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>);</span><br><span class="line"><span class="comment">// 获取当天开始时间点的毫秒数</span></span><br><span class="line"><span class="keyword">const</span> startTime = now.<span class="title function_">getTime</span>();</span><br><span class="line">utools.<span class="title function_">copyText</span>(<span class="string">&quot;&quot;</span>+startTime);</span><br><span class="line"><span class="title function_">print</span>(<span class="string">&#x27;开始时间已复制&#x27;</span> + startTime);</span><br><span class="line">utools.<span class="title function_">hideMainWindow</span>();</span><br><span class="line">process.<span class="title function_">exit</span>()</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>tools</category>
+        <category>utools</category>
+      </categories>
+      <tags>
+        <tag>tools</tag>
+        <tag>utools</tag>
       </tags>
   </entry>
   <entry>
