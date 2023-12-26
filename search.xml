@@ -541,6 +541,68 @@
       </tags>
   </entry>
   <entry>
+    <title>HashMap详解</title>
+    <url>/2023/834224a16039/index.html</url>
+    <content><![CDATA[<h2 id="HashMap的底层数据结构是什么？"><a href="#HashMap的底层数据结构是什么？" class="headerlink" title="HashMap的底层数据结构是什么？"></a>HashMap的底层数据结构是什么？</h2><ol>
+<li>之前 <code>Jdk1.7</code> 的存储结构是数组+链表，到了 <code>Jdk1.8</code> 变成了数组+链表+红黑树。</li>
+</ol>
+<h2 id="HashMap-是如何定位索引下标的"><a href="#HashMap-是如何定位索引下标的" class="headerlink" title="HashMap 是如何定位索引下标的"></a>HashMap 是如何定位索引下标的</h2><p>定位 <code>index</code> 分成两步</p>
+<ol>
+<li><p>根据 hash 函数获取 hash 值</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> <span class="hljs-type">int</span> <span class="hljs-title function_">hash</span><span class="hljs-params">(Object key)</span> &#123;<br>    <span class="hljs-type">int</span> h;<br>    <span class="hljs-keyword">return</span> (key == <span class="hljs-literal">null</span>) ? <span class="hljs-number">0</span> : (h = key.hashCode()) ^ (h &gt;&gt;&gt; <span class="hljs-number">16</span>);<br>&#125;<br></code></pre></td></tr></table></figure>
+<p><strong>可以看到上面代码获取到 hashCode 之后还右移 16 位，具体原因在下面分析</strong></p>
+</li>
+<li><p>根据第一步计算的 <code>hash</code> 值获取数组位置（一般是对数组长度取模，<code>HashMap</code> 中是对长度 -1 进行 <code>&amp;</code> 运算）</p>
+</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">final</span> V <span class="hljs-title function_">putVal</span><span class="hljs-params">(<span class="hljs-type">int</span> hash, K key, V value, <span class="hljs-type">boolean</span> onlyIfAbsent,</span><br><span class="hljs-params">                   <span class="hljs-type">boolean</span> evict)</span> &#123;<br>    Node&lt;K,V&gt;[] tab; Node&lt;K,V&gt; p; <span class="hljs-type">int</span> n, i;<br>    <span class="hljs-keyword">if</span> ((tab = table) == <span class="hljs-literal">null</span> || (n = tab.length) == <span class="hljs-number">0</span>)<br>        n = (tab = resize()).length;<br>        <span class="hljs-comment">// 获取下标的操作是  i = (n-1) &amp; hash</span><br>    <span class="hljs-keyword">if</span> ((p = tab[i = (n - <span class="hljs-number">1</span>) &amp; hash]) == <span class="hljs-literal">null</span>)<br>        tab[i] = newNode(hash, key, value, <span class="hljs-literal">null</span>);<br>    <span class="hljs-keyword">else</span> &#123;<br>       ...<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<p><strong>获取下标为什么是对 n-1 进行与操作而不是取模？具体原因下面分析</strong></p>
+<h2 id="为什么需要对key的-hash-值右移-16位"><a href="#为什么需要对key的-hash-值右移-16位" class="headerlink" title="为什么需要对key的 hash 值右移 16位"></a>为什么需要对key的 hash 值右移 16位</h2><figure class="highlight yaml"><table><tr><td class="code"><pre><code class="hljs yaml"><span class="hljs-string">HashMap</span> <span class="hljs-string">中使用的</span> <span class="hljs-string">hash</span> <span class="hljs-string">函数是</span> <span class="hljs-string">key.hash</span> <span class="hljs-string">^</span> <span class="hljs-string">(key.hash</span> <span class="hljs-string">&gt;&gt;</span> <span class="hljs-number">16</span><span class="hljs-string">)</span>  <span class="hljs-string">而不是直接使用</span> <span class="hljs-string">key.hash,</span> <span class="hljs-string">这么做的原因是增加了扰动计算，使得</span> <span class="hljs-string">hash</span> <span class="hljs-string">分布的尽可能的均匀，</span> <span class="hljs-string">让元素的高16</span> <span class="hljs-string">位和低16</span> <span class="hljs-string">位都参与运算</span><br><span class="hljs-string">示例：</span><br><span class="hljs-string">比如有一个元素1换成二进制如下</span><br><span class="hljs-number">1111 </span><span class="hljs-number">1111 </span><span class="hljs-number">1111 </span><span class="hljs-number">1111 </span><span class="hljs-number">1010 </span><span class="hljs-number">1010 </span><span class="hljs-number">1010 </span><span class="hljs-number">1010</span> <span class="hljs-string">（没有右移16位的二进制）</span><br><span class="hljs-number">0000 </span><span class="hljs-number">0000 </span><span class="hljs-number">0000 </span><span class="hljs-number">0000 </span><span class="hljs-number">1111 </span><span class="hljs-number">1111 </span><span class="hljs-number">1111 </span><span class="hljs-number">1111</span>  <span class="hljs-string">（右移16位的二进制）</span><br><br><span class="hljs-string">另外一个元素2换成二进制如下</span><br><span class="hljs-number">1111 </span><span class="hljs-number">1111 </span><span class="hljs-number">1111 </span><span class="hljs-number">1110 </span><span class="hljs-number">1010 </span><span class="hljs-number">1010 </span><span class="hljs-number">1010 </span><span class="hljs-number">1010</span> <span class="hljs-string">（没有右移16位的二进制）</span><br><span class="hljs-number">0000 </span><span class="hljs-number">0000 </span><span class="hljs-number">0000 </span><span class="hljs-number">0000 </span><span class="hljs-number">1111 </span><span class="hljs-number">1111 </span><span class="hljs-number">1111 </span><span class="hljs-number">1110</span>  <span class="hljs-string">（右移16位的二进制）</span><br><br><span class="hljs-string">在计算数组位置的时候使用的是</span> <span class="hljs-string">hash</span> <span class="hljs-string">&amp;</span> <span class="hljs-string">(n</span> <span class="hljs-number">-1</span><span class="hljs-string">),</span>  <span class="hljs-string">要知道</span> <span class="hljs-string">n-1</span> <span class="hljs-string">肯定是一个相对来说比较小的数字（32个bit</span> <span class="hljs-string">只会使用比较少的低位），</span> <span class="hljs-string">比如长度是</span> <span class="hljs-number">32</span><span class="hljs-string">，</span> <span class="hljs-string">对应的二进制是</span> <span class="hljs-number">0000 </span><span class="hljs-number">0000 </span><span class="hljs-number">0000 </span><span class="hljs-number">0000 </span><span class="hljs-number">0000 </span><span class="hljs-number">0000 </span><span class="hljs-number">0001 </span><span class="hljs-number">1111</span><br><br><span class="hljs-string">使用没有右移的元素1和</span> <span class="hljs-string">（32</span> <span class="hljs-number">-1</span><span class="hljs-string">）</span> <span class="hljs-string">进行与操作（与操作是都为1才为1，否则为0）</span><br><span class="hljs-number">1111 </span><span class="hljs-number">1111 </span><span class="hljs-number">1111 </span><span class="hljs-number">1111     </span><span class="hljs-number">1010 </span><span class="hljs-number">1010 </span><span class="hljs-number">1010 </span><span class="hljs-number">1010</span> <span class="hljs-string">（没有右移16位的二进制）</span><br><span class="hljs-number">0000 </span><span class="hljs-number">0000 </span><span class="hljs-number">0000 </span><span class="hljs-number">0000      </span><span class="hljs-number">0000 </span><span class="hljs-number">0000 </span><span class="hljs-number">0001 </span><span class="hljs-number">1111</span><br><span class="hljs-number">0000 </span><span class="hljs-number">0000 </span><span class="hljs-number">0000 </span><span class="hljs-number">0000      </span><span class="hljs-number">0000 </span><span class="hljs-number">0000 </span><span class="hljs-number">0000 </span><span class="hljs-number">1010</span><br><br><span class="hljs-string">使用没有右移的元素2和</span> <span class="hljs-string">（32</span> <span class="hljs-number">-1</span><span class="hljs-string">）</span> <span class="hljs-string">进行与操作（与操作是都为1才为1，否则为0）</span><br><span class="hljs-number">1111 </span><span class="hljs-number">1111 </span><span class="hljs-number">1111 </span><span class="hljs-number">1100     </span><span class="hljs-number">1010 </span><span class="hljs-number">1010 </span><span class="hljs-number">1010 </span><span class="hljs-number">1010</span> <span class="hljs-string">（没有右移16位的二进制）</span><br><span class="hljs-number">0000 </span><span class="hljs-number">0000 </span><span class="hljs-number">0000 </span><span class="hljs-number">0000      </span><span class="hljs-number">0000 </span><span class="hljs-number">0000 </span><span class="hljs-number">0001 </span><span class="hljs-number">1111</span><br><span class="hljs-number">0000 </span><span class="hljs-number">0000 </span><span class="hljs-number">0000 </span><span class="hljs-number">0000      </span><span class="hljs-number">0000 </span><span class="hljs-number">0000 </span><span class="hljs-number">0000 </span><span class="hljs-number">1010</span><br><span class="hljs-string">可以看到元素1和元素2计算出来下标是相同的，这个不同是因为元素1和元素2的低16位是完全相同的，不同之处只在于高16位，但是当我们对</span> <span class="hljs-string">（n-1）进行与操作的时候，由于</span> <span class="hljs-string">n-1</span> <span class="hljs-string">的值比较小，绝大部分情况下，只有低16位会进行运算的</span><br><br><span class="hljs-string">接下来再看一下如果使用右移的hash进行计算会有什么不同</span><br><span class="hljs-string">使用右移的元素1和</span> <span class="hljs-string">（32</span> <span class="hljs-number">-1</span><span class="hljs-string">）</span> <span class="hljs-string">进行与操作（与操作是都为1才为1，否则为0）</span><br><span class="hljs-number">0000 </span><span class="hljs-number">0000 </span><span class="hljs-number">0000 </span><span class="hljs-number">0000      </span><span class="hljs-number">1111 </span><span class="hljs-number">1111 </span><span class="hljs-number">1111 </span><span class="hljs-number">1111</span> <span class="hljs-string">（没有右移16位的二进制）</span><br><span class="hljs-number">0000 </span><span class="hljs-number">0000 </span><span class="hljs-number">0000 </span><span class="hljs-number">0000      </span><span class="hljs-number">0000 </span><span class="hljs-number">0000 </span><span class="hljs-number">0001 </span><span class="hljs-number">1111</span><br><span class="hljs-number">0000 </span><span class="hljs-number">0000 </span><span class="hljs-number">0000 </span><span class="hljs-number">0000      </span><span class="hljs-number">0000 </span><span class="hljs-number">0000 </span><span class="hljs-number">0000  </span><span class="hljs-number">1111</span><br><br><span class="hljs-string">用右移的元素2和</span> <span class="hljs-string">（32</span> <span class="hljs-number">-1</span><span class="hljs-string">）</span> <span class="hljs-string">进行与操作（与操作是都为1才为1，否则为0）</span><br><span class="hljs-number">0000 </span><span class="hljs-number">0000 </span><span class="hljs-number">0000 </span><span class="hljs-number">0000      </span><span class="hljs-number">1111 </span><span class="hljs-number">1111 </span><span class="hljs-number">1111 </span><span class="hljs-number">1110</span> <span class="hljs-string">（没有右移16位的二进制）</span><br><span class="hljs-number">0000 </span><span class="hljs-number">0000 </span><span class="hljs-number">0000 </span><span class="hljs-number">0000      </span><span class="hljs-number">0000 </span><span class="hljs-number">0000 </span><span class="hljs-number">0001 </span><span class="hljs-number">1111</span><br><span class="hljs-number">0000 </span><span class="hljs-number">0000 </span><span class="hljs-number">0000 </span><span class="hljs-number">0000      </span><span class="hljs-number">0000 </span><span class="hljs-number">0000 </span><span class="hljs-number">0000  </span><span class="hljs-number">1110</span><br><span class="hljs-string">可以看到计算出来的</span> <span class="hljs-string">index</span> <span class="hljs-string">值是不同的，这就是右移带来的让高16位有参与运算的效果</span><br></code></pre></td></tr></table></figure>
+
+<h2 id="为什么不对长度取模而是使用与运算"><a href="#为什么不对长度取模而是使用与运算" class="headerlink" title="为什么不对长度取模而是使用与运算"></a>为什么不对长度取模而是使用与运算</h2><ol>
+<li><code>X % 2^n = X &amp; (2^n – 1)</code>  这两种运算等价，所以这也是 <code>HashMap</code> 长度取 <code>2^n</code> 的原因<br>也可以从数据角度记住，当 <code>n</code> 是 2 的倍数时， <code>X % 2^n = X &amp; (2^n – 1)</code>  等价</li>
+</ol>
+<p><a href="https://www.cnblogs.com/ysocean/p/9054804.html">公式计算参考链接</a></p>
+<h2 id="HashMap是如何实现扩容的"><a href="#HashMap是如何实现扩容的" class="headerlink" title="HashMap是如何实现扩容的"></a>HashMap是如何实现扩容的</h2><p>扩容后索引其实也是使用 <code>hash &amp; （newLength -1）</code>, 这样计算出来的位置要是和原来的元素在相同的位置，要么是 原来的位置+旧数组长度&#x3D;新索引位置</p>
+<h2 id="HashMap是如何解决hash冲突的"><a href="#HashMap是如何解决hash冲突的" class="headerlink" title="HashMap是如何解决hash冲突的"></a>HashMap是如何解决hash冲突的</h2><ol>
+<li>对 <code>hash</code> 的计算进行优化，不是直接使用 <code>hashcode</code>,  而是右移16位，让高16位也参与运算，减少<code>hash</code> 冲突</li>
+<li>如果遇到冲突，使用拉链法解决</li>
+</ol>
+]]></content>
+      <categories>
+        <category>java</category>
+        <category>java基础</category>
+      </categories>
+      <tags>
+        <tag>java</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>java输出运行过程中的代理类</title>
+    <url>/2023/d513f5c497bd/index.html</url>
+    <content><![CDATA[<h2 id="输出-jdk-动态代理类到文件"><a href="#输出-jdk-动态代理类到文件" class="headerlink" title="输出 jdk 动态代理类到文件"></a>输出 jdk 动态代理类到文件</h2><p>在测试代码的第一行增加下面这段代码</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><code class="hljs java">System.getProperties().put(<span class="hljs-string">&quot;jdk.proxy.ProxyGenerator.saveGeneratedFiles&quot;</span>, <span class="hljs-string">&quot;true&quot;</span>);<br></code></pre></td></tr></table></figure>
+<p>不同 <code>jdk</code> 版本的使用 <code>key</code> 可能不同，具体的 <code>key</code> 是什么可以查看 <code>ProxyGenerator</code> 类的 <code>saveGeneratedFiles</code> 属性， 比如 <code>jdk17</code> 版本 <code>ProxyGenerator</code> 类的内容如下：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">final</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">ProxyGenerator</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_">ClassWriter</span> &#123;<br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> <span class="hljs-type">boolean</span> <span class="hljs-variable">saveGeneratedFiles</span> <span class="hljs-operator">=</span><br>            java.security.AccessController.doPrivileged(<br>                    <span class="hljs-keyword">new</span> <span class="hljs-title class_">GetBooleanAction</span>(<br>                            <span class="hljs-string">&quot;jdk.proxy.ProxyGenerator.saveGeneratedFiles&quot;</span>));<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>执行完代码后在项目的根目录会输出动态代理类</p>
+<p><a href="https://arthas.aliyun.com/doc/">arthas官方文档</a></p>
+<h2 id="使用-arthas-输出-javaassist-生成的代理类"><a href="#使用-arthas-输出-javaassist-生成的代理类" class="headerlink" title="使用 arthas 输出 javaassist 生成的代理类"></a>使用 arthas 输出 javaassist 生成的代理类</h2><ol>
+<li>先打端点，确定代理类的名称，比如有一个代理类名称是 <code>Hello$Adaptive</code></li>
+<li>打开 <code>arthas</code> 选择对应的进程进入后，使用下面命令输出代理类</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="code"><pre><code class="hljs java"><span class="hljs-comment">// 下面命令找到对应代理类的全路径， 比如输出结果是 com.example.dubbodemo.spi.Hello$Adaptive</span><br>sc *Hello$Adaptive*<br><span class="hljs-comment">// 根据上面找到的代理类的全路径，解析出源代码兵输出到特定的文件</span><br>jad com.example.dubbodemo.spi.Hello$Adaptive &gt; D:\\Hello$Adaptive.java<br></code></pre></td></tr></table></figure>
+
+<h2 id="输出-cglib-代理类到文件"><a href="#输出-cglib-代理类到文件" class="headerlink" title="输出 cglib 代理类到文件"></a>输出 cglib 代理类到文件</h2><p>在测试方法的第一行加上如下代码, 第二个参数就是指定输出的文件夹</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><code class="hljs java">System.setProperty(DebuggingClassWriter.DEBUG_LOCATION_PROPERTY, <span class="hljs-string">&quot;D:\\temp\\cglib&quot;</span>);<br></code></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>java</category>
+        <category>java基础</category>
+      </categories>
+      <tags>
+        <tag>java</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>java的io模型</title>
     <url>/2023/180f5b629f58/index.html</url>
     <content><![CDATA[<span class="hide_first_mermaid">
@@ -630,68 +692,6 @@
 
 
 ]]></content>
-      <categories>
-        <category>java</category>
-        <category>java基础</category>
-      </categories>
-      <tags>
-        <tag>java</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>HashMap详解</title>
-    <url>/2023/834224a16039/index.html</url>
-    <content><![CDATA[<h2 id="HashMap的底层数据结构是什么？"><a href="#HashMap的底层数据结构是什么？" class="headerlink" title="HashMap的底层数据结构是什么？"></a>HashMap的底层数据结构是什么？</h2><ol>
-<li>之前 <code>Jdk1.7</code> 的存储结构是数组+链表，到了 <code>Jdk1.8</code> 变成了数组+链表+红黑树。</li>
-</ol>
-<h2 id="HashMap-是如何定位索引下标的"><a href="#HashMap-是如何定位索引下标的" class="headerlink" title="HashMap 是如何定位索引下标的"></a>HashMap 是如何定位索引下标的</h2><p>定位 <code>index</code> 分成两步</p>
-<ol>
-<li><p>根据 hash 函数获取 hash 值</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> <span class="hljs-type">int</span> <span class="hljs-title function_">hash</span><span class="hljs-params">(Object key)</span> &#123;<br>    <span class="hljs-type">int</span> h;<br>    <span class="hljs-keyword">return</span> (key == <span class="hljs-literal">null</span>) ? <span class="hljs-number">0</span> : (h = key.hashCode()) ^ (h &gt;&gt;&gt; <span class="hljs-number">16</span>);<br>&#125;<br></code></pre></td></tr></table></figure>
-<p><strong>可以看到上面代码获取到 hashCode 之后还右移 16 位，具体原因在下面分析</strong></p>
-</li>
-<li><p>根据第一步计算的 <code>hash</code> 值获取数组位置（一般是对数组长度取模，<code>HashMap</code> 中是对长度 -1 进行 <code>&amp;</code> 运算）</p>
-</li>
-</ol>
-<figure class="highlight java"><table><tr><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">final</span> V <span class="hljs-title function_">putVal</span><span class="hljs-params">(<span class="hljs-type">int</span> hash, K key, V value, <span class="hljs-type">boolean</span> onlyIfAbsent,</span><br><span class="hljs-params">                   <span class="hljs-type">boolean</span> evict)</span> &#123;<br>    Node&lt;K,V&gt;[] tab; Node&lt;K,V&gt; p; <span class="hljs-type">int</span> n, i;<br>    <span class="hljs-keyword">if</span> ((tab = table) == <span class="hljs-literal">null</span> || (n = tab.length) == <span class="hljs-number">0</span>)<br>        n = (tab = resize()).length;<br>        <span class="hljs-comment">// 获取下标的操作是  i = (n-1) &amp; hash</span><br>    <span class="hljs-keyword">if</span> ((p = tab[i = (n - <span class="hljs-number">1</span>) &amp; hash]) == <span class="hljs-literal">null</span>)<br>        tab[i] = newNode(hash, key, value, <span class="hljs-literal">null</span>);<br>    <span class="hljs-keyword">else</span> &#123;<br>       ...<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
-<p><strong>获取下标为什么是对 n-1 进行与操作而不是取模？具体原因下面分析</strong></p>
-<h2 id="为什么需要对key的-hash-值右移-16位"><a href="#为什么需要对key的-hash-值右移-16位" class="headerlink" title="为什么需要对key的 hash 值右移 16位"></a>为什么需要对key的 hash 值右移 16位</h2><figure class="highlight yaml"><table><tr><td class="code"><pre><code class="hljs yaml"><span class="hljs-string">HashMap</span> <span class="hljs-string">中使用的</span> <span class="hljs-string">hash</span> <span class="hljs-string">函数是</span> <span class="hljs-string">key.hash</span> <span class="hljs-string">^</span> <span class="hljs-string">(key.hash</span> <span class="hljs-string">&gt;&gt;</span> <span class="hljs-number">16</span><span class="hljs-string">)</span>  <span class="hljs-string">而不是直接使用</span> <span class="hljs-string">key.hash,</span> <span class="hljs-string">这么做的原因是增加了扰动计算，使得</span> <span class="hljs-string">hash</span> <span class="hljs-string">分布的尽可能的均匀，</span> <span class="hljs-string">让元素的高16</span> <span class="hljs-string">位和低16</span> <span class="hljs-string">位都参与运算</span><br><span class="hljs-string">示例：</span><br><span class="hljs-string">比如有一个元素1换成二进制如下</span><br><span class="hljs-number">1111 </span><span class="hljs-number">1111 </span><span class="hljs-number">1111 </span><span class="hljs-number">1111 </span><span class="hljs-number">1010 </span><span class="hljs-number">1010 </span><span class="hljs-number">1010 </span><span class="hljs-number">1010</span> <span class="hljs-string">（没有右移16位的二进制）</span><br><span class="hljs-number">0000 </span><span class="hljs-number">0000 </span><span class="hljs-number">0000 </span><span class="hljs-number">0000 </span><span class="hljs-number">1111 </span><span class="hljs-number">1111 </span><span class="hljs-number">1111 </span><span class="hljs-number">1111</span>  <span class="hljs-string">（右移16位的二进制）</span><br><br><span class="hljs-string">另外一个元素2换成二进制如下</span><br><span class="hljs-number">1111 </span><span class="hljs-number">1111 </span><span class="hljs-number">1111 </span><span class="hljs-number">1110 </span><span class="hljs-number">1010 </span><span class="hljs-number">1010 </span><span class="hljs-number">1010 </span><span class="hljs-number">1010</span> <span class="hljs-string">（没有右移16位的二进制）</span><br><span class="hljs-number">0000 </span><span class="hljs-number">0000 </span><span class="hljs-number">0000 </span><span class="hljs-number">0000 </span><span class="hljs-number">1111 </span><span class="hljs-number">1111 </span><span class="hljs-number">1111 </span><span class="hljs-number">1110</span>  <span class="hljs-string">（右移16位的二进制）</span><br><br><span class="hljs-string">在计算数组位置的时候使用的是</span> <span class="hljs-string">hash</span> <span class="hljs-string">&amp;</span> <span class="hljs-string">(n</span> <span class="hljs-number">-1</span><span class="hljs-string">),</span>  <span class="hljs-string">要知道</span> <span class="hljs-string">n-1</span> <span class="hljs-string">肯定是一个相对来说比较小的数字（32个bit</span> <span class="hljs-string">只会使用比较少的低位），</span> <span class="hljs-string">比如长度是</span> <span class="hljs-number">32</span><span class="hljs-string">，</span> <span class="hljs-string">对应的二进制是</span> <span class="hljs-number">0000 </span><span class="hljs-number">0000 </span><span class="hljs-number">0000 </span><span class="hljs-number">0000 </span><span class="hljs-number">0000 </span><span class="hljs-number">0000 </span><span class="hljs-number">0001 </span><span class="hljs-number">1111</span><br><br><span class="hljs-string">使用没有右移的元素1和</span> <span class="hljs-string">（32</span> <span class="hljs-number">-1</span><span class="hljs-string">）</span> <span class="hljs-string">进行与操作（与操作是都为1才为1，否则为0）</span><br><span class="hljs-number">1111 </span><span class="hljs-number">1111 </span><span class="hljs-number">1111 </span><span class="hljs-number">1111     </span><span class="hljs-number">1010 </span><span class="hljs-number">1010 </span><span class="hljs-number">1010 </span><span class="hljs-number">1010</span> <span class="hljs-string">（没有右移16位的二进制）</span><br><span class="hljs-number">0000 </span><span class="hljs-number">0000 </span><span class="hljs-number">0000 </span><span class="hljs-number">0000      </span><span class="hljs-number">0000 </span><span class="hljs-number">0000 </span><span class="hljs-number">0001 </span><span class="hljs-number">1111</span><br><span class="hljs-number">0000 </span><span class="hljs-number">0000 </span><span class="hljs-number">0000 </span><span class="hljs-number">0000      </span><span class="hljs-number">0000 </span><span class="hljs-number">0000 </span><span class="hljs-number">0000 </span><span class="hljs-number">1010</span><br><br><span class="hljs-string">使用没有右移的元素2和</span> <span class="hljs-string">（32</span> <span class="hljs-number">-1</span><span class="hljs-string">）</span> <span class="hljs-string">进行与操作（与操作是都为1才为1，否则为0）</span><br><span class="hljs-number">1111 </span><span class="hljs-number">1111 </span><span class="hljs-number">1111 </span><span class="hljs-number">1100     </span><span class="hljs-number">1010 </span><span class="hljs-number">1010 </span><span class="hljs-number">1010 </span><span class="hljs-number">1010</span> <span class="hljs-string">（没有右移16位的二进制）</span><br><span class="hljs-number">0000 </span><span class="hljs-number">0000 </span><span class="hljs-number">0000 </span><span class="hljs-number">0000      </span><span class="hljs-number">0000 </span><span class="hljs-number">0000 </span><span class="hljs-number">0001 </span><span class="hljs-number">1111</span><br><span class="hljs-number">0000 </span><span class="hljs-number">0000 </span><span class="hljs-number">0000 </span><span class="hljs-number">0000      </span><span class="hljs-number">0000 </span><span class="hljs-number">0000 </span><span class="hljs-number">0000 </span><span class="hljs-number">1010</span><br><span class="hljs-string">可以看到元素1和元素2计算出来下标是相同的，这个不同是因为元素1和元素2的低16位是完全相同的，不同之处只在于高16位，但是当我们对</span> <span class="hljs-string">（n-1）进行与操作的时候，由于</span> <span class="hljs-string">n-1</span> <span class="hljs-string">的值比较小，绝大部分情况下，只有低16位会进行运算的</span><br><br><span class="hljs-string">接下来再看一下如果使用右移的hash进行计算会有什么不同</span><br><span class="hljs-string">使用右移的元素1和</span> <span class="hljs-string">（32</span> <span class="hljs-number">-1</span><span class="hljs-string">）</span> <span class="hljs-string">进行与操作（与操作是都为1才为1，否则为0）</span><br><span class="hljs-number">0000 </span><span class="hljs-number">0000 </span><span class="hljs-number">0000 </span><span class="hljs-number">0000      </span><span class="hljs-number">1111 </span><span class="hljs-number">1111 </span><span class="hljs-number">1111 </span><span class="hljs-number">1111</span> <span class="hljs-string">（没有右移16位的二进制）</span><br><span class="hljs-number">0000 </span><span class="hljs-number">0000 </span><span class="hljs-number">0000 </span><span class="hljs-number">0000      </span><span class="hljs-number">0000 </span><span class="hljs-number">0000 </span><span class="hljs-number">0001 </span><span class="hljs-number">1111</span><br><span class="hljs-number">0000 </span><span class="hljs-number">0000 </span><span class="hljs-number">0000 </span><span class="hljs-number">0000      </span><span class="hljs-number">0000 </span><span class="hljs-number">0000 </span><span class="hljs-number">0000  </span><span class="hljs-number">1111</span><br><br><span class="hljs-string">用右移的元素2和</span> <span class="hljs-string">（32</span> <span class="hljs-number">-1</span><span class="hljs-string">）</span> <span class="hljs-string">进行与操作（与操作是都为1才为1，否则为0）</span><br><span class="hljs-number">0000 </span><span class="hljs-number">0000 </span><span class="hljs-number">0000 </span><span class="hljs-number">0000      </span><span class="hljs-number">1111 </span><span class="hljs-number">1111 </span><span class="hljs-number">1111 </span><span class="hljs-number">1110</span> <span class="hljs-string">（没有右移16位的二进制）</span><br><span class="hljs-number">0000 </span><span class="hljs-number">0000 </span><span class="hljs-number">0000 </span><span class="hljs-number">0000      </span><span class="hljs-number">0000 </span><span class="hljs-number">0000 </span><span class="hljs-number">0001 </span><span class="hljs-number">1111</span><br><span class="hljs-number">0000 </span><span class="hljs-number">0000 </span><span class="hljs-number">0000 </span><span class="hljs-number">0000      </span><span class="hljs-number">0000 </span><span class="hljs-number">0000 </span><span class="hljs-number">0000  </span><span class="hljs-number">1110</span><br><span class="hljs-string">可以看到计算出来的</span> <span class="hljs-string">index</span> <span class="hljs-string">值是不同的，这就是右移带来的让高16位有参与运算的效果</span><br></code></pre></td></tr></table></figure>
-
-<h2 id="为什么不对长度取模而是使用与运算"><a href="#为什么不对长度取模而是使用与运算" class="headerlink" title="为什么不对长度取模而是使用与运算"></a>为什么不对长度取模而是使用与运算</h2><ol>
-<li><code>X % 2^n = X &amp; (2^n – 1)</code>  这两种运算等价，所以这也是 <code>HashMap</code> 长度取 <code>2^n</code> 的原因<br>也可以从数据角度记住，当 <code>n</code> 是 2 的倍数时， <code>X % 2^n = X &amp; (2^n – 1)</code>  等价</li>
-</ol>
-<p><a href="https://www.cnblogs.com/ysocean/p/9054804.html">公式计算参考链接</a></p>
-<h2 id="HashMap是如何实现扩容的"><a href="#HashMap是如何实现扩容的" class="headerlink" title="HashMap是如何实现扩容的"></a>HashMap是如何实现扩容的</h2><p>扩容后索引其实也是使用 <code>hash &amp; （newLength -1）</code>, 这样计算出来的位置要是和原来的元素在相同的位置，要么是 原来的位置+旧数组长度&#x3D;新索引位置</p>
-<h2 id="HashMap是如何解决hash冲突的"><a href="#HashMap是如何解决hash冲突的" class="headerlink" title="HashMap是如何解决hash冲突的"></a>HashMap是如何解决hash冲突的</h2><ol>
-<li>对 <code>hash</code> 的计算进行优化，不是直接使用 <code>hashcode</code>,  而是右移16位，让高16位也参与运算，减少<code>hash</code> 冲突</li>
-<li>如果遇到冲突，使用拉链法解决</li>
-</ol>
-]]></content>
-      <categories>
-        <category>java</category>
-        <category>java基础</category>
-      </categories>
-      <tags>
-        <tag>java</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>java输出运行过程中的代理类</title>
-    <url>/2023/d513f5c497bd/index.html</url>
-    <content><![CDATA[<h2 id="输出-jdk-动态代理类到文件"><a href="#输出-jdk-动态代理类到文件" class="headerlink" title="输出 jdk 动态代理类到文件"></a>输出 jdk 动态代理类到文件</h2><p>在测试代码的第一行增加下面这段代码</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><code class="hljs java">System.getProperties().put(<span class="hljs-string">&quot;jdk.proxy.ProxyGenerator.saveGeneratedFiles&quot;</span>, <span class="hljs-string">&quot;true&quot;</span>);<br></code></pre></td></tr></table></figure>
-<p>不同 <code>jdk</code> 版本的使用 <code>key</code> 可能不同，具体的 <code>key</code> 是什么可以查看 <code>ProxyGenerator</code> 类的 <code>saveGeneratedFiles</code> 属性， 比如 <code>jdk17</code> 版本 <code>ProxyGenerator</code> 类的内容如下：</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">final</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">ProxyGenerator</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_">ClassWriter</span> &#123;<br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> <span class="hljs-type">boolean</span> <span class="hljs-variable">saveGeneratedFiles</span> <span class="hljs-operator">=</span><br>            java.security.AccessController.doPrivileged(<br>                    <span class="hljs-keyword">new</span> <span class="hljs-title class_">GetBooleanAction</span>(<br>                            <span class="hljs-string">&quot;jdk.proxy.ProxyGenerator.saveGeneratedFiles&quot;</span>));<br>&#125;<br></code></pre></td></tr></table></figure>
-<p>执行完代码后在项目的根目录会输出动态代理类</p>
-<p><a href="https://arthas.aliyun.com/doc/">arthas官方文档</a></p>
-<h2 id="使用-arthas-输出-javaassist-生成的代理类"><a href="#使用-arthas-输出-javaassist-生成的代理类" class="headerlink" title="使用 arthas 输出 javaassist 生成的代理类"></a>使用 arthas 输出 javaassist 生成的代理类</h2><ol>
-<li>先打端点，确定代理类的名称，比如有一个代理类名称是 <code>Hello$Adaptive</code></li>
-<li>打开 <code>arthas</code> 选择对应的进程进入后，使用下面命令输出代理类</li>
-</ol>
-<figure class="highlight java"><table><tr><td class="code"><pre><code class="hljs java"><span class="hljs-comment">// 下面命令找到对应代理类的全路径， 比如输出结果是 com.example.dubbodemo.spi.Hello$Adaptive</span><br>sc *Hello$Adaptive*<br><span class="hljs-comment">// 根据上面找到的代理类的全路径，解析出源代码兵输出到特定的文件</span><br>jad com.example.dubbodemo.spi.Hello$Adaptive &gt; D:\\Hello$Adaptive.java<br></code></pre></td></tr></table></figure>
-
-<h2 id="输出-cglib-代理类到文件"><a href="#输出-cglib-代理类到文件" class="headerlink" title="输出 cglib 代理类到文件"></a>输出 cglib 代理类到文件</h2><p>在测试方法的第一行加上如下代码, 第二个参数就是指定输出的文件夹</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><code class="hljs java">System.setProperty(DebuggingClassWriter.DEBUG_LOCATION_PROPERTY, <span class="hljs-string">&quot;D:\\temp\\cglib&quot;</span>);<br></code></pre></td></tr></table></figure>]]></content>
       <categories>
         <category>java</category>
         <category>java基础</category>
@@ -1429,6 +1429,58 @@
       </tags>
   </entry>
   <entry>
+    <title>搭建Mybatis源码测试环境</title>
+    <url>/2023/1d9bedf3f03a/index.html</url>
+    <content><![CDATA[<blockquote>
+<p>Mybatis版本: 3.5.15<br>JDK版本：17</p>
+</blockquote>
+<h2 id="下载源码"><a href="#下载源码" class="headerlink" title="下载源码"></a>下载源码</h2><p><a href="https://github.com/mybatis/mybatis-3">下载Mybatis3</a><br><code>Mybatis</code> 源码中会依赖 <code>Mybatis-parent</code>, 如下所示，还需要下载对应版本的 <code>Mybatis-parent</code></p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">parent</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>org.mybatis<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>mybatis-parent<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">version</span>&gt;</span>41<span class="hljs-tag">&lt;/<span class="hljs-name">version</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">relativePath</span> /&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">parent</span>&gt;</span><br></code></pre></td></tr></table></figure>
+<p><a href="https://github.com/mybatis/parent">下载Mybatis-parent</a></p>
+<p>下载完成之后，可以先导入一个项目到 <code>idea</code> 中，然后在 <code>idea</code> 的 <code>Project Structure</code> 面板中将另外一个项目作为 <code>module</code> 导入</p>
+<h2 id="安装-Mysql"><a href="#安装-Mysql" class="headerlink" title="安装 Mysql"></a>安装 Mysql</h2><p>参考如下文章，先安装 <code>Mysql</code></p>
+<ol><li><a href="/2023/ff432902bea0/index.html" title="Window下安装mysql8解压版">Window下安装mysql8解压版</a></li></ol>
+
+<h3 id="创建表"><a href="#创建表" class="headerlink" title="创建表"></a>创建表</h3><p><strong>先创建数据库</strong></p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">create</span> database test;<br></code></pre></td></tr></table></figure>
+
+<p><strong>使用数据库</strong></p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><code class="hljs sql">use test;<br></code></pre></td></tr></table></figure>
+
+<p><strong>创建表</strong></p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">create</span> <span class="hljs-keyword">table</span> student<br>(<br>    id      <span class="hljs-type">int</span>          <span class="hljs-keyword">not</span> <span class="hljs-keyword">null</span><br>        <span class="hljs-keyword">primary</span> key,<br>    name    <span class="hljs-type">varchar</span>(<span class="hljs-number">100</span>) <span class="hljs-keyword">null</span>,<br>    id_card <span class="hljs-type">varchar</span>(<span class="hljs-number">50</span>)  <span class="hljs-keyword">not</span> <span class="hljs-keyword">null</span>,<br>    <span class="hljs-keyword">constraint</span> s_id_card<br>        <span class="hljs-keyword">unique</span> (id_card)<br>);<br></code></pre></td></tr></table></figure>
+
+<h3 id="添加测试数据"><a href="#添加测试数据" class="headerlink" title="添加测试数据"></a>添加测试数据</h3><figure class="highlight sql"><table><tr><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">INSERT</span> <span class="hljs-keyword">INTO</span> test.student (id, name, id_card) <span class="hljs-keyword">VALUES</span> (<span class="hljs-number">1</span>, <span class="hljs-string">&#x27;name1&#x27;</span>, <span class="hljs-string">&#x27;1_card&#x27;</span>);<br><span class="hljs-keyword">INSERT</span> <span class="hljs-keyword">INTO</span> test.student (id, name, id_card) <span class="hljs-keyword">VALUES</span> (<span class="hljs-number">5</span>, <span class="hljs-string">&#x27;name5&#x27;</span>, <span class="hljs-string">&#x27;5_card&#x27;</span>);<br><span class="hljs-keyword">INSERT</span> <span class="hljs-keyword">INTO</span> test.student (id, name, id_card) <span class="hljs-keyword">VALUES</span> (<span class="hljs-number">10</span>, <span class="hljs-string">&#x27;name10&#x27;</span>, <span class="hljs-string">&#x27;10_card&#x27;</span>);<br></code></pre></td></tr></table></figure>
+
+<h2 id="创建测试代码"><a href="#创建测试代码" class="headerlink" title="创建测试代码"></a>创建测试代码</h2><h3 id="创建Mybatis核心配置文件"><a href="#创建Mybatis核心配置文件" class="headerlink" title="创建Mybatis核心配置文件"></a>创建Mybatis核心配置文件</h3><p>在 <code>Mybatis</code> 源码项目的 <code>resources</code> 目录下创建 <code>mybatis-config.xml</code> 文件，内容如下：</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><code class="hljs xml"><span class="hljs-meta">&lt;?xml version=<span class="hljs-string">&quot;1.0&quot;</span> encoding=<span class="hljs-string">&quot;UTF-8&quot;</span> ?&gt;</span><br><span class="hljs-meta">&lt;!DOCTYPE <span class="hljs-keyword">configuration</span></span><br><span class="hljs-meta">        <span class="hljs-keyword">PUBLIC</span> <span class="hljs-string">&quot;-//mybatis.org//DTD Config 3.0//EN&quot;</span></span><br><span class="hljs-meta">        <span class="hljs-string">&quot;http://mybatis.org/dtd/mybatis-3-config.dtd&quot;</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">configuration</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">environments</span> <span class="hljs-attr">default</span>=<span class="hljs-string">&quot;development&quot;</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">environment</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;development&quot;</span>&gt;</span><br>            <span class="hljs-tag">&lt;<span class="hljs-name">transactionManager</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;JDBC&quot;</span>/&gt;</span><br>            <span class="hljs-tag">&lt;<span class="hljs-name">dataSource</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;POOLED&quot;</span>&gt;</span><br>                <span class="hljs-tag">&lt;<span class="hljs-name">property</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;driver&quot;</span> <span class="hljs-attr">value</span>=<span class="hljs-string">&quot;com.mysql.cj.jdbc.Driver&quot;</span>/&gt;</span><br>                <span class="hljs-tag">&lt;<span class="hljs-name">property</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;url&quot;</span> <span class="hljs-attr">value</span>=<span class="hljs-string">&quot;jdbc:mysql://localhost:3306/test?serverTimezone=UTC&quot;</span>/&gt;</span><br>                <span class="hljs-tag">&lt;<span class="hljs-name">property</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;username&quot;</span> <span class="hljs-attr">value</span>=<span class="hljs-string">&quot;root&quot;</span>/&gt;</span><br>                <span class="hljs-tag">&lt;<span class="hljs-name">property</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;password&quot;</span> <span class="hljs-attr">value</span>=<span class="hljs-string">&quot;admin&quot;</span>/&gt;</span><br>            <span class="hljs-tag">&lt;/<span class="hljs-name">dataSource</span>&gt;</span><br>        <span class="hljs-tag">&lt;/<span class="hljs-name">environment</span>&gt;</span><br>    <span class="hljs-tag">&lt;/<span class="hljs-name">environments</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">mappers</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">mapper</span> <span class="hljs-attr">resource</span>=<span class="hljs-string">&quot;mapper/student.xml&quot;</span>/&gt;</span><br>    <span class="hljs-tag">&lt;/<span class="hljs-name">mappers</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">configuration</span>&gt;</span><br></code></pre></td></tr></table></figure>
+
+<h3 id="创建Mybatis映射文件和实现类"><a href="#创建Mybatis映射文件和实现类" class="headerlink" title="创建Mybatis映射文件和实现类"></a>创建Mybatis映射文件和实现类</h3><p><img src="https://s2.loli.net/2023/12/26/ftVYKd8b9MgvUNp.png" alt="测试类目录和结构"></p>
+<p><strong>实体类 Student</strong></p>
+<figure class="highlight java"><table><tr><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@Data</span><br><span class="hljs-meta">@ToString</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">Student</span> &#123;<br>    <span class="hljs-keyword">private</span> <span class="hljs-type">long</span> id;<br>    <span class="hljs-keyword">private</span> String name;<br>    <span class="hljs-keyword">private</span> String idCard;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p><strong>StudentMapper类</strong></p>
+<figure class="highlight java"><table><tr><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">interface</span> <span class="hljs-title class_">StudentMapper</span> &#123;<br>    Student <span class="hljs-title function_">selectById</span><span class="hljs-params">(<span class="hljs-type">int</span> id)</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p><strong>Mapper映射文件</strong></p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><code class="hljs xml"><span class="hljs-meta">&lt;?xml version=<span class="hljs-string">&quot;1.0&quot;</span> encoding=<span class="hljs-string">&quot;UTF-8&quot;</span> ?&gt;</span><br><span class="hljs-meta">&lt;!DOCTYPE <span class="hljs-keyword">mapper</span></span><br><span class="hljs-meta">        <span class="hljs-keyword">PUBLIC</span> <span class="hljs-string">&quot;-//mybatis.org//DTD Mapper 3.0//EN&quot;</span></span><br><span class="hljs-meta">        <span class="hljs-string">&quot;http://mybatis.org/dtd/mybatis-3-mapper.dtd&quot;</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">mapper</span> <span class="hljs-attr">namespace</span>=<span class="hljs-string">&quot;org.example.mapper.StudentMapper&quot;</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">select</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;selectById&quot;</span> <span class="hljs-attr">resultType</span>=<span class="hljs-string">&quot;org.example.vo.Student&quot;</span>&gt;</span><br>        select * from student where id = #&#123;id&#125;<br>    <span class="hljs-tag">&lt;/<span class="hljs-name">select</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">mapper</span>&gt;</span><br></code></pre></td></tr></table></figure>
+
+<p><strong>测试类</strong><br><img src="https://s2.loli.net/2023/12/26/hWT4Ne7g98XsQkr.png" alt="测试类结构"></p>
+<figure class="highlight java"><table><tr><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">TestMybatis</span> &#123;<br><br>    SqlSessionFactory sqlSessionFactory;<br><br>    <span class="hljs-meta">@Before</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">before</span><span class="hljs-params">()</span> <span class="hljs-keyword">throws</span> IOException &#123;<br>        <span class="hljs-type">String</span> <span class="hljs-variable">resource</span> <span class="hljs-operator">=</span> <span class="hljs-string">&quot;mybatis-config.xml&quot;</span>;<br>        <span class="hljs-type">InputStream</span> <span class="hljs-variable">inputStream</span> <span class="hljs-operator">=</span> Resources.getResourceAsStream(resource);<br>        sqlSessionFactory = <span class="hljs-keyword">new</span> <span class="hljs-title class_">SqlSessionFactoryBuilder</span>().build(inputStream);<br>    &#125;<br><br>    <span class="hljs-meta">@Test</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">selectById</span><span class="hljs-params">()</span> &#123;<br>        <span class="hljs-keyword">try</span> (<span class="hljs-type">SqlSession</span> <span class="hljs-variable">session</span> <span class="hljs-operator">=</span> sqlSessionFactory.openSession()) &#123;<br>            <span class="hljs-type">StudentMapper</span> <span class="hljs-variable">mapper</span> <span class="hljs-operator">=</span> session.getMapper(StudentMapper.class);<br>            <span class="hljs-type">Student</span> <span class="hljs-variable">student</span> <span class="hljs-operator">=</span> mapper.selectById(<span class="hljs-number">1</span>);<br>            System.out.println(student);<br>        &#125;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p><strong>执行结果</strong></p>
+<figure class="highlight routeros"><table><tr><td class="code"><pre><code class="hljs routeros">Student(<span class="hljs-attribute">id</span>=1, <span class="hljs-attribute">name</span>=name1, <span class="hljs-attribute">idCard</span>=<span class="hljs-literal">null</span>)<br></code></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>java</category>
+        <category>Mybatis</category>
+      </categories>
+      <tags>
+        <tag>java</tag>
+        <tag>Mybatis</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>BeanFacotry的后置处理器详解</title>
     <url>/2023/e7d5d1305e5d/index.html</url>
     <content><![CDATA[<span class="hide_first_mermaid">
@@ -1805,6 +1857,22 @@
       </tags>
   </entry>
   <entry>
+    <title>SpringCloudAlibaba和SpringCloud和SpringBoot之间版本对应关系</title>
+    <url>/2023/742b64bccf7c/index.html</url>
+    <content><![CDATA[<h2 id="SpringClound-和-SpringBoot-的版本对应"><a href="#SpringClound-和-SpringBoot-的版本对应" class="headerlink" title="SpringClound 和 SpringBoot 的版本对应"></a>SpringClound 和 SpringBoot 的版本对应</h2><p><a href="https://spring.io/projects/spring-cloud">Spring官网之SpringCloud项目</a></p>
+<h2 id="SpringCloundAlibaba-和-SpringCloud-的版本对应"><a href="#SpringCloundAlibaba-和-SpringCloud-的版本对应" class="headerlink" title="SpringCloundAlibaba 和 SpringCloud 的版本对应"></a>SpringCloundAlibaba 和 SpringCloud 的版本对应</h2><p><a href="https://sca.aliyun.com/zh-cn/">SpringCloundAlibaba官网</a></p>
+<p><a href="https://sca.aliyun.com/zh-cn/docs/2022.0.0.0/overview/version-explain">SpringCloundAlibaba2022版本对应文档说明</a></p>
+]]></content>
+      <categories>
+        <category>java</category>
+        <category>SpringCloud</category>
+      </categories>
+      <tags>
+        <tag>java</tag>
+        <tag>SpringCloud</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>SpringBoot3自动装配原理</title>
     <url>/2023/8e23a1d3d97d/index.html</url>
     <content><![CDATA[<span class="hide_first_mermaid">
@@ -2080,22 +2148,6 @@
       <tags>
         <tag>java</tag>
         <tag>SpringBoot</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>SpringCloudAlibaba和SpringCloud和SpringBoot之间版本对应关系</title>
-    <url>/2023/742b64bccf7c/index.html</url>
-    <content><![CDATA[<h2 id="SpringClound-和-SpringBoot-的版本对应"><a href="#SpringClound-和-SpringBoot-的版本对应" class="headerlink" title="SpringClound 和 SpringBoot 的版本对应"></a>SpringClound 和 SpringBoot 的版本对应</h2><p><a href="https://spring.io/projects/spring-cloud">Spring官网之SpringCloud项目</a></p>
-<h2 id="SpringCloundAlibaba-和-SpringCloud-的版本对应"><a href="#SpringCloundAlibaba-和-SpringCloud-的版本对应" class="headerlink" title="SpringCloundAlibaba 和 SpringCloud 的版本对应"></a>SpringCloundAlibaba 和 SpringCloud 的版本对应</h2><p><a href="https://sca.aliyun.com/zh-cn/">SpringCloundAlibaba官网</a></p>
-<p><a href="https://sca.aliyun.com/zh-cn/docs/2022.0.0.0/overview/version-explain">SpringCloundAlibaba2022版本对应文档说明</a></p>
-]]></content>
-      <categories>
-        <category>java</category>
-        <category>SpringCloud</category>
-      </categories>
-      <tags>
-        <tag>java</tag>
-        <tag>SpringCloud</tag>
       </tags>
   </entry>
   <entry>
@@ -2566,66 +2618,6 @@
       </tags>
   </entry>
   <entry>
-    <title>多线程上下文切换包含哪些内容</title>
-    <url>/2023/c51368ba5d47/index.html</url>
-    <content><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p><code>cpu</code> 不知道什么是进程和线程，<code>cpu</code> 只知道两件事情</p>
-<ol>
-<li>从内存中取出指令</li>
-<li>执行指令</li>
-<li>一直重复上面两个步骤，所以 <strong>取指令</strong>-&gt; <strong>执行指令</strong> 就是 <code>cpu</code> 所能做的所有事情</li>
-</ol>
-<h2 id="cpu-获取指令执行的流程"><a href="#cpu-获取指令执行的流程" class="headerlink" title="cpu 获取指令执行的流程"></a>cpu 获取指令执行的流程</h2><ol>
-<li>编写源代码，源代码中都会有 main 函数，这个 main 函数就是执行入口</li>
-<li>程序启动后，会将 main 函数的第一条机器指令放入 pc 寄存器中（程序计数器）</li>
-<li>pc 寄存器的地址默认是自动 +1， 初始地址就是 main 函数的指令地址</li>
-<li>当遇到 if else 等语句时程序会根据计算结果或者指令中指定的跳转地址来动态改变 pc 寄存器中的值</li>
-</ol>
-<h2 id="进程和线程的区别"><a href="#进程和线程的区别" class="headerlink" title="进程和线程的区别"></a>进程和线程的区别</h2><ol>
-<li>进程是操作系统分配资源的最小单位</li>
-<li>线程是调用的基本单位，线程之间共享进程资源<ol>
-<li>线程之间共享了哪些资源<ol>
-<li>堆区</li>
-<li>代码区</li>
-<li>数据区：存放的就是全局变量</li>
-</ol>
-</li>
-</ol>
-</li>
-</ol>
-<h2 id="什么是线程上下文"><a href="#什么是线程上下文" class="headerlink" title="什么是线程上下文"></a>什么是线程上下文</h2><ol>
-<li>线程上下文就是指线程在某个时刻的状态，或者说某个时刻的数据，这个数据是线程私有的才能称为是线程的上下文</li>
-<li>要看线程上下文包含哪些信息，就需要看哪些数据都是线程私有的，这些线程私有的数据整体就是线程上下文</li>
-</ol>
-<h3 id="线程的私有数据有哪些"><a href="#线程的私有数据有哪些" class="headerlink" title="线程的私有数据有哪些"></a>线程的私有数据有哪些</h3><p>线程本质就是函数的执行，函数执行的信息都是放在栈帧中，栈帧主要包含如下内容</p>
-<ol>
-<li>当前函数的返回值</li>
-<li>调用其他函数的参数（寄存器不够时参数是会放在栈帧中的）</li>
-<li>函数使用的局部变量</li>
-<li>函数使用的寄存器信息</li>
-<li>程序计数器是线程私有的</li>
-<li>栈指针（该线程栈区的栈顶位置）</li>
-<li>执行函数时所使用的寄存器也是线程私有的</li>
-</ol>
-<p>所有上面这些信息包含在一起就是线程上下文</p>
-<h2 id="常用的几种寄存器"><a href="#常用的几种寄存器" class="headerlink" title="常用的几种寄存器"></a>常用的几种寄存器</h2><ol>
-<li>栈寄存器<ol>
-<li>函数运行时都有一个栈帧，对于栈来说重要的信息之一就是栈顶，栈寄存器就是保存栈顶信息的</li>
-</ol>
-</li>
-<li>指令寄存器（pc寄存器）</li>
-<li>状态寄存器，线程是运行在内核态还是用户态的信息保存在状态寄存器中</li>
-</ol>
-]]></content>
-      <categories>
-        <category>java</category>
-        <category>多线程</category>
-      </categories>
-      <tags>
-        <tag>java</tag>
-        <tag>多线程</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>volatile解决可见性和有序性</title>
     <url>/2023/d41d7b790ebc/index.html</url>
     <content><![CDATA[<span class="hide_first_mermaid">
@@ -2768,6 +2760,66 @@
       </tags>
   </entry>
   <entry>
+    <title>多线程上下文切换包含哪些内容</title>
+    <url>/2023/c51368ba5d47/index.html</url>
+    <content><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p><code>cpu</code> 不知道什么是进程和线程，<code>cpu</code> 只知道两件事情</p>
+<ol>
+<li>从内存中取出指令</li>
+<li>执行指令</li>
+<li>一直重复上面两个步骤，所以 <strong>取指令</strong>-&gt; <strong>执行指令</strong> 就是 <code>cpu</code> 所能做的所有事情</li>
+</ol>
+<h2 id="cpu-获取指令执行的流程"><a href="#cpu-获取指令执行的流程" class="headerlink" title="cpu 获取指令执行的流程"></a>cpu 获取指令执行的流程</h2><ol>
+<li>编写源代码，源代码中都会有 main 函数，这个 main 函数就是执行入口</li>
+<li>程序启动后，会将 main 函数的第一条机器指令放入 pc 寄存器中（程序计数器）</li>
+<li>pc 寄存器的地址默认是自动 +1， 初始地址就是 main 函数的指令地址</li>
+<li>当遇到 if else 等语句时程序会根据计算结果或者指令中指定的跳转地址来动态改变 pc 寄存器中的值</li>
+</ol>
+<h2 id="进程和线程的区别"><a href="#进程和线程的区别" class="headerlink" title="进程和线程的区别"></a>进程和线程的区别</h2><ol>
+<li>进程是操作系统分配资源的最小单位</li>
+<li>线程是调用的基本单位，线程之间共享进程资源<ol>
+<li>线程之间共享了哪些资源<ol>
+<li>堆区</li>
+<li>代码区</li>
+<li>数据区：存放的就是全局变量</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+<h2 id="什么是线程上下文"><a href="#什么是线程上下文" class="headerlink" title="什么是线程上下文"></a>什么是线程上下文</h2><ol>
+<li>线程上下文就是指线程在某个时刻的状态，或者说某个时刻的数据，这个数据是线程私有的才能称为是线程的上下文</li>
+<li>要看线程上下文包含哪些信息，就需要看哪些数据都是线程私有的，这些线程私有的数据整体就是线程上下文</li>
+</ol>
+<h3 id="线程的私有数据有哪些"><a href="#线程的私有数据有哪些" class="headerlink" title="线程的私有数据有哪些"></a>线程的私有数据有哪些</h3><p>线程本质就是函数的执行，函数执行的信息都是放在栈帧中，栈帧主要包含如下内容</p>
+<ol>
+<li>当前函数的返回值</li>
+<li>调用其他函数的参数（寄存器不够时参数是会放在栈帧中的）</li>
+<li>函数使用的局部变量</li>
+<li>函数使用的寄存器信息</li>
+<li>程序计数器是线程私有的</li>
+<li>栈指针（该线程栈区的栈顶位置）</li>
+<li>执行函数时所使用的寄存器也是线程私有的</li>
+</ol>
+<p>所有上面这些信息包含在一起就是线程上下文</p>
+<h2 id="常用的几种寄存器"><a href="#常用的几种寄存器" class="headerlink" title="常用的几种寄存器"></a>常用的几种寄存器</h2><ol>
+<li>栈寄存器<ol>
+<li>函数运行时都有一个栈帧，对于栈来说重要的信息之一就是栈顶，栈寄存器就是保存栈顶信息的</li>
+</ol>
+</li>
+<li>指令寄存器（pc寄存器）</li>
+<li>状态寄存器，线程是运行在内核态还是用户态的信息保存在状态寄存器中</li>
+</ol>
+]]></content>
+      <categories>
+        <category>java</category>
+        <category>多线程</category>
+      </categories>
+      <tags>
+        <tag>java</tag>
+        <tag>多线程</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>线程池实现原理</title>
     <url>/2023/63b6d22fbd8f/index.html</url>
     <content><![CDATA[<span class="hide_first_mermaid">
@@ -2895,6 +2947,18 @@
       </tags>
   </entry>
   <entry>
+    <title>解决vscode找不到Python自定义模块报错no module named</title>
+    <url>/2023/05b28e23ee5b/index.html</url>
+    <content><![CDATA[<p>在 <code>.vscode</code> 目录下（若没有则新建）的 <code>launch.json</code> 中添加 <code>env</code> 相关内容：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><code class="hljs python">&#123;<br>    <span class="hljs-string">&quot;version&quot;</span>: <span class="hljs-string">&quot;0.2.0&quot;</span>,<br>    <span class="hljs-string">&quot;configurations&quot;</span>: [<br>        &#123;<br>            <span class="hljs-string">&quot;name&quot;</span>: <span class="hljs-string">&quot;update_package&quot;</span>,<br>            <span class="hljs-string">&quot;type&quot;</span>: <span class="hljs-string">&quot;python&quot;</span>,<br>            <span class="hljs-string">&quot;request&quot;</span>: <span class="hljs-string">&quot;launch&quot;</span>,<br>            <span class="hljs-string">&quot;program&quot;</span>: <span class="hljs-string">&quot;timeline\\ssh\\win_command.py&quot;</span>,<br>            <span class="hljs-string">&quot;console&quot;</span>: <span class="hljs-string">&quot;integratedTerminal&quot;</span>,<br>            <span class="hljs-string">&quot;justMyCode&quot;</span>: true,<br>            <span class="hljs-comment"># 下面这部分是新增的内容</span><br>            <span class="hljs-string">&quot;env&quot;</span>: &#123;<br>                <span class="hljs-string">&quot;PYTHONPATH&quot;</span>: <span class="hljs-string">&quot;$&#123;workspaceRoot&#125;&quot;</span><br>            &#125;<br>        &#125;<br>    ]<br>&#125;<br></code></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>python</category>
+      </categories>
+      <tags>
+        <tag>python</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Ubuntu23.04中设置其他用户使用sudo无需输入密码</title>
     <url>/2023/a60a9dfd0dd7/index.html</url>
     <content><![CDATA[<p>给 <code>/etc/sudoers</code> 添加写入权限</p>
@@ -2954,18 +3018,6 @@
       </categories>
       <tags>
         <tag>Linux</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>解决vscode找不到Python自定义模块报错no module named</title>
-    <url>/2023/05b28e23ee5b/index.html</url>
-    <content><![CDATA[<p>在 <code>.vscode</code> 目录下（若没有则新建）的 <code>launch.json</code> 中添加 <code>env</code> 相关内容：</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><code class="hljs python">&#123;<br>    <span class="hljs-string">&quot;version&quot;</span>: <span class="hljs-string">&quot;0.2.0&quot;</span>,<br>    <span class="hljs-string">&quot;configurations&quot;</span>: [<br>        &#123;<br>            <span class="hljs-string">&quot;name&quot;</span>: <span class="hljs-string">&quot;update_package&quot;</span>,<br>            <span class="hljs-string">&quot;type&quot;</span>: <span class="hljs-string">&quot;python&quot;</span>,<br>            <span class="hljs-string">&quot;request&quot;</span>: <span class="hljs-string">&quot;launch&quot;</span>,<br>            <span class="hljs-string">&quot;program&quot;</span>: <span class="hljs-string">&quot;timeline\\ssh\\win_command.py&quot;</span>,<br>            <span class="hljs-string">&quot;console&quot;</span>: <span class="hljs-string">&quot;integratedTerminal&quot;</span>,<br>            <span class="hljs-string">&quot;justMyCode&quot;</span>: true,<br>            <span class="hljs-comment"># 下面这部分是新增的内容</span><br>            <span class="hljs-string">&quot;env&quot;</span>: &#123;<br>                <span class="hljs-string">&quot;PYTHONPATH&quot;</span>: <span class="hljs-string">&quot;$&#123;workspaceRoot&#125;&quot;</span><br>            &#125;<br>        &#125;<br>    ]<br>&#125;<br></code></pre></td></tr></table></figure>]]></content>
-      <categories>
-        <category>python</category>
-      </categories>
-      <tags>
-        <tag>python</tag>
       </tags>
   </entry>
   <entry>
@@ -3849,6 +3901,29 @@ Root("Producer(生产者)")
       </tags>
   </entry>
   <entry>
+    <title>RocketMQ之Broker详解</title>
+    <url>/2023/5398bb79bdb5/index.html</url>
+    <content><![CDATA[<blockquote>
+<p>RocketMQ版本： 4.9.7<br>JDK版本： 17</p>
+</blockquote>
+<p>以下代码在 <code>broker</code> 子模块中</p>
+<h2 id="获取启动文件"><a href="#获取启动文件" class="headerlink" title="获取启动文件"></a>获取启动文件</h2><p>启动 <code>broker</code> 的脚本是 <code>bin/mqbroker</code>, 这个执行文件的最后一行是 <code>sh $&#123;ROCKETMQ_HOME&#125;/bin/runbroker.sh org.apache.rocketmq.broker.BrokerStartup $@</code>， 所以在源码中启动 <code>broker</code> 的文件其实是 <code>BrokerStartup</code></p>
+<figure class="highlight java"><table><tr><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">BrokerStartup</span> &#123;<br><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">main</span><span class="hljs-params">(String[] args)</span> &#123;<br>        start(createBrokerController(args));<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>分为两个部分</p>
+<ul>
+<li>创建 <code>BrokerController</code></li>
+<li>启动 <code>BrokerController</code></li>
+</ul>
+<h2 id="BrokerController-创建流程"><a href="#BrokerController-创建流程" class="headerlink" title="BrokerController 创建流程"></a>BrokerController 创建流程</h2><h2 id="BrokerControlelr-启动流程"><a href="#BrokerControlelr-启动流程" class="headerlink" title="BrokerControlelr 启动流程"></a>BrokerControlelr 启动流程</h2>]]></content>
+      <categories>
+        <category>中间件</category>
+        <category>RocketMQ</category>
+      </categories>
+      <tags>
+        <tag>RocketMQ</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>RocketMQ安装使用和基本概念</title>
     <url>/2023/49fb249febb6/index.html</url>
     <content><![CDATA[<p>jdk版本：17<br>rocketmq版本：4.9.7 和 5.1.4</p>
@@ -4115,20 +4190,32 @@ Root("Producer(生产者)")
       </tags>
   </entry>
   <entry>
-    <title>RocketMQ之Broker详解</title>
-    <url>/2023/5398bb79bdb5/index.html</url>
-    <content><![CDATA[<blockquote>
-<p>RocketMQ版本： 4.9.7<br>JDK版本： 17</p>
+    <title>RocketMQ整合SpringBoot3</title>
+    <url>/2023/1a12a33976fc/index.html</url>
+    <content><![CDATA[<p>SpringBoot版本： 3.2.0</p>
+<p><a href="https://github.com/apache/rocketmq-spring/wiki">官方文档</a></p>
+<blockquote>
+<p>SpringBoot3 版本直接使用示例会提示 RocketMQTemplate 注入失败，解决方式在文末</p>
 </blockquote>
-<p>以下代码在 <code>broker</code> 子模块中</p>
-<h2 id="获取启动文件"><a href="#获取启动文件" class="headerlink" title="获取启动文件"></a>获取启动文件</h2><p>启动 <code>broker</code> 的脚本是 <code>bin/mqbroker</code>, 这个执行文件的最后一行是 <code>sh $&#123;ROCKETMQ_HOME&#125;/bin/runbroker.sh org.apache.rocketmq.broker.BrokerStartup $@</code>， 所以在源码中启动 <code>broker</code> 的文件其实是 <code>BrokerStartup</code></p>
-<figure class="highlight java"><table><tr><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">BrokerStartup</span> &#123;<br><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">main</span><span class="hljs-params">(String[] args)</span> &#123;<br>        start(createBrokerController(args));<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
-<p>分为两个部分</p>
+<p>使用 <code>idea</code> 创建 <code>SpringBoot</code> 项目, 项目名称是 <code>rocket-spring-boot</code></p>
+<figure class="highlight mipsasm"><table><tr><td class="code"><pre><code class="hljs mipsasm">rocket-spring-<span class="hljs-keyword">boot</span><br><span class="hljs-keyword"></span>├─src<br>│  ├─main<br>│  │  ├─<span class="hljs-keyword">java</span><br><span class="hljs-keyword"></span>│  │  │  └─<span class="hljs-keyword">org</span><br><span class="hljs-keyword"></span>│  │  │      └─example<br>│  │  │          └─rocketmqspringboot<br>│  │  │              └─RocketmqSpringBootApplication.<span class="hljs-keyword">java</span><br><span class="hljs-keyword"></span>│  │  └─resources<br>│  │      └─application.properties<br>└─pom.xml<br></code></pre></td></tr></table></figure>
+
+<p>主要有三个文件</p>
 <ul>
-<li>创建 <code>BrokerController</code></li>
-<li>启动 <code>BrokerController</code></li>
+<li><code>pom.xml</code> 依赖文件</li>
 </ul>
-<h2 id="BrokerController-创建流程"><a href="#BrokerController-创建流程" class="headerlink" title="BrokerController 创建流程"></a>BrokerController 创建流程</h2><h2 id="BrokerControlelr-启动流程"><a href="#BrokerControlelr-启动流程" class="headerlink" title="BrokerControlelr 启动流程"></a>BrokerControlelr 启动流程</h2>]]></content>
+<figure class="highlight xml"><table><tr><td class="code"><pre><code class="hljs xml"><span class="hljs-meta">&lt;?xml version=<span class="hljs-string">&quot;1.0&quot;</span> encoding=<span class="hljs-string">&quot;UTF-8&quot;</span>?&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">project</span> <span class="hljs-attr">xmlns</span>=<span class="hljs-string">&quot;http://maven.apache.org/POM/4.0.0&quot;</span> <span class="hljs-attr">xmlns:xsi</span>=<span class="hljs-string">&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span></span><br><span class="hljs-tag">         <span class="hljs-attr">xsi:schemaLocation</span>=<span class="hljs-string">&quot;http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd&quot;</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">modelVersion</span>&gt;</span>4.0.0<span class="hljs-tag">&lt;/<span class="hljs-name">modelVersion</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">parent</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>org.springframework.boot<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>spring-boot-starter-parent<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">version</span>&gt;</span>3.2.0<span class="hljs-tag">&lt;/<span class="hljs-name">version</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">relativePath</span>/&gt;</span> <span class="hljs-comment">&lt;!-- lookup parent from repository --&gt;</span><br>    <span class="hljs-tag">&lt;/<span class="hljs-name">parent</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>org.example<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>rocketmq-spring-boot<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">version</span>&gt;</span>0.0.1-SNAPSHOT<span class="hljs-tag">&lt;/<span class="hljs-name">version</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">name</span>&gt;</span>rocketmq-spring-boot<span class="hljs-tag">&lt;/<span class="hljs-name">name</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">description</span>&gt;</span>rocketmq-spring-boot<span class="hljs-tag">&lt;/<span class="hljs-name">description</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">properties</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">java.version</span>&gt;</span>17<span class="hljs-tag">&lt;/<span class="hljs-name">java.version</span>&gt;</span><br>    <span class="hljs-tag">&lt;/<span class="hljs-name">properties</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">dependencies</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span><br>            <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>org.springframework.boot<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span><br>            <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>spring-boot-starter<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span><br>        <span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span><br><br>        <span class="hljs-comment">&lt;!-- 这里添加 rocketmq-spring-boot-starter 依赖 --&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span><br>            <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>org.apache.rocketmq<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span><br>            <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>rocketmq-spring-boot-starter<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span><br>            <span class="hljs-tag">&lt;<span class="hljs-name">version</span>&gt;</span>2.2.3<span class="hljs-tag">&lt;/<span class="hljs-name">version</span>&gt;</span><br>        <span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span><br><br>        <span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span><br>            <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>org.springframework.boot<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span><br>            <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>spring-boot-starter-test<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span><br>            <span class="hljs-tag">&lt;<span class="hljs-name">scope</span>&gt;</span>test<span class="hljs-tag">&lt;/<span class="hljs-name">scope</span>&gt;</span><br>        <span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span><br>            <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>org.projectlombok<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span><br>            <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>lombok<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span><br>        <span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span><br>    <span class="hljs-tag">&lt;/<span class="hljs-name">dependencies</span>&gt;</span><br><br>    <span class="hljs-tag">&lt;<span class="hljs-name">build</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">plugins</span>&gt;</span><br>            <span class="hljs-tag">&lt;<span class="hljs-name">plugin</span>&gt;</span><br>                <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>org.springframework.boot<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span><br>                <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>spring-boot-maven-plugin<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span><br>            <span class="hljs-tag">&lt;/<span class="hljs-name">plugin</span>&gt;</span><br>        <span class="hljs-tag">&lt;/<span class="hljs-name">plugins</span>&gt;</span><br>    <span class="hljs-tag">&lt;/<span class="hljs-name">build</span>&gt;</span><br><br><span class="hljs-tag">&lt;/<span class="hljs-name">project</span>&gt;</span><br></code></pre></td></tr></table></figure>
+<ul>
+<li><p><code>RocketmqSpringBootApplication.java</code>, 默认只有 <code>main</code> 方法，这里按照官方文档示例，实现 <code>CommandLineRunner</code> 接口，在项目启动之后就进行消息的发送</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@SpringBootApplication</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">RocketmqSpringBootApplication</span> <span class="hljs-keyword">implements</span> <span class="hljs-title class_">CommandLineRunner</span> &#123;<br><br>    <span class="hljs-meta">@Autowired</span><br>    <span class="hljs-keyword">private</span> RocketMQTemplate rocketMQTemplate;<br><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">main</span><span class="hljs-params">(String[] args)</span> &#123;<br>        SpringApplication.run(RocketmqSpringBootApplication.class, args);<br>    &#125;<br><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">run</span><span class="hljs-params">(String... args)</span> <span class="hljs-keyword">throws</span> Exception &#123;<br>        <span class="hljs-comment">//send message synchronously</span><br>        rocketMQTemplate.convertAndSend(<span class="hljs-string">&quot;test-topic-1&quot;</span>, <span class="hljs-string">&quot;Hello, World!&quot;</span>);<br>        <span class="hljs-comment">//send spring message</span><br>        rocketMQTemplate.send(<span class="hljs-string">&quot;test-topic-1&quot;</span>, MessageBuilder.withPayload(<span class="hljs-string">&quot;Hello, World! I&#x27;m from spring message&quot;</span>).build());<br>        <span class="hljs-comment">//send messgae asynchronously</span><br>        rocketMQTemplate.asyncSend(<span class="hljs-string">&quot;test-topic-2&quot;</span>, <span class="hljs-keyword">new</span> <span class="hljs-title class_">OrderPaidEvent</span>(<span class="hljs-string">&quot;T_001&quot;</span>, <span class="hljs-keyword">new</span> <span class="hljs-title class_">BigDecimal</span>(<span class="hljs-string">&quot;88.00&quot;</span>)), <span class="hljs-keyword">new</span> <span class="hljs-title class_">SendCallback</span>() &#123;<br>            <span class="hljs-meta">@Override</span><br>            <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">onSuccess</span><span class="hljs-params">(SendResult var1)</span> &#123;<br>                System.out.printf(<span class="hljs-string">&quot;async onSucess SendResult=%s %n&quot;</span>, var1);<br>            &#125;<br><br>            <span class="hljs-meta">@Override</span><br>            <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">onException</span><span class="hljs-params">(Throwable var1)</span> &#123;<br>                System.out.printf(<span class="hljs-string">&quot;async onException Throwable=%s %n&quot;</span>, var1);<br>            &#125;<br><br>        &#125;);<br>        <span class="hljs-comment">//Send messages orderly</span><br>        rocketMQTemplate.syncSendOrderly(<span class="hljs-string">&quot;orderly_topic&quot;</span>, MessageBuilder.withPayload(<span class="hljs-string">&quot;Hello, World&quot;</span>).build(),<span class="hljs-string">&quot;hashkey&quot;</span>);<br><br>        <span class="hljs-comment">//rocketMQTemplate.destroy(); // notes:  once rocketMQTemplate be destroyed, you can not send any message again with this rocketMQTemplate</span><br>    &#125;<br><br>    <span class="hljs-meta">@Data</span><br>    <span class="hljs-meta">@AllArgsConstructor</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">OrderPaidEvent</span> <span class="hljs-keyword">implements</span> <span class="hljs-title class_">Serializable</span> &#123;<br>        <span class="hljs-keyword">private</span> String orderId;<br><br>        <span class="hljs-keyword">private</span> BigDecimal paidMoney;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>添加 <code>application.properties</code> 配置文件</p>
+<figure class="highlight properties"><table><tr><td class="code"><pre><code class="hljs properties"><span class="hljs-attr">rocketmq.name-server</span>=<span class="hljs-string">192.168.119.129:9876</span><br><span class="hljs-attr">rocketmq.producer.group</span>=<span class="hljs-string">my-group</span><br></code></pre></td></tr></table></figure></li>
+</ul>
+<h2 id="解决-SpringBoot3-中-RocketMQTemplate-注入失败问题"><a href="#解决-SpringBoot3-中-RocketMQTemplate-注入失败问题" class="headerlink" title="解决 SpringBoot3 中 RocketMQTemplate 注入失败问题"></a>解决 SpringBoot3 中 RocketMQTemplate 注入失败问题</h2><p><code>SpringBoot3</code> 自动装配文件不是使用 <code>spring.factories</code> 文件，而是需要在 <code>META-INF/spring</code> 目录下创建 <code>org.springframework.boot.autoconfigure.AutoConfiguration.imports</code> 文件，然后将需要自动装配的类全名放入这个文件，一个类一行即可， 所以需要在 <code>resources</code> 目录下创建 <code>META-INF/spring</code> 目录，然后创建 <code>org.springframework.boot.autoconfigure.AutoConfiguration.imports</code> 文件，内容如下</p>
+<figure class="highlight stylus"><table><tr><td class="code"><pre><code class="hljs stylus">org<span class="hljs-selector-class">.apache</span><span class="hljs-selector-class">.rocketmq</span><span class="hljs-selector-class">.spring</span><span class="hljs-selector-class">.autoconfigure</span>.RocketMQAutoConfiguration<br></code></pre></td></tr></table></figure>
+<p>至此就可以按照示例使用了， 直接启动 <code>SpringBoot</code> 项目就可以看到消息发送成功的日志了</p>
+]]></content>
       <categories>
         <category>中间件</category>
         <category>RocketMQ</category>
@@ -4246,41 +4333,6 @@ Root("Producer(生产者)")
 <li><code>MappedFile</code> 就是对应这一个个的 <code>Commitlog</code> 文件，<strong>是内存映射文件的具体实现</strong></li>
 <li><code>MappedFileQueue</code> 是 <code>MappedFile</code>的管理容器，对应 <code>$&#123;ROCKET_HOME&#125;/store/commitlog</code> 文件夹</li>
 </ul>
-]]></content>
-      <categories>
-        <category>中间件</category>
-        <category>RocketMQ</category>
-      </categories>
-      <tags>
-        <tag>RocketMQ</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>RocketMQ整合SpringBoot3</title>
-    <url>/2023/1a12a33976fc/index.html</url>
-    <content><![CDATA[<p>SpringBoot版本： 3.2.0</p>
-<p><a href="https://github.com/apache/rocketmq-spring/wiki">官方文档</a></p>
-<blockquote>
-<p>SpringBoot3 版本直接使用示例会提示 RocketMQTemplate 注入失败，解决方式在文末</p>
-</blockquote>
-<p>使用 <code>idea</code> 创建 <code>SpringBoot</code> 项目, 项目名称是 <code>rocket-spring-boot</code></p>
-<figure class="highlight mipsasm"><table><tr><td class="code"><pre><code class="hljs mipsasm">rocket-spring-<span class="hljs-keyword">boot</span><br><span class="hljs-keyword"></span>├─src<br>│  ├─main<br>│  │  ├─<span class="hljs-keyword">java</span><br><span class="hljs-keyword"></span>│  │  │  └─<span class="hljs-keyword">org</span><br><span class="hljs-keyword"></span>│  │  │      └─example<br>│  │  │          └─rocketmqspringboot<br>│  │  │              └─RocketmqSpringBootApplication.<span class="hljs-keyword">java</span><br><span class="hljs-keyword"></span>│  │  └─resources<br>│  │      └─application.properties<br>└─pom.xml<br></code></pre></td></tr></table></figure>
-
-<p>主要有三个文件</p>
-<ul>
-<li><code>pom.xml</code> 依赖文件</li>
-</ul>
-<figure class="highlight xml"><table><tr><td class="code"><pre><code class="hljs xml"><span class="hljs-meta">&lt;?xml version=<span class="hljs-string">&quot;1.0&quot;</span> encoding=<span class="hljs-string">&quot;UTF-8&quot;</span>?&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">project</span> <span class="hljs-attr">xmlns</span>=<span class="hljs-string">&quot;http://maven.apache.org/POM/4.0.0&quot;</span> <span class="hljs-attr">xmlns:xsi</span>=<span class="hljs-string">&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span></span><br><span class="hljs-tag">         <span class="hljs-attr">xsi:schemaLocation</span>=<span class="hljs-string">&quot;http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd&quot;</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">modelVersion</span>&gt;</span>4.0.0<span class="hljs-tag">&lt;/<span class="hljs-name">modelVersion</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">parent</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>org.springframework.boot<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>spring-boot-starter-parent<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">version</span>&gt;</span>3.2.0<span class="hljs-tag">&lt;/<span class="hljs-name">version</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">relativePath</span>/&gt;</span> <span class="hljs-comment">&lt;!-- lookup parent from repository --&gt;</span><br>    <span class="hljs-tag">&lt;/<span class="hljs-name">parent</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>org.example<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>rocketmq-spring-boot<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">version</span>&gt;</span>0.0.1-SNAPSHOT<span class="hljs-tag">&lt;/<span class="hljs-name">version</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">name</span>&gt;</span>rocketmq-spring-boot<span class="hljs-tag">&lt;/<span class="hljs-name">name</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">description</span>&gt;</span>rocketmq-spring-boot<span class="hljs-tag">&lt;/<span class="hljs-name">description</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">properties</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">java.version</span>&gt;</span>17<span class="hljs-tag">&lt;/<span class="hljs-name">java.version</span>&gt;</span><br>    <span class="hljs-tag">&lt;/<span class="hljs-name">properties</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">dependencies</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span><br>            <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>org.springframework.boot<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span><br>            <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>spring-boot-starter<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span><br>        <span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span><br><br>        <span class="hljs-comment">&lt;!-- 这里添加 rocketmq-spring-boot-starter 依赖 --&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span><br>            <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>org.apache.rocketmq<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span><br>            <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>rocketmq-spring-boot-starter<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span><br>            <span class="hljs-tag">&lt;<span class="hljs-name">version</span>&gt;</span>2.2.3<span class="hljs-tag">&lt;/<span class="hljs-name">version</span>&gt;</span><br>        <span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span><br><br>        <span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span><br>            <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>org.springframework.boot<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span><br>            <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>spring-boot-starter-test<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span><br>            <span class="hljs-tag">&lt;<span class="hljs-name">scope</span>&gt;</span>test<span class="hljs-tag">&lt;/<span class="hljs-name">scope</span>&gt;</span><br>        <span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span><br>            <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>org.projectlombok<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span><br>            <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>lombok<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span><br>        <span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span><br>    <span class="hljs-tag">&lt;/<span class="hljs-name">dependencies</span>&gt;</span><br><br>    <span class="hljs-tag">&lt;<span class="hljs-name">build</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">plugins</span>&gt;</span><br>            <span class="hljs-tag">&lt;<span class="hljs-name">plugin</span>&gt;</span><br>                <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>org.springframework.boot<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span><br>                <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>spring-boot-maven-plugin<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span><br>            <span class="hljs-tag">&lt;/<span class="hljs-name">plugin</span>&gt;</span><br>        <span class="hljs-tag">&lt;/<span class="hljs-name">plugins</span>&gt;</span><br>    <span class="hljs-tag">&lt;/<span class="hljs-name">build</span>&gt;</span><br><br><span class="hljs-tag">&lt;/<span class="hljs-name">project</span>&gt;</span><br></code></pre></td></tr></table></figure>
-<ul>
-<li><p><code>RocketmqSpringBootApplication.java</code>, 默认只有 <code>main</code> 方法，这里按照官方文档示例，实现 <code>CommandLineRunner</code> 接口，在项目启动之后就进行消息的发送</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@SpringBootApplication</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">RocketmqSpringBootApplication</span> <span class="hljs-keyword">implements</span> <span class="hljs-title class_">CommandLineRunner</span> &#123;<br><br>    <span class="hljs-meta">@Autowired</span><br>    <span class="hljs-keyword">private</span> RocketMQTemplate rocketMQTemplate;<br><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">main</span><span class="hljs-params">(String[] args)</span> &#123;<br>        SpringApplication.run(RocketmqSpringBootApplication.class, args);<br>    &#125;<br><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">run</span><span class="hljs-params">(String... args)</span> <span class="hljs-keyword">throws</span> Exception &#123;<br>        <span class="hljs-comment">//send message synchronously</span><br>        rocketMQTemplate.convertAndSend(<span class="hljs-string">&quot;test-topic-1&quot;</span>, <span class="hljs-string">&quot;Hello, World!&quot;</span>);<br>        <span class="hljs-comment">//send spring message</span><br>        rocketMQTemplate.send(<span class="hljs-string">&quot;test-topic-1&quot;</span>, MessageBuilder.withPayload(<span class="hljs-string">&quot;Hello, World! I&#x27;m from spring message&quot;</span>).build());<br>        <span class="hljs-comment">//send messgae asynchronously</span><br>        rocketMQTemplate.asyncSend(<span class="hljs-string">&quot;test-topic-2&quot;</span>, <span class="hljs-keyword">new</span> <span class="hljs-title class_">OrderPaidEvent</span>(<span class="hljs-string">&quot;T_001&quot;</span>, <span class="hljs-keyword">new</span> <span class="hljs-title class_">BigDecimal</span>(<span class="hljs-string">&quot;88.00&quot;</span>)), <span class="hljs-keyword">new</span> <span class="hljs-title class_">SendCallback</span>() &#123;<br>            <span class="hljs-meta">@Override</span><br>            <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">onSuccess</span><span class="hljs-params">(SendResult var1)</span> &#123;<br>                System.out.printf(<span class="hljs-string">&quot;async onSucess SendResult=%s %n&quot;</span>, var1);<br>            &#125;<br><br>            <span class="hljs-meta">@Override</span><br>            <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">onException</span><span class="hljs-params">(Throwable var1)</span> &#123;<br>                System.out.printf(<span class="hljs-string">&quot;async onException Throwable=%s %n&quot;</span>, var1);<br>            &#125;<br><br>        &#125;);<br>        <span class="hljs-comment">//Send messages orderly</span><br>        rocketMQTemplate.syncSendOrderly(<span class="hljs-string">&quot;orderly_topic&quot;</span>, MessageBuilder.withPayload(<span class="hljs-string">&quot;Hello, World&quot;</span>).build(),<span class="hljs-string">&quot;hashkey&quot;</span>);<br><br>        <span class="hljs-comment">//rocketMQTemplate.destroy(); // notes:  once rocketMQTemplate be destroyed, you can not send any message again with this rocketMQTemplate</span><br>    &#125;<br><br>    <span class="hljs-meta">@Data</span><br>    <span class="hljs-meta">@AllArgsConstructor</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">OrderPaidEvent</span> <span class="hljs-keyword">implements</span> <span class="hljs-title class_">Serializable</span> &#123;<br>        <span class="hljs-keyword">private</span> String orderId;<br><br>        <span class="hljs-keyword">private</span> BigDecimal paidMoney;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
-</li>
-<li><p>添加 <code>application.properties</code> 配置文件</p>
-<figure class="highlight properties"><table><tr><td class="code"><pre><code class="hljs properties"><span class="hljs-attr">rocketmq.name-server</span>=<span class="hljs-string">192.168.119.129:9876</span><br><span class="hljs-attr">rocketmq.producer.group</span>=<span class="hljs-string">my-group</span><br></code></pre></td></tr></table></figure></li>
-</ul>
-<h2 id="解决-SpringBoot3-中-RocketMQTemplate-注入失败问题"><a href="#解决-SpringBoot3-中-RocketMQTemplate-注入失败问题" class="headerlink" title="解决 SpringBoot3 中 RocketMQTemplate 注入失败问题"></a>解决 SpringBoot3 中 RocketMQTemplate 注入失败问题</h2><p><code>SpringBoot3</code> 自动装配文件不是使用 <code>spring.factories</code> 文件，而是需要在 <code>META-INF/spring</code> 目录下创建 <code>org.springframework.boot.autoconfigure.AutoConfiguration.imports</code> 文件，然后将需要自动装配的类全名放入这个文件，一个类一行即可， 所以需要在 <code>resources</code> 目录下创建 <code>META-INF/spring</code> 目录，然后创建 <code>org.springframework.boot.autoconfigure.AutoConfiguration.imports</code> 文件，内容如下</p>
-<figure class="highlight stylus"><table><tr><td class="code"><pre><code class="hljs stylus">org<span class="hljs-selector-class">.apache</span><span class="hljs-selector-class">.rocketmq</span><span class="hljs-selector-class">.spring</span><span class="hljs-selector-class">.autoconfigure</span>.RocketMQAutoConfiguration<br></code></pre></td></tr></table></figure>
-<p>至此就可以按照示例使用了， 直接启动 <code>SpringBoot</code> 项目就可以看到消息发送成功的日志了</p>
 ]]></content>
       <categories>
         <category>中间件</category>

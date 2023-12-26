@@ -2,6 +2,15 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://www.learnerguo.cn/2023/1d9bedf3f03a/index.html</loc>
+    
+    <lastmod>2023-12-26</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>https://www.learnerguo.cn/2023/ca7a5b96a543/index.html</loc>
     
     <lastmod>2023-12-26</lastmod>
@@ -908,14 +917,14 @@
   </url>
   
   <url>
-    <loc>https://www.learnerguo.cn/tags/Spring/</loc>
+    <loc>https://www.learnerguo.cn/tags/Mybatis/</loc>
     <lastmod>2023-12-26</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://www.learnerguo.cn/tags/SpringBoot/</loc>
+    <loc>https://www.learnerguo.cn/tags/Spring/</loc>
     <lastmod>2023-12-26</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -929,6 +938,13 @@
   </url>
   
   <url>
+    <loc>https://www.learnerguo.cn/tags/SpringBoot/</loc>
+    <lastmod>2023-12-26</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
     <loc>https://www.learnerguo.cn/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B/</loc>
     <lastmod>2023-12-26</lastmod>
     <changefreq>weekly</changefreq>
@@ -936,14 +952,14 @@
   </url>
   
   <url>
-    <loc>https://www.learnerguo.cn/tags/Linux/</loc>
+    <loc>https://www.learnerguo.cn/tags/python/</loc>
     <lastmod>2023-12-26</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://www.learnerguo.cn/tags/python/</loc>
+    <loc>https://www.learnerguo.cn/tags/Linux/</loc>
     <lastmod>2023-12-26</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -1057,7 +1073,7 @@
   </url>
   
   <url>
-    <loc>https://www.learnerguo.cn/categories/java/%E5%A4%9A%E7%BA%BF%E7%A8%8B/</loc>
+    <loc>https://www.learnerguo.cn/categories/java/SpringBoot/</loc>
     <lastmod>2023-12-26</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -1071,14 +1087,7 @@
   </url>
   
   <url>
-    <loc>https://www.learnerguo.cn/categories/Linux/</loc>
-    <lastmod>2023-12-26</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.learnerguo.cn/categories/java/jvm/</loc>
+    <loc>https://www.learnerguo.cn/categories/java/%E5%A4%9A%E7%BA%BF%E7%A8%8B/</loc>
     <lastmod>2023-12-26</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -1092,6 +1101,20 @@
   </url>
   
   <url>
+    <loc>https://www.learnerguo.cn/categories/java/jvm/</loc>
+    <lastmod>2023-12-26</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.learnerguo.cn/categories/Linux/</loc>
+    <lastmod>2023-12-26</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
     <loc>https://www.learnerguo.cn/categories/%E4%B8%AD%E9%97%B4%E4%BB%B6/</loc>
     <lastmod>2023-12-26</lastmod>
     <changefreq>weekly</changefreq>
@@ -1099,14 +1122,14 @@
   </url>
   
   <url>
-    <loc>https://www.learnerguo.cn/categories/java/Spring/</loc>
+    <loc>https://www.learnerguo.cn/categories/java/Mybatis/</loc>
     <lastmod>2023-12-26</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://www.learnerguo.cn/categories/java/SpringBoot/</loc>
+    <loc>https://www.learnerguo.cn/categories/java/Spring/</loc>
     <lastmod>2023-12-26</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
