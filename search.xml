@@ -3,7 +3,10 @@
   <entry>
     <title>书单记录</title>
     <url>/2023/d298f472fcd1/index.html</url>
-    <content><![CDATA[<h2 id="java"><a href="#java" class="headerlink" title="java"></a>java</h2><ul>
+    <content><![CDATA[<h2 id="算法"><a href="#算法" class="headerlink" title="算法"></a>算法</h2><ul>
+<li>《剑指Offer：专项突破版. 数据结构与算法名企面试题精讲》  – 何海涛  【微信读书】</li>
+</ul>
+<h2 id="java"><a href="#java" class="headerlink" title="java"></a>java</h2><ul>
 <li>📖 《Java并发编程深度解析与实战》 – 谭锋   【微信读书】</li>
 <li>📖 《剑指JVM：虚拟机时间与性能调优》   – 尚硅谷教育      【微信读书】</li>
 <li>《设计模式就该这么学：基于经典框架源码和真实业务场景》   – 谭勇德   【微信读书】</li>
@@ -929,6 +932,24 @@
       </tags>
   </entry>
   <entry>
+    <title>jdk自带工具的使用</title>
+    <url>/2024/19b110e0830d/index.html</url>
+    <content><![CDATA[<h2 id="jdk17-使用-hsdb"><a href="#jdk17-使用-hsdb" class="headerlink" title="jdk17 使用 hsdb"></a>jdk17 使用 hsdb</h2><ol>
+<li>进入 <code>jdk17</code> 安装目录下的 <code>bin</code> 目录，比如 <code>cd E:\java\jdk17\bin</code></li>
+<li>执行 <code>jhsdb hsdb</code>，就会出现界面</li>
+<li>选择 <code>File -&gt; Attacch to Host Spot process</code> 输入 <code>pid</code> 即可</li>
+</ol>
+]]></content>
+      <categories>
+        <category>java</category>
+        <category>jvm</category>
+      </categories>
+      <tags>
+        <tag>java</tag>
+        <tag>jvm</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>jvm垃圾回收</title>
     <url>/2023/63d242ce6cb3/index.html</url>
     <content><![CDATA[<span class="hide_first_mermaid">
@@ -1166,6 +1187,157 @@
       </tags>
   </entry>
   <entry>
+    <title>jvm执行引擎</title>
+    <url>/2023/a18206d79e08/index.html</url>
+    <content><![CDATA[<span class="hide_first_mermaid">
+<div class="mermaid-wrap"><pre class="mermaid-src" hidden>
+  flowchart LR
+    A
+  </pre></div>
+</span>
+
+<h2 id="执行引擎的作用"><a href="#执行引擎的作用" class="headerlink" title="执行引擎的作用"></a>执行引擎的作用</h2><pre class="mermaid">flowchart TB
+    A["java源代码(.java文件)"]
+    B["class字节码文件"]
+    C["内存(放入jvm方法区)"]
+        subgraph D["执行引擎"]
+            subgraph D1["编译器"]
+                D11["Client Compiler"]
+                D12["Server Compiler"]
+            end
+        end
+    E["机器码"]
+
+    A--"javac编译器"-->B
+    B--"类加载器"-->C
+    C-->D
+    D--解释执行-->E
+    D--"编译执行(JIT)"-->E</pre>
+<h3 id="字节码"><a href="#字节码" class="headerlink" title="字节码"></a>字节码</h3><ol>
+<li><code>Java</code>程序可以通过编译器将源码编译成<code>Java</code>字节码，特定平台上的虚拟机将字节码转译为可以直接执行的机器码，也就实现了跨平台性</li>
+<li>字节码主要为了实现特定软件运行和软件环境，与硬件环境无关</li>
+</ol>
+<h2 id="即时编译器-JIT-的作用"><a href="#即时编译器-JIT-的作用" class="headerlink" title="即时编译器(JIT)的作用"></a>即时编译器(JIT)的作用</h2><ol>
+<li>即时编译器在最初的 <code>jvm</code> 中是没有的，没有的原因就是 <code>jvm</code> 设计的初衷是为了满足 <code>Java</code> 程序实现跨平台的特性，所以避免采用静态编译的方式直接生成机器码，所以采用了解释器在运行时逐行解释字节码执行程序</li>
+<li><code>JIT</code>编译器的作用就是虚拟机将字节码直接编译成机器码</li>
+<li><strong>无论是采用解释器进行解释执行，还是采用即时编译器进行编译执行，最终字节码都是需要被转换成对应平台的机器码</strong></li>
+</ol>
+<h2 id="为何HotSpot虚拟机要使用解释器与编译器并存的架构"><a href="#为何HotSpot虚拟机要使用解释器与编译器并存的架构" class="headerlink" title="为何HotSpot虚拟机要使用解释器与编译器并存的架构"></a>为何HotSpot虚拟机要使用解释器与编译器并存的架构</h2><p>因为解释器和编译器各有优势</p>
+<ol>
+<li>程序启动后，解释器可以立即发挥作用，省去编译的时间，立即执行。编译器想要发挥作用，将代码编译成机器码，需要一定的执行时间，但是编译为机器码之后，执行效率更高</li>
+<li>当程序的运行环境中内存资源较大(比如嵌入式系统)时，解释执行可以更节约内存</li>
+</ol>
+<h2 id="为何HotSpot虚拟机要实现两个不同的即时编译器"><a href="#为何HotSpot虚拟机要实现两个不同的即时编译器" class="headerlink" title="为何HotSpot虚拟机要实现两个不同的即时编译器"></a>为何HotSpot虚拟机要实现两个不同的即时编译器</h2><p><code>HotSpot</code> 虚拟机包含两个即时编译器</p>
+<ol>
+<li><code>Client Compile</code>， 也叫做 <code>c1</code> 编译器</li>
+<li><code>Server Compile</code>，也叫做 <code>c2</code> 编译器</li>
+</ol>
+<p><code>HotSpot</code> 虚拟机默认采用解释器和其中一个编译器配合的方式工作，程序使用哪个编译器，取决于虚拟机运行的模式</p>
+<p>通过 <code>-client</code> 参数可以指定 <code>jvm</code> 运行在 <code>Client</code> 模式下，并使用 <code>c1</code> 编译器，<code>c1</code> 编译器会对字节码进行简单和可靠的优化，耗时短，达到更快的编译速度</p>
+<p>通过 <code>-server</code> 参数可以指定 <code>jvm</code> 运行在 <code>Server</code> 模式下，并使用 <code>c2</code> 编译器，<code>c2</code> 会进行耗时较长的优化，以及激进优化，但优化的代码执行效率更高</p>
+<p>实施分层编译后，<code>Client Compiler</code>和<code>Server Compiler</code>将会同时工作，许多代码都可能会被多次编译，用<code>Client Compiler</code>获取更高的编译速度，用<code>Server Compiler</code>来获取更好的编译质量，在解释执行的时候也无须再承担收集性能监控信息的任务</p>
+<h2 id="程序何时使用解释器执行？何时使用编译器执行？"><a href="#程序何时使用解释器执行？何时使用编译器执行？" class="headerlink" title="程序何时使用解释器执行？何时使用编译器执行？"></a>程序何时使用解释器执行？何时使用编译器执行？</h2><p>在运行过程中会被即时编译器编译的 <strong>热点代码</strong>包含两类</p>
+<ol>
+<li>被<strong>多次</strong>调用的方法</li>
+<li>被<strong>多次</strong>执行的循环体</li>
+</ol>
+<h3 id="热点探测"><a href="#热点探测" class="headerlink" title="热点探测"></a>热点探测</h3><p>无论是基于多次调用的方法还是多次执行的循环体，都强调多次，具体多少次算多次呢？ 在 <code>HotSpot</code> 中是使用 <strong>基于计数器的热点探测</strong> 方式来判断执行的次数的，在 <code>HotSpot</code> 虚拟机中为每个方法准备了两类计数器，这两类计数器都有确定的阈值，当技术器超过阈值了，就会触发 <code>JIT</code> 编译</p>
+<ol>
+<li>方法调用计数器： 用来统计方法调用的次数，可以通过参数 <code>-XX:CompileThreshold</code> 来认为设置阈值</li>
+<li>回边计数器： 用来统计一个方法中循环体代码执行的次数，在字节码中遇到控制流向后跳转的指令称为 <strong>回边</strong></li>
+</ol>
+]]></content>
+      <categories>
+        <category>java</category>
+        <category>jvm</category>
+      </categories>
+      <tags>
+        <tag>java</tag>
+        <tag>jvm</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>jvm类加载机制</title>
+    <url>/2024/859a04275429/index.html</url>
+    <content><![CDATA[<span class="hide_first_mermaid">
+<div class="mermaid-wrap"><pre class="mermaid-src" hidden>
+  flowchart LR
+    A
+  </pre></div>
+</span>
+
+<h2 id="1-类的整个生命周期"><a href="#1-类的整个生命周期" class="headerlink" title="1. 类的整个生命周期"></a>1. 类的整个生命周期</h2><pre class="mermaid">flowchart LR
+    A["加载"]
+    subgraph B["链接"]
+        direction LR
+        B1["验证"]
+        B2["准备"]
+        B3["解析"]
+        B1-->B2-->B3
+    end
+    C["初始化"]
+    D["使用"]
+    E["卸载"]
+    A-->B-->C-->D-->E</pre>
+<p>接下来看看每个阶段做的事情</p>
+<h3 id="1-1-加载阶段完成的事情"><a href="#1-1-加载阶段完成的事情" class="headerlink" title="1.1. 加载阶段完成的事情"></a>1.1. 加载阶段完成的事情</h3><ul>
+<li>根据类的全限定名读取类的二进制流</li>
+<li>将字节流所代表的的静态存储结构转化为方法区的运行时数据结构 <strong>字节码结构是存储在方法区</strong></li>
+<li>在堆区中生成一个代表这个类的<code>java.lang.Class</code>对象，用于方法区这个类的各种数据的访问入口， <strong>Class对象是在堆中</strong></li>
+</ul>
+<h3 id="1-2-链接阶段"><a href="#1-2-链接阶段" class="headerlink" title="1.2. 链接阶段"></a>1.2. 链接阶段</h3><h4 id="1-2-1-准备阶段完成的事情"><a href="#1-2-1-准备阶段完成的事情" class="headerlink" title="1.2.1. 准备阶段完成的事情"></a>1.2.1. 准备阶段完成的事情</h4><ul>
+<li>给类变量分配内存并附初始值(零值) </li>
+<li><code>final</code> 修饰的变量直接赋值，而不是初始化为零值</li>
+</ul>
+<h4 id="1-2-2-解析阶段完成的事情"><a href="#1-2-2-解析阶段完成的事情" class="headerlink" title="1.2.2. 解析阶段完成的事情"></a>1.2.2. 解析阶段完成的事情</h4><ul>
+<li>虚拟机将常量池内的符号引用替换为直接引用</li>
+</ul>
+<h3 id="1-3-初始化阶段完成的事情"><a href="#1-3-初始化阶段完成的事情" class="headerlink" title="1.3. 初始化阶段完成的事情"></a>1.3. 初始化阶段完成的事情</h3><ul>
+<li>为类变量赋值（在准备阶段是给类变量分配内存和赋零值），这里是设置为代码中设定的值，比如 <code>static int a = 10</code>, 这里的赋值就是将10赋值给 <code>a</code></li>
+<li>当一个类中含有类变量或静态方法，<code>jvm</code> 会给当前类生成一个 <strong>类初始化方法</strong> <code>&lt;clinit&gt;</code></li>
+</ul>
+<h2 id="2-类加载器"><a href="#2-类加载器" class="headerlink" title="2. 类加载器"></a>2. 类加载器</h2><p>在前面讲类的整个生命周期时，第一个阶段就是加载，加载动作就是通过类加载器完成的，类加载器完成的事情就是 <strong>通过类的全限定名获取描述类的二进制流</strong></p>
+<h3 id="2-1-jdk9-之前的类加载器"><a href="#2-1-jdk9-之前的类加载器" class="headerlink" title="2.1. jdk9 之前的类加载器"></a>2.1. jdk9 之前的类加载器</h3><pre class="mermaid">flowchart TB
+    A["BootStrap ClassLoader"]
+    B["xtension ClassLoader"]
+    C["Application ClassLoader"]
+    D1["自定义类加载器 User ClassLoader"]
+    D2["自定义类加载器 User ClassLoader"]
+    A-->B-->C
+    C-->D1
+    C-->D2</pre>
+
+<h3 id="2-2-jdk9-之后的类加载器"><a href="#2-2-jdk9-之后的类加载器" class="headerlink" title="2.2. jdk9 之后的类加载器"></a>2.2. jdk9 之后的类加载器</h3><pre class="mermaid">flowchart TB
+    A["BootStrap ClassLoader"]
+    B["Platform  ClassLoader"]
+    C["Application ClassLoader"]
+    D1["自定义类加载器 User ClassLoader"]
+    D2["自定义类加载器 User ClassLoader"]
+    A-->B-->C
+    C-->D1
+    C-->D2</pre>
+
+<h3 id="2-3-双亲委派模式"><a href="#2-3-双亲委派模式" class="headerlink" title="2.3. 双亲委派模式"></a>2.3. 双亲委派模式</h3><ol>
+<li>当一个类加载器收到加载请求时会先把加载请求委托给父类加载器</li>
+<li>如果父类加载器也存在父类加载器，继续向上委托，直至最顶层引导类加载器</li>
+<li>如果父类加载器能完成类的加载，就交给父类加载器完成，反之由子类进行加载</li>
+</ol>
+<p><strong>注：这里类加载器中所说的父类不是继承关系，而是实现类加载器的层级关系，子类加载器中会包含父类加载器的引用而已</strong></p>
+<h4 id="2-3-1-优点"><a href="#2-3-1-优点" class="headerlink" title="2.3.1. 优点"></a>2.3.1. 优点</h4><ul>
+<li>避免核心类库被修改，即使有相同全限定类名的类，也会先交给父类去判断</li>
+<li>避免全限定名相同的类被重复加载，导致程序异常</li>
+</ul>
+]]></content>
+      <categories>
+        <category>java</category>
+        <category>jvm</category>
+      </categories>
+      <tags>
+        <tag>java</tag>
+        <tag>jvm</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>jvm运行时内存区域</title>
     <url>/2023/70e7b048ccf4/index.html</url>
     <content><![CDATA[<span class="hide_first_mermaid">
@@ -1339,6 +1511,8 @@
     A65["异常表"]
     A6-->A61 & A62 & A63 & A64 & A65
   end</pre>
+
+<p><a href="https://zhuanlan.zhihu.com/p/269134063">jdk7静态变量存放在堆中的工具分析</a></p>
 <h3 id="不同版本jdk方法区的内容"><a href="#不同版本jdk方法区的内容" class="headerlink" title="不同版本jdk方法区的内容"></a>不同版本jdk方法区的内容</h3><h4 id="jdk6-方法区"><a href="#jdk6-方法区" class="headerlink" title="jdk6 方法区"></a>jdk6 方法区</h4><pre class="mermaid">flowchart LR
     subgraph A[方法区和堆]
         subgraph A1["方法区(永久代PermGen实现)"]
@@ -1425,65 +1599,22 @@
       </tags>
   </entry>
   <entry>
-    <title>jvm执行引擎</title>
-    <url>/2023/a18206d79e08/index.html</url>
-    <content><![CDATA[<span class="hide_first_mermaid">
-<div class="mermaid-wrap"><pre class="mermaid-src" hidden>
-  flowchart LR
-    A
-  </pre></div>
-</span>
+    <title>自定义类加载器</title>
+    <url>/2024/0ca6653854a6/index.html</url>
+    <content><![CDATA[<blockquote>
+<p>jdk版本： 17</p>
+</blockquote>
+<h2 id="自定义类加载器"><a href="#自定义类加载器" class="headerlink" title="自定义类加载器"></a>自定义类加载器</h2><p>自定义类加载器需要继承 <code>ClassLoader</code> 类</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">CusClassLoader</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_">ClassLoader</span> &#123;<br><br>    <span class="hljs-comment">// 重写 findClass 类， 参数 name 是类的全限定类名</span><br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-keyword">protected</span> Class&lt;?&gt; findClass(String name) <span class="hljs-keyword">throws</span> ClassNotFoundException &#123;<br>        <span class="hljs-type">byte</span>[] data;<br>        <span class="hljs-keyword">try</span> &#123;<br>            data = findClassData(name);<br>        &#125; <span class="hljs-keyword">catch</span> (IOException e) &#123;<br>            <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">RuntimeException</span>(e);<br>        &#125;<br>        <span class="hljs-keyword">return</span> <span class="hljs-built_in">super</span>.defineClass(name, data, <span class="hljs-number">0</span>, data.length);<br>    &#125;<br><br>    <span class="hljs-keyword">private</span> <span class="hljs-type">byte</span>[] findClassData(String name) <span class="hljs-keyword">throws</span> IOException &#123;<br>        <span class="hljs-comment">// 需要根据 name 找到对应的 class 文件，这里省略了，直接加载对应的 class 文件</span><br>        <span class="hljs-type">File</span> <span class="hljs-variable">file</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">File</span>(<span class="hljs-string">&quot;D:\\logs\\TestOne.class&quot;</span>);<br>        <span class="hljs-type">InputStream</span> <span class="hljs-variable">inputStream</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">FileInputStream</span>(file);<br>        <span class="hljs-keyword">return</span> inputStream.readAllBytes();<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
 
-<h2 id="执行引擎的作用"><a href="#执行引擎的作用" class="headerlink" title="执行引擎的作用"></a>执行引擎的作用</h2><pre class="mermaid">flowchart TB
-    A["java源代码(.java文件)"]
-    B["class字节码文件"]
-    C["内存(放入jvm方法区)"]
-        subgraph D["执行引擎"]
-            subgraph D1["编译器"]
-                D11["Client Compiler"]
-                D12["Server Compiler"]
-            end
-        end
-    E["机器码"]
+<h2 id="编写需要被加载的类"><a href="#编写需要被加载的类" class="headerlink" title="编写需要被加载的类"></a>编写需要被加载的类</h2><figure class="highlight java"><table><tr><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">package</span> com.example;<br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">TestOne</span> &#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">testOne</span><span class="hljs-params">()</span> &#123;<br>        System.out.println(<span class="hljs-string">&quot;test one&quot;</span>);<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
 
-    A--"javac编译器"-->B
-    B--"类加载器"-->C
-    C-->D
-    D--解释执行-->E
-    D--"编译执行(JIT)"-->E</pre>
-<h3 id="字节码"><a href="#字节码" class="headerlink" title="字节码"></a>字节码</h3><ol>
-<li><code>Java</code>程序可以通过编译器将源码编译成<code>Java</code>字节码，特定平台上的虚拟机将字节码转译为可以直接执行的机器码，也就实现了跨平台性</li>
-<li>字节码主要为了实现特定软件运行和软件环境，与硬件环境无关</li>
-</ol>
-<h2 id="即时编译器-JIT-的作用"><a href="#即时编译器-JIT-的作用" class="headerlink" title="即时编译器(JIT)的作用"></a>即时编译器(JIT)的作用</h2><ol>
-<li>即时编译器在最初的 <code>jvm</code> 中是没有的，没有的原因就是 <code>jvm</code> 设计的初衷是为了满足 <code>Java</code> 程序实现跨平台的特性，所以避免采用静态编译的方式直接生成机器码，所以采用了解释器在运行时逐行解释字节码执行程序</li>
-<li><code>JIT</code>编译器的作用就是虚拟机将字节码直接编译成机器码</li>
-<li><strong>无论是采用解释器进行解释执行，还是采用即时编译器进行编译执行，最终字节码都是需要被转换成对应平台的机器码</strong></li>
-</ol>
-<h2 id="为何HotSpot虚拟机要使用解释器与编译器并存的架构"><a href="#为何HotSpot虚拟机要使用解释器与编译器并存的架构" class="headerlink" title="为何HotSpot虚拟机要使用解释器与编译器并存的架构"></a>为何HotSpot虚拟机要使用解释器与编译器并存的架构</h2><p>因为解释器和编译器各有优势</p>
-<ol>
-<li>程序启动后，解释器可以立即发挥作用，省去编译的时间，立即执行。编译器想要发挥作用，将代码编译成机器码，需要一定的执行时间，但是编译为机器码之后，执行效率更高</li>
-<li>当程序的运行环境中内存资源较大(比如嵌入式系统)时，解释执行可以更节约内存</li>
-</ol>
-<h2 id="为何HotSpot虚拟机要实现两个不同的即时编译器"><a href="#为何HotSpot虚拟机要实现两个不同的即时编译器" class="headerlink" title="为何HotSpot虚拟机要实现两个不同的即时编译器"></a>为何HotSpot虚拟机要实现两个不同的即时编译器</h2><p><code>HotSpot</code> 虚拟机包含两个即时编译器</p>
-<ol>
-<li><code>Client Compile</code>， 也叫做 <code>c1</code> 编译器</li>
-<li><code>Server Compile</code>，也叫做 <code>c2</code> 编译器</li>
-</ol>
-<p><code>HotSpot</code> 虚拟机默认采用解释器和其中一个编译器配合的方式工作，程序使用哪个编译器，取决于虚拟机运行的模式</p>
-<p>通过 <code>-client</code> 参数可以指定 <code>jvm</code> 运行在 <code>Client</code> 模式下，并使用 <code>c1</code> 编译器，<code>c1</code> 编译器会对字节码进行简单和可靠的优化，耗时短，达到更快的编译速度</p>
-<p>通过 <code>-server</code> 参数可以指定 <code>jvm</code> 运行在 <code>Server</code> 模式下，并使用 <code>c2</code> 编译器，<code>c2</code> 会进行耗时较长的优化，以及激进优化，但优化的代码执行效率更高</p>
-<p>实施分层编译后，<code>Client Compiler</code>和<code>Server Compiler</code>将会同时工作，许多代码都可能会被多次编译，用<code>Client Compiler</code>获取更高的编译速度，用<code>Server Compiler</code>来获取更好的编译质量，在解释执行的时候也无须再承担收集性能监控信息的任务</p>
-<h2 id="程序何时使用解释器执行？何时使用编译器执行？"><a href="#程序何时使用解释器执行？何时使用编译器执行？" class="headerlink" title="程序何时使用解释器执行？何时使用编译器执行？"></a>程序何时使用解释器执行？何时使用编译器执行？</h2><p>在运行过程中会被即时编译器编译的 <strong>热点代码</strong>包含两类</p>
-<ol>
-<li>被<strong>多次</strong>调用的方法</li>
-<li>被<strong>多次</strong>执行的循环体</li>
-</ol>
-<h3 id="热点探测"><a href="#热点探测" class="headerlink" title="热点探测"></a>热点探测</h3><p>无论是基于多次调用的方法还是多次执行的循环体，都强调多次，具体多少次算多次呢？ 在 <code>HotSpot</code> 中是使用 <strong>基于计数器的热点探测</strong> 方式来判断执行的次数的，在 <code>HotSpot</code> 虚拟机中为每个方法准备了两类计数器，这两类计数器都有确定的阈值，当技术器超过阈值了，就会触发 <code>JIT</code> 编译</p>
-<ol>
-<li>方法调用计数器： 用来统计方法调用的次数，可以通过参数 <code>-XX:CompileThreshold</code> 来认为设置阈值</li>
-<li>回边计数器： 用来统计一个方法中循环体代码执行的次数，在字节码中遇到控制流向后跳转的指令称为 <strong>回边</strong></li>
-</ol>
+<h2 id="编写测试类"><a href="#编写测试类" class="headerlink" title="编写测试类"></a>编写测试类</h2><figure class="highlight java"><table><tr><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">TestMain</span> &#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">main</span><span class="hljs-params">(String[] args)</span> <span class="hljs-keyword">throws</span> Exception &#123;<br>        <span class="hljs-type">CusClassLoader</span> <span class="hljs-variable">classLoader</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">CusClassLoader</span>();<br>        Class&lt;?&gt; aClass = classLoader.loadClass(<span class="hljs-string">&quot;com.example.TestOne&quot;</span>);<br>        System.out.println(aClass.getClassLoader());<br>        <span class="hljs-type">Method</span> <span class="hljs-variable">method</span> <span class="hljs-operator">=</span> aClass.getMethod(<span class="hljs-string">&quot;testOne&quot;</span>);<br>        method.invoke(aClass.newInstance());<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>输出结果</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><code class="hljs java">com.example.CusClassLoader@6576fe71<br>test one<br></code></pre></td></tr></table></figure>
+
+<h2 id="重写-findClass-还是-loadClass"><a href="#重写-findClass-还是-loadClass" class="headerlink" title="重写 findClass 还是 loadClass"></a>重写 findClass 还是 loadClass</h2><p>自定义类加载器时需要继承 <code>ClassLoader</code> 类，但是具体可重写的方法包含 <code>findClass</code> 和 <code>loadClass</code>，一般情况下只需要重写 <code>findClass</code> 即可，因为双亲委派的逻辑是在 <code>loadClass</code> 中完成，所以不想破坏双亲委派时就直接重写 <code>findClass</code> 即可</p>
 ]]></content>
       <categories>
         <category>java</category>
@@ -1492,6 +1623,85 @@
       <tags>
         <tag>java</tag>
         <tag>jvm</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Mybatis执行流程和核心组件</title>
+    <url>/2023/08bb8954abe7/index.html</url>
+    <content><![CDATA[<span class="hide_first_mermaid">
+<div class="mermaid-wrap"><pre class="mermaid-src" hidden>
+  flowchart LR
+    A
+  </pre></div>
+</span>
+
+<blockquote>
+<p>Mybatis版本： 3.5.15<br>参考书籍： 《Mybatis3源码深度解析》</p>
+</blockquote>
+<h2 id="Mybatis核心组件"><a href="#Mybatis核心组件" class="headerlink" title="Mybatis核心组件"></a>Mybatis核心组件</h2><p><img src="https://blog-1308475102.cos.ap-guangzhou.myqcloud.com/picture/202312262105691.webp" alt="Mybatis核心组件"></p>
+<p><strong>组件说明</strong></p>
+<ul>
+<li><code>Configuration</code>: 用于描述 <code>MyBatis</code> 的主配置信息，其他组件需要获取配置信息时，直接通过<code>Configuration</code> 对象获取<ul>
+<li><code>Mybatis</code> 在启动时，将 <code>Mapper</code> 配置信息、类型别名、<code>TypeHandler</code> 等注册到<code>Configuration</code> 组件中，其他组件需要这些信息时，也可以从 <code>Configuration</code> 对象中获取</li>
+</ul>
+</li>
+<li><code>MappedStatement</code>： <code>MappedStatement</code> 用于描述 <code>Mapper</code> 中的 <code>SQL</code> 配置信息，是对<code>Mapper XML</code> 配置文件中 <code>&lt;select|update|delete|insert&gt;</code> 等标签或者 <code>@Select/@Update</code> 等注解配置信息的封装</li>
+<li><code>SqlSession</code>： <code>SqlSession</code> 是提供给用户操作的 <code>API</code>, 表示和数据库交互时的会话对象</li>
+<li><code>Executor</code>: <code>Executor</code> 是 <code>MyBatis</code> 的 <code>SQL</code> 执行器，<code>MyBatis</code> 中对数据库所有的增删改查操作都是由 <code>Executor</code> 组件完成的</li>
+<li><code>StatementHandler</code>: <code>StatementHandler</code> 封装了对 <code>JDBC Statement</code> 对象的操作</li>
+<li><code>ParameterHandler</code>: 当 <code>MyBatis</code> 框架使用的 <code>Statement</code> 类型为 <code>CallableStatement</code> 和<code>PreparedStatement</code>时，<code>ParameterHandler</code> 用于为 <code>Statement</code> 对象参数占位符设置值</li>
+<li><code>ResultSetHandler</code>: <code>ResultSetHandler</code>封装了对 <code>JDBC</code> 中的 <code>ResultSet</code> 对象操作</li>
+<li><code>TypeHandler</code>: <code>TypeHandler</code> 是 <code>MyBatis</code> 中的类型处理器，用于处理 <code>Java</code> 类型与 <code>JDBC</code> 类型之间的映射</li>
+</ul>
+<h3 id="Configuration"><a href="#Configuration" class="headerlink" title="Configuration"></a>Configuration</h3><p><strong>作用1：作为主配置文件的承载</strong></p>
+<blockquote>
+<p>MyBatis 框架的配置信息有两种，一种是配置 MyBatis 框架属性的主配置文件；<br>另一种是配置执行 SQL语句的 Mapper 配置文件。<br>Configuration 的作用是描述 MyBatis 主配置文件的信息</p>
+</blockquote>
+<p>可以看 <code>Configuration</code> 类中相关属性</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">Configuration</span> &#123;<br><br>    <span class="hljs-keyword">protected</span> Environment environment;<br><br>    <span class="hljs-keyword">protected</span> <span class="hljs-type">boolean</span> safeRowBoundsEnabled;<br>    <span class="hljs-keyword">protected</span> <span class="hljs-type">boolean</span> <span class="hljs-variable">safeResultHandlerEnabled</span> <span class="hljs-operator">=</span> <span class="hljs-literal">true</span>;<br>    <span class="hljs-keyword">protected</span> <span class="hljs-type">boolean</span> mapUnderscoreToCamelCase;<br>    <span class="hljs-keyword">protected</span> <span class="hljs-type">boolean</span> aggressiveLazyLoading;<br>    <span class="hljs-keyword">protected</span> <span class="hljs-type">boolean</span> <span class="hljs-variable">multipleResultSetsEnabled</span> <span class="hljs-operator">=</span> <span class="hljs-literal">true</span>;<br>    <span class="hljs-keyword">protected</span> <span class="hljs-type">boolean</span> useGeneratedKeys;<br>    <span class="hljs-keyword">protected</span> <span class="hljs-type">boolean</span> <span class="hljs-variable">useColumnLabel</span> <span class="hljs-operator">=</span> <span class="hljs-literal">true</span>;<br>    <span class="hljs-keyword">protected</span> <span class="hljs-type">boolean</span> <span class="hljs-variable">cacheEnabled</span> <span class="hljs-operator">=</span> <span class="hljs-literal">true</span>;<br>    <span class="hljs-keyword">protected</span> <span class="hljs-type">boolean</span> callSettersOnNulls;<br>    <span class="hljs-keyword">protected</span> <span class="hljs-type">boolean</span> <span class="hljs-variable">useActualParamName</span> <span class="hljs-operator">=</span> <span class="hljs-literal">true</span>;<br>    <span class="hljs-keyword">protected</span> <span class="hljs-type">boolean</span> returnInstanceForEmptyRow;<br>    <span class="hljs-keyword">protected</span> <span class="hljs-type">boolean</span> shrinkWhitespacesInSql;<br>    <span class="hljs-keyword">protected</span> <span class="hljs-type">boolean</span> nullableOnForEach;<br>    <span class="hljs-keyword">protected</span> <span class="hljs-type">boolean</span> argNameBasedConstructorAutoMapping;<br>    ……<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>这个配置文件有很多配置，具体可以参考 <a href="https://mybatis.net.cn/configuration.html">Mybatis主配置文件</a></p>
+<p><strong>作用2：作为容器存储TypeHandler,TypeAlias,Mapper接口信息</strong></p>
+<figure class="highlight java"><table><tr><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">Configuration</span> &#123;<br>    <span class="hljs-comment">// 用于注册Mapper接口信息，建立Mapper接口的Class对象和MapperProxyFactory</span><br>    <span class="hljs-comment">// 对象之间的关系，其中MapperProxyFactory对象用于创建Mapper动态代理对象</span><br>    <span class="hljs-keyword">protected</span> <span class="hljs-keyword">final</span> <span class="hljs-type">MapperRegistry</span> <span class="hljs-variable">mapperRegistry</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">MapperRegistry</span>(<span class="hljs-built_in">this</span>);<br><br>    <span class="hljs-comment">// 用于注册MyBatis插件信息，MyBatis插件实际上就是一个拦截器</span><br>    <span class="hljs-keyword">protected</span> <span class="hljs-keyword">final</span> <span class="hljs-type">InterceptorChain</span> <span class="hljs-variable">interceptorChain</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">InterceptorChain</span>();<br><br>    <span class="hljs-comment">// 用于注册所有的TypeHandler，并建立Jdbc类型、JDBC类型与TypeHandler之间的对应关系</span><br>    <span class="hljs-keyword">protected</span> <span class="hljs-keyword">final</span> <span class="hljs-type">TypeHandlerRegistry</span> <span class="hljs-variable">typeHandlerRegistry</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">TypeHandlerRegistry</span>(<span class="hljs-built_in">this</span>);<br><br>    <span class="hljs-comment">// 用于注册所有的类型别名</span><br>    <span class="hljs-keyword">protected</span> <span class="hljs-keyword">final</span> <span class="hljs-type">TypeAliasRegistry</span> <span class="hljs-variable">typeAliasRegistry</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">TypeAliasRegistry</span>();<br>    <span class="hljs-keyword">protected</span> <span class="hljs-keyword">final</span> <span class="hljs-type">LanguageDriverRegistry</span> <span class="hljs-variable">languageRegistry</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">LanguageDriverRegistry</span>();<br><br>    <span class="hljs-comment">// MyBatis将所有的MappedStatement对象注册到该属性中，</span><br>    <span class="hljs-comment">// 其中Key为Mapper的Id，Value为MappedStatement对象</span><br>    <span class="hljs-keyword">protected</span> <span class="hljs-keyword">final</span> Map&lt;String, MappedStatement&gt; mappedStatements = <span class="hljs-keyword">new</span> <span class="hljs-title class_">StrictMap</span>&lt;MappedStatement&gt;(<br>        <span class="hljs-string">&quot;Mapped Statements collection&quot;</span>)<br>        .conflictMessageProducer((savedValue, targetValue) -&gt; <span class="hljs-string">&quot;. please check &quot;</span> + savedValue.getResource() + <span class="hljs-string">&quot; and &quot;</span><br>            + targetValue.getResource());<br>    ……<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p><strong>作用3：作为Executor，Statementhandler，ResultSetHandler,ParameterHandler组件的工厂类</strong></p>
+<figure class="highlight java"><table><tr><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">Configuration</span> &#123;<br>    <span class="hljs-keyword">public</span> Executor <span class="hljs-title function_">newExecutor</span><span class="hljs-params">(Transaction transaction)</span> &#123;<br>        <span class="hljs-keyword">return</span> newExecutor(transaction, defaultExecutorType);<br>    &#125;<br><br>    <span class="hljs-keyword">public</span> ParameterHandler <span class="hljs-title function_">newParameterHandler</span><span class="hljs-params">(MappedStatement mappedStatement, Object parameterObject,</span><br><span class="hljs-params">        BoundSql boundSql)</span> &#123;<br>        <span class="hljs-type">ParameterHandler</span> <span class="hljs-variable">parameterHandler</span> <span class="hljs-operator">=</span> mappedStatement.getLang().<br>        createParameterHandler(mappedStatement, parameterObject, boundSql);<br>        <span class="hljs-keyword">return</span> (ParameterHandler) interceptorChain.pluginAll(parameterHandler);<br>    &#125;<br><br>    <span class="hljs-keyword">public</span> ResultSetHandler <span class="hljs-title function_">newResultSetHandler</span><span class="hljs-params">(Executor executor, MappedStatement mappedStatement, RowBounds rowBounds,</span><br><span class="hljs-params">        ParameterHandler parameterHandler, </span><br><span class="hljs-params">        ResultHandler resultHandler, BoundSql boundSql)</span> &#123;<br>        <span class="hljs-type">ResultSetHandler</span> <span class="hljs-variable">resultSetHandler</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">DefaultResultSetHandler</span>(executor, mappedStatement, parameterHandler,<br>            resultHandler, boundSql, rowBounds);<br>        <span class="hljs-keyword">return</span> (ResultSetHandler) interceptorChain.pluginAll(resultSetHandler);<br>    &#125;<br><br>    <span class="hljs-keyword">public</span> StatementHandler <span class="hljs-title function_">newStatementHandler</span><span class="hljs-params">(Executor executor, </span><br><span class="hljs-params">        MappedStatement mappedStatement,</span><br><span class="hljs-params">        Object parameterObject, RowBounds rowBounds, </span><br><span class="hljs-params">        ResultHandler resultHandler, BoundSql boundSql)</span> &#123;<br>        <span class="hljs-type">StatementHandler</span> <span class="hljs-variable">statementHandler</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">RoutingStatementHandler</span>(executor, mappedStatement, parameterObject,<br>            rowBounds, resultHandler, boundSql);<br>        <span class="hljs-keyword">return</span> (StatementHandler) interceptorChain.pluginAll(statementHandler);<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h3 id="为什么要通过-Configuration-来创建-Executor等组件"><a href="#为什么要通过-Configuration-来创建-Executor等组件" class="headerlink" title="为什么要通过 Configuration 来创建 Executor等组件"></a>为什么要通过 Configuration 来创建 Executor等组件</h3><p>主要有以下两个原因</p>
+<ol>
+<li><code>Mybatis</code> 的配置最终都保存在 <code>Configuration</code> 中，而创建 <code>Executor</code>, <code>ParameterHandler</code> 等组件的创建都需要用到配置(不同配置创建的对应实现类可能就不同)</li>
+<li><code>Mybatis</code> 的插件机制就是作用在 <code>Executor</code> 等组件上，所以使用工厂模式创建 <code>Executor</code>, <code>StatementHandler</code>,<code>ResultSetHandler</code>,<code>ParameterHandler</code> 组件就比较方便实现拦截逻辑</li>
+</ol>
+<h3 id="Executor"><a href="#Executor" class="headerlink" title="Executor"></a>Executor</h3><ul>
+<li><code>SqlSession</code> 是 <code>MyBatis</code> 提供的操作数据库的 <code>API</code>，但是真正执行 <code>SQL</code> 的是 <code>Executor</code> 组件</li>
+<li><code>Executor</code> 接口中定义了对数据库的增删改查方法<ul>
+<li><code>query()</code> 和 <code>queryCursor()</code> 用于查询</li>
+<li><code>update()</code> 用于新增，删除，修改</li>
+</ul>
+</li>
+</ul>
+<p><img src="https://blog-1308475102.cos.ap-guangzhou.myqcloud.com/picture/202312262155346.webp?imageSlim" alt="Executort继承关系"></p>
+<ul>
+<li><code>BaseExecutor</code> 定义方法的执行流程和通用的处理逻辑(模板方法模式的运用)</li>
+<li><code>SimpleExecutor</code> 是基础的 <code>Executor</code>，能够完成基本的增删改查操作</li>
+<li><code>ResueExecutor</code> 对 <code>JDBC</code> 中的 <code>Statement</code> 对象做了缓存，当执行相同的 <code>SQL</code> 语句时，直接从缓存中取出 <code>Statement</code> 对象进行复用</li>
+<li><code>BatchExecutor</code> 则会对调用同一个 <code>Mapper</code> 执行的 <code>update、insert</code> 和 <code>delete</code> 操作，调用<code>Statement</code> 对象的批量操作功能</li>
+<li>当 <code>MyBatis</code> 开启了二级缓存功能时，会使用 <code>CachingExecutor</code> 对 <code>SimpleExecutor</code>、<code>ResueExecutor</code>、<code>BatchExecutor</code>进行装饰（装饰器模式的使用）</li>
+</ul>
+<h3 id="MappedStatement"><a href="#MappedStatement" class="headerlink" title="MappedStatement"></a>MappedStatement</h3><p><code>MyBatis</code> 通过 <code>MappedStatement</code> 描述 <code>&lt;select|update|insert|delete&gt;</code> 或者 <code>@Select、@Update</code> 等注解配置的 <code>SQL</code> 信息</p>
+<p>下面是一个 <code>Mapper</code> 配置文件的示例</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><code class="hljs xml"><span class="hljs-meta">&lt;?xml version=<span class="hljs-string">&quot;1.0&quot;</span> encoding=<span class="hljs-string">&quot;UTF-8&quot;</span> ?&gt;</span><br><span class="hljs-meta">&lt;!DOCTYPE <span class="hljs-keyword">mapper</span></span><br><span class="hljs-meta">        <span class="hljs-keyword">PUBLIC</span> <span class="hljs-string">&quot;-//mybatis.org//DTD Mapper 3.0//EN&quot;</span></span><br><span class="hljs-meta">        <span class="hljs-string">&quot;http://mybatis.org/dtd/mybatis-3-mapper.dtd&quot;</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">mapper</span> <span class="hljs-attr">namespace</span>=<span class="hljs-string">&quot;org.example.mapper.StudentMapper&quot;</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">select</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;selectById&quot;</span> <span class="hljs-attr">resultType</span>=<span class="hljs-string">&quot;org.example.vo.Student&quot;</span>&gt;</span><br>        select * from student where id = #&#123;id&#125;<br>    <span class="hljs-tag">&lt;/<span class="hljs-name">select</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">mapper</span>&gt;</span><br></code></pre></td></tr></table></figure>
+<p>每一个标签都有很多的属性可以进行配置，具体的可以参考 <a href="https://mybatis.net.cn/sqlmap-xml.html">Mybatis中xml映射器文件的配置</a></p>
+<h3 id="TypeHandler"><a href="#TypeHandler" class="headerlink" title="TypeHandler"></a>TypeHandler</h3>
+
+
+]]></content>
+      <categories>
+        <category>java</category>
+        <category>Mybatis</category>
+      </categories>
+      <tags>
+        <tag>java</tag>
+        <tag>Mybatis</tag>
       </tags>
   </entry>
   <entry>
@@ -1639,85 +1849,6 @@
       </tags>
   </entry>
   <entry>
-    <title>Mybatis执行流程和核心组件</title>
-    <url>/2023/08bb8954abe7/index.html</url>
-    <content><![CDATA[<span class="hide_first_mermaid">
-<div class="mermaid-wrap"><pre class="mermaid-src" hidden>
-  flowchart LR
-    A
-  </pre></div>
-</span>
-
-<blockquote>
-<p>Mybatis版本： 3.5.15<br>参考书籍： 《Mybatis3源码深度解析》</p>
-</blockquote>
-<h2 id="Mybatis核心组件"><a href="#Mybatis核心组件" class="headerlink" title="Mybatis核心组件"></a>Mybatis核心组件</h2><p><img src="https://blog-1308475102.cos.ap-guangzhou.myqcloud.com/picture/202312262105691.webp" alt="Mybatis核心组件"></p>
-<p><strong>组件说明</strong></p>
-<ul>
-<li><code>Configuration</code>: 用于描述 <code>MyBatis</code> 的主配置信息，其他组件需要获取配置信息时，直接通过<code>Configuration</code> 对象获取<ul>
-<li><code>Mybatis</code> 在启动时，将 <code>Mapper</code> 配置信息、类型别名、<code>TypeHandler</code> 等注册到<code>Configuration</code> 组件中，其他组件需要这些信息时，也可以从 <code>Configuration</code> 对象中获取</li>
-</ul>
-</li>
-<li><code>MappedStatement</code>： <code>MappedStatement</code> 用于描述 <code>Mapper</code> 中的 <code>SQL</code> 配置信息，是对<code>Mapper XML</code> 配置文件中 <code>&lt;select|update|delete|insert&gt;</code> 等标签或者 <code>@Select/@Update</code> 等注解配置信息的封装</li>
-<li><code>SqlSession</code>： <code>SqlSession</code> 是提供给用户操作的 <code>API</code>, 表示和数据库交互时的会话对象</li>
-<li><code>Executor</code>: <code>Executor</code> 是 <code>MyBatis</code> 的 <code>SQL</code> 执行器，<code>MyBatis</code> 中对数据库所有的增删改查操作都是由 <code>Executor</code> 组件完成的</li>
-<li><code>StatementHandler</code>: <code>StatementHandler</code> 封装了对 <code>JDBC Statement</code> 对象的操作</li>
-<li><code>ParameterHandler</code>: 当 <code>MyBatis</code> 框架使用的 <code>Statement</code> 类型为 <code>CallableStatement</code> 和<code>PreparedStatement</code>时，<code>ParameterHandler</code> 用于为 <code>Statement</code> 对象参数占位符设置值</li>
-<li><code>ResultSetHandler</code>: <code>ResultSetHandler</code>封装了对 <code>JDBC</code> 中的 <code>ResultSet</code> 对象操作</li>
-<li><code>TypeHandler</code>: <code>TypeHandler</code> 是 <code>MyBatis</code> 中的类型处理器，用于处理 <code>Java</code> 类型与 <code>JDBC</code> 类型之间的映射</li>
-</ul>
-<h3 id="Configuration"><a href="#Configuration" class="headerlink" title="Configuration"></a>Configuration</h3><p><strong>作用1：作为主配置文件的承载</strong></p>
-<blockquote>
-<p>MyBatis 框架的配置信息有两种，一种是配置 MyBatis 框架属性的主配置文件；<br>另一种是配置执行 SQL语句的 Mapper 配置文件。<br>Configuration 的作用是描述 MyBatis 主配置文件的信息</p>
-</blockquote>
-<p>可以看 <code>Configuration</code> 类中相关属性</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">Configuration</span> &#123;<br><br>    <span class="hljs-keyword">protected</span> Environment environment;<br><br>    <span class="hljs-keyword">protected</span> <span class="hljs-type">boolean</span> safeRowBoundsEnabled;<br>    <span class="hljs-keyword">protected</span> <span class="hljs-type">boolean</span> <span class="hljs-variable">safeResultHandlerEnabled</span> <span class="hljs-operator">=</span> <span class="hljs-literal">true</span>;<br>    <span class="hljs-keyword">protected</span> <span class="hljs-type">boolean</span> mapUnderscoreToCamelCase;<br>    <span class="hljs-keyword">protected</span> <span class="hljs-type">boolean</span> aggressiveLazyLoading;<br>    <span class="hljs-keyword">protected</span> <span class="hljs-type">boolean</span> <span class="hljs-variable">multipleResultSetsEnabled</span> <span class="hljs-operator">=</span> <span class="hljs-literal">true</span>;<br>    <span class="hljs-keyword">protected</span> <span class="hljs-type">boolean</span> useGeneratedKeys;<br>    <span class="hljs-keyword">protected</span> <span class="hljs-type">boolean</span> <span class="hljs-variable">useColumnLabel</span> <span class="hljs-operator">=</span> <span class="hljs-literal">true</span>;<br>    <span class="hljs-keyword">protected</span> <span class="hljs-type">boolean</span> <span class="hljs-variable">cacheEnabled</span> <span class="hljs-operator">=</span> <span class="hljs-literal">true</span>;<br>    <span class="hljs-keyword">protected</span> <span class="hljs-type">boolean</span> callSettersOnNulls;<br>    <span class="hljs-keyword">protected</span> <span class="hljs-type">boolean</span> <span class="hljs-variable">useActualParamName</span> <span class="hljs-operator">=</span> <span class="hljs-literal">true</span>;<br>    <span class="hljs-keyword">protected</span> <span class="hljs-type">boolean</span> returnInstanceForEmptyRow;<br>    <span class="hljs-keyword">protected</span> <span class="hljs-type">boolean</span> shrinkWhitespacesInSql;<br>    <span class="hljs-keyword">protected</span> <span class="hljs-type">boolean</span> nullableOnForEach;<br>    <span class="hljs-keyword">protected</span> <span class="hljs-type">boolean</span> argNameBasedConstructorAutoMapping;<br>    ……<br>&#125;<br></code></pre></td></tr></table></figure>
-<p>这个配置文件有很多配置，具体可以参考 <a href="https://mybatis.net.cn/configuration.html">Mybatis主配置文件</a></p>
-<p><strong>作用2：作为容器存储TypeHandler,TypeAlias,Mapper接口信息</strong></p>
-<figure class="highlight java"><table><tr><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">Configuration</span> &#123;<br>    <span class="hljs-comment">// 用于注册Mapper接口信息，建立Mapper接口的Class对象和MapperProxyFactory</span><br>    <span class="hljs-comment">// 对象之间的关系，其中MapperProxyFactory对象用于创建Mapper动态代理对象</span><br>    <span class="hljs-keyword">protected</span> <span class="hljs-keyword">final</span> <span class="hljs-type">MapperRegistry</span> <span class="hljs-variable">mapperRegistry</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">MapperRegistry</span>(<span class="hljs-built_in">this</span>);<br><br>    <span class="hljs-comment">// 用于注册MyBatis插件信息，MyBatis插件实际上就是一个拦截器</span><br>    <span class="hljs-keyword">protected</span> <span class="hljs-keyword">final</span> <span class="hljs-type">InterceptorChain</span> <span class="hljs-variable">interceptorChain</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">InterceptorChain</span>();<br><br>    <span class="hljs-comment">// 用于注册所有的TypeHandler，并建立Jdbc类型、JDBC类型与TypeHandler之间的对应关系</span><br>    <span class="hljs-keyword">protected</span> <span class="hljs-keyword">final</span> <span class="hljs-type">TypeHandlerRegistry</span> <span class="hljs-variable">typeHandlerRegistry</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">TypeHandlerRegistry</span>(<span class="hljs-built_in">this</span>);<br><br>    <span class="hljs-comment">// 用于注册所有的类型别名</span><br>    <span class="hljs-keyword">protected</span> <span class="hljs-keyword">final</span> <span class="hljs-type">TypeAliasRegistry</span> <span class="hljs-variable">typeAliasRegistry</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">TypeAliasRegistry</span>();<br>    <span class="hljs-keyword">protected</span> <span class="hljs-keyword">final</span> <span class="hljs-type">LanguageDriverRegistry</span> <span class="hljs-variable">languageRegistry</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">LanguageDriverRegistry</span>();<br><br>    <span class="hljs-comment">// MyBatis将所有的MappedStatement对象注册到该属性中，</span><br>    <span class="hljs-comment">// 其中Key为Mapper的Id，Value为MappedStatement对象</span><br>    <span class="hljs-keyword">protected</span> <span class="hljs-keyword">final</span> Map&lt;String, MappedStatement&gt; mappedStatements = <span class="hljs-keyword">new</span> <span class="hljs-title class_">StrictMap</span>&lt;MappedStatement&gt;(<br>        <span class="hljs-string">&quot;Mapped Statements collection&quot;</span>)<br>        .conflictMessageProducer((savedValue, targetValue) -&gt; <span class="hljs-string">&quot;. please check &quot;</span> + savedValue.getResource() + <span class="hljs-string">&quot; and &quot;</span><br>            + targetValue.getResource());<br>    ……<br>&#125;<br></code></pre></td></tr></table></figure>
-
-<p><strong>作用3：作为Executor，Statementhandler，ResultSetHandler,ParameterHandler组件的工厂类</strong></p>
-<figure class="highlight java"><table><tr><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">Configuration</span> &#123;<br>    <span class="hljs-keyword">public</span> Executor <span class="hljs-title function_">newExecutor</span><span class="hljs-params">(Transaction transaction)</span> &#123;<br>        <span class="hljs-keyword">return</span> newExecutor(transaction, defaultExecutorType);<br>    &#125;<br><br>    <span class="hljs-keyword">public</span> ParameterHandler <span class="hljs-title function_">newParameterHandler</span><span class="hljs-params">(MappedStatement mappedStatement, Object parameterObject,</span><br><span class="hljs-params">        BoundSql boundSql)</span> &#123;<br>        <span class="hljs-type">ParameterHandler</span> <span class="hljs-variable">parameterHandler</span> <span class="hljs-operator">=</span> mappedStatement.getLang().<br>        createParameterHandler(mappedStatement, parameterObject, boundSql);<br>        <span class="hljs-keyword">return</span> (ParameterHandler) interceptorChain.pluginAll(parameterHandler);<br>    &#125;<br><br>    <span class="hljs-keyword">public</span> ResultSetHandler <span class="hljs-title function_">newResultSetHandler</span><span class="hljs-params">(Executor executor, MappedStatement mappedStatement, RowBounds rowBounds,</span><br><span class="hljs-params">        ParameterHandler parameterHandler, </span><br><span class="hljs-params">        ResultHandler resultHandler, BoundSql boundSql)</span> &#123;<br>        <span class="hljs-type">ResultSetHandler</span> <span class="hljs-variable">resultSetHandler</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">DefaultResultSetHandler</span>(executor, mappedStatement, parameterHandler,<br>            resultHandler, boundSql, rowBounds);<br>        <span class="hljs-keyword">return</span> (ResultSetHandler) interceptorChain.pluginAll(resultSetHandler);<br>    &#125;<br><br>    <span class="hljs-keyword">public</span> StatementHandler <span class="hljs-title function_">newStatementHandler</span><span class="hljs-params">(Executor executor, </span><br><span class="hljs-params">        MappedStatement mappedStatement,</span><br><span class="hljs-params">        Object parameterObject, RowBounds rowBounds, </span><br><span class="hljs-params">        ResultHandler resultHandler, BoundSql boundSql)</span> &#123;<br>        <span class="hljs-type">StatementHandler</span> <span class="hljs-variable">statementHandler</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">RoutingStatementHandler</span>(executor, mappedStatement, parameterObject,<br>            rowBounds, resultHandler, boundSql);<br>        <span class="hljs-keyword">return</span> (StatementHandler) interceptorChain.pluginAll(statementHandler);<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
-
-<h3 id="为什么要通过-Configuration-来创建-Executor等组件"><a href="#为什么要通过-Configuration-来创建-Executor等组件" class="headerlink" title="为什么要通过 Configuration 来创建 Executor等组件"></a>为什么要通过 Configuration 来创建 Executor等组件</h3><p>主要有以下两个原因</p>
-<ol>
-<li><code>Mybatis</code> 的配置最终都保存在 <code>Configuration</code> 中，而创建 <code>Executor</code>, <code>ParameterHandler</code> 等组件的创建都需要用到配置(不同配置创建的对应实现类可能就不同)</li>
-<li><code>Mybatis</code> 的插件机制就是作用在 <code>Executor</code> 等组件上，所以使用工厂模式创建 <code>Executor</code>, <code>StatementHandler</code>,<code>ResultSetHandler</code>,<code>ParameterHandler</code> 组件就比较方便实现拦截逻辑</li>
-</ol>
-<h3 id="Executor"><a href="#Executor" class="headerlink" title="Executor"></a>Executor</h3><ul>
-<li><code>SqlSession</code> 是 <code>MyBatis</code> 提供的操作数据库的 <code>API</code>，但是真正执行 <code>SQL</code> 的是 <code>Executor</code> 组件</li>
-<li><code>Executor</code> 接口中定义了对数据库的增删改查方法<ul>
-<li><code>query()</code> 和 <code>queryCursor()</code> 用于查询</li>
-<li><code>update()</code> 用于新增，删除，修改</li>
-</ul>
-</li>
-</ul>
-<p><img src="https://blog-1308475102.cos.ap-guangzhou.myqcloud.com/picture/202312262155346.webp?imageSlim" alt="Executort继承关系"></p>
-<ul>
-<li><code>BaseExecutor</code> 定义方法的执行流程和通用的处理逻辑(模板方法模式的运用)</li>
-<li><code>SimpleExecutor</code> 是基础的 <code>Executor</code>，能够完成基本的增删改查操作</li>
-<li><code>ResueExecutor</code> 对 <code>JDBC</code> 中的 <code>Statement</code> 对象做了缓存，当执行相同的 <code>SQL</code> 语句时，直接从缓存中取出 <code>Statement</code> 对象进行复用</li>
-<li><code>BatchExecutor</code> 则会对调用同一个 <code>Mapper</code> 执行的 <code>update、insert</code> 和 <code>delete</code> 操作，调用<code>Statement</code> 对象的批量操作功能</li>
-<li>当 <code>MyBatis</code> 开启了二级缓存功能时，会使用 <code>CachingExecutor</code> 对 <code>SimpleExecutor</code>、<code>ResueExecutor</code>、<code>BatchExecutor</code>进行装饰（装饰器模式的使用）</li>
-</ul>
-<h3 id="MappedStatement"><a href="#MappedStatement" class="headerlink" title="MappedStatement"></a>MappedStatement</h3><p><code>MyBatis</code> 通过 <code>MappedStatement</code> 描述 <code>&lt;select|update|insert|delete&gt;</code> 或者 <code>@Select、@Update</code> 等注解配置的 <code>SQL</code> 信息</p>
-<p>下面是一个 <code>Mapper</code> 配置文件的示例</p>
-<figure class="highlight xml"><table><tr><td class="code"><pre><code class="hljs xml"><span class="hljs-meta">&lt;?xml version=<span class="hljs-string">&quot;1.0&quot;</span> encoding=<span class="hljs-string">&quot;UTF-8&quot;</span> ?&gt;</span><br><span class="hljs-meta">&lt;!DOCTYPE <span class="hljs-keyword">mapper</span></span><br><span class="hljs-meta">        <span class="hljs-keyword">PUBLIC</span> <span class="hljs-string">&quot;-//mybatis.org//DTD Mapper 3.0//EN&quot;</span></span><br><span class="hljs-meta">        <span class="hljs-string">&quot;http://mybatis.org/dtd/mybatis-3-mapper.dtd&quot;</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">mapper</span> <span class="hljs-attr">namespace</span>=<span class="hljs-string">&quot;org.example.mapper.StudentMapper&quot;</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">select</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;selectById&quot;</span> <span class="hljs-attr">resultType</span>=<span class="hljs-string">&quot;org.example.vo.Student&quot;</span>&gt;</span><br>        select * from student where id = #&#123;id&#125;<br>    <span class="hljs-tag">&lt;/<span class="hljs-name">select</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">mapper</span>&gt;</span><br></code></pre></td></tr></table></figure>
-<p>每一个标签都有很多的属性可以进行配置，具体的可以参考 <a href="https://mybatis.net.cn/sqlmap-xml.html">Mybatis中xml映射器文件的配置</a></p>
-<h3 id="TypeHandler"><a href="#TypeHandler" class="headerlink" title="TypeHandler"></a>TypeHandler</h3>
-
-
-]]></content>
-      <categories>
-        <category>java</category>
-        <category>Mybatis</category>
-      </categories>
-      <tags>
-        <tag>java</tag>
-        <tag>Mybatis</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>SpringBoot3整合Mybatis</title>
     <url>/2023/c7647f7aa552/index.html</url>
     <content><![CDATA[<blockquote>
@@ -1736,6 +1867,35 @@
 <li>启动类<figure class="highlight java"><table><tr><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@SpringBootApplication</span><br><span class="hljs-meta">@MapperScan(&quot;com.example.testmybatis.mapper&quot;)</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">TestMybatisApplication</span> <span class="hljs-keyword">implements</span> <span class="hljs-title class_">ApplicationContextAware</span> &#123;<br><br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> ApplicationContext applicationContext;<br><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">main</span><span class="hljs-params">(String[] args)</span> &#123;<br>        SpringApplication.run(TestMybatisApplication.class, args);<br>        <span class="hljs-type">StudentMapper</span> <span class="hljs-variable">studentMapper</span> <span class="hljs-operator">=</span> applicationContext.getBean(StudentMapper.class);<br>        <span class="hljs-type">Student</span> <span class="hljs-variable">student</span> <span class="hljs-operator">=</span> studentMapper.selectById(<span class="hljs-number">1</span>);<br>        System.out.println(student);<br><br>    &#125;<br><br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">setApplicationContext</span><span class="hljs-params">(ApplicationContext applicationContextParam)</span> <span class="hljs-keyword">throws</span> BeansException &#123;<br>        applicationContext = applicationContextParam;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure></li>
 <li><code>SpringBoot</code> 配置文件<figure class="highlight properties"><table><tr><td class="code"><pre><code class="hljs properties"><span class="hljs-attr">spring.datasource.driver-class-name</span>=<span class="hljs-string">com.mysql.cj.jdbc.Driver</span><br><span class="hljs-attr">spring.datasource.url</span>=<span class="hljs-string">jdbc:mysql://127.0.0.1:3306/test?useUnicode=true&amp;characterEncoding=UTF-8</span><br><span class="hljs-attr">spring.datasource.username</span>=<span class="hljs-string">root</span><br><span class="hljs-attr">spring.datasource.password</span>=<span class="hljs-string">admin</span><br><span class="hljs-comment"></span><br><span class="hljs-comment">#mybatis</span><br><span class="hljs-attr">mybatis.type-aliases-package</span>=<span class="hljs-string">com.example.testmybatis.vo</span><br><span class="hljs-comment"># resource 目录下 Mapper 文件位置</span><br><span class="hljs-attr">mybatis.mapper-locations</span>=<span class="hljs-string">classpath:mapper/*.xml</span><br></code></pre></td></tr></table></figure></li>
 </ul>
+]]></content>
+      <categories>
+        <category>java</category>
+        <category>Mybatis</category>
+      </categories>
+      <tags>
+        <tag>java</tag>
+        <tag>Mybatis</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>SpringBoot中编写Mybatis插件及Mybatis插件原理</title>
+    <url>/2023/c46f5c1f519a/index.html</url>
+    <content><![CDATA[<blockquote>
+<p>SpringBoot版本: 3.1.7<br>mybatis-spring-boot-starter: 3.0.2</p>
+</blockquote>
+<h2 id="Mybatis插件的作用"><a href="#Mybatis插件的作用" class="headerlink" title="Mybatis插件的作用"></a>Mybatis插件的作用</h2><p><code>Mybatis</code> 插件主要是对以下四个类上的方法进行拦截</p>
+<ul>
+<li><code>Executor</code></li>
+<li><code>StatementHandler</code></li>
+<li><code>ResultSetHandler</code></li>
+<li><code>ParameterHandler</code></li>
+</ul>
+<h2 id="SpringBoot整合Mybatis及自定义插件"><a href="#SpringBoot整合Mybatis及自定义插件" class="headerlink" title="SpringBoot整合Mybatis及自定义插件"></a>SpringBoot整合Mybatis及自定义插件</h2><p>单纯在 <code>Mybatis</code> 中编写插件，可以参考 <a href="https://juejin.cn/post/7205897684623900728">Mybatis插件的使用和原理</a><br>对于在 <code>SpringBoot</code> 使用插件也很简单，可以先参考</p>
+<ol><li><a href="/2023/c7647f7aa552/index.html" title="SpringBoot3整合Mybatis">SpringBoot3整合Mybatis</a></li></ol>
+<p>然后再编写一个插件类即可</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@Component</span><br><span class="hljs-meta">@Intercepts(@Signature(type= Executor.class, method=&quot;query&quot;, args=&#123;MappedStatement.class, Object.class, RowBounds.class, ResultHandler.class&#125;))</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">CusPlugin</span> <span class="hljs-keyword">implements</span> <span class="hljs-title class_">Interceptor</span> &#123;<br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-keyword">public</span> Object <span class="hljs-title function_">intercept</span><span class="hljs-params">(Invocation invocation)</span> <span class="hljs-keyword">throws</span> Throwable &#123;<br>        System.out.println(<span class="hljs-string">&quot;插件执行前&quot;</span>);<br>        <span class="hljs-type">Object</span> <span class="hljs-variable">proceed</span> <span class="hljs-operator">=</span> invocation.proceed();<br>        System.out.println(<span class="hljs-string">&quot;插件执行后&quot;</span>);<br>        <span class="hljs-keyword">return</span> proceed;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+
 ]]></content>
       <categories>
         <category>java</category>
@@ -1986,35 +2146,6 @@
       <tags>
         <tag>java</tag>
         <tag>Spring</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>SpringBoot中编写Mybatis插件及Mybatis插件原理</title>
-    <url>/2023/c46f5c1f519a/index.html</url>
-    <content><![CDATA[<blockquote>
-<p>SpringBoot版本: 3.1.7<br>mybatis-spring-boot-starter: 3.0.2</p>
-</blockquote>
-<h2 id="Mybatis插件的作用"><a href="#Mybatis插件的作用" class="headerlink" title="Mybatis插件的作用"></a>Mybatis插件的作用</h2><p><code>Mybatis</code> 插件主要是对以下四个类上的方法进行拦截</p>
-<ul>
-<li><code>Executor</code></li>
-<li><code>StatementHandler</code></li>
-<li><code>ResultSetHandler</code></li>
-<li><code>ParameterHandler</code></li>
-</ul>
-<h2 id="SpringBoot整合Mybatis及自定义插件"><a href="#SpringBoot整合Mybatis及自定义插件" class="headerlink" title="SpringBoot整合Mybatis及自定义插件"></a>SpringBoot整合Mybatis及自定义插件</h2><p>单纯在 <code>Mybatis</code> 中编写插件，可以参考 <a href="https://juejin.cn/post/7205897684623900728">Mybatis插件的使用和原理</a><br>对于在 <code>SpringBoot</code> 使用插件也很简单，可以先参考</p>
-<ol><li><a href="/2023/c7647f7aa552/index.html" title="SpringBoot3整合Mybatis">SpringBoot3整合Mybatis</a></li></ol>
-<p>然后再编写一个插件类即可</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@Component</span><br><span class="hljs-meta">@Intercepts(@Signature(type= Executor.class, method=&quot;query&quot;, args=&#123;MappedStatement.class, Object.class, RowBounds.class, ResultHandler.class&#125;))</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">CusPlugin</span> <span class="hljs-keyword">implements</span> <span class="hljs-title class_">Interceptor</span> &#123;<br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-keyword">public</span> Object <span class="hljs-title function_">intercept</span><span class="hljs-params">(Invocation invocation)</span> <span class="hljs-keyword">throws</span> Throwable &#123;<br>        System.out.println(<span class="hljs-string">&quot;插件执行前&quot;</span>);<br>        <span class="hljs-type">Object</span> <span class="hljs-variable">proceed</span> <span class="hljs-operator">=</span> invocation.proceed();<br>        System.out.println(<span class="hljs-string">&quot;插件执行后&quot;</span>);<br>        <span class="hljs-keyword">return</span> proceed;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
-
-
-]]></content>
-      <categories>
-        <category>java</category>
-        <category>Mybatis</category>
-      </categories>
-      <tags>
-        <tag>java</tag>
-        <tag>Mybatis</tag>
       </tags>
   </entry>
   <entry>
@@ -2562,6 +2693,43 @@
       </tags>
   </entry>
   <entry>
+    <title>编译tomcat9源码并导入idea</title>
+    <url>/2024/841970b953bf/index.html</url>
+    <content><![CDATA[<blockquote>
+<p>tomcat版本：9.0.84<br>jdk版本：17</p>
+</blockquote>
+<h2 id="下载-tomcat9-源码"><a href="#下载-tomcat9-源码" class="headerlink" title="下载 tomcat9 源码"></a>下载 tomcat9 源码</h2><p><a href="https://tomcat.apache.org/download-90.cgi">下载tomcat9</a><br>选择下载页面最下方的 <code>Source Code Distributions</code> 下的 <code>zip</code> 包</p>
+<h2 id="源码导入idea之前的准备"><a href="#源码导入idea之前的准备" class="headerlink" title="源码导入idea之前的准备"></a>源码导入idea之前的准备</h2><ol>
+<li>解压下载的源码，得到目录 <code>apache-tomcat-9.0.84-src</code></li>
+<li>进入 <code>apache-tomcat-9.0.84-src</code>  目录，创建一个 <code>pom.xml</code> 文件，<code>pom</code> 文件内容会在下方给出</li>
+<li>在 <code>apache-tomcat-9.0.84-src</code> 目录中创建 <code>source</code> 文件夹</li>
+<li>将 <code>conf</code>、<code>webapps</code> 目录移动到刚刚创建的 <code>source</code> 文件夹中</li>
+</ol>
+<h3 id="创建的-pom-xml-文件内容"><a href="#创建的-pom-xml-文件内容" class="headerlink" title="创建的 pom.xml 文件内容"></a>创建的 pom.xml 文件内容</h3><figure class="highlight xml"><table><tr><td class="code"><pre><code class="hljs xml"><span class="hljs-meta">&lt;?xml version=<span class="hljs-string">&quot;1.0&quot;</span> encoding=<span class="hljs-string">&quot;UTF-8&quot;</span>?&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">project</span> <span class="hljs-attr">xmlns</span>=<span class="hljs-string">&quot;http://maven.apache.org/POM/4.0.0&quot;</span></span><br><span class="hljs-tag">         <span class="hljs-attr">xmlns:xsi</span>=<span class="hljs-string">&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span></span><br><span class="hljs-tag">         <span class="hljs-attr">xsi:schemaLocation</span>=<span class="hljs-string">&quot;http://maven.apache.org/POM/4.0.0</span></span><br><span class="hljs-string"><span class="hljs-tag">http://maven.apache.org/xsd/maven-4.0.0.xsd&quot;</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">modelVersion</span>&gt;</span>4.0.0<span class="hljs-tag">&lt;/<span class="hljs-name">modelVersion</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>org.apache.tomcat<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>apache-tomcat-9.0.84-src<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">name</span>&gt;</span>Tomcat9.0<span class="hljs-tag">&lt;/<span class="hljs-name">name</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">version</span>&gt;</span>9.0<span class="hljs-tag">&lt;/<span class="hljs-name">version</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">build</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">finalName</span>&gt;</span>Tomcat9.0<span class="hljs-tag">&lt;/<span class="hljs-name">finalName</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">sourceDirectory</span>&gt;</span>java<span class="hljs-tag">&lt;/<span class="hljs-name">sourceDirectory</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">resources</span>&gt;</span><br>            <span class="hljs-tag">&lt;<span class="hljs-name">resource</span>&gt;</span><br>                <span class="hljs-tag">&lt;<span class="hljs-name">directory</span>&gt;</span>java<span class="hljs-tag">&lt;/<span class="hljs-name">directory</span>&gt;</span><br>            <span class="hljs-tag">&lt;/<span class="hljs-name">resource</span>&gt;</span><br>        <span class="hljs-tag">&lt;/<span class="hljs-name">resources</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">plugins</span>&gt;</span><br>            <span class="hljs-comment">&lt;!--引⼊编译插件--&gt;</span><br>            <span class="hljs-tag">&lt;<span class="hljs-name">plugin</span>&gt;</span><br>                <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>org.apache.maven.plugins<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span><br>                <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>maven-compiler-plugin<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span><br>                <span class="hljs-tag">&lt;<span class="hljs-name">version</span>&gt;</span>3.1<span class="hljs-tag">&lt;/<span class="hljs-name">version</span>&gt;</span><br>                <span class="hljs-tag">&lt;<span class="hljs-name">configuration</span>&gt;</span><br>                    <span class="hljs-tag">&lt;<span class="hljs-name">encoding</span>&gt;</span>UTF-8<span class="hljs-tag">&lt;/<span class="hljs-name">encoding</span>&gt;</span><br>                    <span class="hljs-tag">&lt;<span class="hljs-name">source</span>&gt;</span>17<span class="hljs-tag">&lt;/<span class="hljs-name">source</span>&gt;</span><br>                    <span class="hljs-tag">&lt;<span class="hljs-name">target</span>&gt;</span>17<span class="hljs-tag">&lt;/<span class="hljs-name">target</span>&gt;</span><br>                <span class="hljs-tag">&lt;/<span class="hljs-name">configuration</span>&gt;</span><br>            <span class="hljs-tag">&lt;/<span class="hljs-name">plugin</span>&gt;</span><br>        <span class="hljs-tag">&lt;/<span class="hljs-name">plugins</span>&gt;</span><br>    <span class="hljs-tag">&lt;/<span class="hljs-name">build</span>&gt;</span><br>    <span class="hljs-comment">&lt;!--tomcat 依赖的基础包--&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">dependencies</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span><br>            <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>org.easymock<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span><br>            <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>easymock<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span><br>            <span class="hljs-tag">&lt;<span class="hljs-name">version</span>&gt;</span>3.4<span class="hljs-tag">&lt;/<span class="hljs-name">version</span>&gt;</span><br>        <span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span><br>            <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>ant<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span><br>            <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>ant<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span><br>            <span class="hljs-tag">&lt;<span class="hljs-name">version</span>&gt;</span>1.7.0<span class="hljs-tag">&lt;/<span class="hljs-name">version</span>&gt;</span><br>        <span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span><br>            <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>wsdl4j<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span><br>            <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>wsdl4j<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span><br>            <span class="hljs-tag">&lt;<span class="hljs-name">version</span>&gt;</span>1.6.2<span class="hljs-tag">&lt;/<span class="hljs-name">version</span>&gt;</span><br>        <span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span><br>            <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>javax.xml<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span><br>            <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>jaxrpc<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span><br>            <span class="hljs-tag">&lt;<span class="hljs-name">version</span>&gt;</span>1.1<span class="hljs-tag">&lt;/<span class="hljs-name">version</span>&gt;</span><br>        <span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span><br>            <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>org.eclipse.jdt.core.compiler<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span><br>            <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>ecj<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span><br>            <span class="hljs-tag">&lt;<span class="hljs-name">version</span>&gt;</span>4.5.1<span class="hljs-tag">&lt;/<span class="hljs-name">version</span>&gt;</span><br>        <span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span><br>            <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>javax.xml.soap<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span><br>            <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>javax.xml.soap-api<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span><br>            <span class="hljs-tag">&lt;<span class="hljs-name">version</span>&gt;</span>1.4.0<span class="hljs-tag">&lt;/<span class="hljs-name">version</span>&gt;</span><br>        <span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span><br>            <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>biz.aQute.bnd<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span><br>            <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>biz.aQute.bndlib<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span><br>            <span class="hljs-tag">&lt;<span class="hljs-name">version</span>&gt;</span>5.2.0<span class="hljs-tag">&lt;/<span class="hljs-name">version</span>&gt;</span><br>            <span class="hljs-tag">&lt;<span class="hljs-name">scope</span>&gt;</span>provided<span class="hljs-tag">&lt;/<span class="hljs-name">scope</span>&gt;</span><br>        <span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span><br>    <span class="hljs-tag">&lt;/<span class="hljs-name">dependencies</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">project</span>&gt;</span><br></code></pre></td></tr></table></figure>
+
+
+<h2 id="导入idea"><a href="#导入idea" class="headerlink" title="导入idea"></a>导入idea</h2><p><code>idea</code> 导入 <code>tomcat9</code> 源码时只需要选择 <code>apache-tomcat-9.0.84-src</code> 目录或者选择该目录的的 <code>pom.xml</code> 文件即可</p>
+<h2 id="修复编译错误"><a href="#修复编译错误" class="headerlink" title="修复编译错误"></a>修复编译错误</h2><h3 id="找不到-变量-VERSION-9"><a href="#找不到-变量-VERSION-9" class="headerlink" title="找不到 变量 VERSION_9"></a>找不到 变量 VERSION_9</h3><figure class="highlight stylus"><table><tr><td class="code"><pre><code class="hljs stylus">java: 找不到符号<br>  符号:   变量 VERSION_9<br>  位置: 类 org<span class="hljs-selector-class">.eclipse</span><span class="hljs-selector-class">.jdt</span><span class="hljs-selector-class">.internal</span><span class="hljs-selector-class">.compiler</span><span class="hljs-selector-class">.impl</span>.CompilerOptions<br></code></pre></td></tr></table></figure>
+<p>这里的 <code>VERSION_9</code> 是 <code>CompilerOptions</code> 类，不过在 <code>tomcat9</code> 版本中没有这个属性，可以把使用到该属性的地方注释掉，一共有两处，都是在 <code>JDTCompiler</code> 类中</p>
+<h2 id="添加配置"><a href="#添加配置" class="headerlink" title="添加配置"></a>添加配置</h2><p>编译问题解决后，可以运行 <code>org.apache.catalina.startup.Bootstrap#main</code> 方法，不过还需要添加一些 <code>jvm</code> 参数</p>
+<p><img src="https://s2.loli.net/2024/01/05/bXTSsjfpHWYxe8V.png" alt="添加vm参数"><br>参数内容如下（ <code>tomcat</code> 所在目录需要替换）</p>
+<figure class="highlight gradle"><table><tr><td class="code"><pre><code class="hljs gradle">-Dcatalina.home=D:<span class="hljs-regexp">/code/</span>apache-tomcat-<span class="hljs-number">9.0</span>.<span class="hljs-number">84</span>-src/<span class="hljs-keyword">source</span><br>-Dcatalina.baseD:<span class="hljs-regexp">/code/</span>apache-tomcat-<span class="hljs-number">9.0</span>.<span class="hljs-number">84</span>-src/<span class="hljs-keyword">source</span><br>-Djava.util.logging.manager=org.apache.juli.ClassLoaderLogManager<br>-Djava.util.logging.config.<span class="hljs-keyword">file</span>=D:<span class="hljs-regexp">/code/</span>apache-tomcat-<span class="hljs-number">9.0</span>.<span class="hljs-number">84</span>-src<span class="hljs-regexp">/source/</span>conf/logging.properties<br></code></pre></td></tr></table></figure>
+
+<p><code>vm</code> 参数配置后启动服务，访问 <code>http://localhost:8080</code> 即可看到 <code>tomcat</code> 界面，不过是如下形式<br><img src="https://s2.loli.net/2024/01/05/lNh3deQmrjypJDV.png" alt="tomcat首页"></p>
+<p>原因是 <code>Jsp</code> 引擎 <code>Jasper</code> 没有被初始化，从⽽⽆法编译<code>JSP</code>，我们需要在<code>tomcat</code>的源码<code>ContextConfig</code>类中的<code>configureStart</code>⽅法中增加⼀⾏代码将 <code>Jsp</code> 引擎初始化，如下所示</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">ContextConfig</span> <span class="hljs-keyword">implements</span> <span class="hljs-title class_">LifecycleListener</span> &#123;<br>    <span class="hljs-keyword">protected</span> <span class="hljs-keyword">synchronized</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">configureStart</span><span class="hljs-params">()</span> &#123;<br>        <span class="hljs-comment">// Called from StandardContext.start()</span><br><br>        <span class="hljs-keyword">if</span> (log.isDebugEnabled()) &#123;<br>            log.debug(sm.getString(<span class="hljs-string">&quot;contextConfig.start&quot;</span>));<br>        &#125;<br><br>        <span class="hljs-keyword">if</span> (log.isDebugEnabled()) &#123;<br>            log.debug(sm.getString(<span class="hljs-string">&quot;contextConfig.xmlSettings&quot;</span>,<br>                    context.getName(),<br>                    Boolean.valueOf(context.getXmlValidation()),<br>                    Boolean.valueOf(context.getXmlNamespaceAware())));<br>        &#125;<br><br>        webConfig();<br>        <span class="hljs-comment">// 下面这一行代码是添加的</span><br>        context.addServletContainerInitializer(<span class="hljs-keyword">new</span> <span class="hljs-title class_">JasperInitializer</span>(), <span class="hljs-literal">null</span>);<br>        <span class="hljs-comment">// 省略后面代码……</span><br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>主要是添加 <code>context.addServletContainerInitializer(new JasperInitializer(), null);</code> 这一行</p>
+]]></content>
+      <categories>
+        <category>java</category>
+        <category>tomcat</category>
+      </categories>
+      <tags>
+        <tag>java</tag>
+        <tag>tomcat</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>CompletableFuture的使用</title>
     <url>/2023/f31e3a7691d6/index.html</url>
     <content><![CDATA[<span class="hide_first_mermaid">
@@ -2811,6 +2979,79 @@
       </tags>
   </entry>
   <entry>
+    <title>Semaphore使用和原理</title>
+    <url>/2023/1dbf4f386c66/index.html</url>
+    <content><![CDATA[<span class="hide_first_mermaid">
+<div class="mermaid-wrap"><pre class="mermaid-src" hidden>
+  flowchart LR
+    A
+  </pre></div>
+</span>
+
+<p><code>Semaphore</code> 的主要功能是用来限制对某个资源同时访问的线程数量，它有两个核心方法</p>
+<ol>
+<li><code>acquire()</code>：获取一个许可，如果没有就阻塞</li>
+<li><code>release()</code>：释放一个许可 然后唤醒一个等待的线程</li>
+</ol>
+<h2 id="Semaphore-常用方法"><a href="#Semaphore-常用方法" class="headerlink" title="Semaphore 常用方法"></a>Semaphore 常用方法</h2><ol>
+<li><code>Semaphore(permits,fair)</code>，<code>permits</code> 表示令牌数，<code>fair</code> 表示公平性</li>
+<li><code>acquire(permits)</code>，获取指定 <code>permits</code> 数量的令牌，如果许可证数量不足，则会阻塞当前线程</li>
+<li><code>tryAcquire(permits)</code>，尝试获取指定 <code>permits</code> 数量的令牌，此过程是非阻塞的，如果令牌数不够，则返回 <code>false</code>，否则返回 <code>true</code></li>
+<li><code>release(permits)</code>，释放指定 <code>permits</code> 数量的令牌</li>
+<li><code>drainPermits()</code>，当前线程获得剩下的所有可用令牌。</li>
+<li><code>hasQueuedThread()</code>，判断当前 <code>Semaphore</code> 实例上是否存在正在等待令牌的线程。</li>
+</ol>
+<h2 id="Semaphore的使用原理图"><a href="#Semaphore的使用原理图" class="headerlink" title="Semaphore的使用原理图"></a>Semaphore的使用原理图</h2><pre class="mermaid">flowchart TB
+    subgraph A["Threads"]
+        direction LR
+        A1["thread"]
+        A2["thread"]
+        A3["......"]
+        A4["thread"]
+        A1~~~A2~~~A3~~~A4
+    end
+    subgraph B["Semaphore"]
+        B1["1 (permits=2)"]
+        B2["2 (permits=2)"]
+        B1~~~B2
+    end
+    C[resources]
+    A--"acquire()"-->B
+    A--"acquire()"-->B
+    A--"......"-->B
+    A--"acquire()"-->B
+    B--"同时只允许两个线程访问"-->C
+    B--"同时只允许两个线程访问"-->C</pre>
+
+<h2 id="Semaphore的使用场景"><a href="#Semaphore的使用场景" class="headerlink" title="Semaphore的使用场景"></a>Semaphore的使用场景</h2><ol>
+<li>限流，限制同时访问某个资源的线程数量</li>
+<li>并发控制，比如数据库连接池，限制同时访问数据库的线程数量</li>
+<li>信号量，用来控制同时访问某个资源的线程数量</li>
+</ol>
+<h2 id="Semaphore-使用案例"><a href="#Semaphore-使用案例" class="headerlink" title="Semaphore 使用案例"></a>Semaphore 使用案例</h2><p>如下代码，创建了一个线程池，提交了20个任务，每个任务中都等待1s，模拟方法调用耗时，正常来说可以20个任务同时执行，但是现在只允许2个任务同时执行，可以看到打印的结果是2个任务同时执行，剩下的任务都被阻塞了。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">TestSemaphore</span> &#123;<br><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">main</span><span class="hljs-params">(String[] args)</span> <span class="hljs-keyword">throws</span> InterruptedException &#123;<br>        <span class="hljs-type">ExecutorService</span> <span class="hljs-variable">executorService</span> <span class="hljs-operator">=</span> Executors.newCachedThreadPool();<br>        <span class="hljs-type">Semaphore</span> <span class="hljs-variable">semaphore</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Semaphore</span>(<span class="hljs-number">2</span>);<br>        <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> <span class="hljs-variable">i</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>; i &lt; <span class="hljs-number">20</span>; i++) &#123;<br>            executorService.submit(<span class="hljs-keyword">new</span> <span class="hljs-title class_">SemaphoreThread</span>(semaphore));<br>        &#125;<br>    &#125;<br><br>    <span class="hljs-keyword">static</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">SemaphoreThread</span> <span class="hljs-keyword">implements</span> <span class="hljs-title class_">Runnable</span> &#123;<br><br>        <span class="hljs-keyword">private</span> <span class="hljs-keyword">final</span> Semaphore semaphore;<br><br>        <span class="hljs-keyword">public</span> <span class="hljs-title function_">SemaphoreThread</span><span class="hljs-params">(Semaphore semaphore)</span> &#123;<br>            <span class="hljs-built_in">this</span>.semaphore = semaphore;<br>        &#125;<br><br>        <span class="hljs-meta">@Override</span><br>        <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">run</span><span class="hljs-params">()</span> &#123;<br>            <span class="hljs-keyword">try</span> &#123;<br>                semaphore.acquire();<br>                System.out.println(Thread.currentThread().getName() + <span class="hljs-string">&quot; 进入&quot;</span>);<br>                Thread.sleep(<span class="hljs-number">1000</span>);<br>                System.out.println(Thread.currentThread().getName() + <span class="hljs-string">&quot; 离开&quot;</span>);<br>            &#125; <span class="hljs-keyword">catch</span> (InterruptedException e) &#123;<br>                e.printStackTrace();<br>            &#125; <span class="hljs-keyword">finally</span> &#123;<br>                semaphore.release();<br>            &#125;<br>        &#125;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>执行结果：</p>
+<figure class="highlight subunit"><table><tr><td class="code"><pre><code class="hljs subunit">pool<span class="hljs-string">-1</span>-thread<span class="hljs-string">-4</span> 进入<br>pool<span class="hljs-string">-1</span>-thread<span class="hljs-string">-1</span> 进入<br>pool<span class="hljs-string">-1</span>-thread<span class="hljs-string">-1</span> 离开<br>pool<span class="hljs-string">-1</span>-thread<span class="hljs-string">-4</span> 离开<br>pool<span class="hljs-string">-1</span>-thread<span class="hljs-string">-3</span> 进入<br>pool<span class="hljs-string">-1</span>-thread<span class="hljs-string">-8</span> 进入<br>pool<span class="hljs-string">-1</span>-thread<span class="hljs-string">-3</span> 离开<br>pool<span class="hljs-string">-1</span>-thread<span class="hljs-string">-7</span> 进入<br>pool<span class="hljs-string">-1</span>-thread<span class="hljs-string">-8</span> 离开<br>……<br></code></pre></td></tr></table></figure>
+<p>可以看到最多允许两个线程进入执行，剩下的线程都被阻塞了。</p>
+<h2 id="Semaphore-实现原理"><a href="#Semaphore-实现原理" class="headerlink" title="Semaphore 实现原理"></a>Semaphore 实现原理</h2><ol>
+<li><code>Semaphore</code> 实际上也是基于 <code>AQS</code> 中的共享锁来实现的</li>
+<li>在 <code>Semaphore</code> 中允许多个线程获得令牌被唤醒<br>以下面代码为例</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="code"><pre><code class="hljs java"><span class="hljs-comment">//  使用部分</span><br><span class="hljs-type">Semaphore</span> <span class="hljs-variable">semaphore</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Semaphore</span>(<span class="hljs-number">2</span>);<br>semaphore.acquire();<br><br><span class="hljs-comment">// 源码部分， new Semaphore 实际创建了一个 NonfairSync 类</span><br><span class="hljs-keyword">public</span> <span class="hljs-title function_">Semaphore</span><span class="hljs-params">(<span class="hljs-type">int</span> <span class="hljs-keyword">permits</span>)</span> &#123;<br>    sync = <span class="hljs-keyword">new</span> <span class="hljs-title class_">NonfairSync</span>(<span class="hljs-keyword">permits</span>);<br>&#125;<br><br><span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">NonfairSync</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_">Sync</span> &#123;<br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> <span class="hljs-type">long</span> <span class="hljs-variable">serialVersionUID</span> <span class="hljs-operator">=</span> -<span class="hljs-number">2694183684443567898L</span>;<br><br>    NonfairSync(<span class="hljs-type">int</span> <span class="hljs-keyword">permits</span>) &#123;<br>        <span class="hljs-comment">// 这里实际是设置 AQS 的 state 变量的值</span><br>        <span class="hljs-built_in">super</span>(<span class="hljs-keyword">permits</span>);<br>    &#125;<br><br>    <span class="hljs-comment">// 这里是重写了获取非共享锁的逻辑</span><br>    <span class="hljs-keyword">protected</span> <span class="hljs-type">int</span> <span class="hljs-title function_">tryAcquireShared</span><span class="hljs-params">(<span class="hljs-type">int</span> acquires)</span> &#123;<br>        <span class="hljs-keyword">return</span> nonfairTryAcquireShared(acquires);<br>    &#125;<br>&#125;<br><br><span class="hljs-keyword">abstract</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">Sync</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_">AbstractQueuedSynchronizer</span> &#123;<br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> <span class="hljs-type">long</span> <span class="hljs-variable">serialVersionUID</span> <span class="hljs-operator">=</span> <span class="hljs-number">1192457210091910933L</span>;<br><br>    Sync(<span class="hljs-type">int</span> <span class="hljs-keyword">permits</span>) &#123;<br>        setState(<span class="hljs-keyword">permits</span>);<br>    &#125;<br><br>    <span class="hljs-keyword">final</span> <span class="hljs-type">int</span> <span class="hljs-title function_">getPermits</span><span class="hljs-params">()</span> &#123;<br>        <span class="hljs-keyword">return</span> getState();<br>    &#125;<br><br>    <span class="hljs-comment">//  获取非共享锁实际就是获取 AQS 中变量的值，然后减去此次需要获取到  permits 数量， 如果这个数量&lt;0 代表获取令牌失败</span><br>    <span class="hljs-comment">//  否则就是设置令牌成功，同时将剩余令牌数量使用 cas 方式更新的 state 变量中</span><br>    <span class="hljs-keyword">final</span> <span class="hljs-type">int</span> <span class="hljs-title function_">nonfairTryAcquireShared</span><span class="hljs-params">(<span class="hljs-type">int</span> acquires)</span> &#123;<br>        <span class="hljs-keyword">for</span> (;;) &#123;<br>            <span class="hljs-type">int</span> <span class="hljs-variable">available</span> <span class="hljs-operator">=</span> getState();<br>            <span class="hljs-type">int</span> <span class="hljs-variable">remaining</span> <span class="hljs-operator">=</span> available - acquires;<br>            <span class="hljs-keyword">if</span> (remaining &lt; <span class="hljs-number">0</span> ||<br>                compareAndSetState(available, remaining))<br>                <span class="hljs-keyword">return</span> remaining;<br>        &#125;<br>    &#125;<br><br>    <span class="hljs-comment">//  该方法是释放令牌的逻辑，和获取锁是类似的，也是先获取 AQS 中 state 变量的值，然后加上释放的令牌数量</span><br>    <span class="hljs-comment">//  然后再使用 cas 方式更新 state 变量的值即可</span><br>    <span class="hljs-keyword">protected</span> <span class="hljs-keyword">final</span> <span class="hljs-type">boolean</span> <span class="hljs-title function_">tryReleaseShared</span><span class="hljs-params">(<span class="hljs-type">int</span> releases)</span> &#123;<br>        <span class="hljs-keyword">for</span> (;;) &#123;<br>            <span class="hljs-type">int</span> <span class="hljs-variable">current</span> <span class="hljs-operator">=</span> getState();<br>            <span class="hljs-type">int</span> <span class="hljs-variable">next</span> <span class="hljs-operator">=</span> current + releases;<br>            <span class="hljs-keyword">if</span> (next &lt; current) <span class="hljs-comment">// overflow</span><br>                <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Error</span>(<span class="hljs-string">&quot;Maximum permit count exceeded&quot;</span>);<br>            <span class="hljs-keyword">if</span> (compareAndSetState(current, next))<br>                <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;<br>        &#125;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+
+]]></content>
+      <categories>
+        <category>java</category>
+        <category>多线程</category>
+      </categories>
+      <tags>
+        <tag>java</tag>
+        <tag>多线程</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>ThreadLocal的使用和原理</title>
     <url>/2023/15c7fbcaf228/index.html</url>
     <content><![CDATA[<span class="hide_first_mermaid">
@@ -2956,139 +3197,6 @@
       </tags>
   </entry>
   <entry>
-    <title>Semaphore使用和原理</title>
-    <url>/2023/1dbf4f386c66/index.html</url>
-    <content><![CDATA[<span class="hide_first_mermaid">
-<div class="mermaid-wrap"><pre class="mermaid-src" hidden>
-  flowchart LR
-    A
-  </pre></div>
-</span>
-
-<p><code>Semaphore</code> 的主要功能是用来限制对某个资源同时访问的线程数量，它有两个核心方法</p>
-<ol>
-<li><code>acquire()</code>：获取一个许可，如果没有就阻塞</li>
-<li><code>release()</code>：释放一个许可 然后唤醒一个等待的线程</li>
-</ol>
-<h2 id="Semaphore-常用方法"><a href="#Semaphore-常用方法" class="headerlink" title="Semaphore 常用方法"></a>Semaphore 常用方法</h2><ol>
-<li><code>Semaphore(permits,fair)</code>，<code>permits</code> 表示令牌数，<code>fair</code> 表示公平性</li>
-<li><code>acquire(permits)</code>，获取指定 <code>permits</code> 数量的令牌，如果许可证数量不足，则会阻塞当前线程</li>
-<li><code>tryAcquire(permits)</code>，尝试获取指定 <code>permits</code> 数量的令牌，此过程是非阻塞的，如果令牌数不够，则返回 <code>false</code>，否则返回 <code>true</code></li>
-<li><code>release(permits)</code>，释放指定 <code>permits</code> 数量的令牌</li>
-<li><code>drainPermits()</code>，当前线程获得剩下的所有可用令牌。</li>
-<li><code>hasQueuedThread()</code>，判断当前 <code>Semaphore</code> 实例上是否存在正在等待令牌的线程。</li>
-</ol>
-<h2 id="Semaphore的使用原理图"><a href="#Semaphore的使用原理图" class="headerlink" title="Semaphore的使用原理图"></a>Semaphore的使用原理图</h2><pre class="mermaid">flowchart TB
-    subgraph A["Threads"]
-        direction LR
-        A1["thread"]
-        A2["thread"]
-        A3["......"]
-        A4["thread"]
-        A1~~~A2~~~A3~~~A4
-    end
-    subgraph B["Semaphore"]
-        B1["1 (permits=2)"]
-        B2["2 (permits=2)"]
-        B1~~~B2
-    end
-    C[resources]
-    A--"acquire()"-->B
-    A--"acquire()"-->B
-    A--"......"-->B
-    A--"acquire()"-->B
-    B--"同时只允许两个线程访问"-->C
-    B--"同时只允许两个线程访问"-->C</pre>
-
-<h2 id="Semaphore的使用场景"><a href="#Semaphore的使用场景" class="headerlink" title="Semaphore的使用场景"></a>Semaphore的使用场景</h2><ol>
-<li>限流，限制同时访问某个资源的线程数量</li>
-<li>并发控制，比如数据库连接池，限制同时访问数据库的线程数量</li>
-<li>信号量，用来控制同时访问某个资源的线程数量</li>
-</ol>
-<h2 id="Semaphore-使用案例"><a href="#Semaphore-使用案例" class="headerlink" title="Semaphore 使用案例"></a>Semaphore 使用案例</h2><p>如下代码，创建了一个线程池，提交了20个任务，每个任务中都等待1s，模拟方法调用耗时，正常来说可以20个任务同时执行，但是现在只允许2个任务同时执行，可以看到打印的结果是2个任务同时执行，剩下的任务都被阻塞了。</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">TestSemaphore</span> &#123;<br><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">main</span><span class="hljs-params">(String[] args)</span> <span class="hljs-keyword">throws</span> InterruptedException &#123;<br>        <span class="hljs-type">ExecutorService</span> <span class="hljs-variable">executorService</span> <span class="hljs-operator">=</span> Executors.newCachedThreadPool();<br>        <span class="hljs-type">Semaphore</span> <span class="hljs-variable">semaphore</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Semaphore</span>(<span class="hljs-number">2</span>);<br>        <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> <span class="hljs-variable">i</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>; i &lt; <span class="hljs-number">20</span>; i++) &#123;<br>            executorService.submit(<span class="hljs-keyword">new</span> <span class="hljs-title class_">SemaphoreThread</span>(semaphore));<br>        &#125;<br>    &#125;<br><br>    <span class="hljs-keyword">static</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">SemaphoreThread</span> <span class="hljs-keyword">implements</span> <span class="hljs-title class_">Runnable</span> &#123;<br><br>        <span class="hljs-keyword">private</span> <span class="hljs-keyword">final</span> Semaphore semaphore;<br><br>        <span class="hljs-keyword">public</span> <span class="hljs-title function_">SemaphoreThread</span><span class="hljs-params">(Semaphore semaphore)</span> &#123;<br>            <span class="hljs-built_in">this</span>.semaphore = semaphore;<br>        &#125;<br><br>        <span class="hljs-meta">@Override</span><br>        <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">run</span><span class="hljs-params">()</span> &#123;<br>            <span class="hljs-keyword">try</span> &#123;<br>                semaphore.acquire();<br>                System.out.println(Thread.currentThread().getName() + <span class="hljs-string">&quot; 进入&quot;</span>);<br>                Thread.sleep(<span class="hljs-number">1000</span>);<br>                System.out.println(Thread.currentThread().getName() + <span class="hljs-string">&quot; 离开&quot;</span>);<br>            &#125; <span class="hljs-keyword">catch</span> (InterruptedException e) &#123;<br>                e.printStackTrace();<br>            &#125; <span class="hljs-keyword">finally</span> &#123;<br>                semaphore.release();<br>            &#125;<br>        &#125;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
-
-<p>执行结果：</p>
-<figure class="highlight subunit"><table><tr><td class="code"><pre><code class="hljs subunit">pool<span class="hljs-string">-1</span>-thread<span class="hljs-string">-4</span> 进入<br>pool<span class="hljs-string">-1</span>-thread<span class="hljs-string">-1</span> 进入<br>pool<span class="hljs-string">-1</span>-thread<span class="hljs-string">-1</span> 离开<br>pool<span class="hljs-string">-1</span>-thread<span class="hljs-string">-4</span> 离开<br>pool<span class="hljs-string">-1</span>-thread<span class="hljs-string">-3</span> 进入<br>pool<span class="hljs-string">-1</span>-thread<span class="hljs-string">-8</span> 进入<br>pool<span class="hljs-string">-1</span>-thread<span class="hljs-string">-3</span> 离开<br>pool<span class="hljs-string">-1</span>-thread<span class="hljs-string">-7</span> 进入<br>pool<span class="hljs-string">-1</span>-thread<span class="hljs-string">-8</span> 离开<br>……<br></code></pre></td></tr></table></figure>
-<p>可以看到最多允许两个线程进入执行，剩下的线程都被阻塞了。</p>
-<h2 id="Semaphore-实现原理"><a href="#Semaphore-实现原理" class="headerlink" title="Semaphore 实现原理"></a>Semaphore 实现原理</h2><ol>
-<li><code>Semaphore</code> 实际上也是基于 <code>AQS</code> 中的共享锁来实现的</li>
-<li>在 <code>Semaphore</code> 中允许多个线程获得令牌被唤醒<br>以下面代码为例</li>
-</ol>
-<figure class="highlight java"><table><tr><td class="code"><pre><code class="hljs java"><span class="hljs-comment">//  使用部分</span><br><span class="hljs-type">Semaphore</span> <span class="hljs-variable">semaphore</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Semaphore</span>(<span class="hljs-number">2</span>);<br>semaphore.acquire();<br><br><span class="hljs-comment">// 源码部分， new Semaphore 实际创建了一个 NonfairSync 类</span><br><span class="hljs-keyword">public</span> <span class="hljs-title function_">Semaphore</span><span class="hljs-params">(<span class="hljs-type">int</span> <span class="hljs-keyword">permits</span>)</span> &#123;<br>    sync = <span class="hljs-keyword">new</span> <span class="hljs-title class_">NonfairSync</span>(<span class="hljs-keyword">permits</span>);<br>&#125;<br><br><span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">NonfairSync</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_">Sync</span> &#123;<br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> <span class="hljs-type">long</span> <span class="hljs-variable">serialVersionUID</span> <span class="hljs-operator">=</span> -<span class="hljs-number">2694183684443567898L</span>;<br><br>    NonfairSync(<span class="hljs-type">int</span> <span class="hljs-keyword">permits</span>) &#123;<br>        <span class="hljs-comment">// 这里实际是设置 AQS 的 state 变量的值</span><br>        <span class="hljs-built_in">super</span>(<span class="hljs-keyword">permits</span>);<br>    &#125;<br><br>    <span class="hljs-comment">// 这里是重写了获取非共享锁的逻辑</span><br>    <span class="hljs-keyword">protected</span> <span class="hljs-type">int</span> <span class="hljs-title function_">tryAcquireShared</span><span class="hljs-params">(<span class="hljs-type">int</span> acquires)</span> &#123;<br>        <span class="hljs-keyword">return</span> nonfairTryAcquireShared(acquires);<br>    &#125;<br>&#125;<br><br><span class="hljs-keyword">abstract</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">Sync</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_">AbstractQueuedSynchronizer</span> &#123;<br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> <span class="hljs-type">long</span> <span class="hljs-variable">serialVersionUID</span> <span class="hljs-operator">=</span> <span class="hljs-number">1192457210091910933L</span>;<br><br>    Sync(<span class="hljs-type">int</span> <span class="hljs-keyword">permits</span>) &#123;<br>        setState(<span class="hljs-keyword">permits</span>);<br>    &#125;<br><br>    <span class="hljs-keyword">final</span> <span class="hljs-type">int</span> <span class="hljs-title function_">getPermits</span><span class="hljs-params">()</span> &#123;<br>        <span class="hljs-keyword">return</span> getState();<br>    &#125;<br><br>    <span class="hljs-comment">//  获取非共享锁实际就是获取 AQS 中变量的值，然后减去此次需要获取到  permits 数量， 如果这个数量&lt;0 代表获取令牌失败</span><br>    <span class="hljs-comment">//  否则就是设置令牌成功，同时将剩余令牌数量使用 cas 方式更新的 state 变量中</span><br>    <span class="hljs-keyword">final</span> <span class="hljs-type">int</span> <span class="hljs-title function_">nonfairTryAcquireShared</span><span class="hljs-params">(<span class="hljs-type">int</span> acquires)</span> &#123;<br>        <span class="hljs-keyword">for</span> (;;) &#123;<br>            <span class="hljs-type">int</span> <span class="hljs-variable">available</span> <span class="hljs-operator">=</span> getState();<br>            <span class="hljs-type">int</span> <span class="hljs-variable">remaining</span> <span class="hljs-operator">=</span> available - acquires;<br>            <span class="hljs-keyword">if</span> (remaining &lt; <span class="hljs-number">0</span> ||<br>                compareAndSetState(available, remaining))<br>                <span class="hljs-keyword">return</span> remaining;<br>        &#125;<br>    &#125;<br><br>    <span class="hljs-comment">//  该方法是释放令牌的逻辑，和获取锁是类似的，也是先获取 AQS 中 state 变量的值，然后加上释放的令牌数量</span><br>    <span class="hljs-comment">//  然后再使用 cas 方式更新 state 变量的值即可</span><br>    <span class="hljs-keyword">protected</span> <span class="hljs-keyword">final</span> <span class="hljs-type">boolean</span> <span class="hljs-title function_">tryReleaseShared</span><span class="hljs-params">(<span class="hljs-type">int</span> releases)</span> &#123;<br>        <span class="hljs-keyword">for</span> (;;) &#123;<br>            <span class="hljs-type">int</span> <span class="hljs-variable">current</span> <span class="hljs-operator">=</span> getState();<br>            <span class="hljs-type">int</span> <span class="hljs-variable">next</span> <span class="hljs-operator">=</span> current + releases;<br>            <span class="hljs-keyword">if</span> (next &lt; current) <span class="hljs-comment">// overflow</span><br>                <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Error</span>(<span class="hljs-string">&quot;Maximum permit count exceeded&quot;</span>);<br>            <span class="hljs-keyword">if</span> (compareAndSetState(current, next))<br>                <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;<br>        &#125;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
-
-
-]]></content>
-      <categories>
-        <category>java</category>
-        <category>多线程</category>
-      </categories>
-      <tags>
-        <tag>java</tag>
-        <tag>多线程</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>多线程上下文切换包含哪些内容</title>
-    <url>/2023/c51368ba5d47/index.html</url>
-    <content><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p><code>cpu</code> 不知道什么是进程和线程，<code>cpu</code> 只知道两件事情</p>
-<ol>
-<li>从内存中取出指令</li>
-<li>执行指令</li>
-<li>一直重复上面两个步骤，所以 <strong>取指令</strong>-&gt; <strong>执行指令</strong> 就是 <code>cpu</code> 所能做的所有事情</li>
-</ol>
-<h2 id="cpu-获取指令执行的流程"><a href="#cpu-获取指令执行的流程" class="headerlink" title="cpu 获取指令执行的流程"></a>cpu 获取指令执行的流程</h2><ol>
-<li>编写源代码，源代码中都会有 main 函数，这个 main 函数就是执行入口</li>
-<li>程序启动后，会将 main 函数的第一条机器指令放入 pc 寄存器中（程序计数器）</li>
-<li>pc 寄存器的地址默认是自动 +1， 初始地址就是 main 函数的指令地址</li>
-<li>当遇到 if else 等语句时程序会根据计算结果或者指令中指定的跳转地址来动态改变 pc 寄存器中的值</li>
-</ol>
-<h2 id="进程和线程的区别"><a href="#进程和线程的区别" class="headerlink" title="进程和线程的区别"></a>进程和线程的区别</h2><ol>
-<li>进程是操作系统分配资源的最小单位</li>
-<li>线程是调用的基本单位，线程之间共享进程资源<ol>
-<li>线程之间共享了哪些资源<ol>
-<li>堆区</li>
-<li>代码区</li>
-<li>数据区：存放的就是全局变量</li>
-</ol>
-</li>
-</ol>
-</li>
-</ol>
-<h2 id="什么是线程上下文"><a href="#什么是线程上下文" class="headerlink" title="什么是线程上下文"></a>什么是线程上下文</h2><ol>
-<li>线程上下文就是指线程在某个时刻的状态，或者说某个时刻的数据，这个数据是线程私有的才能称为是线程的上下文</li>
-<li>要看线程上下文包含哪些信息，就需要看哪些数据都是线程私有的，这些线程私有的数据整体就是线程上下文</li>
-</ol>
-<h3 id="线程的私有数据有哪些"><a href="#线程的私有数据有哪些" class="headerlink" title="线程的私有数据有哪些"></a>线程的私有数据有哪些</h3><p>线程本质就是函数的执行，函数执行的信息都是放在栈帧中，栈帧主要包含如下内容</p>
-<ol>
-<li>当前函数的返回值</li>
-<li>调用其他函数的参数（寄存器不够时参数是会放在栈帧中的）</li>
-<li>函数使用的局部变量</li>
-<li>函数使用的寄存器信息</li>
-<li>程序计数器是线程私有的</li>
-<li>栈指针（该线程栈区的栈顶位置）</li>
-<li>执行函数时所使用的寄存器也是线程私有的</li>
-</ol>
-<p>所有上面这些信息包含在一起就是线程上下文</p>
-<h2 id="常用的几种寄存器"><a href="#常用的几种寄存器" class="headerlink" title="常用的几种寄存器"></a>常用的几种寄存器</h2><ol>
-<li>栈寄存器<ol>
-<li>函数运行时都有一个栈帧，对于栈来说重要的信息之一就是栈顶，栈寄存器就是保存栈顶信息的</li>
-</ol>
-</li>
-<li>指令寄存器（pc寄存器）</li>
-<li>状态寄存器，线程是运行在内核态还是用户态的信息保存在状态寄存器中</li>
-</ol>
-]]></content>
-      <categories>
-        <category>java</category>
-        <category>多线程</category>
-      </categories>
-      <tags>
-        <tag>java</tag>
-        <tag>多线程</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>volatile解决可见性和有序性</title>
     <url>/2023/d41d7b790ebc/index.html</url>
     <content><![CDATA[<span class="hide_first_mermaid">
@@ -3220,6 +3328,66 @@
 <li>storeload</li>
 </ol>
 <p><img src="https://blog-1308475102.cos.ap-guangzhou.myqcloud.com/picture/202311292348303.webp" alt="内存屏障"></p>
+]]></content>
+      <categories>
+        <category>java</category>
+        <category>多线程</category>
+      </categories>
+      <tags>
+        <tag>java</tag>
+        <tag>多线程</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>多线程上下文切换包含哪些内容</title>
+    <url>/2023/c51368ba5d47/index.html</url>
+    <content><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p><code>cpu</code> 不知道什么是进程和线程，<code>cpu</code> 只知道两件事情</p>
+<ol>
+<li>从内存中取出指令</li>
+<li>执行指令</li>
+<li>一直重复上面两个步骤，所以 <strong>取指令</strong>-&gt; <strong>执行指令</strong> 就是 <code>cpu</code> 所能做的所有事情</li>
+</ol>
+<h2 id="cpu-获取指令执行的流程"><a href="#cpu-获取指令执行的流程" class="headerlink" title="cpu 获取指令执行的流程"></a>cpu 获取指令执行的流程</h2><ol>
+<li>编写源代码，源代码中都会有 main 函数，这个 main 函数就是执行入口</li>
+<li>程序启动后，会将 main 函数的第一条机器指令放入 pc 寄存器中（程序计数器）</li>
+<li>pc 寄存器的地址默认是自动 +1， 初始地址就是 main 函数的指令地址</li>
+<li>当遇到 if else 等语句时程序会根据计算结果或者指令中指定的跳转地址来动态改变 pc 寄存器中的值</li>
+</ol>
+<h2 id="进程和线程的区别"><a href="#进程和线程的区别" class="headerlink" title="进程和线程的区别"></a>进程和线程的区别</h2><ol>
+<li>进程是操作系统分配资源的最小单位</li>
+<li>线程是调用的基本单位，线程之间共享进程资源<ol>
+<li>线程之间共享了哪些资源<ol>
+<li>堆区</li>
+<li>代码区</li>
+<li>数据区：存放的就是全局变量</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+<h2 id="什么是线程上下文"><a href="#什么是线程上下文" class="headerlink" title="什么是线程上下文"></a>什么是线程上下文</h2><ol>
+<li>线程上下文就是指线程在某个时刻的状态，或者说某个时刻的数据，这个数据是线程私有的才能称为是线程的上下文</li>
+<li>要看线程上下文包含哪些信息，就需要看哪些数据都是线程私有的，这些线程私有的数据整体就是线程上下文</li>
+</ol>
+<h3 id="线程的私有数据有哪些"><a href="#线程的私有数据有哪些" class="headerlink" title="线程的私有数据有哪些"></a>线程的私有数据有哪些</h3><p>线程本质就是函数的执行，函数执行的信息都是放在栈帧中，栈帧主要包含如下内容</p>
+<ol>
+<li>当前函数的返回值</li>
+<li>调用其他函数的参数（寄存器不够时参数是会放在栈帧中的）</li>
+<li>函数使用的局部变量</li>
+<li>函数使用的寄存器信息</li>
+<li>程序计数器是线程私有的</li>
+<li>栈指针（该线程栈区的栈顶位置）</li>
+<li>执行函数时所使用的寄存器也是线程私有的</li>
+</ol>
+<p>所有上面这些信息包含在一起就是线程上下文</p>
+<h2 id="常用的几种寄存器"><a href="#常用的几种寄存器" class="headerlink" title="常用的几种寄存器"></a>常用的几种寄存器</h2><ol>
+<li>栈寄存器<ol>
+<li>函数运行时都有一个栈帧，对于栈来说重要的信息之一就是栈顶，栈寄存器就是保存栈顶信息的</li>
+</ol>
+</li>
+<li>指令寄存器（pc寄存器）</li>
+<li>状态寄存器，线程是运行在内核态还是用户态的信息保存在状态寄存器中</li>
+</ol>
 ]]></content>
       <categories>
         <category>java</category>
@@ -4818,38 +4986,6 @@ Root("Producer(生产者)")
       </tags>
   </entry>
   <entry>
-    <title>redis发布订阅</title>
-    <url>/2023/2d9e56a00163/index.html</url>
-    <content><![CDATA[<p>参考 <a href="https://docs.spring.io/spring-data/redis/reference/redis/pubsub.html">Spring官网对redis发布订阅的代码实现</a><br>说明：</p>
-<ol>
-<li><code>SpringBoot3.x</code> 使用 <code>Redis</code> 可以先参考下面的文章</li>
-</ol>
-<ol><li><a href="/2023/5ef02c37afab/index.html" title="SpringBoot中使用Redis">SpringBoot中使用Redis</a></li></ol>
-<ol start="2">
-<li>整体代码分为三部分</li>
-<li>消息监听者 (这部分是业务代码中需要编写的消息接收的逻辑)</li>
-<li>注册消息监听者 （这部分是将自己编写的消息监听者注册到 redis 中，便于 redis 可以调用到我们的消息监听类）</li>
-<li>消息发送者</li>
-</ol>
-<h2 id="消息监听者"><a href="#消息监听者" class="headerlink" title="消息监听者"></a>消息监听者</h2><figure class="highlight java"><table><tr><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@Component</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">RedisMessageListener</span> &#123;<br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">onMessage</span><span class="hljs-params">(String message)</span> &#123;<br>        System.out.println(<span class="hljs-string">&quot;监听到的消息:&quot;</span> + message);<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
-
-<h2 id="注册消息监听"><a href="#注册消息监听" class="headerlink" title="注册消息监听"></a>注册消息监听</h2><figure class="highlight java"><table><tr><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@Component</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">RedisMessageListener</span> &#123;<br><span class="hljs-meta">@Configuration</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">RedisConfig</span> &#123;<br><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> <span class="hljs-type">String</span> <span class="hljs-variable">REDIS_SUBSCRIBE_CHANNEL</span> <span class="hljs-operator">=</span> <span class="hljs-string">&quot;redis.subscribe.channel&quot;</span>;<br><br>    <span class="hljs-meta">@Bean</span><br>    <span class="hljs-keyword">public</span> RedisMessageListenerContainer <span class="hljs-title function_">listenerContainer</span><span class="hljs-params">(RedisConnectionFactory factory,</span><br><span class="hljs-params">                                                           MessageListenerAdapter messageListenerAdapter)</span>&#123;<br>        <span class="hljs-type">RedisMessageListenerContainer</span> <span class="hljs-variable">container</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">RedisMessageListenerContainer</span>();<br>        container.setConnectionFactory(factory);<br>        <span class="hljs-comment">//redis.subscribe.channel 是配置的订阅的 channel, 发送时也需要往这个 channel 中发送</span><br>        container.addMessageListener(messageListenerAdapter, <span class="hljs-keyword">new</span> <span class="hljs-title class_">PatternTopic</span>(REDIS_SUBSCRIBE_CHANNEL));<br>        <span class="hljs-keyword">return</span> container;<br>    &#125;<br><br>    <span class="hljs-meta">@Bean</span><br>    <span class="hljs-keyword">public</span> MessageListenerAdapter <span class="hljs-title function_">messageListenerAdapter</span><span class="hljs-params">(RedisMessageListener listener)</span>&#123;<br>        <span class="hljs-type">MessageListenerAdapter</span> <span class="hljs-variable">messageListenerAdapter</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">MessageListenerAdapter</span>(listener,<br>                <span class="hljs-string">&quot;onMessage&quot;</span>);<br>        <span class="hljs-keyword">return</span> messageListenerAdapter;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
-<p>从上面代码中看到往 <code>RedisMessageListenerContainer</code> 类中注册的并不是我们自己编写的 <code>RedisMessageListener</code>， 而是 <code>MessageListenerAdapter</code>（<code>MessageListenerAdapter</code> 包裹了 <code>RedisMessageListener</code>），这是因为需要通过 <code>MessageListenerAdapter</code> 来做消息适配，比如我们编写的 <code>RedisMessageListener</code> 类中 <code>onMessage(String)</code> 方法接收 <code>String</code> 类型参数，为什么可以直接接收 <code>String</code> 类型参数呢？ 就是 <code>MessageListenerAdapter</code> 做了转换</p>
-<h2 id="消息发送者"><a href="#消息发送者" class="headerlink" title="消息发送者"></a>消息发送者</h2><figure class="highlight java"><table><tr><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@Component</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">RedisPublish</span> &#123;<br><br>    <span class="hljs-meta">@Autowired</span><br>    <span class="hljs-keyword">private</span> RedisTemplate&lt;String, Object&gt; stringRedisTemplate;<br><br>    <span class="hljs-comment">//这里使用convertAndSend方法，参数为 channel 通道和内容</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">sendMsg</span><span class="hljs-params">(String channel, String msg)</span> &#123;<br>        stringRedisTemplate.convertAndSend(channel, msg);<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
-
-<h2 id="主类启动并测试"><a href="#主类启动并测试" class="headerlink" title="主类启动并测试"></a>主类启动并测试</h2><figure class="highlight java"><table><tr><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@SpringBootApplication</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">TestApplication</span> &#123;<br><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">main</span><span class="hljs-params">(String[] args)</span> <span class="hljs-keyword">throws</span> InterruptedException &#123;<br>        <span class="hljs-type">ConfigurableApplicationContext</span> <span class="hljs-variable">applicationContext</span> <span class="hljs-operator">=</span> SpringApplication.run(TestApplication.class, args);<br>        <span class="hljs-comment">// 为了让日志在最后打印，便于展示所以延迟5s再发送</span><br>        Thread.sleep(<span class="hljs-number">5000</span>);<br>        <span class="hljs-type">RedisPublish</span> <span class="hljs-variable">redisPublish</span> <span class="hljs-operator">=</span> applicationContext.getBean(RedisPublish.class);<br>        <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> <span class="hljs-variable">i</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>; i &lt; <span class="hljs-number">5</span>; i++) &#123;<br>            redisPublish.sendMsg(RedisConfig.REDIS_SUBSCRIBE_CHANNEL, <span class="hljs-string">&quot;测试发送数据&quot;</span> + i);<br>        &#125;<br><br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
-
-<p>测试结果：</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><code class="hljs java">监听到的消息:<span class="hljs-string">&quot;测试发送数据1&quot;</span><br>监听到的消息:<span class="hljs-string">&quot;测试发送数据2&quot;</span><br>监听到的消息:<span class="hljs-string">&quot;测试发送数据3&quot;</span><br>监听到的消息:<span class="hljs-string">&quot;测试发送数据4&quot;</span><br></code></pre></td></tr></table></figure>]]></content>
-      <categories>
-        <category>存储</category>
-        <category>Redis</category>
-      </categories>
-      <tags>
-        <tag>Redis</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>redis分布式锁</title>
     <url>/2023/c21b41047d75/index.html</url>
     <content><![CDATA[<h2 id="redis-分布式锁要做到的事情"><a href="#redis-分布式锁要做到的事情" class="headerlink" title="redis 分布式锁要做到的事情"></a>redis 分布式锁要做到的事情</h2><ol>
@@ -4899,6 +5035,38 @@ Root("Producer(生产者)")
 
 
 ]]></content>
+      <categories>
+        <category>存储</category>
+        <category>Redis</category>
+      </categories>
+      <tags>
+        <tag>Redis</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>redis发布订阅</title>
+    <url>/2023/2d9e56a00163/index.html</url>
+    <content><![CDATA[<p>参考 <a href="https://docs.spring.io/spring-data/redis/reference/redis/pubsub.html">Spring官网对redis发布订阅的代码实现</a><br>说明：</p>
+<ol>
+<li><code>SpringBoot3.x</code> 使用 <code>Redis</code> 可以先参考下面的文章</li>
+</ol>
+<ol><li><a href="/2023/5ef02c37afab/index.html" title="SpringBoot中使用Redis">SpringBoot中使用Redis</a></li></ol>
+<ol start="2">
+<li>整体代码分为三部分</li>
+<li>消息监听者 (这部分是业务代码中需要编写的消息接收的逻辑)</li>
+<li>注册消息监听者 （这部分是将自己编写的消息监听者注册到 redis 中，便于 redis 可以调用到我们的消息监听类）</li>
+<li>消息发送者</li>
+</ol>
+<h2 id="消息监听者"><a href="#消息监听者" class="headerlink" title="消息监听者"></a>消息监听者</h2><figure class="highlight java"><table><tr><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@Component</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">RedisMessageListener</span> &#123;<br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">onMessage</span><span class="hljs-params">(String message)</span> &#123;<br>        System.out.println(<span class="hljs-string">&quot;监听到的消息:&quot;</span> + message);<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h2 id="注册消息监听"><a href="#注册消息监听" class="headerlink" title="注册消息监听"></a>注册消息监听</h2><figure class="highlight java"><table><tr><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@Component</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">RedisMessageListener</span> &#123;<br><span class="hljs-meta">@Configuration</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">RedisConfig</span> &#123;<br><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> <span class="hljs-type">String</span> <span class="hljs-variable">REDIS_SUBSCRIBE_CHANNEL</span> <span class="hljs-operator">=</span> <span class="hljs-string">&quot;redis.subscribe.channel&quot;</span>;<br><br>    <span class="hljs-meta">@Bean</span><br>    <span class="hljs-keyword">public</span> RedisMessageListenerContainer <span class="hljs-title function_">listenerContainer</span><span class="hljs-params">(RedisConnectionFactory factory,</span><br><span class="hljs-params">                                                           MessageListenerAdapter messageListenerAdapter)</span>&#123;<br>        <span class="hljs-type">RedisMessageListenerContainer</span> <span class="hljs-variable">container</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">RedisMessageListenerContainer</span>();<br>        container.setConnectionFactory(factory);<br>        <span class="hljs-comment">//redis.subscribe.channel 是配置的订阅的 channel, 发送时也需要往这个 channel 中发送</span><br>        container.addMessageListener(messageListenerAdapter, <span class="hljs-keyword">new</span> <span class="hljs-title class_">PatternTopic</span>(REDIS_SUBSCRIBE_CHANNEL));<br>        <span class="hljs-keyword">return</span> container;<br>    &#125;<br><br>    <span class="hljs-meta">@Bean</span><br>    <span class="hljs-keyword">public</span> MessageListenerAdapter <span class="hljs-title function_">messageListenerAdapter</span><span class="hljs-params">(RedisMessageListener listener)</span>&#123;<br>        <span class="hljs-type">MessageListenerAdapter</span> <span class="hljs-variable">messageListenerAdapter</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">MessageListenerAdapter</span>(listener,<br>                <span class="hljs-string">&quot;onMessage&quot;</span>);<br>        <span class="hljs-keyword">return</span> messageListenerAdapter;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>从上面代码中看到往 <code>RedisMessageListenerContainer</code> 类中注册的并不是我们自己编写的 <code>RedisMessageListener</code>， 而是 <code>MessageListenerAdapter</code>（<code>MessageListenerAdapter</code> 包裹了 <code>RedisMessageListener</code>），这是因为需要通过 <code>MessageListenerAdapter</code> 来做消息适配，比如我们编写的 <code>RedisMessageListener</code> 类中 <code>onMessage(String)</code> 方法接收 <code>String</code> 类型参数，为什么可以直接接收 <code>String</code> 类型参数呢？ 就是 <code>MessageListenerAdapter</code> 做了转换</p>
+<h2 id="消息发送者"><a href="#消息发送者" class="headerlink" title="消息发送者"></a>消息发送者</h2><figure class="highlight java"><table><tr><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@Component</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">RedisPublish</span> &#123;<br><br>    <span class="hljs-meta">@Autowired</span><br>    <span class="hljs-keyword">private</span> RedisTemplate&lt;String, Object&gt; stringRedisTemplate;<br><br>    <span class="hljs-comment">//这里使用convertAndSend方法，参数为 channel 通道和内容</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">sendMsg</span><span class="hljs-params">(String channel, String msg)</span> &#123;<br>        stringRedisTemplate.convertAndSend(channel, msg);<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h2 id="主类启动并测试"><a href="#主类启动并测试" class="headerlink" title="主类启动并测试"></a>主类启动并测试</h2><figure class="highlight java"><table><tr><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@SpringBootApplication</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">TestApplication</span> &#123;<br><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">main</span><span class="hljs-params">(String[] args)</span> <span class="hljs-keyword">throws</span> InterruptedException &#123;<br>        <span class="hljs-type">ConfigurableApplicationContext</span> <span class="hljs-variable">applicationContext</span> <span class="hljs-operator">=</span> SpringApplication.run(TestApplication.class, args);<br>        <span class="hljs-comment">// 为了让日志在最后打印，便于展示所以延迟5s再发送</span><br>        Thread.sleep(<span class="hljs-number">5000</span>);<br>        <span class="hljs-type">RedisPublish</span> <span class="hljs-variable">redisPublish</span> <span class="hljs-operator">=</span> applicationContext.getBean(RedisPublish.class);<br>        <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> <span class="hljs-variable">i</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>; i &lt; <span class="hljs-number">5</span>; i++) &#123;<br>            redisPublish.sendMsg(RedisConfig.REDIS_SUBSCRIBE_CHANNEL, <span class="hljs-string">&quot;测试发送数据&quot;</span> + i);<br>        &#125;<br><br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>测试结果：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><code class="hljs java">监听到的消息:<span class="hljs-string">&quot;测试发送数据1&quot;</span><br>监听到的消息:<span class="hljs-string">&quot;测试发送数据2&quot;</span><br>监听到的消息:<span class="hljs-string">&quot;测试发送数据3&quot;</span><br>监听到的消息:<span class="hljs-string">&quot;测试发送数据4&quot;</span><br></code></pre></td></tr></table></figure>]]></content>
       <categories>
         <category>存储</category>
         <category>Redis</category>
@@ -6238,6 +6406,27 @@ Root("Producer(生产者)")
       </tags>
   </entry>
   <entry>
+    <title>git忽略已经被提交的文件</title>
+    <url>/2024/55b91fd7d632/index.html</url>
+    <content><![CDATA[<h2 id="问题背景"><a href="#问题背景" class="headerlink" title="问题背景"></a>问题背景</h2><p>如果已经使用 <code>git add</code> 或 <code>git commit</code> 等命令对文件进行了提交，后续在  <code>.gitignore</code> 文件中再想忽略该文件是无效的</p>
+<h2 id="解决方式"><a href="#解决方式" class="headerlink" title="解决方式"></a>解决方式</h2><p>主要是两个步骤</p>
+<ol>
+<li><p>清除本地缓存，具体想要</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><code class="hljs git">&lt;!-- 这里是删除当前目录下所有被缓存的内容 --&gt;<br>git rm --cached .<br>&lt;!-- 删除当前目录下的 tomcat 子目录所有内容 --&gt;<br>git rm --cached tomcat\*<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>重新提交</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><code class="hljs git">git commit -m &#x27;add ignore&#x27;<br></code></pre></td></tr></table></figure></li>
+</ol>
+]]></content>
+      <categories>
+        <category>tools</category>
+        <category>git</category>
+      </categories>
+      <tags>
+        <tag>git</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>通过idea查找注解被使用的地方</title>
     <url>/2023/4bed69252515/index.html</url>
     <content><![CDATA[<blockquote>
@@ -6315,6 +6504,7 @@ Root("Producer(生产者)")
 <li>找到配置文件，可以在 <strong>会话-&gt;首选项-&gt;配置文件</strong> 中查看配置文件的位置</li>
 <li>找到 <code>application.lockScreenTimeout</code>， 将值改成 0</li>
 </ol>
+<h2 id="安装-Nord-主题"><a href="#安装-Nord-主题" class="headerlink" title="安装 Nord 主题"></a>安装 Nord 主题</h2><p><a href="https://github.com/teaper/windterm-nord-theme">下载Nord主题</a></p>
 ]]></content>
       <categories>
         <category>tools</category>
@@ -6421,6 +6611,23 @@ Root("Producer(生产者)")
       </tags>
   </entry>
   <entry>
+    <title>docker中运行nacos</title>
+    <url>/2023/f67204379054/index.html</url>
+    <content><![CDATA[<p>使用的系统为 <code>ubuntu22.04</code></p>
+<ol><li><a href="/2023/71e6b223e45b/index.html" title="ubuntu22.04安装docker-compose">ubuntu22.04安装docker-compose</a></li></ol>
+
+<p>参考 <a href="https://nacos.io/zh-cn/docs/quick-start-docker.html">nacos官方文档之使用docker启动</a></p>
+<p>这里使用的是 <code>mysql8</code> 单机版启动</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><code class="hljs xml"><span class="hljs-comment">&lt;!-- 克隆项目 --&gt;</span><br>git clone https://github.com/nacos-group/nacos-docker.git<br>cd nacos-docker<br><br><span class="hljs-comment">&lt;!-- 以后台模式启动 nacos 服务 --&gt;</span><br>docker-compose -f example/standalone-mysql-8.yaml up -d<br><br><span class="hljs-comment">&lt;!-- 查看启动的docker服务 --&gt;</span><br>docker container ps<br><br><span class="hljs-comment">&lt;!-- 关闭服务 --&gt;</span><br>docker-compose -f example/standalone-mysql-8.yaml down<br><br><span class="hljs-comment">&lt;!-- 启动后，访问 nacos  --&gt;</span><br>http://localhost:8848/nacos/index.html<br></code></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>云原生</category>
+        <category>docker</category>
+      </categories>
+      <tags>
+        <tag>docker</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>docker配置阿里云加速镜像</title>
     <url>/2023/2b35420a425c/index.html</url>
     <content><![CDATA[<ol>
@@ -6467,23 +6674,6 @@ Root("Producer(生产者)")
 
 
 ]]></content>
-      <categories>
-        <category>云原生</category>
-        <category>docker</category>
-      </categories>
-      <tags>
-        <tag>docker</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>docker中运行nacos</title>
-    <url>/2023/f67204379054/index.html</url>
-    <content><![CDATA[<p>使用的系统为 <code>ubuntu22.04</code></p>
-<ol><li><a href="/2023/71e6b223e45b/index.html" title="ubuntu22.04安装docker-compose">ubuntu22.04安装docker-compose</a></li></ol>
-
-<p>参考 <a href="https://nacos.io/zh-cn/docs/quick-start-docker.html">nacos官方文档之使用docker启动</a></p>
-<p>这里使用的是 <code>mysql8</code> 单机版启动</p>
-<figure class="highlight xml"><table><tr><td class="code"><pre><code class="hljs xml"><span class="hljs-comment">&lt;!-- 克隆项目 --&gt;</span><br>git clone https://github.com/nacos-group/nacos-docker.git<br>cd nacos-docker<br><br><span class="hljs-comment">&lt;!-- 以后台模式启动 nacos 服务 --&gt;</span><br>docker-compose -f example/standalone-mysql-8.yaml up -d<br><br><span class="hljs-comment">&lt;!-- 查看启动的docker服务 --&gt;</span><br>docker container ps<br><br><span class="hljs-comment">&lt;!-- 关闭服务 --&gt;</span><br>docker-compose -f example/standalone-mysql-8.yaml down<br><br><span class="hljs-comment">&lt;!-- 启动后，访问 nacos  --&gt;</span><br>http://localhost:8848/nacos/index.html<br></code></pre></td></tr></table></figure>]]></content>
       <categories>
         <category>云原生</category>
         <category>docker</category>
