@@ -13,6 +13,17 @@
 <li>《互联网轻量级SSM框架解密：Spring、Spring MVC、MyBatis源码深度剖析》   – 李艳鹏   【微信读书】</li>
 <li>《分布式中间件技术(Java版)》  <a href="https://cmsblogs.cn/4303.html">下载地址</a>    【微信读书】</li>
 </ul>
+<h2 id="tomcat"><a href="#tomcat" class="headerlink" title="tomcat"></a>tomcat</h2><ul>
+<li>《Tomcat架构解析》  – 刘光瑞 【微信读书】</li>
+</ul>
+<h2 id="管理"><a href="#管理" class="headerlink" title="管理"></a>管理</h2><ul>
+<li>《知行:技术人的管理之路》 – 刘建国   【微信读书】</li>
+<li>技术管理实战 36 讲   – 刘建国  【极客时间】【百度网盘】</li>
+<li>技术领导力实战   【极客时间】【百度网盘】</li>
+</ul>
+<h2 id="架构"><a href="#架构" class="headerlink" title="架构"></a>架构</h2><ul>
+<li>📖 《分布式架构原理与实践》  – 崔皓  【微信读书】<ol><li><a href="/2024/48c302d39723/index.html" title="分布式架构原理与实践">分布式架构原理与实践</a></li></ol></li>
+</ul>
 <h2 id="Spring系列"><a href="#Spring系列" class="headerlink" title="Spring系列"></a>Spring系列</h2><ul>
 <li>《Spring Cloud Alibaba微服务原理与实战》  <a href="https://cmsblogs.cn/2647.html">下载地址</a>   【微信读书】</li>
 <li>《SpringBoot技术内幕》   【微信读书】</li>
@@ -55,7 +66,7 @@
 <h2 id="DevOps"><a href="#DevOps" class="headerlink" title="DevOps"></a>DevOps</h2><ul>
 <li>《持续交付2.0：业务引领的DevOps精要》   – 乔梁      【微信读书】</li>
 </ul>
-<h2 id="架构"><a href="#架构" class="headerlink" title="架构"></a>架构</h2><ul>
+<h2 id="架构-1"><a href="#架构-1" class="headerlink" title="架构"></a>架构</h2><ul>
 <li>《可伸缩废物架构：框架与中间件》  – 李艳鹏   【微信读书】</li>
 <li>《程序员必读之软件架构》    【微信读书】</li>
 <li>《未来架构：从服务化到云原生》 【微信读书】</li>
@@ -119,26 +130,6 @@
       </tags>
   </entry>
   <entry>
-    <title>Next8版本主题优化修改的文件</title>
-    <url>/2023/44b973fe011c/index.html</url>
-    <content><![CDATA[<p><a href="https://zhuanlan.zhihu.com/p/252983030">参考文章</a></p>
-<span id="more"></span>
-
-<p>首页每篇文章变成圆角，只需要在 <code>styles.styl</code> 中添加如下内容</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><code class="hljs styles">// 添加首页每篇文章圆角独立 start ------------<br>.post-block&#123;<br>        background-color: rgba(255, 255, 255, 1);<br>        //margin-top: 24px;<br>        margin-bottom: 24px;<br>        padding: 20px;<br>        border-radius: 30px 50px 30px 50px;<br>        box-shadow: 8px 7px 2px 0 rgba(0,0,0,0.12), 7px 4px 1px -2px rgba(0,0,0,0.06), 0 1px 5px 0 rgba(0,0,0,0.12);<br>&#125;<br>// 添加首页每篇文章圆角独立 end ------------<br></code></pre></td></tr></table></figure>
-<p><code>styles.styl</code> 在博客根目录下的，<code>source/_data</code> 下，若没有则需要自己创建并且在 <code>next</code> 主题的 <code>_config.yml</code> 中打开下面的注释</p>
-<figure class="highlight yaml"><table><tr><td class="code"><pre><code class="hljs yaml"><span class="hljs-attr">custom_file_path:</span><br>  <span class="hljs-comment">#head: source/_data/head.njk</span><br>  <span class="hljs-comment">#header: source/_data/header.njk</span><br>  <span class="hljs-attr">style:</span> <span class="hljs-string">source/_data/styles.styl</span><br></code></pre></td></tr></table></figure>
-]]></content>
-      <categories>
-        <category>tools</category>
-        <category>hexo</category>
-      </categories>
-      <tags>
-        <tag>tools</tag>
-        <tag>hexo</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>butterfly主题多级分类折叠与展开</title>
     <url>/2023/acbd53e5de56/index.html</url>
     <content><![CDATA[<ol>
@@ -152,6 +143,26 @@
 </ol>
 <figure class="highlight js"><table><tr><td class="code"><pre><code class="hljs js">$(<span class="hljs-variable language_">document</span>).<span class="hljs-title function_">ready</span>(<span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) &#123;<br>	<span class="hljs-title function_">categoryUnfold</span>();<br>	<span class="hljs-keyword">function</span> <span class="hljs-title function_">categoryUnfold</span>(<span class="hljs-params"></span>) &#123;<br>		$(<span class="hljs-string">&quot;.category-list-link&quot;</span>).<span class="hljs-title function_">filter</span>(<span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) &#123;<br>			<span class="hljs-keyword">if</span>($(<span class="hljs-variable language_">this</span>).<span class="hljs-title function_">siblings</span>(<span class="hljs-string">&quot;.category-list-child&quot;</span>).<span class="hljs-property">length</span> &gt; <span class="hljs-number">0</span>)<br>                <span class="hljs-comment">// 这里引入了向下展开的图标，可以直接从本站下载放入对应目录即可</span><br>				$(<span class="hljs-variable language_">this</span>).<span class="hljs-title function_">parent</span>().<span class="hljs-title function_">css</span>(<span class="hljs-string">&quot;list-style-image&quot;</span>,<span class="hljs-string">&quot;url(&#x27;/cusconfig/img/category-unfold-16x16.png&#x27;&quot;</span>);<br>		&#125;);<br>		<br>		<span class="hljs-comment">//点击含有子标签category-list-child的category-list-link标签时，不进行跳转</span><br>		$(<span class="hljs-string">&quot;.category-list-link&quot;</span>).<span class="hljs-title function_">filter</span>(<span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) &#123;<br>			<span class="hljs-keyword">return</span> $(<span class="hljs-variable language_">this</span>).<span class="hljs-title function_">siblings</span>(<span class="hljs-string">&quot;.category-list-child&quot;</span>).<span class="hljs-property">length</span> &gt; <span class="hljs-number">0</span><br>		&#125;).<span class="hljs-title function_">attr</span>(<span class="hljs-string">&quot;href&quot;</span>, <span class="hljs-string">&quot;javascript:void(0)&quot;</span>);<br>		<br>		<span class="hljs-comment">//含有子标签category-list-child的category-list-link标签将自动隐藏子标签</span><br>		$(<span class="hljs-string">&quot;.category-list-link&quot;</span>).<span class="hljs-title function_">filter</span>(<span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) &#123;<br>			<span class="hljs-keyword">if</span>($(<span class="hljs-variable language_">this</span>).<span class="hljs-title function_">siblings</span>(<span class="hljs-string">&quot;.category-list-child&quot;</span>).<span class="hljs-property">length</span> &gt; <span class="hljs-number">0</span>)<br>				$(<span class="hljs-variable language_">this</span>).<span class="hljs-title function_">siblings</span>(<span class="hljs-string">&quot;.category-list-child&quot;</span>).<span class="hljs-title function_">hide</span>();<br>		&#125;);	<br>		<br>		<span class="hljs-comment">//点击含有子标签category-list-child的category-list-link标签时，将隐藏子标签展开</span><br>		$(<span class="hljs-string">&quot;.category-list-link&quot;</span>).<span class="hljs-title function_">click</span>(<span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) &#123;<br>			$(<span class="hljs-variable language_">this</span>).<span class="hljs-title function_">siblings</span>(<span class="hljs-string">&quot;.category-list-child&quot;</span>).<span class="hljs-title function_">slideToggle</span>();<br>		&#125;);<br>	&#125;<br>&#125;);<br></code></pre></td></tr></table></figure>
 
+]]></content>
+      <categories>
+        <category>tools</category>
+        <category>hexo</category>
+      </categories>
+      <tags>
+        <tag>tools</tag>
+        <tag>hexo</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Next8版本主题优化修改的文件</title>
+    <url>/2023/44b973fe011c/index.html</url>
+    <content><![CDATA[<p><a href="https://zhuanlan.zhihu.com/p/252983030">参考文章</a></p>
+<span id="more"></span>
+
+<p>首页每篇文章变成圆角，只需要在 <code>styles.styl</code> 中添加如下内容</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><code class="hljs styles">// 添加首页每篇文章圆角独立 start ------------<br>.post-block&#123;<br>        background-color: rgba(255, 255, 255, 1);<br>        //margin-top: 24px;<br>        margin-bottom: 24px;<br>        padding: 20px;<br>        border-radius: 30px 50px 30px 50px;<br>        box-shadow: 8px 7px 2px 0 rgba(0,0,0,0.12), 7px 4px 1px -2px rgba(0,0,0,0.06), 0 1px 5px 0 rgba(0,0,0,0.12);<br>&#125;<br>// 添加首页每篇文章圆角独立 end ------------<br></code></pre></td></tr></table></figure>
+<p><code>styles.styl</code> 在博客根目录下的，<code>source/_data</code> 下，若没有则需要自己创建并且在 <code>next</code> 主题的 <code>_config.yml</code> 中打开下面的注释</p>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><code class="hljs yaml"><span class="hljs-attr">custom_file_path:</span><br>  <span class="hljs-comment">#head: source/_data/head.njk</span><br>  <span class="hljs-comment">#header: source/_data/header.njk</span><br>  <span class="hljs-attr">style:</span> <span class="hljs-string">source/_data/styles.styl</span><br></code></pre></td></tr></table></figure>
 ]]></content>
       <categories>
         <category>tools</category>
@@ -513,6 +524,86 @@
       </tags>
   </entry>
   <entry>
+    <title>分布式架构原理与实践</title>
+    <url>/2024/48c302d39723/index.html</url>
+    <content><![CDATA[<blockquote>
+<p>参考书籍： 《分布式架构原理与实践》 崔皓</p>
+</blockquote>
+<h2 id="分布式整体框架内容"><a href="#分布式整体框架内容" class="headerlink" title="分布式整体框架内容"></a>分布式整体框架内容</h2><p>该书中谈论的分布式架构包含的内容</p>
+<ul>
+<li>分布式应用服务的拆分</li>
+<li>分布式调用<ul>
+<li>接入层的负载均衡（终端到服务集群的负载，比如南方客户访问同一个业务可以路由到南方服务中心而不是北方服务中心，就近服务可以提高访问性能）</li>
+<li>内部服务的负载均衡，也就是API网关做的事情（即使路由到南方中心，但内部服务也是集群部署，要定位到某个具体的服务器还需要进一步负载）</li>
+<li>服务注册与发现</li>
+<li>服务间的远程调用：HTTP调用，RPC 调用等</li>
+</ul>
+</li>
+<li>分布式协同<ul>
+<li>分布式系统的特性与互斥问题</li>
+<li>分布式锁</li>
+<li>分布式事务</li>
+<li>分布式选举</li>
+</ul>
+</li>
+<li>分布式计算<ul>
+<li>现在都是大数据，单一服务比较难处理，所以会使用分布式计算，即集群中的每个服务计算部分数据</li>
+<li>批量静态数据计算的 <code>MapReduce</code> 模式</li>
+<li>动态数据流进行计算的 <code>Stream</code> 模式</li>
+</ul>
+</li>
+<li>分布式存储<ul>
+<li>分布式架构中对服务进行了拆分，每个服务都会产生数据，每个服务的数据是分开存储的</li>
+</ul>
+</li>
+<li>分布式资源管理和调度</li>
+<li>高性能和高可用以及指标与监控</li>
+</ul>
+<p><img src="https://blog-1308475102.cos.ap-guangzhou.myqcloud.com/picture/202401061117240.webp?imageSlim" alt="分布式架构整体流程图"></p>
+<h2 id="分布式调用"><a href="#分布式调用" class="headerlink" title="分布式调用"></a>分布式调用</h2><p><strong>负载均衡</strong>：系统外的客户端调用系统内的服务时需要通过反向代理和负载均衡的方式<br><strong>API网关</strong>：系统架构内部服务之间的调用需要通过 <code>API</code> 网关<br><strong>服务注册与发现</strong>：服务之间的互相感知需要用到服务注册与发现<br><strong>服务通信</strong>：服务之间的通信会使用 <code>RPC</code> 架或 <code>HTTP</code> 调用</p>
+<p><strong>疑问：Nginx 和 API 网关的区别是什么？</strong></p>
+<h2 id="分布式协同"><a href="#分布式协同" class="headerlink" title="分布式协同"></a>分布式协同</h2><ul>
+<li>分布式系统的特性和互斥问题（基于以下一系列特性而产生了分布式互斥算法）<ul>
+<li>特性1：竞争临界资源的进程部署在不同服务器上，进程之间的通信依赖于网络，在请求临界资源时会由于网络原因出现延迟、丢包等情况</li>
+<li>特性2：不同服务器上的时间不一定都一致，所以需要全局时钟机制来保证时间的同步</li>
+<li>特性3：因为服务在不同机器中，所以需要网络通信，当网络出现故障时，需要一定的检测机制，保证系统整体的稳定性</li>
+</ul>
+</li>
+<li>分布式锁</li>
+<li>分布式事务</li>
+<li>分布式选举</li>
+</ul>
+<h3 id="分布式互斥算法"><a href="#分布式互斥算法" class="headerlink" title="分布式互斥算法"></a>分布式互斥算法</h3><p><strong>集中互斥算法</strong><br>就是在服务之外增加一个全局的协调者，所有服务想要获取或者释放某个资源都需要经过全局协调者</p>
+<p><strong>基于许可的互斥算法</strong><br>不增加额外的协调者，而是内部服务自己决定应该由谁来获的资源，即当某个服务想要获取一个共享资源时，需要获取同类型的所有服务中的半数以上的服务认可才行</p>
+<h3 id="分布式事务"><a href="#分布式事务" class="headerlink" title="分布式事务"></a>分布式事务</h3><p><strong>事务的 <code>ACID</code> 特性</strong></p>
+<ul>
+<li>原子性（Atomicity）：事务是原子的，要么全部成功，要么全部失败</li>
+<li>一致性（Consistency）：事务执行前后，数据保持一致性</li>
+<li>隔离性（Isolation）：事务执行时，数据保持隔离性，即一个事务的执行不会影响其他事务的执行</li>
+<li>持久性（Durability）：事务执行成功后，数据保存在磁盘上</li>
+</ul>
+<p><strong>CAP 理论</strong></p>
+<ul>
+<li>一致性（Consistency）：所有节点在同一时刻的数据视图是一致的，即对客户端来说，不论访问的是哪台机器，数据都会是最新的</li>
+<li>可用性（Availability）：当集群中出现网络分区时，即使当前机器上的数据可能不是最新的，也会响应结果给客户端（响应的数据可能是旧的），一般会通过负载均衡，缓存机制，异步处理，容错机制等方式来提高可用性</li>
+<li>分区容错性（Partition tolerance）：分区容错性是指在分布式系统中，即使出现网络分区或者节点故障，系统仍然能够正常运行和提供服务的能力。网络分区是指因为网络故障导致节点之间的通信中断，使得整个系统被分割成若干个孤立的部分。分区容错性要求系统能够在这种情况下，保持数据的一致性和可用性，即对于客户端请求，系统仍然能够返回正确的结果，一般会通过多副本，异步复制、故障转移等策略，将数据在多个节点上进行复制，以确保在某个节点发生故障时，其他节点仍然可以提供服务</li>
+</ul>
+<p>为什么 <code>CAP</code> 理论中最多只能满足两个？</p>
+<ol>
+<li>因为分布式系统的特定，分区容错性是一定要满足的，因为分布式系统依赖网络通信，如果因为网络问题，造成数据同步失败，大集群被分割成多个无通信的小集群等，系统应该还是要能提供服务，所以在出现网络问题的情况下，系统还要能提供服务，就代表着一定要满足分区容错性</li>
+<li>在出现网络的问题情况下，若想满足<code>C</code>，即数据必须保持一直，则只能牺牲 <code>A</code>，系统需要等到网络恢复才能用</li>
+<li>在出现网络的问题情况下，若想满足<code>A</code>，则必须能忍受返回的数据不是最新的这种情况，也就是牺牲了 <code>C</code></li>
+</ol>
+]]></content>
+      <categories>
+        <category>java</category>
+        <category>架构</category>
+      </categories>
+      <tags>
+        <tag>架构</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>ArrayList中出现ConcurrentModificationException异常详解</title>
     <url>/2023/0dae6ecb7b1d/index.html</url>
     <content><![CDATA[<h2 id="出现-ConcurrentModificationException-异常的代码"><a href="#出现-ConcurrentModificationException-异常的代码" class="headerlink" title="出现 ConcurrentModificationException 异常的代码"></a>出现 ConcurrentModificationException 异常的代码</h2><figure class="highlight java"><table><tr><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">TestArrayList</span> &#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">main</span><span class="hljs-params">(String[] args)</span> &#123;<br>        List&lt;String&gt; list = <span class="hljs-keyword">new</span> <span class="hljs-title class_">ArrayList</span>&lt;&gt;();<br>        <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> <span class="hljs-variable">i</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>; i &lt; <span class="hljs-number">1000</span>; i++) &#123;<br>            list.add(i + <span class="hljs-string">&quot;&quot;</span>);<br>        &#125;<br><br>        <span class="hljs-comment">// 第一个线程遍历 List</span><br>        <span class="hljs-keyword">new</span> <span class="hljs-title class_">Thread</span>(()-&gt;&#123;<br>            <span class="hljs-keyword">for</span> (String s : list) &#123;<br>                System.out.println(s);<br>            &#125;<br>        &#125;).start();<br><br>        <span class="hljs-comment">// 第一个线程往 List 中添加数据</span><br>        <span class="hljs-keyword">new</span> <span class="hljs-title class_">Thread</span>(()-&gt;&#123;<br>            <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> <span class="hljs-variable">i</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>; i &lt; <span class="hljs-number">100</span>; i++) &#123;<br>                list.add(i+<span class="hljs-string">&quot;1&quot;</span>);<br>            &#125;<br>        &#125;).start();<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
@@ -647,6 +738,31 @@
       </tags>
   </entry>
   <entry>
+    <title>java输出运行过程中的代理类</title>
+    <url>/2023/d513f5c497bd/index.html</url>
+    <content><![CDATA[<h2 id="输出-jdk-动态代理类到文件"><a href="#输出-jdk-动态代理类到文件" class="headerlink" title="输出 jdk 动态代理类到文件"></a>输出 jdk 动态代理类到文件</h2><p>在测试代码的第一行增加下面这段代码</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><code class="hljs java">System.getProperties().put(<span class="hljs-string">&quot;jdk.proxy.ProxyGenerator.saveGeneratedFiles&quot;</span>, <span class="hljs-string">&quot;true&quot;</span>);<br></code></pre></td></tr></table></figure>
+<p>不同 <code>jdk</code> 版本的使用 <code>key</code> 可能不同，具体的 <code>key</code> 是什么可以查看 <code>ProxyGenerator</code> 类的 <code>saveGeneratedFiles</code> 属性， 比如 <code>jdk17</code> 版本 <code>ProxyGenerator</code> 类的内容如下：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">final</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">ProxyGenerator</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_">ClassWriter</span> &#123;<br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> <span class="hljs-type">boolean</span> <span class="hljs-variable">saveGeneratedFiles</span> <span class="hljs-operator">=</span><br>            java.security.AccessController.doPrivileged(<br>                    <span class="hljs-keyword">new</span> <span class="hljs-title class_">GetBooleanAction</span>(<br>                            <span class="hljs-string">&quot;jdk.proxy.ProxyGenerator.saveGeneratedFiles&quot;</span>));<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>执行完代码后在项目的根目录会输出动态代理类</p>
+<p><a href="https://arthas.aliyun.com/doc/">arthas官方文档</a></p>
+<h2 id="使用-arthas-输出-javaassist-生成的代理类"><a href="#使用-arthas-输出-javaassist-生成的代理类" class="headerlink" title="使用 arthas 输出 javaassist 生成的代理类"></a>使用 arthas 输出 javaassist 生成的代理类</h2><ol>
+<li>先打端点，确定代理类的名称，比如有一个代理类名称是 <code>Hello$Adaptive</code></li>
+<li>打开 <code>arthas</code> 选择对应的进程进入后，使用下面命令输出代理类</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="code"><pre><code class="hljs java"><span class="hljs-comment">// 下面命令找到对应代理类的全路径， 比如输出结果是 com.example.dubbodemo.spi.Hello$Adaptive</span><br>sc *Hello$Adaptive*<br><span class="hljs-comment">// 根据上面找到的代理类的全路径，解析出源代码兵输出到特定的文件</span><br>jad com.example.dubbodemo.spi.Hello$Adaptive &gt; D:\\Hello$Adaptive.java<br></code></pre></td></tr></table></figure>
+
+<h2 id="输出-cglib-代理类到文件"><a href="#输出-cglib-代理类到文件" class="headerlink" title="输出 cglib 代理类到文件"></a>输出 cglib 代理类到文件</h2><p>在测试方法的第一行加上如下代码, 第二个参数就是指定输出的文件夹</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><code class="hljs java">System.setProperty(DebuggingClassWriter.DEBUG_LOCATION_PROPERTY, <span class="hljs-string">&quot;D:\\temp\\cglib&quot;</span>);<br></code></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>java</category>
+        <category>java基础</category>
+      </categories>
+      <tags>
+        <tag>java</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>java的io模型</title>
     <url>/2023/180f5b629f58/index.html</url>
     <content><![CDATA[<span class="hide_first_mermaid">
@@ -736,31 +852,6 @@
 
 
 ]]></content>
-      <categories>
-        <category>java</category>
-        <category>java基础</category>
-      </categories>
-      <tags>
-        <tag>java</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>java输出运行过程中的代理类</title>
-    <url>/2023/d513f5c497bd/index.html</url>
-    <content><![CDATA[<h2 id="输出-jdk-动态代理类到文件"><a href="#输出-jdk-动态代理类到文件" class="headerlink" title="输出 jdk 动态代理类到文件"></a>输出 jdk 动态代理类到文件</h2><p>在测试代码的第一行增加下面这段代码</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><code class="hljs java">System.getProperties().put(<span class="hljs-string">&quot;jdk.proxy.ProxyGenerator.saveGeneratedFiles&quot;</span>, <span class="hljs-string">&quot;true&quot;</span>);<br></code></pre></td></tr></table></figure>
-<p>不同 <code>jdk</code> 版本的使用 <code>key</code> 可能不同，具体的 <code>key</code> 是什么可以查看 <code>ProxyGenerator</code> 类的 <code>saveGeneratedFiles</code> 属性， 比如 <code>jdk17</code> 版本 <code>ProxyGenerator</code> 类的内容如下：</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">final</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">ProxyGenerator</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_">ClassWriter</span> &#123;<br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> <span class="hljs-type">boolean</span> <span class="hljs-variable">saveGeneratedFiles</span> <span class="hljs-operator">=</span><br>            java.security.AccessController.doPrivileged(<br>                    <span class="hljs-keyword">new</span> <span class="hljs-title class_">GetBooleanAction</span>(<br>                            <span class="hljs-string">&quot;jdk.proxy.ProxyGenerator.saveGeneratedFiles&quot;</span>));<br>&#125;<br></code></pre></td></tr></table></figure>
-<p>执行完代码后在项目的根目录会输出动态代理类</p>
-<p><a href="https://arthas.aliyun.com/doc/">arthas官方文档</a></p>
-<h2 id="使用-arthas-输出-javaassist-生成的代理类"><a href="#使用-arthas-输出-javaassist-生成的代理类" class="headerlink" title="使用 arthas 输出 javaassist 生成的代理类"></a>使用 arthas 输出 javaassist 生成的代理类</h2><ol>
-<li>先打端点，确定代理类的名称，比如有一个代理类名称是 <code>Hello$Adaptive</code></li>
-<li>打开 <code>arthas</code> 选择对应的进程进入后，使用下面命令输出代理类</li>
-</ol>
-<figure class="highlight java"><table><tr><td class="code"><pre><code class="hljs java"><span class="hljs-comment">// 下面命令找到对应代理类的全路径， 比如输出结果是 com.example.dubbodemo.spi.Hello$Adaptive</span><br>sc *Hello$Adaptive*<br><span class="hljs-comment">// 根据上面找到的代理类的全路径，解析出源代码兵输出到特定的文件</span><br>jad com.example.dubbodemo.spi.Hello$Adaptive &gt; D:\\Hello$Adaptive.java<br></code></pre></td></tr></table></figure>
-
-<h2 id="输出-cglib-代理类到文件"><a href="#输出-cglib-代理类到文件" class="headerlink" title="输出 cglib 代理类到文件"></a>输出 cglib 代理类到文件</h2><p>在测试方法的第一行加上如下代码, 第二个参数就是指定输出的文件夹</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><code class="hljs java">System.setProperty(DebuggingClassWriter.DEBUG_LOCATION_PROPERTY, <span class="hljs-string">&quot;D:\\temp\\cglib&quot;</span>);<br></code></pre></td></tr></table></figure>]]></content>
       <categories>
         <category>java</category>
         <category>java基础</category>
@@ -938,6 +1029,18 @@
 <li>进入 <code>jdk17</code> 安装目录下的 <code>bin</code> 目录，比如 <code>cd E:\java\jdk17\bin</code></li>
 <li>执行 <code>jhsdb hsdb</code>，就会出现界面</li>
 <li>选择 <code>File -&gt; Attacch to Host Spot process</code> 输入 <code>pid</code> 即可</li>
+</ol>
+<h2 id="visualvm"><a href="#visualvm" class="headerlink" title="visualvm"></a>visualvm</h2><ol>
+<li><code>JDK14</code> 起，已不再集成<code>visualvm</code>，可以到 <a href="https://visualvm.github.io/">visualvm下载地址</a> 中下载</li>
+<li>下载后解压到任意一个目录，比如我这里解压到 <code>E:\config\visualvm_217</code></li>
+<li>编辑 <code>E:\config\visualvm_217\etc\visualvm.conf</code>, 设置 <code>jdk</code> 目录(也可以修改数据存放目录)<figure class="highlight plaintext"><table><tr><td class="code"><pre><code class="hljs conf">visualvm_jdkhome=&quot;E:\\installpackage\\java\\jdk17&quot;<br><br># 下面两条是修改数据和缓存存放目录, userdir 目录不能设置到 visualvm 目录下，否则不能启动<br># visualvm_default_userdir=&quot;$&#123;DEFAULT_USERDIR_ROOT&#125;/2.1.7&quot;<br>visualvm_default_userdir=&quot;E:\\data\\visualvmdata&quot;<br># visualvm_default_cachedir=&quot;$&#123;DEFAULT_CACHEDIR_ROOT&#125;/2.1.7&quot;<br>visualvm_default_cachedir=&quot;E:\\config\\visualvm_217\\cache&quot;<br></code></pre></td></tr></table></figure></li>
+<li>启动 <code>visualvm</code>，进入 <code>E:\config\visualvm_217\bin</code>, 直接双击 <code>visualvm.exe</code> 即可，如果没有图形界面出现，说明启动失败，可以在该目录中打开 <code>cmd</code>, 通过命令 <code>visualvm.exe</code> 启动来查看错误信息</li>
+<li>启动成功后如下图所示，会列出所有的 <code>java</code> 进程<br><img src="https://s2.loli.net/2024/01/09/pPvd3NwFRH9cOWa.png" alt="visualvm启动成功示例"></li>
+</ol>
+<h3 id="在idea中使用-visualvm"><a href="#在idea中使用-visualvm" class="headerlink" title="在idea中使用 visualvm"></a>在idea中使用 visualvm</h3><ol>
+<li>在 <code>idea</code> 中安装插件 <code>VisualVMLauncher</code></li>
+<li>然后在 <code>idea</code> 中配置 <code>visualvm</code><br><img src="https://s2.loli.net/2024/01/09/t8bJzhsKoP9dFue.png" alt="visualvm配置"></li>
+<li>启动时选择 <code>visualvm</code>  启动<br><img src="https://s2.loli.net/2024/01/09/udHrKYtv2FmaZCN.png" alt="通过visualvm启动服务"></li>
 </ol>
 ]]></content>
       <categories>
@@ -1187,76 +1290,6 @@
       </tags>
   </entry>
   <entry>
-    <title>jvm执行引擎</title>
-    <url>/2023/a18206d79e08/index.html</url>
-    <content><![CDATA[<span class="hide_first_mermaid">
-<div class="mermaid-wrap"><pre class="mermaid-src" hidden>
-  flowchart LR
-    A
-  </pre></div>
-</span>
-
-<h2 id="执行引擎的作用"><a href="#执行引擎的作用" class="headerlink" title="执行引擎的作用"></a>执行引擎的作用</h2><pre class="mermaid">flowchart TB
-    A["java源代码(.java文件)"]
-    B["class字节码文件"]
-    C["内存(放入jvm方法区)"]
-        subgraph D["执行引擎"]
-            subgraph D1["编译器"]
-                D11["Client Compiler"]
-                D12["Server Compiler"]
-            end
-        end
-    E["机器码"]
-
-    A--"javac编译器"-->B
-    B--"类加载器"-->C
-    C-->D
-    D--解释执行-->E
-    D--"编译执行(JIT)"-->E</pre>
-<h3 id="字节码"><a href="#字节码" class="headerlink" title="字节码"></a>字节码</h3><ol>
-<li><code>Java</code>程序可以通过编译器将源码编译成<code>Java</code>字节码，特定平台上的虚拟机将字节码转译为可以直接执行的机器码，也就实现了跨平台性</li>
-<li>字节码主要为了实现特定软件运行和软件环境，与硬件环境无关</li>
-</ol>
-<h2 id="即时编译器-JIT-的作用"><a href="#即时编译器-JIT-的作用" class="headerlink" title="即时编译器(JIT)的作用"></a>即时编译器(JIT)的作用</h2><ol>
-<li>即时编译器在最初的 <code>jvm</code> 中是没有的，没有的原因就是 <code>jvm</code> 设计的初衷是为了满足 <code>Java</code> 程序实现跨平台的特性，所以避免采用静态编译的方式直接生成机器码，所以采用了解释器在运行时逐行解释字节码执行程序</li>
-<li><code>JIT</code>编译器的作用就是虚拟机将字节码直接编译成机器码</li>
-<li><strong>无论是采用解释器进行解释执行，还是采用即时编译器进行编译执行，最终字节码都是需要被转换成对应平台的机器码</strong></li>
-</ol>
-<h2 id="为何HotSpot虚拟机要使用解释器与编译器并存的架构"><a href="#为何HotSpot虚拟机要使用解释器与编译器并存的架构" class="headerlink" title="为何HotSpot虚拟机要使用解释器与编译器并存的架构"></a>为何HotSpot虚拟机要使用解释器与编译器并存的架构</h2><p>因为解释器和编译器各有优势</p>
-<ol>
-<li>程序启动后，解释器可以立即发挥作用，省去编译的时间，立即执行。编译器想要发挥作用，将代码编译成机器码，需要一定的执行时间，但是编译为机器码之后，执行效率更高</li>
-<li>当程序的运行环境中内存资源较大(比如嵌入式系统)时，解释执行可以更节约内存</li>
-</ol>
-<h2 id="为何HotSpot虚拟机要实现两个不同的即时编译器"><a href="#为何HotSpot虚拟机要实现两个不同的即时编译器" class="headerlink" title="为何HotSpot虚拟机要实现两个不同的即时编译器"></a>为何HotSpot虚拟机要实现两个不同的即时编译器</h2><p><code>HotSpot</code> 虚拟机包含两个即时编译器</p>
-<ol>
-<li><code>Client Compile</code>， 也叫做 <code>c1</code> 编译器</li>
-<li><code>Server Compile</code>，也叫做 <code>c2</code> 编译器</li>
-</ol>
-<p><code>HotSpot</code> 虚拟机默认采用解释器和其中一个编译器配合的方式工作，程序使用哪个编译器，取决于虚拟机运行的模式</p>
-<p>通过 <code>-client</code> 参数可以指定 <code>jvm</code> 运行在 <code>Client</code> 模式下，并使用 <code>c1</code> 编译器，<code>c1</code> 编译器会对字节码进行简单和可靠的优化，耗时短，达到更快的编译速度</p>
-<p>通过 <code>-server</code> 参数可以指定 <code>jvm</code> 运行在 <code>Server</code> 模式下，并使用 <code>c2</code> 编译器，<code>c2</code> 会进行耗时较长的优化，以及激进优化，但优化的代码执行效率更高</p>
-<p>实施分层编译后，<code>Client Compiler</code>和<code>Server Compiler</code>将会同时工作，许多代码都可能会被多次编译，用<code>Client Compiler</code>获取更高的编译速度，用<code>Server Compiler</code>来获取更好的编译质量，在解释执行的时候也无须再承担收集性能监控信息的任务</p>
-<h2 id="程序何时使用解释器执行？何时使用编译器执行？"><a href="#程序何时使用解释器执行？何时使用编译器执行？" class="headerlink" title="程序何时使用解释器执行？何时使用编译器执行？"></a>程序何时使用解释器执行？何时使用编译器执行？</h2><p>在运行过程中会被即时编译器编译的 <strong>热点代码</strong>包含两类</p>
-<ol>
-<li>被<strong>多次</strong>调用的方法</li>
-<li>被<strong>多次</strong>执行的循环体</li>
-</ol>
-<h3 id="热点探测"><a href="#热点探测" class="headerlink" title="热点探测"></a>热点探测</h3><p>无论是基于多次调用的方法还是多次执行的循环体，都强调多次，具体多少次算多次呢？ 在 <code>HotSpot</code> 中是使用 <strong>基于计数器的热点探测</strong> 方式来判断执行的次数的，在 <code>HotSpot</code> 虚拟机中为每个方法准备了两类计数器，这两类计数器都有确定的阈值，当技术器超过阈值了，就会触发 <code>JIT</code> 编译</p>
-<ol>
-<li>方法调用计数器： 用来统计方法调用的次数，可以通过参数 <code>-XX:CompileThreshold</code> 来认为设置阈值</li>
-<li>回边计数器： 用来统计一个方法中循环体代码执行的次数，在字节码中遇到控制流向后跳转的指令称为 <strong>回边</strong></li>
-</ol>
-]]></content>
-      <categories>
-        <category>java</category>
-        <category>jvm</category>
-      </categories>
-      <tags>
-        <tag>java</tag>
-        <tag>jvm</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>jvm类加载机制</title>
     <url>/2024/859a04275429/index.html</url>
     <content><![CDATA[<span class="hide_first_mermaid">
@@ -1327,6 +1360,76 @@
 <li>避免核心类库被修改，即使有相同全限定类名的类，也会先交给父类去判断</li>
 <li>避免全限定名相同的类被重复加载，导致程序异常</li>
 </ul>
+]]></content>
+      <categories>
+        <category>java</category>
+        <category>jvm</category>
+      </categories>
+      <tags>
+        <tag>java</tag>
+        <tag>jvm</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>jvm执行引擎</title>
+    <url>/2023/a18206d79e08/index.html</url>
+    <content><![CDATA[<span class="hide_first_mermaid">
+<div class="mermaid-wrap"><pre class="mermaid-src" hidden>
+  flowchart LR
+    A
+  </pre></div>
+</span>
+
+<h2 id="执行引擎的作用"><a href="#执行引擎的作用" class="headerlink" title="执行引擎的作用"></a>执行引擎的作用</h2><pre class="mermaid">flowchart TB
+    A["java源代码(.java文件)"]
+    B["class字节码文件"]
+    C["内存(放入jvm方法区)"]
+        subgraph D["执行引擎"]
+            subgraph D1["编译器"]
+                D11["Client Compiler"]
+                D12["Server Compiler"]
+            end
+        end
+    E["机器码"]
+
+    A--"javac编译器"-->B
+    B--"类加载器"-->C
+    C-->D
+    D--解释执行-->E
+    D--"编译执行(JIT)"-->E</pre>
+<h3 id="字节码"><a href="#字节码" class="headerlink" title="字节码"></a>字节码</h3><ol>
+<li><code>Java</code>程序可以通过编译器将源码编译成<code>Java</code>字节码，特定平台上的虚拟机将字节码转译为可以直接执行的机器码，也就实现了跨平台性</li>
+<li>字节码主要为了实现特定软件运行和软件环境，与硬件环境无关</li>
+</ol>
+<h2 id="即时编译器-JIT-的作用"><a href="#即时编译器-JIT-的作用" class="headerlink" title="即时编译器(JIT)的作用"></a>即时编译器(JIT)的作用</h2><ol>
+<li>即时编译器在最初的 <code>jvm</code> 中是没有的，没有的原因就是 <code>jvm</code> 设计的初衷是为了满足 <code>Java</code> 程序实现跨平台的特性，所以避免采用静态编译的方式直接生成机器码，所以采用了解释器在运行时逐行解释字节码执行程序</li>
+<li><code>JIT</code>编译器的作用就是虚拟机将字节码直接编译成机器码</li>
+<li><strong>无论是采用解释器进行解释执行，还是采用即时编译器进行编译执行，最终字节码都是需要被转换成对应平台的机器码</strong></li>
+</ol>
+<h2 id="为何HotSpot虚拟机要使用解释器与编译器并存的架构"><a href="#为何HotSpot虚拟机要使用解释器与编译器并存的架构" class="headerlink" title="为何HotSpot虚拟机要使用解释器与编译器并存的架构"></a>为何HotSpot虚拟机要使用解释器与编译器并存的架构</h2><p>因为解释器和编译器各有优势</p>
+<ol>
+<li>程序启动后，解释器可以立即发挥作用，省去编译的时间，立即执行。编译器想要发挥作用，将代码编译成机器码，需要一定的执行时间，但是编译为机器码之后，执行效率更高</li>
+<li>当程序的运行环境中内存资源较大(比如嵌入式系统)时，解释执行可以更节约内存</li>
+</ol>
+<h2 id="为何HotSpot虚拟机要实现两个不同的即时编译器"><a href="#为何HotSpot虚拟机要实现两个不同的即时编译器" class="headerlink" title="为何HotSpot虚拟机要实现两个不同的即时编译器"></a>为何HotSpot虚拟机要实现两个不同的即时编译器</h2><p><code>HotSpot</code> 虚拟机包含两个即时编译器</p>
+<ol>
+<li><code>Client Compile</code>， 也叫做 <code>c1</code> 编译器</li>
+<li><code>Server Compile</code>，也叫做 <code>c2</code> 编译器</li>
+</ol>
+<p><code>HotSpot</code> 虚拟机默认采用解释器和其中一个编译器配合的方式工作，程序使用哪个编译器，取决于虚拟机运行的模式</p>
+<p>通过 <code>-client</code> 参数可以指定 <code>jvm</code> 运行在 <code>Client</code> 模式下，并使用 <code>c1</code> 编译器，<code>c1</code> 编译器会对字节码进行简单和可靠的优化，耗时短，达到更快的编译速度</p>
+<p>通过 <code>-server</code> 参数可以指定 <code>jvm</code> 运行在 <code>Server</code> 模式下，并使用 <code>c2</code> 编译器，<code>c2</code> 会进行耗时较长的优化，以及激进优化，但优化的代码执行效率更高</p>
+<p>实施分层编译后，<code>Client Compiler</code>和<code>Server Compiler</code>将会同时工作，许多代码都可能会被多次编译，用<code>Client Compiler</code>获取更高的编译速度，用<code>Server Compiler</code>来获取更好的编译质量，在解释执行的时候也无须再承担收集性能监控信息的任务</p>
+<h2 id="程序何时使用解释器执行？何时使用编译器执行？"><a href="#程序何时使用解释器执行？何时使用编译器执行？" class="headerlink" title="程序何时使用解释器执行？何时使用编译器执行？"></a>程序何时使用解释器执行？何时使用编译器执行？</h2><p>在运行过程中会被即时编译器编译的 <strong>热点代码</strong>包含两类</p>
+<ol>
+<li>被<strong>多次</strong>调用的方法</li>
+<li>被<strong>多次</strong>执行的循环体</li>
+</ol>
+<h3 id="热点探测"><a href="#热点探测" class="headerlink" title="热点探测"></a>热点探测</h3><p>无论是基于多次调用的方法还是多次执行的循环体，都强调多次，具体多少次算多次呢？ 在 <code>HotSpot</code> 中是使用 <strong>基于计数器的热点探测</strong> 方式来判断执行的次数的，在 <code>HotSpot</code> 虚拟机中为每个方法准备了两类计数器，这两类计数器都有确定的阈值，当技术器超过阈值了，就会触发 <code>JIT</code> 编译</p>
+<ol>
+<li>方法调用计数器： 用来统计方法调用的次数，可以通过参数 <code>-XX:CompileThreshold</code> 来认为设置阈值</li>
+<li>回边计数器： 用来统计一个方法中循环体代码执行的次数，在字节码中遇到控制流向后跳转的指令称为 <strong>回边</strong></li>
+</ol>
 ]]></content>
       <categories>
         <category>java</category>
@@ -3605,6 +3708,17 @@
       </tags>
   </entry>
   <entry>
+    <title>使用python从mq接收数据以及发送数据到mq</title>
+    <url>/2024/8ac8e7b68ec2/index.html</url>
+    <content><![CDATA[<figure class="highlight python"><table><tr><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># -*-coding:utf-8-*-</span><br><span class="hljs-keyword">import</span> stomp<br><span class="hljs-keyword">import</span> json<br><span class="hljs-keyword">import</span> time<br><span class="hljs-keyword">import</span> struct<br><span class="hljs-keyword">import</span> uuid<br><br><span class="hljs-comment"># 定义的消息头的格式，可以自己定义</span><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">MessageHeader</span>:<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__init__</span>(<span class="hljs-params">self, topic : <span class="hljs-built_in">str</span>, timestamp = time.time(<span class="hljs-params"></span>)</span>):<br>        self.topic = topic<br>        self.timestamp = <span class="hljs-built_in">int</span>(time.time())<br><br><span class="hljs-comment"># 消息的格式，包含消息头和字节数组类型的消息体</span><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">Message</span>:<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__init__</span>(<span class="hljs-params">self, header, payload : <span class="hljs-built_in">bytes</span></span>):<br>        self.header = header<br>        self.payload = payload<br><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">SampleListener</span>(<span class="hljs-title class_ inherited__">object</span>):<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">on_message</span>(<span class="hljs-params">self, frame</span>):<br>        <span class="hljs-comment"># frame.body 是消息体的内容，这里需要按照实际格式来解析</span><br>        <span class="hljs-built_in">print</span>(frame.body)<br>        <span class="hljs-comment"># 收到消息之后又立即发送消息</span><br>        reply_login_command()<br><br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">reply_login_command</span>():<br>    parameter= &#123;<br>        <span class="hljs-string">&quot;account&quot;</span>: <span class="hljs-string">&quot;test_account&quot;</span>,<br>        <span class="hljs-string">&quot;msg&quot;</span>: <span class="hljs-string">&quot;test_mesg&quot;</span><br>    &#125;<br>    header = MessageHeader(topic=<span class="hljs-string">&quot;send_topic&quot;</span>)<br>    reply_str = <span class="hljs-string">&quot;message=&quot;</span> + json.dumps(parameter)<br>    message = Message(header, reply_str.encode(<span class="hljs-string">&#x27;utf-8&#x27;</span>))<br><br>    header = message.header<br>    topic = header.topic<br>    payload = message.payload<br><br>    bytesToSend = struct.pack(<span class="hljs-string">&#x27;!qqi&#x27;</span>, header.messageId, header.timestamp, <span class="hljs-built_in">len</span>(payload))<br>    bytesToSend += writeMUTF(topic)<br>    bytesToSend += payload<br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;Messenger.connection.send topic=%s, bytesToSend=%s&quot;</span> % (topic, bytesToSend))<br>    conn.send(body = bytesToSend, destination=topic)<br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">writeMUTF</span>(<span class="hljs-params">toWrite: <span class="hljs-built_in">str</span></span>):    <span class="hljs-comment"># 将Python的值根据格式符，转换为字节(Byte)类型</span><br>    toWriteLen = <span class="hljs-built_in">len</span>(toWrite)<br>    composeFormat = <span class="hljs-string">&#x27;!H&#x27;</span> + <span class="hljs-built_in">str</span>(toWriteLen) + <span class="hljs-string">&#x27;s&#x27;</span>   <span class="hljs-comment"># 格式符, !表示网络大端字节对齐用于配合C语言，H表示integer是C语言中的unsigned short, s表示string是C语言中的char[]型</span><br>    <span class="hljs-keyword">return</span> struct.pack(composeFormat, toWriteLen, toWrite.encode(<span class="hljs-string">&#x27;utf-8&#x27;</span>))<br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">receive_from_queue</span>():<br>    <span class="hljs-comment"># 如果接受数据,就调用这个类,里面的参数是类名和类,名称必须一致</span><br>    conn.set_listener(<span class="hljs-string">&#x27;SampleListener&#x27;</span>, SampleListener())<br>    <span class="hljs-comment"># 从选择的管道中区数据,管道名,id(随便写一个数字就行)</span><br>    conn.subscribe(location_queue, <span class="hljs-number">12</span>)<br>    <span class="hljs-comment"># 不能让程序停止,负责每传一次数据都得接收一次</span><br>    <span class="hljs-keyword">while</span> <span class="hljs-literal">True</span>:<br>        <span class="hljs-keyword">pass</span><br><br><br><span class="hljs-keyword">if</span> __name__ == <span class="hljs-string">&#x27;__main__&#x27;</span>:<br>    <span class="hljs-comment"># 订阅的 topic 名称</span><br>    location_queue = <span class="hljs-string">&quot;subscribe_topic&quot;</span><br>    conn = stomp.Connection([(<span class="hljs-string">&#x27;127.0.0.1&#x27;</span>, <span class="hljs-number">61616</span>)])<br>    conn.connect(username=<span class="hljs-string">&#x27;user&#x27;</span>, passcode=<span class="hljs-string">&#x27;password&#x27;</span>, wait=<span class="hljs-literal">True</span>)<br>    receive_from_queue()<br>    conn.disconnect()<br></code></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>python</category>
+      </categories>
+      <tags>
+        <tag>python</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>解决vscode找不到Python自定义模块报错no module named</title>
     <url>/2023/05b28e23ee5b/index.html</url>
     <content><![CDATA[<p>在 <code>.vscode</code> 目录下（若没有则新建）的 <code>launch.json</code> 中添加 <code>env</code> 相关内容：</p>
@@ -4377,6 +4491,29 @@
       </tags>
   </entry>
   <entry>
+    <title>RocketMQ之Broker详解</title>
+    <url>/2023/5398bb79bdb5/index.html</url>
+    <content><![CDATA[<blockquote>
+<p>RocketMQ版本： 4.9.7<br>JDK版本： 17</p>
+</blockquote>
+<p>以下代码在 <code>broker</code> 子模块中</p>
+<h2 id="获取启动文件"><a href="#获取启动文件" class="headerlink" title="获取启动文件"></a>获取启动文件</h2><p>启动 <code>broker</code> 的脚本是 <code>bin/mqbroker</code>, 这个执行文件的最后一行是 <code>sh $&#123;ROCKETMQ_HOME&#125;/bin/runbroker.sh org.apache.rocketmq.broker.BrokerStartup $@</code>， 所以在源码中启动 <code>broker</code> 的文件其实是 <code>BrokerStartup</code></p>
+<figure class="highlight java"><table><tr><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">BrokerStartup</span> &#123;<br><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">main</span><span class="hljs-params">(String[] args)</span> &#123;<br>        start(createBrokerController(args));<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>分为两个部分</p>
+<ul>
+<li>创建 <code>BrokerController</code></li>
+<li>启动 <code>BrokerController</code></li>
+</ul>
+<h2 id="BrokerController-创建流程"><a href="#BrokerController-创建流程" class="headerlink" title="BrokerController 创建流程"></a>BrokerController 创建流程</h2><h2 id="BrokerControlelr-启动流程"><a href="#BrokerControlelr-启动流程" class="headerlink" title="BrokerControlelr 启动流程"></a>BrokerControlelr 启动流程</h2>]]></content>
+      <categories>
+        <category>中间件</category>
+        <category>RocketMQ</category>
+      </categories>
+      <tags>
+        <tag>RocketMQ</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>RocketMQ中同步和异步消息发送流程</title>
     <url>/2023/22987494ce74/index.html</url>
     <content><![CDATA[<span class="hide_first_mermaid">
@@ -4471,29 +4608,6 @@ Root("Producer(生产者)")
 <figure class="highlight java"><table><tr><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">executeAsyncMessageSend</span><span class="hljs-params">(Runnable runnable, <span class="hljs-keyword">final</span> Message msg, <span class="hljs-keyword">final</span> BackpressureSendCallBack sendCallback,</span><br><span class="hljs-params">        <span class="hljs-keyword">final</span> <span class="hljs-type">long</span> timeout, <span class="hljs-keyword">final</span> <span class="hljs-type">long</span> beginStartTime)</span><br>    <span class="hljs-keyword">throws</span> MQClientException, InterruptedException &#123;<br>    <span class="hljs-type">ExecutorService</span> <span class="hljs-variable">executor</span> <span class="hljs-operator">=</span> <span class="hljs-built_in">this</span>.getAsyncSenderExecutor();<br>    <span class="hljs-type">boolean</span> <span class="hljs-variable">isEnableBackpressureForAsyncMode</span> <span class="hljs-operator">=</span> <span class="hljs-built_in">this</span>.getDefaultMQProducer().isEnableBackpressureForAsyncMode();<br>    <span class="hljs-type">boolean</span> <span class="hljs-variable">isSemaphoreAsyncNumAquired</span> <span class="hljs-operator">=</span> <span class="hljs-literal">false</span>;<br>    <span class="hljs-type">boolean</span> <span class="hljs-variable">isSemaphoreAsyncSizeAquired</span> <span class="hljs-operator">=</span> <span class="hljs-literal">false</span>;<br>    <span class="hljs-type">int</span> <span class="hljs-variable">msgLen</span> <span class="hljs-operator">=</span> msg.getBody() == <span class="hljs-literal">null</span> ? <span class="hljs-number">1</span> : msg.getBody().length;<br><br>    <span class="hljs-keyword">try</span> &#123;<br>        <span class="hljs-keyword">if</span> (isEnableBackpressureForAsyncMode) &#123;<br>            <span class="hljs-comment">// 省略……</span><br>        &#125;<br>        sendCallback.isSemaphoreAsyncSizeAquired = isSemaphoreAsyncSizeAquired;<br>        sendCallback.isSemaphoreAsyncNumAquired = isSemaphoreAsyncNumAquired;<br>        sendCallback.msgLen = msgLen;<br>        <span class="hljs-comment">//  将发送消息的任务提交到线程池中</span><br>        executor.submit(runnable);<br>    &#125; <span class="hljs-keyword">catch</span> (RejectedExecutionException e) &#123;<br>        <span class="hljs-keyword">if</span> (isEnableBackpressureForAsyncMode) &#123;<br>            runnable.run();<br>        &#125; <span class="hljs-keyword">else</span> &#123;<br>            <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">MQClientException</span>(<span class="hljs-string">&quot;executor rejected &quot;</span>, e);<br>        &#125;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
 <p>至此异步消息任务提交就完成了，至于发送逻辑其实和同步就没什么区别了，只是在结果处理的地方会有区别，同步的话会需要等待结果返回，异步的话直接返回 <code>null</code>, 当收到响应后直接调用回调函数</p>
 ]]></content>
-      <categories>
-        <category>中间件</category>
-        <category>RocketMQ</category>
-      </categories>
-      <tags>
-        <tag>RocketMQ</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>RocketMQ之Broker详解</title>
-    <url>/2023/5398bb79bdb5/index.html</url>
-    <content><![CDATA[<blockquote>
-<p>RocketMQ版本： 4.9.7<br>JDK版本： 17</p>
-</blockquote>
-<p>以下代码在 <code>broker</code> 子模块中</p>
-<h2 id="获取启动文件"><a href="#获取启动文件" class="headerlink" title="获取启动文件"></a>获取启动文件</h2><p>启动 <code>broker</code> 的脚本是 <code>bin/mqbroker</code>, 这个执行文件的最后一行是 <code>sh $&#123;ROCKETMQ_HOME&#125;/bin/runbroker.sh org.apache.rocketmq.broker.BrokerStartup $@</code>， 所以在源码中启动 <code>broker</code> 的文件其实是 <code>BrokerStartup</code></p>
-<figure class="highlight java"><table><tr><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">BrokerStartup</span> &#123;<br><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">main</span><span class="hljs-params">(String[] args)</span> &#123;<br>        start(createBrokerController(args));<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
-<p>分为两个部分</p>
-<ul>
-<li>创建 <code>BrokerController</code></li>
-<li>启动 <code>BrokerController</code></li>
-</ul>
-<h2 id="BrokerController-创建流程"><a href="#BrokerController-创建流程" class="headerlink" title="BrokerController 创建流程"></a>BrokerController 创建流程</h2><h2 id="BrokerControlelr-启动流程"><a href="#BrokerControlelr-启动流程" class="headerlink" title="BrokerControlelr 启动流程"></a>BrokerControlelr 启动流程</h2>]]></content>
       <categories>
         <category>中间件</category>
         <category>RocketMQ</category>
