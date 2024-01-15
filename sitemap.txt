@@ -1,3 +1,8 @@
+https://www.learnerguo.cn/2024/d3ebc9b434f1/index.html
+https://www.learnerguo.cn/2024/31d5c36f952a/index.html
+https://www.learnerguo.cn/2024/8bdc52624468/index.html
+https://www.learnerguo.cn/2024/533ef73b3ed5/index.html
+https://www.learnerguo.cn/2024/68780c3260b7/index.html
 https://www.learnerguo.cn/2024/19b110e0830d/index.html
 https://www.learnerguo.cn/2024/8ac8e7b68ec2/index.html
 https://www.learnerguo.cn/2024/48c302d39723/index.html
@@ -137,6 +142,7 @@ https://www.learnerguo.cn/tags/Mysql/
 https://www.learnerguo.cn/tags/PostgreSQL/
 https://www.learnerguo.cn/tags/git/
 https://www.learnerguo.cn/tags/idea/
+https://www.learnerguo.cn/tags/jenkins/
 https://www.learnerguo.cn/tags/maven/
 https://www.learnerguo.cn/tags/utools/
 https://www.learnerguo.cn/tags/vscode/
@@ -162,6 +168,7 @@ https://www.learnerguo.cn/categories/java/Mybatis/
 https://www.learnerguo.cn/categories/%E5%AD%98%E5%82%A8/
 https://www.learnerguo.cn/categories/tools/git/
 https://www.learnerguo.cn/categories/tools/idea/
+https://www.learnerguo.cn/categories/tools/jenkins/
 https://www.learnerguo.cn/categories/tools/maven/
 https://www.learnerguo.cn/categories/tools/other/
 https://www.learnerguo.cn/categories/tools/utools/
